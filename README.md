@@ -15,8 +15,9 @@ This package currently provides access only to the hypergeometric functions `gsl
 Other functions in Section 7.24 may be accessed directly.
 
 Example:
-    require("SpecialFunctions.jl")
+
+    using gsl
     x = randn()
-    x * gsl_sf_hyperg_U(1.0, 2.0, x)
-    #Answer: 1.0
+    gsl.gsl_sf_hyperg_U(-1.0, -1.0, x) - (1 + x)
+    #Answer: 0.0
 

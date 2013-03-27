@@ -101,7 +101,9 @@ x = 2*rand()-1
 @test_approx_eq (1-x)^-a hypergeom([a, 1.0], 1.0, x)
 @test_approx_eq asin(x) x*hypergeom([0.5, 0.5], 1.5, x^2)
 
-@test_approx_eq x*gsl_sf_hyperg_U(1.0, 2.0, x) 1.0
+#gsl function is unstable for b=2
+#@test_approx_eq x*gsl_sf_hyperg_U(1.0, 2.0, x) 1.0
+@test_approx_eq 1+x gsl_sf_hyperg_U(-1.0, -1.0, x)
 
 #"Cancellation theorem" that reduces order of hypergeometric function
 @test_approx_eq hypergeom([a], [a], x) hypergeom([], [], x)
