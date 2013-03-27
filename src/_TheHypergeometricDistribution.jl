@@ -1,0 +1,57 @@
+#!/usr/bin/env julia
+#GSL Julia wrapper
+#(c) 2013 Jiahao Chen <jiahao@mit.edu>
+#########################################
+# 20.36 The Hypergeometric Distribution #
+#########################################
+export gsl_ran_hypergeometric, gsl_ran_hypergeometric_pdf,
+       gsl_cdf_hypergeometric_P, gsl_cdf_hypergeometric_Q
+
+
+# This function returns a random integer from the hypergeometric distribution.
+# The probability distribution for hypergeometric random variates is,
+# p(k) =  C(n_1, k) C(n_2, t - k) / C(n_1 + n_2, t)  where C(a,b) =
+# a!/(b!(a-b)!) and  t <= n_1 + n_2.  The domain of k is  max(0,t-n_2), ...,
+# min(t,n_1).          If a population contains n_1 elements of “type 1” and
+# n_2 elements of “type 2” then the hypergeometric distribution gives the
+# probability of obtaining k elements of “type 1” in t samples from the
+# population without replacement.
+# 
+#   {$t \leq n_1 + n_2$} 
+#   {$\hbox{max}(0,t-n_2), \ldots, \hbox{min}(t,n_1)$} 
+#   Returns: Cuint
+function gsl_ran_hypergeometric (r::Ptr{gsl_rng}, n1::Cuint, n2::Cuint, t::Cuint)
+    ccall( (:gsl_ran_hypergeometric, "libgsl"), Cuint, (Ptr{gsl_rng},
+        Cuint, Cuint, Cuint), r, n1, n2, t )
+end
+
+
+# This function computes the probability p(k) of obtaining k from a
+# hypergeometric distribution with parameters n1, n2, t, using the formula
+# given above.
+# 
+#   Returns: Cdouble
+function gsl_ran_hypergeometric_pdf (k::Cuint, n1::Cuint, n2::Cuint, t::Cuint)
+    ccall( (:gsl_ran_hypergeometric_pdf, "libgsl"), Cdouble, (Cuint, Cuint,
+        Cuint, Cuint), k, n1, n2, t )
+end
+
+
+# These functions compute the cumulative distribution functions P(k), Q(k) for
+# the hypergeometric distribution with parameters n1, n2 and t.
+# 
+#   Returns: Cdouble
+function gsl_cdf_hypergeometric_P (k::Cuint, n1::Cuint, n2::Cuint, t::Cuint)
+    ccall( (:gsl_cdf_hypergeometric_P, "libgsl"), Cdouble, (Cuint, Cuint,
+        Cuint, Cuint), k, n1, n2, t )
+end
+
+
+# These functions compute the cumulative distribution functions P(k), Q(k) for
+# the hypergeometric distribution with parameters n1, n2 and t.
+# 
+#   Returns: Cdouble
+function gsl_cdf_hypergeometric_Q (k::Cuint, n1::Cuint, n2::Cuint, t::Cuint)
+    ccall( (:gsl_cdf_hypergeometric_Q, "libgsl"), Cdouble, (Cuint, Cuint,
+        Cuint, Cuint), k, n1, n2, t )
+end
