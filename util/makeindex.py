@@ -15,12 +15,12 @@ for f in open('../src/'+master_file):
     if 'include(' not in f:
         outbuf.append(f[:-1])
 
-for pathfilename in glob('../src/*.jl'):
+for pathfilename in sorted(glob('../src/*.jl')):
     filename = basename(pathfilename)
     if filename == master_file: continue
     outbuf.insert(len(outbuf)-1,'    include("'+filename+'")')
 
 f = open('../src/'+master_file, 'w')
-f.write('\n'.append(outbuf))
+f.write('\n'.join(outbuf))
 f.close()
 
