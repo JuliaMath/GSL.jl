@@ -191,7 +191,7 @@ if __name__ == '__main__':
         parsed = parsehtmldoc(open(html_file).read())
         if parsed == '': continue #Do not write julia file
         
-        julia_file = '../src/'+basename(html_file)[:-4].replace('-','')+'jl'
+        julia_file = '../src/_'+basename(html_file)[:-4].replace('-','')+'jl'
         f = open(julia_file, 'w')
         f.write("""#!/usr/bin/env julia
 #GSL Julia wrapper
