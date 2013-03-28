@@ -88,7 +88,7 @@ def juliatype(ctype):
 
 def parsehtmldoc(html_doc):
     soup = BeautifulSoup(html_doc)
-    parsed_out = []
+    all_parsed_out = []
 
     #Find section heading and put that in the beginning
     for headertag in ['h2', 'h3', 'h4']:
@@ -96,7 +96,7 @@ def parsehtmldoc(html_doc):
         if header is None:
             continue
         header = header.get_text()
-        parsed_out += ['#'*(len(header)+4), '# '+header+' #', '#'*(len(header)+4)]
+        all_parsed_out += ['#'*(len(header)+4), '# '+header+' #', '#'*(len(header)+4)]
 
     #Pass 1: find all the function names and put them in an export line
     functions = []
@@ -109,7 +109,7 @@ def parsehtmldoc(html_doc):
     if len(functions) > 0:
          export_line = wrap(', '.join(functions), maxwidth-7)
          export_line = ['export '+export_line[0]] + [' '*7 + l for l in export_line[1:]]
-         parsed_out += export_line
+         all_parsed_out += export_line
     else: #No functions, return a blank file
         return ''
 
@@ -117,6 +117,8 @@ def parsehtmldoc(html_doc):
     #Pass 2: Parse the function decls
     for function_block in soup.find_all('div', class_='defun'):
         for fn in function_block.find_all('br'):
+            parsed_out = []
+            isDisabled = False #Will be disabled if the parse fails
             outputs = fn.find_previous('b').previous
             funcname = fn.find_previous('b').string
             inputs = fn.find_previous('b').find_next('var').get_text()
@@ -147,15 +149,16 @@ def parsehtmldoc(html_doc):
                 julia_vartype, isUnknown = juliatype(vartype) 
                 julia_inputs.append(julia_vartype)
                 #If it starts with gsl, assume it will be defined at some point
-                if isUnknown and 'gsl_' not in julia_vartype:
+                if isUnknown:# :and 'gsl_' not in julia_vartype:
                     warnings.append('#XXX Unknown input type '+varname+'::'+julia_vartype)
-
+                    isDisabled=True
             docstring = u'# ' + u'\n# '.join(wrap(docstring, maxwidth-2)) + u'\n# '
             
             julia_output, isUnknown = juliatype(outputs) 
             #If it starts with gsl, assume it will be defined at some point
-            if isUnknown and 'gsl_' not in julia_output:
+            if isUnknown:# and 'gsl_' not in julia_output:
                 warnings.append('#XXX Unknown output type '+julia_output)
+                isDisabled=True
                 
             julia_decl = []
             for i, var in enumerate(julia_input_names):
@@ -172,14 +175,22 @@ def parsehtmldoc(html_doc):
             ccall_line = wrap('ccall( '+', '.join(ccall_args)+' )', maxwidth-8)
             ccall_line = ['    '+ccall_line[0]] + [' '*8 + l for l in ccall_line[1:]]
             #Dump it all out
-            parsed_out += ['' , '', docstring]
+            parsed_out += [docstring]
             parsed_out += ['#  '+comment for comment in comments]
             parsed_out += ['#   Returns: '+julia_output]
             parsed_out += warnings
             parsed_out += ['function '+funcname+' ('+', '.join(julia_decl) +')']
             parsed_out += ccall_line
             parsed_out += ['end']
-    return '\n'.join(parsed_out)
+             
+            all_parsed_out += ['', '']
+            if isDisabled:
+                all_parsed_out += ['### Function uses unknown type; disabled']
+                parsed_out = ['### '+l for l in parsed_out]
+
+            all_parsed_out += parsed_out
+
+    return '\n'.join(all_parsed_out)
 
 
 #Loop over all html files
