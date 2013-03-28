@@ -23,10 +23,16 @@ The code generator currently does NOT know now to wrap structs and constants
 and therefore none of them are available to Julia right now. Any attempt to
 use wrappers using `gsl_*` structs _will_ fail.
 
-Convenience methods with a Julia-friendly syntax are planned. The available
-methods are listed below.
+## How you can help
 
-# Methods provided
+1. Test function wrappers for correctness.
+2. Expose `gsl_*` structs and `GSL_*` constants and macros to Julia.
+3. Write convenience methods to further wrap the `gsl_*` calls with a Julia-
+   friendly syntax.
+
+# Convenience methods provided
+
+Currently only one convenience method is available.
 
     hypergeom(a::Vector{Float64}, b::Vector{Float64}, x::Float64) -> Float64
 
