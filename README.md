@@ -9,14 +9,12 @@ Licensed under [GPLv3](http://www.gnu.org/copyleft/gpl.html)
 # Current status
 This package provides wrappers to every single documented function in the
 [GSL manual](http://www.gnu.org/software/gsl/manual/html_node).
-However, none of the wrappers are exported by default and they have to be
-called manually.
 
 Example:
 
     using GSL
     x = randn()
-    GSL.gsl_sf_hyperg_U(-1.0, -1.0, x) - (1 + x)
+    gsl_sf_hyperg_U(-1.0, -1.0, x) - (1 + x)
     #Answer: 0.0
 
 The wrappers are automatically generated using util/makewrapper.py.
