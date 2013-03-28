@@ -8,7 +8,8 @@ Licensed under [GPLv3](http://www.gnu.org/copyleft/gpl.html)
 
 # Current status
 This package provides wrappers to every single documented function in the
-[GSL manual](http://www.gnu.org/software/gsl/manual/html_node).
+[GSL manual](http://www.gnu.org/software/gsl/manual/html_node) that does *not*
+use custom `gsl_*` data types.
 
 Example:
 
