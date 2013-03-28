@@ -12,12 +12,12 @@ This package provides wrappers to every single documented function in the
 use custom `gsl_*` data types.
 
 Example:
-
+```julia
     using GSL
     x = randn()
     gsl_sf_hyperg_U(-1.0, -1.0, x) - (1 + x)
     #Answer: 0.0
-
+```
 The wrappers are automatically generated using util/makewrapper.py.
 The code generator currently does NOT know now to wrap structs and constants
 and therefore none of them are available to Julia right now. Any attempt to
