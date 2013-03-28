@@ -10,7 +10,8 @@ export gsl_multiroot_function, gsl_multiroot_function, gsl_multiroot_function,
        gsl_multiroot_function_fdf
 
 
-# This data type defines a general system of functions with parameters.
+### Function uses unknown type; disabled
+### # This data type defines a general system of functions with parameters.
 # int (* f) (const gsl_vector * x, void * params, gsl_vector * f)this function
 # should store the vector result  f(x,params) in f for argument x and
 # parameters params, returning an appropriate error code if the function cannot
@@ -18,15 +19,16 @@ export gsl_multiroot_function, gsl_multiroot_function, gsl_multiroot_function,
 # of components of the vectors x and f.            void * paramsa pointer to
 # the parameters of the function.
 # 
-#   {$f(x,\hbox{\it params})$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_function ()
-    ccall( (:gsl_multiroot_function, "libgsl"), , () )
-end
+### #   {$f(x,\hbox{\it params})$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_function ()
+###     ccall( (:gsl_multiroot_function, "libgsl"), , () )
+### end
 
 
-# This data type defines a general system of functions with parameters and the
+### Function uses unknown type; disabled
+### # This data type defines a general system of functions with parameters and the
 # corresponding Jacobian matrix of derivatives,             int (* f) (const
 # gsl_vector * x, void * params, gsl_vector * f)this function should store the
 # vector result  f(x,params) in f for argument x and parameters params,
@@ -43,16 +45,17 @@ end
 # components of the vectors x and f.            void * paramsa pointer to the
 # parameters of the function.
 # 
-#   {$f(x,\hbox{\it params})$} 
-#   {$J_{ij} = \partial f_i(x,\hbox{\it params}) / \partial x_j$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_function ()
-    ccall( (:gsl_multiroot_function, "libgsl"), , () )
-end
+### #   {$f(x,\hbox{\it params})$} 
+### #   {$J_{ij} = \partial f_i(x,\hbox{\it params}) / \partial x_j$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_function ()
+###     ccall( (:gsl_multiroot_function, "libgsl"), , () )
+### end
 
 
-# This data type defines a general system of functions with parameters and the
+### Function uses unknown type; disabled
+### # This data type defines a general system of functions with parameters and the
 # corresponding Jacobian matrix of derivatives,             int (* f) (const
 # gsl_vector * x, void * params, gsl_vector * f)this function should store the
 # vector result  f(x,params) in f for argument x and parameters params,
@@ -69,14 +72,15 @@ end
 # components of the vectors x and f.            void * paramsa pointer to the
 # parameters of the function.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_function ()
-    ccall( (:gsl_multiroot_function, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_function ()
+###     ccall( (:gsl_multiroot_function, "libgsl"), , () )
+### end
 
 
-# This data type defines a general system of functions with parameters and the
+### Function uses unknown type; disabled
+### # This data type defines a general system of functions with parameters and the
 # corresponding Jacobian matrix of derivatives,             int (* f) (const
 # gsl_vector * x, void * params, gsl_vector * f)this function should store the
 # vector result  f(x,params) in f for argument x and parameters params,
@@ -93,44 +97,48 @@ end
 # components of the vectors x and f.            void * paramsa pointer to the
 # parameters of the function.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_function_fdf ()
-    ccall( (:gsl_multiroot_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_function_fdf ()
+###     ccall( (:gsl_multiroot_function_fdf, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_function_fdf ()
-    ccall( (:gsl_multiroot_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_function_fdf ()
+###     ccall( (:gsl_multiroot_function_fdf, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_function_fdf ()
-    ccall( (:gsl_multiroot_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_function_fdf ()
+###     ccall( (:gsl_multiroot_function_fdf, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_function_fdf ()
-    ccall( (:gsl_multiroot_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_function_fdf ()
+###     ccall( (:gsl_multiroot_function_fdf, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_function_fdf ()
-    ccall( (:gsl_multiroot_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_function_fdf ()
+###     ccall( (:gsl_multiroot_function_fdf, "libgsl"), , () )
+### end

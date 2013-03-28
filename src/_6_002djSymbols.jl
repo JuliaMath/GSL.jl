@@ -19,13 +19,15 @@ function gsl_sf_coupling_6j (two_ja::Cint, two_jb::Cint, two_jc::Cint, two_jd::C
 end
 
 
-# These routines compute the Wigner 6-j coefficient,                 {ja jb jc
+### Function uses unknown type; disabled
+### # These routines compute the Wigner 6-j coefficient,                 {ja jb jc
 # jd je jf}  where the arguments are given in half-integer units, ja =
 # two_ja/2, ma = two_ma/2, etc.
 # 
-#   Returns: Cint
-function gsl_sf_coupling_6j_e (two_ja::Cint, two_jb::Cint, two_jc::Cint, two_jd::Cint, two_je::Cint, two_jf::Cint, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_coupling_6j_e, "libgsl"), Cint, (Cint, Cint, Cint,
-        Cint, Cint, Cint, Ptr{gsl_sf_result}), two_ja, two_jb, two_jc, two_jd,
-        two_je, two_jf, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_coupling_6j_e (two_ja::Cint, two_jb::Cint, two_jc::Cint, two_jd::Cint, two_je::Cint, two_jf::Cint, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_coupling_6j_e, "libgsl"), Cint, (Cint, Cint, Cint,
+###         Cint, Cint, Cint, Ptr{gsl_sf_result}), two_ja, two_jb, two_jc, two_jd,
+###         two_je, two_jf, result )
+### end

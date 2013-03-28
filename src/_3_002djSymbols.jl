@@ -19,13 +19,15 @@ function gsl_sf_coupling_3j (two_ja::Cint, two_jb::Cint, two_jc::Cint, two_ma::C
 end
 
 
-# These routines compute the Wigner 3-j coefficient,                 (ja jb jc
+### Function uses unknown type; disabled
+### # These routines compute the Wigner 3-j coefficient,                 (ja jb jc
 # ma mb mc)  where the arguments are given in half-integer units, ja =
 # two_ja/2, ma = two_ma/2, etc.
 # 
-#   Returns: Cint
-function gsl_sf_coupling_3j_e (two_ja::Cint, two_jb::Cint, two_jc::Cint, two_ma::Cint, two_mb::Cint, two_mc::Cint, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_coupling_3j_e, "libgsl"), Cint, (Cint, Cint, Cint,
-        Cint, Cint, Cint, Ptr{gsl_sf_result}), two_ja, two_jb, two_jc, two_ma,
-        two_mb, two_mc, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_coupling_3j_e (two_ja::Cint, two_jb::Cint, two_jc::Cint, two_ma::Cint, two_mb::Cint, two_mc::Cint, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_coupling_3j_e, "libgsl"), Cint, (Cint, Cint, Cint,
+###         Cint, Cint, Cint, Ptr{gsl_sf_result}), two_ja, two_jb, two_jc, two_ma,
+###         two_mb, two_mc, result )
+### end

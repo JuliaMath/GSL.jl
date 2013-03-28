@@ -18,11 +18,13 @@ function gsl_sf_erfc (x::Cdouble)
 end
 
 
-# These routines compute the complementary error function  erfc(x) = 1 - erf(x)
+### Function uses unknown type; disabled
+### # These routines compute the complementary error function  erfc(x) = 1 - erf(x)
 # = (2/\sqrt(\pi)) \int_x^\infty \exp(-t^2).
 # 
-#   Returns: Cint
-function gsl_sf_erfc_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_erfc_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
-        x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_erfc_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_erfc_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
+###         x, result )
+### end

@@ -19,14 +19,16 @@ function gsl_sf_psi_int (n::Cint)
 end
 
 
-# These routines compute the digamma function \psi(n) for positive integer n.
+### Function uses unknown type; disabled
+### # These routines compute the digamma function \psi(n) for positive integer n.
 # The digamma function is also called the Psi function.
 # 
-#   Returns: Cint
-function gsl_sf_psi_int_e (n::Cint, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_psi_int_e, "libgsl"), Cint, (Cint, Ptr{gsl_sf_result}),
-        n, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_psi_int_e (n::Cint, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_psi_int_e, "libgsl"), Cint, (Cint, Ptr{gsl_sf_result}),
+###         n, result )
+### end
 
 
 # These routines compute the digamma function \psi(x) for general x, x \ne 0.
@@ -39,13 +41,15 @@ function gsl_sf_psi (x::Cdouble)
 end
 
 
-# These routines compute the digamma function \psi(x) for general x, x \ne 0.
+### Function uses unknown type; disabled
+### # These routines compute the digamma function \psi(x) for general x, x \ne 0.
 # 
-#   Returns: Cint
-function gsl_sf_psi_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_psi_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
-        x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_psi_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_psi_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
+###         x, result )
+### end
 
 
 # These routines compute the real part of the digamma function on the line 1+i
@@ -59,11 +63,13 @@ function gsl_sf_psi_1piy (y::Cdouble)
 end
 
 
-# These routines compute the real part of the digamma function on the line 1+i
+### Function uses unknown type; disabled
+### # These routines compute the real part of the digamma function on the line 1+i
 # y, \Re[\psi(1 + i y)].
 # 
-#   Returns: Cint
-function gsl_sf_psi_1piy_e (y::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_psi_1piy_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), y, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_psi_1piy_e (y::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_psi_1piy_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), y, result )
+### end

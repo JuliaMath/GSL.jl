@@ -28,40 +28,50 @@ function gsl_permute_inverse (p::Ptr{Csize_t}, data::Ptr{Cdouble}, stride::Csize
 end
 
 
-# This function applies the permutation p to the elements of the vector v,
+### Function uses unknown type; disabled
+### # This function applies the permutation p to the elements of the vector v,
 # considered as a row-vector acted on by a permutation matrix from the right,
 # v' = v P.  The j-th column of the permutation matrix P is given by the p_j-th
 # column of the identity matrix. The permutation p and the vector v must have
 # the same length.
 # 
-#   Returns: Cint
-function gsl_permute_vector (p::Ptr{gsl_permutation}, v::Ptr{gsl_vector})
-    ccall( (:gsl_permute_vector, "libgsl"), Cint, (Ptr{gsl_permutation},
-        Ptr{gsl_vector}), p, v )
-end
+### #   Returns: Cint
+### #XXX Unknown input type p::Ptr{gsl_permutation}
+### #XXX Unknown input type v::Ptr{gsl_vector}
+### function gsl_permute_vector (p::Ptr{gsl_permutation}, v::Ptr{gsl_vector})
+###     ccall( (:gsl_permute_vector, "libgsl"), Cint, (Ptr{gsl_permutation},
+###         Ptr{gsl_vector}), p, v )
+### end
 
 
-# This function applies the inverse of the permutation p to the elements of the
+### Function uses unknown type; disabled
+### # This function applies the inverse of the permutation p to the elements of the
 # vector v, considered as a row-vector acted on by an inverse permutation
 # matrix from the right, v' = v P^T.  Note that for permutation matrices the
 # inverse is the same as the transpose.  The j-th column of the permutation
 # matrix P is given by the p_j-th column of the identity matrix. The
 # permutation p and the vector v must have the same length.
 # 
-#   Returns: Cint
-function gsl_permute_vector_inverse (p::Ptr{gsl_permutation}, v::Ptr{gsl_vector})
-    ccall( (:gsl_permute_vector_inverse, "libgsl"), Cint,
-        (Ptr{gsl_permutation}, Ptr{gsl_vector}), p, v )
-end
+### #   Returns: Cint
+### #XXX Unknown input type p::Ptr{gsl_permutation}
+### #XXX Unknown input type v::Ptr{gsl_vector}
+### function gsl_permute_vector_inverse (p::Ptr{gsl_permutation}, v::Ptr{gsl_vector})
+###     ccall( (:gsl_permute_vector_inverse, "libgsl"), Cint,
+###         (Ptr{gsl_permutation}, Ptr{gsl_vector}), p, v )
+### end
 
 
-# This function combines the two permutations pa and pb into a single
+### Function uses unknown type; disabled
+### # This function combines the two permutations pa and pb into a single
 # permutation p, where  p = pa * pb.  The permutation p is equivalent to
 # applying pb first and then pa.
 # 
-#   {$@var{p} = @var{pa} \ast @var{pb}$} 
-#   Returns: Cint
-function gsl_permutation_mul (p::Ptr{gsl_permutation}, pa::Ptr{gsl_permutation}, pb::Ptr{gsl_permutation})
-    ccall( (:gsl_permutation_mul, "libgsl"), Cint, (Ptr{gsl_permutation},
-        Ptr{gsl_permutation}, Ptr{gsl_permutation}), p, pa, pb )
-end
+### #   {$@var{p} = @var{pa} \ast @var{pb}$} 
+### #   Returns: Cint
+### #XXX Unknown input type p::Ptr{gsl_permutation}
+### #XXX Unknown input type pa::Ptr{gsl_permutation}
+### #XXX Unknown input type pb::Ptr{gsl_permutation}
+### function gsl_permutation_mul (p::Ptr{gsl_permutation}, pa::Ptr{gsl_permutation}, pb::Ptr{gsl_permutation})
+###     ccall( (:gsl_permutation_mul, "libgsl"), Cint, (Ptr{gsl_permutation},
+###         Ptr{gsl_permutation}, Ptr{gsl_permutation}), p, pa, pb )
+### end

@@ -17,10 +17,12 @@ function gsl_sf_hzeta (s::Cdouble, q::Cdouble)
 end
 
 
-# These routines compute the Hurwitz zeta function \zeta(s,q) for s > 1, q > 0.
+### Function uses unknown type; disabled
+### # These routines compute the Hurwitz zeta function \zeta(s,q) for s > 1, q > 0.
 # 
-#   Returns: Cint
-function gsl_sf_hzeta_e (s::Cdouble, q::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_hzeta_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), s, q, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_hzeta_e (s::Cdouble, q::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_hzeta_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), s, q, result )
+### end

@@ -12,7 +12,8 @@ export gsl_multifit_fdfsolver_lmsder, gsl_multifit_fdfsolver_lmsder,
        gsl_multifit_fdfsolver_lmder
 
 
-# This is a robust and efficient version of the Levenberg-Marquardt algorithm
+### Function uses unknown type; disabled
+### # This is a robust and efficient version of the Levenberg-Marquardt algorithm
 # as implemented in the scaled lmder routine in minpack.  Minpack was written
 # by Jorge J. Moré, Burton S. Garbow and Kenneth E. Hillstrom.          The
 # algorithm uses a generalized trust region to keep each step under control.
@@ -43,56 +44,60 @@ export gsl_multifit_fdfsolver_lmsder, gsl_multifit_fdfsolver_lmsder,
 # indicate that further iterations will be unlikely to change the solution from
 # its current value.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multifit_fdfsolver_lmsder ()
-    ccall( (:gsl_multifit_fdfsolver_lmsder, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multifit_fdfsolver_lmsder ()
+###     ccall( (:gsl_multifit_fdfsolver_lmsder, "libgsl"), , () )
+### end
 
 
-# This is an unscaled version of the lmder algorithm.  The elements of the
+### Function uses unknown type; disabled
+### # This is an unscaled version of the lmder algorithm.  The elements of the
 # diagonal scaling matrix D are set to 1.  This algorithm may be useful in
 # circumstances where the scaled version of lmder converges too slowly, or the
 # function is already scaled appropriately.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multifit_fdfsolver_lmsder ()
-    ccall( (:gsl_multifit_fdfsolver_lmsder, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multifit_fdfsolver_lmsder ()
+###     ccall( (:gsl_multifit_fdfsolver_lmsder, "libgsl"), , () )
+### end
 
 
-# This is an unscaled version of the lmder algorithm.  The elements of the
+### Function uses unknown type; disabled
+### # This is an unscaled version of the lmder algorithm.  The elements of the
 # diagonal scaling matrix D are set to 1.  This algorithm may be useful in
 # circumstances where the scaled version of lmder converges too slowly, or the
 # function is already scaled appropriately.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multifit_fdfsolver_lmsder ()
-    ccall( (:gsl_multifit_fdfsolver_lmsder, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multifit_fdfsolver_lmsder ()
+###     ccall( (:gsl_multifit_fdfsolver_lmsder, "libgsl"), , () )
+### end
 
 
-# This is an unscaled version of the lmder algorithm.  The elements of the
+### Function uses unknown type; disabled
+### # This is an unscaled version of the lmder algorithm.  The elements of the
 # diagonal scaling matrix D are set to 1.  This algorithm may be useful in
 # circumstances where the scaled version of lmder converges too slowly, or the
 # function is already scaled appropriately.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multifit_fdfsolver_lmsder ()
-    ccall( (:gsl_multifit_fdfsolver_lmsder, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multifit_fdfsolver_lmsder ()
+###     ccall( (:gsl_multifit_fdfsolver_lmsder, "libgsl"), , () )
+### end
 
 
-# This is an unscaled version of the lmder algorithm.  The elements of the
+### Function uses unknown type; disabled
+### # This is an unscaled version of the lmder algorithm.  The elements of the
 # diagonal scaling matrix D are set to 1.  This algorithm may be useful in
 # circumstances where the scaled version of lmder converges too slowly, or the
 # function is already scaled appropriately.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multifit_fdfsolver_lmder ()
-    ccall( (:gsl_multifit_fdfsolver_lmder, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multifit_fdfsolver_lmder ()
+###     ccall( (:gsl_multifit_fdfsolver_lmder, "libgsl"), , () )
+### end

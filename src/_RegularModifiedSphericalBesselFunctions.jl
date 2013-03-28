@@ -21,14 +21,16 @@ function gsl_sf_bessel_i0_scaled (x::Cdouble)
 end
 
 
-# These routines compute the scaled regular modified spherical Bessel function
+### Function uses unknown type; disabled
+### # These routines compute the scaled regular modified spherical Bessel function
 # of zeroth order, \exp(-|x|) i_0(x).
 # 
-#   Returns: Cint
-function gsl_sf_bessel_i0_scaled_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_bessel_i0_scaled_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_bessel_i0_scaled_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_bessel_i0_scaled_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the scaled regular modified spherical Bessel function
@@ -41,14 +43,16 @@ function gsl_sf_bessel_i1_scaled (x::Cdouble)
 end
 
 
-# These routines compute the scaled regular modified spherical Bessel function
+### Function uses unknown type; disabled
+### # These routines compute the scaled regular modified spherical Bessel function
 # of first order, \exp(-|x|) i_1(x).
 # 
-#   Returns: Cint
-function gsl_sf_bessel_i1_scaled_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_bessel_i1_scaled_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_bessel_i1_scaled_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_bessel_i1_scaled_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the scaled regular modified spherical Bessel function
@@ -61,14 +65,16 @@ function gsl_sf_bessel_i2_scaled (x::Cdouble)
 end
 
 
-# These routines compute the scaled regular modified spherical Bessel function
+### Function uses unknown type; disabled
+### # These routines compute the scaled regular modified spherical Bessel function
 # of second order,  \exp(-|x|) i_2(x)
 # 
-#   Returns: Cint
-function gsl_sf_bessel_i2_scaled_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_bessel_i2_scaled_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_bessel_i2_scaled_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_bessel_i2_scaled_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the scaled regular modified spherical Bessel function
@@ -83,14 +89,16 @@ function gsl_sf_bessel_il_scaled (l::Cint, x::Cdouble)
 end
 
 
-# These routines compute the scaled regular modified spherical Bessel function
+### Function uses unknown type; disabled
+### # These routines compute the scaled regular modified spherical Bessel function
 # of order l,  \exp(-|x|) i_l(x)
 # 
-#   Returns: Cint
-function gsl_sf_bessel_il_scaled_e (l::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_bessel_il_scaled_e, "libgsl"), Cint, (Cint, Cdouble,
-        Ptr{gsl_sf_result}), l, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_bessel_il_scaled_e (l::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_bessel_il_scaled_e, "libgsl"), Cint, (Cint, Cdouble,
+###         Ptr{gsl_sf_result}), l, x, result )
+### end
 
 
 # This routine computes the values of the scaled regular modified cylindrical

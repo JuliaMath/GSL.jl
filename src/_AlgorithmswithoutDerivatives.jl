@@ -8,30 +8,33 @@ export gsl_multiroot_fsolver_hybrids, gsl_multiroot_fsolver_hybrid,
        gsl_multiroot_fsolver_dnewton, gsl_multiroot_fsolver_broyden
 
 
-# This is a version of the Hybrid algorithm which replaces calls to the
+### Function uses unknown type; disabled
+### # This is a version of the Hybrid algorithm which replaces calls to the
 # Jacobian function by its finite difference approximation.  The finite
 # difference approximation is computed using gsl_multiroots_fdjac with a
 # relative step size of GSL_SQRT_DBL_EPSILON.  Note that this step size will
 # not be suitable for all problems.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_fsolver_hybrids ()
-    ccall( (:gsl_multiroot_fsolver_hybrids, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_fsolver_hybrids ()
+###     ccall( (:gsl_multiroot_fsolver_hybrids, "libgsl"), , () )
+### end
 
 
-# This is a finite difference version of the Hybrid algorithm without internal
+### Function uses unknown type; disabled
+### # This is a finite difference version of the Hybrid algorithm without internal
 # scaling.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_fsolver_hybrid ()
-    ccall( (:gsl_multiroot_fsolver_hybrid, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_fsolver_hybrid ()
+###     ccall( (:gsl_multiroot_fsolver_hybrid, "libgsl"), , () )
+### end
 
 
-#  The discrete Newton algorithm is the simplest method of solving a
+### Function uses unknown type; disabled
+### #  The discrete Newton algorithm is the simplest method of solving a
 # multidimensional system.  It uses the Newton iteration                 x -> x
 # - J^{-1} f(x)  where the Jacobian matrix J is approximated by taking finite
 # differences of the function f.  The approximation scheme used by this
@@ -43,15 +46,16 @@ end
 # algorithm may become unstable if the finite differences are not a good
 # approximation to the true derivatives.
 # 
-#   {$\epsilon \approx 2.22 \times 10^{-16}$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_fsolver_dnewton ()
-    ccall( (:gsl_multiroot_fsolver_dnewton, "libgsl"), , () )
-end
+### #   {$\epsilon \approx 2.22 \times 10^{-16}$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_fsolver_dnewton ()
+###     ccall( (:gsl_multiroot_fsolver_dnewton, "libgsl"), , () )
+### end
 
 
-#  The Broyden algorithm is a version of the discrete Newton algorithm which
+### Function uses unknown type; disabled
+### #  The Broyden algorithm is a version of the discrete Newton algorithm which
 # attempts to avoids the expensive update of the Jacobian matrix on each
 # iteration.  The changes to the Jacobian are also approximated, using a rank-1
 # update,                 J^{-1} \to J^{-1} - (J^{-1} df - dx) dx^T J^{-1} /
@@ -65,8 +69,8 @@ end
 # details).          This algorithm is included only for demonstration
 # purposes, and is not recommended for serious use.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_fsolver_broyden ()
-    ccall( (:gsl_multiroot_fsolver_broyden, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_fsolver_broyden ()
+###     ccall( (:gsl_multiroot_fsolver_broyden, "libgsl"), , () )
+### end

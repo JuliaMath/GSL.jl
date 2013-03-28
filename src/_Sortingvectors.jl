@@ -17,13 +17,15 @@ function gsl_sort (data::Ptr{Cdouble}, stride::Csize_t, n::Csize_t)
 end
 
 
-# This function sorts the elements of the vector v into ascending numerical
+### Function uses unknown type; disabled
+### # This function sorts the elements of the vector v into ascending numerical
 # order.
 # 
-#   Returns: Void
-function gsl_sort_vector (v::Ptr{gsl_vector})
-    ccall( (:gsl_sort_vector, "libgsl"), Void, (Ptr{gsl_vector}, ), v )
-end
+### #   Returns: Void
+### #XXX Unknown input type v::Ptr{gsl_vector}
+### function gsl_sort_vector (v::Ptr{gsl_vector})
+###     ccall( (:gsl_sort_vector, "libgsl"), Void, (Ptr{gsl_vector}, ), v )
+### end
 
 
 # This function indirectly sorts the n elements of the array data with stride
@@ -40,15 +42,18 @@ function gsl_sort_index (p::Ptr{Csize_t}, data::Ptr{Cdouble}, stride::Csize_t, n
 end
 
 
-# This function indirectly sorts the elements of the vector v into ascending
+### Function uses unknown type; disabled
+### # This function indirectly sorts the elements of the vector v into ascending
 # order, storing the resulting permutation in p.  The elements of p give the
 # index of the vector element which would have been stored in that position if
 # the vector had been sorted in place.  The first element of p gives the index
 # of the least element in v, and the last element of p gives the index of the
 # greatest element in v.  The vector v is not changed.
 # 
-#   Returns: Cint
-function gsl_sort_vector_index (p::Ptr{gsl_permutation}, v::Ptr{gsl_vector})
-    ccall( (:gsl_sort_vector_index, "libgsl"), Cint, (Ptr{gsl_permutation},
-        Ptr{gsl_vector}), p, v )
-end
+### #   Returns: Cint
+### #XXX Unknown input type p::Ptr{gsl_permutation}
+### #XXX Unknown input type v::Ptr{gsl_vector}
+### function gsl_sort_vector_index (p::Ptr{gsl_permutation}, v::Ptr{gsl_vector})
+###     ccall( (:gsl_sort_vector_index, "libgsl"), Cint, (Ptr{gsl_permutation},
+###         Ptr{gsl_vector}), p, v )
+### end

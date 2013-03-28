@@ -16,13 +16,15 @@ function gsl_sf_eta_int (n::Cint)
 end
 
 
-# These routines compute the eta function \eta(n) for integer n.
+### Function uses unknown type; disabled
+### # These routines compute the eta function \eta(n) for integer n.
 # 
-#   Returns: Cint
-function gsl_sf_eta_int_e (n::Cint, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_eta_int_e, "libgsl"), Cint, (Cint, Ptr{gsl_sf_result}),
-        n, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_eta_int_e (n::Cint, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_eta_int_e, "libgsl"), Cint, (Cint, Ptr{gsl_sf_result}),
+###         n, result )
+### end
 
 
 # These routines compute the eta function \eta(s) for arbitrary s.
@@ -34,10 +36,12 @@ function gsl_sf_eta (s::Cdouble)
 end
 
 
-# These routines compute the eta function \eta(s) for arbitrary s.
+### Function uses unknown type; disabled
+### # These routines compute the eta function \eta(s) for arbitrary s.
 # 
-#   Returns: Cint
-function gsl_sf_eta_e (s::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_eta_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
-        s, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_eta_e (s::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_eta_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
+###         s, result )
+### end

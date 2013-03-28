@@ -8,7 +8,8 @@ export gsl_ran_hypergeometric, gsl_ran_hypergeometric_pdf,
        gsl_cdf_hypergeometric_P, gsl_cdf_hypergeometric_Q
 
 
-# This function returns a random integer from the hypergeometric distribution.
+### Function uses unknown type; disabled
+### # This function returns a random integer from the hypergeometric distribution.
 # The probability distribution for hypergeometric random variates is,
 # p(k) =  C(n_1, k) C(n_2, t - k) / C(n_1 + n_2, t)  where C(a,b) =
 # a!/(b!(a-b)!) and  t <= n_1 + n_2.  The domain of k is  max(0,t-n_2), ...,
@@ -17,13 +18,14 @@ export gsl_ran_hypergeometric, gsl_ran_hypergeometric_pdf,
 # probability of obtaining k elements of “type 1” in t samples from the
 # population without replacement.
 # 
-#   {$t \leq n_1 + n_2$} 
-#   {$\hbox{max}(0,t-n_2), \ldots, \hbox{min}(t,n_1)$} 
-#   Returns: Cuint
-function gsl_ran_hypergeometric (r::Ptr{gsl_rng}, n1::Cuint, n2::Cuint, t::Cuint)
-    ccall( (:gsl_ran_hypergeometric, "libgsl"), Cuint, (Ptr{gsl_rng},
-        Cuint, Cuint, Cuint), r, n1, n2, t )
-end
+### #   {$t \leq n_1 + n_2$} 
+### #   {$\hbox{max}(0,t-n_2), \ldots, \hbox{min}(t,n_1)$} 
+### #   Returns: Cuint
+### #XXX Unknown input type r::Ptr{gsl_rng}
+### function gsl_ran_hypergeometric (r::Ptr{gsl_rng}, n1::Cuint, n2::Cuint, t::Cuint)
+###     ccall( (:gsl_ran_hypergeometric, "libgsl"), Cuint, (Ptr{gsl_rng},
+###         Cuint, Cuint, Cuint), r, n1, n2, t )
+### end
 
 
 # This function computes the probability p(k) of obtaining k from a

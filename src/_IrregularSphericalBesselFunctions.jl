@@ -19,14 +19,16 @@ function gsl_sf_bessel_y0 (x::Cdouble)
 end
 
 
-# These routines compute the irregular spherical Bessel function of zeroth
+### Function uses unknown type; disabled
+### # These routines compute the irregular spherical Bessel function of zeroth
 # order, y_0(x) = -\cos(x)/x.
 # 
-#   Returns: Cint
-function gsl_sf_bessel_y0_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_bessel_y0_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_bessel_y0_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_bessel_y0_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the irregular spherical Bessel function of first
@@ -39,14 +41,16 @@ function gsl_sf_bessel_y1 (x::Cdouble)
 end
 
 
-# These routines compute the irregular spherical Bessel function of first
+### Function uses unknown type; disabled
+### # These routines compute the irregular spherical Bessel function of first
 # order, y_1(x) = -(\cos(x)/x + \sin(x))/x.
 # 
-#   Returns: Cint
-function gsl_sf_bessel_y1_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_bessel_y1_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_bessel_y1_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_bessel_y1_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the irregular spherical Bessel function of second
@@ -59,14 +63,16 @@ function gsl_sf_bessel_y2 (x::Cdouble)
 end
 
 
-# These routines compute the irregular spherical Bessel function of second
+### Function uses unknown type; disabled
+### # These routines compute the irregular spherical Bessel function of second
 # order, y_2(x) = (-3/x^3 + 1/x)\cos(x) - (3/x^2)\sin(x).
 # 
-#   Returns: Cint
-function gsl_sf_bessel_y2_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_bessel_y2_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_bessel_y2_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_bessel_y2_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the irregular spherical Bessel function of order l,
@@ -80,14 +86,16 @@ function gsl_sf_bessel_yl (l::Cint, x::Cdouble)
 end
 
 
-# These routines compute the irregular spherical Bessel function of order l,
+### Function uses unknown type; disabled
+### # These routines compute the irregular spherical Bessel function of order l,
 # y_l(x), for  l >= 0.
 # 
-#   Returns: Cint
-function gsl_sf_bessel_yl_e (l::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_bessel_yl_e, "libgsl"), Cint, (Cint, Cdouble,
-        Ptr{gsl_sf_result}), l, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_bessel_yl_e (l::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_bessel_yl_e, "libgsl"), Cint, (Cint, Cdouble,
+###         Ptr{gsl_sf_result}), l, x, result )
+### end
 
 
 # This routine computes the values of the irregular spherical Bessel functions

@@ -18,26 +18,30 @@ function gsl_sf_exp (x::Cdouble)
 end
 
 
-# These routines provide an exponential function \exp(x) using GSL semantics
+### Function uses unknown type; disabled
+### # These routines provide an exponential function \exp(x) using GSL semantics
 # and error checking.
 # 
-#   Returns: Cint
-function gsl_sf_exp_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_exp_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
-        x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_exp_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_exp_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
+###         x, result )
+### end
 
 
-# This function computes the exponential \exp(x) using the gsl_sf_result_e10
+### Function uses unknown type; disabled
+### # This function computes the exponential \exp(x) using the gsl_sf_result_e10
 # type to return a result with extended range.  This function may be useful if
 # the value of \exp(x) would overflow the  numeric range of double.
 # 
-#   Exceptional Return Values: GSL_EOVRFLW, GSL_EUNDRFLW 
-#   Returns: Cint
-function gsl_sf_exp_e10_e (x::Cdouble, result::Ptr{gsl_sf_result_e10})
-    ccall( (:gsl_sf_exp_e10_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result_e10}), x, result )
-end
+### #   Exceptional Return Values: GSL_EOVRFLW, GSL_EUNDRFLW 
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result_e10}
+### function gsl_sf_exp_e10_e (x::Cdouble, result::Ptr{gsl_sf_result_e10})
+###     ccall( (:gsl_sf_exp_e10_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result_e10}), x, result )
+### end
 
 
 # These routines exponentiate x and multiply by the factor y to return the
@@ -51,22 +55,26 @@ function gsl_sf_exp_mult (x::Cdouble, y::Cdouble)
 end
 
 
-# These routines exponentiate x and multiply by the factor y to return the
+### Function uses unknown type; disabled
+### # These routines exponentiate x and multiply by the factor y to return the
 # product y \exp(x).
 # 
-#   Returns: Cint
-function gsl_sf_exp_mult_e (x::Cdouble, y::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_exp_mult_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), x, y, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_exp_mult_e (x::Cdouble, y::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_exp_mult_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), x, y, result )
+### end
 
 
-# This function computes the product y \exp(x) using the gsl_sf_result_e10 type
+### Function uses unknown type; disabled
+### # This function computes the product y \exp(x) using the gsl_sf_result_e10 type
 # to return a result with extended numeric range.
 # 
-#   Exceptional Return Values: GSL_EOVRFLW, GSL_EUNDRFLW 
-#   Returns: Cint
-function gsl_sf_exp_mult_e10_e (x::Cdouble, y::Cdouble, result::Ptr{gsl_sf_result_e10})
-    ccall( (:gsl_sf_exp_mult_e10_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result_e10}), x, y, result )
-end
+### #   Exceptional Return Values: GSL_EOVRFLW, GSL_EUNDRFLW 
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result_e10}
+### function gsl_sf_exp_mult_e10_e (x::Cdouble, y::Cdouble, result::Ptr{gsl_sf_result_e10})
+###     ccall( (:gsl_sf_exp_mult_e10_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result_e10}), x, y, result )
+### end

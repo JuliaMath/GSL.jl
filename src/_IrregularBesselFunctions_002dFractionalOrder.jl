@@ -18,11 +18,13 @@ function gsl_sf_bessel_Ynu (nu::Cdouble, x::Cdouble)
 end
 
 
-# These routines compute the irregular cylindrical Bessel function of
+### Function uses unknown type; disabled
+### # These routines compute the irregular cylindrical Bessel function of
 # fractional order \nu, Y_\nu(x).
 # 
-#   Returns: Cint
-function gsl_sf_bessel_Ynu_e (nu::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_bessel_Ynu_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), nu, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_bessel_Ynu_e (nu::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_bessel_Ynu_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), nu, x, result )
+### end

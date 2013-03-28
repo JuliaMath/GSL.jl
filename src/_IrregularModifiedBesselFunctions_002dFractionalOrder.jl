@@ -21,14 +21,16 @@ function gsl_sf_bessel_Knu (nu::Cdouble, x::Cdouble)
 end
 
 
-# These routines compute the irregular modified Bessel function of fractional
+### Function uses unknown type; disabled
+### # These routines compute the irregular modified Bessel function of fractional
 # order \nu, K_\nu(x) for x>0, \nu>0.
 # 
-#   Returns: Cint
-function gsl_sf_bessel_Knu_e (nu::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_bessel_Knu_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), nu, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_bessel_Knu_e (nu::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_bessel_Knu_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), nu, x, result )
+### end
 
 
 # These routines compute the logarithm of the irregular modified Bessel
@@ -43,14 +45,16 @@ function gsl_sf_bessel_lnKnu (nu::Cdouble, x::Cdouble)
 end
 
 
-# These routines compute the logarithm of the irregular modified Bessel
+### Function uses unknown type; disabled
+### # These routines compute the logarithm of the irregular modified Bessel
 # function of fractional order \nu, \ln(K_\nu(x)) for x>0, \nu>0.
 # 
-#   Returns: Cint
-function gsl_sf_bessel_lnKnu_e (nu::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_bessel_lnKnu_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), nu, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_bessel_lnKnu_e (nu::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_bessel_lnKnu_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), nu, x, result )
+### end
 
 
 # These routines compute the scaled irregular modified Bessel function of
@@ -65,11 +69,13 @@ function gsl_sf_bessel_Knu_scaled (nu::Cdouble, x::Cdouble)
 end
 
 
-# These routines compute the scaled irregular modified Bessel function of
+### Function uses unknown type; disabled
+### # These routines compute the scaled irregular modified Bessel function of
 # fractional order \nu, \exp(+|x|) K_\nu(x) for x>0, \nu>0.
 # 
-#   Returns: Cint
-function gsl_sf_bessel_Knu_scaled_e (nu::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_bessel_Knu_scaled_e, "libgsl"), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), nu, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_bessel_Knu_scaled_e (nu::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_bessel_Knu_scaled_e, "libgsl"), Cint, (Cdouble,
+###         Cdouble, Ptr{gsl_sf_result}), nu, x, result )
+### end

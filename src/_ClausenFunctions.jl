@@ -15,10 +15,12 @@ function gsl_sf_clausen (x::Cdouble)
 end
 
 
-# These routines compute the Clausen integral Cl_2(x).
+### Function uses unknown type; disabled
+### # These routines compute the Clausen integral Cl_2(x).
 # 
-#   Returns: Cint
-function gsl_sf_clausen_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_clausen_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_clausen_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_clausen_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end

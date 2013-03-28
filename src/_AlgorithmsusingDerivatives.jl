@@ -9,7 +9,8 @@ export gsl_multiroot_fdfsolver_hybridsj, gsl_multiroot_fdfsolver_hybridsj,
        gsl_multiroot_fdfsolver_gnewton
 
 
-# This is a modified version of Powell's Hybrid method as implemented in the
+### Function uses unknown type; disabled
+### # This is a modified version of Powell's Hybrid method as implemented in the
 # hybrj algorithm in minpack.  Minpack was written by Jorge J. Moré, Burton S.
 # Garbow and Kenneth E. Hillstrom.  The Hybrid algorithm retains the fast
 # convergence of Newton's method but will also reduce the residual when
@@ -42,38 +43,41 @@ export gsl_multiroot_fdfsolver_hybridsj, gsl_multiroot_fdfsolver_hybridsj,
 # that the iteration is not making any progress, preventing the algorithm from
 # continuing.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_fdfsolver_hybridsj ()
-    ccall( (:gsl_multiroot_fdfsolver_hybridsj, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_fdfsolver_hybridsj ()
+###     ccall( (:gsl_multiroot_fdfsolver_hybridsj, "libgsl"), , () )
+### end
 
 
-# This algorithm is an unscaled version of hybridsj.  The steps are controlled
+### Function uses unknown type; disabled
+### # This algorithm is an unscaled version of hybridsj.  The steps are controlled
 # by a spherical trust region |x' - x| < \delta, instead of a generalized
 # region.  This can be useful if the generalized region estimated by hybridsj
 # is inappropriate.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_fdfsolver_hybridsj ()
-    ccall( (:gsl_multiroot_fdfsolver_hybridsj, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_fdfsolver_hybridsj ()
+###     ccall( (:gsl_multiroot_fdfsolver_hybridsj, "libgsl"), , () )
+### end
 
 
-# This algorithm is an unscaled version of hybridsj.  The steps are controlled
+### Function uses unknown type; disabled
+### # This algorithm is an unscaled version of hybridsj.  The steps are controlled
 # by a spherical trust region |x' - x| < \delta, instead of a generalized
 # region.  This can be useful if the generalized region estimated by hybridsj
 # is inappropriate.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_fdfsolver_hybridj ()
-    ccall( (:gsl_multiroot_fdfsolver_hybridj, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_fdfsolver_hybridj ()
+###     ccall( (:gsl_multiroot_fdfsolver_hybridj, "libgsl"), , () )
+### end
 
 
-#  Newton's Method is the standard root-polishing algorithm.  The algorithm
+### Function uses unknown type; disabled
+### #  Newton's Method is the standard root-polishing algorithm.  The algorithm
 # begins with an initial guess for the location of the solution.  On each
 # iteration a linear approximation to the function F is used to estimate the
 # step which will zero all the components of the residual.  The iteration is
@@ -83,22 +87,23 @@ end
 # J dx = - f(x)  using LU decomposition.  If the Jacobian matrix is singular,
 # an error code of GSL_EDOM is returned.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_fdfsolver_newton ()
-    ccall( (:gsl_multiroot_fdfsolver_newton, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_fdfsolver_newton ()
+###     ccall( (:gsl_multiroot_fdfsolver_newton, "libgsl"), , () )
+### end
 
 
-# This is a modified version of Newton's method which attempts to improve
+### Function uses unknown type; disabled
+### # This is a modified version of Newton's method which attempts to improve
 # global convergence by requiring every step to reduce the Euclidean norm of
 # the residual, |f(x)|.  If the Newton step leads to an increase in the norm
 # then a reduced step of relative size,                 t = (\sqrt(1 + 6 r) -
 # 1) / (3 r)  is proposed, with r being the ratio of norms |f(x')|^2/|f(x)|^2.
 # This procedure is repeated until a suitable step size is found.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multiroot_fdfsolver_gnewton ()
-    ccall( (:gsl_multiroot_fdfsolver_gnewton, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multiroot_fdfsolver_gnewton ()
+###     ccall( (:gsl_multiroot_fdfsolver_gnewton, "libgsl"), , () )
+### end

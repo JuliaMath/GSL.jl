@@ -8,20 +8,22 @@ export gsl_function, gsl_function, gsl_function_fdf, gsl_function_fdf,
        gsl_function_fdf, gsl_function_fdf
 
 
-# This data type defines a general function with parameters.             double
+### Function uses unknown type; disabled
+### # This data type defines a general function with parameters.             double
 # (* function) (double x, void * params)this function should return the value
 # f(x,params) for argument x and parameters params void * paramsa pointer to
 # the parameters of the function
 # 
-#   {$f(x,\hbox{\it params})$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_function ()
-    ccall( (:gsl_function, "libgsl"), , () )
-end
+### #   {$f(x,\hbox{\it params})$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_function ()
+###     ccall( (:gsl_function, "libgsl"), , () )
+### end
 
 
-# This data type defines a general function with parameters and its first
+### Function uses unknown type; disabled
+### # This data type defines a general function with parameters and its first
 # derivative.             double (* f) (double x, void * params)this function
 # should return the value of  f(x,params) for argument x and parameters params
 # double (* df) (double x, void * params)this function should return the value
@@ -34,18 +36,19 @@ end
 # same time.            void * paramsa pointer to the parameters of the
 # function
 # 
-#   {$f(x,\hbox{\it params})$} 
-#   {$f'(x,\hbox{\it params})$} 
-#   {$f(x,\hbox{\it params})$} 
-#   {$f'(x,\hbox{\it params})$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_function ()
-    ccall( (:gsl_function, "libgsl"), , () )
-end
+### #   {$f(x,\hbox{\it params})$} 
+### #   {$f'(x,\hbox{\it params})$} 
+### #   {$f(x,\hbox{\it params})$} 
+### #   {$f'(x,\hbox{\it params})$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_function ()
+###     ccall( (:gsl_function, "libgsl"), , () )
+### end
 
 
-# This data type defines a general function with parameters and its first
+### Function uses unknown type; disabled
+### # This data type defines a general function with parameters and its first
 # derivative.             double (* f) (double x, void * params)this function
 # should return the value of  f(x,params) for argument x and parameters params
 # double (* df) (double x, void * params)this function should return the value
@@ -58,35 +61,38 @@ end
 # same time.            void * paramsa pointer to the parameters of the
 # function
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_function_fdf ()
-    ccall( (:gsl_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_function_fdf ()
+###     ccall( (:gsl_function_fdf, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_function_fdf ()
-    ccall( (:gsl_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_function_fdf ()
+###     ccall( (:gsl_function_fdf, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_function_fdf ()
-    ccall( (:gsl_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_function_fdf ()
+###     ccall( (:gsl_function_fdf, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_function_fdf ()
-    ccall( (:gsl_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_function_fdf ()
+###     ccall( (:gsl_function_fdf, "libgsl"), , () )
+### end

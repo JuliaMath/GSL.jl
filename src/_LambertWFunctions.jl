@@ -17,13 +17,15 @@ function gsl_sf_lambert_W0 (x::Cdouble)
 end
 
 
-# These compute the principal branch of the Lambert W function, W_0(x).
+### Function uses unknown type; disabled
+### # These compute the principal branch of the Lambert W function, W_0(x).
 # 
-#   Returns: Cint
-function gsl_sf_lambert_W0_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_lambert_W0_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_lambert_W0_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_lambert_W0_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These compute the secondary real-valued branch of the Lambert W function,
@@ -37,11 +39,13 @@ function gsl_sf_lambert_Wm1 (x::Cdouble)
 end
 
 
-# These compute the secondary real-valued branch of the Lambert W function,
+### Function uses unknown type; disabled
+### # These compute the secondary real-valued branch of the Lambert W function,
 # W_{-1}(x).
 # 
-#   Returns: Cint
-function gsl_sf_lambert_Wm1_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_lambert_Wm1_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_lambert_Wm1_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_lambert_Wm1_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end

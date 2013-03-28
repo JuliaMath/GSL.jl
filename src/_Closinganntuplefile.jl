@@ -7,11 +7,13 @@
 export gsl_ntuple_close
 
 
-# This function closes the ntuple file ntuple and frees its associated
+### Function uses unknown type; disabled
+### # This function closes the ntuple file ntuple and frees its associated
 # allocated memory.
 # 
-#   Returns: Cint
-function gsl_ntuple_close (ntuple::Ptr{gsl_ntuple})
-    ccall( (:gsl_ntuple_close, "libgsl"), Cint, (Ptr{gsl_ntuple}, ), ntuple
-        )
-end
+### #   Returns: Cint
+### #XXX Unknown input type ntuple::Ptr{gsl_ntuple}
+### function gsl_ntuple_close (ntuple::Ptr{gsl_ntuple})
+###     ccall( (:gsl_ntuple_close, "libgsl"), Cint, (Ptr{gsl_ntuple}, ), ntuple
+###         )
+### end

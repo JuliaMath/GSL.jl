@@ -17,13 +17,15 @@ function gsl_sf_lnsinh (x::Cdouble)
 end
 
 
-# These routines compute \log(\sinh(x)) for x > 0.
+### Function uses unknown type; disabled
+### # These routines compute \log(\sinh(x)) for x > 0.
 # 
-#   Returns: Cint
-function gsl_sf_lnsinh_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_lnsinh_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_lnsinh_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_lnsinh_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute \log(\cosh(x)) for any x.
@@ -35,10 +37,12 @@ function gsl_sf_lncosh (x::Cdouble)
 end
 
 
-# These routines compute \log(\cosh(x)) for any x.
+### Function uses unknown type; disabled
+### # These routines compute \log(\cosh(x)) for any x.
 # 
-#   Returns: Cint
-function gsl_sf_lncosh_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_lncosh_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_lncosh_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_lncosh_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end

@@ -8,7 +8,8 @@ export gsl_root_fsolver_bisection, gsl_root_fsolver_falsepos,
        gsl_root_fsolver_brent
 
 
-#  The bisection algorithm is the simplest method of bracketing the roots of a
+### Function uses unknown type; disabled
+### #  The bisection algorithm is the simplest method of bracketing the roots of a
 # function.   It is the slowest algorithm provided by the library, with linear
 # convergence.          On each iteration, the interval is bisected and the
 # value of the function at the midpoint is calculated.  The sign of this value
@@ -18,24 +19,25 @@ export gsl_root_fsolver_bisection, gsl_root_fsolver_falsepos,
 # sufficiently small.          At any time the current estimate of the root is
 # taken as the midpoint of the interval.
 # 
-#   eps file "roots-bisection.eps" 
-#   @iftex 
-#   @sp 1 
-#   @center @image{roots-bisection,3.4in} 
-#   @quotation 
-#   Four iterations of bisection, where @math{a_n} is @math{n}th position of 
-#   the beginning of the interval and @math{b_n} is the @math{n}th position 
-#   of the end.  The midpoint of each interval is also indicated. 
-#   @end quotation 
-#   @end iftex 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_root_fsolver_bisection ()
-    ccall( (:gsl_root_fsolver_bisection, "libgsl"), , () )
-end
+### #   eps file "roots-bisection.eps" 
+### #   @iftex 
+### #   @sp 1 
+### #   @center @image{roots-bisection,3.4in} 
+### #   @quotation 
+### #   Four iterations of bisection, where @math{a_n} is @math{n}th position of 
+### #   the beginning of the interval and @math{b_n} is the @math{n}th position 
+### #   of the end.  The midpoint of each interval is also indicated. 
+### #   @end quotation 
+### #   @end iftex 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_root_fsolver_bisection ()
+###     ccall( (:gsl_root_fsolver_bisection, "libgsl"), , () )
+### end
 
 
-#  The false position algorithm is a method of finding roots based on linear
+### Function uses unknown type; disabled
+### #  The false position algorithm is a method of finding roots based on linear
 # interpolation.  Its convergence is linear, but it is usually faster than
 # bisection.          On each iteration a line is drawn between the endpoints
 # (a,f(a)) and (b,f(b)) and the point where this line crosses the x-axis taken
@@ -46,23 +48,24 @@ end
 # sufficiently small.          The best estimate of the root is taken from the
 # linear interpolation of the interval on the current iteration.
 # 
-#   eps file "roots-false-position.eps" 
-#   @iftex 
-#   @image{roots-false-position,4in} 
-#   @quotation 
-#   Several iterations of false position, where @math{a_n} is @math{n}th 
-#   position of the beginning of the interval and @math{b_n} is the 
-#   @math{n}th position of the end. 
-#   @end quotation 
-#   @end iftex 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_root_fsolver_falsepos ()
-    ccall( (:gsl_root_fsolver_falsepos, "libgsl"), , () )
-end
+### #   eps file "roots-false-position.eps" 
+### #   @iftex 
+### #   @image{roots-false-position,4in} 
+### #   @quotation 
+### #   Several iterations of false position, where @math{a_n} is @math{n}th 
+### #   position of the beginning of the interval and @math{b_n} is the 
+### #   @math{n}th position of the end. 
+### #   @end quotation 
+### #   @end iftex 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_root_fsolver_falsepos ()
+###     ccall( (:gsl_root_fsolver_falsepos, "libgsl"), , () )
+### end
 
 
-#  The Brent-Dekker method (referred to here as Brent's method) combines an
+### Function uses unknown type; disabled
+### #  The Brent-Dekker method (referred to here as Brent's method) combines an
 # interpolation strategy with the bisection algorithm.  This produces a fast
 # algorithm which is still robust.          On each iteration Brent's method
 # approximates the function using an interpolating curve.  On the first
@@ -76,8 +79,8 @@ end
 # The best estimate of the root is taken from the most recent interpolation or
 # bisection.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_root_fsolver_brent ()
-    ccall( (:gsl_root_fsolver_brent, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_root_fsolver_brent ()
+###     ccall( (:gsl_root_fsolver_brent, "libgsl"), , () )
+### end

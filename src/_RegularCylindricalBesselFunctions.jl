@@ -19,14 +19,16 @@ function gsl_sf_bessel_J0 (x::Cdouble)
 end
 
 
-# These routines compute the regular cylindrical Bessel function of zeroth
+### Function uses unknown type; disabled
+### # These routines compute the regular cylindrical Bessel function of zeroth
 # order, J_0(x).
 # 
-#   Returns: Cint
-function gsl_sf_bessel_J0_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_bessel_J0_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_bessel_J0_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_bessel_J0_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the regular cylindrical Bessel function of first
@@ -39,14 +41,16 @@ function gsl_sf_bessel_J1 (x::Cdouble)
 end
 
 
-# These routines compute the regular cylindrical Bessel function of first
+### Function uses unknown type; disabled
+### # These routines compute the regular cylindrical Bessel function of first
 # order, J_1(x).
 # 
-#   Returns: Cint
-function gsl_sf_bessel_J1_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_bessel_J1_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_bessel_J1_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_bessel_J1_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the regular cylindrical Bessel function of order n,
@@ -59,14 +63,16 @@ function gsl_sf_bessel_Jn (n::Cint, x::Cdouble)
 end
 
 
-# These routines compute the regular cylindrical Bessel function of order n,
+### Function uses unknown type; disabled
+### # These routines compute the regular cylindrical Bessel function of order n,
 # J_n(x).
 # 
-#   Returns: Cint
-function gsl_sf_bessel_Jn_e (n::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_bessel_Jn_e, "libgsl"), Cint, (Cint, Cdouble,
-        Ptr{gsl_sf_result}), n, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_bessel_Jn_e (n::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_bessel_Jn_e, "libgsl"), Cint, (Cint, Cdouble,
+###         Ptr{gsl_sf_result}), n, x, result )
+### end
 
 
 # This routine computes the values of the regular cylindrical Bessel functions

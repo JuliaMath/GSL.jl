@@ -7,25 +7,29 @@
 export gsl_combination_next, gsl_combination_prev
 
 
-# This function advances the combination c to the next combination in
+### Function uses unknown type; disabled
+### # This function advances the combination c to the next combination in
 # lexicographic order and returns GSL_SUCCESS.  If no further combinations are
 # available it returns GSL_FAILURE and leaves c unmodified.  Starting with the
 # first combination and repeatedly applying this function will iterate through
 # all possible combinations of a given order.
 # 
-#   Returns: Cint
-function gsl_combination_next (c::Ptr{gsl_combination})
-    ccall( (:gsl_combination_next, "libgsl"), Cint, (Ptr{gsl_combination},
-        ), c )
-end
+### #   Returns: Cint
+### #XXX Unknown input type c::Ptr{gsl_combination}
+### function gsl_combination_next (c::Ptr{gsl_combination})
+###     ccall( (:gsl_combination_next, "libgsl"), Cint, (Ptr{gsl_combination},
+###         ), c )
+### end
 
 
-# This function steps backwards from the combination c to the previous
+### Function uses unknown type; disabled
+### # This function steps backwards from the combination c to the previous
 # combination in lexicographic order, returning GSL_SUCCESS.  If no previous
 # combination is available it returns GSL_FAILURE and leaves c unmodified.
 # 
-#   Returns: Cint
-function gsl_combination_prev (c::Ptr{gsl_combination})
-    ccall( (:gsl_combination_prev, "libgsl"), Cint, (Ptr{gsl_combination},
-        ), c )
-end
+### #   Returns: Cint
+### #XXX Unknown input type c::Ptr{gsl_combination}
+### function gsl_combination_prev (c::Ptr{gsl_combination})
+###     ccall( (:gsl_combination_prev, "libgsl"), Cint, (Ptr{gsl_combination},
+###         ), c )
+### end

@@ -17,24 +17,29 @@ function gsl_poly_eval (c::Cdouble)
 end
 
 
-# This function evaluates a polynomial with real coefficients for the complex
+### Function uses unknown type; disabled
+### # This function evaluates a polynomial with real coefficients for the complex
 # variable z.
 # 
-#   Returns: gsl_complex
-function gsl_poly_complex_eval (c::Cdouble)
-    ccall( (:gsl_poly_complex_eval, "libgsl"), gsl_complex, (Cdouble, ), c
-        )
-end
+### #   Returns: gsl_complex
+### #XXX Unknown output type gsl_complex
+### function gsl_poly_complex_eval (c::Cdouble)
+###     ccall( (:gsl_poly_complex_eval, "libgsl"), gsl_complex, (Cdouble, ), c
+###         )
+### end
 
 
-# This function evaluates a polynomial with complex coefficients for the
+### Function uses unknown type; disabled
+### # This function evaluates a polynomial with complex coefficients for the
 # complex variable z.
 # 
-#   Returns: gsl_complex
-function gsl_complex_poly_complex_eval (c::gsl_complex)
-    ccall( (:gsl_complex_poly_complex_eval, "libgsl"), gsl_complex,
-        (gsl_complex, ), c )
-end
+### #   Returns: gsl_complex
+### #XXX Unknown input type c::gsl_complex
+### #XXX Unknown output type gsl_complex
+### function gsl_complex_poly_complex_eval (c::gsl_complex)
+###     ccall( (:gsl_complex_poly_complex_eval, "libgsl"), gsl_complex,
+###         (gsl_complex, ), c )
+### end
 
 
 # This function evaluates a polynomial and its derivatives storing the results

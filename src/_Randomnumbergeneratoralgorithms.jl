@@ -9,7 +9,8 @@ export gsl_rng_mt19937, gsl_rng_ranlxs0, gsl_rng_ranlxs1, gsl_rng_ranlxs2,
        gsl_rng_cmrg, gsl_rng_mrg, gsl_rng_taus, gsl_rng_taus2, gsl_rng_gfsr4
 
 
-# The MT19937 generator of Makoto Matsumoto and Takuji Nishimura is a variant
+### Function uses unknown type; disabled
+### # The MT19937 generator of Makoto Matsumoto and Takuji Nishimura is a variant
 # of the twisted generalized feedback shift-register algorithm, and is known as
 # the “Mersenne Twister” generator.  It has a Mersenne prime period of  2^19937
 # - 1 (about  10^6000) and is equi-distributed in 623 dimensions.  It has
@@ -28,16 +29,17 @@ export gsl_rng_mt19937, gsl_rng_ranlxs0, gsl_rng_ranlxs1, gsl_rng_ranlxs2,
 # through the alternative generators gsl_rng_mt19937_1999 and
 # gsl_rng_mt19937_1998.
 # 
-#   {$2^{19937} - 1$} 
-#   {$10^{6000}$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_mt19937 ()
-    ccall( (:gsl_rng_mt19937, "libgsl"), , () )
-end
+### #   {$2^{19937} - 1$} 
+### #   {$10^{6000}$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_mt19937 ()
+###     ccall( (:gsl_rng_mt19937, "libgsl"), , () )
+### end
 
 
-#  The generator ranlxs0 is a second-generation version of the ranlux algorithm
+### Function uses unknown type; disabled
+### #  The generator ranlxs0 is a second-generation version of the ranlux algorithm
 # of Lüscher, which produces “luxury random numbers”.  This generator provides
 # single precision output (24 bits) at three luxury levels ranlxs0, ranlxs1 and
 # ranlxs2, in increasing order of strength.  It uses double-precision floating
@@ -50,17 +52,18 @@ end
 # allowed seeds for this generator is  [0,2^31-1]. Higher seed values are
 # wrapped modulo  2^31.
 # 
-#   {$10^{171}$} 
-#   {$[0,2^{31}-1]$} 
-#   {$2^{31}$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_ranlxs0 ()
-    ccall( (:gsl_rng_ranlxs0, "libgsl"), , () )
-end
+### #   {$10^{171}$} 
+### #   {$[0,2^{31}-1]$} 
+### #   {$2^{31}$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_ranlxs0 ()
+###     ccall( (:gsl_rng_ranlxs0, "libgsl"), , () )
+### end
 
 
-#  The generator ranlxs0 is a second-generation version of the ranlux algorithm
+### Function uses unknown type; disabled
+### #  The generator ranlxs0 is a second-generation version of the ranlux algorithm
 # of Lüscher, which produces “luxury random numbers”.  This generator provides
 # single precision output (24 bits) at three luxury levels ranlxs0, ranlxs1 and
 # ranlxs2, in increasing order of strength.  It uses double-precision floating
@@ -73,14 +76,15 @@ end
 # allowed seeds for this generator is  [0,2^31-1]. Higher seed values are
 # wrapped modulo  2^31.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_ranlxs1 ()
-    ccall( (:gsl_rng_ranlxs1, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_ranlxs1 ()
+###     ccall( (:gsl_rng_ranlxs1, "libgsl"), , () )
+### end
 
 
-#  The generator ranlxs0 is a second-generation version of the ranlux algorithm
+### Function uses unknown type; disabled
+### #  The generator ranlxs0 is a second-generation version of the ranlux algorithm
 # of Lüscher, which produces “luxury random numbers”.  This generator provides
 # single precision output (24 bits) at three luxury levels ranlxs0, ranlxs1 and
 # ranlxs2, in increasing order of strength.  It uses double-precision floating
@@ -93,36 +97,39 @@ end
 # allowed seeds for this generator is  [0,2^31-1]. Higher seed values are
 # wrapped modulo  2^31.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_ranlxs2 ()
-    ccall( (:gsl_rng_ranlxs2, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_ranlxs2 ()
+###     ccall( (:gsl_rng_ranlxs2, "libgsl"), , () )
+### end
 
 
-#  These generators produce double precision output (48 bits) from the ranlxs
+### Function uses unknown type; disabled
+### #  These generators produce double precision output (48 bits) from the ranlxs
 # generator.  The library provides two luxury levels ranlxd1 and ranlxd2, in
 # increasing order of strength.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_ranlxd1 ()
-    ccall( (:gsl_rng_ranlxd1, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_ranlxd1 ()
+###     ccall( (:gsl_rng_ranlxd1, "libgsl"), , () )
+### end
 
 
-#  These generators produce double precision output (48 bits) from the ranlxs
+### Function uses unknown type; disabled
+### #  These generators produce double precision output (48 bits) from the ranlxs
 # generator.  The library provides two luxury levels ranlxd1 and ranlxd2, in
 # increasing order of strength.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_ranlxd2 ()
-    ccall( (:gsl_rng_ranlxd2, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_ranlxd2 ()
+###     ccall( (:gsl_rng_ranlxd2, "libgsl"), , () )
+### end
 
 
-# The ranlux generator is an implementation of the original algorithm developed
+### Function uses unknown type; disabled
+### # The ranlux generator is an implementation of the original algorithm developed
 # by Lüscher.  It uses a lagged-fibonacci-with-skipping algorithm to produce
 # “luxury random numbers”.  It is a 24-bit generator, originally designed for
 # single-precision IEEE floating point numbers.  This implementation is based
@@ -140,15 +147,16 @@ end
 # implementation of the high-quality pseudo-random number generator of
 # Lüscher”, Computer Physics Communications, 79 (1994) 111–114
 # 
-#   {$10^{171}$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_ranlux ()
-    ccall( (:gsl_rng_ranlux, "libgsl"), , () )
-end
+### #   {$10^{171}$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_ranlux ()
+###     ccall( (:gsl_rng_ranlux, "libgsl"), , () )
+### end
 
 
-# The ranlux generator is an implementation of the original algorithm developed
+### Function uses unknown type; disabled
+### # The ranlux generator is an implementation of the original algorithm developed
 # by Lüscher.  It uses a lagged-fibonacci-with-skipping algorithm to produce
 # “luxury random numbers”.  It is a 24-bit generator, originally designed for
 # single-precision IEEE floating point numbers.  This implementation is based
@@ -166,14 +174,15 @@ end
 # implementation of the high-quality pseudo-random number generator of
 # Lüscher”, Computer Physics Communications, 79 (1994) 111–114
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_ranlux389 ()
-    ccall( (:gsl_rng_ranlux389, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_ranlux389 ()
+###     ccall( (:gsl_rng_ranlux389, "libgsl"), , () )
+### end
 
 
-# This is a combined multiple recursive generator by L'Ecuyer.  Its sequence
+### Function uses unknown type; disabled
+### # This is a combined multiple recursive generator by L'Ecuyer.  Its sequence
 # is,                 z_n = (x_n - y_n) mod m_1  where the two underlying
 # generators x_n and y_n are,                 x_n = (a_1 x_{n-1} + a_2 x_{n-2}
 # + a_3 x_{n-3}) mod m_1           y_n = (b_1 y_{n-1} + b_2 y_{n-2} + b_3
@@ -185,19 +194,20 @@ end
 # “Combined Multiple Recursive Random Number Generators”, Operations Research,
 # 44, 5 (1996), 816–822.
 # 
-#   {$m_1 = 2^{31} - 1 = 2147483647$} 
-#   {$m_2 = 2145483479$} 
-#   {$\hbox{lcm}(m_1^3-1, m_2^3-1)$} 
-#   {$2^{185}$} 
-#   {$10^{56}$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_cmrg ()
-    ccall( (:gsl_rng_cmrg, "libgsl"), , () )
-end
+### #   {$m_1 = 2^{31} - 1 = 2147483647$} 
+### #   {$m_2 = 2145483479$} 
+### #   {$\hbox{lcm}(m_1^3-1, m_2^3-1)$} 
+### #   {$2^{185}$} 
+### #   {$10^{56}$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_cmrg ()
+###     ccall( (:gsl_rng_cmrg, "libgsl"), , () )
+### end
 
 
-# This is a fifth-order multiple recursive generator by L'Ecuyer, Blouin and
+### Function uses unknown type; disabled
+### # This is a fifth-order multiple recursive generator by L'Ecuyer, Blouin and
 # Coutre.  Its sequence is,                 x_n = (a_1 x_{n-1} + a_5 x_{n-5})
 # mod m  with a_1 = 107374182, a_2 = a_3 = a_4 = 0, a_5 = 104480 and  m = 2^31
 # - 1.          The period of this generator is about  10^46.  It uses 5 words
@@ -206,16 +216,17 @@ end
 # multiple recursive random number generators”, ACM Transactions on Modeling
 # and Computer Simulation 3, 87–98 (1993).
 # 
-#   {$m = 2^{31}-1$} 
-#   {$10^{46}$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_mrg ()
-    ccall( (:gsl_rng_mrg, "libgsl"), , () )
-end
+### #   {$m = 2^{31}-1$} 
+### #   {$10^{46}$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_mrg ()
+###     ccall( (:gsl_rng_mrg, "libgsl"), , () )
+### end
 
 
-# This is a maximally equidistributed combined Tausworthe generator by
+### Function uses unknown type; disabled
+### # This is a maximally equidistributed combined Tausworthe generator by
 # L'Ecuyer.  The sequence is,                 x_n = (s1_n ^^ s2_n ^^ s3_n)
 # where,                 s1_{n+1} =
 # (((s1_n&4294967294)<<12)^^(((s1_n<<13)^^s1_n)>>19))           s2_{n+1} =
@@ -234,18 +245,19 @@ end
 # 225 (1999), 261–269  The generator gsl_rng_taus2 should now be used in
 # preference to gsl_rng_taus.
 # 
-#   {$2^{32}$} 
-#   {$\oplus$} 
-#   {$2^{88}$} 
-#   {$10^{26}$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_taus ()
-    ccall( (:gsl_rng_taus, "libgsl"), , () )
-end
+### #   {$2^{32}$} 
+### #   {$\oplus$} 
+### #   {$2^{88}$} 
+### #   {$10^{26}$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_taus ()
+###     ccall( (:gsl_rng_taus, "libgsl"), , () )
+### end
 
 
-# This is a maximally equidistributed combined Tausworthe generator by
+### Function uses unknown type; disabled
+### # This is a maximally equidistributed combined Tausworthe generator by
 # L'Ecuyer.  The sequence is,                 x_n = (s1_n ^^ s2_n ^^ s3_n)
 # where,                 s1_{n+1} =
 # (((s1_n&4294967294)<<12)^^(((s1_n<<13)^^s1_n)>>19))           s2_{n+1} =
@@ -264,14 +276,15 @@ end
 # 225 (1999), 261–269  The generator gsl_rng_taus2 should now be used in
 # preference to gsl_rng_taus.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_taus2 ()
-    ccall( (:gsl_rng_taus2, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_taus2 ()
+###     ccall( (:gsl_rng_taus2, "libgsl"), , () )
+### end
 
 
-# The gfsr4 generator is like a lagged-fibonacci generator, and produces each
+### Function uses unknown type; disabled
+### # The gfsr4 generator is like a lagged-fibonacci generator, and produces each
 # number as an xor'd sum of four previous values.                 r_n = r_{n-A}
 # ^^ r_{n-B} ^^ r_{n-C} ^^ r_{n-D}  Ziff (ref below) notes that “it is now
 # widely known” that two-tap registers (such as R250, which is described below)
@@ -297,9 +310,9 @@ end
 # random-number generators”, Computers in Physics, 12(4), Jul/Aug 1998, pp
 # 385–392.
 # 
-#   {$10^{2917}$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_gfsr4 ()
-    ccall( (:gsl_rng_gfsr4, "libgsl"), , () )
-end
+### #   {$10^{2917}$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_gfsr4 ()
+###     ccall( (:gsl_rng_gfsr4, "libgsl"), , () )
+### end

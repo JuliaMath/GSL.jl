@@ -20,12 +20,14 @@ function gsl_sf_expint_Ei (x::Cdouble)
 end
 
 
-# These routines compute the exponential integral  Ei(x),                 Ei(x)
+### Function uses unknown type; disabled
+### # These routines compute the exponential integral  Ei(x),                 Ei(x)
 # := - PV(\int_{-x}^\infty dt \exp(-t)/t)  where PV denotes the principal value
 # of the integral.
 # 
-#   Returns: Cint
-function gsl_sf_expint_Ei_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_expint_Ei_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_expint_Ei_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_expint_Ei_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end

@@ -24,14 +24,16 @@ function gsl_sf_legendre_Plm (l::Cint, m::Cint, x::Cdouble)
 end
 
 
-# These routines compute the associated Legendre polynomial P_l^m(x) for  m >=
+### Function uses unknown type; disabled
+### # These routines compute the associated Legendre polynomial P_l^m(x) for  m >=
 # 0,  l >= m,  |x| <= 1.
 # 
-#   Returns: Cint
-function gsl_sf_legendre_Plm_e (l::Cint, m::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_legendre_Plm_e, "libgsl"), Cint, (Cint, Cint, Cdouble,
-        Ptr{gsl_sf_result}), l, m, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_legendre_Plm_e (l::Cint, m::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_legendre_Plm_e, "libgsl"), Cint, (Cint, Cint, Cdouble,
+###         Ptr{gsl_sf_result}), l, m, x, result )
+### end
 
 
 # These functions compute arrays of Legendre polynomials P_l^m(x) and
@@ -76,17 +78,19 @@ function gsl_sf_legendre_sphPlm (l::Cint, m::Cint, x::Cdouble)
 end
 
 
-# These routines compute the normalized associated Legendre polynomial
+### Function uses unknown type; disabled
+### # These routines compute the normalized associated Legendre polynomial
 # \sqrt{(2l+1)/(4\pi)} \sqrt{(l-m)!/(l+m)!} P_l^m(x) suitable for use in
 # spherical harmonics.  The parameters must satisfy  m >= 0,  l >= m,  |x| <=
 # 1. Theses routines avoid the overflows that occur for the standard
 # normalization of P_l^m(x).
 # 
-#   Returns: Cint
-function gsl_sf_legendre_sphPlm_e (l::Cint, m::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_legendre_sphPlm_e, "libgsl"), Cint, (Cint, Cint,
-        Cdouble, Ptr{gsl_sf_result}), l, m, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_legendre_sphPlm_e (l::Cint, m::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_legendre_sphPlm_e, "libgsl"), Cint, (Cint, Cint,
+###         Cdouble, Ptr{gsl_sf_result}), l, m, x, result )
+### end
 
 
 # These functions compute arrays of normalized associated Legendre functions

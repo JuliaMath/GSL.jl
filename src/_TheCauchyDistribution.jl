@@ -8,17 +8,19 @@ export gsl_ran_cauchy, gsl_ran_cauchy_pdf, gsl_cdf_cauchy_P, gsl_cdf_cauchy_Q,
        gsl_cdf_cauchy_Pinv, gsl_cdf_cauchy_Qinv
 
 
-# This function returns a random variate from the Cauchy distribution with
+### Function uses unknown type; disabled
+### # This function returns a random variate from the Cauchy distribution with
 # scale parameter a.  The probability distribution for Cauchy random variates
 # is,                 p(x) dx = {1 \over a\pi (1 + (x/a)^2) } dx  for x in the
 # range -\infty to +\infty.  The Cauchy distribution is also known as the
 # Lorentz distribution.
 # 
-#   Returns: Cdouble
-function gsl_ran_cauchy (r::Ptr{gsl_rng}, a::Cdouble)
-    ccall( (:gsl_ran_cauchy, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble),
-        r, a )
-end
+### #   Returns: Cdouble
+### #XXX Unknown input type r::Ptr{gsl_rng}
+### function gsl_ran_cauchy (r::Ptr{gsl_rng}, a::Cdouble)
+###     ccall( (:gsl_ran_cauchy, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble),
+###         r, a )
+### end
 
 
 # This function computes the probability density p(x) at x for a Cauchy

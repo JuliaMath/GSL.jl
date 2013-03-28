@@ -41,34 +41,40 @@ function gsl_sf_gegenpoly_3 (lambda::Cdouble, x::Cdouble)
 end
 
 
-# These functions evaluate the Gegenbauer polynomials  C^{(\lambda)}_n(x) using
+### Function uses unknown type; disabled
+### # These functions evaluate the Gegenbauer polynomials  C^{(\lambda)}_n(x) using
 # explicit representations for n =1, 2, 3.
 # 
-#   Returns: Cint
-function gsl_sf_gegenpoly_1_e (lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_gegenpoly_1_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), lambda, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_gegenpoly_1_e (lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_gegenpoly_1_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), lambda, x, result )
+### end
 
 
-# These functions evaluate the Gegenbauer polynomials  C^{(\lambda)}_n(x) using
+### Function uses unknown type; disabled
+### # These functions evaluate the Gegenbauer polynomials  C^{(\lambda)}_n(x) using
 # explicit representations for n =1, 2, 3.
 # 
-#   Returns: Cint
-function gsl_sf_gegenpoly_2_e (lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_gegenpoly_2_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), lambda, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_gegenpoly_2_e (lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_gegenpoly_2_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), lambda, x, result )
+### end
 
 
-# These functions evaluate the Gegenbauer polynomials  C^{(\lambda)}_n(x) using
+### Function uses unknown type; disabled
+### # These functions evaluate the Gegenbauer polynomials  C^{(\lambda)}_n(x) using
 # explicit representations for n =1, 2, 3.
 # 
-#   Returns: Cint
-function gsl_sf_gegenpoly_3_e (lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_gegenpoly_3_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), lambda, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_gegenpoly_3_e (lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_gegenpoly_3_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), lambda, x, result )
+### end
 
 
 # These functions evaluate the Gegenbauer polynomial  C^{(\lambda)}_n(x) for a
@@ -85,14 +91,16 @@ function gsl_sf_gegenpoly_n (n::Cint, lambda::Cdouble, x::Cdouble)
 end
 
 
-# These functions evaluate the Gegenbauer polynomial  C^{(\lambda)}_n(x) for a
+### Function uses unknown type; disabled
+### # These functions evaluate the Gegenbauer polynomial  C^{(\lambda)}_n(x) for a
 # specific value of n, lambda, x subject to \lambda > -1/2,  n >= 0.
 # 
-#   Returns: Cint
-function gsl_sf_gegenpoly_n_e (n::Cint, lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_gegenpoly_n_e, "libgsl"), Cint, (Cint, Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), n, lambda, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_gegenpoly_n_e (n::Cint, lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_gegenpoly_n_e, "libgsl"), Cint, (Cint, Cdouble,
+###         Cdouble, Ptr{gsl_sf_result}), n, lambda, x, result )
+### end
 
 
 # This function computes an array of Gegenbauer polynomials  C^{(\lambda)}_n(x)

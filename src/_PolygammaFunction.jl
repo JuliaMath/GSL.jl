@@ -20,11 +20,13 @@ function gsl_sf_psi_n (n::Cint, x::Cdouble)
 end
 
 
-# These routines compute the polygamma function  \psi^{(n)}(x) for  n >= 0, x >
+### Function uses unknown type; disabled
+### # These routines compute the polygamma function  \psi^{(n)}(x) for  n >= 0, x >
 # 0.
 # 
-#   Returns: Cint
-function gsl_sf_psi_n_e (n::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_psi_n_e, "libgsl"), Cint, (Cint, Cdouble,
-        Ptr{gsl_sf_result}), n, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_psi_n_e (n::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_psi_n_e, "libgsl"), Cint, (Cint, Cdouble,
+###         Ptr{gsl_sf_result}), n, x, result )
+### end

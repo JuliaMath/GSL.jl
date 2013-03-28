@@ -11,7 +11,8 @@ export gsl_multifit_function, gsl_multifit_function, gsl_multifit_function,
        gsl_multifit_function_fdf
 
 
-# This data type defines a general system of functions with arbitrary
+### Function uses unknown type; disabled
+### # This data type defines a general system of functions with arbitrary
 # parameters.             int (* f) (const gsl_vector * x, void * params,
 # gsl_vector * f)this function should store the vector result  f(x,params) in f
 # for argument x and arbitrary parameters params, returning an appropriate
@@ -21,15 +22,16 @@ export gsl_multifit_function, gsl_multifit_function, gsl_multifit_function,
 # the vector x.            void * paramsa pointer to the arbitrary parameters
 # of the function.
 # 
-#   {$f(x,\hbox{\it params})$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multifit_function ()
-    ccall( (:gsl_multifit_function, "libgsl"), , () )
-end
+### #   {$f(x,\hbox{\it params})$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multifit_function ()
+###     ccall( (:gsl_multifit_function, "libgsl"), , () )
+### end
 
 
-# This data type defines a general system of functions with arbitrary
+### Function uses unknown type; disabled
+### # This data type defines a general system of functions with arbitrary
 # parameters and the corresponding Jacobian matrix of derivatives,
 # int (* f) (const gsl_vector * x, void * params, gsl_vector * f)this function
 # should store the vector result  f(x,params) in f for argument x and arbitrary
@@ -48,16 +50,17 @@ end
 # components of the vector x.            void * paramsa pointer to the
 # arbitrary parameters of the function.
 # 
-#   {$f(x,\hbox{\it params})$} 
-#   {$J_{ij} = \partial f_i(x,\hbox{\it params}) / \partial x_j$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multifit_function ()
-    ccall( (:gsl_multifit_function, "libgsl"), , () )
-end
+### #   {$f(x,\hbox{\it params})$} 
+### #   {$J_{ij} = \partial f_i(x,\hbox{\it params}) / \partial x_j$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multifit_function ()
+###     ccall( (:gsl_multifit_function, "libgsl"), , () )
+### end
 
 
-# This data type defines a general system of functions with arbitrary
+### Function uses unknown type; disabled
+### # This data type defines a general system of functions with arbitrary
 # parameters and the corresponding Jacobian matrix of derivatives,
 # int (* f) (const gsl_vector * x, void * params, gsl_vector * f)this function
 # should store the vector result  f(x,params) in f for argument x and arbitrary
@@ -76,14 +79,15 @@ end
 # components of the vector x.            void * paramsa pointer to the
 # arbitrary parameters of the function.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multifit_function ()
-    ccall( (:gsl_multifit_function, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multifit_function ()
+###     ccall( (:gsl_multifit_function, "libgsl"), , () )
+### end
 
 
-# This data type defines a general system of functions with arbitrary
+### Function uses unknown type; disabled
+### # This data type defines a general system of functions with arbitrary
 # parameters and the corresponding Jacobian matrix of derivatives,
 # int (* f) (const gsl_vector * x, void * params, gsl_vector * f)this function
 # should store the vector result  f(x,params) in f for argument x and arbitrary
@@ -102,14 +106,15 @@ end
 # components of the vector x.            void * paramsa pointer to the
 # arbitrary parameters of the function.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multifit_function ()
-    ccall( (:gsl_multifit_function, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multifit_function ()
+###     ccall( (:gsl_multifit_function, "libgsl"), , () )
+### end
 
 
-# This data type defines a general system of functions with arbitrary
+### Function uses unknown type; disabled
+### # This data type defines a general system of functions with arbitrary
 # parameters and the corresponding Jacobian matrix of derivatives,
 # int (* f) (const gsl_vector * x, void * params, gsl_vector * f)this function
 # should store the vector result  f(x,params) in f for argument x and arbitrary
@@ -128,53 +133,58 @@ end
 # components of the vector x.            void * paramsa pointer to the
 # arbitrary parameters of the function.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multifit_function_fdf ()
-    ccall( (:gsl_multifit_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multifit_function_fdf ()
+###     ccall( (:gsl_multifit_function_fdf, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multifit_function_fdf ()
-    ccall( (:gsl_multifit_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multifit_function_fdf ()
+###     ccall( (:gsl_multifit_function_fdf, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multifit_function_fdf ()
-    ccall( (:gsl_multifit_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multifit_function_fdf ()
+###     ccall( (:gsl_multifit_function_fdf, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multifit_function_fdf ()
-    ccall( (:gsl_multifit_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multifit_function_fdf ()
+###     ccall( (:gsl_multifit_function_fdf, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multifit_function_fdf ()
-    ccall( (:gsl_multifit_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multifit_function_fdf ()
+###     ccall( (:gsl_multifit_function_fdf, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multifit_function_fdf ()
-    ccall( (:gsl_multifit_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multifit_function_fdf ()
+###     ccall( (:gsl_multifit_function_fdf, "libgsl"), , () )
+### end

@@ -8,7 +8,8 @@ export gsl_min_fminimizer_goldensection, gsl_min_fminimizer_brent,
        gsl_min_fminimizer_quad_golden
 
 
-#  The golden section algorithm is the simplest method of bracketing the
+### Function uses unknown type; disabled
+### #  The golden section algorithm is the simplest method of bracketing the
 # minimum of a function.  It is the slowest algorithm provided by the library,
 # with linear convergence.          On each iteration, the algorithm first
 # compares the subintervals from the endpoints to the current minimum.  The
@@ -21,14 +22,15 @@ export gsl_min_fminimizer_goldensection, gsl_min_fminimizer_brent,
 # ratio can be shown to provide the fastest convergence for this type of
 # algorithm.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_min_fminimizer_goldensection ()
-    ccall( (:gsl_min_fminimizer_goldensection, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_min_fminimizer_goldensection ()
+###     ccall( (:gsl_min_fminimizer_goldensection, "libgsl"), , () )
+### end
 
 
-#  The Brent minimization algorithm combines a parabolic interpolation with the
+### Function uses unknown type; disabled
+### #  The Brent minimization algorithm combines a parabolic interpolation with the
 # golden section algorithm.  This produces a fast algorithm which is still
 # robust.          The outline of the algorithm can be summarized as follows:
 # on each iteration Brent's method approximates the function using an
@@ -40,18 +42,19 @@ end
 # details of Brent's method include some additional checks to improve
 # convergence.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_min_fminimizer_brent ()
-    ccall( (:gsl_min_fminimizer_brent, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_min_fminimizer_brent ()
+###     ccall( (:gsl_min_fminimizer_brent, "libgsl"), , () )
+### end
 
 
-# This is a variant of Brent's algorithm which uses the safeguarded step-length
+### Function uses unknown type; disabled
+### # This is a variant of Brent's algorithm which uses the safeguarded step-length
 # algorithm of Gill and Murray.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_min_fminimizer_quad_golden ()
-    ccall( (:gsl_min_fminimizer_quad_golden, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_min_fminimizer_quad_golden ()
+###     ccall( (:gsl_min_fminimizer_quad_golden, "libgsl"), , () )
+### end

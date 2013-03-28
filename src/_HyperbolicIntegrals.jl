@@ -17,13 +17,15 @@ function gsl_sf_Shi (x::Cdouble)
 end
 
 
-# These routines compute the integral  Shi(x) = \int_0^x dt \sinh(t)/t.
+### Function uses unknown type; disabled
+### # These routines compute the integral  Shi(x) = \int_0^x dt \sinh(t)/t.
 # 
-#   Returns: Cint
-function gsl_sf_Shi_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_Shi_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
-        x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_Shi_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_Shi_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
+###         x, result )
+### end
 
 
 # These routines compute the integral   Chi(x) := \Re[ \gamma_E + \log(x) +
@@ -39,12 +41,14 @@ function gsl_sf_Chi (x::Cdouble)
 end
 
 
-# These routines compute the integral   Chi(x) := \Re[ \gamma_E + \log(x) +
+### Function uses unknown type; disabled
+### # These routines compute the integral   Chi(x) := \Re[ \gamma_E + \log(x) +
 # \int_0^x dt (\cosh(t)-1)/t] , where \gamma_E is the Euler constant (available
 # as the macro M_EULER).
 # 
-#   Returns: Cint
-function gsl_sf_Chi_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_Chi_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
-        x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_Chi_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_Chi_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
+###         x, result )
+### end

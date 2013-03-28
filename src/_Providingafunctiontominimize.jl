@@ -10,7 +10,8 @@ export gsl_multimin_function_fdf, gsl_multimin_function_fdf,
        gsl_multimin_function
 
 
-# This data type defines a general function of n variables with parameters and
+### Function uses unknown type; disabled
+### # This data type defines a general function of n variables with parameters and
 # the corresponding gradient vector of derivatives,             double (* f)
 # (const gsl_vector * x, void * params)this function should return the result
 # f(x,params) for argument x and parameters params.  If the function cannot be
@@ -27,16 +28,17 @@ export gsl_multimin_function_fdf, gsl_multimin_function_fdf,
 # components of the vectors x.            void * paramsa pointer to the
 # parameters of the function.
 # 
-#   {$f(x,\hbox{\it params})$} 
-#   {$g_i = \partial f(x,\hbox{\it params}) / \partial x_i$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_function_fdf ()
-    ccall( (:gsl_multimin_function_fdf, "libgsl"), , () )
-end
+### #   {$f(x,\hbox{\it params})$} 
+### #   {$g_i = \partial f(x,\hbox{\it params}) / \partial x_i$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_function_fdf ()
+###     ccall( (:gsl_multimin_function_fdf, "libgsl"), , () )
+### end
 
 
-# This data type defines a general function of n variables with parameters,
+### Function uses unknown type; disabled
+### # This data type defines a general function of n variables with parameters,
 # double (* f) (const gsl_vector * x, void * params)this function should return
 # the result  f(x,params) for argument x and parameters params.  If the
 # function cannot be computed, an error value of GSL_NAN should be returned.
@@ -44,15 +46,16 @@ end
 # vectors x.            void * paramsa pointer to the parameters of the
 # function.
 # 
-#   {$f(x,\hbox{\it params})$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_function_fdf ()
-    ccall( (:gsl_multimin_function_fdf, "libgsl"), , () )
-end
+### #   {$f(x,\hbox{\it params})$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_function_fdf ()
+###     ccall( (:gsl_multimin_function_fdf, "libgsl"), , () )
+### end
 
 
-# This data type defines a general function of n variables with parameters,
+### Function uses unknown type; disabled
+### # This data type defines a general function of n variables with parameters,
 # double (* f) (const gsl_vector * x, void * params)this function should return
 # the result  f(x,params) for argument x and parameters params.  If the
 # function cannot be computed, an error value of GSL_NAN should be returned.
@@ -60,14 +63,15 @@ end
 # vectors x.            void * paramsa pointer to the parameters of the
 # function.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_function_fdf ()
-    ccall( (:gsl_multimin_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_function_fdf ()
+###     ccall( (:gsl_multimin_function_fdf, "libgsl"), , () )
+### end
 
 
-# This data type defines a general function of n variables with parameters,
+### Function uses unknown type; disabled
+### # This data type defines a general function of n variables with parameters,
 # double (* f) (const gsl_vector * x, void * params)this function should return
 # the result  f(x,params) for argument x and parameters params.  If the
 # function cannot be computed, an error value of GSL_NAN should be returned.
@@ -75,14 +79,15 @@ end
 # vectors x.            void * paramsa pointer to the parameters of the
 # function.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_function_fdf ()
-    ccall( (:gsl_multimin_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_function_fdf ()
+###     ccall( (:gsl_multimin_function_fdf, "libgsl"), , () )
+### end
 
 
-# This data type defines a general function of n variables with parameters,
+### Function uses unknown type; disabled
+### # This data type defines a general function of n variables with parameters,
 # double (* f) (const gsl_vector * x, void * params)this function should return
 # the result  f(x,params) for argument x and parameters params.  If the
 # function cannot be computed, an error value of GSL_NAN should be returned.
@@ -90,14 +95,15 @@ end
 # vectors x.            void * paramsa pointer to the parameters of the
 # function.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_function_fdf ()
-    ccall( (:gsl_multimin_function_fdf, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_function_fdf ()
+###     ccall( (:gsl_multimin_function_fdf, "libgsl"), , () )
+### end
 
 
-# This data type defines a general function of n variables with parameters,
+### Function uses unknown type; disabled
+### # This data type defines a general function of n variables with parameters,
 # double (* f) (const gsl_vector * x, void * params)this function should return
 # the result  f(x,params) for argument x and parameters params.  If the
 # function cannot be computed, an error value of GSL_NAN should be returned.
@@ -105,26 +111,28 @@ end
 # vectors x.            void * paramsa pointer to the parameters of the
 # function.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_function ()
-    ccall( (:gsl_multimin_function, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_function ()
+###     ccall( (:gsl_multimin_function, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_function ()
-    ccall( (:gsl_multimin_function, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_function ()
+###     ccall( (:gsl_multimin_function, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_function ()
-    ccall( (:gsl_multimin_function, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_function ()
+###     ccall( (:gsl_multimin_function, "libgsl"), , () )
+### end

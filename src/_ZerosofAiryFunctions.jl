@@ -17,14 +17,16 @@ function gsl_sf_airy_zero_Ai (s::Cuint)
 end
 
 
-# These routines compute the location of the s-th zero of the Airy function
+### Function uses unknown type; disabled
+### # These routines compute the location of the s-th zero of the Airy function
 # Ai(x).
 # 
-#   Returns: Cint
-function gsl_sf_airy_zero_Ai_e (s::Cuint, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_airy_zero_Ai_e, "libgsl"), Cint, (Cuint,
-        Ptr{gsl_sf_result}), s, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_airy_zero_Ai_e (s::Cuint, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_airy_zero_Ai_e, "libgsl"), Cint, (Cuint,
+###         Ptr{gsl_sf_result}), s, result )
+### end
 
 
 # These routines compute the location of the s-th zero of the Airy function
@@ -36,11 +38,13 @@ function gsl_sf_airy_zero_Bi (s::Cuint)
 end
 
 
-# These routines compute the location of the s-th zero of the Airy function
+### Function uses unknown type; disabled
+### # These routines compute the location of the s-th zero of the Airy function
 # Bi(x).
 # 
-#   Returns: Cint
-function gsl_sf_airy_zero_Bi_e (s::Cuint, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_airy_zero_Bi_e, "libgsl"), Cint, (Cuint,
-        Ptr{gsl_sf_result}), s, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_airy_zero_Bi_e (s::Cuint, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_airy_zero_Bi_e, "libgsl"), Cint, (Cuint,
+###         Ptr{gsl_sf_result}), s, result )
+### end

@@ -40,34 +40,40 @@ function gsl_sf_laguerre_3 (a::Cdouble, x::Cdouble)
 end
 
 
-# These routines evaluate the generalized Laguerre polynomials L^a_1(x),
+### Function uses unknown type; disabled
+### # These routines evaluate the generalized Laguerre polynomials L^a_1(x),
 # L^a_2(x), L^a_3(x) using explicit representations.
 # 
-#   Returns: Cint
-function gsl_sf_laguerre_1_e (a::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_laguerre_1_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), a, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_laguerre_1_e (a::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_laguerre_1_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), a, x, result )
+### end
 
 
-# These routines evaluate the generalized Laguerre polynomials L^a_1(x),
+### Function uses unknown type; disabled
+### # These routines evaluate the generalized Laguerre polynomials L^a_1(x),
 # L^a_2(x), L^a_3(x) using explicit representations.
 # 
-#   Returns: Cint
-function gsl_sf_laguerre_2_e (a::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_laguerre_2_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), a, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_laguerre_2_e (a::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_laguerre_2_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), a, x, result )
+### end
 
 
-# These routines evaluate the generalized Laguerre polynomials L^a_1(x),
+### Function uses unknown type; disabled
+### # These routines evaluate the generalized Laguerre polynomials L^a_1(x),
 # L^a_2(x), L^a_3(x) using explicit representations.
 # 
-#   Returns: Cint
-function gsl_sf_laguerre_3_e (a::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_laguerre_3_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), a, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_laguerre_3_e (a::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_laguerre_3_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), a, x, result )
+### end
 
 
 # These routines evaluate the generalized Laguerre polynomials L^a_n(x) for a >
@@ -84,11 +90,13 @@ function gsl_sf_laguerre_n (n::Cint, a::Cdouble, x::Cdouble)
 end
 
 
-# These routines evaluate the generalized Laguerre polynomials L^a_n(x) for a >
+### Function uses unknown type; disabled
+### # These routines evaluate the generalized Laguerre polynomials L^a_n(x) for a >
 # -1,  n >= 0.
 # 
-#   Returns: Cint
-function gsl_sf_laguerre_n_e (n::Cint, a::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_laguerre_n_e, "libgsl"), Cint, (Cint, Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), n, a, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_laguerre_n_e (n::Cint, a::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_laguerre_n_e, "libgsl"), Cint, (Cint, Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), n, a, x, result )
+### end

@@ -13,28 +13,33 @@ export gsl_monte_miser_alloc, gsl_monte_miser_init, gsl_monte_miser_integrate,
        min_calls_per_bisection, alpha, dither
 
 
-# This function allocates and initializes a workspace for Monte Carlo
+### Function uses unknown type; disabled
+### # This function allocates and initializes a workspace for Monte Carlo
 # integration in dim dimensions.  The workspace is used to maintain the state
 # of the integration.
 # 
-#   Returns: Ptr{gsl_monte_miser_state}
-function gsl_monte_miser_alloc (dim::Csize_t)
-    ccall( (:gsl_monte_miser_alloc, "libgsl"), Ptr{gsl_monte_miser_state},
-        (Csize_t, ), dim )
-end
+### #   Returns: Ptr{gsl_monte_miser_state}
+### #XXX Unknown output type Ptr{gsl_monte_miser_state}
+### function gsl_monte_miser_alloc (dim::Csize_t)
+###     ccall( (:gsl_monte_miser_alloc, "libgsl"), Ptr{gsl_monte_miser_state},
+###         (Csize_t, ), dim )
+### end
 
 
-# This function initializes a previously allocated integration state.  This
+### Function uses unknown type; disabled
+### # This function initializes a previously allocated integration state.  This
 # allows an existing workspace to be reused for different integrations.
 # 
-#   Returns: Cint
-function gsl_monte_miser_init (s::Ptr{gsl_monte_miser_state})
-    ccall( (:gsl_monte_miser_init, "libgsl"), Cint,
-        (Ptr{gsl_monte_miser_state}, ), s )
-end
+### #   Returns: Cint
+### #XXX Unknown input type s::Ptr{gsl_monte_miser_state}
+### function gsl_monte_miser_init (s::Ptr{gsl_monte_miser_state})
+###     ccall( (:gsl_monte_miser_init, "libgsl"), Cint,
+###         (Ptr{gsl_monte_miser_state}, ), s )
+### end
 
 
-# This routines uses the miser Monte Carlo algorithm to integrate the function
+### Function uses unknown type; disabled
+### # This routines uses the miser Monte Carlo algorithm to integrate the function
 # f over the dim-dimensional hypercubic region defined by the lower and upper
 # limits in the arrays xl and xu, each of size dim.  The integration uses a
 # fixed number of function calls calls, and obtains random sampling points
@@ -42,40 +47,49 @@ end
 # be supplied.  The result of the integration is returned in result, with an
 # estimated absolute error abserr.
 # 
-#   Returns: Cint
-function gsl_monte_miser_integrate (f::Ptr{gsl_monte_function}, xl::Cdouble)
-    ccall( (:gsl_monte_miser_integrate, "libgsl"), Cint,
-        (Ptr{gsl_monte_function}, Cdouble), f, xl )
-end
+### #   Returns: Cint
+### #XXX Unknown input type f::Ptr{gsl_monte_function}
+### function gsl_monte_miser_integrate (f::Ptr{gsl_monte_function}, xl::Cdouble)
+###     ccall( (:gsl_monte_miser_integrate, "libgsl"), Cint,
+###         (Ptr{gsl_monte_function}, Cdouble), f, xl )
+### end
 
 
-# This function frees the memory associated with the integrator state s.
+### Function uses unknown type; disabled
+### # This function frees the memory associated with the integrator state s.
 # 
-#   Returns: Void
-function gsl_monte_miser_free (s::Ptr{gsl_monte_miser_state})
-    ccall( (:gsl_monte_miser_free, "libgsl"), Void,
-        (Ptr{gsl_monte_miser_state}, ), s )
-end
+### #   Returns: Void
+### #XXX Unknown input type s::Ptr{gsl_monte_miser_state}
+### function gsl_monte_miser_free (s::Ptr{gsl_monte_miser_state})
+###     ccall( (:gsl_monte_miser_free, "libgsl"), Void,
+###         (Ptr{gsl_monte_miser_state}, ), s )
+### end
 
 
-# This function copies the parameters of the integrator state into the user-
+### Function uses unknown type; disabled
+### # This function copies the parameters of the integrator state into the user-
 # supplied params structure.
 # 
-#   Returns: Void
-function gsl_monte_miser_params_get (s::Ptr{gsl_monte_miser_state}, params::Ptr{gsl_monte_miser_params})
-    ccall( (:gsl_monte_miser_params_get, "libgsl"), Void,
-        (Ptr{gsl_monte_miser_state}, Ptr{gsl_monte_miser_params}), s, params )
-end
+### #   Returns: Void
+### #XXX Unknown input type s::Ptr{gsl_monte_miser_state}
+### #XXX Unknown input type params::Ptr{gsl_monte_miser_params}
+### function gsl_monte_miser_params_get (s::Ptr{gsl_monte_miser_state}, params::Ptr{gsl_monte_miser_params})
+###     ccall( (:gsl_monte_miser_params_get, "libgsl"), Void,
+###         (Ptr{gsl_monte_miser_state}, Ptr{gsl_monte_miser_params}), s, params )
+### end
 
 
-# This function sets the integrator parameters based on values provided in the
+### Function uses unknown type; disabled
+### # This function sets the integrator parameters based on values provided in the
 # params structure.
 # 
-#   Returns: Void
-function gsl_monte_miser_params_set (s::Ptr{gsl_monte_miser_state}, params::Ptr{gsl_monte_miser_params})
-    ccall( (:gsl_monte_miser_params_set, "libgsl"), Void,
-        (Ptr{gsl_monte_miser_state}, Ptr{gsl_monte_miser_params}), s, params )
-end
+### #   Returns: Void
+### #XXX Unknown input type s::Ptr{gsl_monte_miser_state}
+### #XXX Unknown input type params::Ptr{gsl_monte_miser_params}
+### function gsl_monte_miser_params_set (s::Ptr{gsl_monte_miser_state}, params::Ptr{gsl_monte_miser_params})
+###     ccall( (:gsl_monte_miser_params_set, "libgsl"), Void,
+###         (Ptr{gsl_monte_miser_state}, Ptr{gsl_monte_miser_params}), s, params )
+### end
 
 
 # This parameter specifies the fraction of the currently available number of

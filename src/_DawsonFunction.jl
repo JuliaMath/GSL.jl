@@ -16,10 +16,12 @@ function gsl_sf_dawson (x::Cdouble)
 end
 
 
-# These routines compute the value of Dawson's integral for x.
+### Function uses unknown type; disabled
+### # These routines compute the value of Dawson's integral for x.
 # 
-#   Returns: Cint
-function gsl_sf_dawson_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_dawson_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_dawson_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_dawson_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end

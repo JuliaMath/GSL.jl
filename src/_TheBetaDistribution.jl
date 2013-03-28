@@ -8,16 +8,18 @@ export gsl_ran_beta, gsl_ran_beta_pdf, gsl_cdf_beta_P, gsl_cdf_beta_Q,
        gsl_cdf_beta_Pinv, gsl_cdf_beta_Qinv
 
 
-# This function returns a random variate from the beta distribution.  The
+### Function uses unknown type; disabled
+### # This function returns a random variate from the beta distribution.  The
 # distribution function is,                 p(x) dx = {\Gamma(a+b) \over
 # \Gamma(a) \Gamma(b)} x^{a-1} (1-x)^{b-1} dx  for  0 <= x <= 1.
 # 
-#   {$0 \le x \le 1$} 
-#   Returns: Cdouble
-function gsl_ran_beta (r::Ptr{gsl_rng}, a::Cdouble, b::Cdouble)
-    ccall( (:gsl_ran_beta, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble,
-        Cdouble), r, a, b )
-end
+### #   {$0 \le x \le 1$} 
+### #   Returns: Cdouble
+### #XXX Unknown input type r::Ptr{gsl_rng}
+### function gsl_ran_beta (r::Ptr{gsl_rng}, a::Cdouble, b::Cdouble)
+###     ccall( (:gsl_ran_beta, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble,
+###         Cdouble), r, a, b )
+### end
 
 
 # This function computes the probability density p(x) at x for a beta

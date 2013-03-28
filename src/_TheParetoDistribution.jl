@@ -8,16 +8,18 @@ export gsl_ran_pareto, gsl_ran_pareto_pdf, gsl_cdf_pareto_P, gsl_cdf_pareto_Q,
        gsl_cdf_pareto_Pinv, gsl_cdf_pareto_Qinv
 
 
-# This function returns a random variate from the Pareto distribution of order
+### Function uses unknown type; disabled
+### # This function returns a random variate from the Pareto distribution of order
 # a.  The distribution function is,                 p(x) dx = (a/b) /
 # (x/b)^{a+1} dx  for  x >= b.
 # 
-#   {$x \ge b$} 
-#   Returns: Cdouble
-function gsl_ran_pareto (r::Ptr{gsl_rng}, a::Cdouble, b::Cdouble)
-    ccall( (:gsl_ran_pareto, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble,
-        Cdouble), r, a, b )
-end
+### #   {$x \ge b$} 
+### #   Returns: Cdouble
+### #XXX Unknown input type r::Ptr{gsl_rng}
+### function gsl_ran_pareto (r::Ptr{gsl_rng}, a::Cdouble, b::Cdouble)
+###     ccall( (:gsl_ran_pareto, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble,
+###         Cdouble), r, a, b )
+### end
 
 
 # This function computes the probability density p(x) at x for a Pareto

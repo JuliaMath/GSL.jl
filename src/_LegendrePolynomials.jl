@@ -41,34 +41,40 @@ function gsl_sf_legendre_P3 (x::Cdouble)
 end
 
 
-# These functions evaluate the Legendre polynomials  P_l(x) using explicit
+### Function uses unknown type; disabled
+### # These functions evaluate the Legendre polynomials  P_l(x) using explicit
 # representations for l=1, 2, 3.
 # 
-#   Returns: Cint
-function gsl_sf_legendre_P1_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_legendre_P1_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_legendre_P1_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_legendre_P1_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
-# These functions evaluate the Legendre polynomials  P_l(x) using explicit
+### Function uses unknown type; disabled
+### # These functions evaluate the Legendre polynomials  P_l(x) using explicit
 # representations for l=1, 2, 3.
 # 
-#   Returns: Cint
-function gsl_sf_legendre_P2_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_legendre_P2_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_legendre_P2_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_legendre_P2_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
-# These functions evaluate the Legendre polynomials  P_l(x) using explicit
+### Function uses unknown type; disabled
+### # These functions evaluate the Legendre polynomials  P_l(x) using explicit
 # representations for l=1, 2, 3.
 # 
-#   Returns: Cint
-function gsl_sf_legendre_P3_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_legendre_P3_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_legendre_P3_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_legendre_P3_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These functions evaluate the Legendre polynomial  P_l(x) for a specific value
@@ -85,14 +91,16 @@ function gsl_sf_legendre_Pl (l::Cint, x::Cdouble)
 end
 
 
-# These functions evaluate the Legendre polynomial  P_l(x) for a specific value
+### Function uses unknown type; disabled
+### # These functions evaluate the Legendre polynomial  P_l(x) for a specific value
 # of l, x subject to  l >= 0,  |x| <= 1
 # 
-#   Returns: Cint
-function gsl_sf_legendre_Pl_e (l::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_legendre_Pl_e, "libgsl"), Cint, (Cint, Cdouble,
-        Ptr{gsl_sf_result}), l, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_legendre_Pl_e (l::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_legendre_Pl_e, "libgsl"), Cint, (Cint, Cdouble,
+###         Ptr{gsl_sf_result}), l, x, result )
+### end
 
 
 # These functions compute arrays of Legendre polynomials P_l(x) and derivatives
@@ -127,13 +135,15 @@ function gsl_sf_legendre_Q0 (x::Cdouble)
 end
 
 
-# These routines compute the Legendre function Q_0(x) for x > -1,  x != 1.
+### Function uses unknown type; disabled
+### # These routines compute the Legendre function Q_0(x) for x > -1,  x != 1.
 # 
-#   Returns: Cint
-function gsl_sf_legendre_Q0_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_legendre_Q0_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_legendre_Q0_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_legendre_Q0_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the Legendre function Q_1(x) for x > -1,  x != 1.
@@ -146,13 +156,15 @@ function gsl_sf_legendre_Q1 (x::Cdouble)
 end
 
 
-# These routines compute the Legendre function Q_1(x) for x > -1,  x != 1.
+### Function uses unknown type; disabled
+### # These routines compute the Legendre function Q_1(x) for x > -1,  x != 1.
 # 
-#   Returns: Cint
-function gsl_sf_legendre_Q1_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_legendre_Q1_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_legendre_Q1_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_legendre_Q1_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the Legendre function Q_l(x) for x > -1,  x != 1 and
@@ -168,11 +180,13 @@ function gsl_sf_legendre_Ql (l::Cint, x::Cdouble)
 end
 
 
-# These routines compute the Legendre function Q_l(x) for x > -1,  x != 1 and
+### Function uses unknown type; disabled
+### # These routines compute the Legendre function Q_l(x) for x > -1,  x != 1 and
 # l >= 0.
 # 
-#   Returns: Cint
-function gsl_sf_legendre_Ql_e (l::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_legendre_Ql_e, "libgsl"), Cint, (Cint, Cdouble,
-        Ptr{gsl_sf_result}), l, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_legendre_Ql_e (l::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_legendre_Ql_e, "libgsl"), Cint, (Cint, Cdouble,
+###         Ptr{gsl_sf_result}), l, x, result )
+### end

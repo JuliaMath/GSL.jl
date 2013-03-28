@@ -8,15 +8,17 @@ export gsl_ran_gumbel1, gsl_ran_gumbel1_pdf, gsl_cdf_gumbel1_P,
        gsl_cdf_gumbel1_Q, gsl_cdf_gumbel1_Pinv, gsl_cdf_gumbel1_Qinv
 
 
-# This function returns  a random variate from the Type-1 Gumbel distribution.
+### Function uses unknown type; disabled
+### # This function returns  a random variate from the Type-1 Gumbel distribution.
 # The Type-1 Gumbel distribution function is,                 p(x) dx = a b
 # \exp(-(b \exp(-ax) + ax)) dx  for -\infty < x < \infty.
 # 
-#   Returns: Cdouble
-function gsl_ran_gumbel1 (r::Ptr{gsl_rng}, a::Cdouble, b::Cdouble)
-    ccall( (:gsl_ran_gumbel1, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble,
-        Cdouble), r, a, b )
-end
+### #   Returns: Cdouble
+### #XXX Unknown input type r::Ptr{gsl_rng}
+### function gsl_ran_gumbel1 (r::Ptr{gsl_rng}, a::Cdouble, b::Cdouble)
+###     ccall( (:gsl_ran_gumbel1, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble,
+###         Cdouble), r, a, b )
+### end
 
 
 # This function computes the probability density p(x) at x for a Type-1 Gumbel

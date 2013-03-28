@@ -9,7 +9,8 @@ export gsl_sf_coulomb_wave_FG_e, gsl_sf_coulomb_wave_F_array,
        gsl_sf_coulomb_wave_sphF_array
 
 
-# This function computes the Coulomb wave functions F_L(\eta,x),
+### Function uses unknown type; disabled
+### # This function computes the Coulomb wave functions F_L(\eta,x),
 # G_{L-k}(\eta,x) and their derivatives F'_L(\eta,x),  G'_{L-k}(\eta,x) with
 # respect to x.  The parameters are restricted to L, L-k > -1/2, x > 0 and
 # integer k.  Note that L itself is not restricted to being an integer. The
@@ -17,15 +18,19 @@ export gsl_sf_coulomb_wave_FG_e, gsl_sf_coulomb_wave_F_array,
 # for the derivative values.  If an overflow occurs, GSL_EOVRFLW is returned
 # and scaling exponents are stored in the modifiable parameters exp_F, exp_G.
 # 
-#   {$G_{L-k}(\eta,x)$} 
-#   {$G'_{L-k}(\eta,x)$} 
-#   Returns: Cint
-function gsl_sf_coulomb_wave_FG_e (eta::Cdouble, x::Cdouble, L_F::Cdouble, k::Cint, F::Ptr{gsl_sf_result}, Fp::Ptr{gsl_sf_result}, G::Ptr{gsl_sf_result}, Gp::Ptr{gsl_sf_result}, exp_F::Ptr{Cdouble}, exp_G::Ptr{Cdouble})
-    ccall( (:gsl_sf_coulomb_wave_FG_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Cdouble, Cint, Ptr{gsl_sf_result}, Ptr{gsl_sf_result},
-        Ptr{gsl_sf_result}, Ptr{gsl_sf_result}, Ptr{Cdouble}, Ptr{Cdouble}),
-        eta, x, L_F, k, F, Fp, G, Gp, exp_F, exp_G )
-end
+### #   {$G_{L-k}(\eta,x)$} 
+### #   {$G'_{L-k}(\eta,x)$} 
+### #   Returns: Cint
+### #XXX Unknown input type F::Ptr{gsl_sf_result}
+### #XXX Unknown input type Fp::Ptr{gsl_sf_result}
+### #XXX Unknown input type G::Ptr{gsl_sf_result}
+### #XXX Unknown input type Gp::Ptr{gsl_sf_result}
+### function gsl_sf_coulomb_wave_FG_e (eta::Cdouble, x::Cdouble, L_F::Cdouble, k::Cint, F::Ptr{gsl_sf_result}, Fp::Ptr{gsl_sf_result}, G::Ptr{gsl_sf_result}, Gp::Ptr{gsl_sf_result}, exp_F::Ptr{Cdouble}, exp_G::Ptr{Cdouble})
+###     ccall( (:gsl_sf_coulomb_wave_FG_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Cdouble, Cint, Ptr{gsl_sf_result}, Ptr{gsl_sf_result},
+###         Ptr{gsl_sf_result}, Ptr{gsl_sf_result}, Ptr{Cdouble}, Ptr{Cdouble}),
+###         eta, x, L_F, k, F, Fp, G, Gp, exp_F, exp_G )
+### end
 
 
 # This function computes the Coulomb wave function F_L(\eta,x) for L = Lmin

@@ -8,15 +8,17 @@ export gsl_ran_rayleigh, gsl_ran_rayleigh_pdf, gsl_cdf_rayleigh_P,
        gsl_cdf_rayleigh_Q, gsl_cdf_rayleigh_Pinv, gsl_cdf_rayleigh_Qinv
 
 
-# This function returns a random variate from the Rayleigh distribution with
+### Function uses unknown type; disabled
+### # This function returns a random variate from the Rayleigh distribution with
 # scale parameter sigma.  The distribution is,                 p(x) dx = {x
 # \over \sigma^2} \exp(- x^2/(2 \sigma^2)) dx  for x > 0.
 # 
-#   Returns: Cdouble
-function gsl_ran_rayleigh (r::Ptr{gsl_rng}, sigma::Cdouble)
-    ccall( (:gsl_ran_rayleigh, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble),
-        r, sigma )
-end
+### #   Returns: Cdouble
+### #XXX Unknown input type r::Ptr{gsl_rng}
+### function gsl_ran_rayleigh (r::Ptr{gsl_rng}, sigma::Cdouble)
+###     ccall( (:gsl_ran_rayleigh, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble),
+###         r, sigma )
+### end
 
 
 # This function computes the probability density p(x) at x for a Rayleigh

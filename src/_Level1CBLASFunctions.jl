@@ -160,44 +160,48 @@ function cblas_dzasum (N::Cint, x::Ptr{Void}, incx::Cint)
 end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: CBLAS_INDEX
-#XXX Unknown output type CBLAS_INDEX
-function cblas_isamax (N::Cint, x::Ptr{Cfloat}, incx::Cint)
-    ccall( (:cblas_isamax, "libgsl"), CBLAS_INDEX, (Cint, Ptr{Cfloat},
-        Cint), N, x, incx )
-end
+### #   Returns: CBLAS_INDEX
+### #XXX Unknown output type CBLAS_INDEX
+### function cblas_isamax (N::Cint, x::Ptr{Cfloat}, incx::Cint)
+###     ccall( (:cblas_isamax, "libgsl"), CBLAS_INDEX, (Cint, Ptr{Cfloat},
+###         Cint), N, x, incx )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: CBLAS_INDEX
-#XXX Unknown output type CBLAS_INDEX
-function cblas_idamax (N::Cint, x::Ptr{Cdouble}, incx::Cint)
-    ccall( (:cblas_idamax, "libgsl"), CBLAS_INDEX, (Cint, Ptr{Cdouble},
-        Cint), N, x, incx )
-end
+### #   Returns: CBLAS_INDEX
+### #XXX Unknown output type CBLAS_INDEX
+### function cblas_idamax (N::Cint, x::Ptr{Cdouble}, incx::Cint)
+###     ccall( (:cblas_idamax, "libgsl"), CBLAS_INDEX, (Cint, Ptr{Cdouble},
+###         Cint), N, x, incx )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: CBLAS_INDEX
-#XXX Unknown output type CBLAS_INDEX
-function cblas_icamax (N::Cint, x::Ptr{Void}, incx::Cint)
-    ccall( (:cblas_icamax, "libgsl"), CBLAS_INDEX, (Cint, Ptr{Void}, Cint),
-        N, x, incx )
-end
+### #   Returns: CBLAS_INDEX
+### #XXX Unknown output type CBLAS_INDEX
+### function cblas_icamax (N::Cint, x::Ptr{Void}, incx::Cint)
+###     ccall( (:cblas_icamax, "libgsl"), CBLAS_INDEX, (Cint, Ptr{Void}, Cint),
+###         N, x, incx )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: CBLAS_INDEX
-#XXX Unknown output type CBLAS_INDEX
-function cblas_izamax (N::Cint, x::Ptr{Void}, incx::Cint)
-    ccall( (:cblas_izamax, "libgsl"), CBLAS_INDEX, (Cint, Ptr{Void}, Cint),
-        N, x, incx )
-end
+### #   Returns: CBLAS_INDEX
+### #XXX Unknown output type CBLAS_INDEX
+### function cblas_izamax (N::Cint, x::Ptr{Void}, incx::Cint)
+###     ccall( (:cblas_izamax, "libgsl"), CBLAS_INDEX, (Cint, Ptr{Void}, Cint),
+###         N, x, incx )
+### end
 
 
 # 

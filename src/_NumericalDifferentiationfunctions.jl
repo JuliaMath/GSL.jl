@@ -7,7 +7,8 @@
 export gsl_deriv_central, gsl_deriv_forward, gsl_deriv_backward
 
 
-# This function computes the numerical derivative of the function f at the
+### Function uses unknown type; disabled
+### # This function computes the numerical derivative of the function f at the
 # point x using an adaptive central difference algorithm with a step-size of h.
 # The derivative is returned in result and an estimate of its absolute error is
 # returned in abserr.          The initial value of h is used to estimate an
@@ -19,15 +20,17 @@ export gsl_deriv_central, gsl_deriv_forward, gsl_deriv_backward
 # at x does not contribute to the derivative calculation, so only 4-points are
 # actually used.
 # 
-#   Returns: Cint
-function gsl_deriv_central (f::Ptr{gsl_function}, x::Cdouble, h::Cdouble, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
-    ccall( (:gsl_deriv_central, "libgsl"), Cint, (Ptr{gsl_function},
-        Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f, x, h, result, abserr
-        )
-end
+### #   Returns: Cint
+### #XXX Unknown input type f::Ptr{gsl_function}
+### function gsl_deriv_central (f::Ptr{gsl_function}, x::Cdouble, h::Cdouble, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
+###     ccall( (:gsl_deriv_central, "libgsl"), Cint, (Ptr{gsl_function},
+###         Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f, x, h, result, abserr
+###         )
+### end
 
 
-# This function computes the numerical derivative of the function f at the
+### Function uses unknown type; disabled
+### # This function computes the numerical derivative of the function f at the
 # point x using an adaptive forward difference algorithm with a step-size of h.
 # The function is evaluated only at points greater than x, and never at x
 # itself.  The derivative is returned in result and an estimate of its absolute
@@ -40,15 +43,17 @@ end
 # estimate taken from the difference between the 4-point rule and the
 # corresponding 2-point rule x+h/2, x+h.
 # 
-#   Returns: Cint
-function gsl_deriv_forward (f::Ptr{gsl_function}, x::Cdouble, h::Cdouble, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
-    ccall( (:gsl_deriv_forward, "libgsl"), Cint, (Ptr{gsl_function},
-        Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f, x, h, result, abserr
-        )
-end
+### #   Returns: Cint
+### #XXX Unknown input type f::Ptr{gsl_function}
+### function gsl_deriv_forward (f::Ptr{gsl_function}, x::Cdouble, h::Cdouble, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
+###     ccall( (:gsl_deriv_forward, "libgsl"), Cint, (Ptr{gsl_function},
+###         Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f, x, h, result, abserr
+###         )
+### end
 
 
-# This function computes the numerical derivative of the function f at the
+### Function uses unknown type; disabled
+### # This function computes the numerical derivative of the function f at the
 # point x using an adaptive backward difference algorithm with a step-size of
 # h. The function is evaluated only at points less than x, and never at x
 # itself.  The derivative is returned in result and an estimate of its absolute
@@ -57,9 +62,10 @@ end
 # function is equivalent to calling gsl_deriv_forward with a negative step-
 # size.
 # 
-#   Returns: Cint
-function gsl_deriv_backward (f::Ptr{gsl_function}, x::Cdouble, h::Cdouble, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
-    ccall( (:gsl_deriv_backward, "libgsl"), Cint, (Ptr{gsl_function},
-        Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f, x, h, result, abserr
-        )
-end
+### #   Returns: Cint
+### #XXX Unknown input type f::Ptr{gsl_function}
+### function gsl_deriv_backward (f::Ptr{gsl_function}, x::Cdouble, h::Cdouble, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
+###     ccall( (:gsl_deriv_backward, "libgsl"), Cint, (Ptr{gsl_function},
+###         Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f, x, h, result, abserr
+###         )
+### end

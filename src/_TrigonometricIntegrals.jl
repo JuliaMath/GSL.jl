@@ -17,13 +17,15 @@ function gsl_sf_Si (x::Cdouble)
 end
 
 
-# These routines compute the Sine integral  Si(x) = \int_0^x dt \sin(t)/t.
+### Function uses unknown type; disabled
+### # These routines compute the Sine integral  Si(x) = \int_0^x dt \sin(t)/t.
 # 
-#   Returns: Cint
-function gsl_sf_Si_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_Si_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
-        x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_Si_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_Si_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
+###         x, result )
+### end
 
 
 # These routines compute the Cosine integral  Ci(x) = -\int_x^\infty dt
@@ -38,11 +40,13 @@ function gsl_sf_Ci (x::Cdouble)
 end
 
 
-# These routines compute the Cosine integral  Ci(x) = -\int_x^\infty dt
+### Function uses unknown type; disabled
+### # These routines compute the Cosine integral  Ci(x) = -\int_x^\infty dt
 # \cos(t)/t for x > 0.
 # 
-#   Returns: Cint
-function gsl_sf_Ci_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_Ci_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
-        x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_Ci_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_Ci_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
+###         x, result )
+### end

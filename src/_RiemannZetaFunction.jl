@@ -18,14 +18,16 @@ function gsl_sf_zeta_int (n::Cint)
 end
 
 
-# These routines compute the Riemann zeta function \zeta(n) for integer n, n
+### Function uses unknown type; disabled
+### # These routines compute the Riemann zeta function \zeta(n) for integer n, n
 # \ne 1.
 # 
-#   Returns: Cint
-function gsl_sf_zeta_int_e (n::Cint, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_zeta_int_e, "libgsl"), Cint, (Cint,
-        Ptr{gsl_sf_result}), n, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_zeta_int_e (n::Cint, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_zeta_int_e, "libgsl"), Cint, (Cint,
+###         Ptr{gsl_sf_result}), n, result )
+### end
 
 
 # These routines compute the Riemann zeta function \zeta(s) for arbitrary s, s
@@ -39,11 +41,13 @@ function gsl_sf_zeta (s::Cdouble)
 end
 
 
-# These routines compute the Riemann zeta function \zeta(s) for arbitrary s, s
+### Function uses unknown type; disabled
+### # These routines compute the Riemann zeta function \zeta(s) for arbitrary s, s
 # \ne 1.
 # 
-#   Returns: Cint
-function gsl_sf_zeta_e (s::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_zeta_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
-        s, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_zeta_e (s::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_zeta_e, "libgsl"), Cint, (Cdouble, Ptr{gsl_sf_result}),
+###         s, result )
+### end

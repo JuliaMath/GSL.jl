@@ -7,28 +7,31 @@
 export gsl_histogram, gsl_histogram, gsl_histogram
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_histogram ()
-    ccall( (:gsl_histogram, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_histogram ()
+###     ccall( (:gsl_histogram, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_histogram ()
-    ccall( (:gsl_histogram, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_histogram ()
+###     ccall( (:gsl_histogram, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_histogram ()
-    ccall( (:gsl_histogram, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_histogram ()
+###     ccall( (:gsl_histogram, "libgsl"), , () )
+### end

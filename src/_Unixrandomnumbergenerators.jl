@@ -8,21 +8,23 @@ export gsl_rng_rand, gsl_rng_random_bsd, gsl_rng_random_libc5,
        gsl_rng_random_glibc2, gsl_rng_rand48
 
 
-# This is the BSD rand generator.  Its sequence is                 x_{n+1} = (a
+### Function uses unknown type; disabled
+### # This is the BSD rand generator.  Its sequence is                 x_{n+1} = (a
 # x_n + c) mod m  with a = 1103515245, c = 12345 and  m = 2^31.  The seed
 # specifies the initial value, x_1.  The period of this generator is  2^31, and
 # it uses 1 word of storage per generator.
 # 
-#   {$m = 2^{31}$} 
-#   {$2^{31}$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_rand ()
-    ccall( (:gsl_rng_rand, "libgsl"), , () )
-end
+### #   {$m = 2^{31}$} 
+### #   {$2^{31}$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_rand ()
+###     ccall( (:gsl_rng_rand, "libgsl"), , () )
+### end
 
 
-# These generators implement the random family of functions, a set of linear
+### Function uses unknown type; disabled
+### # These generators implement the random family of functions, a set of linear
 # feedback shift register generators originally used in BSD Unix.  There are
 # several versions of random in use today: the original BSD version (e.g. on
 # SunOS4), a libc5 version (found on older GNU/Linux systems) and a glibc2
@@ -41,14 +43,15 @@ end
 # Corresponding versions of the libc5 and glibc2 generators are also available,
 # with the names gsl_rng_random8_libc5, gsl_rng_random8_glibc2, etc.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_random_bsd ()
-    ccall( (:gsl_rng_random_bsd, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_random_bsd ()
+###     ccall( (:gsl_rng_random_bsd, "libgsl"), , () )
+### end
 
 
-# These generators implement the random family of functions, a set of linear
+### Function uses unknown type; disabled
+### # These generators implement the random family of functions, a set of linear
 # feedback shift register generators originally used in BSD Unix.  There are
 # several versions of random in use today: the original BSD version (e.g. on
 # SunOS4), a libc5 version (found on older GNU/Linux systems) and a glibc2
@@ -67,14 +70,15 @@ end
 # Corresponding versions of the libc5 and glibc2 generators are also available,
 # with the names gsl_rng_random8_libc5, gsl_rng_random8_glibc2, etc.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_random_libc5 ()
-    ccall( (:gsl_rng_random_libc5, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_random_libc5 ()
+###     ccall( (:gsl_rng_random_libc5, "libgsl"), , () )
+### end
 
 
-# These generators implement the random family of functions, a set of linear
+### Function uses unknown type; disabled
+### # These generators implement the random family of functions, a set of linear
 # feedback shift register generators originally used in BSD Unix.  There are
 # several versions of random in use today: the original BSD version (e.g. on
 # SunOS4), a libc5 version (found on older GNU/Linux systems) and a glibc2
@@ -93,14 +97,15 @@ end
 # Corresponding versions of the libc5 and glibc2 generators are also available,
 # with the names gsl_rng_random8_libc5, gsl_rng_random8_glibc2, etc.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_random_glibc2 ()
-    ccall( (:gsl_rng_random_glibc2, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_random_glibc2 ()
+###     ccall( (:gsl_rng_random_glibc2, "libgsl"), , () )
+### end
 
 
-# This is the Unix rand48 generator.  Its sequence is                 x_{n+1} =
+### Function uses unknown type; disabled
+### # This is the Unix rand48 generator.  Its sequence is                 x_{n+1} =
 # (a x_n + c) mod m  defined on 48-bit unsigned integers with a = 25214903917,
 # c = 11 and  m = 2^48.  The seed specifies the upper 32 bits of the initial
 # value, x_1, with the lower 16 bits set to 0x330E.  The function gsl_rng_get
@@ -113,9 +118,9 @@ end
 # produce different results (only the lower 16-bits of the return value were
 # set).
 # 
-#   {$m = 2^{48}$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_rng_rand48 ()
-    ccall( (:gsl_rng_rand48, "libgsl"), , () )
-end
+### #   {$m = 2^{48}$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_rng_rand48 ()
+###     ccall( (:gsl_rng_rand48, "libgsl"), , () )
+### end

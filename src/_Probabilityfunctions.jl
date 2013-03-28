@@ -18,14 +18,16 @@ function gsl_sf_erf_Z (x::Cdouble)
 end
 
 
-# These routines compute the Gaussian probability density function  Z(x) =
+### Function uses unknown type; disabled
+### # These routines compute the Gaussian probability density function  Z(x) =
 # (1/\sqrt{2\pi}) \exp(-x^2/2).
 # 
-#   Returns: Cint
-function gsl_sf_erf_Z_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_erf_Z_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_erf_Z_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_erf_Z_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the upper tail of the Gaussian probability function
@@ -39,14 +41,16 @@ function gsl_sf_erf_Q (x::Cdouble)
 end
 
 
-# These routines compute the upper tail of the Gaussian probability function
+### Function uses unknown type; disabled
+### # These routines compute the upper tail of the Gaussian probability function
 # Q(x) = (1/\sqrt{2\pi}) \int_x^\infty dt \exp(-t^2/2).
 # 
-#   Returns: Cint
-function gsl_sf_erf_Q_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_erf_Q_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_erf_Q_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_erf_Q_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the hazard function for the normal distribution.
@@ -58,10 +62,12 @@ function gsl_sf_hazard (x::Cdouble)
 end
 
 
-# These routines compute the hazard function for the normal distribution.
+### Function uses unknown type; disabled
+### # These routines compute the hazard function for the normal distribution.
 # 
-#   Returns: Cint
-function gsl_sf_hazard_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_hazard_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_hazard_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_hazard_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end

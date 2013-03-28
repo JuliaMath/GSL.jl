@@ -18,13 +18,15 @@ function gsl_sf_transport_2 (x::Cdouble)
 end
 
 
-# These routines compute the transport function J(2,x).
+### Function uses unknown type; disabled
+### # These routines compute the transport function J(2,x).
 # 
-#   Returns: Cint
-function gsl_sf_transport_2_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_transport_2_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_transport_2_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_transport_2_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the transport function J(3,x).
@@ -36,13 +38,15 @@ function gsl_sf_transport_3 (x::Cdouble)
 end
 
 
-# These routines compute the transport function J(3,x).
+### Function uses unknown type; disabled
+### # These routines compute the transport function J(3,x).
 # 
-#   Returns: Cint
-function gsl_sf_transport_3_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_transport_3_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_transport_3_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_transport_3_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the transport function J(4,x).
@@ -54,13 +58,15 @@ function gsl_sf_transport_4 (x::Cdouble)
 end
 
 
-# These routines compute the transport function J(4,x).
+### Function uses unknown type; disabled
+### # These routines compute the transport function J(4,x).
 # 
-#   Returns: Cint
-function gsl_sf_transport_4_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_transport_4_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_transport_4_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_transport_4_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the transport function J(5,x).
@@ -72,10 +78,12 @@ function gsl_sf_transport_5 (x::Cdouble)
 end
 
 
-# These routines compute the transport function J(5,x).
+### Function uses unknown type; disabled
+### # These routines compute the transport function J(5,x).
 # 
-#   Returns: Cint
-function gsl_sf_transport_5_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_transport_5_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_transport_5_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_transport_5_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end

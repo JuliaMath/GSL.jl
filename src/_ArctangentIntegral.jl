@@ -19,11 +19,13 @@ function gsl_sf_atanint (x::Cdouble)
 end
 
 
-# These routines compute the Arctangent integral, which is defined as
+### Function uses unknown type; disabled
+### # These routines compute the Arctangent integral, which is defined as
 # AtanInt(x) = \int_0^x dt \arctan(t)/t.
 # 
-#   Returns: Cint
-function gsl_sf_atanint_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_atanint_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_atanint_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_atanint_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end

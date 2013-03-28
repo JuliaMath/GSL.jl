@@ -21,15 +21,17 @@ function gsl_sf_dilog (x::Cdouble)
 end
 
 
-# These routines compute the dilogarithm for a real argument. In Lewin's
+### Function uses unknown type; disabled
+### # These routines compute the dilogarithm for a real argument. In Lewin's
 # notation this is Li_2(x), the real part of the dilogarithm of a real x.  It
 # is defined by the integral representation Li_2(x) = - \Re \int_0^x ds
 # \log(1-s) / s.  Note that \Im(Li_2(x)) = 0 for  x <= 1, and -\pi\log(x) for x
 # > 1.          Note that Abramowitz & Stegun refer to the Spence integral
 # S(x)=Li_2(1-x) as the dilogarithm rather than Li_2(x).
 # 
-#   Returns: Cint
-function gsl_sf_dilog_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_dilog_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_dilog_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_dilog_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end

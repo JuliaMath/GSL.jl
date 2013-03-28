@@ -8,35 +8,40 @@ export gsl_histogram2d_fwrite, gsl_histogram2d_fread, gsl_histogram2d_fprintf,
        gsl_histogram2d_fscanf
 
 
-# This function writes the ranges and bins of the histogram h to the stream
+### Function uses unknown type; disabled
+### # This function writes the ranges and bins of the histogram h to the stream
 # stream in binary format.  The return value is 0 for success and GSL_EFAILED
 # if there was a problem writing to the file.  Since the data is written in the
 # native binary format it may not be portable between different architectures.
 # 
-#   Returns: Cint
-#XXX Unknown input type stream::Ptr{FILE}
-function gsl_histogram2d_fwrite (stream::Ptr{FILE}, h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_fwrite, "libgsl"), Cint, (Ptr{FILE},
-        Ptr{gsl_histogram2d}), stream, h )
-end
+### #   Returns: Cint
+### #XXX Unknown input type stream::Ptr{FILE}
+### #XXX Unknown input type h::Ptr{gsl_histogram2d}
+### function gsl_histogram2d_fwrite (stream::Ptr{FILE}, h::Ptr{gsl_histogram2d})
+###     ccall( (:gsl_histogram2d_fwrite, "libgsl"), Cint, (Ptr{FILE},
+###         Ptr{gsl_histogram2d}), stream, h )
+### end
 
 
-# This function reads into the histogram h from the stream stream in binary
+### Function uses unknown type; disabled
+### # This function reads into the histogram h from the stream stream in binary
 # format.  The histogram h must be preallocated with the correct size since the
 # function uses the number of x and y bins in h to determine how many bytes to
 # read.  The return value is 0 for success and GSL_EFAILED if there was a
 # problem reading from the file.  The data is assumed to have been written in
 # the native binary format on the same architecture.
 # 
-#   Returns: Cint
-#XXX Unknown input type stream::Ptr{FILE}
-function gsl_histogram2d_fread (stream::Ptr{FILE}, h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_fread, "libgsl"), Cint, (Ptr{FILE},
-        Ptr{gsl_histogram2d}), stream, h )
-end
+### #   Returns: Cint
+### #XXX Unknown input type stream::Ptr{FILE}
+### #XXX Unknown input type h::Ptr{gsl_histogram2d}
+### function gsl_histogram2d_fread (stream::Ptr{FILE}, h::Ptr{gsl_histogram2d})
+###     ccall( (:gsl_histogram2d_fread, "libgsl"), Cint, (Ptr{FILE},
+###         Ptr{gsl_histogram2d}), stream, h )
+### end
 
 
-# This function writes the ranges and bins of the histogram h line-by-line to
+### Function uses unknown type; disabled
+### # This function writes the ranges and bins of the histogram h line-by-line to
 # the stream stream using the format specifiers range_format and bin_format.
 # These should be one of the %g, %e or %f formats for floating point numbers.
 # The function returns 0 for success and GSL_EFAILED if there was a problem
@@ -58,25 +63,28 @@ end
 # neighboring bins there is duplication of these values but this allows the
 # histogram to be manipulated with line-oriented tools.
 # 
-#   Returns: Cint
-#XXX Unknown input type stream::Ptr{FILE}
-function gsl_histogram2d_fprintf (stream::Ptr{FILE}, h::Ptr{gsl_histogram2d}, range_format::Ptr{Cchar}, bin_format::Ptr{Cchar})
-    ccall( (:gsl_histogram2d_fprintf, "libgsl"), Cint, (Ptr{FILE},
-        Ptr{gsl_histogram2d}, Ptr{Cchar}, Ptr{Cchar}), stream, h, range_format,
-        bin_format )
-end
+### #   Returns: Cint
+### #XXX Unknown input type stream::Ptr{FILE}
+### #XXX Unknown input type h::Ptr{gsl_histogram2d}
+### function gsl_histogram2d_fprintf (stream::Ptr{FILE}, h::Ptr{gsl_histogram2d}, range_format::Ptr{Cchar}, bin_format::Ptr{Cchar})
+###     ccall( (:gsl_histogram2d_fprintf, "libgsl"), Cint, (Ptr{FILE},
+###         Ptr{gsl_histogram2d}, Ptr{Cchar}, Ptr{Cchar}), stream, h, range_format,
+###         bin_format )
+### end
 
 
-# This function reads formatted data from the stream stream into the histogram
+### Function uses unknown type; disabled
+### # This function reads formatted data from the stream stream into the histogram
 # h.  The data is assumed to be in the five-column format used by
 # gsl_histogram2d_fprintf.  The histogram h must be preallocated with the
 # correct lengths since the function uses the sizes of h to determine how many
 # numbers to read.  The function returns 0 for success and GSL_EFAILED if there
 # was a problem reading from the file.
 # 
-#   Returns: Cint
-#XXX Unknown input type stream::Ptr{FILE}
-function gsl_histogram2d_fscanf (stream::Ptr{FILE}, h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_fscanf, "libgsl"), Cint, (Ptr{FILE},
-        Ptr{gsl_histogram2d}), stream, h )
-end
+### #   Returns: Cint
+### #XXX Unknown input type stream::Ptr{FILE}
+### #XXX Unknown input type h::Ptr{gsl_histogram2d}
+### function gsl_histogram2d_fscanf (stream::Ptr{FILE}, h::Ptr{gsl_histogram2d})
+###     ccall( (:gsl_histogram2d_fscanf, "libgsl"), Cint, (Ptr{FILE},
+###         Ptr{gsl_histogram2d}), stream, h )
+### end

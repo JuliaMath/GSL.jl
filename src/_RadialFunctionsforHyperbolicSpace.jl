@@ -25,16 +25,18 @@ function gsl_sf_legendre_H3d_0 (lambda::Cdouble, eta::Cdouble)
 end
 
 
-# These routines compute the zeroth radial eigenfunction of the Laplacian on
+### Function uses unknown type; disabled
+### # These routines compute the zeroth radial eigenfunction of the Laplacian on
 # the 3-dimensional hyperbolic space,  L^{H3d}_0(\lambda,\eta) :=
 # \sin(\lambda\eta)/(\lambda\sinh(\eta)) for  \eta >= 0.  In the flat limit
 # this takes the form  L^{H3d}_0(\lambda,\eta) = j_0(\lambda\eta).
 # 
-#   Returns: Cint
-function gsl_sf_legendre_H3d_0_e (lambda::Cdouble, eta::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_legendre_H3d_0_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), lambda, eta, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_legendre_H3d_0_e (lambda::Cdouble, eta::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_legendre_H3d_0_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), lambda, eta, result )
+### end
 
 
 # These routines compute the first radial eigenfunction of the Laplacian on the
@@ -54,17 +56,19 @@ function gsl_sf_legendre_H3d_1 (lambda::Cdouble, eta::Cdouble)
 end
 
 
-# These routines compute the first radial eigenfunction of the Laplacian on the
+### Function uses unknown type; disabled
+### # These routines compute the first radial eigenfunction of the Laplacian on the
 # 3-dimensional hyperbolic space,  L^{H3d}_1(\lambda,\eta) := 1/\sqrt{\lambda^2
 # + 1} \sin(\lambda \eta)/(\lambda \sinh(\eta)) (\coth(\eta) - \lambda
 # \cot(\lambda\eta)) for  \eta >= 0.  In the flat limit this takes the form
 # L^{H3d}_1(\lambda,\eta) = j_1(\lambda\eta).
 # 
-#   Returns: Cint
-function gsl_sf_legendre_H3d_1_e (lambda::Cdouble, eta::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_legendre_H3d_1_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), lambda, eta, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_legendre_H3d_1_e (lambda::Cdouble, eta::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_legendre_H3d_1_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), lambda, eta, result )
+### end
 
 
 # These routines compute the l-th radial eigenfunction of the Laplacian on the
@@ -82,15 +86,17 @@ function gsl_sf_legendre_H3d (l::Cint, lambda::Cdouble, eta::Cdouble)
 end
 
 
-# These routines compute the l-th radial eigenfunction of the Laplacian on the
+### Function uses unknown type; disabled
+### # These routines compute the l-th radial eigenfunction of the Laplacian on the
 # 3-dimensional hyperbolic space  \eta >= 0,  l >= 0. In the flat limit this
 # takes the form  L^{H3d}_l(\lambda,\eta) = j_l(\lambda\eta).
 # 
-#   Returns: Cint
-function gsl_sf_legendre_H3d_e (l::Cint, lambda::Cdouble, eta::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_legendre_H3d_e, "libgsl"), Cint, (Cint, Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), l, lambda, eta, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_legendre_H3d_e (l::Cint, lambda::Cdouble, eta::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_legendre_H3d_e, "libgsl"), Cint, (Cint, Cdouble,
+###         Cdouble, Ptr{gsl_sf_result}), l, lambda, eta, result )
+### end
 
 
 # This function computes an array of radial eigenfunctions  L^{H3d}_l(\lambda,

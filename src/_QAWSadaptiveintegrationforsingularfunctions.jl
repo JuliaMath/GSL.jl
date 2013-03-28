@@ -8,7 +8,8 @@ export gsl_integration_qaws_table_alloc, gsl_integration_qaws_table_set,
        gsl_integration_qaws_table_free, gsl_integration_qaws
 
 
-# This function allocates space for a gsl_integration_qaws_table struct
+### Function uses unknown type; disabled
+### # This function allocates space for a gsl_integration_qaws_table struct
 # describing a singular weight function W(x) with the parameters (\alpha,
 # \beta, \mu, \nu),                 W(x) = (x-a)^alpha (b-x)^beta log^mu (x-a)
 # log^nu (b-x)  where \alpha > -1, \beta > -1, and \mu = 0, 1, \nu = 0, 1.  The
@@ -23,36 +24,42 @@ export gsl_integration_qaws_table_alloc, gsl_integration_qaws_table_set,
 # gsl_integration_qaws_table if no errors were detected, and 0 in the case of
 # error.
 # 
-#   Returns: Ptr{gsl_integration_qaws_table}
-function gsl_integration_qaws_table_alloc (alpha::Cdouble, beta::Cdouble, mu::Cint, nu::Cint)
-    ccall( (:gsl_integration_qaws_table_alloc, "libgsl"),
-        Ptr{gsl_integration_qaws_table}, (Cdouble, Cdouble, Cint, Cint), alpha,
-        beta, mu, nu )
-end
+### #   Returns: Ptr{gsl_integration_qaws_table}
+### #XXX Unknown output type Ptr{gsl_integration_qaws_table}
+### function gsl_integration_qaws_table_alloc (alpha::Cdouble, beta::Cdouble, mu::Cint, nu::Cint)
+###     ccall( (:gsl_integration_qaws_table_alloc, "libgsl"),
+###         Ptr{gsl_integration_qaws_table}, (Cdouble, Cdouble, Cint, Cint), alpha,
+###         beta, mu, nu )
+### end
 
 
-# This function modifies the parameters (\alpha, \beta, \mu, \nu) of an
+### Function uses unknown type; disabled
+### # This function modifies the parameters (\alpha, \beta, \mu, \nu) of an
 # existing gsl_integration_qaws_table struct t.
 # 
-#   Returns: Cint
-function gsl_integration_qaws_table_set (t::Ptr{gsl_integration_qaws_table}, alpha::Cdouble, beta::Cdouble, mu::Cint, nu::Cint)
-    ccall( (:gsl_integration_qaws_table_set, "libgsl"), Cint,
-        (Ptr{gsl_integration_qaws_table}, Cdouble, Cdouble, Cint, Cint), t,
-        alpha, beta, mu, nu )
-end
+### #   Returns: Cint
+### #XXX Unknown input type t::Ptr{gsl_integration_qaws_table}
+### function gsl_integration_qaws_table_set (t::Ptr{gsl_integration_qaws_table}, alpha::Cdouble, beta::Cdouble, mu::Cint, nu::Cint)
+###     ccall( (:gsl_integration_qaws_table_set, "libgsl"), Cint,
+###         (Ptr{gsl_integration_qaws_table}, Cdouble, Cdouble, Cint, Cint), t,
+###         alpha, beta, mu, nu )
+### end
 
 
-# This function frees all the memory associated with the
+### Function uses unknown type; disabled
+### # This function frees all the memory associated with the
 # gsl_integration_qaws_table struct t.
 # 
-#   Returns: Void
-function gsl_integration_qaws_table_free (t::Ptr{gsl_integration_qaws_table})
-    ccall( (:gsl_integration_qaws_table_free, "libgsl"), Void,
-        (Ptr{gsl_integration_qaws_table}, ), t )
-end
+### #   Returns: Void
+### #XXX Unknown input type t::Ptr{gsl_integration_qaws_table}
+### function gsl_integration_qaws_table_free (t::Ptr{gsl_integration_qaws_table})
+###     ccall( (:gsl_integration_qaws_table_free, "libgsl"), Void,
+###         (Ptr{gsl_integration_qaws_table}, ), t )
+### end
 
 
-# This function computes the integral of the function f(x) over the interval
+### Function uses unknown type; disabled
+### # This function computes the integral of the function f(x) over the interval
 # (a,b) with the singular weight function (x-a)^\alpha (b-x)^\beta \log^\mu
 # (x-a) \log^\nu (b-x).  The parameters of the weight function (\alpha, \beta,
 # \mu, \nu) are taken from the table t.  The integral is,                 I =
@@ -62,10 +69,13 @@ end
 # used to control the singularities.  For subintervals which do not include the
 # endpoints an ordinary 15-point Gauss-Kronrod integration rule is used.
 # 
-#   Returns: Cint
-function gsl_integration_qaws (f::Ptr{gsl_function}, a::Cdouble, b::Cdouble, t::Ptr{gsl_integration_qaws_table}, epsabs::Cdouble, epsrel::Cdouble, limit::Csize_t, workspace::Ptr{gsl_integration_workspace}, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
-    ccall( (:gsl_integration_qaws, "libgsl"), Cint, (Ptr{gsl_function},
-        Cdouble, Cdouble, Ptr{gsl_integration_qaws_table}, Cdouble, Cdouble,
-        Csize_t, Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}),
-        f, a, b, t, epsabs, epsrel, limit, workspace, result, abserr )
-end
+### #   Returns: Cint
+### #XXX Unknown input type f::Ptr{gsl_function}
+### #XXX Unknown input type t::Ptr{gsl_integration_qaws_table}
+### #XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
+### function gsl_integration_qaws (f::Ptr{gsl_function}, a::Cdouble, b::Cdouble, t::Ptr{gsl_integration_qaws_table}, epsabs::Cdouble, epsrel::Cdouble, limit::Csize_t, workspace::Ptr{gsl_integration_workspace}, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
+###     ccall( (:gsl_integration_qaws, "libgsl"), Cint, (Ptr{gsl_function},
+###         Cdouble, Cdouble, Ptr{gsl_integration_qaws_table}, Cdouble, Cdouble,
+###         Csize_t, Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}),
+###         f, a, b, t, epsabs, epsrel, limit, workspace, result, abserr )
+### end

@@ -7,7 +7,8 @@
 export gsl_integration_qagp
 
 
-# This function applies the adaptive integration algorithm QAGS taking account
+### Function uses unknown type; disabled
+### # This function applies the adaptive integration algorithm QAGS taking account
 # of the user-supplied locations of singular points.  The array pts of length
 # npts should contain the endpoints of the integration ranges defined by the
 # integration region and locations of the singularities.  For example, to
@@ -18,10 +19,12 @@ export gsl_integration_qagp
 # the singular points in the integration region then this routine will be
 # faster than QAGS.
 # 
-#   Returns: Cint
-function gsl_integration_qagp (f::Ptr{gsl_function}, pts::Ptr{Cdouble}, npts::Csize_t, epsabs::Cdouble, epsrel::Cdouble, limit::Csize_t, workspace::Ptr{gsl_integration_workspace}, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
-    ccall( (:gsl_integration_qagp, "libgsl"), Cint, (Ptr{gsl_function},
-        Ptr{Cdouble}, Csize_t, Cdouble, Cdouble, Csize_t,
-        Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, pts,
-        npts, epsabs, epsrel, limit, workspace, result, abserr )
-end
+### #   Returns: Cint
+### #XXX Unknown input type f::Ptr{gsl_function}
+### #XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
+### function gsl_integration_qagp (f::Ptr{gsl_function}, pts::Ptr{Cdouble}, npts::Csize_t, epsabs::Cdouble, epsrel::Cdouble, limit::Csize_t, workspace::Ptr{gsl_integration_workspace}, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
+###     ccall( (:gsl_integration_qagp, "libgsl"), Cint, (Ptr{gsl_function},
+###         Ptr{Cdouble}, Csize_t, Cdouble, Cdouble, Csize_t,
+###         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, pts,
+###         npts, epsabs, epsrel, limit, workspace, result, abserr )
+### end

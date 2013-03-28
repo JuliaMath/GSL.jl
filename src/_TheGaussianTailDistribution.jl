@@ -8,7 +8,8 @@ export gsl_ran_gaussian_tail, gsl_ran_gaussian_tail_pdf,
        gsl_ran_ugaussian_tail, gsl_ran_ugaussian_tail_pdf
 
 
-# This function provides random variates from the upper tail of a Gaussian
+### Function uses unknown type; disabled
+### # This function provides random variates from the upper tail of a Gaussian
 # distribution with standard deviation sigma.  The values returned are larger
 # than the lower limit a, which must be positive.  The method is based on
 # Marsaglia's famous rectangle-wedge-tail algorithm (Ann.  Math. Stat. 32,
@@ -19,11 +20,12 @@ export gsl_ran_gaussian_tail, gsl_ran_gaussian_tail_pdf,
 # normalization constant,                 N(a;\sigma) = (1/2) erfc(a / sqrt(2
 # sigma^2)).
 # 
-#   Returns: Cdouble
-function gsl_ran_gaussian_tail (r::Ptr{gsl_rng}, a::Cdouble, sigma::Cdouble)
-    ccall( (:gsl_ran_gaussian_tail, "libgsl"), Cdouble, (Ptr{gsl_rng},
-        Cdouble, Cdouble), r, a, sigma )
-end
+### #   Returns: Cdouble
+### #XXX Unknown input type r::Ptr{gsl_rng}
+### function gsl_ran_gaussian_tail (r::Ptr{gsl_rng}, a::Cdouble, sigma::Cdouble)
+###     ccall( (:gsl_ran_gaussian_tail, "libgsl"), Cdouble, (Ptr{gsl_rng},
+###         Cdouble, Cdouble), r, a, sigma )
+### end
 
 
 # This function computes the probability density p(x) at x for a Gaussian tail
@@ -37,15 +39,17 @@ function gsl_ran_gaussian_tail_pdf (x::Cdouble, a::Cdouble, sigma::Cdouble)
 end
 
 
-# These functions compute results for the tail of a unit Gaussian distribution.
+### Function uses unknown type; disabled
+### # These functions compute results for the tail of a unit Gaussian distribution.
 # They are equivalent to the functions above with a standard deviation of one,
 # sigma = 1.
 # 
-#   Returns: Cdouble
-function gsl_ran_ugaussian_tail (r::Ptr{gsl_rng}, a::Cdouble)
-    ccall( (:gsl_ran_ugaussian_tail, "libgsl"), Cdouble, (Ptr{gsl_rng},
-        Cdouble), r, a )
-end
+### #   Returns: Cdouble
+### #XXX Unknown input type r::Ptr{gsl_rng}
+### function gsl_ran_ugaussian_tail (r::Ptr{gsl_rng}, a::Cdouble)
+###     ccall( (:gsl_ran_ugaussian_tail, "libgsl"), Cdouble, (Ptr{gsl_rng},
+###         Cdouble), r, a )
+### end
 
 
 # These functions compute results for the tail of a unit Gaussian distribution.

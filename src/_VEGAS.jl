@@ -10,28 +10,33 @@ export gsl_monte_vegas_alloc, gsl_monte_vegas_init, gsl_monte_vegas_integrate,
        iterations, stage, mode, verbose, ostream
 
 
-# This function allocates and initializes a workspace for Monte Carlo
+### Function uses unknown type; disabled
+### # This function allocates and initializes a workspace for Monte Carlo
 # integration in dim dimensions.  The workspace is used to maintain the state
 # of the integration.
 # 
-#   Returns: Ptr{gsl_monte_vegas_state}
-function gsl_monte_vegas_alloc (dim::Csize_t)
-    ccall( (:gsl_monte_vegas_alloc, "libgsl"), Ptr{gsl_monte_vegas_state},
-        (Csize_t, ), dim )
-end
+### #   Returns: Ptr{gsl_monte_vegas_state}
+### #XXX Unknown output type Ptr{gsl_monte_vegas_state}
+### function gsl_monte_vegas_alloc (dim::Csize_t)
+###     ccall( (:gsl_monte_vegas_alloc, "libgsl"), Ptr{gsl_monte_vegas_state},
+###         (Csize_t, ), dim )
+### end
 
 
-# This function initializes a previously allocated integration state.  This
+### Function uses unknown type; disabled
+### # This function initializes a previously allocated integration state.  This
 # allows an existing workspace to be reused for different integrations.
 # 
-#   Returns: Cint
-function gsl_monte_vegas_init (s::Ptr{gsl_monte_vegas_state})
-    ccall( (:gsl_monte_vegas_init, "libgsl"), Cint,
-        (Ptr{gsl_monte_vegas_state}, ), s )
-end
+### #   Returns: Cint
+### #XXX Unknown input type s::Ptr{gsl_monte_vegas_state}
+### function gsl_monte_vegas_init (s::Ptr{gsl_monte_vegas_state})
+###     ccall( (:gsl_monte_vegas_init, "libgsl"), Cint,
+###         (Ptr{gsl_monte_vegas_state}, ), s )
+### end
 
 
-# This routines uses the vegas Monte Carlo algorithm to integrate the function
+### Function uses unknown type; disabled
+### # This routines uses the vegas Monte Carlo algorithm to integrate the function
 # f over the dim-dimensional hypercubic region defined by the lower and upper
 # limits in the arrays xl and xu, each of size dim.  The integration uses a
 # fixed number of function calls calls, and obtains random sampling points
@@ -43,65 +48,78 @@ end
 # s->chisq, and must be consistent with 1 for the weighted average to be
 # reliable.
 # 
-#   Returns: Cint
-function gsl_monte_vegas_integrate (f::Ptr{gsl_monte_function}, xl::Cdouble)
-    ccall( (:gsl_monte_vegas_integrate, "libgsl"), Cint,
-        (Ptr{gsl_monte_function}, Cdouble), f, xl )
-end
+### #   Returns: Cint
+### #XXX Unknown input type f::Ptr{gsl_monte_function}
+### function gsl_monte_vegas_integrate (f::Ptr{gsl_monte_function}, xl::Cdouble)
+###     ccall( (:gsl_monte_vegas_integrate, "libgsl"), Cint,
+###         (Ptr{gsl_monte_function}, Cdouble), f, xl )
+### end
 
 
-# This function frees the memory associated with the integrator state s.
+### Function uses unknown type; disabled
+### # This function frees the memory associated with the integrator state s.
 # 
-#   Returns: Void
-function gsl_monte_vegas_free (s::Ptr{gsl_monte_vegas_state})
-    ccall( (:gsl_monte_vegas_free, "libgsl"), Void,
-        (Ptr{gsl_monte_vegas_state}, ), s )
-end
+### #   Returns: Void
+### #XXX Unknown input type s::Ptr{gsl_monte_vegas_state}
+### function gsl_monte_vegas_free (s::Ptr{gsl_monte_vegas_state})
+###     ccall( (:gsl_monte_vegas_free, "libgsl"), Void,
+###         (Ptr{gsl_monte_vegas_state}, ), s )
+### end
 
 
-# This function returns the chi-squared per degree of freedom for the weighted
+### Function uses unknown type; disabled
+### # This function returns the chi-squared per degree of freedom for the weighted
 # estimate of the integral.  The returned value should be close to 1.  A value
 # which differs significantly from 1 indicates that the values from different
 # iterations are inconsistent.  In this case the weighted error will be under-
 # estimated, and further iterations of the algorithm are needed to obtain
 # reliable results.
 # 
-#   Returns: Cdouble
-function gsl_monte_vegas_chisq (s::Ptr{gsl_monte_vegas_state})
-    ccall( (:gsl_monte_vegas_chisq, "libgsl"), Cdouble,
-        (Ptr{gsl_monte_vegas_state}, ), s )
-end
+### #   Returns: Cdouble
+### #XXX Unknown input type s::Ptr{gsl_monte_vegas_state}
+### function gsl_monte_vegas_chisq (s::Ptr{gsl_monte_vegas_state})
+###     ccall( (:gsl_monte_vegas_chisq, "libgsl"), Cdouble,
+###         (Ptr{gsl_monte_vegas_state}, ), s )
+### end
 
 
-# This function returns the raw (unaveraged) values of the integral result and
+### Function uses unknown type; disabled
+### # This function returns the raw (unaveraged) values of the integral result and
 # its error sigma from the most recent iteration of the algorithm.
 # 
-#   Returns: Void
-function gsl_monte_vegas_runval (s::Ptr{gsl_monte_vegas_state}, result::Ptr{Cdouble}, sigma::Ptr{Cdouble})
-    ccall( (:gsl_monte_vegas_runval, "libgsl"), Void,
-        (Ptr{gsl_monte_vegas_state}, Ptr{Cdouble}, Ptr{Cdouble}), s, result,
-        sigma )
-end
+### #   Returns: Void
+### #XXX Unknown input type s::Ptr{gsl_monte_vegas_state}
+### function gsl_monte_vegas_runval (s::Ptr{gsl_monte_vegas_state}, result::Ptr{Cdouble}, sigma::Ptr{Cdouble})
+###     ccall( (:gsl_monte_vegas_runval, "libgsl"), Void,
+###         (Ptr{gsl_monte_vegas_state}, Ptr{Cdouble}, Ptr{Cdouble}), s, result,
+###         sigma )
+### end
 
 
-# This function copies the parameters of the integrator state into the user-
+### Function uses unknown type; disabled
+### # This function copies the parameters of the integrator state into the user-
 # supplied params structure.
 # 
-#   Returns: Void
-function gsl_monte_vegas_params_get (s::Ptr{gsl_monte_vegas_state}, params::Ptr{gsl_monte_vegas_params})
-    ccall( (:gsl_monte_vegas_params_get, "libgsl"), Void,
-        (Ptr{gsl_monte_vegas_state}, Ptr{gsl_monte_vegas_params}), s, params )
-end
+### #   Returns: Void
+### #XXX Unknown input type s::Ptr{gsl_monte_vegas_state}
+### #XXX Unknown input type params::Ptr{gsl_monte_vegas_params}
+### function gsl_monte_vegas_params_get (s::Ptr{gsl_monte_vegas_state}, params::Ptr{gsl_monte_vegas_params})
+###     ccall( (:gsl_monte_vegas_params_get, "libgsl"), Void,
+###         (Ptr{gsl_monte_vegas_state}, Ptr{gsl_monte_vegas_params}), s, params )
+### end
 
 
-# This function sets the integrator parameters based on values provided in the
+### Function uses unknown type; disabled
+### # This function sets the integrator parameters based on values provided in the
 # params structure.
 # 
-#   Returns: Void
-function gsl_monte_vegas_params_set (s::Ptr{gsl_monte_vegas_state}, params::Ptr{gsl_monte_vegas_params})
-    ccall( (:gsl_monte_vegas_params_set, "libgsl"), Void,
-        (Ptr{gsl_monte_vegas_state}, Ptr{gsl_monte_vegas_params}), s, params )
-end
+### #   Returns: Void
+### #XXX Unknown input type s::Ptr{gsl_monte_vegas_state}
+### #XXX Unknown input type params::Ptr{gsl_monte_vegas_params}
+### function gsl_monte_vegas_params_set (s::Ptr{gsl_monte_vegas_state}, params::Ptr{gsl_monte_vegas_params})
+###     ccall( (:gsl_monte_vegas_params_set, "libgsl"), Void,
+###         (Ptr{gsl_monte_vegas_state}, Ptr{gsl_monte_vegas_params}), s, params )
+### end
 
 
 # The parameter alpha controls the stiffness of the rebinning algorithm.  It is
@@ -166,15 +184,16 @@ function verbose ()
 end
 
 
-# These parameters set the level of information printed by vegas. All
+### Function uses unknown type; disabled
+### # These parameters set the level of information printed by vegas. All
 # information is written to the stream ostream.  The default setting of verbose
 # is -1, which turns off all output.  A verbose value of 0 prints summary
 # information about the weighted average and final result, while a value of 1
 # also displays the grid coordinates.  A value of 2 prints information from the
 # rebinning procedure for each iteration.
 # 
-#   Returns: Ptr{FILE}
-#XXX Unknown output type Ptr{FILE}
-function ostream ()
-    ccall( (:ostream, "libgsl"), Ptr{FILE}, () )
-end
+### #   Returns: Ptr{FILE}
+### #XXX Unknown output type Ptr{FILE}
+### function ostream ()
+###     ccall( (:ostream, "libgsl"), Ptr{FILE}, () )
+### end

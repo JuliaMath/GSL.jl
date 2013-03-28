@@ -8,7 +8,8 @@ export gsl_multimin_fminimizer_nmsimplex2, gsl_multimin_fminimizer_nmsimplex,
        gsl_multimin_fminimizer_nmsimplex2rand
 
 
-# These methods use the Simplex algorithm of Nelder and Mead.  Starting from
+### Function uses unknown type; disabled
+### # These methods use the Simplex algorithm of Nelder and Mead.  Starting from
 # the initial vector x = p_0, the algorithm constructs an additional n vectors
 # p_i using the step size vector  s = step_size as follows:                 p_0
 # = (x_0, x_1, ... , x_n)           p_1 = (x_0 + s_0, x_1, ... , x_n)
@@ -34,15 +35,16 @@ export gsl_multimin_fminimizer_nmsimplex2, gsl_multimin_fminimizer_nmsimplex,
 # the mean distance, allowing a linear update of this quantity on each step.
 # The memory usage is O(N^2) for both algorithms.
 # 
-#   {$s = \var{step\_size}$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_fminimizer_nmsimplex2 ()
-    ccall( (:gsl_multimin_fminimizer_nmsimplex2, "libgsl"), , () )
-end
+### #   {$s = \var{step\_size}$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_fminimizer_nmsimplex2 ()
+###     ccall( (:gsl_multimin_fminimizer_nmsimplex2, "libgsl"), , () )
+### end
 
 
-# These methods use the Simplex algorithm of Nelder and Mead.  Starting from
+### Function uses unknown type; disabled
+### # These methods use the Simplex algorithm of Nelder and Mead.  Starting from
 # the initial vector x = p_0, the algorithm constructs an additional n vectors
 # p_i using the step size vector  s = step_size as follows:                 p_0
 # = (x_0, x_1, ... , x_n)           p_1 = (x_0 + s_0, x_1, ... , x_n)
@@ -68,14 +70,15 @@ end
 # the mean distance, allowing a linear update of this quantity on each step.
 # The memory usage is O(N^2) for both algorithms.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_fminimizer_nmsimplex ()
-    ccall( (:gsl_multimin_fminimizer_nmsimplex, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_fminimizer_nmsimplex ()
+###     ccall( (:gsl_multimin_fminimizer_nmsimplex, "libgsl"), , () )
+### end
 
 
-# This method is a variant of nmsimplex2 which initialises the simplex around
+### Function uses unknown type; disabled
+### # This method is a variant of nmsimplex2 which initialises the simplex around
 # the starting point x using a randomly-oriented set of basis vectors instead
 # of the fixed coordinate axes. The final dimensions of the simplex are scaled
 # along the coordinate axes by the vector step_size.  The randomisation uses a
@@ -83,8 +86,8 @@ end
 # gsl_multimin_fminimizer_set for a given solver object will vary the
 # orientation in a well-defined way.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_fminimizer_nmsimplex2rand ()
-    ccall( (:gsl_multimin_fminimizer_nmsimplex2rand, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_fminimizer_nmsimplex2rand ()
+###     ccall( (:gsl_multimin_fminimizer_nmsimplex2rand, "libgsl"), , () )
+### end

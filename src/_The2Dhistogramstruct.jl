@@ -7,37 +7,41 @@
 export gsl_histogram2d, gsl_histogram2d, gsl_histogram2d, gsl_histogram2d
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_histogram2d ()
-    ccall( (:gsl_histogram2d, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_histogram2d ()
+###     ccall( (:gsl_histogram2d, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_histogram2d ()
-    ccall( (:gsl_histogram2d, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_histogram2d ()
+###     ccall( (:gsl_histogram2d, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_histogram2d ()
-    ccall( (:gsl_histogram2d, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_histogram2d ()
+###     ccall( (:gsl_histogram2d, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_histogram2d ()
-    ccall( (:gsl_histogram2d, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_histogram2d ()
+###     ccall( (:gsl_histogram2d, "libgsl"), , () )
+### end

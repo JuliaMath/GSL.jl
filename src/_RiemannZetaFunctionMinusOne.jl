@@ -17,13 +17,15 @@ function gsl_sf_zetam1_int (n::Cint)
 end
 
 
-# These routines compute \zeta(n) - 1 for integer n, n \ne 1.
+### Function uses unknown type; disabled
+### # These routines compute \zeta(n) - 1 for integer n, n \ne 1.
 # 
-#   Returns: Cint
-function gsl_sf_zetam1_int_e (n::Cint, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_zetam1_int_e, "libgsl"), Cint, (Cint,
-        Ptr{gsl_sf_result}), n, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_zetam1_int_e (n::Cint, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_zetam1_int_e, "libgsl"), Cint, (Cint,
+###         Ptr{gsl_sf_result}), n, result )
+### end
 
 
 # These routines compute \zeta(s) - 1 for arbitrary s, s \ne 1.
@@ -36,10 +38,12 @@ function gsl_sf_zetam1 (s::Cdouble)
 end
 
 
-# These routines compute \zeta(s) - 1 for arbitrary s, s \ne 1.
+### Function uses unknown type; disabled
+### # These routines compute \zeta(s) - 1 for arbitrary s, s \ne 1.
 # 
-#   Returns: Cint
-function gsl_sf_zetam1_e (s::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_zetam1_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), s, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_zetam1_e (s::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_zetam1_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), s, result )
+### end

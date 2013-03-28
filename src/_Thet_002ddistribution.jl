@@ -8,16 +8,18 @@ export gsl_ran_tdist, gsl_ran_tdist_pdf, gsl_cdf_tdist_P, gsl_cdf_tdist_Q,
        gsl_cdf_tdist_Pinv, gsl_cdf_tdist_Qinv
 
 
-# This function returns a random variate from the t-distribution.  The
+### Function uses unknown type; disabled
+### # This function returns a random variate from the t-distribution.  The
 # distribution function is,                 p(x) dx = {\Gamma((\nu + 1)/2)
 # \over \sqrt{\pi \nu} \Gamma(\nu/2)}              (1 + x^2/\nu)^{-(\nu + 1)/2}
 # dx  for -\infty < x < +\infty.
 # 
-#   Returns: Cdouble
-function gsl_ran_tdist (r::Ptr{gsl_rng}, nu::Cdouble)
-    ccall( (:gsl_ran_tdist, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble), r,
-        nu )
-end
+### #   Returns: Cdouble
+### #XXX Unknown input type r::Ptr{gsl_rng}
+### function gsl_ran_tdist (r::Ptr{gsl_rng}, nu::Cdouble)
+###     ccall( (:gsl_ran_tdist, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble), r,
+###         nu )
+### end
 
 
 # This function computes the probability density p(x) at x for a t-distribution

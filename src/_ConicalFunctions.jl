@@ -23,14 +23,16 @@ function gsl_sf_conicalP_half (lambda::Cdouble, x::Cdouble)
 end
 
 
-# These routines compute the irregular Spherical Conical Function
+### Function uses unknown type; disabled
+### # These routines compute the irregular Spherical Conical Function
 # P^{1/2}_{-1/2 + i \lambda}(x) for x > -1.
 # 
-#   Returns: Cint
-function gsl_sf_conicalP_half_e (lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_conicalP_half_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), lambda, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_conicalP_half_e (lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_conicalP_half_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), lambda, x, result )
+### end
 
 
 # These routines compute the regular Spherical Conical Function  P^{-1/2}_{-1/2
@@ -45,14 +47,16 @@ function gsl_sf_conicalP_mhalf (lambda::Cdouble, x::Cdouble)
 end
 
 
-# These routines compute the regular Spherical Conical Function  P^{-1/2}_{-1/2
+### Function uses unknown type; disabled
+### # These routines compute the regular Spherical Conical Function  P^{-1/2}_{-1/2
 # + i \lambda}(x) for x > -1.
 # 
-#   Returns: Cint
-function gsl_sf_conicalP_mhalf_e (lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_conicalP_mhalf_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), lambda, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_conicalP_mhalf_e (lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_conicalP_mhalf_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), lambda, x, result )
+### end
 
 
 # These routines compute the conical function  P^0_{-1/2 + i \lambda}(x) for x
@@ -67,14 +71,16 @@ function gsl_sf_conicalP_0 (lambda::Cdouble, x::Cdouble)
 end
 
 
-# These routines compute the conical function  P^0_{-1/2 + i \lambda}(x) for x
+### Function uses unknown type; disabled
+### # These routines compute the conical function  P^0_{-1/2 + i \lambda}(x) for x
 # > -1.
 # 
-#   Returns: Cint
-function gsl_sf_conicalP_0_e (lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_conicalP_0_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), lambda, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_conicalP_0_e (lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_conicalP_0_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), lambda, x, result )
+### end
 
 
 # These routines compute the conical function  P^1_{-1/2 + i \lambda}(x) for x
@@ -89,14 +95,16 @@ function gsl_sf_conicalP_1 (lambda::Cdouble, x::Cdouble)
 end
 
 
-# These routines compute the conical function  P^1_{-1/2 + i \lambda}(x) for x
+### Function uses unknown type; disabled
+### # These routines compute the conical function  P^1_{-1/2 + i \lambda}(x) for x
 # > -1.
 # 
-#   Returns: Cint
-function gsl_sf_conicalP_1_e (lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_conicalP_1_e, "libgsl"), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), lambda, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_conicalP_1_e (lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_conicalP_1_e, "libgsl"), Cint, (Cdouble, Cdouble,
+###         Ptr{gsl_sf_result}), lambda, x, result )
+### end
 
 
 # These routines compute the Regular Spherical Conical Function
@@ -112,14 +120,16 @@ function gsl_sf_conicalP_sph_reg (l::Cint, lambda::Cdouble, x::Cdouble)
 end
 
 
-# These routines compute the Regular Spherical Conical Function
+### Function uses unknown type; disabled
+### # These routines compute the Regular Spherical Conical Function
 # P^{-1/2-l}_{-1/2 + i \lambda}(x) for x > -1,  l >= -1.
 # 
-#   Returns: Cint
-function gsl_sf_conicalP_sph_reg_e (l::Cint, lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_conicalP_sph_reg_e, "libgsl"), Cint, (Cint, Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), l, lambda, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_conicalP_sph_reg_e (l::Cint, lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_conicalP_sph_reg_e, "libgsl"), Cint, (Cint, Cdouble,
+###         Cdouble, Ptr{gsl_sf_result}), l, lambda, x, result )
+### end
 
 
 # These routines compute the Regular Cylindrical Conical Function  P^{-m}_{-1/2
@@ -135,11 +145,13 @@ function gsl_sf_conicalP_cyl_reg (m::Cint, lambda::Cdouble, x::Cdouble)
 end
 
 
-# These routines compute the Regular Cylindrical Conical Function  P^{-m}_{-1/2
+### Function uses unknown type; disabled
+### # These routines compute the Regular Cylindrical Conical Function  P^{-m}_{-1/2
 # + i \lambda}(x) for x > -1,  m >= -1.
 # 
-#   Returns: Cint
-function gsl_sf_conicalP_cyl_reg_e (m::Cint, lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_conicalP_cyl_reg_e, "libgsl"), Cint, (Cint, Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), m, lambda, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_conicalP_cyl_reg_e (m::Cint, lambda::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_conicalP_cyl_reg_e, "libgsl"), Cint, (Cint, Cdouble,
+###         Cdouble, Ptr{gsl_sf_result}), m, lambda, x, result )
+### end

@@ -11,103 +11,124 @@ export gsl_multimin_fdfminimizer_iterate, gsl_multimin_fminimizer_iterate,
        gsl_multimin_fdfminimizer_restart
 
 
-# These functions perform a single iteration of the minimizer s.  If the
+### Function uses unknown type; disabled
+### # These functions perform a single iteration of the minimizer s.  If the
 # iteration encounters an unexpected problem then an error code will be
 # returned.  The error code GSL_ENOPROG signifies that the minimizer is unable
 # to improve on its current estimate, either due to numerical difficulty or
 # because a genuine local minimum has been reached.
 # 
-#   Returns: Cint
-function gsl_multimin_fdfminimizer_iterate (s::Ptr{gsl_multimin_fdfminimizer})
-    ccall( (:gsl_multimin_fdfminimizer_iterate, "libgsl"), Cint,
-        (Ptr{gsl_multimin_fdfminimizer}, ), s )
-end
+### #   Returns: Cint
+### #XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
+### function gsl_multimin_fdfminimizer_iterate (s::Ptr{gsl_multimin_fdfminimizer})
+###     ccall( (:gsl_multimin_fdfminimizer_iterate, "libgsl"), Cint,
+###         (Ptr{gsl_multimin_fdfminimizer}, ), s )
+### end
 
 
-# These functions perform a single iteration of the minimizer s.  If the
+### Function uses unknown type; disabled
+### # These functions perform a single iteration of the minimizer s.  If the
 # iteration encounters an unexpected problem then an error code will be
 # returned.  The error code GSL_ENOPROG signifies that the minimizer is unable
 # to improve on its current estimate, either due to numerical difficulty or
 # because a genuine local minimum has been reached.
 # 
-#   Returns: Cint
-function gsl_multimin_fminimizer_iterate (s::Ptr{gsl_multimin_fminimizer})
-    ccall( (:gsl_multimin_fminimizer_iterate, "libgsl"), Cint,
-        (Ptr{gsl_multimin_fminimizer}, ), s )
-end
+### #   Returns: Cint
+### #XXX Unknown input type s::Ptr{gsl_multimin_fminimizer}
+### function gsl_multimin_fminimizer_iterate (s::Ptr{gsl_multimin_fminimizer})
+###     ccall( (:gsl_multimin_fminimizer_iterate, "libgsl"), Cint,
+###         (Ptr{gsl_multimin_fminimizer}, ), s )
+### end
 
 
-# These functions return the current best estimate of the location of the
+### Function uses unknown type; disabled
+### # These functions return the current best estimate of the location of the
 # minimum, the value of the function at that point, its gradient, and minimizer
 # specific characteristic size for the minimizer s.
 # 
-#   Returns: Ptr{gsl_vector}
-function gsl_multimin_fdfminimizer_x (s::Ptr{gsl_multimin_fdfminimizer})
-    ccall( (:gsl_multimin_fdfminimizer_x, "libgsl"), Ptr{gsl_vector},
-        (Ptr{gsl_multimin_fdfminimizer}, ), s )
-end
+### #   Returns: Ptr{gsl_vector}
+### #XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
+### #XXX Unknown output type Ptr{gsl_vector}
+### function gsl_multimin_fdfminimizer_x (s::Ptr{gsl_multimin_fdfminimizer})
+###     ccall( (:gsl_multimin_fdfminimizer_x, "libgsl"), Ptr{gsl_vector},
+###         (Ptr{gsl_multimin_fdfminimizer}, ), s )
+### end
 
 
-# These functions return the current best estimate of the location of the
+### Function uses unknown type; disabled
+### # These functions return the current best estimate of the location of the
 # minimum, the value of the function at that point, its gradient, and minimizer
 # specific characteristic size for the minimizer s.
 # 
-#   Returns: Ptr{gsl_vector}
-function gsl_multimin_fminimizer_x (s::Ptr{gsl_multimin_fminimizer})
-    ccall( (:gsl_multimin_fminimizer_x, "libgsl"), Ptr{gsl_vector},
-        (Ptr{gsl_multimin_fminimizer}, ), s )
-end
+### #   Returns: Ptr{gsl_vector}
+### #XXX Unknown input type s::Ptr{gsl_multimin_fminimizer}
+### #XXX Unknown output type Ptr{gsl_vector}
+### function gsl_multimin_fminimizer_x (s::Ptr{gsl_multimin_fminimizer})
+###     ccall( (:gsl_multimin_fminimizer_x, "libgsl"), Ptr{gsl_vector},
+###         (Ptr{gsl_multimin_fminimizer}, ), s )
+### end
 
 
-# These functions return the current best estimate of the location of the
+### Function uses unknown type; disabled
+### # These functions return the current best estimate of the location of the
 # minimum, the value of the function at that point, its gradient, and minimizer
 # specific characteristic size for the minimizer s.
 # 
-#   Returns: Cdouble
-function gsl_multimin_fdfminimizer_minimum (s::Ptr{gsl_multimin_fdfminimizer})
-    ccall( (:gsl_multimin_fdfminimizer_minimum, "libgsl"), Cdouble,
-        (Ptr{gsl_multimin_fdfminimizer}, ), s )
-end
+### #   Returns: Cdouble
+### #XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
+### function gsl_multimin_fdfminimizer_minimum (s::Ptr{gsl_multimin_fdfminimizer})
+###     ccall( (:gsl_multimin_fdfminimizer_minimum, "libgsl"), Cdouble,
+###         (Ptr{gsl_multimin_fdfminimizer}, ), s )
+### end
 
 
-# These functions return the current best estimate of the location of the
+### Function uses unknown type; disabled
+### # These functions return the current best estimate of the location of the
 # minimum, the value of the function at that point, its gradient, and minimizer
 # specific characteristic size for the minimizer s.
 # 
-#   Returns: Cdouble
-function gsl_multimin_fminimizer_minimum (s::Ptr{gsl_multimin_fminimizer})
-    ccall( (:gsl_multimin_fminimizer_minimum, "libgsl"), Cdouble,
-        (Ptr{gsl_multimin_fminimizer}, ), s )
-end
+### #   Returns: Cdouble
+### #XXX Unknown input type s::Ptr{gsl_multimin_fminimizer}
+### function gsl_multimin_fminimizer_minimum (s::Ptr{gsl_multimin_fminimizer})
+###     ccall( (:gsl_multimin_fminimizer_minimum, "libgsl"), Cdouble,
+###         (Ptr{gsl_multimin_fminimizer}, ), s )
+### end
 
 
-# These functions return the current best estimate of the location of the
+### Function uses unknown type; disabled
+### # These functions return the current best estimate of the location of the
 # minimum, the value of the function at that point, its gradient, and minimizer
 # specific characteristic size for the minimizer s.
 # 
-#   Returns: Ptr{gsl_vector}
-function gsl_multimin_fdfminimizer_gradient (s::Ptr{gsl_multimin_fdfminimizer})
-    ccall( (:gsl_multimin_fdfminimizer_gradient, "libgsl"),
-        Ptr{gsl_vector}, (Ptr{gsl_multimin_fdfminimizer}, ), s )
-end
+### #   Returns: Ptr{gsl_vector}
+### #XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
+### #XXX Unknown output type Ptr{gsl_vector}
+### function gsl_multimin_fdfminimizer_gradient (s::Ptr{gsl_multimin_fdfminimizer})
+###     ccall( (:gsl_multimin_fdfminimizer_gradient, "libgsl"),
+###         Ptr{gsl_vector}, (Ptr{gsl_multimin_fdfminimizer}, ), s )
+### end
 
 
-# These functions return the current best estimate of the location of the
+### Function uses unknown type; disabled
+### # These functions return the current best estimate of the location of the
 # minimum, the value of the function at that point, its gradient, and minimizer
 # specific characteristic size for the minimizer s.
 # 
-#   Returns: Cdouble
-function gsl_multimin_fminimizer_size (s::Ptr{gsl_multimin_fminimizer})
-    ccall( (:gsl_multimin_fminimizer_size, "libgsl"), Cdouble,
-        (Ptr{gsl_multimin_fminimizer}, ), s )
-end
+### #   Returns: Cdouble
+### #XXX Unknown input type s::Ptr{gsl_multimin_fminimizer}
+### function gsl_multimin_fminimizer_size (s::Ptr{gsl_multimin_fminimizer})
+###     ccall( (:gsl_multimin_fminimizer_size, "libgsl"), Cdouble,
+###         (Ptr{gsl_multimin_fminimizer}, ), s )
+### end
 
 
-# This function resets the minimizer s to use the current point as a new
+### Function uses unknown type; disabled
+### # This function resets the minimizer s to use the current point as a new
 # starting point.
 # 
-#   Returns: Cint
-function gsl_multimin_fdfminimizer_restart (s::Ptr{gsl_multimin_fdfminimizer})
-    ccall( (:gsl_multimin_fdfminimizer_restart, "libgsl"), Cint,
-        (Ptr{gsl_multimin_fdfminimizer}, ), s )
-end
+### #   Returns: Cint
+### #XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
+### function gsl_multimin_fdfminimizer_restart (s::Ptr{gsl_multimin_fdfminimizer})
+###     ccall( (:gsl_multimin_fdfminimizer_restart, "libgsl"), Cint,
+###         (Ptr{gsl_multimin_fdfminimizer}, ), s )
+### end

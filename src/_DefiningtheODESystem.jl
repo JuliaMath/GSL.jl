@@ -8,7 +8,8 @@ export gsl_odeiv2_system, gsl_odeiv2_system, gsl_odeiv2_system,
        gsl_odeiv2_system
 
 
-# This data type defines a general ODE system with arbitrary parameters.
+### Function uses unknown type; disabled
+### # This data type defines a general ODE system with arbitrary parameters.
 # int (* function) (double t, const double y[], double dydt[], void *
 # params)This function should store the vector elements  f_i(t,y,params) in the
 # array dydt, for arguments (t,y) and parameters params.            The
@@ -36,38 +37,41 @@ export gsl_odeiv2_system, gsl_odeiv2_system, gsl_odeiv2_system,
 # dimension of the system of equations.            void * paramsThis is a
 # pointer to the arbitrary parameters of the system.
 # 
-#   {$f_i(t,y,\hbox{\it params})$} 
-#   {$\partial f_i(t,y,params) / \partial t$} @math{df_i(t,y,params)/dt} 
-#   {$J_{ij}$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_odeiv2_system ()
-    ccall( (:gsl_odeiv2_system, "libgsl"), , () )
-end
+### #   {$f_i(t,y,\hbox{\it params})$} 
+### #   {$\partial f_i(t,y,params) / \partial t$} @math{df_i(t,y,params)/dt} 
+### #   {$J_{ij}$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_odeiv2_system ()
+###     ccall( (:gsl_odeiv2_system, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_odeiv2_system ()
-    ccall( (:gsl_odeiv2_system, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_odeiv2_system ()
+###     ccall( (:gsl_odeiv2_system, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_odeiv2_system ()
-    ccall( (:gsl_odeiv2_system, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_odeiv2_system ()
+###     ccall( (:gsl_odeiv2_system, "libgsl"), , () )
+### end
 
 
+### Function uses unknown type; disabled
+### # 
 # 
-# 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_odeiv2_system ()
-    ccall( (:gsl_odeiv2_system, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_odeiv2_system ()
+###     ccall( (:gsl_odeiv2_system, "libgsl"), , () )
+### end

@@ -8,29 +8,34 @@ export gsl_integration_cquad_workspace_alloc,
        gsl_integration_cquad_workspace_free, gsl_integration_cquad
 
 
-# This function allocates a workspace sufficient to hold the data for n
+### Function uses unknown type; disabled
+### # This function allocates a workspace sufficient to hold the data for n
 # intervals. The number n is not the maximum number of intervals that will be
 # evaluated. If the workspace is full, intervals with smaller error estimates
 # will be discarded. A minimum of 3 intervals is required and or most
 # functions, a workspace of size 100 is sufficient.
 # 
-#   Returns: Ptr{gsl_integration_cquad_workspace}
-function gsl_integration_cquad_workspace_alloc (n::Csize_t)
-    ccall( (:gsl_integration_cquad_workspace_alloc, "libgsl"),
-        Ptr{gsl_integration_cquad_workspace}, (Csize_t, ), n )
-end
+### #   Returns: Ptr{gsl_integration_cquad_workspace}
+### #XXX Unknown output type Ptr{gsl_integration_cquad_workspace}
+### function gsl_integration_cquad_workspace_alloc (n::Csize_t)
+###     ccall( (:gsl_integration_cquad_workspace_alloc, "libgsl"),
+###         Ptr{gsl_integration_cquad_workspace}, (Csize_t, ), n )
+### end
 
 
-# This function frees the memory associated with the workspace w.
+### Function uses unknown type; disabled
+### # This function frees the memory associated with the workspace w.
 # 
-#   Returns: Void
-function gsl_integration_cquad_workspace_free (w::Ptr{gsl_integration_cquad_workspace})
-    ccall( (:gsl_integration_cquad_workspace_free, "libgsl"), Void,
-        (Ptr{gsl_integration_cquad_workspace}, ), w )
-end
+### #   Returns: Void
+### #XXX Unknown input type w::Ptr{gsl_integration_cquad_workspace}
+### function gsl_integration_cquad_workspace_free (w::Ptr{gsl_integration_cquad_workspace})
+###     ccall( (:gsl_integration_cquad_workspace_free, "libgsl"), Void,
+###         (Ptr{gsl_integration_cquad_workspace}, ), w )
+### end
 
 
-# This function computes the integral of f over (a,b) within the desired
+### Function uses unknown type; disabled
+### # This function computes the integral of f over (a,b) within the desired
 # absolute and relative error limits, epsabs and epsrel using the cquad
 # algorithm.  The function returns the final approximation, result, an estimate
 # of the absolute error, abserr, and the number of function evaluations
@@ -48,11 +53,13 @@ end
 # function evaluations is not needed, the pointers abserr and nevals can be set
 # to NULL.
 # 
-#   Returns: Cint
-function gsl_integration_cquad (f::Ptr{gsl_function}, a::Cdouble, b::Cdouble, epsabs::Cdouble, epsrel::Cdouble, workspace::Ptr{gsl_integration_cquad_workspace}, result::Ptr{Cdouble}, abserr::Ptr{Cdouble}, nevals::Ptr{Csize_t})
-    ccall( (:gsl_integration_cquad, "libgsl"), Cint, (Ptr{gsl_function},
-        Cdouble, Cdouble, Cdouble, Cdouble,
-        Ptr{gsl_integration_cquad_workspace}, Ptr{Cdouble}, Ptr{Cdouble},
-        Ptr{Csize_t}), f, a, b, epsabs, epsrel, workspace, result, abserr,
-        nevals )
-end
+### #   Returns: Cint
+### #XXX Unknown input type f::Ptr{gsl_function}
+### #XXX Unknown input type workspace::Ptr{gsl_integration_cquad_workspace}
+### function gsl_integration_cquad (f::Ptr{gsl_function}, a::Cdouble, b::Cdouble, epsabs::Cdouble, epsrel::Cdouble, workspace::Ptr{gsl_integration_cquad_workspace}, result::Ptr{Cdouble}, abserr::Ptr{Cdouble}, nevals::Ptr{Csize_t})
+###     ccall( (:gsl_integration_cquad, "libgsl"), Cint, (Ptr{gsl_function},
+###         Cdouble, Cdouble, Cdouble, Cdouble,
+###         Ptr{gsl_integration_cquad_workspace}, Ptr{Cdouble}, Ptr{Cdouble},
+###         Ptr{Csize_t}), f, a, b, epsabs, epsrel, workspace, result, abserr,
+###         nevals )
+### end

@@ -11,7 +11,8 @@ export gsl_multimin_fdfminimizer_conjugate_fr,
        gsl_multimin_fdfminimizer_steepest_descent
 
 
-# This is the Fletcher-Reeves conjugate gradient algorithm. The conjugate
+### Function uses unknown type; disabled
+### # This is the Fletcher-Reeves conjugate gradient algorithm. The conjugate
 # gradient algorithm proceeds as a succession of line minimizations. The
 # sequence of search directions is used to build up an approximation to the
 # curvature of the function in the neighborhood of the minimum.          An
@@ -24,28 +25,30 @@ export gsl_multimin_fdfminimizer_conjugate_fr,
 # \beta g where \beta=-|g'|^2/|g|^2, and the line minimization is then repeated
 # for the new search direction.
 # 
-#   {$p\cdot g < tol |p| |g|$} 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_fdfminimizer_conjugate_fr ()
-    ccall( (:gsl_multimin_fdfminimizer_conjugate_fr, "libgsl"), , () )
-end
+### #   {$p\cdot g < tol |p| |g|$} 
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_fdfminimizer_conjugate_fr ()
+###     ccall( (:gsl_multimin_fdfminimizer_conjugate_fr, "libgsl"), , () )
+### end
 
 
-# This is the Polak-Ribiere conjugate gradient algorithm.  It is similar to the
+### Function uses unknown type; disabled
+### # This is the Polak-Ribiere conjugate gradient algorithm.  It is similar to the
 # Fletcher-Reeves method, differing only in the choice of the coefficient
 # \beta. Both methods work well when the evaluation point is close enough to
 # the minimum of the objective function that it is well approximated by a
 # quadratic hypersurface.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_fdfminimizer_conjugate_pr ()
-    ccall( (:gsl_multimin_fdfminimizer_conjugate_pr, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_fdfminimizer_conjugate_pr ()
+###     ccall( (:gsl_multimin_fdfminimizer_conjugate_pr, "libgsl"), , () )
+### end
 
 
-# These methods use the vector Broyden-Fletcher-Goldfarb-Shanno (BFGS)
+### Function uses unknown type; disabled
+### # These methods use the vector Broyden-Fletcher-Goldfarb-Shanno (BFGS)
 # algorithm.  This is a quasi-Newton method which builds up an approximation to
 # the second derivatives of the function f using the difference between
 # successive gradient vectors.  By combining the first and second derivatives
@@ -59,14 +62,15 @@ end
 # parameter \sigma used by Fletcher.  A value of 0.1 is recommended for typical
 # use (larger values correspond to less accurate line searches).
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_fdfminimizer_vector_bfgs2 ()
-    ccall( (:gsl_multimin_fdfminimizer_vector_bfgs2, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_fdfminimizer_vector_bfgs2 ()
+###     ccall( (:gsl_multimin_fdfminimizer_vector_bfgs2, "libgsl"), , () )
+### end
 
 
-# These methods use the vector Broyden-Fletcher-Goldfarb-Shanno (BFGS)
+### Function uses unknown type; disabled
+### # These methods use the vector Broyden-Fletcher-Goldfarb-Shanno (BFGS)
 # algorithm.  This is a quasi-Newton method which builds up an approximation to
 # the second derivatives of the function f using the difference between
 # successive gradient vectors.  By combining the first and second derivatives
@@ -80,14 +84,15 @@ end
 # parameter \sigma used by Fletcher.  A value of 0.1 is recommended for typical
 # use (larger values correspond to less accurate line searches).
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_fdfminimizer_vector_bfgs ()
-    ccall( (:gsl_multimin_fdfminimizer_vector_bfgs, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_fdfminimizer_vector_bfgs ()
+###     ccall( (:gsl_multimin_fdfminimizer_vector_bfgs, "libgsl"), , () )
+### end
 
 
-# The steepest descent algorithm follows the downhill gradient of the function
+### Function uses unknown type; disabled
+### # The steepest descent algorithm follows the downhill gradient of the function
 # at each step. When a downhill step is successful the step-size is increased
 # by a factor of two.  If the downhill step leads to a higher function value
 # then the algorithm backtracks and the step size is decreased using the
@@ -95,8 +100,8 @@ end
 # steepest descent method is inefficient and is included only for demonstration
 # purposes.
 # 
-#   Returns: 
-#XXX Unknown output type 
-function gsl_multimin_fdfminimizer_steepest_descent ()
-    ccall( (:gsl_multimin_fdfminimizer_steepest_descent, "libgsl"), , () )
-end
+### #   Returns: 
+### #XXX Unknown output type 
+### function gsl_multimin_fdfminimizer_steepest_descent ()
+###     ccall( (:gsl_multimin_fdfminimizer_steepest_descent, "libgsl"), , () )
+### end

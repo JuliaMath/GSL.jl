@@ -24,14 +24,16 @@ function gsl_sf_fermi_dirac_m1 (x::Cdouble)
 end
 
 
-# These routines compute the complete Fermi-Dirac integral with an index of -1.
+### Function uses unknown type; disabled
+### # These routines compute the complete Fermi-Dirac integral with an index of -1.
 # This integral is given by  F_{-1}(x) = e^x / (1 + e^x).
 # 
-#   Returns: Cint
-function gsl_sf_fermi_dirac_m1_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_fermi_dirac_m1_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_fermi_dirac_m1_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_fermi_dirac_m1_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the complete Fermi-Dirac integral with an index of 0.
@@ -44,14 +46,16 @@ function gsl_sf_fermi_dirac_0 (x::Cdouble)
 end
 
 
-# These routines compute the complete Fermi-Dirac integral with an index of 0.
+### Function uses unknown type; disabled
+### # These routines compute the complete Fermi-Dirac integral with an index of 0.
 # This integral is given by F_0(x) = \ln(1 + e^x).
 # 
-#   Returns: Cint
-function gsl_sf_fermi_dirac_0_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_fermi_dirac_0_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_fermi_dirac_0_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_fermi_dirac_0_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the complete Fermi-Dirac integral with an index of 1,
@@ -64,14 +68,16 @@ function gsl_sf_fermi_dirac_1 (x::Cdouble)
 end
 
 
-# These routines compute the complete Fermi-Dirac integral with an index of 1,
+### Function uses unknown type; disabled
+### # These routines compute the complete Fermi-Dirac integral with an index of 1,
 # F_1(x) = \int_0^\infty dt (t /(\exp(t-x)+1)).
 # 
-#   Returns: Cint
-function gsl_sf_fermi_dirac_1_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_fermi_dirac_1_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_fermi_dirac_1_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_fermi_dirac_1_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the complete Fermi-Dirac integral with an index of 2,
@@ -84,14 +90,16 @@ function gsl_sf_fermi_dirac_2 (x::Cdouble)
 end
 
 
-# These routines compute the complete Fermi-Dirac integral with an index of 2,
+### Function uses unknown type; disabled
+### # These routines compute the complete Fermi-Dirac integral with an index of 2,
 # F_2(x) = (1/2) \int_0^\infty dt (t^2 /(\exp(t-x)+1)).
 # 
-#   Returns: Cint
-function gsl_sf_fermi_dirac_2_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_fermi_dirac_2_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_fermi_dirac_2_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_fermi_dirac_2_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the complete Fermi-Dirac integral with an integer
@@ -106,14 +114,16 @@ function gsl_sf_fermi_dirac_int (j::Cint, x::Cdouble)
 end
 
 
-# These routines compute the complete Fermi-Dirac integral with an integer
+### Function uses unknown type; disabled
+### # These routines compute the complete Fermi-Dirac integral with an integer
 # index of j, F_j(x) = (1/\Gamma(j+1)) \int_0^\infty dt (t^j /(\exp(t-x)+1)).
 # 
-#   Returns: Cint
-function gsl_sf_fermi_dirac_int_e (j::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_fermi_dirac_int_e, "libgsl"), Cint, (Cint, Cdouble,
-        Ptr{gsl_sf_result}), j, x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_fermi_dirac_int_e (j::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_fermi_dirac_int_e, "libgsl"), Cint, (Cint, Cdouble,
+###         Ptr{gsl_sf_result}), j, x, result )
+### end
 
 
 # These routines compute the complete Fermi-Dirac integral  F_{-1/2}(x).
@@ -126,13 +136,15 @@ function gsl_sf_fermi_dirac_mhalf (x::Cdouble)
 end
 
 
-# These routines compute the complete Fermi-Dirac integral  F_{-1/2}(x).
+### Function uses unknown type; disabled
+### # These routines compute the complete Fermi-Dirac integral  F_{-1/2}(x).
 # 
-#   Returns: Cint
-function gsl_sf_fermi_dirac_mhalf_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_fermi_dirac_mhalf_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_fermi_dirac_mhalf_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_fermi_dirac_mhalf_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the complete Fermi-Dirac integral  F_{1/2}(x).
@@ -145,13 +157,15 @@ function gsl_sf_fermi_dirac_half (x::Cdouble)
 end
 
 
-# These routines compute the complete Fermi-Dirac integral  F_{1/2}(x).
+### Function uses unknown type; disabled
+### # These routines compute the complete Fermi-Dirac integral  F_{1/2}(x).
 # 
-#   Returns: Cint
-function gsl_sf_fermi_dirac_half_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_fermi_dirac_half_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_fermi_dirac_half_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_fermi_dirac_half_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
 
 
 # These routines compute the complete Fermi-Dirac integral  F_{3/2}(x).
@@ -164,10 +178,12 @@ function gsl_sf_fermi_dirac_3half (x::Cdouble)
 end
 
 
-# These routines compute the complete Fermi-Dirac integral  F_{3/2}(x).
+### Function uses unknown type; disabled
+### # These routines compute the complete Fermi-Dirac integral  F_{3/2}(x).
 # 
-#   Returns: Cint
-function gsl_sf_fermi_dirac_3half_e (x::Cdouble, result::Ptr{gsl_sf_result})
-    ccall( (:gsl_sf_fermi_dirac_3half_e, "libgsl"), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
-end
+### #   Returns: Cint
+### #XXX Unknown input type result::Ptr{gsl_sf_result}
+### function gsl_sf_fermi_dirac_3half_e (x::Cdouble, result::Ptr{gsl_sf_result})
+###     ccall( (:gsl_sf_fermi_dirac_3half_e, "libgsl"), Cint, (Cdouble,
+###         Ptr{gsl_sf_result}), x, result )
+### end
