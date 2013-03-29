@@ -172,7 +172,7 @@ def parsestructs1(soup, unknown_handler='report'):
     Extract these.
     """
     exports = []
-    parsed_out = ['#DEBUG Structs Type 1']
+    parsed_out = []#'#DEBUG Structs Type 1']
     all_unknowns = []
     for struct_block in soup.find_all('pre', class_='example'):
         struct_code = struct_block.string
@@ -222,7 +222,7 @@ def parsestructs2(soup, unknown_handler = 'report'):
     Where necessary, match C types to corresponding Julia types
     """
     exports = []
-    all_parsed_out = ['#DEBUG Structs type 2']
+    all_parsed_out = []#'#DEBUG Structs type 2']
     unknowns = []
     for function_block in soup.find_all('div', class_='defun'):
         for fn in function_block.find_all('br'):
