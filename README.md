@@ -18,9 +18,9 @@ Pkg.add("GSL")
 
 # How to use
 
-This package provides wrappers to every single documented function in the
-[GSL manual](http://www.gnu.org/software/gsl/manual/html_node) that does *not*
-use custom `gsl_*` data types.
+This package provides wrappers to some documented functions in the
+[GSL manual](http://www.gnu.org/software/gsl/manual/html_node).
+More information is available below.
 
 Example:
 ```julia
@@ -47,7 +47,7 @@ Currently only one convenience method is available.
 
 # Current status
 
-A limited subset of the GSL functions are currently available
+A limited subset of the GSL functions are currently available.
 
 ## What is available
 * All `gsl_*` functions that _do not_ use custom `gsl_*` types
