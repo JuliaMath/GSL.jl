@@ -4,7 +4,9 @@ GSL.jl
 Julia interface to the [GNU Scientific Library (GSL)](http://www.gnu.org/software/gsl)
 
 [Jiahao Chen](http://github.com/jiahao) <jiahao@mit.edu>
+
 Licensed under [GPLv3](http://www.gnu.org/copyleft/gpl.html)
+
 Tested with [libgsl](http://www.gnu.org/software/gsl) 1.15
 
 # How to install
