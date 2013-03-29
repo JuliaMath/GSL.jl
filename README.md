@@ -18,7 +18,7 @@ Pkg.add("GSL")
 
 # How to use
 
-This package provides wrappers to some documented functions in the
+This package provides wrappers to all documented functions and structs in the
 [GSL manual](http://www.gnu.org/software/gsl/manual/html_node).
 More information is available below.
 
@@ -28,6 +28,22 @@ Example:
     x = randn()
     gsl_sf_hyperg_U(-1.0, -1.0, x) - (1 + x)
     #Answer: 0.0
+```
+
+First example from [Section 20.39](http://www.gnu.org/software/gsl/manual/html_node/Random-Number-Distribution-Examples.html) from the GSL manual
+```julia
+    using GSL
+    n, mu = 10, 3.0
+    T = gsl_rng_env_setup()
+    r = gsl_rng_alloc(T)
+    for i=1:n
+        k=int64(gsl_ran_poisson(r, mu))
+        @printf(" %u", k)
+    end
+    println()
+    gsl_rng_free(r)
+    #Output
+    # 2 5 5 2 1 0 3 4 1 1
 ```
 
 # Convenience methods provided
@@ -47,25 +63,27 @@ Currently only one convenience method is available.
 
 # Current status
 
-A limited subset of the GSL functions are currently available.
-
 ## What is available
-* All `gsl_*` functions that _do not_ use custom `gsl_*` types
+* All `gsl_*` functions except the CBLAS wrappers `gsl_cblas_*`
+* All documented `gsl_*` structs
 
 ## What is not available
-* All `gsl_*` functions that _do_ use custom `gsl_*` types
+* The CBLAS wrappers `gsl_cblas_*`:
+  Wrappers around the GSL wrappers have been generated but almost certainly don't work. 
+  Since Julia itself provides native interfaces to BLAS routines, it seems pointless to
+  even try to fix this.
+* All undocumented `gsl_*` structs:
+  Function calls involving these structs have had their data types changed to `Void`
+  in Julia so that they can be used as opaque pointers without knowledge of what is
+  inside them.
 * All `GSL_*` constants
 * All `GSL_*` macros
-* All `gsl_*` structs
 
 ## How you can help
 
-The wrappers are automatically generated using util/makewrapper.py.
-The code generator currently does NOT know now to wrap structs and constants
-and therefore none of them are available to Julia right now.
+The wrappers are automatically generated using `util/makewrapper.py`.
 
 1. Test function wrappers for correctness.
-2. Expose `gsl_*` structs and `GSL_*` constants and macros to Julia.
+2. Expose `GSL_*` constants and macros to Julia.
 3. Write convenience methods to further wrap the `gsl_*` calls with a Julia-
    friendly syntax.
-
