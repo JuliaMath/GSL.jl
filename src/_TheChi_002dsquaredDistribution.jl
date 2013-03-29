@@ -8,18 +8,21 @@ export gsl_ran_chisq, gsl_ran_chisq_pdf, gsl_cdf_chisq_P, gsl_cdf_chisq_Q,
        gsl_cdf_chisq_Pinv, gsl_cdf_chisq_Qinv
 
 
-### Function uses unknown type; disabled
-### # This function returns a random variate from the chi-squared distribution with
+
+
+
+
+# This function returns a random variate from the chi-squared distribution with
 # nu degrees of freedom. The distribution function is,                 p(x) dx
 # = {1 \over 2 \Gamma(\nu/2) } (x/2)^{\nu/2 - 1} \exp(-x/2) dx  for  x >= 0.
 # 
-### #   {$x \ge 0$} 
-### #   Returns: Cdouble
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_chisq (r::Ptr{gsl_rng}, nu::Cdouble)
-###     ccall( (:gsl_ran_chisq, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble), r,
-###         nu )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_chisq (r::Ptr{Void}, nu::Cdouble)
+    ccall( (:gsl_ran_chisq, "libgsl"), Cdouble, (Ptr{Void}, Cdouble), r, nu
+        )
+end
 
 
 # This function computes the probability density p(x) at x for a chi-squared

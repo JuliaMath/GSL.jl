@@ -9,18 +9,19 @@ export gsl_ran_exponential, gsl_ran_exponential_pdf, gsl_cdf_exponential_P,
        gsl_cdf_exponential_Qinv
 
 
-### Function uses unknown type; disabled
-### # This function returns a random variate from the exponential distribution with
+
+
+# This function returns a random variate from the exponential distribution with
 # mean mu. The distribution is,                 p(x) dx = {1 \over \mu}
 # \exp(-x/\mu) dx  for  x >= 0.
 # 
-### #   {$x \ge 0$} 
-### #   Returns: Cdouble
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_exponential (r::Ptr{gsl_rng}, mu::Cdouble)
-###     ccall( (:gsl_ran_exponential, "libgsl"), Cdouble, (Ptr{gsl_rng},
-###         Cdouble), r, mu )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_exponential (r::Ptr{Void}, mu::Cdouble)
+    ccall( (:gsl_ran_exponential, "libgsl"), Cdouble, (Ptr{Void}, Cdouble),
+        r, mu )
+end
 
 
 # This function computes the probability density p(x) at x for an exponential

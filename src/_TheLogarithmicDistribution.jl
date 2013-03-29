@@ -7,18 +7,19 @@
 export gsl_ran_logarithmic, gsl_ran_logarithmic_pdf
 
 
-### Function uses unknown type; disabled
-### # This function returns a random integer from the logarithmic distribution.
+
+
+# This function returns a random integer from the logarithmic distribution.
 # The probability distribution for logarithmic random variates is,
 # p(k) = {-1 \over \log(1-p)} {(p^k \over k)}  for  k >= 1.
 # 
-### #   {$k \ge 1$} 
-### #   Returns: Cuint
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_logarithmic (r::Ptr{gsl_rng}, p::Cdouble)
-###     ccall( (:gsl_ran_logarithmic, "libgsl"), Cuint, (Ptr{gsl_rng},
-###         Cdouble), r, p )
-### end
+#   Returns: Cuint
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_logarithmic (r::Ptr{Void}, p::Cdouble)
+    ccall( (:gsl_ran_logarithmic, "libgsl"), Cuint, (Ptr{Void}, Cdouble),
+        r, p )
+end
 
 
 # This function computes the probability p(k) of obtaining k from a logarithmic

@@ -13,8 +13,19 @@ export gsl_vector_subvector, gsl_vector_const_subvector,
        gsl_vector_const_view_array_with_stride
 
 
-### Function uses unknown type; disabled
-### # These functions return a vector view of a subvector of another vector v.  The
+
+
+
+
+
+
+
+
+
+
+
+
+# These functions return a vector view of a subvector of another vector v.  The
 # start of the new vector is offset by offset elements from the start of the
 # original vector.  The new vector has n elements.  Mathematically, the i-th
 # element of the new vector v' is given by,                 v'(i) =
@@ -30,17 +41,16 @@ export gsl_vector_subvector, gsl_vector_const_subvector,
 # gsl_vector_const_subvector is equivalent to gsl_vector_subvector but can be
 # used for vectors which are declared const.
 # 
-### #   Returns: gsl_vector_view
-### #XXX Unknown input type v::Ptr{gsl_vector}
-### #XXX Unknown output type gsl_vector_view
-### function gsl_vector_subvector (v::Ptr{gsl_vector}, offset::Csize_t, n::Csize_t)
-###     ccall( (:gsl_vector_subvector, "libgsl"), gsl_vector_view,
-###         (Ptr{gsl_vector}, Csize_t, Csize_t), v, offset, n )
-### end
+#   Returns: Void
+#XXX Unknown output type gsl_vector_view
+#XXX Coerced type for output Void
+function gsl_vector_subvector (v::Ptr{gsl_vector}, offset::Csize_t, n::Csize_t)
+    ccall( (:gsl_vector_subvector, "libgsl"), Void, (Ptr{gsl_vector},
+        Csize_t, Csize_t), v, offset, n )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return a vector view of a subvector of another vector v.  The
+# These functions return a vector view of a subvector of another vector v.  The
 # start of the new vector is offset by offset elements from the start of the
 # original vector.  The new vector has n elements.  Mathematically, the i-th
 # element of the new vector v' is given by,                 v'(i) =
@@ -56,17 +66,16 @@ export gsl_vector_subvector, gsl_vector_const_subvector,
 # gsl_vector_const_subvector is equivalent to gsl_vector_subvector but can be
 # used for vectors which are declared const.
 # 
-### #   Returns: gsl_vector_const_view
-### #XXX Unknown input type v::Ptr{gsl_vector}
-### #XXX Unknown output type gsl_vector_const_view
-### function gsl_vector_const_subvector (v::Ptr{gsl_vector}, offset::Csize_t, n::Csize_t)
-###     ccall( (:gsl_vector_const_subvector, "libgsl"), gsl_vector_const_view,
-###         (Ptr{gsl_vector}, Csize_t, Csize_t), v, offset, n )
-### end
+#   Returns: Void
+#XXX Unknown output type gsl_vector__view
+#XXX Coerced type for output Void
+function gsl_vector_const_subvector (v::Ptr{gsl_vector}, offset::Csize_t, n::Csize_t)
+    ccall( (:gsl_vector_const_subvector, "libgsl"), Void, (Ptr{gsl_vector},
+        Csize_t, Csize_t), v, offset, n )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return a vector view of a subvector of another vector v with
+# These functions return a vector view of a subvector of another vector v with
 # an additional stride argument. The subvector is formed in the same way as for
 # gsl_vector_subvector but the new vector has n elements with a step-size of
 # stride from one element to the next in the original vector.  Mathematically,
@@ -87,17 +96,16 @@ export gsl_vector_subvector, gsl_vector_const_subvector,
 # gsl_vector_subvector_with_stride but can be used for vectors which are
 # declared const.
 # 
-### #   Returns: gsl_vector_view
-### #XXX Unknown input type v::Ptr{gsl_vector}
-### #XXX Unknown output type gsl_vector_view
-### function gsl_vector_subvector_with_stride (v::Ptr{gsl_vector}, offset::Csize_t, stride::Csize_t, n::Csize_t)
-###     ccall( (:gsl_vector_subvector_with_stride, "libgsl"), gsl_vector_view,
-###         (Ptr{gsl_vector}, Csize_t, Csize_t, Csize_t), v, offset, stride, n )
-### end
+#   Returns: Void
+#XXX Unknown output type gsl_vector_view
+#XXX Coerced type for output Void
+function gsl_vector_subvector_with_stride (v::Ptr{gsl_vector}, offset::Csize_t, stride::Csize_t, n::Csize_t)
+    ccall( (:gsl_vector_subvector_with_stride, "libgsl"), Void,
+        (Ptr{gsl_vector}, Csize_t, Csize_t, Csize_t), v, offset, stride, n )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return a vector view of a subvector of another vector v with
+# These functions return a vector view of a subvector of another vector v with
 # an additional stride argument. The subvector is formed in the same way as for
 # gsl_vector_subvector but the new vector has n elements with a step-size of
 # stride from one element to the next in the original vector.  Mathematically,
@@ -118,76 +126,76 @@ export gsl_vector_subvector, gsl_vector_const_subvector,
 # gsl_vector_subvector_with_stride but can be used for vectors which are
 # declared const.
 # 
-### #   Returns: gsl_vector_const_view
-### #XXX Unknown input type v::Ptr{gsl_vector}
-### #XXX Unknown output type gsl_vector_const_view
-### function gsl_vector_const_subvector_with_stride (v::Ptr{gsl_vector}, offset::Csize_t, stride::Csize_t, n::Csize_t)
-###     ccall( (:gsl_vector_const_subvector_with_stride, "libgsl"),
-###         gsl_vector_const_view, (Ptr{gsl_vector}, Csize_t, Csize_t, Csize_t), v,
-###         offset, stride, n )
-### end
+#   Returns: Void
+#XXX Unknown output type gsl_vector__view
+#XXX Coerced type for output Void
+function gsl_vector_const_subvector_with_stride (v::Ptr{gsl_vector}, offset::Csize_t, stride::Csize_t, n::Csize_t)
+    ccall( (:gsl_vector_const_subvector_with_stride, "libgsl"), Void,
+        (Ptr{gsl_vector}, Csize_t, Csize_t, Csize_t), v, offset, stride, n )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return a vector view of the real parts of the complex vector
+# These functions return a vector view of the real parts of the complex vector
 # v.          The function gsl_vector_complex_const_real is equivalent to
 # gsl_vector_complex_real but can be used for vectors which are declared const.
 # 
-### #   Returns: gsl_vector_view
-### #XXX Unknown input type v::Ptr{gsl_vector_complex}
-### #XXX Unknown output type gsl_vector_view
-### function gsl_vector_complex_real (v::Ptr{gsl_vector_complex})
-###     ccall( (:gsl_vector_complex_real, "libgsl"), gsl_vector_view,
-###         (Ptr{gsl_vector_complex}, ), v )
-### end
+#   Returns: Void
+#XXX Unknown input type v::Ptr{gsl_vector_complex}
+#XXX Coerced type for v::Ptr{Void}
+#XXX Unknown output type gsl_vector_view
+#XXX Coerced type for output Void
+function gsl_vector_complex_real (v::Ptr{Void})
+    ccall( (:gsl_vector_complex_real, "libgsl"), Void, (Ptr{Void}, ), v )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return a vector view of the real parts of the complex vector
+# These functions return a vector view of the real parts of the complex vector
 # v.          The function gsl_vector_complex_const_real is equivalent to
 # gsl_vector_complex_real but can be used for vectors which are declared const.
 # 
-### #   Returns: gsl_vector_const_view
-### #XXX Unknown input type v::Ptr{gsl_vector_complex}
-### #XXX Unknown output type gsl_vector_const_view
-### function gsl_vector_complex_const_real (v::Ptr{gsl_vector_complex})
-###     ccall( (:gsl_vector_complex_const_real, "libgsl"),
-###         gsl_vector_const_view, (Ptr{gsl_vector_complex}, ), v )
-### end
+#   Returns: Void
+#XXX Unknown input type v::Ptr{gsl_vector_complex}
+#XXX Coerced type for v::Ptr{Void}
+#XXX Unknown output type gsl_vector__view
+#XXX Coerced type for output Void
+function gsl_vector_complex_const_real (v::Ptr{Void})
+    ccall( (:gsl_vector_complex_const_real, "libgsl"), Void, (Ptr{Void}, ),
+        v )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return a vector view of the imaginary parts of the complex
+# These functions return a vector view of the imaginary parts of the complex
 # vector v.          The function gsl_vector_complex_const_imag is equivalent
 # to gsl_vector_complex_imag but can be used for vectors which are declared
 # const.
 # 
-### #   Returns: gsl_vector_view
-### #XXX Unknown input type v::Ptr{gsl_vector_complex}
-### #XXX Unknown output type gsl_vector_view
-### function gsl_vector_complex_imag (v::Ptr{gsl_vector_complex})
-###     ccall( (:gsl_vector_complex_imag, "libgsl"), gsl_vector_view,
-###         (Ptr{gsl_vector_complex}, ), v )
-### end
+#   Returns: Void
+#XXX Unknown input type v::Ptr{gsl_vector_complex}
+#XXX Coerced type for v::Ptr{Void}
+#XXX Unknown output type gsl_vector_view
+#XXX Coerced type for output Void
+function gsl_vector_complex_imag (v::Ptr{Void})
+    ccall( (:gsl_vector_complex_imag, "libgsl"), Void, (Ptr{Void}, ), v )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return a vector view of the imaginary parts of the complex
+# These functions return a vector view of the imaginary parts of the complex
 # vector v.          The function gsl_vector_complex_const_imag is equivalent
 # to gsl_vector_complex_imag but can be used for vectors which are declared
 # const.
 # 
-### #   Returns: gsl_vector_const_view
-### #XXX Unknown input type v::Ptr{gsl_vector_complex}
-### #XXX Unknown output type gsl_vector_const_view
-### function gsl_vector_complex_const_imag (v::Ptr{gsl_vector_complex})
-###     ccall( (:gsl_vector_complex_const_imag, "libgsl"),
-###         gsl_vector_const_view, (Ptr{gsl_vector_complex}, ), v )
-### end
+#   Returns: Void
+#XXX Unknown input type v::Ptr{gsl_vector_complex}
+#XXX Coerced type for v::Ptr{Void}
+#XXX Unknown output type gsl_vector__view
+#XXX Coerced type for output Void
+function gsl_vector_complex_const_imag (v::Ptr{Void})
+    ccall( (:gsl_vector_complex_const_imag, "libgsl"), Void, (Ptr{Void}, ),
+        v )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return a vector view of an array.  The start of the new
+# These functions return a vector view of an array.  The start of the new
 # vector is given by base and has n elements.  Mathematically, the i-th element
 # of the new vector v' is given by,                 v'(i) = base[i]  where the
 # index i runs from 0 to n-1.          The array containing the elements of v
@@ -198,16 +206,16 @@ export gsl_vector_subvector, gsl_vector_const_subvector,
 # function gsl_vector_const_view_array is equivalent to gsl_vector_view_array
 # but can be used for arrays which are declared const.
 # 
-### #   Returns: gsl_vector_view
-### #XXX Unknown output type gsl_vector_view
-### function gsl_vector_view_array (base::Ptr{Cdouble}, n::Csize_t)
-###     ccall( (:gsl_vector_view_array, "libgsl"), gsl_vector_view,
-###         (Ptr{Cdouble}, Csize_t), base, n )
-### end
+#   Returns: Void
+#XXX Unknown output type gsl_vector_view
+#XXX Coerced type for output Void
+function gsl_vector_view_array (base::Ptr{Cdouble}, n::Csize_t)
+    ccall( (:gsl_vector_view_array, "libgsl"), Void, (Ptr{Cdouble},
+        Csize_t), base, n )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return a vector view of an array.  The start of the new
+# These functions return a vector view of an array.  The start of the new
 # vector is given by base and has n elements.  Mathematically, the i-th element
 # of the new vector v' is given by,                 v'(i) = base[i]  where the
 # index i runs from 0 to n-1.          The array containing the elements of v
@@ -218,16 +226,16 @@ export gsl_vector_subvector, gsl_vector_const_subvector,
 # function gsl_vector_const_view_array is equivalent to gsl_vector_view_array
 # but can be used for arrays which are declared const.
 # 
-### #   Returns: gsl_vector_const_view
-### #XXX Unknown output type gsl_vector_const_view
-### function gsl_vector_const_view_array (base::Ptr{Cdouble}, n::Csize_t)
-###     ccall( (:gsl_vector_const_view_array, "libgsl"), gsl_vector_const_view,
-###         (Ptr{Cdouble}, Csize_t), base, n )
-### end
+#   Returns: Void
+#XXX Unknown output type gsl_vector__view
+#XXX Coerced type for output Void
+function gsl_vector_const_view_array (base::Ptr{Cdouble}, n::Csize_t)
+    ccall( (:gsl_vector_const_view_array, "libgsl"), Void, (Ptr{Cdouble},
+        Csize_t), base, n )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return a vector view of an array base with an additional
+# These functions return a vector view of an array base with an additional
 # stride argument. The subvector is formed in the same way as for
 # gsl_vector_view_array but the new vector has n elements with a step-size of
 # stride from one element to the next in the original array.  Mathematically,
@@ -240,16 +248,16 @@ export gsl_vector_subvector, gsl_vector_const_subvector,
 # gsl_vector_view_array_with_stride but can be used for arrays which are
 # declared const.
 # 
-### #   Returns: gsl_vector_view
-### #XXX Unknown output type gsl_vector_view
-### function gsl_vector_view_array_with_stride (base::Ptr{Cdouble}, stride::Csize_t, n::Csize_t)
-###     ccall( (:gsl_vector_view_array_with_stride, "libgsl"), gsl_vector_view,
-###         (Ptr{Cdouble}, Csize_t, Csize_t), base, stride, n )
-### end
+#   Returns: Void
+#XXX Unknown output type gsl_vector_view
+#XXX Coerced type for output Void
+function gsl_vector_view_array_with_stride (base::Ptr{Cdouble}, stride::Csize_t, n::Csize_t)
+    ccall( (:gsl_vector_view_array_with_stride, "libgsl"), Void,
+        (Ptr{Cdouble}, Csize_t, Csize_t), base, stride, n )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return a vector view of an array base with an additional
+# These functions return a vector view of an array base with an additional
 # stride argument. The subvector is formed in the same way as for
 # gsl_vector_view_array but the new vector has n elements with a step-size of
 # stride from one element to the next in the original array.  Mathematically,
@@ -262,10 +270,10 @@ export gsl_vector_subvector, gsl_vector_const_subvector,
 # gsl_vector_view_array_with_stride but can be used for arrays which are
 # declared const.
 # 
-### #   Returns: gsl_vector_const_view
-### #XXX Unknown output type gsl_vector_const_view
-### function gsl_vector_const_view_array_with_stride (base::Ptr{Cdouble}, stride::Csize_t, n::Csize_t)
-###     ccall( (:gsl_vector_const_view_array_with_stride, "libgsl"),
-###         gsl_vector_const_view, (Ptr{Cdouble}, Csize_t, Csize_t), base, stride,
-###         n )
-### end
+#   Returns: Void
+#XXX Unknown output type gsl_vector__view
+#XXX Coerced type for output Void
+function gsl_vector_const_view_array_with_stride (base::Ptr{Cdouble}, stride::Csize_t, n::Csize_t)
+    ccall( (:gsl_vector_const_view_array_with_stride, "libgsl"), Void,
+        (Ptr{Cdouble}, Csize_t, Csize_t), base, stride, n )
+end

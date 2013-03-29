@@ -7,8 +7,13 @@
 export gsl_heapsort, gsl_heapsort_index
 
 
-### Function uses unknown type; disabled
-### # This function sorts the count elements of the array array, each of size size,
+
+
+
+
+
+
+# This function sorts the count elements of the array array, each of size size,
 # into ascending order using the comparison function compare.  The type of the
 # comparison function is defined by,                 int (*gsl_comparison_fn_t)
 # (const void * a,                                       const void * b)  A
@@ -28,16 +33,16 @@ export gsl_heapsort, gsl_heapsort_index
 # heapsort algorithm.  The heapsort algorithm performs an internal
 # rearrangement of the data which destroys its initial ordering.
 # 
-### #   Returns: Void
-### #XXX Unknown input type compare::gsl_comparison_fn_t
-### function gsl_heapsort (array::Ptr{Void}, count::Csize_t, size::Csize_t, compare::gsl_comparison_fn_t)
-###     ccall( (:gsl_heapsort, "libgsl"), Void, (Ptr{Void}, Csize_t, Csize_t,
-###         gsl_comparison_fn_t), array, count, size, compare )
-### end
+#   Returns: Void
+#XXX Unknown input type compare::gsl_comparison_fn_t
+#XXX Coerced type for compare::Void
+function gsl_heapsort (array::Ptr{Void}, count::Csize_t, size::Csize_t, compare::Void)
+    ccall( (:gsl_heapsort, "libgsl"), Void, (Ptr{Void}, Csize_t, Csize_t,
+        Void), array, count, size, compare )
+end
 
 
-### Function uses unknown type; disabled
-### # This function indirectly sorts the count elements of the array array, each of
+# This function indirectly sorts the count elements of the array array, each of
 # size size, into ascending order using the comparison function compare.  The
 # resulting permutation is stored in p, an array of length n.  The elements of
 # p give the index of the array element which would have been stored in that
@@ -45,10 +50,10 @@ export gsl_heapsort, gsl_heapsort_index
 # the index of the least element in array, and the last element of p gives the
 # index of the greatest element in array.  The array itself is not changed.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type compare::gsl_comparison_fn_t
-### function gsl_heapsort_index (p::Ptr{Csize_t}, array::Ptr{Void}, count::Csize_t, size::Csize_t, compare::gsl_comparison_fn_t)
-###     ccall( (:gsl_heapsort_index, "libgsl"), Cint, (Ptr{Csize_t}, Ptr{Void},
-###         Csize_t, Csize_t, gsl_comparison_fn_t), p, array, count, size, compare
-###         )
-### end
+#   Returns: Cint
+#XXX Unknown input type compare::gsl_comparison_fn_t
+#XXX Coerced type for compare::Void
+function gsl_heapsort_index (p::Ptr{Csize_t}, array::Ptr{Void}, count::Csize_t, size::Csize_t, compare::Void)
+    ccall( (:gsl_heapsort_index, "libgsl"), Cint, (Ptr{Csize_t}, Ptr{Void},
+        Csize_t, Csize_t, Void), p, array, count, size, compare )
+end

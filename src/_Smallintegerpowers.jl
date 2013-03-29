@@ -8,6 +8,8 @@ export gsl_pow_int, gsl_pow_uint, gsl_pow_2, gsl_pow_3, gsl_pow_4, gsl_pow_5,
        gsl_pow_6, gsl_pow_7, gsl_pow_8, gsl_pow_9
 
 
+
+
 # These routines computes the power x^n for integer n.  The power is computed
 # efficiently—for example, x^8 is computed as ((x^2)^2)^2, requiring only 3
 # multiplications.  A version of this function which also computes the

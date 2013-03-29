@@ -7,6 +7,8 @@
 export gsl_stats_lag1_autocorrelation, gsl_stats_lag1_autocorrelation_m
 
 
+
+
 # This function computes the lag-1 autocorrelation of the dataset data.
 # a_1 = {\sum_{i = 1}^{n} (x_{i} - \Hat\mu) (x_{i-1} - \Hat\mu)
 # \over                  \sum_{i = 1}^{n} (x_{i} - \Hat\mu) (x_{i} - \Hat\mu)}

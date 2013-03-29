@@ -8,8 +8,9 @@ export gsl_linalg_symmtd_decomp, gsl_linalg_symmtd_unpack,
        gsl_linalg_symmtd_unpack_T
 
 
-### Function uses unknown type; disabled
-### # This function factorizes the symmetric square matrix A into the symmetric
+
+
+# This function factorizes the symmetric square matrix A into the symmetric
 # tridiagonal decomposition Q T Q^T.  On output the diagonal and subdiagonal
 # part of the input matrix A contain the tridiagonal matrix T.  The remaining
 # lower triangular part of the input matrix contains the Householder vectors
@@ -17,44 +18,32 @@ export gsl_linalg_symmtd_decomp, gsl_linalg_symmtd_unpack,
 # matrix Q. This storage scheme is the same as used by lapack.  The upper
 # triangular part of A is not referenced.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type A::Ptr{gsl_matrix}
-### #XXX Unknown input type tau::Ptr{gsl_vector}
-### function gsl_linalg_symmtd_decomp (A::Ptr{gsl_matrix}, tau::Ptr{gsl_vector})
-###     ccall( (:gsl_linalg_symmtd_decomp, "libgsl"), Cint, (Ptr{gsl_matrix},
-###         Ptr{gsl_vector}), A, tau )
-### end
+#   Returns: Cint
+function gsl_linalg_symmtd_decomp (A::Ptr{gsl_matrix}, tau::Ptr{gsl_vector})
+    ccall( (:gsl_linalg_symmtd_decomp, "libgsl"), Cint, (Ptr{gsl_matrix},
+        Ptr{gsl_vector}), A, tau )
+end
 
 
-### Function uses unknown type; disabled
-### # This function unpacks the encoded symmetric tridiagonal decomposition (A,
+# This function unpacks the encoded symmetric tridiagonal decomposition (A,
 # tau) obtained from gsl_linalg_symmtd_decomp into the orthogonal matrix Q, the
 # vector of diagonal elements diag and the vector of subdiagonal elements
 # subdiag.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type A::Ptr{gsl_matrix}
-### #XXX Unknown input type tau::Ptr{gsl_vector}
-### #XXX Unknown input type Q::Ptr{gsl_matrix}
-### #XXX Unknown input type diag::Ptr{gsl_vector}
-### #XXX Unknown input type subdiag::Ptr{gsl_vector}
-### function gsl_linalg_symmtd_unpack (A::Ptr{gsl_matrix}, tau::Ptr{gsl_vector}, Q::Ptr{gsl_matrix}, diag::Ptr{gsl_vector}, subdiag::Ptr{gsl_vector})
-###     ccall( (:gsl_linalg_symmtd_unpack, "libgsl"), Cint, (Ptr{gsl_matrix},
-###         Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), A,
-###         tau, Q, diag, subdiag )
-### end
+#   Returns: Cint
+function gsl_linalg_symmtd_unpack (A::Ptr{gsl_matrix}, tau::Ptr{gsl_vector}, Q::Ptr{gsl_matrix}, diag::Ptr{gsl_vector}, subdiag::Ptr{gsl_vector})
+    ccall( (:gsl_linalg_symmtd_unpack, "libgsl"), Cint, (Ptr{gsl_matrix},
+        Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), A,
+        tau, Q, diag, subdiag )
+end
 
 
-### Function uses unknown type; disabled
-### # This function unpacks the diagonal and subdiagonal of the encoded symmetric
+# This function unpacks the diagonal and subdiagonal of the encoded symmetric
 # tridiagonal decomposition (A, tau) obtained from gsl_linalg_symmtd_decomp
 # into the vectors diag and subdiag.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type A::Ptr{gsl_matrix}
-### #XXX Unknown input type diag::Ptr{gsl_vector}
-### #XXX Unknown input type subdiag::Ptr{gsl_vector}
-### function gsl_linalg_symmtd_unpack_T (A::Ptr{gsl_matrix}, diag::Ptr{gsl_vector}, subdiag::Ptr{gsl_vector})
-###     ccall( (:gsl_linalg_symmtd_unpack_T, "libgsl"), Cint, (Ptr{gsl_matrix},
-###         Ptr{gsl_vector}, Ptr{gsl_vector}), A, diag, subdiag )
-### end
+#   Returns: Cint
+function gsl_linalg_symmtd_unpack_T (A::Ptr{gsl_matrix}, diag::Ptr{gsl_vector}, subdiag::Ptr{gsl_vector})
+    ccall( (:gsl_linalg_symmtd_unpack_T, "libgsl"), Cint, (Ptr{gsl_matrix},
+        Ptr{gsl_vector}, Ptr{gsl_vector}), A, diag, subdiag )
+end

@@ -7,6 +7,8 @@
 export gsl_stats_covariance, gsl_stats_covariance_m
 
 
+
+
 # This function computes the covariance of the datasets data1 and data2 which
 # must both be of the same length n.                 covar = (1/(n - 1))
 # \sum_{i = 1}^{n} (x_i - \Hat x) (y_i - \Hat y)

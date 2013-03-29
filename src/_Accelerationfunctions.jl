@@ -7,31 +7,28 @@
 export gsl_sum_levin_u_alloc, gsl_sum_levin_u_free, gsl_sum_levin_u_accel
 
 
-### Function uses unknown type; disabled
-### # This function allocates a workspace for a Levin u-transform of n terms.  The
+# This function allocates a workspace for a Levin u-transform of n terms.  The
 # size of the workspace is O(2n^2 + 3n).
 # 
-### #   Returns: Ptr{gsl_sum_levin_u_workspace}
-### #XXX Unknown output type Ptr{gsl_sum_levin_u_workspace}
-### function gsl_sum_levin_u_alloc (n::Csize_t)
-###     ccall( (:gsl_sum_levin_u_alloc, "libgsl"),
-###         Ptr{gsl_sum_levin_u_workspace}, (Csize_t, ), n )
-### end
+#   Returns: Ptr{Void}
+#XXX Unknown output type Ptr{gsl_sum_levin_u_workspace}
+#XXX Coerced type for output Ptr{Void}
+function gsl_sum_levin_u_alloc (n::Csize_t)
+    ccall( (:gsl_sum_levin_u_alloc, "libgsl"), Ptr{Void}, (Csize_t, ), n )
+end
 
 
-### Function uses unknown type; disabled
-### # This function frees the memory associated with the workspace w.
+# This function frees the memory associated with the workspace w.
 # 
-### #   Returns: Void
-### #XXX Unknown input type w::Ptr{gsl_sum_levin_u_workspace}
-### function gsl_sum_levin_u_free (w::Ptr{gsl_sum_levin_u_workspace})
-###     ccall( (:gsl_sum_levin_u_free, "libgsl"), Void,
-###         (Ptr{gsl_sum_levin_u_workspace}, ), w )
-### end
+#   Returns: Void
+#XXX Unknown input type w::Ptr{gsl_sum_levin_u_workspace}
+#XXX Coerced type for w::Ptr{Void}
+function gsl_sum_levin_u_free (w::Ptr{Void})
+    ccall( (:gsl_sum_levin_u_free, "libgsl"), Void, (Ptr{Void}, ), w )
+end
 
 
-### Function uses unknown type; disabled
-### # This function takes the terms of a series in array of size array_size and
+# This function takes the terms of a series in array of size array_size and
 # computes the extrapolated limit of the series using a Levin u-transform.
 # Additional working space must be provided in w.  The extrapolated sum is
 # stored in sum_accel, with an estimate of the absolute error stored in abserr.
@@ -41,10 +38,11 @@ export gsl_sum_levin_u_alloc, gsl_sum_levin_u_free, gsl_sum_levin_u_accel
 # choose an optimal number of terms for the extrapolation.  All the terms of
 # the series passed in through array should be non-zero.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type w::Ptr{gsl_sum_levin_u_workspace}
-### function gsl_sum_levin_u_accel (array::Ptr{Cdouble}, array_size::Csize_t, w::Ptr{gsl_sum_levin_u_workspace}, sum_accel::Ptr{Cdouble}, abserr::Ptr{Cdouble})
-###     ccall( (:gsl_sum_levin_u_accel, "libgsl"), Cint, (Ptr{Cdouble},
-###         Csize_t, Ptr{gsl_sum_levin_u_workspace}, Ptr{Cdouble}, Ptr{Cdouble}),
-###         array, array_size, w, sum_accel, abserr )
-### end
+#   Returns: Cint
+#XXX Unknown input type w::Ptr{gsl_sum_levin_u_workspace}
+#XXX Coerced type for w::Ptr{Void}
+function gsl_sum_levin_u_accel (array::Ptr{Cdouble}, array_size::Csize_t, w::Ptr{Void}, sum_accel::Ptr{Cdouble}, abserr::Ptr{Cdouble})
+    ccall( (:gsl_sum_levin_u_accel, "libgsl"), Cint, (Ptr{Cdouble},
+        Csize_t, Ptr{Void}, Ptr{Cdouble}, Ptr{Cdouble}), array, array_size, w,
+        sum_accel, abserr )
+end

@@ -7,8 +7,7 @@
 export gsl_integration_qags
 
 
-### Function uses unknown type; disabled
-### # This function applies the Gauss-Kronrod 21-point integration rule adaptively
+# This function applies the Gauss-Kronrod 21-point integration rule adaptively
 # until an estimate of the integral of f over (a,b) is achieved within the
 # desired absolute and relative error limits, epsabs and epsrel.  The results
 # are extrapolated using the epsilon-algorithm, which accelerates the
@@ -19,12 +18,12 @@ export gsl_integration_qags
 # workspace.  The maximum number of subintervals is given by limit, which may
 # not exceed the allocated size of the workspace.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type f::Ptr{gsl_function}
-### #XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
-### function gsl_integration_qags (f::Ptr{gsl_function}, a::Cdouble, b::Cdouble, epsabs::Cdouble, epsrel::Cdouble, limit::Csize_t, workspace::Ptr{gsl_integration_workspace}, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
-###     ccall( (:gsl_integration_qags, "libgsl"), Cint, (Ptr{gsl_function},
-###         Cdouble, Cdouble, Cdouble, Cdouble, Csize_t,
-###         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, b,
-###         epsabs, epsrel, limit, workspace, result, abserr )
-### end
+#   Returns: Cint
+#XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
+#XXX Coerced type for workspace::Ptr{Void}
+function gsl_integration_qags (f::Ptr{gsl_function}, a::Cdouble, b::Cdouble, epsabs::Cdouble, epsrel::Cdouble, limit::Csize_t, workspace::Ptr{Void}, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
+    ccall( (:gsl_integration_qags, "libgsl"), Cint, (Ptr{gsl_function},
+        Cdouble, Cdouble, Cdouble, Cdouble, Csize_t, Ptr{Void}, Ptr{Cdouble},
+        Ptr{Cdouble}), f, a, b, epsabs, epsrel, limit, workspace, result,
+        abserr )
+end

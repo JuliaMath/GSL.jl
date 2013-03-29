@@ -7,8 +7,9 @@
 export gsl_ran_bivariate_gaussian, gsl_ran_bivariate_gaussian_pdf
 
 
-### Function uses unknown type; disabled
-### # This function generates a pair of correlated Gaussian variates, with mean
+
+
+# This function generates a pair of correlated Gaussian variates, with mean
 # zero, correlation coefficient rho and standard deviations sigma_x and sigma_y
 # in the x and y directions.  The probability distribution for bivariate
 # Gaussian random variates is,                 p(x,y) dx dy = {1 \over 2 \pi
@@ -17,13 +18,14 @@ export gsl_ran_bivariate_gaussian, gsl_ran_bivariate_gaussian_pdf
 # -\infty to +\infty.  The correlation coefficient rho should lie between 1 and
 # -1.
 # 
-### #   Returns: Void
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_bivariate_gaussian (r::Ptr{gsl_rng}, sigma_x::Cdouble, sigma_y::Cdouble, rho::Cdouble, x::Ptr{Cdouble}, y::Ptr{Cdouble})
-###     ccall( (:gsl_ran_bivariate_gaussian, "libgsl"), Void, (Ptr{gsl_rng},
-###         Cdouble, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), r, sigma_x,
-###         sigma_y, rho, x, y )
-### end
+#   Returns: Void
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_bivariate_gaussian (r::Ptr{Void}, sigma_x::Cdouble, sigma_y::Cdouble, rho::Cdouble, x::Ptr{Cdouble}, y::Ptr{Cdouble})
+    ccall( (:gsl_ran_bivariate_gaussian, "libgsl"), Void, (Ptr{Void},
+        Cdouble, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), r, sigma_x,
+        sigma_y, rho, x, y )
+end
 
 
 # This function computes the probability density p(x,y) at (x,y) for a

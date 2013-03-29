@@ -8,17 +8,19 @@ export gsl_ran_lognormal, gsl_ran_lognormal_pdf, gsl_cdf_lognormal_P,
        gsl_cdf_lognormal_Q, gsl_cdf_lognormal_Pinv, gsl_cdf_lognormal_Qinv
 
 
-### Function uses unknown type; disabled
-### # This function returns a random variate from the lognormal distribution.  The
+
+
+# This function returns a random variate from the lognormal distribution.  The
 # distribution function is,                 p(x) dx = {1 \over x \sqrt{2 \pi
 # \sigma^2} } \exp(-(\ln(x) - \zeta)^2/2 \sigma^2) dx  for x > 0.
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_lognormal (r::Ptr{gsl_rng}, zeta::Cdouble, sigma::Cdouble)
-###     ccall( (:gsl_ran_lognormal, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble,
-###         Cdouble), r, zeta, sigma )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_lognormal (r::Ptr{Void}, zeta::Cdouble, sigma::Cdouble)
+    ccall( (:gsl_ran_lognormal, "libgsl"), Cdouble, (Ptr{Void}, Cdouble,
+        Cdouble), r, zeta, sigma )
+end
 
 
 # This function computes the probability density p(x) at x for a lognormal

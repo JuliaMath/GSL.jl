@@ -8,21 +8,24 @@ export gsl_ran_fdist, gsl_ran_fdist_pdf, gsl_cdf_fdist_P, gsl_cdf_fdist_Q,
        gsl_cdf_fdist_Pinv, gsl_cdf_fdist_Qinv
 
 
-### Function uses unknown type; disabled
-### # This function returns a random variate from the F-distribution with degrees
+
+
+
+
+# This function returns a random variate from the F-distribution with degrees
 # of freedom nu1 and nu2. The distribution function is,                 p(x) dx
 # =              { \Gamma((\nu_1 + \nu_2)/2)                   \over
 # \Gamma(\nu_1/2) \Gamma(\nu_2/2) }              \nu_1^{\nu_1/2}
 # \nu_2^{\nu_2/2}              x^{\nu_1/2 - 1} (\nu_2 + \nu_1 x)^{-\nu_1/2
 # -\nu_2/2}  for  x >= 0.
 # 
-### #   {$x \ge 0$} 
-### #   Returns: Cdouble
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_fdist (r::Ptr{gsl_rng}, nu1::Cdouble, nu2::Cdouble)
-###     ccall( (:gsl_ran_fdist, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble,
-###         Cdouble), r, nu1, nu2 )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_fdist (r::Ptr{Void}, nu1::Cdouble, nu2::Cdouble)
+    ccall( (:gsl_ran_fdist, "libgsl"), Cdouble, (Ptr{Void}, Cdouble,
+        Cdouble), r, nu1, nu2 )
+end
 
 
 # This function computes the probability density p(x) at x for an

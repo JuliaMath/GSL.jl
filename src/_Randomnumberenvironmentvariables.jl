@@ -7,8 +7,13 @@
 export gsl_rng_env_setup
 
 
-### Function uses unknown type; disabled
-### # This function reads the environment variables GSL_RNG_TYPE and GSL_RNG_SEED
+
+
+
+
+
+
+# This function reads the environment variables GSL_RNG_TYPE and GSL_RNG_SEED
 # and uses their values to set the corresponding library variables
 # gsl_rng_default and gsl_rng_default_seed.  These global variables are defined
 # as follows,                 extern const gsl_rng_type *gsl_rng_default
@@ -19,9 +24,9 @@ export gsl_rng_env_setup
 # If you don't specify a generator for GSL_RNG_TYPE then gsl_rng_mt19937 is
 # used as the default.  The initial value of gsl_rng_default_seed is zero.
 # 
-### #   Returns: Ptr{gsl_rng_type}
-### #XXX Unknown input type void::
-### #XXX Unknown output type Ptr{gsl_rng_type}
-### function gsl_rng_env_setup (void::)
-###     ccall( (:gsl_rng_env_setup, "libgsl"), Ptr{gsl_rng_type}, (, ), void )
-### end
+#   Returns: Ptr{Void}
+#XXX Unknown output type Ptr{gsl_rng_type}
+#XXX Coerced type for output Ptr{Void}
+function gsl_rng_env_setup ()
+    ccall( (:gsl_rng_env_setup, "libgsl"), Ptr{Void}, () )
+end

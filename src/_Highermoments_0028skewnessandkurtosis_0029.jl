@@ -8,6 +8,14 @@ export gsl_stats_skew, gsl_stats_skew_m_sd, gsl_stats_kurtosis,
        gsl_stats_kurtosis_m_sd
 
 
+
+
+
+
+
+
+
+
 # This function computes the skewness of data, a dataset of length n with
 # stride stride.  The skewness is defined as,                 skew = (1/N) \sum
 # ((x_i - \Hat\mu)/\Hat\sigma)^3  where x_i are the elements of the dataset

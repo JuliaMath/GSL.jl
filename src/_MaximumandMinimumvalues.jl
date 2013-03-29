@@ -14,7 +14,6 @@ export gsl_stats_max, gsl_stats_min, gsl_stats_minmax, gsl_stats_max_index,
 # the element with the largest absolute magnitude you will need to apply fabs
 # or abs to your data before calling this function.
 # 
-#   {$x_i \ge x_j$} 
 #   Returns: Cdouble
 function gsl_stats_max (data::Cdouble)
     ccall( (:gsl_stats_max, "libgsl"), Cdouble, (Cdouble, ), data )
@@ -27,7 +26,6 @@ end
 # the element with the smallest absolute magnitude you will need to apply fabs
 # or abs to your data before calling this function.
 # 
-#   {$x_i \le x_j$} 
 #   Returns: Cdouble
 function gsl_stats_min (data::Cdouble)
     ccall( (:gsl_stats_min, "libgsl"), Cdouble, (Cdouble, ), data )
@@ -49,7 +47,6 @@ end
 # the element x_i which satisfies  x_i >= x_j for all j.  When there are
 # several equal maximum elements then the first one is chosen.
 # 
-#   {$x_i \ge x_j$} 
 #   Returns: Csize_t
 function gsl_stats_max_index (data::Cdouble)
     ccall( (:gsl_stats_max_index, "libgsl"), Csize_t, (Cdouble, ), data )
@@ -61,7 +58,6 @@ end
 # the element x_i which satisfies  x_i >= x_j for all j.  When there are
 # several equal minimum elements then the first one is chosen.
 # 
-#   {$x_i \ge x_j$} 
 #   Returns: Csize_t
 function gsl_stats_min_index (data::Cdouble)
     ccall( (:gsl_stats_min_index, "libgsl"), Csize_t, (Cdouble, ), data )

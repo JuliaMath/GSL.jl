@@ -4,44 +4,13 @@
 #################################
 # 22.13 The 2D histogram struct #
 #################################
-export gsl_histogram2d, gsl_histogram2d, gsl_histogram2d, gsl_histogram2d
+export gsl_histogram2d
 
 
-### Function uses unknown type; disabled
-### # 
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_histogram2d ()
-###     ccall( (:gsl_histogram2d, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # 
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_histogram2d ()
-###     ccall( (:gsl_histogram2d, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # 
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_histogram2d ()
-###     ccall( (:gsl_histogram2d, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # 
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_histogram2d ()
-###     ccall( (:gsl_histogram2d, "libgsl"), , () )
-### end
+type gsl_histogram2d
+    nx::Csize_t
+    ny::Csize_t
+    xrange::Ptr{Cdouble}
+    yrange::Ptr{Cdouble}
+    bin::Ptr{Cdouble}
+end

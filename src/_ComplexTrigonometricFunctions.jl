@@ -8,73 +8,55 @@ export gsl_complex_sin, gsl_complex_cos, gsl_complex_tan, gsl_complex_sec,
        gsl_complex_csc, gsl_complex_cot
 
 
-### Function uses unknown type; disabled
-### # This function returns the complex sine of the complex number z, \sin(z) =
+# This function returns the complex sine of the complex number z, \sin(z) =
 # (\exp(iz) - \exp(-iz))/(2i).
 # 
-### #   Returns: gsl_complex
-### #XXX Unknown input type z::gsl_complex
-### #XXX Unknown output type gsl_complex
-### function gsl_complex_sin (z::gsl_complex)
-###     ccall( (:gsl_complex_sin, "libgsl"), gsl_complex, (gsl_complex, ), z )
-### end
+#   Returns: gsl_complex
+function gsl_complex_sin (z::gsl_complex)
+    ccall( (:gsl_complex_sin, "libgsl"), gsl_complex, (gsl_complex, ), z )
+end
 
 
-### Function uses unknown type; disabled
-### # This function returns the complex cosine of the complex number z, \cos(z) =
+# This function returns the complex cosine of the complex number z, \cos(z) =
 # (\exp(iz) + \exp(-iz))/2.
 # 
-### #   Returns: gsl_complex
-### #XXX Unknown input type z::gsl_complex
-### #XXX Unknown output type gsl_complex
-### function gsl_complex_cos (z::gsl_complex)
-###     ccall( (:gsl_complex_cos, "libgsl"), gsl_complex, (gsl_complex, ), z )
-### end
+#   Returns: gsl_complex
+function gsl_complex_cos (z::gsl_complex)
+    ccall( (:gsl_complex_cos, "libgsl"), gsl_complex, (gsl_complex, ), z )
+end
 
 
-### Function uses unknown type; disabled
-### # This function returns the complex tangent of the complex number z, \tan(z) =
+# This function returns the complex tangent of the complex number z, \tan(z) =
 # \sin(z)/\cos(z).
 # 
-### #   Returns: gsl_complex
-### #XXX Unknown input type z::gsl_complex
-### #XXX Unknown output type gsl_complex
-### function gsl_complex_tan (z::gsl_complex)
-###     ccall( (:gsl_complex_tan, "libgsl"), gsl_complex, (gsl_complex, ), z )
-### end
+#   Returns: gsl_complex
+function gsl_complex_tan (z::gsl_complex)
+    ccall( (:gsl_complex_tan, "libgsl"), gsl_complex, (gsl_complex, ), z )
+end
 
 
-### Function uses unknown type; disabled
-### # This function returns the complex secant of the complex number z, \sec(z) =
+# This function returns the complex secant of the complex number z, \sec(z) =
 # 1/\cos(z).
 # 
-### #   Returns: gsl_complex
-### #XXX Unknown input type z::gsl_complex
-### #XXX Unknown output type gsl_complex
-### function gsl_complex_sec (z::gsl_complex)
-###     ccall( (:gsl_complex_sec, "libgsl"), gsl_complex, (gsl_complex, ), z )
-### end
+#   Returns: gsl_complex
+function gsl_complex_sec (z::gsl_complex)
+    ccall( (:gsl_complex_sec, "libgsl"), gsl_complex, (gsl_complex, ), z )
+end
 
 
-### Function uses unknown type; disabled
-### # This function returns the complex cosecant of the complex number z, \csc(z) =
+# This function returns the complex cosecant of the complex number z, \csc(z) =
 # 1/\sin(z).
 # 
-### #   Returns: gsl_complex
-### #XXX Unknown input type z::gsl_complex
-### #XXX Unknown output type gsl_complex
-### function gsl_complex_csc (z::gsl_complex)
-###     ccall( (:gsl_complex_csc, "libgsl"), gsl_complex, (gsl_complex, ), z )
-### end
+#   Returns: gsl_complex
+function gsl_complex_csc (z::gsl_complex)
+    ccall( (:gsl_complex_csc, "libgsl"), gsl_complex, (gsl_complex, ), z )
+end
 
 
-### Function uses unknown type; disabled
-### # This function returns the complex cotangent of the complex number z, \cot(z)
+# This function returns the complex cotangent of the complex number z, \cot(z)
 # = 1/\tan(z).
 # 
-### #   Returns: gsl_complex
-### #XXX Unknown input type z::gsl_complex
-### #XXX Unknown output type gsl_complex
-### function gsl_complex_cot (z::gsl_complex)
-###     ccall( (:gsl_complex_cot, "libgsl"), gsl_complex, (gsl_complex, ), z )
-### end
+#   Returns: gsl_complex
+function gsl_complex_cot (z::gsl_complex)
+    ccall( (:gsl_complex_cot, "libgsl"), gsl_complex, (gsl_complex, ), z )
+end

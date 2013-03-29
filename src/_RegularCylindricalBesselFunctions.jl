@@ -12,67 +12,58 @@ export gsl_sf_bessel_J0, gsl_sf_bessel_J0_e, gsl_sf_bessel_J1,
 # These routines compute the regular cylindrical Bessel function of zeroth
 # order, J_0(x).
 # 
-#   Exceptional Return Values: none 
 #   Returns: Cdouble
 function gsl_sf_bessel_J0 (x::Cdouble)
     ccall( (:gsl_sf_bessel_J0, "libgsl"), Cdouble, (Cdouble, ), x )
 end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the regular cylindrical Bessel function of zeroth
+# These routines compute the regular cylindrical Bessel function of zeroth
 # order, J_0(x).
 # 
-### #   Returns: Cint
-### #XXX Unknown input type result::Ptr{gsl_sf_result}
-### function gsl_sf_bessel_J0_e (x::Cdouble, result::Ptr{gsl_sf_result})
-###     ccall( (:gsl_sf_bessel_J0_e, "libgsl"), Cint, (Cdouble,
-###         Ptr{gsl_sf_result}), x, result )
-### end
+#   Returns: Cint
+function gsl_sf_bessel_J0_e (x::Cdouble, result::Ptr{gsl_sf_result})
+    ccall( (:gsl_sf_bessel_J0_e, "libgsl"), Cint, (Cdouble,
+        Ptr{gsl_sf_result}), x, result )
+end
 
 
 # These routines compute the regular cylindrical Bessel function of first
 # order, J_1(x).
 # 
-#   Exceptional Return Values: GSL_EUNDRFLW 
 #   Returns: Cdouble
 function gsl_sf_bessel_J1 (x::Cdouble)
     ccall( (:gsl_sf_bessel_J1, "libgsl"), Cdouble, (Cdouble, ), x )
 end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the regular cylindrical Bessel function of first
+# These routines compute the regular cylindrical Bessel function of first
 # order, J_1(x).
 # 
-### #   Returns: Cint
-### #XXX Unknown input type result::Ptr{gsl_sf_result}
-### function gsl_sf_bessel_J1_e (x::Cdouble, result::Ptr{gsl_sf_result})
-###     ccall( (:gsl_sf_bessel_J1_e, "libgsl"), Cint, (Cdouble,
-###         Ptr{gsl_sf_result}), x, result )
-### end
+#   Returns: Cint
+function gsl_sf_bessel_J1_e (x::Cdouble, result::Ptr{gsl_sf_result})
+    ccall( (:gsl_sf_bessel_J1_e, "libgsl"), Cint, (Cdouble,
+        Ptr{gsl_sf_result}), x, result )
+end
 
 
 # These routines compute the regular cylindrical Bessel function of order n,
 # J_n(x).
 # 
-#   Exceptional Return Values: GSL_EUNDRFLW 
 #   Returns: Cdouble
 function gsl_sf_bessel_Jn (n::Cint, x::Cdouble)
     ccall( (:gsl_sf_bessel_Jn, "libgsl"), Cdouble, (Cint, Cdouble), n, x )
 end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the regular cylindrical Bessel function of order n,
+# These routines compute the regular cylindrical Bessel function of order n,
 # J_n(x).
 # 
-### #   Returns: Cint
-### #XXX Unknown input type result::Ptr{gsl_sf_result}
-### function gsl_sf_bessel_Jn_e (n::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
-###     ccall( (:gsl_sf_bessel_Jn_e, "libgsl"), Cint, (Cint, Cdouble,
-###         Ptr{gsl_sf_result}), n, x, result )
-### end
+#   Returns: Cint
+function gsl_sf_bessel_Jn_e (n::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
+    ccall( (:gsl_sf_bessel_Jn_e, "libgsl"), Cint, (Cint, Cdouble,
+        Ptr{gsl_sf_result}), n, x, result )
+end
 
 
 # This routine computes the values of the regular cylindrical Bessel functions
@@ -80,7 +71,6 @@ end
 # result_array.  The values are computed using recurrence relations for
 # efficiency, and therefore may differ slightly from the exact values.
 # 
-#   Exceptional Return Values: GSL_EDOM, GSL_EUNDRFLW 
 #   Returns: Cint
 function gsl_sf_bessel_Jn_array (nmin::Cint, nmax::Cint, x::Cdouble, result_array::Cdouble)
     ccall( (:gsl_sf_bessel_Jn_array, "libgsl"), Cint, (Cint, Cint, Cdouble,

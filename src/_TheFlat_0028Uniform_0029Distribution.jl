@@ -8,18 +8,19 @@ export gsl_ran_flat, gsl_ran_flat_pdf, gsl_cdf_flat_P, gsl_cdf_flat_Q,
        gsl_cdf_flat_Pinv, gsl_cdf_flat_Qinv
 
 
-### Function uses unknown type; disabled
-### # This function returns a random variate from the flat (uniform) distribution
+
+
+# This function returns a random variate from the flat (uniform) distribution
 # from a to b. The distribution is,                 p(x) dx = {1 \over (b-a)}
 # dx  if  a <= x < b and 0 otherwise.
 # 
-### #   {$a \le x < b$} 
-### #   Returns: Cdouble
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_flat (r::Ptr{gsl_rng}, a::Cdouble, b::Cdouble)
-###     ccall( (:gsl_ran_flat, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble,
-###         Cdouble), r, a, b )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_flat (r::Ptr{Void}, a::Cdouble, b::Cdouble)
+    ccall( (:gsl_ran_flat, "libgsl"), Cdouble, (Ptr{Void}, Cdouble,
+        Cdouble), r, a, b )
+end
 
 
 # This function computes the probability density p(x) at x for a uniform

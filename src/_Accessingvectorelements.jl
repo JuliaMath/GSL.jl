@@ -7,56 +7,48 @@
 export gsl_vector_get, gsl_vector_set, gsl_vector_ptr, gsl_vector_const_ptr
 
 
-### Function uses unknown type; disabled
-### # This function returns the i-th element of a vector v.  If i lies outside the
+# This function returns the i-th element of a vector v.  If i lies outside the
 # allowed range of 0 to n-1 then the error handler is invoked and 0 is
 # returned.  An inline version of this function is used when HAVE_INLINE is
 # defined.
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type v::Ptr{gsl_vector}
-### function gsl_vector_get (v::Ptr{gsl_vector}, i::Csize_t)
-###     ccall( (:gsl_vector_get, "libgsl"), Cdouble, (Ptr{gsl_vector},
-###         Csize_t), v, i )
-### end
+#   Returns: Cdouble
+function gsl_vector_get (v::Ptr{gsl_vector}, i::Csize_t)
+    ccall( (:gsl_vector_get, "libgsl"), Cdouble, (Ptr{gsl_vector},
+        Csize_t), v, i )
+end
 
 
-### Function uses unknown type; disabled
-### # This function sets the value of the i-th element of a vector v to x.  If i
+# This function sets the value of the i-th element of a vector v to x.  If i
 # lies outside the allowed range of 0 to n-1 then the error handler is invoked.
 # An inline version of this function is used when HAVE_INLINE is defined.
 # 
-### #   Returns: Void
-### #XXX Unknown input type v::Ptr{gsl_vector}
-### function gsl_vector_set (v::Ptr{gsl_vector}, i::Csize_t, x::Cdouble)
-###     ccall( (:gsl_vector_set, "libgsl"), Void, (Ptr{gsl_vector}, Csize_t,
-###         Cdouble), v, i, x )
-### end
+#   Returns: Void
+function gsl_vector_set (v::Ptr{gsl_vector}, i::Csize_t, x::Cdouble)
+    ccall( (:gsl_vector_set, "libgsl"), Void, (Ptr{gsl_vector}, Csize_t,
+        Cdouble), v, i, x )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return a pointer to the i-th element of a vector v.  If i
+# These functions return a pointer to the i-th element of a vector v.  If i
 # lies outside the allowed range of 0 to n-1 then the error handler is invoked
 # and a null pointer is returned.  Inline versions of these functions are used
 # when HAVE_INLINE is defined.
 # 
-### #   Returns: Ptr{Cdouble}
-### #XXX Unknown input type v::Ptr{gsl_vector}
-### function gsl_vector_ptr (v::Ptr{gsl_vector}, i::Csize_t)
-###     ccall( (:gsl_vector_ptr, "libgsl"), Ptr{Cdouble}, (Ptr{gsl_vector},
-###         Csize_t), v, i )
-### end
+#   Returns: Ptr{Cdouble}
+function gsl_vector_ptr (v::Ptr{gsl_vector}, i::Csize_t)
+    ccall( (:gsl_vector_ptr, "libgsl"), Ptr{Cdouble}, (Ptr{gsl_vector},
+        Csize_t), v, i )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return a pointer to the i-th element of a vector v.  If i
+# These functions return a pointer to the i-th element of a vector v.  If i
 # lies outside the allowed range of 0 to n-1 then the error handler is invoked
 # and a null pointer is returned.  Inline versions of these functions are used
 # when HAVE_INLINE is defined.
 # 
-### #   Returns: Ptr{Cdouble}
-### #XXX Unknown input type v::Ptr{gsl_vector}
-### function gsl_vector_const_ptr (v::Ptr{gsl_vector}, i::Csize_t)
-###     ccall( (:gsl_vector_const_ptr, "libgsl"), Ptr{Cdouble},
-###         (Ptr{gsl_vector}, Csize_t), v, i )
-### end
+#   Returns: Ptr{Cdouble}
+function gsl_vector_const_ptr (v::Ptr{gsl_vector}, i::Csize_t)
+    ccall( (:gsl_vector_const_ptr, "libgsl"), Ptr{Cdouble},
+        (Ptr{gsl_vector}, Csize_t), v, i )
+end

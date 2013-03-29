@@ -7,8 +7,7 @@
 export gsl_integration_qng
 
 
-### Function uses unknown type; disabled
-### # This function applies the Gauss-Kronrod 10-point, 21-point, 43-point and
+# This function applies the Gauss-Kronrod 10-point, 21-point, 43-point and
 # 87-point integration rules in succession until an estimate of the integral of
 # f over (a,b) is achieved within the desired absolute and relative error
 # limits, epsabs and epsrel.  The function returns the final approximation,
@@ -17,10 +16,9 @@ export gsl_integration_qng
 # that each rule uses all the results of its predecessors, in order to minimize
 # the total number of function evaluations.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type f::Ptr{gsl_function}
-### function gsl_integration_qng (f::Ptr{gsl_function}, a::Cdouble, b::Cdouble, epsabs::Cdouble, epsrel::Cdouble, result::Ptr{Cdouble}, abserr::Ptr{Cdouble}, neval::Ptr{Csize_t})
-###     ccall( (:gsl_integration_qng, "libgsl"), Cint, (Ptr{gsl_function},
-###         Cdouble, Cdouble, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble},
-###         Ptr{Csize_t}), f, a, b, epsabs, epsrel, result, abserr, neval )
-### end
+#   Returns: Cint
+function gsl_integration_qng (f::Ptr{gsl_function}, a::Cdouble, b::Cdouble, epsabs::Cdouble, epsrel::Cdouble, result::Ptr{Cdouble}, abserr::Ptr{Cdouble}, neval::Ptr{Csize_t})
+    ccall( (:gsl_integration_qng, "libgsl"), Cint, (Ptr{gsl_function},
+        Cdouble, Cdouble, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble},
+        Ptr{Csize_t}), f, a, b, epsabs, epsrel, result, abserr, neval )
+end

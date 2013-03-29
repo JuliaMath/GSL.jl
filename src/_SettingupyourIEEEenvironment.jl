@@ -7,6 +7,18 @@
 export gsl_ieee_env_setup
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 # This function reads the environment variable GSL_IEEE_MODE and attempts to
 # set up the corresponding specified IEEE modes.  The environment variable
 # should be a list of keywords, separated by commas, like this,

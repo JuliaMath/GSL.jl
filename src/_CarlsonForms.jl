@@ -9,106 +9,97 @@ export gsl_sf_ellint_RC, gsl_sf_ellint_RC_e, gsl_sf_ellint_RD,
        gsl_sf_ellint_RJ, gsl_sf_ellint_RJ_e
 
 
-### Function uses unknown type; disabled
-### # These routines compute the incomplete elliptic integral RC(x,y) to the
+# These routines compute the incomplete elliptic integral RC(x,y) to the
 # accuracy specified by the mode variable mode.
 # 
-### #   Exceptional Return Values: GSL_EDOM 
-### #   Returns: Cdouble
-### #XXX Unknown input type mode::gsl_mode_t
-### function gsl_sf_ellint_RC (x::Cdouble, y::Cdouble, mode::gsl_mode_t)
-###     ccall( (:gsl_sf_ellint_RC, "libgsl"), Cdouble, (Cdouble, Cdouble,
-###         gsl_mode_t), x, y, mode )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type mode::gsl_mode_t
+#XXX Coerced type for mode::Void
+function gsl_sf_ellint_RC (x::Cdouble, y::Cdouble, mode::Void)
+    ccall( (:gsl_sf_ellint_RC, "libgsl"), Cdouble, (Cdouble, Cdouble,
+        Void), x, y, mode )
+end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the incomplete elliptic integral RC(x,y) to the
+# These routines compute the incomplete elliptic integral RC(x,y) to the
 # accuracy specified by the mode variable mode.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type mode::gsl_mode_t
-### #XXX Unknown input type result::Ptr{gsl_sf_result}
-### function gsl_sf_ellint_RC_e (x::Cdouble, y::Cdouble, mode::gsl_mode_t, result::Ptr{gsl_sf_result})
-###     ccall( (:gsl_sf_ellint_RC_e, "libgsl"), Cint, (Cdouble, Cdouble,
-###         gsl_mode_t, Ptr{gsl_sf_result}), x, y, mode, result )
-### end
+#   Returns: Cint
+#XXX Unknown input type mode::gsl_mode_t
+#XXX Coerced type for mode::Void
+function gsl_sf_ellint_RC_e (x::Cdouble, y::Cdouble, mode::Void, result::Ptr{gsl_sf_result})
+    ccall( (:gsl_sf_ellint_RC_e, "libgsl"), Cint, (Cdouble, Cdouble, Void,
+        Ptr{gsl_sf_result}), x, y, mode, result )
+end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the incomplete elliptic integral RD(x,y,z) to the
+# These routines compute the incomplete elliptic integral RD(x,y,z) to the
 # accuracy specified by the mode variable mode.
 # 
-### #   Exceptional Return Values: GSL_EDOM 
-### #   Returns: Cdouble
-### #XXX Unknown input type mode::gsl_mode_t
-### function gsl_sf_ellint_RD (x::Cdouble, y::Cdouble, z::Cdouble, mode::gsl_mode_t)
-###     ccall( (:gsl_sf_ellint_RD, "libgsl"), Cdouble, (Cdouble, Cdouble,
-###         Cdouble, gsl_mode_t), x, y, z, mode )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type mode::gsl_mode_t
+#XXX Coerced type for mode::Void
+function gsl_sf_ellint_RD (x::Cdouble, y::Cdouble, z::Cdouble, mode::Void)
+    ccall( (:gsl_sf_ellint_RD, "libgsl"), Cdouble, (Cdouble, Cdouble,
+        Cdouble, Void), x, y, z, mode )
+end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the incomplete elliptic integral RD(x,y,z) to the
+# These routines compute the incomplete elliptic integral RD(x,y,z) to the
 # accuracy specified by the mode variable mode.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type mode::gsl_mode_t
-### #XXX Unknown input type result::Ptr{gsl_sf_result}
-### function gsl_sf_ellint_RD_e (x::Cdouble, y::Cdouble, z::Cdouble, mode::gsl_mode_t, result::Ptr{gsl_sf_result})
-###     ccall( (:gsl_sf_ellint_RD_e, "libgsl"), Cint, (Cdouble, Cdouble,
-###         Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), x, y, z, mode, result )
-### end
+#   Returns: Cint
+#XXX Unknown input type mode::gsl_mode_t
+#XXX Coerced type for mode::Void
+function gsl_sf_ellint_RD_e (x::Cdouble, y::Cdouble, z::Cdouble, mode::Void, result::Ptr{gsl_sf_result})
+    ccall( (:gsl_sf_ellint_RD_e, "libgsl"), Cint, (Cdouble, Cdouble,
+        Cdouble, Void, Ptr{gsl_sf_result}), x, y, z, mode, result )
+end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the incomplete elliptic integral RF(x,y,z) to the
+# These routines compute the incomplete elliptic integral RF(x,y,z) to the
 # accuracy specified by the mode variable mode.
 # 
-### #   Exceptional Return Values: GSL_EDOM 
-### #   Returns: Cdouble
-### #XXX Unknown input type mode::gsl_mode_t
-### function gsl_sf_ellint_RF (x::Cdouble, y::Cdouble, z::Cdouble, mode::gsl_mode_t)
-###     ccall( (:gsl_sf_ellint_RF, "libgsl"), Cdouble, (Cdouble, Cdouble,
-###         Cdouble, gsl_mode_t), x, y, z, mode )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type mode::gsl_mode_t
+#XXX Coerced type for mode::Void
+function gsl_sf_ellint_RF (x::Cdouble, y::Cdouble, z::Cdouble, mode::Void)
+    ccall( (:gsl_sf_ellint_RF, "libgsl"), Cdouble, (Cdouble, Cdouble,
+        Cdouble, Void), x, y, z, mode )
+end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the incomplete elliptic integral RF(x,y,z) to the
+# These routines compute the incomplete elliptic integral RF(x,y,z) to the
 # accuracy specified by the mode variable mode.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type mode::gsl_mode_t
-### #XXX Unknown input type result::Ptr{gsl_sf_result}
-### function gsl_sf_ellint_RF_e (x::Cdouble, y::Cdouble, z::Cdouble, mode::gsl_mode_t, result::Ptr{gsl_sf_result})
-###     ccall( (:gsl_sf_ellint_RF_e, "libgsl"), Cint, (Cdouble, Cdouble,
-###         Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), x, y, z, mode, result )
-### end
+#   Returns: Cint
+#XXX Unknown input type mode::gsl_mode_t
+#XXX Coerced type for mode::Void
+function gsl_sf_ellint_RF_e (x::Cdouble, y::Cdouble, z::Cdouble, mode::Void, result::Ptr{gsl_sf_result})
+    ccall( (:gsl_sf_ellint_RF_e, "libgsl"), Cint, (Cdouble, Cdouble,
+        Cdouble, Void, Ptr{gsl_sf_result}), x, y, z, mode, result )
+end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the incomplete elliptic integral RJ(x,y,z,p) to the
+# These routines compute the incomplete elliptic integral RJ(x,y,z,p) to the
 # accuracy specified by the mode variable mode.
 # 
-### #   Exceptional Return Values: GSL_EDOM 
-### #   Returns: Cdouble
-### #XXX Unknown input type mode::gsl_mode_t
-### function gsl_sf_ellint_RJ (x::Cdouble, y::Cdouble, z::Cdouble, p::Cdouble, mode::gsl_mode_t)
-###     ccall( (:gsl_sf_ellint_RJ, "libgsl"), Cdouble, (Cdouble, Cdouble,
-###         Cdouble, Cdouble, gsl_mode_t), x, y, z, p, mode )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type mode::gsl_mode_t
+#XXX Coerced type for mode::Void
+function gsl_sf_ellint_RJ (x::Cdouble, y::Cdouble, z::Cdouble, p::Cdouble, mode::Void)
+    ccall( (:gsl_sf_ellint_RJ, "libgsl"), Cdouble, (Cdouble, Cdouble,
+        Cdouble, Cdouble, Void), x, y, z, p, mode )
+end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the incomplete elliptic integral RJ(x,y,z,p) to the
+# These routines compute the incomplete elliptic integral RJ(x,y,z,p) to the
 # accuracy specified by the mode variable mode.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type mode::gsl_mode_t
-### #XXX Unknown input type result::Ptr{gsl_sf_result}
-### function gsl_sf_ellint_RJ_e (x::Cdouble, y::Cdouble, z::Cdouble, p::Cdouble, mode::gsl_mode_t, result::Ptr{gsl_sf_result})
-###     ccall( (:gsl_sf_ellint_RJ_e, "libgsl"), Cint, (Cdouble, Cdouble,
-###         Cdouble, Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), x, y, z, p, mode,
-###         result )
-### end
+#   Returns: Cint
+#XXX Unknown input type mode::gsl_mode_t
+#XXX Coerced type for mode::Void
+function gsl_sf_ellint_RJ_e (x::Cdouble, y::Cdouble, z::Cdouble, p::Cdouble, mode::Void, result::Ptr{gsl_sf_result})
+    ccall( (:gsl_sf_ellint_RJ_e, "libgsl"), Cint, (Cdouble, Cdouble,
+        Cdouble, Cdouble, Void, Ptr{gsl_sf_result}), x, y, z, p, mode, result )
+end

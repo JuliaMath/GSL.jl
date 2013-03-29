@@ -8,24 +8,23 @@ export gsl_histogram_alloc, gsl_histogram_set_ranges,
        gsl_histogram_set_ranges_uniform, gsl_histogram_free
 
 
-### Function uses unknown type; disabled
-### # This function allocates memory for a histogram with n bins, and returns a
+
+
+# This function allocates memory for a histogram with n bins, and returns a
 # pointer to a newly created gsl_histogram struct.  If insufficient memory is
 # available a null pointer is returned and the error handler is invoked with an
 # error code of GSL_ENOMEM. The bins and ranges are not initialized, and should
 # be prepared using one of the range-setting functions below in order to make
 # the histogram ready for use.
 # 
-### #   Returns: Ptr{gsl_histogram}
-### #XXX Unknown output type Ptr{gsl_histogram}
-### function gsl_histogram_alloc (n::Csize_t)
-###     ccall( (:gsl_histogram_alloc, "libgsl"), Ptr{gsl_histogram}, (Csize_t,
-###         ), n )
-### end
+#   Returns: Ptr{gsl_histogram}
+function gsl_histogram_alloc (n::Csize_t)
+    ccall( (:gsl_histogram_alloc, "libgsl"), Ptr{gsl_histogram}, (Csize_t,
+        ), n )
+end
 
 
-### Function uses unknown type; disabled
-### # This function sets the ranges of the existing histogram h using the array
+# This function sets the ranges of the existing histogram h using the array
 # range of size size.  The values of the histogram bins are reset to zero.  The
 # range array should contain the desired bin limits.  The ranges can be
 # arbitrary, subject to the restriction that they are monotonically increasing.
@@ -39,36 +38,31 @@ export gsl_histogram_alloc, gsl_histogram_set_ranges,
 # array should be defined to be one element bigger than the number of bins.
 # The additional element is required for the upper value of the final bin.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type h::Ptr{gsl_histogram}
-### function gsl_histogram_set_ranges (h::Ptr{gsl_histogram}, range::Cdouble)
-###     ccall( (:gsl_histogram_set_ranges, "libgsl"), Cint,
-###         (Ptr{gsl_histogram}, Cdouble), h, range )
-### end
+#   Returns: Cint
+function gsl_histogram_set_ranges (h::Ptr{gsl_histogram}, range::Cdouble)
+    ccall( (:gsl_histogram_set_ranges, "libgsl"), Cint,
+        (Ptr{gsl_histogram}, Cdouble), h, range )
+end
 
 
-### Function uses unknown type; disabled
-### # This function sets the ranges of the existing histogram h to cover the range
+# This function sets the ranges of the existing histogram h to cover the range
 # xmin to xmax uniformly.  The values of the histogram bins are reset to zero.
 # The bin ranges are shown in the table below,                bin[0]
 # corresponds to xmin <= x < xmin + d           bin[1] corresponds to xmin + d
 # <= x < xmin + 2 d           ......           bin[n-1] corresponds to xmin +
 # (n-1)d <= x < xmax  where d is the bin spacing, d = (xmax-xmin)/n.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type h::Ptr{gsl_histogram}
-### function gsl_histogram_set_ranges_uniform (h::Ptr{gsl_histogram}, xmin::Cdouble, xmax::Cdouble)
-###     ccall( (:gsl_histogram_set_ranges_uniform, "libgsl"), Cint,
-###         (Ptr{gsl_histogram}, Cdouble, Cdouble), h, xmin, xmax )
-### end
+#   Returns: Cint
+function gsl_histogram_set_ranges_uniform (h::Ptr{gsl_histogram}, xmin::Cdouble, xmax::Cdouble)
+    ccall( (:gsl_histogram_set_ranges_uniform, "libgsl"), Cint,
+        (Ptr{gsl_histogram}, Cdouble, Cdouble), h, xmin, xmax )
+end
 
 
-### Function uses unknown type; disabled
-### # This function frees the histogram h and all of the memory associated with it.
+# This function frees the histogram h and all of the memory associated with it.
 # 
-### #   Returns: Void
-### #XXX Unknown input type h::Ptr{gsl_histogram}
-### function gsl_histogram_free (h::Ptr{gsl_histogram})
-###     ccall( (:gsl_histogram_free, "libgsl"), Void, (Ptr{gsl_histogram}, ), h
-###         )
-### end
+#   Returns: Void
+function gsl_histogram_free (h::Ptr{gsl_histogram})
+    ccall( (:gsl_histogram_free, "libgsl"), Void, (Ptr{gsl_histogram}, ), h
+        )
+end

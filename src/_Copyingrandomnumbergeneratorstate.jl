@@ -7,27 +7,29 @@
 export gsl_rng_memcpy, gsl_rng_clone
 
 
-### Function uses unknown type; disabled
-### # This function copies the random number generator src into the pre-existing
+# This function copies the random number generator src into the pre-existing
 # generator dest, making dest into an exact copy of src.  The two generators
 # must be of the same type.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type dest::Ptr{gsl_rng}
-### #XXX Unknown input type src::Ptr{gsl_rng}
-### function gsl_rng_memcpy (dest::Ptr{gsl_rng}, src::Ptr{gsl_rng})
-###     ccall( (:gsl_rng_memcpy, "libgsl"), Cint, (Ptr{gsl_rng}, Ptr{gsl_rng}),
-###         dest, src )
-### end
+#   Returns: Cint
+#XXX Unknown input type dest::Ptr{gsl_rng}
+#XXX Coerced type for dest::Ptr{Void}
+#XXX Unknown input type src::Ptr{gsl_rng}
+#XXX Coerced type for src::Ptr{Void}
+function gsl_rng_memcpy (dest::Ptr{Void}, src::Ptr{Void})
+    ccall( (:gsl_rng_memcpy, "libgsl"), Cint, (Ptr{Void}, Ptr{Void}), dest,
+        src )
+end
 
 
-### Function uses unknown type; disabled
-### # This function returns a pointer to a newly created generator which is an
+# This function returns a pointer to a newly created generator which is an
 # exact copy of the generator r.
 # 
-### #   Returns: Ptr{gsl_rng}
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### #XXX Unknown output type Ptr{gsl_rng}
-### function gsl_rng_clone (r::Ptr{gsl_rng})
-###     ccall( (:gsl_rng_clone, "libgsl"), Ptr{gsl_rng}, (Ptr{gsl_rng}, ), r )
-### end
+#   Returns: Ptr{Void}
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+#XXX Unknown output type Ptr{gsl_rng}
+#XXX Coerced type for output Ptr{Void}
+function gsl_rng_clone (r::Ptr{Void})
+    ccall( (:gsl_rng_clone, "libgsl"), Ptr{Void}, (Ptr{Void}, ), r )
+end

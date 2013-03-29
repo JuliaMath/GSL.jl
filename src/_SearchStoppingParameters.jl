@@ -7,6 +7,14 @@
 export gsl_root_test_interval, gsl_root_test_delta, gsl_root_test_residual
 
 
+
+
+
+
+
+
+
+
 # This function tests for the convergence of the interval [x_lower, x_upper]
 # with absolute error epsabs and relative error epsrel.  The test returns
 # GSL_SUCCESS if the following condition is achieved,                 |a - b| <

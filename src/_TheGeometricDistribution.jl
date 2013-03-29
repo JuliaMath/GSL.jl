@@ -8,21 +8,22 @@ export gsl_ran_geometric, gsl_ran_geometric_pdf, gsl_cdf_geometric_P,
        gsl_cdf_geometric_Q
 
 
-### Function uses unknown type; disabled
-### # This function returns a random integer from the geometric distribution, the
+
+
+# This function returns a random integer from the geometric distribution, the
 # number of independent trials with probability p until the first success.  The
 # probability distribution for geometric variates is,                 p(k) =  p
 # (1-p)^(k-1)  for  k >= 1.  Note that the distribution begins with k=1 with
 # this definition.  There is another convention in which the exponent k-1 is
 # replaced by k.
 # 
-### #   {$k \ge 1$} 
-### #   Returns: Cuint
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_geometric (r::Ptr{gsl_rng}, p::Cdouble)
-###     ccall( (:gsl_ran_geometric, "libgsl"), Cuint, (Ptr{gsl_rng}, Cdouble),
-###         r, p )
-### end
+#   Returns: Cuint
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_geometric (r::Ptr{Void}, p::Cdouble)
+    ccall( (:gsl_ran_geometric, "libgsl"), Cuint, (Ptr{Void}, Cdouble), r,
+        p )
+end
 
 
 # This function computes the probability p(k) of obtaining k from a geometric

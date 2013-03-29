@@ -7,19 +7,20 @@
 export gsl_ran_pascal, gsl_ran_pascal_pdf, gsl_cdf_pascal_P, gsl_cdf_pascal_Q
 
 
-### Function uses unknown type; disabled
-### # This function returns a random integer from the Pascal distribution.  The
+
+
+# This function returns a random integer from the Pascal distribution.  The
 # Pascal distribution is simply a negative binomial distribution with an
 # integer value of n.                 p(k) = {(n + k - 1)! \over k! (n - 1)! }
 # p^n (1-p)^k  for  k >= 0
 # 
-### #   {$k \ge 0$} 
-### #   Returns: Cuint
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_pascal (r::Ptr{gsl_rng}, p::Cdouble, n::Cuint)
-###     ccall( (:gsl_ran_pascal, "libgsl"), Cuint, (Ptr{gsl_rng}, Cdouble,
-###         Cuint), r, p, n )
-### end
+#   Returns: Cuint
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_pascal (r::Ptr{Void}, p::Cdouble, n::Cuint)
+    ccall( (:gsl_ran_pascal, "libgsl"), Cuint, (Ptr{Void}, Cdouble, Cuint),
+        r, p, n )
+end
 
 
 # This function computes the probability p(k) of obtaining k from a Pascal

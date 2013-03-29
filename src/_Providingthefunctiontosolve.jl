@@ -4,95 +4,24 @@
 ########################################
 # 33.4 Providing the function to solve #
 ########################################
-export gsl_function, gsl_function, gsl_function_fdf, gsl_function_fdf,
-       gsl_function_fdf, gsl_function_fdf
+export gsl_function, gsl_function_fdf
 
 
-### Function uses unknown type; disabled
-### # This data type defines a general function with parameters.             double
-# (* function) (double x, void * params)this function should return the value
-# f(x,params) for argument x and parameters params void * paramsa pointer to
-# the parameters of the function
-# 
-### #   {$f(x,\hbox{\it params})$} 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_function ()
-###     ccall( (:gsl_function, "libgsl"), , () )
-### end
 
 
-### Function uses unknown type; disabled
-### # This data type defines a general function with parameters and its first
-# derivative.             double (* f) (double x, void * params)this function
-# should return the value of  f(x,params) for argument x and parameters params
-# double (* df) (double x, void * params)this function should return the value
-# of the derivative of f with respect to x,  f'(x,params), for argument x and
-# parameters params void (* fdf) (double x, void * params, double * f, double *
-# df)this function should set the values of the function f to  f(x,params) and
-# its derivative df to  f'(x,params) for argument x and parameters params.
-# This function provides an optimization of the separate functions for f(x) and
-# f'(x)—it is always faster to compute the function and its derivative at the
-# same time.            void * paramsa pointer to the parameters of the
-# function
-# 
-### #   {$f(x,\hbox{\it params})$} 
-### #   {$f'(x,\hbox{\it params})$} 
-### #   {$f(x,\hbox{\it params})$} 
-### #   {$f'(x,\hbox{\it params})$} 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_function ()
-###     ccall( (:gsl_function, "libgsl"), , () )
-### end
 
 
-### Function uses unknown type; disabled
-### # This data type defines a general function with parameters and its first
-# derivative.             double (* f) (double x, void * params)this function
-# should return the value of  f(x,params) for argument x and parameters params
-# double (* df) (double x, void * params)this function should return the value
-# of the derivative of f with respect to x,  f'(x,params), for argument x and
-# parameters params void (* fdf) (double x, void * params, double * f, double *
-# df)this function should set the values of the function f to  f(x,params) and
-# its derivative df to  f'(x,params) for argument x and parameters params.
-# This function provides an optimization of the separate functions for f(x) and
-# f'(x)—it is always faster to compute the function and its derivative at the
-# same time.            void * paramsa pointer to the parameters of the
-# function
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_function_fdf ()
-###     ccall( (:gsl_function_fdf, "libgsl"), , () )
-### end
 
 
-### Function uses unknown type; disabled
-### # 
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_function_fdf ()
-###     ccall( (:gsl_function_fdf, "libgsl"), , () )
-### end
+type gsl_function
+    function_::Ptr{Void}
+    params::Ptr{Void}
+end
 
 
-### Function uses unknown type; disabled
-### # 
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_function_fdf ()
-###     ccall( (:gsl_function_fdf, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # 
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_function_fdf ()
-###     ccall( (:gsl_function_fdf, "libgsl"), , () )
-### end
+type gsl_function_fdf
+    f::Ptr{Void}
+    df::Ptr{Void}
+    fdf::Ptr{Void}
+    params::Ptr{Void}
+end

@@ -8,17 +8,19 @@ export gsl_ran_laplace, gsl_ran_laplace_pdf, gsl_cdf_laplace_P,
        gsl_cdf_laplace_Q, gsl_cdf_laplace_Pinv, gsl_cdf_laplace_Qinv
 
 
-### Function uses unknown type; disabled
-### # This function returns a random variate from the Laplace distribution with
+
+
+# This function returns a random variate from the Laplace distribution with
 # width a.  The distribution is,                 p(x) dx = {1 \over 2 a}
 # \exp(-|x/a|) dx  for -\infty < x < \infty.
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_laplace (r::Ptr{gsl_rng}, a::Cdouble)
-###     ccall( (:gsl_ran_laplace, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble),
-###         r, a )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_laplace (r::Ptr{Void}, a::Cdouble)
+    ccall( (:gsl_ran_laplace, "libgsl"), Cdouble, (Ptr{Void}, Cdouble), r,
+        a )
+end
 
 
 # This function computes the probability density p(x) at x for a Laplace

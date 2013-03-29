@@ -7,8 +7,11 @@
 export gsl_ran_shuffle, gsl_ran_choose, gsl_ran_sample
 
 
-### Function uses unknown type; disabled
-### # This function randomly shuffles the order of n objects, each of size size,
+
+
+
+
+# This function randomly shuffles the order of n objects, each of size size,
 # stored in the array base[0..n-1].  The output of the random number generator
 # r is used to produce the permutation.  The algorithm generates all possible
 # n!  permutations with equal probability, assuming a perfect source of random
@@ -17,16 +20,16 @@ export gsl_ran_shuffle, gsl_ran_choose, gsl_ran_sample
 # i++)             {               a[i] = i;             }
 # gsl_ran_shuffle (r, a, 52, sizeof (int));
 # 
-### #   Returns: Void
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_shuffle (r::Ptr{gsl_rng}, base::Ptr{Void}, n::Csize_t, size::Csize_t)
-###     ccall( (:gsl_ran_shuffle, "libgsl"), Void, (Ptr{gsl_rng}, Ptr{Void},
-###         Csize_t, Csize_t), r, base, n, size )
-### end
+#   Returns: Void
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_shuffle (r::Ptr{Void}, base::Ptr{Void}, n::Csize_t, size::Csize_t)
+    ccall( (:gsl_ran_shuffle, "libgsl"), Void, (Ptr{Void}, Ptr{Void},
+        Csize_t, Csize_t), r, base, n, size )
+end
 
 
-### Function uses unknown type; disabled
-### # This function fills the array dest[k] with k objects taken randomly from the
+# This function fills the array dest[k] with k objects taken randomly from the
 # n elements of the array src[0..n-1].  The objects are each of size size.  The
 # output of the random number generator r is used to make the selection.  The
 # algorithm ensures all possible samples are equally likely, assuming a perfect
@@ -40,23 +43,24 @@ export gsl_ran_shuffle, gsl_ran_choose, gsl_ran_sample
 # {               b[i] = (double) i;             }
 # gsl_ran_choose (r, a, 3, b, 100, sizeof (double));
 # 
-### #   Returns: Cint
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_choose (r::Ptr{gsl_rng}, dest::Ptr{Void}, k::Csize_t, src::Ptr{Void}, n::Csize_t, size::Csize_t)
-###     ccall( (:gsl_ran_choose, "libgsl"), Cint, (Ptr{gsl_rng}, Ptr{Void},
-###         Csize_t, Ptr{Void}, Csize_t, Csize_t), r, dest, k, src, n, size )
-### end
+#   Returns: Cint
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_choose (r::Ptr{Void}, dest::Ptr{Void}, k::Csize_t, src::Ptr{Void}, n::Csize_t, size::Csize_t)
+    ccall( (:gsl_ran_choose, "libgsl"), Cint, (Ptr{Void}, Ptr{Void},
+        Csize_t, Ptr{Void}, Csize_t, Csize_t), r, dest, k, src, n, size )
+end
 
 
-### Function uses unknown type; disabled
-### # This function is like gsl_ran_choose but samples k items from the original
+# This function is like gsl_ran_choose but samples k items from the original
 # array of n items src with replacement, so the same object can appear more
 # than once in the output sequence dest.  There is no requirement that k be
 # less than n in this case.
 # 
-### #   Returns: Void
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_sample (r::Ptr{gsl_rng}, dest::Ptr{Void}, k::Csize_t, src::Ptr{Void}, n::Csize_t, size::Csize_t)
-###     ccall( (:gsl_ran_sample, "libgsl"), Void, (Ptr{gsl_rng}, Ptr{Void},
-###         Csize_t, Ptr{Void}, Csize_t, Csize_t), r, dest, k, src, n, size )
-### end
+#   Returns: Void
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_sample (r::Ptr{Void}, dest::Ptr{Void}, k::Csize_t, src::Ptr{Void}, n::Csize_t, size::Csize_t)
+    ccall( (:gsl_ran_sample, "libgsl"), Void, (Ptr{Void}, Ptr{Void},
+        Csize_t, Ptr{Void}, Csize_t, Csize_t), r, dest, k, src, n, size )
+end

@@ -7,8 +7,9 @@
 export gsl_ran_levy_skew
 
 
-### Function uses unknown type; disabled
-### # This function returns a random variate from the Levy skew stable distribution
+
+
+# This function returns a random variate from the Levy skew stable distribution
 # with scale c, exponent alpha and skewness parameter beta.  The skewness
 # parameter must lie in the range [-1,1].  The Levy skew stable probability
 # distribution is defined by a Fourier transform,                 p(x) = {1
@@ -22,11 +23,10 @@ export gsl_ran_levy_skew
 # corresponds to \beta = 0.          The algorithm only works for  0 < alpha <=
 # 2.
 # 
-### #   {$\sigma = \sqrt{2} c$} 
-### #   {$0 < \alpha \le 2$} 
-### #   Returns: Cdouble
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_levy_skew (r::Ptr{gsl_rng}, c::Cdouble, alpha::Cdouble, beta::Cdouble)
-###     ccall( (:gsl_ran_levy_skew, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble,
-###         Cdouble, Cdouble), r, c, alpha, beta )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_levy_skew (r::Ptr{Void}, c::Cdouble, alpha::Cdouble, beta::Cdouble)
+    ccall( (:gsl_ran_levy_skew, "libgsl"), Cdouble, (Ptr{Void}, Cdouble,
+        Cdouble, Cdouble), r, c, alpha, beta )
+end

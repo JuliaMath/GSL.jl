@@ -8,18 +8,19 @@ export gsl_ran_poisson, gsl_ran_poisson_pdf, gsl_cdf_poisson_P,
        gsl_cdf_poisson_Q
 
 
-### Function uses unknown type; disabled
-### # This function returns a random integer from the Poisson distribution with
+
+
+# This function returns a random integer from the Poisson distribution with
 # mean mu.  The probability distribution for Poisson variates is,
 # p(k) = {\mu^k \over k!} \exp(-\mu)  for  k >= 0.
 # 
-### #   {$k \ge 0$} 
-### #   Returns: Cuint
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_poisson (r::Ptr{gsl_rng}, mu::Cdouble)
-###     ccall( (:gsl_ran_poisson, "libgsl"), Cuint, (Ptr{gsl_rng}, Cdouble), r,
-###         mu )
-### end
+#   Returns: Cuint
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_poisson (r::Ptr{Void}, mu::Cdouble)
+    ccall( (:gsl_ran_poisson, "libgsl"), Cuint, (Ptr{Void}, Cdouble), r, mu
+        )
+end
 
 
 # This function computes the probability p(k) of obtaining  k from a Poisson

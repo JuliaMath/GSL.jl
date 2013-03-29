@@ -7,8 +7,11 @@
 export gsl_multifit_covar
 
 
-### Function uses unknown type; disabled
-### # This function uses the Jacobian matrix J to compute the covariance matrix of
+
+
+
+
+# This function uses the Jacobian matrix J to compute the covariance matrix of
 # the best-fit parameters, covar.  The parameter epsrel is used to remove
 # linear-dependent columns when J is rank deficient.          The covariance
 # matrix is given by,                 covar = (J^T J)^{-1}  and is computed by
@@ -29,11 +32,8 @@ export gsl_multifit_covar
 # from the scatter of the underlying data.          For more information about
 # covariance matrices see Fitting Overview.
 # 
-### #   {$\langle \delta f \delta f^T \rangle = I$} 
-### #   Returns: Cint
-### #XXX Unknown input type J::Ptr{gsl_matrix}
-### #XXX Unknown input type covar::Ptr{gsl_matrix}
-### function gsl_multifit_covar (J::Ptr{gsl_matrix}, epsrel::Cdouble, covar::Ptr{gsl_matrix})
-###     ccall( (:gsl_multifit_covar, "libgsl"), Cint, (Ptr{gsl_matrix},
-###         Cdouble, Ptr{gsl_matrix}), J, epsrel, covar )
-### end
+#   Returns: Cint
+function gsl_multifit_covar (J::Ptr{gsl_matrix}, epsrel::Cdouble, covar::Ptr{gsl_matrix})
+    ccall( (:gsl_multifit_covar, "libgsl"), Cint, (Ptr{gsl_matrix},
+        Cdouble, Ptr{gsl_matrix}), J, epsrel, covar )
+end

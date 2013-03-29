@@ -11,8 +11,6 @@ export gsl_sf_bessel_Inu, gsl_sf_bessel_Inu_e, gsl_sf_bessel_Inu_scaled,
 # These routines compute the regular modified Bessel function of fractional
 # order \nu, I_\nu(x) for x>0, \nu>0.
 # 
-#   Domain: x >= 0, nu >= 0 
-#   Exceptional Return Values: GSL_EDOM, GSL_EOVRFLW 
 #   Returns: Cdouble
 function gsl_sf_bessel_Inu (nu::Cdouble, x::Cdouble)
     ccall( (:gsl_sf_bessel_Inu, "libgsl"), Cdouble, (Cdouble, Cdouble), nu,
@@ -20,24 +18,19 @@ function gsl_sf_bessel_Inu (nu::Cdouble, x::Cdouble)
 end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the regular modified Bessel function of fractional
+# These routines compute the regular modified Bessel function of fractional
 # order \nu, I_\nu(x) for x>0, \nu>0.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type result::Ptr{gsl_sf_result}
-### function gsl_sf_bessel_Inu_e (nu::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-###     ccall( (:gsl_sf_bessel_Inu_e, "libgsl"), Cint, (Cdouble, Cdouble,
-###         Ptr{gsl_sf_result}), nu, x, result )
-### end
+#   Returns: Cint
+function gsl_sf_bessel_Inu_e (nu::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+    ccall( (:gsl_sf_bessel_Inu_e, "libgsl"), Cint, (Cdouble, Cdouble,
+        Ptr{gsl_sf_result}), nu, x, result )
+end
 
 
 # These routines compute the scaled regular modified Bessel function of
 # fractional order \nu, \exp(-|x|)I_\nu(x) for x>0, \nu>0.
 # 
-#   @math{ \exp(-|x|) I_@{\nu@}(x) } 
-#   Domain: x >= 0, nu >= 0 
-#   Exceptional Return Values: GSL_EDOM 
 #   Returns: Cdouble
 function gsl_sf_bessel_Inu_scaled (nu::Cdouble, x::Cdouble)
     ccall( (:gsl_sf_bessel_Inu_scaled, "libgsl"), Cdouble, (Cdouble,
@@ -45,13 +38,11 @@ function gsl_sf_bessel_Inu_scaled (nu::Cdouble, x::Cdouble)
 end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the scaled regular modified Bessel function of
+# These routines compute the scaled regular modified Bessel function of
 # fractional order \nu, \exp(-|x|)I_\nu(x) for x>0, \nu>0.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type result::Ptr{gsl_sf_result}
-### function gsl_sf_bessel_Inu_scaled_e (nu::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-###     ccall( (:gsl_sf_bessel_Inu_scaled_e, "libgsl"), Cint, (Cdouble,
-###         Cdouble, Ptr{gsl_sf_result}), nu, x, result )
-### end
+#   Returns: Cint
+function gsl_sf_bessel_Inu_scaled_e (nu::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+    ccall( (:gsl_sf_bessel_Inu_scaled_e, "libgsl"), Cint, (Cdouble,
+        Cdouble, Ptr{gsl_sf_result}), nu, x, result )
+end

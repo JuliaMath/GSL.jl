@@ -8,17 +8,19 @@ export gsl_ran_logistic, gsl_ran_logistic_pdf, gsl_cdf_logistic_P,
        gsl_cdf_logistic_Q, gsl_cdf_logistic_Pinv, gsl_cdf_logistic_Qinv
 
 
-### Function uses unknown type; disabled
-### # This function returns a random variate from the logistic distribution.  The
+
+
+# This function returns a random variate from the logistic distribution.  The
 # distribution function is,                 p(x) dx = { \exp(-x/a) \over a (1 +
 # \exp(-x/a))^2 } dx  for -\infty < x < +\infty.
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_logistic (r::Ptr{gsl_rng}, a::Cdouble)
-###     ccall( (:gsl_ran_logistic, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble),
-###         r, a )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_logistic (r::Ptr{Void}, a::Cdouble)
+    ccall( (:gsl_ran_logistic, "libgsl"), Cdouble, (Ptr{Void}, Cdouble), r,
+        a )
+end
 
 
 # This function computes the probability density p(x) at x for a logistic

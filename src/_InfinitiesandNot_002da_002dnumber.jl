@@ -7,40 +7,7 @@
 #############
 # Footnotes #
 #############
-export GSL_POSINF, GSL_NEGINF, GSL_NAN, gsl_isnan, gsl_isinf, gsl_finite
-
-
-### Function uses unknown type; disabled
-### # This macro contains the IEEE representation of positive infinity, +\infty. It
-# is computed from the expression +1.0/0.0.
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function GSL_POSINF ()
-###     ccall( (:GSL_POSINF, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # This macro contains the IEEE representation of negative infinity, -\infty. It
-# is computed from the expression -1.0/0.0.
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function GSL_NEGINF ()
-###     ccall( (:GSL_NEGINF, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # This macro contains the IEEE representation of the Not-a-Number symbol, NaN.
-# It is computed from the ratio 0.0/0.0.
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function GSL_NAN ()
-###     ccall( (:GSL_NAN, "libgsl"), , () )
-### end
+export gsl_isnan, gsl_isinf, gsl_finite
 
 
 # This function returns 1 if x is not-a-number.

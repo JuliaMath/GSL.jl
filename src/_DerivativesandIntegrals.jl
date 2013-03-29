@@ -7,30 +7,24 @@
 export gsl_cheb_calc_deriv, gsl_cheb_calc_integ
 
 
-### Function uses unknown type; disabled
-### # This function computes the derivative of the series cs, storing the
+# This function computes the derivative of the series cs, storing the
 # derivative coefficients in the previously allocated deriv.  The two series cs
 # and deriv must have been allocated with the same order.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type deriv::Ptr{gsl_cheb_series}
-### #XXX Unknown input type cs::Ptr{gsl_cheb_series}
-### function gsl_cheb_calc_deriv (deriv::Ptr{gsl_cheb_series}, cs::Ptr{gsl_cheb_series})
-###     ccall( (:gsl_cheb_calc_deriv, "libgsl"), Cint, (Ptr{gsl_cheb_series},
-###         Ptr{gsl_cheb_series}), deriv, cs )
-### end
+#   Returns: Cint
+function gsl_cheb_calc_deriv (deriv::Ptr{gsl_cheb_series}, cs::Ptr{gsl_cheb_series})
+    ccall( (:gsl_cheb_calc_deriv, "libgsl"), Cint, (Ptr{gsl_cheb_series},
+        Ptr{gsl_cheb_series}), deriv, cs )
+end
 
 
-### Function uses unknown type; disabled
-### # This function computes the integral of the series cs, storing the integral
+# This function computes the integral of the series cs, storing the integral
 # coefficients in the previously allocated integ.  The two series cs and integ
 # must have been allocated with the same order.  The lower limit of the
 # integration is taken to be the left hand end of the range a.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type integ::Ptr{gsl_cheb_series}
-### #XXX Unknown input type cs::Ptr{gsl_cheb_series}
-### function gsl_cheb_calc_integ (integ::Ptr{gsl_cheb_series}, cs::Ptr{gsl_cheb_series})
-###     ccall( (:gsl_cheb_calc_integ, "libgsl"), Cint, (Ptr{gsl_cheb_series},
-###         Ptr{gsl_cheb_series}), integ, cs )
-### end
+#   Returns: Cint
+function gsl_cheb_calc_integ (integ::Ptr{gsl_cheb_series}, cs::Ptr{gsl_cheb_series})
+    ccall( (:gsl_cheb_calc_integ, "libgsl"), Cint, (Ptr{gsl_cheb_series},
+        Ptr{gsl_cheb_series}), integ, cs )
+end

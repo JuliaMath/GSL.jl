@@ -29,7 +29,6 @@ end
 # This function computes the value of  \sqrt{x^2 + y^2} in a way that avoids
 # overflow. It provides an alternative to the BSD math function hypot(x,y).
 # 
-#   {$\sqrt{x^2 + y^2}$} 
 #   Returns: Cdouble
 function gsl_hypot (x::Cdouble, y::Cdouble)
     ccall( (:gsl_hypot, "libgsl"), Cdouble, (Cdouble, Cdouble), x, y )
@@ -39,7 +38,6 @@ end
 # This function computes the value of  \sqrt{x^2 + y^2 + z^2} in a way that
 # avoids overflow.
 # 
-#   {$\sqrt{x^2 + y^2 + z^2}$} 
 #   Returns: Cdouble
 function gsl_hypot3 (x::Cdouble, y::Cdouble, z::Cdouble)
     ccall( (:gsl_hypot3, "libgsl"), Cdouble, (Cdouble, Cdouble, Cdouble),
@@ -88,7 +86,6 @@ end
 # the exponent in e. If x is zero, both f and e are set to zero. This function
 # provides an alternative to the standard math function frexp(x, e).
 # 
-#   {$0.5 \le f < 1$} 
 #   Returns: Cdouble
 function gsl_frexp (x::Cdouble, e::Ptr{Cint})
     ccall( (:gsl_frexp, "libgsl"), Cdouble, (Cdouble, Ptr{Cint}), x, e )

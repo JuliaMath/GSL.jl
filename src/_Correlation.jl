@@ -7,6 +7,8 @@
 export gsl_stats_correlation
 
 
+
+
 # This function efficiently computes the Pearson correlation coefficient
 # between the datasets data1 and data2 which must both be of the same length n.
 # r = cov(x, y) / (\Hat\sigma_x \Hat\sigma_y)             = {1/(n-1) \sum (x_i

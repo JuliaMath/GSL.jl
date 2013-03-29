@@ -8,31 +8,32 @@ export gsl_integration_workspace_alloc, gsl_integration_workspace_free,
        gsl_integration_qag
 
 
-### Function uses unknown type; disabled
-### # This function allocates a workspace sufficient to hold n double precision
+
+
+# This function allocates a workspace sufficient to hold n double precision
 # intervals, their integration results and error estimates.
 # 
-### #   Returns: Ptr{gsl_integration_workspace}
-### #XXX Unknown output type Ptr{gsl_integration_workspace}
-### function gsl_integration_workspace_alloc (n::Csize_t)
-###     ccall( (:gsl_integration_workspace_alloc, "libgsl"),
-###         Ptr{gsl_integration_workspace}, (Csize_t, ), n )
-### end
+#   Returns: Ptr{Void}
+#XXX Unknown output type Ptr{gsl_integration_workspace}
+#XXX Coerced type for output Ptr{Void}
+function gsl_integration_workspace_alloc (n::Csize_t)
+    ccall( (:gsl_integration_workspace_alloc, "libgsl"), Ptr{Void},
+        (Csize_t, ), n )
+end
 
 
-### Function uses unknown type; disabled
-### # This function frees the memory associated with the workspace w.
+# This function frees the memory associated with the workspace w.
 # 
-### #   Returns: Void
-### #XXX Unknown input type w::Ptr{gsl_integration_workspace}
-### function gsl_integration_workspace_free (w::Ptr{gsl_integration_workspace})
-###     ccall( (:gsl_integration_workspace_free, "libgsl"), Void,
-###         (Ptr{gsl_integration_workspace}, ), w )
-### end
+#   Returns: Void
+#XXX Unknown input type w::Ptr{gsl_integration_workspace}
+#XXX Coerced type for w::Ptr{Void}
+function gsl_integration_workspace_free (w::Ptr{Void})
+    ccall( (:gsl_integration_workspace_free, "libgsl"), Void, (Ptr{Void},
+        ), w )
+end
 
 
-### Function uses unknown type; disabled
-### # This function applies an integration rule adaptively until an estimate of the
+# This function applies an integration rule adaptively until an estimate of the
 # integral of f over (a,b) is achieved within the desired absolute and relative
 # error limits, epsabs and epsrel.  The function returns the final
 # approximation, result, and an estimate of the absolute error, abserr.  The
@@ -49,12 +50,12 @@ export gsl_integration_workspace_alloc, gsl_integration_workspace_free,
 # the memory provided by workspace.  The maximum number of subintervals is
 # given by limit, which may not exceed the allocated size of the workspace.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type f::Ptr{gsl_function}
-### #XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
-### function gsl_integration_qag (f::Ptr{gsl_function}, a::Cdouble, b::Cdouble, epsabs::Cdouble, epsrel::Cdouble, limit::Csize_t, key::Cint, workspace::Ptr{gsl_integration_workspace}, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
-###     ccall( (:gsl_integration_qag, "libgsl"), Cint, (Ptr{gsl_function},
-###         Cdouble, Cdouble, Cdouble, Cdouble, Csize_t, Cint,
-###         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, b,
-###         epsabs, epsrel, limit, key, workspace, result, abserr )
-### end
+#   Returns: Cint
+#XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
+#XXX Coerced type for workspace::Ptr{Void}
+function gsl_integration_qag (f::Ptr{gsl_function}, a::Cdouble, b::Cdouble, epsabs::Cdouble, epsrel::Cdouble, limit::Csize_t, key::Cint, workspace::Ptr{Void}, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
+    ccall( (:gsl_integration_qag, "libgsl"), Cint, (Ptr{gsl_function},
+        Cdouble, Cdouble, Cdouble, Cdouble, Csize_t, Cint, Ptr{Void},
+        Ptr{Cdouble}, Ptr{Cdouble}), f, a, b, epsabs, epsrel, limit, key,
+        workspace, result, abserr )
+end

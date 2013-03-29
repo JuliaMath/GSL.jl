@@ -11,8 +11,9 @@ export gsl_ran_gaussian, gsl_ran_gaussian_pdf, gsl_ran_gaussian_ziggurat,
        gsl_cdf_ugaussian_Q, gsl_cdf_ugaussian_Pinv, gsl_cdf_ugaussian_Qinv
 
 
-### Function uses unknown type; disabled
-### # This function returns a Gaussian random variate, with mean zero and standard
+
+
+# This function returns a Gaussian random variate, with mean zero and standard
 # deviation sigma.  The probability distribution for Gaussian random variates
 # is,                 p(x) dx = {1 \over \sqrt{2 \pi \sigma^2}} \exp (-x^2 /
 # 2\sigma^2) dx  for x in the range -\infty to +\infty.  Use the transformation
@@ -20,12 +21,13 @@ export gsl_ran_gaussian, gsl_ran_gaussian_pdf, gsl_ran_gaussian_ziggurat,
 # distribution with mean \mu.  This function uses the Box-Muller algorithm
 # which requires two calls to the random number generator r.
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_gaussian (r::Ptr{gsl_rng}, sigma::Cdouble)
-###     ccall( (:gsl_ran_gaussian, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble),
-###         r, sigma )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_gaussian (r::Ptr{Void}, sigma::Cdouble)
+    ccall( (:gsl_ran_gaussian, "libgsl"), Cdouble, (Ptr{Void}, Cdouble), r,
+        sigma )
+end
 
 
 # This function computes the probability density p(x) at x for a Gaussian
@@ -38,42 +40,42 @@ function gsl_ran_gaussian_pdf (x::Cdouble, sigma::Cdouble)
 end
 
 
-### Function uses unknown type; disabled
-### # This function computes a Gaussian random variate using the alternative
+# This function computes a Gaussian random variate using the alternative
 # Marsaglia-Tsang ziggurat and Kinderman-Monahan-Leva ratio methods.  The
 # Ziggurat algorithm is the fastest available algorithm in most cases.
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_gaussian_ziggurat (r::Ptr{gsl_rng}, sigma::Cdouble)
-###     ccall( (:gsl_ran_gaussian_ziggurat, "libgsl"), Cdouble, (Ptr{gsl_rng},
-###         Cdouble), r, sigma )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_gaussian_ziggurat (r::Ptr{Void}, sigma::Cdouble)
+    ccall( (:gsl_ran_gaussian_ziggurat, "libgsl"), Cdouble, (Ptr{Void},
+        Cdouble), r, sigma )
+end
 
 
-### Function uses unknown type; disabled
-### # This function computes a Gaussian random variate using the alternative
+# This function computes a Gaussian random variate using the alternative
 # Marsaglia-Tsang ziggurat and Kinderman-Monahan-Leva ratio methods.  The
 # Ziggurat algorithm is the fastest available algorithm in most cases.
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_gaussian_ratio_method (r::Ptr{gsl_rng}, sigma::Cdouble)
-###     ccall( (:gsl_ran_gaussian_ratio_method, "libgsl"), Cdouble,
-###         (Ptr{gsl_rng}, Cdouble), r, sigma )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_gaussian_ratio_method (r::Ptr{Void}, sigma::Cdouble)
+    ccall( (:gsl_ran_gaussian_ratio_method, "libgsl"), Cdouble, (Ptr{Void},
+        Cdouble), r, sigma )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions compute results for the unit Gaussian distribution.  They are
+# These functions compute results for the unit Gaussian distribution.  They are
 # equivalent to the functions above with a standard deviation of one, sigma =
 # 1.
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_ugaussian (r::Ptr{gsl_rng})
-###     ccall( (:gsl_ran_ugaussian, "libgsl"), Cdouble, (Ptr{gsl_rng}, ), r )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_ugaussian (r::Ptr{Void})
+    ccall( (:gsl_ran_ugaussian, "libgsl"), Cdouble, (Ptr{Void}, ), r )
+end
 
 
 # These functions compute results for the unit Gaussian distribution.  They are
@@ -86,17 +88,17 @@ function gsl_ran_ugaussian_pdf (x::Cdouble)
 end
 
 
-### Function uses unknown type; disabled
-### # These functions compute results for the unit Gaussian distribution.  They are
+# These functions compute results for the unit Gaussian distribution.  They are
 # equivalent to the functions above with a standard deviation of one, sigma =
 # 1.
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_ugaussian_ratio_method (r::Ptr{gsl_rng})
-###     ccall( (:gsl_ran_ugaussian_ratio_method, "libgsl"), Cdouble,
-###         (Ptr{gsl_rng}, ), r )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_ugaussian_ratio_method (r::Ptr{Void})
+    ccall( (:gsl_ran_ugaussian_ratio_method, "libgsl"), Cdouble,
+        (Ptr{Void}, ), r )
+end
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and

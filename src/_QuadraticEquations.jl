@@ -7,6 +7,10 @@
 export gsl_poly_solve_quadratic, gsl_poly_complex_solve_quadratic
 
 
+
+
+
+
 # This function finds the real roots of the quadratic equation,
 # a x^2 + b x + c = 0  The number of real roots (either zero, one or two) is
 # returned, and their locations are stored in x0 and x1.  If no real roots are
@@ -29,19 +33,16 @@ function gsl_poly_solve_quadratic (a::Cdouble, b::Cdouble, c::Cdouble, x0::Ptr{C
 end
 
 
-### Function uses unknown type; disabled
-### # This function finds the complex roots of the quadratic equation,
+# This function finds the complex roots of the quadratic equation,
 # a z^2 + b z + c = 0  The number of complex roots is returned (either one or
 # two) and the locations of the roots are stored in z0 and z1.  The roots are
 # returned in ascending order, sorted first by their real components and then
 # by their imaginary components.  If only one real root is found (i.e. if a=0)
 # then it is stored in z0.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type z0::Ptr{gsl_complex}
-### #XXX Unknown input type z1::Ptr{gsl_complex}
-### function gsl_poly_complex_solve_quadratic (a::Cdouble, b::Cdouble, c::Cdouble, z0::Ptr{gsl_complex}, z1::Ptr{gsl_complex})
-###     ccall( (:gsl_poly_complex_solve_quadratic, "libgsl"), Cint, (Cdouble,
-###         Cdouble, Cdouble, Ptr{gsl_complex}, Ptr{gsl_complex}), a, b, c, z0, z1
-###         )
-### end
+#   Returns: Cint
+function gsl_poly_complex_solve_quadratic (a::Cdouble, b::Cdouble, c::Cdouble, z0::Ptr{gsl_complex}, z1::Ptr{gsl_complex})
+    ccall( (:gsl_poly_complex_solve_quadratic, "libgsl"), Cint, (Cdouble,
+        Cdouble, Cdouble, Ptr{gsl_complex}, Ptr{gsl_complex}), a, b, c, z0, z1
+        )
+end

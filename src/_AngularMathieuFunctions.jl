@@ -8,53 +8,49 @@ export gsl_sf_mathieu_ce, gsl_sf_mathieu_se, gsl_sf_mathieu_ce_array,
        gsl_sf_mathieu_se_array
 
 
-### Function uses unknown type; disabled
-### # These routines compute the angular Mathieu functions ce_n(q,x) and se_n(q,x),
+# These routines compute the angular Mathieu functions ce_n(q,x) and se_n(q,x),
 # respectively.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type result::Ptr{gsl_sf_result}
-### function gsl_sf_mathieu_ce (n::Cint, q::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-###     ccall( (:gsl_sf_mathieu_ce, "libgsl"), Cint, (Cint, Cdouble, Cdouble,
-###         Ptr{gsl_sf_result}), n, q, x, result )
-### end
+#   Returns: Cint
+function gsl_sf_mathieu_ce (n::Cint, q::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+    ccall( (:gsl_sf_mathieu_ce, "libgsl"), Cint, (Cint, Cdouble, Cdouble,
+        Ptr{gsl_sf_result}), n, q, x, result )
+end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the angular Mathieu functions ce_n(q,x) and se_n(q,x),
+# These routines compute the angular Mathieu functions ce_n(q,x) and se_n(q,x),
 # respectively.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type result::Ptr{gsl_sf_result}
-### function gsl_sf_mathieu_se (n::Cint, q::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
-###     ccall( (:gsl_sf_mathieu_se, "libgsl"), Cint, (Cint, Cdouble, Cdouble,
-###         Ptr{gsl_sf_result}), n, q, x, result )
-### end
+#   Returns: Cint
+function gsl_sf_mathieu_se (n::Cint, q::Cdouble, x::Cdouble, result::Ptr{gsl_sf_result})
+    ccall( (:gsl_sf_mathieu_se, "libgsl"), Cint, (Cint, Cdouble, Cdouble,
+        Ptr{gsl_sf_result}), n, q, x, result )
+end
 
 
-### Function uses unknown type; disabled
-### # These routines compute a series of the angular Mathieu functions ce_n(q,x)
+# These routines compute a series of the angular Mathieu functions ce_n(q,x)
 # and se_n(q,x) of order n from nmin to nmax inclusive, storing the results in
 # the array result_array.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type work::Ptr{gsl_sf_mathieu_workspace}
-### function gsl_sf_mathieu_ce_array (nmin::Cint, nmax::Cint, q::Cdouble, x::Cdouble, work::Ptr{gsl_sf_mathieu_workspace}, result_array::Cdouble)
-###     ccall( (:gsl_sf_mathieu_ce_array, "libgsl"), Cint, (Cint, Cint,
-###         Cdouble, Cdouble, Ptr{gsl_sf_mathieu_workspace}, Cdouble), nmin, nmax,
-###         q, x, work, result_array )
-### end
+#   Returns: Cint
+#XXX Unknown input type work::Ptr{gsl_sf_mathieu_workspace}
+#XXX Coerced type for work::Ptr{Void}
+function gsl_sf_mathieu_ce_array (nmin::Cint, nmax::Cint, q::Cdouble, x::Cdouble, work::Ptr{Void}, result_array::Cdouble)
+    ccall( (:gsl_sf_mathieu_ce_array, "libgsl"), Cint, (Cint, Cint,
+        Cdouble, Cdouble, Ptr{Void}, Cdouble), nmin, nmax, q, x, work,
+        result_array )
+end
 
 
-### Function uses unknown type; disabled
-### # These routines compute a series of the angular Mathieu functions ce_n(q,x)
+# These routines compute a series of the angular Mathieu functions ce_n(q,x)
 # and se_n(q,x) of order n from nmin to nmax inclusive, storing the results in
 # the array result_array.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type work::Ptr{gsl_sf_mathieu_workspace}
-### function gsl_sf_mathieu_se_array (nmin::Cint, nmax::Cint, q::Cdouble, x::Cdouble, work::Ptr{gsl_sf_mathieu_workspace}, result_array::Cdouble)
-###     ccall( (:gsl_sf_mathieu_se_array, "libgsl"), Cint, (Cint, Cint,
-###         Cdouble, Cdouble, Ptr{gsl_sf_mathieu_workspace}, Cdouble), nmin, nmax,
-###         q, x, work, result_array )
-### end
+#   Returns: Cint
+#XXX Unknown input type work::Ptr{gsl_sf_mathieu_workspace}
+#XXX Coerced type for work::Ptr{Void}
+function gsl_sf_mathieu_se_array (nmin::Cint, nmax::Cint, q::Cdouble, x::Cdouble, work::Ptr{Void}, result_array::Cdouble)
+    ccall( (:gsl_sf_mathieu_se_array, "libgsl"), Cint, (Cint, Cint,
+        Cdouble, Cdouble, Ptr{Void}, Cdouble), nmin, nmax, q, x, work,
+        result_array )
+end

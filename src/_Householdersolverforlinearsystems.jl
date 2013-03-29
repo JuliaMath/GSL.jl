@@ -7,31 +7,24 @@
 export gsl_linalg_HH_solve, gsl_linalg_HH_svx
 
 
-### Function uses unknown type; disabled
-### # This function solves the system A x = b directly using Householder
+# This function solves the system A x = b directly using Householder
 # transformations. On output the solution is stored in x and b is not modified.
 # The matrix A is destroyed by the Householder transformations.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type A::Ptr{gsl_matrix}
-### #XXX Unknown input type b::Ptr{gsl_vector}
-### #XXX Unknown input type x::Ptr{gsl_vector}
-### function gsl_linalg_HH_solve (A::Ptr{gsl_matrix}, b::Ptr{gsl_vector}, x::Ptr{gsl_vector})
-###     ccall( (:gsl_linalg_HH_solve, "libgsl"), Cint, (Ptr{gsl_matrix},
-###         Ptr{gsl_vector}, Ptr{gsl_vector}), A, b, x )
-### end
+#   Returns: Cint
+function gsl_linalg_HH_solve (A::Ptr{gsl_matrix}, b::Ptr{gsl_vector}, x::Ptr{gsl_vector})
+    ccall( (:gsl_linalg_HH_solve, "libgsl"), Cint, (Ptr{gsl_matrix},
+        Ptr{gsl_vector}, Ptr{gsl_vector}), A, b, x )
+end
 
 
-### Function uses unknown type; disabled
-### # This function solves the system A x = b in-place using Householder
+# This function solves the system A x = b in-place using Householder
 # transformations.  On input x should contain the right-hand side b, which is
 # replaced by the solution on output.  The matrix A is destroyed by the
 # Householder transformations.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type A::Ptr{gsl_matrix}
-### #XXX Unknown input type x::Ptr{gsl_vector}
-### function gsl_linalg_HH_svx (A::Ptr{gsl_matrix}, x::Ptr{gsl_vector})
-###     ccall( (:gsl_linalg_HH_svx, "libgsl"), Cint, (Ptr{gsl_matrix},
-###         Ptr{gsl_vector}), A, x )
-### end
+#   Returns: Cint
+function gsl_linalg_HH_svx (A::Ptr{gsl_matrix}, x::Ptr{gsl_vector})
+    ccall( (:gsl_linalg_HH_svx, "libgsl"), Cint, (Ptr{gsl_matrix},
+        Ptr{gsl_vector}), A, x )
+end

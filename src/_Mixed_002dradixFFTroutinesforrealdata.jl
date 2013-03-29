@@ -11,8 +11,17 @@ export gsl_fft_real_wavetable_alloc, gsl_fft_halfcomplex_wavetable_alloc,
        gsl_fft_real_unpack, gsl_fft_halfcomplex_unpack
 
 
-### Function uses unknown type; disabled
-### # These functions prepare trigonometric lookup tables for an FFT of size n real
+
+
+
+
+
+
+
+
+
+
+# These functions prepare trigonometric lookup tables for an FFT of size n real
 # elements.  The functions return a pointer to the newly allocated struct if no
 # errors were detected, and a null pointer in the case of error.  The length n
 # is factorized into a product of subtransforms, and the factors and their
@@ -26,16 +35,16 @@ export gsl_fft_real_wavetable_alloc, gsl_fft_halfcomplex_wavetable_alloc,
 # functions.  The appropriate type of wavetable must be used for forward real
 # or inverse half-complex transforms.
 # 
-### #   Returns: Ptr{gsl_fft_real_wavetable}
-### #XXX Unknown output type Ptr{gsl_fft_real_wavetable}
-### function gsl_fft_real_wavetable_alloc (n::Csize_t)
-###     ccall( (:gsl_fft_real_wavetable_alloc, "libgsl"),
-###         Ptr{gsl_fft_real_wavetable}, (Csize_t, ), n )
-### end
+#   Returns: Ptr{Void}
+#XXX Unknown output type Ptr{gsl_fft_real_wavetable}
+#XXX Coerced type for output Ptr{Void}
+function gsl_fft_real_wavetable_alloc (n::Csize_t)
+    ccall( (:gsl_fft_real_wavetable_alloc, "libgsl"), Ptr{Void}, (Csize_t,
+        ), n )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions prepare trigonometric lookup tables for an FFT of size n real
+# These functions prepare trigonometric lookup tables for an FFT of size n real
 # elements.  The functions return a pointer to the newly allocated struct if no
 # errors were detected, and a null pointer in the case of error.  The length n
 # is factorized into a product of subtransforms, and the factors and their
@@ -49,61 +58,62 @@ export gsl_fft_real_wavetable_alloc, gsl_fft_halfcomplex_wavetable_alloc,
 # functions.  The appropriate type of wavetable must be used for forward real
 # or inverse half-complex transforms.
 # 
-### #   Returns: Ptr{gsl_fft_halfcomplex_wavetable}
-### #XXX Unknown output type Ptr{gsl_fft_halfcomplex_wavetable}
-### function gsl_fft_halfcomplex_wavetable_alloc (n::Csize_t)
-###     ccall( (:gsl_fft_halfcomplex_wavetable_alloc, "libgsl"),
-###         Ptr{gsl_fft_halfcomplex_wavetable}, (Csize_t, ), n )
-### end
+#   Returns: Ptr{Void}
+#XXX Unknown output type Ptr{gsl_fft_halfcomplex_wavetable}
+#XXX Coerced type for output Ptr{Void}
+function gsl_fft_halfcomplex_wavetable_alloc (n::Csize_t)
+    ccall( (:gsl_fft_halfcomplex_wavetable_alloc, "libgsl"), Ptr{Void},
+        (Csize_t, ), n )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions free the memory associated with the wavetable wavetable. The
+# These functions free the memory associated with the wavetable wavetable. The
 # wavetable can be freed if no further FFTs of the same length will be needed.
 # 
-### #   Returns: Void
-### #XXX Unknown input type wavetable::Ptr{gsl_fft_real_wavetable}
-### function gsl_fft_real_wavetable_free (wavetable::Ptr{gsl_fft_real_wavetable})
-###     ccall( (:gsl_fft_real_wavetable_free, "libgsl"), Void,
-###         (Ptr{gsl_fft_real_wavetable}, ), wavetable )
-### end
+#   Returns: Void
+#XXX Unknown input type wavetable::Ptr{gsl_fft_real_wavetable}
+#XXX Coerced type for wavetable::Ptr{Void}
+function gsl_fft_real_wavetable_free (wavetable::Ptr{Void})
+    ccall( (:gsl_fft_real_wavetable_free, "libgsl"), Void, (Ptr{Void}, ),
+        wavetable )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions free the memory associated with the wavetable wavetable. The
+# These functions free the memory associated with the wavetable wavetable. The
 # wavetable can be freed if no further FFTs of the same length will be needed.
 # 
-### #   Returns: Void
-### #XXX Unknown input type wavetable::Ptr{gsl_fft_halfcomplex_wavetable}
-### function gsl_fft_halfcomplex_wavetable_free (wavetable::Ptr{gsl_fft_halfcomplex_wavetable})
-###     ccall( (:gsl_fft_halfcomplex_wavetable_free, "libgsl"), Void,
-###         (Ptr{gsl_fft_halfcomplex_wavetable}, ), wavetable )
-### end
+#   Returns: Void
+#XXX Unknown input type wavetable::Ptr{gsl_fft_halfcomplex_wavetable}
+#XXX Coerced type for wavetable::Ptr{Void}
+function gsl_fft_halfcomplex_wavetable_free (wavetable::Ptr{Void})
+    ccall( (:gsl_fft_halfcomplex_wavetable_free, "libgsl"), Void,
+        (Ptr{Void}, ), wavetable )
+end
 
 
-### Function uses unknown type; disabled
-### # This function allocates a workspace for a real transform of length n.  The
+# This function allocates a workspace for a real transform of length n.  The
 # same workspace can be used for both forward real and inverse halfcomplex
 # transforms.
 # 
-### #   Returns: Ptr{gsl_fft_real_workspace}
-### #XXX Unknown output type Ptr{gsl_fft_real_workspace}
-### function gsl_fft_real_workspace_alloc (n::Csize_t)
-###     ccall( (:gsl_fft_real_workspace_alloc, "libgsl"),
-###         Ptr{gsl_fft_real_workspace}, (Csize_t, ), n )
-### end
+#   Returns: Ptr{Void}
+#XXX Unknown output type Ptr{gsl_fft_real_workspace}
+#XXX Coerced type for output Ptr{Void}
+function gsl_fft_real_workspace_alloc (n::Csize_t)
+    ccall( (:gsl_fft_real_workspace_alloc, "libgsl"), Ptr{Void}, (Csize_t,
+        ), n )
+end
 
 
-### Function uses unknown type; disabled
-### # This function frees the memory associated with the workspace workspace. The
+# This function frees the memory associated with the workspace workspace. The
 # workspace can be freed if no further FFTs of the same length will be needed.
 # 
-### #   Returns: Void
-### #XXX Unknown input type workspace::Ptr{gsl_fft_real_workspace}
-### function gsl_fft_real_workspace_free (workspace::Ptr{gsl_fft_real_workspace})
-###     ccall( (:gsl_fft_real_workspace_free, "libgsl"), Void,
-###         (Ptr{gsl_fft_real_workspace}, ), workspace )
-### end
+#   Returns: Void
+#XXX Unknown input type workspace::Ptr{gsl_fft_real_workspace}
+#XXX Coerced type for workspace::Ptr{Void}
+function gsl_fft_real_workspace_free (workspace::Ptr{Void})
+    ccall( (:gsl_fft_real_workspace_free, "libgsl"), Void, (Ptr{Void}, ),
+        workspace )
+end
 
 
 # These functions compute the FFT of data, a real or half-complex array of
@@ -172,7 +182,6 @@ end
 # halfcomplex_coefficient[(n - 1)*stride];
 # complex_coefficient[i*stride].imag                 = 0.0;             }
 # 
-#   {$z_k = z_{n-k}^*$} 
 #   Returns: Cint
 function gsl_fft_halfcomplex_unpack (halfcomplex_coefficient::Cdouble)
     ccall( (:gsl_fft_halfcomplex_unpack, "libgsl"), Cint, (Cdouble, ),

@@ -12,7 +12,6 @@ export gsl_sf_angle_restrict_symm, gsl_sf_angle_restrict_symm_e,
 # Note that the mathematical value of \pi is slightly greater than M_PI, so the
 # machine numbers M_PI and -M_PI are included in the range.
 # 
-#   Exceptional Return Values: GSL_ELOSS 
 #   Returns: Cdouble
 function gsl_sf_angle_restrict_symm (theta::Cdouble)
     ccall( (:gsl_sf_angle_restrict_symm, "libgsl"), Cdouble, (Cdouble, ),
@@ -35,7 +34,6 @@ end
 # Note that the mathematical value of 2\pi is slightly greater than 2*M_PI, so
 # the machine number 2*M_PI is included in the range.
 # 
-#   Exceptional Return Values: GSL_ELOSS 
 #   Returns: Cdouble
 function gsl_sf_angle_restrict_pos (theta::Cdouble)
     ccall( (:gsl_sf_angle_restrict_pos, "libgsl"), Cdouble, (Cdouble, ),

@@ -8,8 +8,9 @@ export gsl_ran_gamma, gsl_ran_gamma_knuth, gsl_ran_gamma_pdf, gsl_cdf_gamma_P,
        gsl_cdf_gamma_Q, gsl_cdf_gamma_Pinv, gsl_cdf_gamma_Qinv
 
 
-### Function uses unknown type; disabled
-### # This function returns a random variate from the gamma distribution.  The
+
+
+# This function returns a random variate from the gamma distribution.  The
 # distribution function is,                 p(x) dx = {1 \over \Gamma(a) b^a}
 # x^{a-1} e^{-x/b} dx  for x > 0.     The gamma distribution with an integer
 # parameter a is known as the Erlang distribution.          The variates are
@@ -17,27 +18,25 @@ export gsl_ran_gamma, gsl_ran_gamma_knuth, gsl_ran_gamma_pdf, gsl_cdf_gamma_P,
 # method was previously called gsl_ran_gamma_mt and can still be accessed using
 # this name.
 # 
-### #   If @xmath{X} and @xmath{Y} are independent gamma-distributed random 
-### #   variables of order @xmath{a} and @xmath{b}, then @xmath{X+Y} has a gamma 
-### #   distribution of order @xmath{a+b}. 
-### #   Returns: Cdouble
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_gamma (r::Ptr{gsl_rng}, a::Cdouble, b::Cdouble)
-###     ccall( (:gsl_ran_gamma, "libgsl"), Cdouble, (Ptr{gsl_rng}, Cdouble,
-###         Cdouble), r, a, b )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_gamma (r::Ptr{Void}, a::Cdouble, b::Cdouble)
+    ccall( (:gsl_ran_gamma, "libgsl"), Cdouble, (Ptr{Void}, Cdouble,
+        Cdouble), r, a, b )
+end
 
 
-### Function uses unknown type; disabled
-### # This function returns a gamma variate using the algorithms from Knuth (vol
+# This function returns a gamma variate using the algorithms from Knuth (vol
 # 2).
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_gamma_knuth (r::Ptr{gsl_rng}, a::Cdouble, b::Cdouble)
-###     ccall( (:gsl_ran_gamma_knuth, "libgsl"), Cdouble, (Ptr{gsl_rng},
-###         Cdouble, Cdouble), r, a, b )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_gamma_knuth (r::Ptr{Void}, a::Cdouble, b::Cdouble)
+    ccall( (:gsl_ran_gamma_knuth, "libgsl"), Cdouble, (Ptr{Void}, Cdouble,
+        Cdouble), r, a, b )
+end
 
 
 # This function computes the probability density p(x) at x for a gamma

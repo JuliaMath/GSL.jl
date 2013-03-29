@@ -8,8 +8,9 @@ export gsl_wavelet_transform, gsl_wavelet_transform_forward,
        gsl_wavelet_transform_inverse
 
 
-### Function uses unknown type; disabled
-### # These functions compute in-place forward and inverse discrete wavelet
+
+
+# These functions compute in-place forward and inverse discrete wavelet
 # transforms of length n with stride stride on the array data. The length of
 # the transform n is restricted to powers of two.  For the transform version of
 # the function the argument dir can be either forward (+1) or backward (-1).  A
@@ -27,24 +28,21 @@ export gsl_wavelet_transform, gsl_wavelet_transform_forward,
 # GSL_EINVAL is returned if n is not an integer power of 2 or if insufficient
 # workspace is provided.
 # 
-### #   {$f_i \rightarrow w_{j,k}$} 
-### #   {$j = 0 \dots J-1$} 
-### #   {$k = 0 \dots 2^j - 1$} 
-### #   {$s_{-1,0}$} 
-### #   {$d_{j,k}$} 
-### #   Returns: Cint
-### #XXX Unknown input type w::Ptr{gsl_wavelet}
-### #XXX Unknown input type dir::gsl_wavelet_direction
-### #XXX Unknown input type work::Ptr{gsl_wavelet_workspace}
-### function gsl_wavelet_transform (w::Ptr{gsl_wavelet}, data::Ptr{Cdouble}, stride::Csize_t, n::Csize_t, dir::gsl_wavelet_direction, work::Ptr{gsl_wavelet_workspace})
-###     ccall( (:gsl_wavelet_transform, "libgsl"), Cint, (Ptr{gsl_wavelet},
-###         Ptr{Cdouble}, Csize_t, Csize_t, gsl_wavelet_direction,
-###         Ptr{gsl_wavelet_workspace}), w, data, stride, n, dir, work )
-### end
+#   Returns: Cint
+#XXX Unknown input type w::Ptr{gsl_wavelet}
+#XXX Coerced type for w::Ptr{Void}
+#XXX Unknown input type dir::gsl_wavelet_direction
+#XXX Coerced type for dir::Void
+#XXX Unknown input type work::Ptr{gsl_wavelet_workspace}
+#XXX Coerced type for work::Ptr{Void}
+function gsl_wavelet_transform (w::Ptr{Void}, data::Ptr{Cdouble}, stride::Csize_t, n::Csize_t, dir::Void, work::Ptr{Void})
+    ccall( (:gsl_wavelet_transform, "libgsl"), Cint, (Ptr{Void},
+        Ptr{Cdouble}, Csize_t, Csize_t, Void, Ptr{Void}), w, data, stride, n,
+        dir, work )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions compute in-place forward and inverse discrete wavelet
+# These functions compute in-place forward and inverse discrete wavelet
 # transforms of length n with stride stride on the array data. The length of
 # the transform n is restricted to powers of two.  For the transform version of
 # the function the argument dir can be either forward (+1) or backward (-1).  A
@@ -62,18 +60,18 @@ export gsl_wavelet_transform, gsl_wavelet_transform_forward,
 # GSL_EINVAL is returned if n is not an integer power of 2 or if insufficient
 # workspace is provided.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type w::Ptr{gsl_wavelet}
-### #XXX Unknown input type work::Ptr{gsl_wavelet_workspace}
-### function gsl_wavelet_transform_forward (w::Ptr{gsl_wavelet}, data::Ptr{Cdouble}, stride::Csize_t, n::Csize_t, work::Ptr{gsl_wavelet_workspace})
-###     ccall( (:gsl_wavelet_transform_forward, "libgsl"), Cint,
-###         (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t,
-###         Ptr{gsl_wavelet_workspace}), w, data, stride, n, work )
-### end
+#   Returns: Cint
+#XXX Unknown input type w::Ptr{gsl_wavelet}
+#XXX Coerced type for w::Ptr{Void}
+#XXX Unknown input type work::Ptr{gsl_wavelet_workspace}
+#XXX Coerced type for work::Ptr{Void}
+function gsl_wavelet_transform_forward (w::Ptr{Void}, data::Ptr{Cdouble}, stride::Csize_t, n::Csize_t, work::Ptr{Void})
+    ccall( (:gsl_wavelet_transform_forward, "libgsl"), Cint, (Ptr{Void},
+        Ptr{Cdouble}, Csize_t, Csize_t, Ptr{Void}), w, data, stride, n, work )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions compute in-place forward and inverse discrete wavelet
+# These functions compute in-place forward and inverse discrete wavelet
 # transforms of length n with stride stride on the array data. The length of
 # the transform n is restricted to powers of two.  For the transform version of
 # the function the argument dir can be either forward (+1) or backward (-1).  A
@@ -91,11 +89,12 @@ export gsl_wavelet_transform, gsl_wavelet_transform_forward,
 # GSL_EINVAL is returned if n is not an integer power of 2 or if insufficient
 # workspace is provided.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type w::Ptr{gsl_wavelet}
-### #XXX Unknown input type work::Ptr{gsl_wavelet_workspace}
-### function gsl_wavelet_transform_inverse (w::Ptr{gsl_wavelet}, data::Ptr{Cdouble}, stride::Csize_t, n::Csize_t, work::Ptr{gsl_wavelet_workspace})
-###     ccall( (:gsl_wavelet_transform_inverse, "libgsl"), Cint,
-###         (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t,
-###         Ptr{gsl_wavelet_workspace}), w, data, stride, n, work )
-### end
+#   Returns: Cint
+#XXX Unknown input type w::Ptr{gsl_wavelet}
+#XXX Coerced type for w::Ptr{Void}
+#XXX Unknown input type work::Ptr{gsl_wavelet_workspace}
+#XXX Coerced type for work::Ptr{Void}
+function gsl_wavelet_transform_inverse (w::Ptr{Void}, data::Ptr{Cdouble}, stride::Csize_t, n::Csize_t, work::Ptr{Void})
+    ccall( (:gsl_wavelet_transform_inverse, "libgsl"), Cint, (Ptr{Void},
+        Ptr{Cdouble}, Csize_t, Csize_t, Ptr{Void}), w, data, stride, n, work )
+end

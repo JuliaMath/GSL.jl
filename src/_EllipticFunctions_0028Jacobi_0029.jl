@@ -10,7 +10,6 @@ export gsl_sf_elljac_e
 # This function computes the Jacobian elliptic functions sn(u|m), cn(u|m),
 # dn(u|m) by descending Landen transformations.
 # 
-#   Exceptional Return Values: GSL_EDOM 
 #   Returns: Cint
 function gsl_sf_elljac_e (u::Cdouble, m::Cdouble, sn::Ptr{Cdouble}, cn::Ptr{Cdouble}, dn::Ptr{Cdouble})
     ccall( (:gsl_sf_elljac_e, "libgsl"), Cint, (Cdouble, Cdouble,

@@ -12,67 +12,58 @@ export gsl_sf_bessel_Y0, gsl_sf_bessel_Y0_e, gsl_sf_bessel_Y1,
 # These routines compute the irregular cylindrical Bessel function of zeroth
 # order, Y_0(x), for x>0.
 # 
-#   Exceptional Return Values: GSL_EDOM, GSL_EUNDRFLW 
 #   Returns: Cdouble
 function gsl_sf_bessel_Y0 (x::Cdouble)
     ccall( (:gsl_sf_bessel_Y0, "libgsl"), Cdouble, (Cdouble, ), x )
 end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the irregular cylindrical Bessel function of zeroth
+# These routines compute the irregular cylindrical Bessel function of zeroth
 # order, Y_0(x), for x>0.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type result::Ptr{gsl_sf_result}
-### function gsl_sf_bessel_Y0_e (x::Cdouble, result::Ptr{gsl_sf_result})
-###     ccall( (:gsl_sf_bessel_Y0_e, "libgsl"), Cint, (Cdouble,
-###         Ptr{gsl_sf_result}), x, result )
-### end
+#   Returns: Cint
+function gsl_sf_bessel_Y0_e (x::Cdouble, result::Ptr{gsl_sf_result})
+    ccall( (:gsl_sf_bessel_Y0_e, "libgsl"), Cint, (Cdouble,
+        Ptr{gsl_sf_result}), x, result )
+end
 
 
 # These routines compute the irregular cylindrical Bessel function of first
 # order, Y_1(x), for x>0.
 # 
-#   Exceptional Return Values: GSL_EDOM, GSL_EOVRFLW, GSL_EUNDRFLW 
 #   Returns: Cdouble
 function gsl_sf_bessel_Y1 (x::Cdouble)
     ccall( (:gsl_sf_bessel_Y1, "libgsl"), Cdouble, (Cdouble, ), x )
 end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the irregular cylindrical Bessel function of first
+# These routines compute the irregular cylindrical Bessel function of first
 # order, Y_1(x), for x>0.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type result::Ptr{gsl_sf_result}
-### function gsl_sf_bessel_Y1_e (x::Cdouble, result::Ptr{gsl_sf_result})
-###     ccall( (:gsl_sf_bessel_Y1_e, "libgsl"), Cint, (Cdouble,
-###         Ptr{gsl_sf_result}), x, result )
-### end
+#   Returns: Cint
+function gsl_sf_bessel_Y1_e (x::Cdouble, result::Ptr{gsl_sf_result})
+    ccall( (:gsl_sf_bessel_Y1_e, "libgsl"), Cint, (Cdouble,
+        Ptr{gsl_sf_result}), x, result )
+end
 
 
 # These routines compute the irregular cylindrical Bessel function of order n,
 # Y_n(x), for x>0.
 # 
-#   Exceptional Return Values: GSL_EDOM, GSL_EOVRFLW, GSL_EUNDRFLW 
 #   Returns: Cdouble
 function gsl_sf_bessel_Yn (n::Cint, x::Cdouble)
     ccall( (:gsl_sf_bessel_Yn, "libgsl"), Cdouble, (Cint, Cdouble), n, x )
 end
 
 
-### Function uses unknown type; disabled
-### # These routines compute the irregular cylindrical Bessel function of order n,
+# These routines compute the irregular cylindrical Bessel function of order n,
 # Y_n(x), for x>0.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type result::Ptr{gsl_sf_result}
-### function gsl_sf_bessel_Yn_e (n::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
-###     ccall( (:gsl_sf_bessel_Yn_e, "libgsl"), Cint, (Cint, Cdouble,
-###         Ptr{gsl_sf_result}), n, x, result )
-### end
+#   Returns: Cint
+function gsl_sf_bessel_Yn_e (n::Cint, x::Cdouble, result::Ptr{gsl_sf_result})
+    ccall( (:gsl_sf_bessel_Yn_e, "libgsl"), Cint, (Cint, Cdouble,
+        Ptr{gsl_sf_result}), n, x, result )
+end
 
 
 # This routine computes the values of the irregular cylindrical Bessel
@@ -81,7 +72,6 @@ end
 # computed using recurrence relations for efficiency, and therefore may differ
 # slightly from the exact values.
 # 
-#   Exceptional Return Values: GSL_EDOM, GSL_EOVRFLW, GSL_EUNDRFLW 
 #   Returns: Cint
 function gsl_sf_bessel_Yn_array (nmin::Cint, nmax::Cint, x::Cdouble, result_array::Cdouble)
     ccall( (:gsl_sf_bessel_Yn_array, "libgsl"), Cint, (Cint, Cint, Cdouble,

@@ -7,28 +7,29 @@
 export gsl_qrng_memcpy, gsl_qrng_clone
 
 
-### Function uses unknown type; disabled
-### # This function copies the quasi-random sequence generator src into the pre-
+# This function copies the quasi-random sequence generator src into the pre-
 # existing generator dest, making dest into an exact copy of src.  The two
 # generators must be of the same type.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type dest::Ptr{gsl_qrng}
-### #XXX Unknown input type src::Ptr{gsl_qrng}
-### function gsl_qrng_memcpy (dest::Ptr{gsl_qrng}, src::Ptr{gsl_qrng})
-###     ccall( (:gsl_qrng_memcpy, "libgsl"), Cint, (Ptr{gsl_qrng},
-###         Ptr{gsl_qrng}), dest, src )
-### end
+#   Returns: Cint
+#XXX Unknown input type dest::Ptr{gsl_qrng}
+#XXX Coerced type for dest::Ptr{Void}
+#XXX Unknown input type src::Ptr{gsl_qrng}
+#XXX Coerced type for src::Ptr{Void}
+function gsl_qrng_memcpy (dest::Ptr{Void}, src::Ptr{Void})
+    ccall( (:gsl_qrng_memcpy, "libgsl"), Cint, (Ptr{Void}, Ptr{Void}),
+        dest, src )
+end
 
 
-### Function uses unknown type; disabled
-### # This function returns a pointer to a newly created generator which is an
+# This function returns a pointer to a newly created generator which is an
 # exact copy of the generator q.
 # 
-### #   Returns: Ptr{gsl_qrng}
-### #XXX Unknown input type q::Ptr{gsl_qrng}
-### #XXX Unknown output type Ptr{gsl_qrng}
-### function gsl_qrng_clone (q::Ptr{gsl_qrng})
-###     ccall( (:gsl_qrng_clone, "libgsl"), Ptr{gsl_qrng}, (Ptr{gsl_qrng}, ), q
-###         )
-### end
+#   Returns: Ptr{Void}
+#XXX Unknown input type q::Ptr{gsl_qrng}
+#XXX Coerced type for q::Ptr{Void}
+#XXX Unknown output type Ptr{gsl_qrng}
+#XXX Coerced type for output Ptr{Void}
+function gsl_qrng_clone (q::Ptr{Void})
+    ccall( (:gsl_qrng_clone, "libgsl"), Ptr{Void}, (Ptr{Void}, ), q )
+end

@@ -7,8 +7,9 @@
 export gsl_multimin_test_gradient, gsl_multimin_test_size
 
 
-### Function uses unknown type; disabled
-### # This function tests the norm of the gradient g against the absolute tolerance
+
+
+# This function tests the norm of the gradient g against the absolute tolerance
 # epsabs. The gradient of a multidimensional function goes to zero at a
 # minimum. The test returns GSL_SUCCESS if the following condition is achieved,
 # |g| < epsabs  and returns GSL_CONTINUE otherwise.  A suitable choice of
@@ -16,13 +17,11 @@ export gsl_multimin_test_gradient, gsl_multimin_test_size
 # variations in x.  The relationship between these quantities is given by
 # \delta f = g \delta x.
 # 
-### #   {$\delta{f} = g\,\delta{x}$} 
-### #   Returns: Cint
-### #XXX Unknown input type g::Ptr{gsl_vector}
-### function gsl_multimin_test_gradient (g::Ptr{gsl_vector}, epsabs::Cdouble)
-###     ccall( (:gsl_multimin_test_gradient, "libgsl"), Cint, (Ptr{gsl_vector},
-###         Cdouble), g, epsabs )
-### end
+#   Returns: Cint
+function gsl_multimin_test_gradient (g::Ptr{gsl_vector}, epsabs::Cdouble)
+    ccall( (:gsl_multimin_test_gradient, "libgsl"), Cint, (Ptr{gsl_vector},
+        Cdouble), g, epsabs )
+end
 
 
 # This function tests the minimizer specific characteristic size (if applicable

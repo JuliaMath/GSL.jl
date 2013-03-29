@@ -10,104 +10,104 @@ export gsl_min_fminimizer_iterate, gsl_min_fminimizer_iterate,
        gsl_min_fminimizer_f_upper, gsl_min_fminimizer_f_lower
 
 
-### Function uses unknown type; disabled
-### # This function performs a single iteration of the minimizer s.  If the
+# This function performs a single iteration of the minimizer s.  If the
 # iteration encounters an unexpected problem then an error code will be
 # returned,             GSL_EBADFUNCthe iteration encountered a singular point
 # where the function evaluated to Inf or NaN.            GSL_FAILUREthe
 # algorithm could not improve the current best approximation or bounding
 # interval.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-### function gsl_min_fminimizer_iterate (s::Ptr{gsl_min_fminimizer})
-###     ccall( (:gsl_min_fminimizer_iterate, "libgsl"), Cint,
-###         (Ptr{gsl_min_fminimizer}, ), s )
-### end
+#   Returns: Cint
+#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
+#XXX Coerced type for s::Ptr{Void}
+function gsl_min_fminimizer_iterate (s::Ptr{Void})
+    ccall( (:gsl_min_fminimizer_iterate, "libgsl"), Cint, (Ptr{Void}, ), s
+        )
+end
 
 
-### Function uses unknown type; disabled
-### # This function returns the current estimate of the position of the minimum for
+# This function returns the current estimate of the position of the minimum for
 # the minimizer s.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-### function gsl_min_fminimizer_iterate (s::Ptr{gsl_min_fminimizer})
-###     ccall( (:gsl_min_fminimizer_iterate, "libgsl"), Cint,
-###         (Ptr{gsl_min_fminimizer}, ), s )
-### end
+#   Returns: Cint
+#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
+#XXX Coerced type for s::Ptr{Void}
+function gsl_min_fminimizer_iterate (s::Ptr{Void})
+    ccall( (:gsl_min_fminimizer_iterate, "libgsl"), Cint, (Ptr{Void}, ), s
+        )
+end
 
 
-### Function uses unknown type; disabled
-### # This function returns the current estimate of the position of the minimum for
+# This function returns the current estimate of the position of the minimum for
 # the minimizer s.
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-### function gsl_min_fminimizer_x_minimum (s::Ptr{gsl_min_fminimizer})
-###     ccall( (:gsl_min_fminimizer_x_minimum, "libgsl"), Cdouble,
-###         (Ptr{gsl_min_fminimizer}, ), s )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
+#XXX Coerced type for s::Ptr{Void}
+function gsl_min_fminimizer_x_minimum (s::Ptr{Void})
+    ccall( (:gsl_min_fminimizer_x_minimum, "libgsl"), Cdouble, (Ptr{Void},
+        ), s )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return the current upper and lower bound of the interval for
+# These functions return the current upper and lower bound of the interval for
 # the minimizer s.
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-### function gsl_min_fminimizer_x_upper (s::Ptr{gsl_min_fminimizer})
-###     ccall( (:gsl_min_fminimizer_x_upper, "libgsl"), Cdouble,
-###         (Ptr{gsl_min_fminimizer}, ), s )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
+#XXX Coerced type for s::Ptr{Void}
+function gsl_min_fminimizer_x_upper (s::Ptr{Void})
+    ccall( (:gsl_min_fminimizer_x_upper, "libgsl"), Cdouble, (Ptr{Void}, ),
+        s )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return the current upper and lower bound of the interval for
+# These functions return the current upper and lower bound of the interval for
 # the minimizer s.
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-### function gsl_min_fminimizer_x_lower (s::Ptr{gsl_min_fminimizer})
-###     ccall( (:gsl_min_fminimizer_x_lower, "libgsl"), Cdouble,
-###         (Ptr{gsl_min_fminimizer}, ), s )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
+#XXX Coerced type for s::Ptr{Void}
+function gsl_min_fminimizer_x_lower (s::Ptr{Void})
+    ccall( (:gsl_min_fminimizer_x_lower, "libgsl"), Cdouble, (Ptr{Void}, ),
+        s )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return the value of the function at the current estimate of
+# These functions return the value of the function at the current estimate of
 # the minimum and at the upper and lower bounds of the interval for the
 # minimizer s.
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-### function gsl_min_fminimizer_f_minimum (s::Ptr{gsl_min_fminimizer})
-###     ccall( (:gsl_min_fminimizer_f_minimum, "libgsl"), Cdouble,
-###         (Ptr{gsl_min_fminimizer}, ), s )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
+#XXX Coerced type for s::Ptr{Void}
+function gsl_min_fminimizer_f_minimum (s::Ptr{Void})
+    ccall( (:gsl_min_fminimizer_f_minimum, "libgsl"), Cdouble, (Ptr{Void},
+        ), s )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return the value of the function at the current estimate of
+# These functions return the value of the function at the current estimate of
 # the minimum and at the upper and lower bounds of the interval for the
 # minimizer s.
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-### function gsl_min_fminimizer_f_upper (s::Ptr{gsl_min_fminimizer})
-###     ccall( (:gsl_min_fminimizer_f_upper, "libgsl"), Cdouble,
-###         (Ptr{gsl_min_fminimizer}, ), s )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
+#XXX Coerced type for s::Ptr{Void}
+function gsl_min_fminimizer_f_upper (s::Ptr{Void})
+    ccall( (:gsl_min_fminimizer_f_upper, "libgsl"), Cdouble, (Ptr{Void}, ),
+        s )
+end
 
 
-### Function uses unknown type; disabled
-### # These functions return the value of the function at the current estimate of
+# These functions return the value of the function at the current estimate of
 # the minimum and at the upper and lower bounds of the interval for the
 # minimizer s.
 # 
-### #   Returns: Cdouble
-### #XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-### function gsl_min_fminimizer_f_lower (s::Ptr{gsl_min_fminimizer})
-###     ccall( (:gsl_min_fminimizer_f_lower, "libgsl"), Cdouble,
-###         (Ptr{gsl_min_fminimizer}, ), s )
-### end
+#   Returns: Cdouble
+#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
+#XXX Coerced type for s::Ptr{Void}
+function gsl_min_fminimizer_f_lower (s::Ptr{Void})
+    ccall( (:gsl_min_fminimizer_f_lower, "libgsl"), Cdouble, (Ptr{Void}, ),
+        s )
+end

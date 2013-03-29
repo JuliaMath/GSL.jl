@@ -7,8 +7,11 @@
 export gsl_ran_dirichlet, gsl_ran_dirichlet_pdf, gsl_ran_dirichlet_lnpdf
 
 
-### Function uses unknown type; disabled
-### # This function returns an array of K random variates from a Dirichlet
+
+
+
+
+# This function returns an array of K random variates from a Dirichlet
 # distribution of order K-1. The distribution function is
 # p(\theta_1, ..., \theta_K) d\theta_1 ... d\theta_K =             (1/Z)
 # \prod_{i=1}^K \theta_i^{\alpha_i - 1} \delta(1 -\sum_{i=1}^K \theta_i)
@@ -19,22 +22,19 @@ export gsl_ran_dirichlet, gsl_ran_dirichlet_pdf, gsl_ran_dirichlet_lnpdf
 # with parameters  a=alpha_i, b=1, and renormalizing.  See A.M. Law, W.D.
 # Kelton, Simulation Modeling and Analysis (1991).
 # 
-### #   {$\theta_i \ge 0$} 
-### #   {$\alpha_i > 0$} 
-### #   {$a=\alpha_i$, $b=1$} 
-### #   Returns: Void
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### function gsl_ran_dirichlet (r::Ptr{gsl_rng}, K::Csize_t, alpha::Cdouble)
-###     ccall( (:gsl_ran_dirichlet, "libgsl"), Void, (Ptr{gsl_rng}, Csize_t,
-###         Cdouble), r, K, alpha )
-### end
+#   Returns: Void
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+function gsl_ran_dirichlet (r::Ptr{Void}, K::Csize_t, alpha::Cdouble)
+    ccall( (:gsl_ran_dirichlet, "libgsl"), Void, (Ptr{Void}, Csize_t,
+        Cdouble), r, K, alpha )
+end
 
 
 # This function computes the probability density  p(\theta_1, ... , \theta_K)
 # at theta[K] for a Dirichlet distribution with parameters alpha[K], using the
 # formula given above.
 # 
-#   {$p(\theta_1, \ldots , \theta_K)$} 
 #   Returns: Cdouble
 function gsl_ran_dirichlet_pdf (K::Csize_t, alpha::Cdouble)
     ccall( (:gsl_ran_dirichlet_pdf, "libgsl"), Cdouble, (Csize_t, Cdouble),
@@ -45,7 +45,6 @@ end
 # This function computes the logarithm of the probability density  p(\theta_1,
 # ... , \theta_K) for a Dirichlet distribution with parameters alpha[K].
 # 
-#   {$p(\theta_1, \ldots , \theta_K)$} 
 #   Returns: Cdouble
 function gsl_ran_dirichlet_lnpdf (K::Csize_t, alpha::Cdouble)
     ccall( (:gsl_ran_dirichlet_lnpdf, "libgsl"), Cdouble, (Csize_t,

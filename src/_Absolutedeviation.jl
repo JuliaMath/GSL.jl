@@ -7,6 +7,10 @@
 export gsl_stats_absdev, gsl_stats_absdev_m
 
 
+
+
+
+
 # This function computes the absolute deviation from the mean of data, a
 # dataset of length n with stride stride.  The absolute deviation from the mean
 # is defined as,                 absdev  = (1/N) \sum |x_i - \Hat\mu|  where

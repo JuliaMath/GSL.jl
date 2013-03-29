@@ -9,6 +9,16 @@ export gsl_stats_mean, gsl_stats_variance, gsl_stats_variance_m, gsl_stats_sd,
        gsl_stats_variance_with_fixed_mean, gsl_stats_sd_with_fixed_mean
 
 
+
+
+
+
+
+
+
+
+
+
 # This function returns the arithmetic mean of data, a dataset of length n with
 # stride stride.  The arithmetic mean, or sample mean, is denoted by \Hat\mu
 # and defined as,                 \Hat\mu = (1/N) \sum x_i  where x_i are the

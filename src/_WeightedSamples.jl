@@ -11,6 +11,20 @@ export gsl_stats_wmean, gsl_stats_wvariance, gsl_stats_wvariance_m,
        gsl_stats_wskew_m_sd, gsl_stats_wkurtosis, gsl_stats_wkurtosis_m_sd
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # This function returns the weighted mean of the dataset data with stride
 # stride and length n, using the set of weights w with stride wstride and
 # length n.  The weighted mean is defined as,                 \Hat\mu = (\sum

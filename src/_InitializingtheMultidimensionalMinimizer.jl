@@ -5,45 +5,46 @@
 # 36.3 Initializing the Multidimensional Minimizer #
 ####################################################
 export gsl_multimin_fdfminimizer_alloc, gsl_multimin_fminimizer_alloc,
-       gsl_multimin_fdfminimizer_set, gsl_multimin_fminimizer_set,
-       gsl_multimin_fdfminimizer_free, gsl_multimin_fminimizer_free,
-       gsl_multimin_fdfminimizer_name, gsl_multimin_fminimizer_name
+       gsl_multimin_fdfminimizer_set, gsl_multimin_fdfminimizer_free,
+       gsl_multimin_fminimizer_free, gsl_multimin_fdfminimizer_name,
+       gsl_multimin_fminimizer_name
 
 
-### Function uses unknown type; disabled
-### # This function returns a pointer to a newly allocated instance of a minimizer
+
+
+# This function returns a pointer to a newly allocated instance of a minimizer
 # of type T for an n-dimension function.  If there is insufficient memory to
 # create the minimizer then the function returns a null pointer and the error
 # handler is invoked with an error code of GSL_ENOMEM.
 # 
-### #   Returns: Ptr{gsl_multimin_fdfminimizer}
-### #XXX Unknown input type T::Ptr{gsl_multimin_fdfminimizer_type}
-### #XXX Unknown output type Ptr{gsl_multimin_fdfminimizer}
-### function gsl_multimin_fdfminimizer_alloc (T::Ptr{gsl_multimin_fdfminimizer_type}, n::Csize_t)
-###     ccall( (:gsl_multimin_fdfminimizer_alloc, "libgsl"),
-###         Ptr{gsl_multimin_fdfminimizer}, (Ptr{gsl_multimin_fdfminimizer_type},
-###         Csize_t), T, n )
-### end
+#   Returns: Ptr{Void}
+#XXX Unknown input type T::Ptr{gsl_multimin_fdfminimizer_type}
+#XXX Coerced type for T::Ptr{Void}
+#XXX Unknown output type Ptr{gsl_multimin_fdfminimizer}
+#XXX Coerced type for output Ptr{Void}
+function gsl_multimin_fdfminimizer_alloc (T::Ptr{Void}, n::Csize_t)
+    ccall( (:gsl_multimin_fdfminimizer_alloc, "libgsl"), Ptr{Void},
+        (Ptr{Void}, Csize_t), T, n )
+end
 
 
-### Function uses unknown type; disabled
-### # This function returns a pointer to a newly allocated instance of a minimizer
+# This function returns a pointer to a newly allocated instance of a minimizer
 # of type T for an n-dimension function.  If there is insufficient memory to
 # create the minimizer then the function returns a null pointer and the error
 # handler is invoked with an error code of GSL_ENOMEM.
 # 
-### #   Returns: Ptr{gsl_multimin_fminimizer}
-### #XXX Unknown input type T::Ptr{gsl_multimin_fminimizer_type}
-### #XXX Unknown output type Ptr{gsl_multimin_fminimizer}
-### function gsl_multimin_fminimizer_alloc (T::Ptr{gsl_multimin_fminimizer_type}, n::Csize_t)
-###     ccall( (:gsl_multimin_fminimizer_alloc, "libgsl"),
-###         Ptr{gsl_multimin_fminimizer}, (Ptr{gsl_multimin_fminimizer_type},
-###         Csize_t), T, n )
-### end
+#   Returns: Ptr{Void}
+#XXX Unknown input type T::Ptr{gsl_multimin_fminimizer_type}
+#XXX Coerced type for T::Ptr{Void}
+#XXX Unknown output type Ptr{gsl_multimin_fminimizer}
+#XXX Coerced type for output Ptr{Void}
+function gsl_multimin_fminimizer_alloc (T::Ptr{Void}, n::Csize_t)
+    ccall( (:gsl_multimin_fminimizer_alloc, "libgsl"), Ptr{Void},
+        (Ptr{Void}, Csize_t), T, n )
+end
 
 
-### Function uses unknown type; disabled
-### # This function initializes the minimizer s to minimize the function fdf
+# This function initializes the minimizer s to minimize the function fdf
 # starting from the initial point x.  The size of the first trial step is given
 # by step_size.  The accuracy of the line minimization is specified by tol.
 # The precise meaning of this parameter depends on the method used.  Typically
@@ -60,81 +61,61 @@ export gsl_multimin_fdfminimizer_alloc, gsl_multimin_fminimizer_alloc,
 # given in vector step_size. The precise meaning of this parameter depends on
 # the method used.
 # 
-### #   {$p\cdot g < tol |p| |g|$} 
-### #   Returns: Cint
-### #XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
-### #XXX Unknown input type fdf::Ptr{gsl_multimin_function_fdf}
-### #XXX Unknown input type x::Ptr{gsl_vector}
-### function gsl_multimin_fdfminimizer_set (s::Ptr{gsl_multimin_fdfminimizer}, fdf::Ptr{gsl_multimin_function_fdf}, x::Ptr{gsl_vector}, step_size::Cdouble, tol::Cdouble)
-###     ccall( (:gsl_multimin_fdfminimizer_set, "libgsl"), Cint,
-###         (Ptr{gsl_multimin_fdfminimizer}, Ptr{gsl_multimin_function_fdf},
-###         Ptr{gsl_vector}, Cdouble, Cdouble), s, fdf, x, step_size, tol )
-### end
+#   Returns: Cint
+#XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
+#XXX Coerced type for s::Ptr{Void}
+function gsl_multimin_fdfminimizer_set (s::Ptr{Void}, fdf::Ptr{gsl_multimin_function_fdf}, x::Ptr{gsl_vector}, step_size::Cdouble, tol::Cdouble)
+    ccall( (:gsl_multimin_fdfminimizer_set, "libgsl"), Cint, (Ptr{Void},
+        Ptr{gsl_multimin_function_fdf}, Ptr{gsl_vector}, Cdouble, Cdouble), s,
+        fdf, x, step_size, tol )
+end
 
 
-### Function uses unknown type; disabled
-### # This function initializes the minimizer s to minimize the function f,
-# starting from the initial point x. The size of the initial trial steps is
-# given in vector step_size. The precise meaning of this parameter depends on
-# the method used.
+# This function frees all the memory associated with the minimizer s.
 # 
-### #   Returns: Cint
-### #XXX Unknown input type s::Ptr{gsl_multimin_fminimizer}
-### #XXX Unknown input type f::Ptr{gsl_multimin_function}
-### #XXX Unknown input type x::Ptr{gsl_vector}
-### #XXX Unknown input type step_size::Ptr{gsl_vector}
-### function gsl_multimin_fminimizer_set (s::Ptr{gsl_multimin_fminimizer}, f::Ptr{gsl_multimin_function}, x::Ptr{gsl_vector}, step_size::Ptr{gsl_vector})
-###     ccall( (:gsl_multimin_fminimizer_set, "libgsl"), Cint,
-###         (Ptr{gsl_multimin_fminimizer}, Ptr{gsl_multimin_function},
-###         Ptr{gsl_vector}, Ptr{gsl_vector}), s, f, x, step_size )
-### end
+#   Returns: Void
+#XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
+#XXX Coerced type for s::Ptr{Void}
+function gsl_multimin_fdfminimizer_free (s::Ptr{Void})
+    ccall( (:gsl_multimin_fdfminimizer_free, "libgsl"), Void, (Ptr{Void},
+        ), s )
+end
 
 
-### Function uses unknown type; disabled
-### # This function frees all the memory associated with the minimizer s.
+# This function frees all the memory associated with the minimizer s.
 # 
-### #   Returns: Void
-### #XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
-### function gsl_multimin_fdfminimizer_free (s::Ptr{gsl_multimin_fdfminimizer})
-###     ccall( (:gsl_multimin_fdfminimizer_free, "libgsl"), Void,
-###         (Ptr{gsl_multimin_fdfminimizer}, ), s )
-### end
+#   Returns: Void
+#XXX Unknown input type s::Ptr{gsl_multimin_fminimizer}
+#XXX Coerced type for s::Ptr{Void}
+function gsl_multimin_fminimizer_free (s::Ptr{Void})
+    ccall( (:gsl_multimin_fminimizer_free, "libgsl"), Void, (Ptr{Void}, ),
+        s )
+end
 
 
-### Function uses unknown type; disabled
-### # This function frees all the memory associated with the minimizer s.
-# 
-### #   Returns: Void
-### #XXX Unknown input type s::Ptr{gsl_multimin_fminimizer}
-### function gsl_multimin_fminimizer_free (s::Ptr{gsl_multimin_fminimizer})
-###     ccall( (:gsl_multimin_fminimizer_free, "libgsl"), Void,
-###         (Ptr{gsl_multimin_fminimizer}, ), s )
-### end
-
-
-### Function uses unknown type; disabled
-### # This function returns a pointer to the name of the minimizer.  For example,
+# This function returns a pointer to the name of the minimizer.  For example,
 # printf ("s is a '%s' minimizer\n",
 # gsl_multimin_fdfminimizer_name (s));  would print something like s is a
 # 'conjugate_pr' minimizer.
 # 
-### #   Returns: Ptr{Cchar}
-### #XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
-### function gsl_multimin_fdfminimizer_name (s::Ptr{gsl_multimin_fdfminimizer})
-###     ccall( (:gsl_multimin_fdfminimizer_name, "libgsl"), Ptr{Cchar},
-###         (Ptr{gsl_multimin_fdfminimizer}, ), s )
-### end
+#   Returns: Ptr{Cchar}
+#XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
+#XXX Coerced type for s::Ptr{Void}
+function gsl_multimin_fdfminimizer_name (s::Ptr{Void})
+    ccall( (:gsl_multimin_fdfminimizer_name, "libgsl"), Ptr{Cchar},
+        (Ptr{Void}, ), s )
+end
 
 
-### Function uses unknown type; disabled
-### # This function returns a pointer to the name of the minimizer.  For example,
+# This function returns a pointer to the name of the minimizer.  For example,
 # printf ("s is a '%s' minimizer\n",
 # gsl_multimin_fdfminimizer_name (s));  would print something like s is a
 # 'conjugate_pr' minimizer.
 # 
-### #   Returns: Ptr{Cchar}
-### #XXX Unknown input type s::Ptr{gsl_multimin_fminimizer}
-### function gsl_multimin_fminimizer_name (s::Ptr{gsl_multimin_fminimizer})
-###     ccall( (:gsl_multimin_fminimizer_name, "libgsl"), Ptr{Cchar},
-###         (Ptr{gsl_multimin_fminimizer}, ), s )
-### end
+#   Returns: Ptr{Cchar}
+#XXX Unknown input type s::Ptr{gsl_multimin_fminimizer}
+#XXX Coerced type for s::Ptr{Void}
+function gsl_multimin_fminimizer_name (s::Ptr{Void})
+    ccall( (:gsl_multimin_fminimizer_name, "libgsl"), Ptr{Cchar},
+        (Ptr{Void}, ), s )
+end

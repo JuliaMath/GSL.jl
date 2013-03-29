@@ -4,14 +4,67 @@
 ######################################
 # 25.2 Simulated Annealing functions #
 ######################################
-export gsl_siman_solve, gsl_siman_Efunc_t, gsl_siman_step_t,
-       gsl_siman_metric_t, gsl_siman_print_t, gsl_siman_copy_t,
-       gsl_siman_copy_construct_t, gsl_siman_destroy_t, gsl_siman_params_t,
-       gsl_siman_params_t, gsl_siman_params_t, gsl_siman_params_t
+export gsl_siman_Efunc_t, gsl_siman_step_t, gsl_siman_metric_t,
+       gsl_siman_print_t, gsl_siman_copy_t, gsl_siman_copy_construct_t,
+       gsl_siman_destroy_t, gsl_siman_params_t, gsl_siman_solve
 
 
-### Function uses unknown type; disabled
-### # This function performs a simulated annealing search through a given space.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+type gsl_siman_Efunc_t
+end
+
+
+type gsl_siman_step_t
+end
+
+
+type gsl_siman_metric_t
+end
+
+
+type gsl_siman_print_t
+end
+
+
+type gsl_siman_copy_t
+end
+
+
+type gsl_siman_copy_construct_t
+end
+
+
+type gsl_siman_destroy_t
+end
+
+
+type gsl_siman_params_t
+    n_tries::Cint
+    iters_fixed_T::Cint
+    step_size::Cdouble
+    k::Cdouble
+    t_initial::Cdouble
+    mu_t::Cdouble
+    t_min::Cdouble
+end
+
+
+# This function performs a simulated annealing search through a given space.
 # The space is specified by providing the functions Ef and distance.  The
 # simulated annealing steps are generated using the random number generator r
 # and the function take_step.          The starting configuration of the system
@@ -35,147 +88,16 @@ export gsl_siman_solve, gsl_siman_Efunc_t, gsl_siman_step_t,
 # print_position itself.  If print_position is null then no information is
 # printed.
 # 
-### #   Returns: Void
-### #XXX Unknown input type r::Ptr{gsl_rng}
-### #XXX Unknown input type Ef::gsl_siman_Efunc_t
-### #XXX Unknown input type take_step::gsl_siman_step_t
-### #XXX Unknown input type distance::gsl_siman_metric_t
-### #XXX Unknown input type print_position::gsl_siman_print_t
-### #XXX Unknown input type copyfunc::gsl_siman_copy_t
-### #XXX Unknown input type copy_constructor::gsl_siman_copy_construct_t
-### #XXX Unknown input type destructor::gsl_siman_destroy_t
-### #XXX Unknown input type params::gsl_siman_params_t
-### function gsl_siman_solve (r::Ptr{gsl_rng}, x0_p::Ptr{Void}, Ef::gsl_siman_Efunc_t, take_step::gsl_siman_step_t, distance::gsl_siman_metric_t, print_position::gsl_siman_print_t, copyfunc::gsl_siman_copy_t, copy_constructor::gsl_siman_copy_construct_t, destructor::gsl_siman_destroy_t, element_size::Csize_t, params::gsl_siman_params_t)
-###     ccall( (:gsl_siman_solve, "libgsl"), Void, (Ptr{gsl_rng}, Ptr{Void},
-###         gsl_siman_Efunc_t, gsl_siman_step_t, gsl_siman_metric_t,
-###         gsl_siman_print_t, gsl_siman_copy_t, gsl_siman_copy_construct_t,
-###         gsl_siman_destroy_t, Csize_t, gsl_siman_params_t), r, x0_p, Ef,
-###         take_step, distance, print_position, copyfunc, copy_constructor,
-###         destructor, element_size, params )
-### end
-
-
-### Function uses unknown type; disabled
-### # This function type should return the energy of a configuration xp.
-# double (*gsl_siman_Efunc_t) (void *xp)
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_siman_Efunc_t ()
-###     ccall( (:gsl_siman_Efunc_t, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # This function type should modify the configuration xp using a random step
-# taken from the generator r, up to a maximum distance of step_size.
-# void (*gsl_siman_step_t) (const gsl_rng *r, void *xp,
-# double step_size)
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_siman_step_t ()
-###     ccall( (:gsl_siman_step_t, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # This function type should return the distance between two configurations xp
-# and yp.                 double (*gsl_siman_metric_t) (void *xp, void *yp)
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_siman_metric_t ()
-###     ccall( (:gsl_siman_metric_t, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # This function type should print the contents of the configuration xp.
-# void (*gsl_siman_print_t) (void *xp)
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_siman_print_t ()
-###     ccall( (:gsl_siman_print_t, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # This function type should copy the configuration source into dest.
-# void (*gsl_siman_copy_t) (void *source, void *dest)
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_siman_copy_t ()
-###     ccall( (:gsl_siman_copy_t, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # This function type should create a new copy of the configuration xp.
-# void * (*gsl_siman_copy_construct_t) (void *xp)
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_siman_copy_construct_t ()
-###     ccall( (:gsl_siman_copy_construct_t, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # This function type should destroy the configuration xp, freeing its memory.
-# void (*gsl_siman_destroy_t) (void *xp)
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_siman_destroy_t ()
-###     ccall( (:gsl_siman_destroy_t, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # These are the parameters that control a run of gsl_siman_solve.  This
-# structure contains all the information needed to control the search, beyond
-# the energy function, the step function and the initial guess.             int
-# n_triesThe number of points to try for each step.            int
-# iters_fixed_TThe number of iterations at each temperature.            double
-# step_sizeThe maximum step size in the random walk.            double k,
-# t_initial, mu_t, t_minThe parameters of the Boltzmann distribution and
-# cooling schedule.
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_siman_params_t ()
-###     ccall( (:gsl_siman_params_t, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # 
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_siman_params_t ()
-###     ccall( (:gsl_siman_params_t, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # 
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_siman_params_t ()
-###     ccall( (:gsl_siman_params_t, "libgsl"), , () )
-### end
-
-
-### Function uses unknown type; disabled
-### # 
-# 
-### #   Returns: 
-### #XXX Unknown output type 
-### function gsl_siman_params_t ()
-###     ccall( (:gsl_siman_params_t, "libgsl"), , () )
-### end
+#   Returns: Void
+#XXX Unknown input type r::Ptr{gsl_rng}
+#XXX Coerced type for r::Ptr{Void}
+#XXX Unknown input type copy_constructor::gsl_siman_copy_ruct_t
+#XXX Coerced type for copy_constructor::Void
+function gsl_siman_solve (r::Ptr{Void}, x0_p::Ptr{Void}, Ef::gsl_siman_Efunc_t, take_step::gsl_siman_step_t, distance::gsl_siman_metric_t, print_position::gsl_siman_print_t, copyfunc::gsl_siman_copy_t, copy_constructor::Void, destructor::gsl_siman_destroy_t, element_size::Csize_t, params::gsl_siman_params_t)
+    ccall( (:gsl_siman_solve, "libgsl"), Void, (Ptr{Void}, Ptr{Void},
+        gsl_siman_Efunc_t, gsl_siman_step_t, gsl_siman_metric_t,
+        gsl_siman_print_t, gsl_siman_copy_t, Void, gsl_siman_destroy_t,
+        Csize_t, gsl_siman_params_t), r, x0_p, Ef, take_step, distance,
+        print_position, copyfunc, copy_constructor, destructor, element_size,
+        params )
+end

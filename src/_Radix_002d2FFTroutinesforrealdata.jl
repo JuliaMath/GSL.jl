@@ -8,6 +8,10 @@ export gsl_fft_real_radix2_transform, gsl_fft_halfcomplex_radix2_inverse,
        gsl_fft_halfcomplex_radix2_backward, gsl_fft_halfcomplex_radix2_unpack
 
 
+
+
+
+
 # This function computes an in-place radix-2 FFT of length n and stride stride
 # on the real array data.  The output is a half-complex sequence, which is
 # stored in-place.  The arrangement of the half-complex terms uses the
@@ -32,7 +36,6 @@ export gsl_fft_real_radix2_transform, gsl_fft_halfcomplex_radix2_inverse,
 # Note that the output data can be converted into the full complex sequence
 # using the function gsl_fft_halfcomplex_radix2_unpack described below.
 # 
-#   {$z_k = z^*_{n-k}$} 
 #   Returns: Cint
 function gsl_fft_real_radix2_transform (data::Cdouble)
     ccall( (:gsl_fft_real_radix2_transform, "libgsl"), Cint, (Cdouble, ),
@@ -82,7 +85,6 @@ end
 # halfcomplex_coefficient[(n - 1)*stride];
 # complex_coefficient[i*stride].imag                 = 0.0;             }
 # 
-#   {$z_k = z_{n-k}^*$} 
 #   Returns: Cint
 function gsl_fft_halfcomplex_radix2_unpack (halfcomplex_coefficient::Cdouble)
     ccall( (:gsl_fft_halfcomplex_radix2_unpack, "libgsl"), Cint, (Cdouble,

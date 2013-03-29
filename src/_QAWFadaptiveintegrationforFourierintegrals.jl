@@ -7,8 +7,15 @@
 export gsl_integration_qawf
 
 
-### Function uses unknown type; disabled
-### # This function attempts to compute a Fourier integral of the function f over
+
+
+
+
+
+
+
+
+# This function attempts to compute a Fourier integral of the function f over
 # the semi-infinite interval [a,+\infty).                 I = \int_a^{+\infty}
 # dx f(x) sin(omega x)           I = \int_a^{+\infty} dx f(x) cos(omega x)  The
 # parameter \omega and choice of \sin or \cos is taken from the table wf (the
@@ -35,17 +42,16 @@ export gsl_integration_qawf
 # over each subinterval uses the memory provided by cycle_workspace as
 # workspace for the QAWO algorithm.
 # 
-### #   {$c = (2 \,\hbox{floor}(|\omega|) + 1) \pi/|\omega|$} 
-### #   {$u_k = (1 - p)p^{k-1}$} 
-### #   Returns: Cint
-### #XXX Unknown input type f::Ptr{gsl_function}
-### #XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
-### #XXX Unknown input type cycle_workspace::Ptr{gsl_integration_workspace}
-### #XXX Unknown input type wf::Ptr{gsl_integration_qawo_table}
-### function gsl_integration_qawf (f::Ptr{gsl_function}, a::Cdouble, epsabs::Cdouble, limit::Csize_t, workspace::Ptr{gsl_integration_workspace}, cycle_workspace::Ptr{gsl_integration_workspace}, wf::Ptr{gsl_integration_qawo_table}, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
-###     ccall( (:gsl_integration_qawf, "libgsl"), Cint, (Ptr{gsl_function},
-###         Cdouble, Cdouble, Csize_t, Ptr{gsl_integration_workspace},
-###         Ptr{gsl_integration_workspace}, Ptr{gsl_integration_qawo_table},
-###         Ptr{Cdouble}, Ptr{Cdouble}), f, a, epsabs, limit, workspace,
-###         cycle_workspace, wf, result, abserr )
-### end
+#   Returns: Cint
+#XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
+#XXX Coerced type for workspace::Ptr{Void}
+#XXX Unknown input type cycle_workspace::Ptr{gsl_integration_workspace}
+#XXX Coerced type for cycle_workspace::Ptr{Void}
+#XXX Unknown input type wf::Ptr{gsl_integration_qawo_table}
+#XXX Coerced type for wf::Ptr{Void}
+function gsl_integration_qawf (f::Ptr{gsl_function}, a::Cdouble, epsabs::Cdouble, limit::Csize_t, workspace::Ptr{Void}, cycle_workspace::Ptr{Void}, wf::Ptr{Void}, result::Ptr{Cdouble}, abserr::Ptr{Cdouble})
+    ccall( (:gsl_integration_qawf, "libgsl"), Cint, (Ptr{gsl_function},
+        Cdouble, Cdouble, Csize_t, Ptr{Void}, Ptr{Void}, Ptr{Void},
+        Ptr{Cdouble}, Ptr{Cdouble}), f, a, epsabs, limit, workspace,
+        cycle_workspace, wf, result, abserr )
+end
