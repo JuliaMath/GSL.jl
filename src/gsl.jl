@@ -341,3 +341,13 @@ module GSL
     include("_ZerosofRegularBesselFunctions.jl")
     include("HypergeometricFunctions.jl")
 end #module
+
+#Test
+using GSL
+x = randn()
+try
+    gsl_sf_hyperg_U(-1.0, -1.0, x) - (1 + x)
+catch
+    error("The GNU Scientific Library does not appear to be installed.")
+end
+
