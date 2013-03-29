@@ -17,14 +17,17 @@ from textwrap import wrap
 
 maxwidth = 79 #Maximum text column width to output
 
+#Start off with known C types
 #http://docs.julialang.org/en/latest/manual/calling-c-and-fortran-code/#type-correspondences
-Ctypes = {
+known_types = {
     #System independent types
     'bool':'Cbool',
     'signedchar':'Int8',
     'unsignedchar':'UInt8',
     'short':'Cshort',
+    'shortint':'Cshort',
     'unsignedshort':'Cushort',
+    'unsignedshortint':'Cushort',
     'int':'Cint',
     'unsignedint':'Cuint',
     'longlong':'Clonglong',
@@ -45,12 +48,25 @@ Ctypes = {
     #System dependent types
     'char':'Cchar',
     'long':'Clong',
+    'longint':'Clong',
     'unsignedlong':'Culong',
+    'unsignedlongint':'Culong',
     'wchar_t':'Char',
 
     #XXX Fake this!
     'FILE':'Void',
+    'longdouble':'Cdouble',
 }
+
+
+def forcevoid(v):
+    """Forces the unknown type v to become a Void, while preserving Ptr{} wraps"""
+    begidx = v.rfind('{')
+    if begidx == -1: begidx = 0
+    endidx = v.find('}')
+    if endidx == -1: endidx = len(v)
+    return v[:begidx] + 'Void' + v[endidx:]
+
 
 def juliatype(ctype):
     """
@@ -62,7 +78,7 @@ def juliatype(ctype):
     If it can't figure it out, will return isUnknown = True
     and juliatype will be a corrupted variant of ctype
     """
-    vartypesquash = ctype.replace('const ', '').replace(' ', '')
+    vartypesquash = ctype.replace('const', '').replace(' ', '')
     PtrLevel = 0
     for i in range(len(vartypesquash)-1, -1, -1):
         if vartypesquash[i] == '*':
@@ -76,8 +92,8 @@ def juliatype(ctype):
             break
 
     isUnknown = False
-    if vartypesquash in Ctypes:
-        juliatype =  Ctypes[vartypesquash]
+    if vartypesquash in known_types:
+        juliatype =  known_types[vartypesquash]
     else:
         juliatype = vartypesquash
         isUnknown = True
@@ -148,18 +164,20 @@ def parsestructsh(h_file):
 
 
 
-def parsestructs1(soup):
+def parsestructs1(soup, unknown_handler='report'):
     """
     GSL documentation contains inline blocks containing raw C code defining structs
     Extract these.
     """
     exports = []
-    parsed_out = []
+    parsed_out = ['#DEBUG Structs Type 1']
+    all_unknowns = []
     for struct_block in soup.find_all('pre', class_='example'):
         struct_code = struct_block.string
+        unknowns = []
         if struct_code is None: continue
         #Here is some raw C code defining a struct
-        struct_data, struct_name  = [], None
+        struct_data, struct_name, is_struct = [], None, False
         parsed_out += ['', '']
         error = []
         for line in struct_code.split('\n'):
@@ -168,29 +186,42 @@ def parsestructs1(soup):
             if t[0] == '}':
                 struct_name = t[1]
             elif t[0].lower()=='typedef' and t[1].lower()=='struct':
-                continue
+                is_struct = True
             else:
-                jtype, isUnknown = juliatype(t[0])
-                if isUnknown: error += ['#XXX Unknown data type: '+t[1]+'::'+jtype]
-                struct_data.append(t[1]+'::'+jtype)
+                var_name = t[1]
+                var_jtype, isUnknown = juliatype(t[0])
+                while '[' in var_name:
+                        var_name = var_name[:var_name.rfind('[')]
+                        var_jtype, _ = juliatype(var_jtype+'*')
+                while len(var_name)>1 and var_name[-1] == '*':
+                        var_name = var_name[:var_name.rfind('*')]
+                        var_jtype, _ = juliatype(var_jtype+'*')
+                if isUnknown:
+                    if 'report' in unknown_handler:
+                        error += ['#XXX Unknown data type: '+t[1]+'::'+var_jtype]
+                    if 'list' in unknown_handler:
+                        unknowns.append(t[0].replace('*',''))
+                struct_data.append(var_name+'::'+var_jtype)
 
-        if len(struct_data) > 0 and struct_name is not None:
+        if len(struct_data) > 0 and struct_name is not None and is_struct:
             if error != '': parsed_out += error
             parsed_out += ['type '+struct_name, '    '+'\n    '.join(struct_data), 'end']
             exports.append(struct_name)
+            all_unknowns += unknowns
 
-    return exports, parsed_out
+    return exports, parsed_out, all_unknowns
 
 
 
-def parsestructs2(soup):
+def parsestructs2(soup, unknown_handler = 'report'):
     """
     Parse C struct declarations embedded in GSL HTML documentation
 
     Where necessary, match C types to corresponding Julia types
     """
     exports = []
-    all_parsed_out = []
+    all_parsed_out = ['#DEBUG Structs type 2']
+    unknowns = []
     for function_block in soup.find_all('div', class_='defun'):
         for fn in function_block.find_all('br'):
             parsed_out = []
@@ -223,16 +254,28 @@ def parsestructs2(soup):
                 if tag is None: break
                 entry = tag.code.string
                 var_line = entry.replace(',', ' ').replace(' *', '*').split()
+                var_line = entry.replace(',', ' ').split()
                 var_type = var_line[0]
                 var_jtype, isUnknown = juliatype(var_type)
-                if isUnknown: all_parsed_out += ['    #XXX Unknown type: '+var_jtype]
+                if isUnknown:
+                    if 'report' in unknown_handler:
+                        all_parsed_out += ['    #XXX Unknown type: '+var_jtype]
+                    if 'list' in unknown_handler:
+                        unknowns.append(var_type.replace('*',''))
                 for var_name in var_line[1:]:
+                    while '[' in var_name: 
+                        var_name = var_name[:var_name.rfind('[')]
+                        var_jtype, _ = juliatype(var_jtype+'*')
+                    while len(var_name)>1 and var_name[-1] == '*':
+                        var_name = var_name[:var_name.rfind('*')]
+                        var_jtype, _ = juliatype(var_jtype+'*')
                     all_parsed_out += ['    '+var_name+'::'+var_jtype]
             all_parsed_out += ['end']
-    return exports, all_parsed_out
+    
+    return exports, all_parsed_out, unknowns
 
 
-def parsefunctions(soup):
+def parsefunctions(soup, unknown_handler=['disable', 'report']):
     """
     Parse C function declarations embedded in GSL HTML documentation
 
@@ -240,9 +283,11 @@ def parsefunctions(soup):
     """
     exports = []
     all_parsed_out = []
+    unknowns = []
     for function_block in soup.find_all('div', class_='defun'):
         for fn in function_block.find_all('br'):
             parsed_out = []
+            varargs = ''
             isDisabled = False #Will be disabled if the parse fails
             outputs = fn.find_previous('b').previous
             funcname = fn.find_previous('b').string
@@ -265,26 +310,46 @@ def parsefunctions(soup):
             warnings = []
             julia_inputs = []
             julia_input_names = []
-            for var in inputs.split(','):
+            if inputs.strip() == 'void': #Function takes no inputs
+                variables = []
+            else:
+                variables = [x.strip() for x in inputs.split(',')]
+            for var in variables:
                 v = var.split()
                 if len(v) == 0:
                     continue
-                varname = v[-1]
+                varname = v[-1].strip()
+                if varname == '...':
+                    varargs = '...'
+                    continue
                 vartype = var[:var.rfind(varname)].strip()
                 julia_input_names.append(varname)
                 julia_vartype, isUnknown = juliatype(vartype) 
+                if isUnknown:
+                    if 'report' in unknown_handler:
+                        warnings.append('#XXX Unknown input type '+varname+'::'+julia_vartype)
+                    if 'disable' in unknown_handler: isDisabled=True
+                    if 'coerce' in unknown_handler: #Force this to become void type
+                        warnings.append('#XXX Unknown input type '+varname+'::'+julia_vartype)
+                        julia_vartype = forcevoid(julia_vartype)
+                        warnings.append('#XXX Coerced type for '+varname+'::'+julia_vartype)
+                    if 'list' in unknown_handler:
+                        unknowns.append(vartype.replace('const','').replace('*','').strip())
                 julia_inputs.append(julia_vartype)
-                #If it starts with gsl, assume it will be defined at some point
-                if isUnknown and 'gsl_' not in julia_vartype:
-                    warnings.append('#XXX Unknown input type '+varname+'::'+julia_vartype)
-                    isDisabled=True
             docstring = u'# ' + u'\n# '.join(wrap(docstring, maxwidth-2)) + u'\n# '
             
-            julia_output, isUnknown = juliatype(outputs) 
-            #If it starts with gsl, assume it will be defined at some point
-            if isUnknown and 'gsl_' not in julia_output:
-                warnings.append('#XXX Unknown output type '+julia_output)
-                isDisabled=True
+            vartype = outputs.replace('inline','').replace('extern','').strip().strip()
+            julia_output, isUnknown = juliatype(vartype)
+            if isUnknown:
+                if 'report' in unknown_handler:
+                    warnings.append('#XXX Unknown output type '+julia_output)
+                if 'disable' in unknown_handler: isDisabled=True
+                if 'coerce' in unknown_handler: #Force this to become void type
+                    warnings.append('#XXX Unknown output type'+julia_output)
+                    julia_output = forcevoid(julia_output)
+                    warnings.append('#XXX Coerced type for output '+julia_output)
+                if 'list' in unknown_handler:
+                    unknowns.append(vartype.replace('*','').replace('const','').strip())
                 
             julia_decl = []
             for i, var in enumerate(julia_input_names):
@@ -305,70 +370,85 @@ def parsefunctions(soup):
             parsed_out += ['#  '+comment for comment in comments]
             parsed_out += ['#   Returns: '+julia_output]
             parsed_out += warnings
-            parsed_out += ['function '+funcname+' ('+', '.join(julia_decl) +')']
+            parsed_out += ['function '+funcname+' ('+', '.join(julia_decl) +varargs+')']
             parsed_out += ccall_line
             parsed_out += ['end']
              
             all_parsed_out += ['', '']
-            if isDisabled:
+            if isDisabled and 'disable' in unknown_handler:
                 all_parsed_out += ['### Function uses unknown type; disabled']
                 parsed_out = ['### '+l for l in parsed_out]
             else:
                 exports.append(funcname)
 
             all_parsed_out += parsed_out
-    return exports, all_parsed_out
+    return exports, all_parsed_out, unknowns
 
 
 
-def parsehtmldoc(html_doc):
+def parsehtmldoc(html_doc, WhatToMatch=None, unknown_handler='report'):
     soup = BeautifulSoup(html_doc)
-    #Find section heading and put that in the beginning
-    parsed_heading = parseheading(soup)
-    #Parse structs in format 1
-    export_structs1, structs1 = parsestructs1(soup)
-    #Parse structs in format 2
-    export_structs2, structs2 = parsestructs2(soup)
-    #Parse functions
-    export_functions, functions = parsefunctions(soup)
-    #Parse structs from header file
-    if len(export_structs1) == 0:
-      export_structs1, structs1 = parsestructsh(html_doc)
+    exports = []
+    all_output = []
+    parsed_all = []
+    unknowns = []
+    if WhatToMatch is None or WhatToMatch[-2:]!='_h':
+        #Find section heading and put that in the beginning
+        all_output += parseheading(soup)
+    if WhatToMatch is None or WhatToMatch=='struct':
+        #Parse structs in format 1
+        export_structs1, structs1, unknowns1 = parsestructs1(soup, unknown_handler)
+        #Parse structs in format 2
+        export_structs2, structs2, unknowns2 = parsestructs2(soup, unknown_handler)
+        exports += export_structs1 + export_structs2
+        parsed_all += structs1 + structs2
+        unknowns += unknowns1 + unknowns2
+    if WhatToMatch=='struct_h':
+        #Parse structs from header file
+        export_structs, structs = parsestructsh(html_doc, unknown_handler)
+        exports += export_structs
+        parsed_all += structs
+    if WhatToMatch is None or WhatToMatch=='function':
+        #Parse functions
+        export_functions, functions, unknown = parsefunctions(soup, unknown_handler)
+        exports += export_functions
+        parsed_all += functions
+        unknowns += unknown
 
-    #Generate heading
-    all_parsed_out = [''] + parsed_heading + ['']
     #Generate export line
-    exports = export_structs1 + export_structs2 + export_functions
     if len(exports) > 0:
          export_line = wrap(', '.join(exports), maxwidth-7)
          export_line = ['export '+export_line[0]] + [' '*7 + l for l in export_line[1:]]
-         all_parsed_out += export_line
+         all_output += export_line
     else: #No exports, return a blank file
-        return ''
-    #Generate structs
-    all_parsed_out += structs1
-    all_parsed_out += structs2
-    #Generate function wrappers
-    all_parsed_out += functions
-    all_parsed_out += ['']
-    return '\n'.join(all_parsed_out)
+        return exports, '', unknowns
 
+    all_output += parsed_all + ['']
+    return exports, '\n'.join(all_output), unknowns
+
+
+def write_wrapper(filename, WhatToParse, unknown_handler="report"):
+    #print 'Parsing', filename
+    exports, parsed, unknowns = parsehtmldoc(open(filename).read(), WhatToParse, unknown_handler)
+    if parsed == '': return [], []#Do not write julia wrapper for empty stuff
+        
+    julia_file = '../src/_'+basename(filename).replace('-','').split('.')[0]+'.jl'
+    f = open(julia_file, 'w')
+    f.write("""#!/usr/bin/env julia
+#GSL Julia wrapper
+#(c) 2013 Jiahao Chen <jiahao@mit.edu>
+""")
+    f.write(parsed.encode("utf-8"))
+    f.close()
+    print 'Wrote', julia_file
+    return exports, unknowns
 
 
 #Loop over all html files
 if __name__ == '__main__':
     from glob import glob
     from os.path import basename, join
-    filelist = glob('../html_node/*.html')
-    path_to_gsl_h = '/usr/local/include/gsl'
-    filelist += [join(path_to_gsl_h, 'gsl_sum.h')]
-    #Initials wrappers were generated for these but they needed work
-    #filelist += [join(path_to_gsl_h, 'gsl_fft_complex.h')]
-    #filelist += [join(path_to_gsl_h, 'gsl_rng.h')]
-    filelist += [join(path_to_gsl_h, 'gsl_sf_mathieu.h')]
-    filelist = [] ###
-    filelist += [join(path_to_gsl_h, 'gsl_eigen.h')]
-
+    
     #List of files that need manual intervention
     #These all have functors - I have replaced them with Ptr{Void} for now
     #function also renamed to function_
@@ -381,20 +461,58 @@ if __name__ == '__main__':
             'Providing-the-multidimensional-system-of-equations-to-solve.html',
             'Representation-of-complex-numbers.html'
             ]
+    
+    structs = {}
+    dependencies = {}
+    #Step 1: Search HTML docs first for structs
+    for filename in glob('../html_node/*.html'):
+        if basename(filename) in skiplist: continue
+        this_structs, unknowns = write_wrapper(filename, "struct", "list")
+        if this_structs != []: structs[filename] = set(this_structs)
+        if unknowns != []: #Remove self-dependencies
+            dependencies[filename] = set([unknown for unknown in unknowns if unknown not in this_structs])
 
-    for html_file in filelist:
-        if basename(html_file) in skiplist: continue
-        print 'Parsing', html_file
-        parsed = parsehtmldoc(open(html_file).read())
-        if parsed == '': continue #Do not write julia file
-        
-        julia_file = '../src/_'+basename(html_file).replace('-','').replace('.html','').replace('.h','struct')+'.jl'
-        f = open(julia_file, 'w')
-        f.write("""#!/usr/bin/env julia
-#GSL Julia wrapper
-#(c) 2013 Jiahao Chen <jiahao@mit.edu>
-""")
-        f.write(parsed.encode("utf-8"))
-        f.close()
-        print 'Wrote', julia_file
+    #Search header files for undocumented structs
+    #path_to_gsl_h = '/usr/local/include/gsl'
+    #filelist = []
+    #filelist += [join(path_to_gsl_h, 'gsl_sum.h')]
+    ##Initials wrappers were generated for these but they needed work
+    ##filelist += [join(path_to_gsl_h, 'gsl_fft_complex.h')]
+    ##filelist += [join(path_to_gsl_h, 'gsl_rng.h')]
+    #filelist += [join(path_to_gsl_h, 'gsl_sf_mathieu.h')]
+    #filelist = [] ###
+    #filelist += [join(path_to_gsl_h, 'gsl_eigen.h')]
+    #for filename in filelist:
+    #    structs += write_wrapper(filename, "struct")
+
+    # Now order the struct containing files so that they import correctly
+    #Do selection sort to order the files properly
+    filenames=list(set(dependencies.keys()+structs.keys()))
+    for i, filename1 in enumerate(filenames):
+        for j, filename2 in enumerate(filenames):
+            if filename2 in dependencies.keys() and filename1 in structs.keys():
+                if any([dep in structs[filename1] for dep in dependencies[filename2]]):
+                    filenames[i], filenames[j] = filenames[j], filenames[i] 
+
+    # Now populate known types into known_types
+    for structset in structs.values():
+        for struct in structset:
+            print 'Adding', struct
+            known_types[struct] = struct
+
+    #Step 2: Search HTML docs again for functions
+    all_unknowns = []
+    for filename in glob('../html_node/*.html'):
+        if basename(filename) in skiplist: continue
+        _, unknowns = write_wrapper(filename, "function", ["coerce", "list"])
+        if filename not in filenames: filenames.append(filename)
+        all_unknowns += unknowns
+
+    #Write list of files
+    f = open('../src/__FILELIST.jl', 'w')
+    #Write also list of unknowns
+    for unknown in sorted(list(set(all_unknowns))):
+        f.write('#XXX Unknown data type was encountered: '+unknown+'\n')
+    f.write('\n'.join(['include("'+x+'")' for x in filenames]))
+    f.close()
 
