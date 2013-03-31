@@ -5,6 +5,8 @@ module GSL
     include("6_4_CubicEquations.jl")
     include("6_5_GeneralPolynomialEquations.jl")
     include("7_21_HypergeometricFunctions.jl")
+    include("8_3_10_Vector_properties.jl")
+    include("9_5_Permutation_functions.jl")
     include("20_23_SphericalVectorDistributions.jl")
     include("28_1_NumericalDifferentiationfunctions.jl")
 end #module

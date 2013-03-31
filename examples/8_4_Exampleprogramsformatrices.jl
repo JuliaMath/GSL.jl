@@ -1,0 +1,35 @@
+########################################
+# 8.4.13 Example programs for matrices #
+########################################
+
+#The program below shows how to allocate, initialize and read from a matrix using the functions gsl_matrix_alloc, gsl_matrix_set and gsl_matrix_get.
+
+using GSL
+m = gsl_matrix_alloc(10, 3)
+
+for i=0:9
+    for j=0:2
+        gsl_matrix_set(m, i, j, 0.23 + 100i + j)
+    end
+end
+
+for i=0:9
+    for j=0:2
+        @printf("m(%d,%d) = %f\n", i, j, 
+            gsl_matrix_get(m, i, j))
+    end
+end
+gsl_matrix_free(m)
+
+#Here is the output from the program.
+#
+#     $ ./a.out
+#     m(0,0) = 0.23
+#     m(0,1) = 1.23
+#     m(0,2) = 2.23
+#     m(1,0) = 100.23
+#     m(1,1) = 101.23
+#     m(1,2) = 102.23
+#     ...
+#     m(9,2) = 902.23
+

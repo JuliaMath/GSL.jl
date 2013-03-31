@@ -371,9 +371,11 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             NewOutputs_types=[]
             new_julia_inputs = julia_inputs
             new_julia_input_names = julia_input_names
-            #If the function does not end in _free AND
+            #If the function does not end in _free or _init or _set AND
             #return type is Void or Cint then look more carefully
-            if not funcname[-5:]=='_free' and (julia_output == 'Cint' or julia_output == 'Void'):
+            if not funcname[-5:]=='_free' and not funcname[-4:]=='_set' \
+                    and not funcname[-5:]=='_init' and not funcname[-5:]=='_next' \
+                    and (julia_output == 'Cint' or julia_output == 'Void'):
                 new_julia_inputs = []
                 new_julia_input_names = []
                 for i, inp in enumerate(julia_inputs):
@@ -438,15 +440,18 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             #If return type is Cint, assume this is an error code
             if julia_output == 'Cint':
                 ccall_line = "gsl_errno = "+ccall_line
+            if julia_output == 'Ptr{Cchar}':
+                ccall_line = "output_string = "+ccall_line
             ccall_line = wrap(ccall_line, maxwidth-8)
             ccall_line = ['    '+ccall_line[0]] + [' '*8 + l for l in ccall_line[1:]]
             
             #Trap error code
             if julia_output == 'Cint':
                 ccall_line.append('    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end')
+            if julia_output == 'Ptr{Cchar}':
+                ccall_line.append('    bytestring(convert(Ptr{Uint8}, output_string))')
             #Dump out any new outputs
             if len(return_me)>0: ccall_line.append('    return '+' ,'.join(return_me))
-            
             #Dump it all out
             parsed_out += [docstring]
             parsed_out += ['#  '+comment for comment in comments]

@@ -69,14 +69,15 @@ Translated examples from the GSL documentation are available in `examples/`.
 # Current status
 
 ## What is available
-* All `gsl_*` functions except the CBLAS wrappers `gsl_cblas_*`
+* All `gsl_*` functions except the ones described below
 * All documented `gsl_*` structs
 
 ## What is not available
-* The CBLAS wrappers `gsl_cblas_*`:
-  Wrappers around the GSL wrappers have been generated but almost certainly don't work. 
-  Since Julia itself provides native interfaces to BLAS routines, it seems pointless to
-  even try to fix this.
+* Functions that duplicate Julia's native capabilities, such as
+ * The CBLAS wrappers `gsl_cblas_*`
+ * Data I/O functions, such as `gsl_*_fprintf` and `gsl_*_fscanf`
+ Wrappers to these functions exist but most likely won't work
+* Row and column views of matrices, `gsl_matrix_row*` and `gsl_matrix_column*` (Sec. 8.4.6)
 * All undocumented `gsl_*` structs:
   Function calls involving these structs have had their data types changed to `Void`
   in Julia so that they can be used as opaque pointers without knowledge of what is
