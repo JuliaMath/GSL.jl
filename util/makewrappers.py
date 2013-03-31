@@ -371,7 +371,12 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                     '(' + ', '.join(julia_inputs) + ')']
             ccall_args += julia_input_names
             ccall_line = 'ccall( '+', '.join(ccall_args)+' )'
-            ccall_line = wrap('ccall( '+', '.join(ccall_args)+' )', maxwidth-8)
+            #If return type is Cint, assume this is an error code
+            if julia_output == 'Cint':
+                ccall_line = "gsl_errno = "+ccall_line
+            ccall_line = wrap(ccall_line, maxwidth-8)
+            if julia_output == 'Cint':
+                ccall_line.append('if gsl_errno!=0 throw(GSL_ERROR, gsl_errno) end')
             ccall_line = ['    '+ccall_line[0]] + [' '*8 + l for l in ccall_line[1:]]
             #Dump it all out
             parsed_out += [docstring]
@@ -380,6 +385,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             parsed_out += warnings
             parsed_out += ['function '+funcname+' ('+', '.join(julia_decl) +varargs+')']
             parsed_out += ccall_line
+
             parsed_out += ['end']
              
             all_parsed_out += ['', '']
@@ -439,8 +445,8 @@ def write_wrapper(filename, WhatToParse, unknown_handler="report", dowrite=True)
     #print 'Parsing', filename
     exports, parsed, unknowns = parsehtmldoc(open(filename).read(), WhatToParse, unknown_handler)
     if parsed == '': return None, [], []#Do not write julia wrapper for empty stuff
-        
-    julia_file = '../src/_'+basename(filename).replace('-','').split('.')[0]+'.jl'
+    julia_file=parsed.split('\n')[1].replace('#','').replace(u'\u2014','').replace('.','_').strip().replace(' ','_')
+    julia_file = '../src/_'+julia_file+'.jl'
     if dowrite:
         f = open(julia_file, 'w')
         f.write("""#!/usr/bin/env julia
@@ -506,7 +512,7 @@ if __name__ == '__main__':
             print f, ': Adding', struct
             known_types[struct] = struct
 
-    #Step 2: Search HTML docs again for functions
+    #Step 2: Search HTML docs again for functions and structs
     all_unknowns = []
     for filename in glob('../html_node/*.html'):
         jfilename, exports, unknowns = write_wrapper(filename, ["function", "struct"], ["coerce", "list", "report"])
@@ -520,6 +526,6 @@ if __name__ == '__main__':
     #Write also list of unknowns
     for unknown in sorted(list(set(all_unknowns))):
         f.write('#XXX Unknown data type was encountered: '+unknown+'\n')
-    f.write('\n'.join(['include("'+x+'")' for x in filenames]))
+    f.write('\n'.join(['include("'+x+'")' for x in sorted(filenames)]))
     f.close()
 

@@ -8,9 +8,10 @@ end #module
 
 #Test
 using GSL
-x = randn()
 try
-    gsl_sf_hyperg_U(-1.0, -1.0, x) - (1 + x)
+    #Turn off GSL's default error handler so that Julia doesn't segfault on error
+    gsl_set_error_handler_off() 
+    gsl_sf_hyperg_U(-1.0, -1.0, randn())
 catch
     error("The GNU Scientific Library does not appear to be installed.")
 end

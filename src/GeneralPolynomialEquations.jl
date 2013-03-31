@@ -19,8 +19,6 @@ end
 #Convert gsl_complex_packed_ptr to Vector{Complex128}
 gsl_complex_packed_ptr(c::Vector{Cdouble}) = Complex128[c[2i-1]+im*c[2i] for i=1:int(length(c)/2)]
 
-
-
 export gsl_poly_complex_workspace_alloc, gsl_poly_complex_workspace_free,
        gsl_poly_complex_solve
 
