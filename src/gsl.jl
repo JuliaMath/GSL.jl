@@ -1,6 +1,7 @@
 module GSL
     include("__FILELIST.jl")
     include("HypergeometricFunctions.jl")
+    include("NumericalDifferentiationfunctions.jl")
 end #module
 
 #Test
