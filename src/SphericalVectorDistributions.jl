@@ -28,8 +28,6 @@ end
 # for 3 dimensions).
 # 
 #   Returns: Void
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
 function gsl_ran_dir_3d (r::Ptr{Void})
     x = Array(Cdouble, 1)
     y = Array(Cdouble, 1)
@@ -40,7 +38,7 @@ function gsl_ran_dir_3d (r::Ptr{Void})
 end
 
 
-#  This function returns a random direction vector  v = (x_1,x_2,...,x_n) in n
+# This function returns a random direction vector  v = (x_1,x_2,...,x_n) in n
 # dimensions.  The vector is normalized such that  |v|^2 = x_1^2 + x_2^2 + ...
 # + x_n^2 = 1.  The method uses the fact that a multivariate Gaussian
 # distribution is spherically symmetric.  Each component is generated to have a
@@ -49,8 +47,6 @@ end
 # Modern Mathematics for the Engineer (1956).
 # 
 #   Returns: Void
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
 function gsl_ran_dir_nd (r::Ptr{Void}, n::Csize_t)
     x = Array(Cdouble, n)
     ccall( (:gsl_ran_dir_nd, "libgsl"), Void, (Ptr{Void}, Csize_t,

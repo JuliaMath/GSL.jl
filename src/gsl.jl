@@ -1,5 +1,6 @@
 module GSL
     include("__FILELIST.jl")
+    include("GeneralPolynomialEquations.jl")
     include("HypergeometricFunctions.jl")
     include("NumericalDifferentiationfunctions.jl")
     include("SphericalVectorDistributions.jl")

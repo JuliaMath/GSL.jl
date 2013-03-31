@@ -34,11 +34,25 @@ Translated examples from the GSL documentation are available in `examples/`.
 
 # Convenience methods provided
 
-Currently only one convenience method is available.
+<script type="text/javascript"
+   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js">
+
+</script>
+
+## Roots of polynomials
+```julia
+    roots{T<:Real}(c::Vector{T}) -> Vector{Complex128}
+```
+> Finds the (complex) roots of the polynomial with real coefficients c
+> \[
+> 0 = \sum_{i=1}^{length(c)} c_i z^{i-1}
+> \]
+
+## Hypergeometric functions
 ```julia
     hypergeom(a::Vector{Float64}, b::Vector{Float64}, x::Float64) -> Float64
 ```
-> Wraps the appropriate hypergeometric *<sub>p</sub>F<sub>q</sub>* function,
+> Computes the appropriate hypergeometric ${}_p F_q$ *<sub>p</sub>F<sub>q</sub>* function,
 > where *p* and *q* are the lengths of the input vectors *a* and *b*
 > respectively.
 > Singleton *a* and/or *b* may be specified as scalars, and length-0 *a* and/or
