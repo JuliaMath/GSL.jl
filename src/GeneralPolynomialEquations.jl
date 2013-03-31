@@ -5,19 +5,37 @@
 # 6.5 General Polynomial Equations #
 ####################################
 
-export roots, gsl_complex_packed_ptr
+export roots
 
-function roots{T<:Real}(c::Vector{T})
+function roots{T<:Real}(c::Vector{T}, realOnly::Bool)
     n = length(c)
     a = convert(Vector{Cdouble}, c)
-    w = gsl_poly_complex_workspace_alloc(n)
-    z = gsl_poly_complex_solve(a, n, w)
-    gsl_poly_complex_workspace_free(w)
-    gsl_complex_packed_ptr(z)
+    if n==0
+        return nothing #No solution
+    elseif n==1
+        gsl_poly_solve_quadratic(0.0, a[2], a[1])
+    elseif n==2
+        if realOnly
+            gsl_poly_solve_quadratic(a[3], a[2], a[1])
+        else
+            gsl_poly_complex_solve_quadratic(a[3], a[2], a[1])
+        end
+    elseif n==3
+        if realOnly
+            gsl_poly_solve_cubic(a[3]/a[4], a[2]/a[4], a[1]/a[4])
+        else
+            gsl_poly_complex_solve_cubic(a[3]/a[4], a[2]/a[4], a[1]/a[4])
+        end
+    else #Use general solver
+        w = gsl_poly_complex_workspace_alloc(n)
+        z = gsl_poly_complex_solve(a, n, w)
+        gsl_poly_complex_workspace_free(w)
+        gsl_complex_packed_ptr(z)
+    end
 end
 
-#Convert gsl_complex_packed_ptr to Vector{Complex128}
-gsl_complex_packed_ptr(c::Vector{Cdouble}) = Complex128[c[2i-1]+im*c[2i] for i=1:int(length(c)/2)]
+roots{T<:Real}(c::Vector{T}) = roots{T}(c, false) #By default, all complex roots
+
 
 export gsl_poly_complex_workspace_alloc, gsl_poly_complex_workspace_free,
        gsl_poly_complex_solve
