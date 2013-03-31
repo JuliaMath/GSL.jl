@@ -12,7 +12,7 @@ for gsl_ran_dir in (:gsl_ran_dir_2d, :gsl_ran_dir_2d_trig_method)
         function ($gsl_ran_dir)(r::Ptr{Void})
             x = Array(Cdouble, 1)
             y = Array(Cdouble, 1)
-            ccall( (:gsl_ran_dir, "libgsl"), Void, (Ptr{Void}, Ptr{Cdouble},
+            ccall( ($(string(gsl_ran_dir)), :libgsl), Void, (Ptr{Void}, Ptr{Cdouble},
                 Ptr{Cdouble}), r, x, y)
             return x[1], y[1]
         end
@@ -32,7 +32,7 @@ function gsl_ran_dir_3d (r::Ptr{Void})
     x = Array(Cdouble, 1)
     y = Array(Cdouble, 1)
     z = Array(Cdouble, 1)
-    ccall( (:gsl_ran_dir_3d, "libgsl"), Void, (Ptr{Void}, Ptr{Cdouble},
+    ccall( (:gsl_ran_dir_3d, :libgsl), Void, (Ptr{Void}, Ptr{Cdouble},
         Ptr{Cdouble}, Ptr{Cdouble}), r, x, y, z )
     return x[1], y[1], z[1]
 end
@@ -49,7 +49,7 @@ end
 #   Returns: Void
 function gsl_ran_dir_nd (r::Ptr{Void}, n::Csize_t)
     x = Array(Cdouble, n)
-    ccall( (:gsl_ran_dir_nd, "libgsl"), Void, (Ptr{Void}, Csize_t,
+    ccall( (:gsl_ran_dir_nd, :libgsl), Void, (Ptr{Void}, Csize_t,
         Ptr{Cdouble}), r, n, x)
     return x
 end
