@@ -364,12 +364,41 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                     warnings.append('#XXX Coerced type for output '+julia_output)
                 if 'list' in unknown_handler:
                     unknowns.append(var_type.replace('*','').replace('const','').strip())
-                
+            
+
+            #Heuristic for detecting outputs that should be initialized within the wrapper
+            NewOutputs=[]
+            NewOutputs_types=[]
+            #If return type is Void or Cint then look more carefully
+            if julia_output == 'Cint' or julia_output == 'Void':
+                new_julia_inputs = []
+                new_julia_input_names = []
+                for i, inp in enumerate(julia_inputs):
+                    input_name = julia_input_names[i]
+                    #Assume all non-constant pointers are output
+                    if 'Ptr{Void}' in inp:
+                        new_julia_inputs.append(inp)
+                        new_julia_input_names.append(input_name)
+                    elif 'Ptr{Cchar}' in inp or ('Ptr{' in inp and not julia_input_const[i]):
+                        NewOutputs.append(input_name)
+                        NewOutputs_types.append(inp)
+                    #If they are called something like 'result'
+                    elif 'result' in input_name.lower():
+                        NewOutputs.append(input_name)
+                        NewOutputs_types.append(inp)
+                    else:
+                        new_julia_inputs.append(inp)
+                        new_julia_input_names.append(input_name)
+            else:
+                new_julia_inputs = julia_inputs
+                new_julia_input_names = julia_input_names
+
+            #Generate declaration line
             julia_decl = []
             functemplatevars={}
             ccall_input_names = []
-            for i, var in enumerate(julia_input_names):
-                intype = julia_inputs[i]
+            for i, var in enumerate(new_julia_input_names):
+                intype = new_julia_inputs[i]
                 #Special handling for integers: rely on coercion in ccall
                 if intype == 'Cint' or intype == 'Csize_t':
                     functemplatevars['gsl_int'] = 'Integer'
@@ -378,7 +407,6 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                 #When to put ampersands?
                 #if ('Ptr{gsl_' in intype):
                 #    ccall_input_names.append('&'+var)
-                ccall_input_names.append(var)
 
             if len(functemplatevars) > 0:
                 functemplate='{'+' ,'.join([k+'<:'+v for k,v in functemplatevars.items()])+'}'
@@ -387,33 +415,45 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                 
             if len(julia_inputs) == 1: julia_inputs.append('') #Generate comma for tuple
 
+
             ccall_args = ['(:%s, :libgsl)' % funcname,
                     julia_output,
                     '(' + ', '.join(julia_inputs) + ')']
-            ccall_args += ccall_input_names
+            ccall_args += julia_input_names
+            
+            #Dump out any new outputs
+            new_vars = []
+            return_me = []
+            if len(NewOutputs)>0:
+                for i, x in enumerate(NewOutputs):
+                    ty = NewOutputs_types[i]
+                    dims = ty.count('}')
+                    ty_decl=ty.replace('}','').replace('Ptr{','')
+                    if dims==0: dims=1
+                    ty_decl='convert('+ty+', Array('*dims+ty_decl+', 1)'*dims+')'
+                    new_vars.append('    '+x+' = '+ty_decl)
+                    return_me.append('unsafe_ref('*dims+x+')'*dims)
+
             ccall_line = 'ccall( '+', '.join(ccall_args)+' )'
             #If return type is Cint, assume this is an error code
             if julia_output == 'Cint':
                 ccall_line = "gsl_errno = "+ccall_line
             ccall_line = wrap(ccall_line, maxwidth-8)
             ccall_line = ['    '+ccall_line[0]] + [' '*8 + l for l in ccall_line[1:]]
-            #If return type is Cint, assume this is an error code
+            
+            #Trap error code
             if julia_output == 'Cint':
-                ccall_line.append('    if gsl_errno!=0 throw(GSL_ERROR, gsl_errno) end')
-            #If return type is Void or Cint then assume all non-constant pointers are output
-            #This is a bad assumption but creates something to work with
-            if julia_output == 'Cint' or julia_output == 'Void':
-                Ptrs=[]
-                for i, inp in enumerate(julia_inputs):
-                    if 'Ptr{Cchar}' in inp or ('Ptr{' in inp and not julia_input_const[i]):
-                        Ptrs.append(julia_input_names[i])
-                if len(Ptrs)>0: ccall_line.append('    return '+' ,'.join(Ptrs))
+                ccall_line.append('    if gsl_errno!= 0 throw(GSL_ERROR, gsl_errno) end')
+            #Dump out any new outputs
+            if len(return_me)>0: ccall_line.append('    return '+' ,'.join(return_me))
+            
             #Dump it all out
             parsed_out += [docstring]
             parsed_out += ['#  '+comment for comment in comments]
             parsed_out += ['#   Returns: '+julia_output]
             parsed_out += warnings
-            parsed_out += ['function '+funcname+functemplate+' ('+', '.join(julia_decl) +varargs+')']
+            parsed_out += ['function '+funcname+functemplate+'('+', '.join(julia_decl) +varargs+')']
+            parsed_out += new_vars
             parsed_out += ccall_line
             parsed_out += ['end']
              
