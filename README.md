@@ -41,18 +41,23 @@ Translated examples from the GSL documentation are available in `examples/`.
 
 ## Roots of polynomials
 ```julia
-    roots{T<:Real}(c::Vector{T}) -> Vector{Complex128}
+    roots{T<:Real}(c::Vector{T}, realOnly::Bool) -> Vector{Complex128}
 ```
-> Finds the (complex) roots of the polynomial with real coefficients c
+> Finds the roots of the polynomial with real coefficients c
 > \[
 > 0 = \sum_{i=1}^{length(c)} c_i z^{i-1}
 > \]
+> The coefficients are returned in ascending order of the power
+> If the degree of the polynomial is <= 3, then `realOnly=true` finds only
+> the real roots.
 
-## Hypergeometric functions
+## Special functions
+
+### Hypergeometric functions
 ```julia
     hypergeom(a::Vector{Float64}, b::Vector{Float64}, x::Float64) -> Float64
 ```
-> Computes the appropriate hypergeometric ${}_p F_q$ *<sub>p</sub>F<sub>q</sub>* function,
+> Computes the appropriate hypergeometric *<sub>p</sub>F<sub>q</sub>* function,
 > where *p* and *q* are the lengths of the input vectors *a* and *b*
 > respectively.
 > Singleton *a* and/or *b* may be specified as scalars, and length-0 *a* and/or
