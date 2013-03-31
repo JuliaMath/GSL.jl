@@ -319,6 +319,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
 
             warnings = []
             julia_inputs = []
+            julia_input_const = []
             julia_input_names = []
             if inputs.strip() == 'void': #Function takes no inputs
                 variables = []
@@ -332,6 +333,11 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                 if varname == '...':
                     varargs = '...'
                     continue
+                if v[0] == 'const':
+                    julia_input_const.append(True)
+                else:
+                    julia_input_const.append(False)
+
                 var_type = var[:var.rfind(varname)].strip()
                 julia_input_names.append(varname)
                 julia_var_type, isUnknown = juliatype(var_type) 
@@ -360,32 +366,55 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                     unknowns.append(var_type.replace('*','').replace('const','').strip())
                 
             julia_decl = []
+            functemplatevars={}
+            ccall_input_names = []
             for i, var in enumerate(julia_input_names):
-                julia_decl.append(var+'::'+julia_inputs[i])
+                intype = julia_inputs[i]
+                #Special handling for integers: rely on coercion in ccall
+                if intype == 'Cint' or intype == 'Csize_t':
+                    functemplatevars['gsl_int'] = 'Integer'
+                    intype = 'gsl_int'
+                julia_decl.append(var+'::'+intype)
+                if ('Ptr{gsl_' in intype):
+                    ccall_input_names.append('&'+var)
+                else:
+                    ccall_input_names.append(var)
 
-            if len(julia_inputs) == 1:
-                julia_inputs.append('')
+            if len(functemplatevars) > 0:
+                functemplate='{'+' ,'.join([k+'<:'+v for k,v in functemplatevars.items()])+'}'
+            else:
+                functemplate=''
                 
-            ccall_args = ['(:%s, "libgsl")' % funcname,
+            if len(julia_inputs) == 1: julia_inputs.append('') #Generate comma for tuple
+
+            ccall_args = ['(:%s, :libgsl)' % funcname,
                     julia_output,
                     '(' + ', '.join(julia_inputs) + ')']
-            ccall_args += julia_input_names
+            ccall_args += ccall_input_names
             ccall_line = 'ccall( '+', '.join(ccall_args)+' )'
             #If return type is Cint, assume this is an error code
             if julia_output == 'Cint':
                 ccall_line = "gsl_errno = "+ccall_line
             ccall_line = wrap(ccall_line, maxwidth-8)
-            if julia_output == 'Cint':
-                ccall_line.append('if gsl_errno!=0 throw(GSL_ERROR, gsl_errno) end')
             ccall_line = ['    '+ccall_line[0]] + [' '*8 + l for l in ccall_line[1:]]
+            #If return type is Cint, assume this is an error code
+            if julia_output == 'Cint':
+                ccall_line.append('    if gsl_errno!=0 throw(GSL_ERROR, gsl_errno) end')
+            #If return type is Void or Cint then assume all non-constant pointers are output
+            #This is a bad assumption but creates something to work with
+            if julia_output == 'Cint' or julia_output == 'Void':
+                Ptrs=[]
+                for i, inp in enumerate(julia_inputs):
+                    if 'Ptr{Cchar}' in inp or ('Ptr{' in inp and not julia_input_const[i]):
+                        Ptrs.append(julia_input_names[i])
+                if len(Ptrs)>0: ccall_line.append('    return '+' ,'.join(Ptrs))
             #Dump it all out
             parsed_out += [docstring]
             parsed_out += ['#  '+comment for comment in comments]
             parsed_out += ['#   Returns: '+julia_output]
             parsed_out += warnings
-            parsed_out += ['function '+funcname+' ('+', '.join(julia_decl) +varargs+')']
+            parsed_out += ['function '+funcname+functemplate+' ('+', '.join(julia_decl) +varargs+')']
             parsed_out += ccall_line
-
             parsed_out += ['end']
              
             all_parsed_out += ['', '']
@@ -526,6 +555,6 @@ if __name__ == '__main__':
     #Write also list of unknowns
     for unknown in sorted(list(set(all_unknowns))):
         f.write('#XXX Unknown data type was encountered: '+unknown+'\n')
-    f.write('\n'.join(['include("'+x+'")' for x in sorted(filenames)]))
+    f.write('\n'.join(['include("'+x+'")' for x in filenames]))
     f.close()
 
