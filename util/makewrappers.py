@@ -378,8 +378,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                 #When to put ampersands?
                 #if ('Ptr{gsl_' in intype):
                 #    ccall_input_names.append('&'+var)
-                #else:
-                #    ccall_input_names.append(var)
+                ccall_input_names.append(var)
 
             if len(functemplatevars) > 0:
                 functemplate='{'+' ,'.join([k+'<:'+v for k,v in functemplatevars.items()])+'}'
