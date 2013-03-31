@@ -30,21 +30,7 @@ Example:
     #Answer: 0.0
 ```
 
-First example from [Section 20.39](http://www.gnu.org/software/gsl/manual/html_node/Random-Number-Distribution-Examples.html) from the GSL manual
-```julia
-    using GSL
-    n, mu = 10, 3.0
-    T = gsl_rng_env_setup()
-    r = gsl_rng_alloc(T)
-    for i=1:n
-        k=int64(gsl_ran_poisson(r, mu))
-        @printf(" %u", k)
-    end
-    println()
-    gsl_rng_free(r)
-    #Output
-    # 2 5 5 2 1 0 3 4 1 1
-```
+Translated examples from the GSL documentation are available in `examples/`.
 
 # Convenience methods provided
 
