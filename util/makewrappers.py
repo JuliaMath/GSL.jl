@@ -369,8 +369,11 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             #Heuristic for detecting outputs that should be initialized within the wrapper
             NewOutputs=[]
             NewOutputs_types=[]
-            #If return type is Void or Cint then look more carefully
-            if julia_output == 'Cint' or julia_output == 'Void':
+            new_julia_inputs = julia_inputs
+            new_julia_input_names = julia_input_names
+            #If the function does not end in _free AND
+            #return type is Void or Cint then look more carefully
+            if not funcname[-5:]=='_free' and (julia_output == 'Cint' or julia_output == 'Void'):
                 new_julia_inputs = []
                 new_julia_input_names = []
                 for i, inp in enumerate(julia_inputs):
@@ -389,9 +392,6 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                     else:
                         new_julia_inputs.append(inp)
                         new_julia_input_names.append(input_name)
-            else:
-                new_julia_inputs = julia_inputs
-                new_julia_input_names = julia_input_names
 
             #Generate declaration line
             julia_decl = []
@@ -443,7 +443,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             
             #Trap error code
             if julia_output == 'Cint':
-                ccall_line.append('    if gsl_errno!= 0 throw(GSL_ERROR, gsl_errno) end')
+                ccall_line.append('    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end')
             #Dump out any new outputs
             if len(return_me)>0: ccall_line.append('    return '+' ,'.join(return_me))
             

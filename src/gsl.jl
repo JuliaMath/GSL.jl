@@ -1,9 +1,12 @@
 module GSL
     include("__FILELIST.jl")
-    include("GeneralPolynomialEquations.jl")
-    include("HypergeometricFunctions.jl")
-    include("NumericalDifferentiationfunctions.jl")
-    include("SphericalVectorDistributions.jl")
+    include("ConvertGSL.jl")
+    include("6_3_QuadraticEquations.jl")
+    include("6_4_CubicEquations.jl")
+    include("6_5_GeneralPolynomialEquations.jl")
+    include("7_21_HypergeometricFunctions.jl")
+    include("20_23_SphericalVectorDistributions.jl")
+    include("28_1_NumericalDifferentiationfunctions.jl")
 end #module
 
 #Test

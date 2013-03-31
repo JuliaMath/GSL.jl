@@ -34,7 +34,7 @@ function roots{T<:Real}(c::Vector{T}, realOnly::Bool)
     end
 end
 
-roots{T<:Real}(c::Vector{T}) = roots{T}(c, false) #By default, all complex roots
+roots{T<:Real}(c::Vector{T}) = roots(c, false) #By default, all complex roots
 
 
 export gsl_poly_complex_workspace_alloc, gsl_poly_complex_workspace_free,
