@@ -2,6 +2,7 @@ module GSL
     include("__FILELIST.jl")
     include("HypergeometricFunctions.jl")
     include("NumericalDifferentiationfunctions.jl")
+    include("SphericalVectorDistributions.jl")
 end #module
 
 #Test
