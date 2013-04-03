@@ -420,6 +420,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             functemplatevars={}
             ccall_input_names = []
             template='tA'
+            do_vectorize=0
             for i, var in enumerate(new_julia_input_names):
                 intype = new_julia_inputs[i]
                 #Generalize types in function declaration
@@ -432,9 +433,14 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                         functemplatevars[template] = gentype
                         intype = intype[:intype.rfind('{')+1]+template+intype[intype.find('}')-1+1:]
                         template=template[:-1]+chr(ord(template[-1])+1)
+                    do_vectorize=-1
                 else: #Not a vector
                     if intype in GeneralType:
                         intype=GeneralType[intype]
+                    if intype in ['Complex', 'Integer', 'Real']:
+                        if do_vectorize>=0: do_vectorize+=1
+                    else:
+                        do_vectorize=-1
 
                 julia_decl.append(var+'::'+intype)
                 #When to put ampersands?
@@ -492,7 +498,15 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             parsed_out += new_vars
             parsed_out += ccall_line
             parsed_out += ['end']
-             
+            
+            #add vectorization macro call if applicable
+            if do_vectorize > 0:
+                if do_vectorize <= 2:
+                    parsed_out += ['@vectorize_%darg Number ' % do_vectorize + funcname]
+                else:
+                    parsed_out += ['#TODO This vectorization macro is not implemented',
+                                   '#@vectorize_%darg Number ' % do_vectorize + funcname]
+
             all_parsed_out += ['', '']
             if isDisabled and 'disable' in unknown_handler:
                 all_parsed_out += ['### Function uses unknown type; disabled']
