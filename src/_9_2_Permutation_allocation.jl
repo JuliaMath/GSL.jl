@@ -4,8 +4,8 @@
 ##############################
 # 9.2 Permutation allocation #
 ##############################
-export gsl_permutation_alloc, gsl_permutation_calloc, gsl_permutation_init,
-       gsl_permutation_free, gsl_permutation_memcpy
+export permutation_alloc, permutation_calloc, permutation_init,
+       permutation_free, permutation_memcpy
 
 
 # This function allocates memory for a new permutation of size n.  The
@@ -15,11 +15,11 @@ export gsl_permutation_alloc, gsl_permutation_calloc, gsl_permutation_init,
 # memory is available to create the permutation.
 # 
 #   Returns: Ptr{gsl_permutation}
-function gsl_permutation_alloc(n::Integer)
+function permutation_alloc(n::Integer)
     ccall( (:gsl_permutation_alloc, :libgsl), Ptr{gsl_permutation},
         (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_permutation_alloc
+@vectorize_1arg Number permutation_alloc
 
 
 # This function allocates memory for a new permutation of size n and
@@ -27,18 +27,18 @@ end
 # memory is available to create the permutation.
 # 
 #   Returns: Ptr{gsl_permutation}
-function gsl_permutation_calloc(n::Integer)
+function permutation_calloc(n::Integer)
     ccall( (:gsl_permutation_calloc, :libgsl), Ptr{gsl_permutation},
         (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_permutation_calloc
+@vectorize_1arg Number permutation_calloc
 
 
 # This function initializes the permutation p to the identity, i.e.
 # (0,1,2,...,n-1).
 # 
 #   Returns: Void
-function gsl_permutation_init(p::Ptr{gsl_permutation})
+function permutation_init(p::Ptr{gsl_permutation})
     ccall( (:gsl_permutation_init, :libgsl), Void, (Ptr{gsl_permutation},
         ), p )
 end
@@ -47,7 +47,7 @@ end
 # This function frees all the memory used by the permutation p.
 # 
 #   Returns: Void
-function gsl_permutation_free(p::Ptr{gsl_permutation})
+function permutation_free(p::Ptr{gsl_permutation})
     ccall( (:gsl_permutation_free, :libgsl), Void, (Ptr{gsl_permutation},
         ), p )
 end
@@ -57,10 +57,10 @@ end
 # dest.  The two permutations must have the same size.
 # 
 #   Returns: Cint
-function gsl_permutation_memcpy(src::Ptr{gsl_permutation})
+function permutation_memcpy(src::Ptr{gsl_permutation})
     dest = convert(Ptr{gsl_permutation}, Array(gsl_permutation, 1))
-    gsl_errno = ccall( (:gsl_permutation_memcpy, :libgsl), Cint,
+    errno = ccall( (:gsl_permutation_memcpy, :libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_permutation}), dest, src )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(dest)[1]
 end

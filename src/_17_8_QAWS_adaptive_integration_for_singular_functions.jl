@@ -4,8 +4,8 @@
 #########################################################
 # 17.8 QAWS adaptive integration for singular functions #
 #########################################################
-export gsl_integration_qaws_table_alloc, gsl_integration_qaws_table_set,
-       gsl_integration_qaws_table_free, gsl_integration_qaws
+export integration_qaws_table_alloc, integration_qaws_table_set,
+       integration_qaws_table_free, integration_qaws
 
 
 
@@ -30,24 +30,24 @@ export gsl_integration_qaws_table_alloc, gsl_integration_qaws_table_set,
 # error.
 # 
 #   Returns: Ptr{gsl_integration_qaws_table}
-function gsl_integration_qaws_table_alloc(alpha::Real, beta::Real, mu::Integer, nu::Integer)
+function integration_qaws_table_alloc(alpha::Real, beta::Real, mu::Integer, nu::Integer)
     ccall( (:gsl_integration_qaws_table_alloc, :libgsl),
         Ptr{gsl_integration_qaws_table}, (Cdouble, Cdouble, Cint, Cint), alpha,
         beta, mu, nu )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_4arg Number gsl_integration_qaws_table_alloc
+#@vectorize_4arg Number integration_qaws_table_alloc
 
 
 # This function modifies the parameters (\alpha, \beta, \mu, \nu) of an
 # existing gsl_integration_qaws_table struct t.
 # 
 #   Returns: Cint
-function gsl_integration_qaws_table_set(t::Ptr{gsl_integration_qaws_table}, alpha::Real, beta::Real, mu::Integer, nu::Integer)
-    gsl_errno = ccall( (:gsl_integration_qaws_table_set, :libgsl), Cint,
+function integration_qaws_table_set(t::Ptr{gsl_integration_qaws_table}, alpha::Real, beta::Real, mu::Integer, nu::Integer)
+    errno = ccall( (:gsl_integration_qaws_table_set, :libgsl), Cint,
         (Ptr{gsl_integration_qaws_table}, Cdouble, Cdouble, Cint, Cint), t,
         alpha, beta, mu, nu )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -55,7 +55,7 @@ end
 # gsl_integration_qaws_table struct t.
 # 
 #   Returns: Void
-function gsl_integration_qaws_table_free(t::Ptr{gsl_integration_qaws_table})
+function integration_qaws_table_free(t::Ptr{gsl_integration_qaws_table})
     ccall( (:gsl_integration_qaws_table_free, :libgsl), Void,
         (Ptr{gsl_integration_qaws_table}, ), t )
 end
@@ -72,19 +72,19 @@ end
 # endpoints an ordinary 15-point Gauss-Kronrod integration rule is used.
 # 
 #   Returns: Cint
-function gsl_integration_qaws(a::Real, b::Real, epsabs::Real, epsrel::Real, limit::Integer)
+function integration_qaws(a::Real, b::Real, epsabs::Real, epsrel::Real, limit::Integer)
     f = convert(Ptr{gsl_function}, Array(gsl_function, 1))
     t = convert(Ptr{gsl_integration_qaws_table}, Array(gsl_integration_qaws_table, 1))
     workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_integration_qaws, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_qaws, :libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Ptr{gsl_integration_qaws_table},
         Cdouble, Cdouble, Csize_t, Ptr{gsl_integration_workspace},
         Ptr{Cdouble}, Ptr{Cdouble}), f, a, b, t, epsabs, epsrel, limit,
         workspace, result, abserr )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(f)[1] ,unsafe_ref(t)[1] ,unsafe_ref(workspace)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_5arg Number gsl_integration_qaws
+#@vectorize_5arg Number integration_qaws

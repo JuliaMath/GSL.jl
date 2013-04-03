@@ -4,7 +4,7 @@
 #######################################
 # 10.3 Accessing combination elements #
 #######################################
-export gsl_combination_get
+export combination_get
 
 
 # This function returns the value of the i-th element of the combination c.  If
@@ -13,7 +13,7 @@ export gsl_combination_get
 # HAVE_INLINE is defined.
 # 
 #   Returns: Csize_t
-function gsl_combination_get(c::Ptr{gsl_combination}, i::Integer)
+function combination_get(c::Ptr{gsl_combination}, i::Integer)
     ccall( (:gsl_combination_get, :libgsl), Csize_t, (Ptr{gsl_combination},
         Csize_t), c, i )
 end

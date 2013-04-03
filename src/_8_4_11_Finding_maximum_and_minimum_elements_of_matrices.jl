@@ -4,14 +4,14 @@
 ###########################################################
 # 8.4.11 Finding maximum and minimum elements of matrices #
 ###########################################################
-export gsl_matrix_max, gsl_matrix_min, gsl_matrix_minmax, gsl_matrix_max_index,
-       gsl_matrix_min_index, gsl_matrix_minmax_index
+export matrix_max, matrix_min, matrix_minmax, matrix_max_index,
+       matrix_min_index, matrix_minmax_index
 
 
 # This function returns the maximum value in the matrix m.
 # 
 #   Returns: Cdouble
-function gsl_matrix_max(m::Ptr{gsl_matrix})
+function matrix_max(m::Ptr{gsl_matrix})
     ccall( (:gsl_matrix_max, :libgsl), Cdouble, (Ptr{gsl_matrix}, ), m )
 end
 
@@ -19,7 +19,7 @@ end
 # This function returns the minimum value in the matrix m.
 # 
 #   Returns: Cdouble
-function gsl_matrix_min(m::Ptr{gsl_matrix})
+function matrix_min(m::Ptr{gsl_matrix})
     ccall( (:gsl_matrix_min, :libgsl), Cdouble, (Ptr{gsl_matrix}, ), m )
 end
 
@@ -28,7 +28,7 @@ end
 # them in min_out and max_out.
 # 
 #   Returns: Void
-function gsl_matrix_minmax(m::Ptr{gsl_matrix})
+function matrix_minmax(m::Ptr{gsl_matrix})
     min_out = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     max_out = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:gsl_matrix_minmax, :libgsl), Void, (Ptr{gsl_matrix},
@@ -42,7 +42,7 @@ end
 # then the first element found is returned, searching in row-major order.
 # 
 #   Returns: Void
-function gsl_matrix_max_index(m::Ptr{gsl_matrix})
+function matrix_max_index(m::Ptr{gsl_matrix})
     imax = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     jmax = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     ccall( (:gsl_matrix_max_index, :libgsl), Void, (Ptr{gsl_matrix},
@@ -56,7 +56,7 @@ end
 # then the first element found is returned, searching in row-major order.
 # 
 #   Returns: Void
-function gsl_matrix_min_index(m::Ptr{gsl_matrix})
+function matrix_min_index(m::Ptr{gsl_matrix})
     imin = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     jmin = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     ccall( (:gsl_matrix_min_index, :libgsl), Void, (Ptr{gsl_matrix},
@@ -71,7 +71,7 @@ end
 # searching in row-major order.
 # 
 #   Returns: Void
-function gsl_matrix_minmax_index(m::Ptr{gsl_matrix})
+function matrix_minmax_index(m::Ptr{gsl_matrix})
     imin = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     jmin = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     imax = convert(Ptr{Csize_t}, Array(Csize_t, 1))

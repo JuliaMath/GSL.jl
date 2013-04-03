@@ -4,7 +4,7 @@
 ###################
 # 21.5 Covariance #
 ###################
-export gsl_stats_covariance, gsl_stats_covariance_m
+export stats_covariance, stats_covariance_m
 
 
 
@@ -14,10 +14,10 @@ export gsl_stats_covariance, gsl_stats_covariance_m
 # \sum_{i = 1}^{n} (x_i - \Hat x) (y_i - \Hat y)
 # 
 #   Returns: Cdouble
-function gsl_stats_covariance(data1::Real)
+function stats_covariance(data1::Real)
     ccall( (:gsl_stats_covariance, :libgsl), Cdouble, (Cdouble, ), data1 )
 end
-@vectorize_1arg Number gsl_stats_covariance
+@vectorize_1arg Number stats_covariance
 
 
 # This function computes the covariance of the datasets data1 and data2 using
@@ -26,8 +26,8 @@ end
 # them.
 # 
 #   Returns: Cdouble
-function gsl_stats_covariance_m(data1::Real)
+function stats_covariance_m(data1::Real)
     ccall( (:gsl_stats_covariance_m, :libgsl), Cdouble, (Cdouble, ), data1
         )
 end
-@vectorize_1arg Number gsl_stats_covariance_m
+@vectorize_1arg Number stats_covariance_m

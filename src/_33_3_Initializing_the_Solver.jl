@@ -4,9 +4,9 @@
 ################################
 # 33.3 Initializing the Solver #
 ################################
-export gsl_root_fsolver_alloc, gsl_root_fdfsolver_alloc, gsl_root_fsolver_set,
-       gsl_root_fdfsolver_set, gsl_root_fsolver_free, gsl_root_fdfsolver_free,
-       gsl_root_fsolver_name, gsl_root_fdfsolver_name
+export root_fsolver_alloc, root_fdfsolver_alloc, root_fsolver_set,
+       root_fdfsolver_set, root_fsolver_free, root_fdfsolver_free,
+       root_fsolver_name, root_fdfsolver_name
 
 
 
@@ -24,7 +24,7 @@ export gsl_root_fsolver_alloc, gsl_root_fdfsolver_alloc, gsl_root_fsolver_set,
 # invoked with an error code of GSL_ENOMEM.
 # 
 #   Returns: Ptr{gsl_root_fsolver}
-function gsl_root_fsolver_alloc(T::Ptr{gsl_root_fsolver_type})
+function root_fsolver_alloc(T::Ptr{gsl_root_fsolver_type})
     ccall( (:gsl_root_fsolver_alloc, :libgsl), Ptr{gsl_root_fsolver},
         (Ptr{gsl_root_fsolver_type}, ), T )
 end
@@ -39,7 +39,7 @@ end
 # pointer and the error handler is invoked with an error code of GSL_ENOMEM.
 # 
 #   Returns: Ptr{gsl_root_fdfsolver}
-function gsl_root_fdfsolver_alloc(T::Ptr{gsl_root_fdfsolver_type})
+function root_fdfsolver_alloc(T::Ptr{gsl_root_fdfsolver_type})
     ccall( (:gsl_root_fdfsolver_alloc, :libgsl), Ptr{gsl_root_fdfsolver},
         (Ptr{gsl_root_fdfsolver_type}, ), T )
 end
@@ -49,11 +49,11 @@ end
 # function f and the initial search interval [x_lower, x_upper].
 # 
 #   Returns: Cint
-function gsl_root_fsolver_set(s::Ptr{gsl_root_fsolver}, f::Ptr{gsl_function}, x_lower::Real, x_upper::Real)
-    gsl_errno = ccall( (:gsl_root_fsolver_set, :libgsl), Cint,
+function root_fsolver_set(s::Ptr{gsl_root_fsolver}, f::Ptr{gsl_function}, x_lower::Real, x_upper::Real)
+    errno = ccall( (:gsl_root_fsolver_set, :libgsl), Cint,
         (Ptr{gsl_root_fsolver}, Ptr{gsl_function}, Cdouble, Cdouble), s, f,
         x_lower, x_upper )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -61,18 +61,18 @@ end
 # function and derivative fdf and the initial guess root.
 # 
 #   Returns: Cint
-function gsl_root_fdfsolver_set(s::Ptr{gsl_root_fdfsolver}, fdf::Ptr{gsl_function_fdf}, root::Real)
-    gsl_errno = ccall( (:gsl_root_fdfsolver_set, :libgsl), Cint,
+function root_fdfsolver_set(s::Ptr{gsl_root_fdfsolver}, fdf::Ptr{gsl_function_fdf}, root::Real)
+    errno = ccall( (:gsl_root_fdfsolver_set, :libgsl), Cint,
         (Ptr{gsl_root_fdfsolver}, Ptr{gsl_function_fdf}, Cdouble), s, fdf, root
         )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
 # These functions free all the memory associated with the solver s.
 # 
 #   Returns: Void
-function gsl_root_fsolver_free(s::Ptr{gsl_root_fsolver})
+function root_fsolver_free(s::Ptr{gsl_root_fsolver})
     ccall( (:gsl_root_fsolver_free, :libgsl), Void, (Ptr{gsl_root_fsolver},
         ), s )
 end
@@ -81,7 +81,7 @@ end
 # These functions free all the memory associated with the solver s.
 # 
 #   Returns: Void
-function gsl_root_fdfsolver_free(s::Ptr{gsl_root_fdfsolver})
+function root_fdfsolver_free(s::Ptr{gsl_root_fdfsolver})
     ccall( (:gsl_root_fdfsolver_free, :libgsl), Void,
         (Ptr{gsl_root_fdfsolver}, ), s )
 end
@@ -92,7 +92,7 @@ end
 # would print something like s is a 'bisection' solver.
 # 
 #   Returns: Ptr{Cchar}
-function gsl_root_fsolver_name(s::Ptr{gsl_root_fsolver})
+function root_fsolver_name(s::Ptr{gsl_root_fsolver})
     output_string = ccall( (:gsl_root_fsolver_name, :libgsl), Ptr{Cchar},
         (Ptr{gsl_root_fsolver}, ), s )
     bytestring(convert(Ptr{Uint8}, output_string))
@@ -104,7 +104,7 @@ end
 # would print something like s is a 'bisection' solver.
 # 
 #   Returns: Ptr{Cchar}
-function gsl_root_fdfsolver_name(s::Ptr{gsl_root_fdfsolver})
+function root_fdfsolver_name(s::Ptr{gsl_root_fdfsolver})
     output_string = ccall( (:gsl_root_fdfsolver_name, :libgsl), Ptr{Cchar},
         (Ptr{gsl_root_fdfsolver}, ), s )
     bytestring(convert(Ptr{Uint8}, output_string))

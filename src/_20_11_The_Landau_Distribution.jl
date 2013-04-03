@@ -4,7 +4,7 @@
 #################################
 # 20.11 The Landau Distribution #
 #################################
-export gsl_ran_landau, gsl_ran_landau_pdf
+export ran_landau, ran_landau_pdf
 
 
 
@@ -19,7 +19,7 @@ export gsl_ran_landau, gsl_ran_landau_pdf
 # p(x) = (1/\pi) \int_0^\infty dt \exp(-t \log(t) - x t) \sin(\pi t).
 # 
 #   Returns: Cdouble
-function gsl_ran_landau(r::Ptr{gsl_rng})
+function ran_landau(r::Ptr{gsl_rng})
     ccall( (:gsl_ran_landau, :libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
 end
 
@@ -28,7 +28,7 @@ end
 # distribution using an approximation to the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_landau_pdf(x::Real)
+function ran_landau_pdf(x::Real)
     ccall( (:gsl_ran_landau_pdf, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_ran_landau_pdf
+@vectorize_1arg Number ran_landau_pdf

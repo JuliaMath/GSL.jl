@@ -4,7 +4,7 @@
 ###########################
 # 8.4.1 Matrix allocation #
 ###########################
-export gsl_matrix_alloc, gsl_matrix_calloc, gsl_matrix_free
+export matrix_alloc, matrix_calloc, matrix_free
 
 
 # This function creates a matrix of size n1 rows by n2 columns, returning a
@@ -14,22 +14,22 @@ export gsl_matrix_alloc, gsl_matrix_calloc, gsl_matrix_free
 # matrix is deallocated.
 # 
 #   Returns: Ptr{gsl_matrix}
-function gsl_matrix_alloc(n1::Integer, n2::Integer)
+function matrix_alloc(n1::Integer, n2::Integer)
     ccall( (:gsl_matrix_alloc, :libgsl), Ptr{gsl_matrix}, (Csize_t,
         Csize_t), n1, n2 )
 end
-@vectorize_2arg Number gsl_matrix_alloc
+@vectorize_2arg Number matrix_alloc
 
 
 # This function allocates memory for a matrix of size n1 rows by n2 columns and
 # initializes all the elements of the matrix to zero.
 # 
 #   Returns: Ptr{gsl_matrix}
-function gsl_matrix_calloc(n1::Integer, n2::Integer)
+function matrix_calloc(n1::Integer, n2::Integer)
     ccall( (:gsl_matrix_calloc, :libgsl), Ptr{gsl_matrix}, (Csize_t,
         Csize_t), n1, n2 )
 end
-@vectorize_2arg Number gsl_matrix_calloc
+@vectorize_2arg Number matrix_calloc
 
 
 # This function frees a previously allocated matrix m.  If the matrix was
@@ -39,6 +39,6 @@ end
 # m must be a valid matrix object (a null pointer is not allowed).
 # 
 #   Returns: Void
-function gsl_matrix_free(m::Ptr{gsl_matrix})
+function matrix_free(m::Ptr{gsl_matrix})
     ccall( (:gsl_matrix_free, :libgsl), Void, (Ptr{gsl_matrix}, ), m )
 end

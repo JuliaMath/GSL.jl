@@ -4,7 +4,7 @@
 ###########################################
 # 20.7 The Exponential Power Distribution #
 ###########################################
-export gsl_ran_exppow, gsl_ran_exppow_pdf, gsl_cdf_exppow_P, gsl_cdf_exppow_Q
+export ran_exppow, ran_exppow_pdf, cdf_exppow_P, cdf_exppow_Q
 
 
 
@@ -16,7 +16,7 @@ export gsl_ran_exppow, gsl_ran_exppow_pdf, gsl_cdf_exppow_P, gsl_cdf_exppow_Q
 # as a Gaussian distribution, but with  a = \sqrt{2} \sigma.
 # 
 #   Returns: Cdouble
-function gsl_ran_exppow(r::Ptr{gsl_rng}, a::Real, b::Real)
+function ran_exppow(r::Ptr{gsl_rng}, a::Real, b::Real)
     ccall( (:gsl_ran_exppow, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
         Cdouble), r, a, b )
 end
@@ -27,33 +27,33 @@ end
 # given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_exppow_pdf(x::Real, a::Real, b::Real)
+function ran_exppow_pdf(x::Real, a::Real, b::Real)
     ccall( (:gsl_ran_exppow_pdf, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_ran_exppow_pdf
+#@vectorize_3arg Number ran_exppow_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) for
 # the exponential power distribution with parameters a and b.
 # 
 #   Returns: Cdouble
-function gsl_cdf_exppow_P(x::Real, a::Real, b::Real)
+function cdf_exppow_P(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_exppow_P, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_exppow_P
+#@vectorize_3arg Number cdf_exppow_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) for
 # the exponential power distribution with parameters a and b.
 # 
 #   Returns: Cdouble
-function gsl_cdf_exppow_Q(x::Real, a::Real, b::Real)
+function cdf_exppow_Q(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_exppow_Q, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_exppow_Q
+#@vectorize_3arg Number cdf_exppow_Q

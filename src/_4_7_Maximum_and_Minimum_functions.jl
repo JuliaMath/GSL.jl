@@ -38,8 +38,8 @@ end
 # 
 #   Returns: Cint
 function GSL_MAX_INT(a::Integer, b::Integer)
-    gsl_errno = ccall( (:GSL_MAX_INT, :libgsl), Cint, (Cint, Cint), a, b )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:GSL_MAX_INT, :libgsl), Cint, (Cint, Cint), a, b )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 @vectorize_2arg Number GSL_MAX_INT
 
@@ -50,8 +50,8 @@ end
 # 
 #   Returns: Cint
 function GSL_MIN_INT(a::Integer, b::Integer)
-    gsl_errno = ccall( (:GSL_MIN_INT, :libgsl), Cint, (Cint, Cint), a, b )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:GSL_MIN_INT, :libgsl), Cint, (Cint, Cint), a, b )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 @vectorize_2arg Number GSL_MIN_INT
 

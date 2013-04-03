@@ -4,8 +4,8 @@
 ################################
 # 7.31.5 Restriction Functions #
 ################################
-export gsl_sf_angle_restrict_symm, gsl_sf_angle_restrict_symm_e,
-       gsl_sf_angle_restrict_pos, gsl_sf_angle_restrict_pos_e
+export sf_angle_restrict_symm, sf_angle_restrict_symm_e, sf_angle_restrict_pos,
+       sf_angle_restrict_pos_e
 
 
 # These routines force the angle theta to lie in the range (-\pi,\pi].
@@ -13,11 +13,11 @@ export gsl_sf_angle_restrict_symm, gsl_sf_angle_restrict_symm_e,
 # machine numbers M_PI and -M_PI are included in the range.
 # 
 #   Returns: Cdouble
-function gsl_sf_angle_restrict_symm(theta::Real)
+function sf_angle_restrict_symm(theta::Real)
     ccall( (:gsl_sf_angle_restrict_symm, :libgsl), Cdouble, (Cdouble, ),
         theta )
 end
-@vectorize_1arg Number gsl_sf_angle_restrict_symm
+@vectorize_1arg Number sf_angle_restrict_symm
 
 
 # These routines force the angle theta to lie in the range (-\pi,\pi].
@@ -25,11 +25,11 @@ end
 # machine numbers M_PI and -M_PI are included in the range.
 # 
 #   Returns: Cint
-function gsl_sf_angle_restrict_symm_e()
+function sf_angle_restrict_symm_e()
     theta = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_sf_angle_restrict_symm_e, :libgsl), Cint,
+    errno = ccall( (:gsl_sf_angle_restrict_symm_e, :libgsl), Cint,
         (Ptr{Cdouble}, ), theta )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(theta)[1]
 end
 
@@ -39,11 +39,11 @@ end
 # the machine number 2*M_PI is included in the range.
 # 
 #   Returns: Cdouble
-function gsl_sf_angle_restrict_pos(theta::Real)
+function sf_angle_restrict_pos(theta::Real)
     ccall( (:gsl_sf_angle_restrict_pos, :libgsl), Cdouble, (Cdouble, ),
         theta )
 end
-@vectorize_1arg Number gsl_sf_angle_restrict_pos
+@vectorize_1arg Number sf_angle_restrict_pos
 
 
 # These routines force the angle theta to lie in the range [0, 2\pi).
@@ -51,10 +51,10 @@ end
 # the machine number 2*M_PI is included in the range.
 # 
 #   Returns: Cint
-function gsl_sf_angle_restrict_pos_e()
+function sf_angle_restrict_pos_e()
     theta = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_sf_angle_restrict_pos_e, :libgsl), Cint,
+    errno = ccall( (:gsl_sf_angle_restrict_pos_e, :libgsl), Cint,
         (Ptr{Cdouble}, ), theta )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(theta)[1]
 end

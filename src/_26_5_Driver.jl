@@ -4,12 +4,11 @@
 ###############
 # 26.5 Driver #
 ###############
-export gsl_odeiv2_driver_alloc_y_new, gsl_odeiv2_driver_alloc_yp_new,
-       gsl_odeiv2_driver_alloc_standard_new,
-       gsl_odeiv2_driver_alloc_scaled_new, gsl_odeiv2_driver_set_hmin,
-       gsl_odeiv2_driver_set_hmax, gsl_odeiv2_driver_set_nmax,
-       gsl_odeiv2_driver_apply, gsl_odeiv2_driver_apply_fixed_step,
-       gsl_odeiv2_driver_reset, gsl_odeiv2_driver_free
+export odeiv2_driver_alloc_y_new, odeiv2_driver_alloc_yp_new,
+       odeiv2_driver_alloc_standard_new, odeiv2_driver_alloc_scaled_new,
+       odeiv2_driver_set_hmin, odeiv2_driver_set_hmax, odeiv2_driver_set_nmax,
+       odeiv2_driver_apply, odeiv2_driver_apply_fixed_step,
+       odeiv2_driver_reset, odeiv2_driver_free
 
 
 # These functions return a pointer to a newly allocated instance of a driver
@@ -20,7 +19,7 @@ export gsl_odeiv2_driver_alloc_y_new, gsl_odeiv2_driver_alloc_yp_new,
 # (gsl_odeiv2_control_*_new).
 # 
 #   Returns: Ptr{gsl_odeiv2_driver}
-function gsl_odeiv2_driver_alloc_y_new(sys::Ptr{gsl_odeiv2_system}, T::Ptr{gsl_odeiv2_step_type}, hstart::Real, epsabs::Real, epsrel::Real)
+function odeiv2_driver_alloc_y_new(sys::Ptr{gsl_odeiv2_system}, T::Ptr{gsl_odeiv2_step_type}, hstart::Real, epsabs::Real, epsrel::Real)
     ccall( (:gsl_odeiv2_driver_alloc_y_new, :libgsl),
         Ptr{gsl_odeiv2_driver}, (Ptr{gsl_odeiv2_system},
         Ptr{gsl_odeiv2_step_type}, Cdouble, Cdouble, Cdouble), sys, T, hstart,
@@ -36,7 +35,7 @@ end
 # (gsl_odeiv2_control_*_new).
 # 
 #   Returns: Ptr{gsl_odeiv2_driver}
-function gsl_odeiv2_driver_alloc_yp_new(sys::Ptr{gsl_odeiv2_system}, T::Ptr{gsl_odeiv2_step_type}, hstart::Real, epsabs::Real, epsrel::Real)
+function odeiv2_driver_alloc_yp_new(sys::Ptr{gsl_odeiv2_system}, T::Ptr{gsl_odeiv2_step_type}, hstart::Real, epsabs::Real, epsrel::Real)
     ccall( (:gsl_odeiv2_driver_alloc_yp_new, :libgsl),
         Ptr{gsl_odeiv2_driver}, (Ptr{gsl_odeiv2_system},
         Ptr{gsl_odeiv2_step_type}, Cdouble, Cdouble, Cdouble), sys, T, hstart,
@@ -52,7 +51,7 @@ end
 # (gsl_odeiv2_control_*_new).
 # 
 #   Returns: Ptr{gsl_odeiv2_driver}
-function gsl_odeiv2_driver_alloc_standard_new(sys::Ptr{gsl_odeiv2_system}, T::Ptr{gsl_odeiv2_step_type}, hstart::Real, epsabs::Real, epsrel::Real, a_y::Real, a_dydt::Real)
+function odeiv2_driver_alloc_standard_new(sys::Ptr{gsl_odeiv2_system}, T::Ptr{gsl_odeiv2_step_type}, hstart::Real, epsabs::Real, epsrel::Real, a_y::Real, a_dydt::Real)
     ccall( (:gsl_odeiv2_driver_alloc_standard_new, :libgsl),
         Ptr{gsl_odeiv2_driver}, (Ptr{gsl_odeiv2_system},
         Ptr{gsl_odeiv2_step_type}, Cdouble, Cdouble, Cdouble, Cdouble,
@@ -68,7 +67,7 @@ end
 # (gsl_odeiv2_control_*_new).
 # 
 #   Returns: Ptr{gsl_odeiv2_driver}
-function gsl_odeiv2_driver_alloc_scaled_new(sys::Ptr{gsl_odeiv2_system}, T::Ptr{gsl_odeiv2_step_type}, hstart::Real, epsabs::Real, epsrel::Real, a_y::Real, a_dydt::Real, scale_abs::Real)
+function odeiv2_driver_alloc_scaled_new(sys::Ptr{gsl_odeiv2_system}, T::Ptr{gsl_odeiv2_step_type}, hstart::Real, epsabs::Real, epsrel::Real, a_y::Real, a_dydt::Real, scale_abs::Real)
     ccall( (:gsl_odeiv2_driver_alloc_scaled_new, :libgsl),
         Ptr{gsl_odeiv2_driver}, (Ptr{gsl_odeiv2_system},
         Ptr{gsl_odeiv2_step_type}, Cdouble, Cdouble, Cdouble, Cdouble, Cdouble,
@@ -80,42 +79,42 @@ end
 # value is 0.
 # 
 #   Returns: Cint
-function gsl_odeiv2_driver_set_hmin(hmin::Real)
+function odeiv2_driver_set_hmin(hmin::Real)
     d = convert(Ptr{gsl_odeiv2_driver}, Array(gsl_odeiv2_driver, 1))
-    gsl_errno = ccall( (:gsl_odeiv2_driver_set_hmin, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_driver_set_hmin, :libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, Cdouble), d, hmin )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(d)[1]
 end
-@vectorize_1arg Number gsl_odeiv2_driver_set_hmin
+@vectorize_1arg Number odeiv2_driver_set_hmin
 
 
 # The function sets a maximum for allowed step size hmax for driver d. Default
 # value is GSL_DBL_MAX.
 # 
 #   Returns: Cint
-function gsl_odeiv2_driver_set_hmax(hmax::Real)
+function odeiv2_driver_set_hmax(hmax::Real)
     d = convert(Ptr{gsl_odeiv2_driver}, Array(gsl_odeiv2_driver, 1))
-    gsl_errno = ccall( (:gsl_odeiv2_driver_set_hmax, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_driver_set_hmax, :libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, Cdouble), d, hmax )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(d)[1]
 end
-@vectorize_1arg Number gsl_odeiv2_driver_set_hmax
+@vectorize_1arg Number odeiv2_driver_set_hmax
 
 
 # The function sets a maximum for allowed number of steps nmax for driver d.
 # Default value of 0 sets no limit for steps.
 # 
 #   Returns: Cint
-function gsl_odeiv2_driver_set_nmax(nmax::Integer)
+function odeiv2_driver_set_nmax(nmax::Integer)
     d = convert(Ptr{gsl_odeiv2_driver}, Array(gsl_odeiv2_driver, 1))
-    gsl_errno = ccall( (:gsl_odeiv2_driver_set_nmax, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_driver_set_nmax, :libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, Culong), d, nmax )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(d)[1]
 end
-@vectorize_1arg Number gsl_odeiv2_driver_set_nmax
+@vectorize_1arg Number odeiv2_driver_set_nmax
 
 
 # This function evolves the driver system d from t to t1. Initially vector y
@@ -130,15 +129,15 @@ end
 # before calling this function again.
 # 
 #   Returns: Cint
-function gsl_odeiv2_driver_apply(t1::Real, y::Real)
+function odeiv2_driver_apply(t1::Real, y::Real)
     d = convert(Ptr{gsl_odeiv2_driver}, Array(gsl_odeiv2_driver, 1))
     t = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_odeiv2_driver_apply, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_driver_apply, :libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, Ptr{Cdouble}, Cdouble, Cdouble), d, t, t1, y )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(d)[1] ,unsafe_ref(t)[1]
 end
-@vectorize_2arg Number gsl_odeiv2_driver_apply
+@vectorize_2arg Number odeiv2_driver_apply
 
 
 # This function evolves the driver system d from t with n steps of size h. If
@@ -147,27 +146,27 @@ end
 # values from last successful step.
 # 
 #   Returns: Cint
-function gsl_odeiv2_driver_apply_fixed_step(h::Real, n::Integer, y::Real)
+function odeiv2_driver_apply_fixed_step(h::Real, n::Integer, y::Real)
     d = convert(Ptr{gsl_odeiv2_driver}, Array(gsl_odeiv2_driver, 1))
     t = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_odeiv2_driver_apply_fixed_step, :libgsl),
-        Cint, (Ptr{gsl_odeiv2_driver}, Ptr{Cdouble}, Cdouble, Culong, Cdouble),
-        d, t, h, n, y )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_odeiv2_driver_apply_fixed_step, :libgsl), Cint,
+        (Ptr{gsl_odeiv2_driver}, Ptr{Cdouble}, Cdouble, Culong, Cdouble), d, t,
+        h, n, y )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(d)[1] ,unsafe_ref(t)[1]
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_odeiv2_driver_apply_fixed_step
+#@vectorize_3arg Number odeiv2_driver_apply_fixed_step
 
 
 # This function resets the evolution and stepper objects.
 # 
 #   Returns: Cint
-function gsl_odeiv2_driver_reset()
+function odeiv2_driver_reset()
     d = convert(Ptr{gsl_odeiv2_driver}, Array(gsl_odeiv2_driver, 1))
-    gsl_errno = ccall( (:gsl_odeiv2_driver_reset, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_driver_reset, :libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, ), d )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(d)[1]
 end
 
@@ -176,8 +175,8 @@ end
 # control objects.
 # 
 #   Returns: Cint
-function gsl_odeiv2_driver_free(d::Ptr{gsl_odeiv2_driver})
-    gsl_errno = ccall( (:gsl_odeiv2_driver_free, :libgsl), Cint,
+function odeiv2_driver_free(d::Ptr{gsl_odeiv2_driver})
+    errno = ccall( (:gsl_odeiv2_driver_free, :libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, ), d )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end

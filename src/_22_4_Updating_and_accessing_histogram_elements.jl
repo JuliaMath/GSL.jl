@@ -4,9 +4,9 @@
 ##################################################
 # 22.4 Updating and accessing histogram elements #
 ##################################################
-export gsl_histogram_increment, gsl_histogram_accumulate, gsl_histogram_get,
-       gsl_histogram_get_range, gsl_histogram_max, gsl_histogram_min,
-       gsl_histogram_bins, gsl_histogram_reset
+export histogram_increment, histogram_accumulate, histogram_get,
+       histogram_get_range, histogram_max, histogram_min, histogram_bins,
+       histogram_reset
 
 
 # This function updates the histogram h by adding one (1.0) to the bin whose
@@ -20,14 +20,14 @@ export gsl_histogram_increment, gsl_histogram_accumulate, gsl_histogram_get,
 # larger dataset, ignoring the values outside the range of interest.
 # 
 #   Returns: Cint
-function gsl_histogram_increment(x::Real)
+function histogram_increment(x::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    gsl_errno = ccall( (:gsl_histogram_increment, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_increment, :libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble), h, x )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(h)[1]
 end
-@vectorize_1arg Number gsl_histogram_increment
+@vectorize_1arg Number histogram_increment
 
 
 # This function is similar to gsl_histogram_increment but increases the value
@@ -35,14 +35,14 @@ end
 # weight.
 # 
 #   Returns: Cint
-function gsl_histogram_accumulate(x::Real, weight::Real)
+function histogram_accumulate(x::Real, weight::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    gsl_errno = ccall( (:gsl_histogram_accumulate, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_accumulate, :libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble, Cdouble), h, x, weight )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(h)[1]
 end
-@vectorize_2arg Number gsl_histogram_accumulate
+@vectorize_2arg Number histogram_accumulate
 
 
 # This function returns the contents of the i-th bin of the histogram h.  If i
@@ -50,7 +50,7 @@ end
 # handler is called with an error code of GSL_EDOM and the function returns 0.
 # 
 #   Returns: Cdouble
-function gsl_histogram_get(h::Ptr{gsl_histogram}, i::Integer)
+function histogram_get(h::Ptr{gsl_histogram}, i::Integer)
     ccall( (:gsl_histogram_get, :libgsl), Cdouble, (Ptr{gsl_histogram},
         Csize_t), h, i )
 end
@@ -67,13 +67,13 @@ end
 # code of GSL_EDOM.
 # 
 #   Returns: Cint
-function gsl_histogram_get_range(h::Ptr{gsl_histogram}, i::Integer)
+function histogram_get_range(h::Ptr{gsl_histogram}, i::Integer)
     lower = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     upper = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_histogram_get_range, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_get_range, :libgsl), Cint,
         (Ptr{gsl_histogram}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, i, lower,
         upper )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(lower)[1] ,unsafe_ref(upper)[1]
 end
 
@@ -83,7 +83,7 @@ end
 # these values without accessing the gsl_histogram struct directly.
 # 
 #   Returns: Cdouble
-function gsl_histogram_max(h::Ptr{gsl_histogram})
+function histogram_max(h::Ptr{gsl_histogram})
     ccall( (:gsl_histogram_max, :libgsl), Cdouble, (Ptr{gsl_histogram}, ),
         h )
 end
@@ -94,7 +94,7 @@ end
 # these values without accessing the gsl_histogram struct directly.
 # 
 #   Returns: Cdouble
-function gsl_histogram_min(h::Ptr{gsl_histogram})
+function histogram_min(h::Ptr{gsl_histogram})
     ccall( (:gsl_histogram_min, :libgsl), Cdouble, (Ptr{gsl_histogram}, ),
         h )
 end
@@ -105,7 +105,7 @@ end
 # these values without accessing the gsl_histogram struct directly.
 # 
 #   Returns: Csize_t
-function gsl_histogram_bins(h::Ptr{gsl_histogram})
+function histogram_bins(h::Ptr{gsl_histogram})
     ccall( (:gsl_histogram_bins, :libgsl), Csize_t, (Ptr{gsl_histogram}, ),
         h )
 end
@@ -114,7 +114,7 @@ end
 # This function resets all the bins in the histogram h to zero.
 # 
 #   Returns: Void
-function gsl_histogram_reset()
+function histogram_reset()
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
     ccall( (:gsl_histogram_reset, :libgsl), Void, (Ptr{gsl_histogram}, ), h
         )

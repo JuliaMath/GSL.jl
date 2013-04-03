@@ -4,12 +4,10 @@
 ###################################
 # 26.3 Adaptive Step-size Control #
 ###################################
-export gsl_odeiv2_control_standard_new, gsl_odeiv2_control_y_new,
-       gsl_odeiv2_control_yp_new, gsl_odeiv2_control_scaled_new,
-       gsl_odeiv2_control_alloc, gsl_odeiv2_control_init,
-       gsl_odeiv2_control_free, gsl_odeiv2_control_hadjust,
-       gsl_odeiv2_control_name, gsl_odeiv2_control_errlevel,
-       gsl_odeiv2_control_set_driver
+export odeiv2_control_standard_new, odeiv2_control_y_new,
+       odeiv2_control_yp_new, odeiv2_control_scaled_new, odeiv2_control_alloc,
+       odeiv2_control_init, odeiv2_control_free, odeiv2_control_hadjust,
+       odeiv2_control_name, odeiv2_control_errlevel, odeiv2_control_set_driver
 
 
 
@@ -42,13 +40,13 @@ export gsl_odeiv2_control_standard_new, gsl_odeiv2_control_y_new,
 # limited to the range 1/5 to 5.
 # 
 #   Returns: Ptr{gsl_odeiv2_control}
-function gsl_odeiv2_control_standard_new(eps_abs::Real, eps_rel::Real, a_y::Real, a_dydt::Real)
+function odeiv2_control_standard_new(eps_abs::Real, eps_rel::Real, a_y::Real, a_dydt::Real)
     ccall( (:gsl_odeiv2_control_standard_new, :libgsl),
         Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble, Cdouble, Cdouble), eps_abs,
         eps_rel, a_y, a_dydt )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_4arg Number gsl_odeiv2_control_standard_new
+#@vectorize_4arg Number odeiv2_control_standard_new
 
 
 # This function creates a new control object which will keep the local error on
@@ -57,11 +55,11 @@ end
 # control object with a_y=1 and a_dydt=0.
 # 
 #   Returns: Ptr{gsl_odeiv2_control}
-function gsl_odeiv2_control_y_new(eps_abs::Real, eps_rel::Real)
+function odeiv2_control_y_new(eps_abs::Real, eps_rel::Real)
     ccall( (:gsl_odeiv2_control_y_new, :libgsl), Ptr{gsl_odeiv2_control},
         (Cdouble, Cdouble), eps_abs, eps_rel )
 end
-@vectorize_2arg Number gsl_odeiv2_control_y_new
+@vectorize_2arg Number odeiv2_control_y_new
 
 
 # This function creates a new control object which will keep the local error on
@@ -70,11 +68,11 @@ end
 # to the standard control object with a_y=0 and a_dydt=1.
 # 
 #   Returns: Ptr{gsl_odeiv2_control}
-function gsl_odeiv2_control_yp_new(eps_abs::Real, eps_rel::Real)
+function odeiv2_control_yp_new(eps_abs::Real, eps_rel::Real)
     ccall( (:gsl_odeiv2_control_yp_new, :libgsl), Ptr{gsl_odeiv2_control},
         (Cdouble, Cdouble), eps_abs, eps_rel )
 end
-@vectorize_2arg Number gsl_odeiv2_control_yp_new
+@vectorize_2arg Number odeiv2_control_yp_new
 
 
 # This function creates a new control object which uses the same algorithm as
@@ -85,13 +83,13 @@ end
 # scale_abs.  The same error control heuristic is used by the Matlab ode suite.
 # 
 #   Returns: Ptr{gsl_odeiv2_control}
-function gsl_odeiv2_control_scaled_new(eps_abs::Real, eps_rel::Real, a_y::Real, a_dydt::Real, scale_abs::Real)
+function odeiv2_control_scaled_new(eps_abs::Real, eps_rel::Real, a_y::Real, a_dydt::Real, scale_abs::Real)
     ccall( (:gsl_odeiv2_control_scaled_new, :libgsl),
         Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble, Cdouble, Cdouble, Cdouble),
         eps_abs, eps_rel, a_y, a_dydt, scale_abs )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_5arg Number gsl_odeiv2_control_scaled_new
+#@vectorize_5arg Number odeiv2_control_scaled_new
 
 
 # This function returns a pointer to a newly allocated instance of a control
@@ -100,7 +98,7 @@ end
 # described above should be sufficient.
 # 
 #   Returns: Ptr{gsl_odeiv2_control}
-function gsl_odeiv2_control_alloc(T::Ptr{gsl_odeiv2_control_type})
+function odeiv2_control_alloc(T::Ptr{gsl_odeiv2_control_type})
     ccall( (:gsl_odeiv2_control_alloc, :libgsl), Ptr{gsl_odeiv2_control},
         (Ptr{gsl_odeiv2_control_type}, ), T )
 end
@@ -111,18 +109,18 @@ end
 # a_dydt (scaling factor for derivatives).
 # 
 #   Returns: Cint
-function gsl_odeiv2_control_init(c::Ptr{gsl_odeiv2_control}, eps_abs::Real, eps_rel::Real, a_y::Real, a_dydt::Real)
-    gsl_errno = ccall( (:gsl_odeiv2_control_init, :libgsl), Cint,
+function odeiv2_control_init(c::Ptr{gsl_odeiv2_control}, eps_abs::Real, eps_rel::Real, a_y::Real, a_dydt::Real)
+    errno = ccall( (:gsl_odeiv2_control_init, :libgsl), Cint,
         (Ptr{gsl_odeiv2_control}, Cdouble, Cdouble, Cdouble, Cdouble), c,
         eps_abs, eps_rel, a_y, a_dydt )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
 # This function frees all the memory associated with the control function c.
 # 
 #   Returns: Void
-function gsl_odeiv2_control_free(c::Ptr{gsl_odeiv2_control})
+function odeiv2_control_free(c::Ptr{gsl_odeiv2_control})
     ccall( (:gsl_odeiv2_control_free, :libgsl), Void,
         (Ptr{gsl_odeiv2_control}, ), c )
 end
@@ -139,15 +137,15 @@ end
 # accuracy requirements for the current point.
 # 
 #   Returns: Cint
-function gsl_odeiv2_control_hadjust(y::Real)
+function odeiv2_control_hadjust(y::Real)
     c = convert(Ptr{gsl_odeiv2_control}, Array(gsl_odeiv2_control, 1))
     s = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
-    gsl_errno = ccall( (:gsl_odeiv2_control_hadjust, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_control_hadjust, :libgsl), Cint,
         (Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_step}, Cdouble), c, s, y )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(c)[1] ,unsafe_ref(s)[1]
 end
-@vectorize_1arg Number gsl_odeiv2_control_hadjust
+@vectorize_1arg Number odeiv2_control_hadjust
 
 
 # This function returns a pointer to the name of the control function.  For
@@ -156,7 +154,7 @@ end
 # 'standard'
 # 
 #   Returns: Ptr{Cchar}
-function gsl_odeiv2_control_name(c::Ptr{gsl_odeiv2_control})
+function odeiv2_control_name(c::Ptr{gsl_odeiv2_control})
     output_string = ccall( (:gsl_odeiv2_control_name, :libgsl), Ptr{Cchar},
         (Ptr{gsl_odeiv2_control}, ), c )
     bytestring(convert(Ptr{Uint8}, output_string))
@@ -168,26 +166,26 @@ end
 # component, and the current step size h.
 # 
 #   Returns: Cint
-function gsl_odeiv2_control_errlevel(y::Real, dydt::Real, h::Real, ind::Integer)
+function odeiv2_control_errlevel(y::Real, dydt::Real, h::Real, ind::Integer)
     c = convert(Ptr{gsl_odeiv2_control}, Array(gsl_odeiv2_control, 1))
     errlev = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_odeiv2_control_errlevel, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_control_errlevel, :libgsl), Cint,
         (Ptr{gsl_odeiv2_control}, Cdouble, Cdouble, Cdouble, Csize_t,
         Ptr{Cdouble}), c, y, dydt, h, ind, errlev )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(c)[1] ,unsafe_ref(errlev)[1]
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_4arg Number gsl_odeiv2_control_errlevel
+#@vectorize_4arg Number odeiv2_control_errlevel
 
 
 # This function sets a pointer of the driver object d for control object c.
 # 
 #   Returns: Cint
-function gsl_odeiv2_control_set_driver(d::Ptr{gsl_odeiv2_driver})
+function odeiv2_control_set_driver(d::Ptr{gsl_odeiv2_driver})
     c = convert(Ptr{gsl_odeiv2_control}, Array(gsl_odeiv2_control, 1))
-    gsl_errno = ccall( (:gsl_odeiv2_control_set_driver, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_control_set_driver, :libgsl), Cint,
         (Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_driver}), c, d )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(c)[1]
 end

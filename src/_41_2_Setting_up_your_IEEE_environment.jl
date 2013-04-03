@@ -4,7 +4,7 @@
 #########################################
 # 41.2 Setting up your IEEE environment #
 #########################################
-export gsl_ieee_env_setup
+export ieee_env_setup
 
 
 
@@ -54,6 +54,6 @@ export gsl_ieee_env_setup
 # effect in this case.
 # 
 #   Returns: Void
-function gsl_ieee_env_setup()
+function ieee_env_setup()
     ccall( (:gsl_ieee_env_setup, :libgsl), Void, () )
 end

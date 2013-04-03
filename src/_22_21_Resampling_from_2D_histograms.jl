@@ -4,9 +4,8 @@
 #######################################
 # 22.21 Resampling from 2D histograms #
 #######################################
-export gsl_histogram2d_pdf, gsl_histogram2d_pdf_alloc,
-       gsl_histogram2d_pdf_init, gsl_histogram2d_pdf_free,
-       gsl_histogram2d_pdf_sample
+export gsl_histogram2d_pdf, histogram2d_pdf_alloc, histogram2d_pdf_init,
+       histogram2d_pdf_free, histogram2d_pdf_sample
 
 
 
@@ -27,11 +26,11 @@ end
 # GSL_ENOMEM.
 # 
 #   Returns: Ptr{gsl_histogram2d_pdf}
-function gsl_histogram2d_pdf_alloc(nx::Integer, ny::Integer)
+function histogram2d_pdf_alloc(nx::Integer, ny::Integer)
     ccall( (:gsl_histogram2d_pdf_alloc, :libgsl), Ptr{gsl_histogram2d_pdf},
         (Csize_t, Csize_t), nx, ny )
 end
-@vectorize_2arg Number gsl_histogram2d_pdf_alloc
+@vectorize_2arg Number histogram2d_pdf_alloc
 
 
 # This function initializes the two-dimensional probability distribution
@@ -40,10 +39,10 @@ end
 # probability distribution cannot contain negative values.
 # 
 #   Returns: Cint
-function gsl_histogram2d_pdf_init(p::Ptr{gsl_histogram2d_pdf}, h::Ptr{gsl_histogram2d})
-    gsl_errno = ccall( (:gsl_histogram2d_pdf_init, :libgsl), Cint,
+function histogram2d_pdf_init(p::Ptr{gsl_histogram2d_pdf}, h::Ptr{gsl_histogram2d})
+    errno = ccall( (:gsl_histogram2d_pdf_init, :libgsl), Cint,
         (Ptr{gsl_histogram2d_pdf}, Ptr{gsl_histogram2d}), p, h )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -51,7 +50,7 @@ end
 # and all of the memory associated with it.
 # 
 #   Returns: Void
-function gsl_histogram2d_pdf_free(p::Ptr{gsl_histogram2d_pdf})
+function histogram2d_pdf_free(p::Ptr{gsl_histogram2d_pdf})
     ccall( (:gsl_histogram2d_pdf_free, :libgsl), Void,
         (Ptr{gsl_histogram2d_pdf}, ), p )
 end
@@ -62,12 +61,12 @@ end
 # distribution p.
 # 
 #   Returns: Cint
-function gsl_histogram2d_pdf_sample(p::Ptr{gsl_histogram2d_pdf}, r1::Real, r2::Real)
+function histogram2d_pdf_sample(p::Ptr{gsl_histogram2d_pdf}, r1::Real, r2::Real)
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_histogram2d_pdf_sample, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram2d_pdf_sample, :libgsl), Cint,
         (Ptr{gsl_histogram2d_pdf}, Cdouble, Cdouble, Ptr{Cdouble},
         Ptr{Cdouble}), p, r1, r2, x, y )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end

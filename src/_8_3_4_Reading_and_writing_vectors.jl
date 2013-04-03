@@ -4,8 +4,7 @@
 #####################################
 # 8.3.4 Reading and writing vectors #
 #####################################
-export gsl_vector_fwrite, gsl_vector_fread, gsl_vector_fprintf,
-       gsl_vector_fscanf
+export vector_fwrite, vector_fread, vector_fprintf, vector_fscanf
 
 
 # This function writes the elements of the vector v to the stream stream in
@@ -14,10 +13,10 @@ export gsl_vector_fwrite, gsl_vector_fread, gsl_vector_fprintf,
 # binary format it may not be portable between different architectures.
 # 
 #   Returns: Cint
-function gsl_vector_fwrite(stream::Ptr{Void}, v::Ptr{gsl_vector})
-    gsl_errno = ccall( (:gsl_vector_fwrite, :libgsl), Cint, (Ptr{Void},
+function vector_fwrite(stream::Ptr{Void}, v::Ptr{gsl_vector})
+    errno = ccall( (:gsl_vector_fwrite, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_vector}), stream, v )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -29,11 +28,11 @@ end
 # format on the same architecture.
 # 
 #   Returns: Cint
-function gsl_vector_fread(stream::Ptr{Void})
+function vector_fread(stream::Ptr{Void})
     v = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_vector_fread, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_vector_fread, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_vector}), stream, v )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(v)[1]
 end
 
@@ -45,11 +44,11 @@ end
 # file.
 # 
 #   Returns: Cint
-function gsl_vector_fprintf(stream::Ptr{Void}, v::Ptr{gsl_vector})
+function vector_fprintf(stream::Ptr{Void}, v::Ptr{gsl_vector})
     format = convert(Ptr{Cchar}, Array(Cchar, 1))
-    gsl_errno = ccall( (:gsl_vector_fprintf, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_vector_fprintf, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_vector}, Ptr{Cchar}), stream, v, format )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(format)[1]
 end
 
@@ -61,10 +60,10 @@ end
 # file.
 # 
 #   Returns: Cint
-function gsl_vector_fscanf(stream::Ptr{Void})
+function vector_fscanf(stream::Ptr{Void})
     v = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_vector_fscanf, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_vector_fscanf, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_vector}), stream, v )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(v)[1]
 end

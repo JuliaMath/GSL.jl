@@ -4,8 +4,7 @@
 ####################################
 # 20.35 The Geometric Distribution #
 ####################################
-export gsl_ran_geometric, gsl_ran_geometric_pdf, gsl_cdf_geometric_P,
-       gsl_cdf_geometric_Q
+export ran_geometric, ran_geometric_pdf, cdf_geometric_P, cdf_geometric_Q
 
 
 
@@ -18,7 +17,7 @@ export gsl_ran_geometric, gsl_ran_geometric_pdf, gsl_cdf_geometric_P,
 # replaced by k.
 # 
 #   Returns: Cuint
-function gsl_ran_geometric(r::Ptr{gsl_rng}, p::Real)
+function ran_geometric(r::Ptr{gsl_rng}, p::Real)
     ccall( (:gsl_ran_geometric, :libgsl), Cuint, (Ptr{gsl_rng}, Cdouble),
         r, p )
 end
@@ -28,30 +27,30 @@ end
 # distribution with probability parameter p, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_geometric_pdf(k::Integer, p::Real)
+function ran_geometric_pdf(k::Integer, p::Real)
     ccall( (:gsl_ran_geometric_pdf, :libgsl), Cdouble, (Cuint, Cdouble), k,
         p )
 end
-@vectorize_2arg Number gsl_ran_geometric_pdf
+@vectorize_2arg Number ran_geometric_pdf
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
 # the geometric distribution with parameter p.
 # 
 #   Returns: Cdouble
-function gsl_cdf_geometric_P(k::Integer, p::Real)
+function cdf_geometric_P(k::Integer, p::Real)
     ccall( (:gsl_cdf_geometric_P, :libgsl), Cdouble, (Cuint, Cdouble), k, p
         )
 end
-@vectorize_2arg Number gsl_cdf_geometric_P
+@vectorize_2arg Number cdf_geometric_P
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
 # the geometric distribution with parameter p.
 # 
 #   Returns: Cdouble
-function gsl_cdf_geometric_Q(k::Integer, p::Real)
+function cdf_geometric_Q(k::Integer, p::Real)
     ccall( (:gsl_cdf_geometric_Q, :libgsl), Cdouble, (Cuint, Cdouble), k, p
         )
 end
-@vectorize_2arg Number gsl_cdf_geometric_Q
+@vectorize_2arg Number cdf_geometric_Q

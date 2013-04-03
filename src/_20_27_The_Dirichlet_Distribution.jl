@@ -4,7 +4,7 @@
 ####################################
 # 20.27 The Dirichlet Distribution #
 ####################################
-export gsl_ran_dirichlet, gsl_ran_dirichlet_pdf, gsl_ran_dirichlet_lnpdf
+export ran_dirichlet, ran_dirichlet_pdf, ran_dirichlet_lnpdf
 
 
 
@@ -23,7 +23,7 @@ export gsl_ran_dirichlet, gsl_ran_dirichlet_pdf, gsl_ran_dirichlet_lnpdf
 # Kelton, Simulation Modeling and Analysis (1991).
 # 
 #   Returns: Void
-function gsl_ran_dirichlet(r::Ptr{gsl_rng}, K::Integer, alpha::Real)
+function ran_dirichlet(r::Ptr{gsl_rng}, K::Integer, alpha::Real)
     ccall( (:gsl_ran_dirichlet, :libgsl), Void, (Ptr{gsl_rng}, Csize_t,
         Cdouble), r, K, alpha )
 end
@@ -34,19 +34,19 @@ end
 # formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_dirichlet_pdf(K::Integer, alpha::Real)
+function ran_dirichlet_pdf(K::Integer, alpha::Real)
     ccall( (:gsl_ran_dirichlet_pdf, :libgsl), Cdouble, (Csize_t, Cdouble),
         K, alpha )
 end
-@vectorize_2arg Number gsl_ran_dirichlet_pdf
+@vectorize_2arg Number ran_dirichlet_pdf
 
 
 # This function computes the logarithm of the probability density  p(\theta_1,
 # ... , \theta_K) for a Dirichlet distribution with parameters alpha[K].
 # 
 #   Returns: Cdouble
-function gsl_ran_dirichlet_lnpdf(K::Integer, alpha::Real)
+function ran_dirichlet_lnpdf(K::Integer, alpha::Real)
     ccall( (:gsl_ran_dirichlet_lnpdf, :libgsl), Cdouble, (Csize_t,
         Cdouble), K, alpha )
 end
-@vectorize_2arg Number gsl_ran_dirichlet_lnpdf
+@vectorize_2arg Number ran_dirichlet_lnpdf

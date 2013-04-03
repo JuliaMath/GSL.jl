@@ -4,7 +4,7 @@
 ################################################
 # 18.4 Sampling from a random number generator #
 ################################################
-export gsl_rng_get, gsl_rng_uniform, gsl_rng_uniform_pos, gsl_rng_uniform_int
+export rng_get, rng_uniform, rng_uniform_pos, rng_uniform_int
 
 
 # This function returns a random integer from the generator r.  The minimum and
@@ -13,7 +13,7 @@ export gsl_rng_get, gsl_rng_uniform, gsl_rng_uniform_pos, gsl_rng_uniform_int
 # the auxiliary functions gsl_rng_max (r) and gsl_rng_min (r).
 # 
 #   Returns: Culong
-function gsl_rng_get(r::Ptr{gsl_rng})
+function rng_get(r::Ptr{gsl_rng})
     ccall( (:gsl_rng_get, :libgsl), Culong, (Ptr{gsl_rng}, ), r )
 end
 
@@ -27,7 +27,7 @@ end
 # represented in a single unsigned long int).
 # 
 #   Returns: Cdouble
-function gsl_rng_uniform(r::Ptr{gsl_rng})
+function rng_uniform(r::Ptr{gsl_rng})
     ccall( (:gsl_rng_uniform, :libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
 end
 
@@ -39,7 +39,7 @@ end
 # function if you need to avoid a singularity at 0.0.
 # 
 #   Returns: Cdouble
-function gsl_rng_uniform_pos(r::Ptr{gsl_rng})
+function rng_uniform_pos(r::Ptr{gsl_rng})
     ccall( (:gsl_rng_uniform_pos, :libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
 end
 
@@ -61,7 +61,7 @@ end
 # described in the next section.
 # 
 #   Returns: Culong
-function gsl_rng_uniform_int(r::Ptr{gsl_rng}, n::Integer)
+function rng_uniform_int(r::Ptr{gsl_rng}, n::Integer)
     ccall( (:gsl_rng_uniform_int, :libgsl), Culong, (Ptr{gsl_rng}, Culong),
         r, n )
 end

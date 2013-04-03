@@ -4,10 +4,9 @@
 ###############################################
 # 5.6 Inverse Complex Trigonometric Functions #
 ###############################################
-export gsl_complex_arcsin, gsl_complex_arcsin_real, gsl_complex_arccos,
-       gsl_complex_arccos_real, gsl_complex_arctan, gsl_complex_arcsec,
-       gsl_complex_arcsec_real, gsl_complex_arccsc, gsl_complex_arccsc_real,
-       gsl_complex_arccot
+export complex_arcsin, complex_arcsin_real, complex_arccos,
+       complex_arccos_real, complex_arctan, complex_arcsec,
+       complex_arcsec_real, complex_arccsc, complex_arccsc_real, complex_arccot
 
 
 # This function returns the complex arcsine of the complex number z,
@@ -15,7 +14,7 @@ export gsl_complex_arcsin, gsl_complex_arcsin_real, gsl_complex_arccos,
 # than 1.
 # 
 #   Returns: gsl_complex
-function gsl_complex_arcsin(z::gsl_complex)
+function complex_arcsin(z::gsl_complex)
     ccall( (:gsl_complex_arcsin, :libgsl), gsl_complex, (gsl_complex, ), z
         )
 end
@@ -28,11 +27,11 @@ end
 # \pi/2 and a negative imaginary part.
 # 
 #   Returns: gsl_complex
-function gsl_complex_arcsin_real(z::Real)
+function complex_arcsin_real(z::Real)
     ccall( (:gsl_complex_arcsin_real, :libgsl), gsl_complex, (Cdouble, ), z
         )
 end
-@vectorize_1arg Number gsl_complex_arcsin_real
+@vectorize_1arg Number complex_arcsin_real
 
 
 # This function returns the complex arccosine of the complex number z,
@@ -40,7 +39,7 @@ end
 # than 1.
 # 
 #   Returns: gsl_complex
-function gsl_complex_arccos(z::gsl_complex)
+function complex_arccos(z::gsl_complex)
     ccall( (:gsl_complex_arccos, :libgsl), gsl_complex, (gsl_complex, ), z
         )
 end
@@ -53,18 +52,18 @@ end
 # positive.
 # 
 #   Returns: gsl_complex
-function gsl_complex_arccos_real(z::Real)
+function complex_arccos_real(z::Real)
     ccall( (:gsl_complex_arccos_real, :libgsl), gsl_complex, (Cdouble, ), z
         )
 end
-@vectorize_1arg Number gsl_complex_arccos_real
+@vectorize_1arg Number complex_arccos_real
 
 
 # This function returns the complex arctangent of the complex number z,
 # \arctan(z). The branch cuts are on the imaginary axis, below -i and above i.
 # 
 #   Returns: gsl_complex
-function gsl_complex_arctan(z::gsl_complex)
+function complex_arctan(z::gsl_complex)
     ccall( (:gsl_complex_arctan, :libgsl), gsl_complex, (gsl_complex, ), z
         )
 end
@@ -74,7 +73,7 @@ end
 # \arcsec(z) = \arccos(1/z).
 # 
 #   Returns: gsl_complex
-function gsl_complex_arcsec(z::gsl_complex)
+function complex_arcsec(z::gsl_complex)
     ccall( (:gsl_complex_arcsec, :libgsl), gsl_complex, (gsl_complex, ), z
         )
 end
@@ -84,18 +83,18 @@ end
 # = \arccos(1/z).
 # 
 #   Returns: gsl_complex
-function gsl_complex_arcsec_real(z::Real)
+function complex_arcsec_real(z::Real)
     ccall( (:gsl_complex_arcsec_real, :libgsl), gsl_complex, (Cdouble, ), z
         )
 end
-@vectorize_1arg Number gsl_complex_arcsec_real
+@vectorize_1arg Number complex_arcsec_real
 
 
 # This function returns the complex arccosecant of the complex number z,
 # \arccsc(z) = \arcsin(1/z).
 # 
 #   Returns: gsl_complex
-function gsl_complex_arccsc(z::gsl_complex)
+function complex_arccsc(z::gsl_complex)
     ccall( (:gsl_complex_arccsc, :libgsl), gsl_complex, (gsl_complex, ), z
         )
 end
@@ -105,18 +104,18 @@ end
 # \arccsc(z) = \arcsin(1/z).
 # 
 #   Returns: gsl_complex
-function gsl_complex_arccsc_real(z::Real)
+function complex_arccsc_real(z::Real)
     ccall( (:gsl_complex_arccsc_real, :libgsl), gsl_complex, (Cdouble, ), z
         )
 end
-@vectorize_1arg Number gsl_complex_arccsc_real
+@vectorize_1arg Number complex_arccsc_real
 
 
 # This function returns the complex arccotangent of the complex number z,
 # \arccot(z) = \arctan(1/z).
 # 
 #   Returns: gsl_complex
-function gsl_complex_arccot(z::gsl_complex)
+function complex_arccot(z::gsl_complex)
     ccall( (:gsl_complex_arccot, :libgsl), gsl_complex, (gsl_complex, ), z
         )
 end

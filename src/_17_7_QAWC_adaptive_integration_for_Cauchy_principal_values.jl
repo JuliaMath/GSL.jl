@@ -4,7 +4,7 @@
 ##############################################################
 # 17.7 QAWC adaptive integration for Cauchy principal values #
 ##############################################################
-export gsl_integration_qawc
+export integration_qawc
 
 
 
@@ -19,17 +19,17 @@ export gsl_integration_qawc
 # Gauss-Kronrod integration rule.
 # 
 #   Returns: Cint
-function gsl_integration_qawc(a::Real, b::Real, c::Real, epsabs::Real, epsrel::Real, limit::Integer)
+function integration_qawc(a::Real, b::Real, c::Real, epsabs::Real, epsrel::Real, limit::Integer)
     f = convert(Ptr{gsl_function}, Array(gsl_function, 1))
     workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_integration_qawc, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_qawc, :libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Cdouble,
         Csize_t, Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}),
         f, a, b, c, epsabs, epsrel, limit, workspace, result, abserr )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(f)[1] ,unsafe_ref(workspace)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_6arg Number gsl_integration_qawc
+#@vectorize_6arg Number integration_qawc

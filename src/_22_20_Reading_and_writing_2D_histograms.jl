@@ -4,8 +4,8 @@
 ###########################################
 # 22.20 Reading and writing 2D histograms #
 ###########################################
-export gsl_histogram2d_fwrite, gsl_histogram2d_fread, gsl_histogram2d_fprintf,
-       gsl_histogram2d_fscanf
+export histogram2d_fwrite, histogram2d_fread, histogram2d_fprintf,
+       histogram2d_fscanf
 
 
 # This function writes the ranges and bins of the histogram h to the stream
@@ -14,10 +14,10 @@ export gsl_histogram2d_fwrite, gsl_histogram2d_fread, gsl_histogram2d_fprintf,
 # native binary format it may not be portable between different architectures.
 # 
 #   Returns: Cint
-function gsl_histogram2d_fwrite(stream::Ptr{Void}, h::Ptr{gsl_histogram2d})
-    gsl_errno = ccall( (:gsl_histogram2d_fwrite, :libgsl), Cint,
-        (Ptr{Void}, Ptr{gsl_histogram2d}), stream, h )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function histogram2d_fwrite(stream::Ptr{Void}, h::Ptr{gsl_histogram2d})
+    errno = ccall( (:gsl_histogram2d_fwrite, :libgsl), Cint, (Ptr{Void},
+        Ptr{gsl_histogram2d}), stream, h )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -29,11 +29,11 @@ end
 # the native binary format on the same architecture.
 # 
 #   Returns: Cint
-function gsl_histogram2d_fread(stream::Ptr{Void})
+function histogram2d_fread(stream::Ptr{Void})
     h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
-    gsl_errno = ccall( (:gsl_histogram2d_fread, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_histogram2d_fread, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_histogram2d}), stream, h )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(h)[1]
 end
 
@@ -61,13 +61,13 @@ end
 # histogram to be manipulated with line-oriented tools.
 # 
 #   Returns: Cint
-function gsl_histogram2d_fprintf(stream::Ptr{Void}, h::Ptr{gsl_histogram2d})
+function histogram2d_fprintf(stream::Ptr{Void}, h::Ptr{gsl_histogram2d})
     range_format = convert(Ptr{Cchar}, Array(Cchar, 1))
     bin_format = convert(Ptr{Cchar}, Array(Cchar, 1))
-    gsl_errno = ccall( (:gsl_histogram2d_fprintf, :libgsl), Cint,
-        (Ptr{Void}, Ptr{gsl_histogram2d}, Ptr{Cchar}, Ptr{Cchar}), stream, h,
-        range_format, bin_format )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_histogram2d_fprintf, :libgsl), Cint, (Ptr{Void},
+        Ptr{gsl_histogram2d}, Ptr{Cchar}, Ptr{Cchar}), stream, h, range_format,
+        bin_format )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(range_format)[1] ,unsafe_ref(bin_format)[1]
 end
 
@@ -80,10 +80,10 @@ end
 # was a problem reading from the file.
 # 
 #   Returns: Cint
-function gsl_histogram2d_fscanf(stream::Ptr{Void})
+function histogram2d_fscanf(stream::Ptr{Void})
     h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
-    gsl_errno = ccall( (:gsl_histogram2d_fscanf, :libgsl), Cint,
-        (Ptr{Void}, Ptr{gsl_histogram2d}), stream, h )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_histogram2d_fscanf, :libgsl), Cint, (Ptr{Void},
+        Ptr{gsl_histogram2d}), stream, h )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(h)[1]
 end

@@ -4,7 +4,7 @@
 ###########################
 # 21.2 Absolute deviation #
 ###########################
-export gsl_stats_absdev, gsl_stats_absdev_m
+export stats_absdev, stats_absdev_m
 
 
 
@@ -20,10 +20,10 @@ export gsl_stats_absdev, gsl_stats_absdev_m
 # gsl_stats_mean.
 # 
 #   Returns: Cdouble
-function gsl_stats_absdev(data::Real)
+function stats_absdev(data::Real)
     ccall( (:gsl_stats_absdev, :libgsl), Cdouble, (Cdouble, ), data )
 end
-@vectorize_1arg Number gsl_stats_absdev
+@vectorize_1arg Number stats_absdev
 
 
 # This function computes the absolute deviation of the dataset data relative to
@@ -33,7 +33,7 @@ end
 # relative to another value (such as zero, or the median).
 # 
 #   Returns: Cdouble
-function gsl_stats_absdev_m(data::Real)
+function stats_absdev_m(data::Real)
     ccall( (:gsl_stats_absdev_m, :libgsl), Cdouble, (Cdouble, ), data )
 end
-@vectorize_1arg Number gsl_stats_absdev_m
+@vectorize_1arg Number stats_absdev_m

@@ -4,7 +4,7 @@
 #########################################################
 # 17.10 QAWF adaptive integration for Fourier integrals #
 #########################################################
-export gsl_integration_qawf
+export integration_qawf
 
 
 
@@ -43,20 +43,20 @@ export gsl_integration_qawf
 # workspace for the QAWO algorithm.
 # 
 #   Returns: Cint
-function gsl_integration_qawf(a::Real, epsabs::Real, limit::Integer)
+function integration_qawf(a::Real, epsabs::Real, limit::Integer)
     f = convert(Ptr{gsl_function}, Array(gsl_function, 1))
     workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     cycle_workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     wf = convert(Ptr{gsl_integration_qawo_table}, Array(gsl_integration_qawo_table, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_integration_qawf, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_qawf, :libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Csize_t,
         Ptr{gsl_integration_workspace}, Ptr{gsl_integration_workspace},
         Ptr{gsl_integration_qawo_table}, Ptr{Cdouble}, Ptr{Cdouble}), f, a,
         epsabs, limit, workspace, cycle_workspace, wf, result, abserr )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(f)[1] ,unsafe_ref(workspace)[1] ,unsafe_ref(cycle_workspace)[1] ,unsafe_ref(wf)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_integration_qawf
+#@vectorize_3arg Number integration_qawf

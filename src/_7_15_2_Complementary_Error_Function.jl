@@ -4,28 +4,28 @@
 #######################################
 # 7.15.2 Complementary Error Function #
 #######################################
-export gsl_sf_erfc, gsl_sf_erfc_e
+export sf_erfc, sf_erfc_e
 
 
 # These routines compute the complementary error function  erfc(x) = 1 - erf(x)
 # = (2/\sqrt(\pi)) \int_x^\infty \exp(-t^2).
 # 
 #   Returns: Cdouble
-function gsl_sf_erfc(x::Real)
+function sf_erfc(x::Real)
     ccall( (:gsl_sf_erfc, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_sf_erfc
+@vectorize_1arg Number sf_erfc
 
 
 # These routines compute the complementary error function  erfc(x) = 1 - erf(x)
 # = (2/\sqrt(\pi)) \int_x^\infty \exp(-t^2).
 # 
 #   Returns: Cint
-function gsl_sf_erfc_e(x::Real)
+function sf_erfc_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_erfc_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_erfc_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1]
 end
-@vectorize_1arg Number gsl_sf_erfc_e
+@vectorize_1arg Number sf_erfc_e

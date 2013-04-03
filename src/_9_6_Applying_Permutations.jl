@@ -4,19 +4,19 @@
 #############################
 # 9.6 Applying Permutations #
 #############################
-export gsl_permute, gsl_permute_inverse, gsl_permute_vector,
-       gsl_permute_vector_inverse, gsl_permutation_mul
+export permute, permute_inverse, permute_vector, permute_vector_inverse,
+       permutation_mul
 
 
 # This function applies the permutation p to the array data of size n with
 # stride stride.
 # 
 #   Returns: Cint
-function gsl_permute{tA<:Integer}(p::Ptr{tA}, stride::Integer, n::Integer)
+function permute{tA<:Integer}(p::Ptr{tA}, stride::Integer, n::Integer)
     data = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_permute, :libgsl), Cint, (Ptr{Csize_t},
+    errno = ccall( (:gsl_permute, :libgsl), Cint, (Ptr{Csize_t},
         Ptr{Cdouble}, Csize_t, Csize_t), p, data, stride, n )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(data)[1]
 end
 
@@ -25,11 +25,11 @@ end
 # size n with stride stride.
 # 
 #   Returns: Cint
-function gsl_permute_inverse{tA<:Integer}(p::Ptr{tA}, stride::Integer, n::Integer)
+function permute_inverse{tA<:Integer}(p::Ptr{tA}, stride::Integer, n::Integer)
     data = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_permute_inverse, :libgsl), Cint,
-        (Ptr{Csize_t}, Ptr{Cdouble}, Csize_t, Csize_t), p, data, stride, n )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_permute_inverse, :libgsl), Cint, (Ptr{Csize_t},
+        Ptr{Cdouble}, Csize_t, Csize_t), p, data, stride, n )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(data)[1]
 end
 
@@ -41,11 +41,11 @@ end
 # the same length.
 # 
 #   Returns: Cint
-function gsl_permute_vector(p::Ptr{gsl_permutation})
+function permute_vector(p::Ptr{gsl_permutation})
     v = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_permute_vector, :libgsl), Cint,
+    errno = ccall( (:gsl_permute_vector, :libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_vector}), p, v )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(v)[1]
 end
 
@@ -58,11 +58,11 @@ end
 # permutation p and the vector v must have the same length.
 # 
 #   Returns: Cint
-function gsl_permute_vector_inverse(p::Ptr{gsl_permutation})
+function permute_vector_inverse(p::Ptr{gsl_permutation})
     v = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_permute_vector_inverse, :libgsl), Cint,
+    errno = ccall( (:gsl_permute_vector_inverse, :libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_vector}), p, v )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(v)[1]
 end
 
@@ -72,11 +72,11 @@ end
 # applying pb first and then pa.
 # 
 #   Returns: Cint
-function gsl_permutation_mul(pa::Ptr{gsl_permutation}, pb::Ptr{gsl_permutation})
+function permutation_mul(pa::Ptr{gsl_permutation}, pb::Ptr{gsl_permutation})
     p = convert(Ptr{gsl_permutation}, Array(gsl_permutation, 1))
-    gsl_errno = ccall( (:gsl_permutation_mul, :libgsl), Cint,
+    errno = ccall( (:gsl_permutation_mul, :libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_permutation}, Ptr{gsl_permutation}), p,
         pa, pb )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(p)[1]
 end

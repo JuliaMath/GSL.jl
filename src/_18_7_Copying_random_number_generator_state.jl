@@ -4,7 +4,7 @@
 ##############################################
 # 18.7 Copying random number generator state #
 ##############################################
-export gsl_rng_memcpy, gsl_rng_clone
+export rng_memcpy, rng_clone
 
 
 # This function copies the random number generator src into the pre-existing
@@ -12,11 +12,11 @@ export gsl_rng_memcpy, gsl_rng_clone
 # must be of the same type.
 # 
 #   Returns: Cint
-function gsl_rng_memcpy(src::Ptr{gsl_rng})
+function rng_memcpy(src::Ptr{gsl_rng})
     dest = convert(Ptr{gsl_rng}, Array(gsl_rng, 1))
-    gsl_errno = ccall( (:gsl_rng_memcpy, :libgsl), Cint, (Ptr{gsl_rng},
+    errno = ccall( (:gsl_rng_memcpy, :libgsl), Cint, (Ptr{gsl_rng},
         Ptr{gsl_rng}), dest, src )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(dest)[1]
 end
 
@@ -25,6 +25,6 @@ end
 # exact copy of the generator r.
 # 
 #   Returns: Ptr{gsl_rng}
-function gsl_rng_clone(r::Ptr{gsl_rng})
+function rng_clone(r::Ptr{gsl_rng})
     ccall( (:gsl_rng_clone, :libgsl), Ptr{gsl_rng}, (Ptr{gsl_rng}, ), r )
 end

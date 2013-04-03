@@ -4,7 +4,7 @@
 #################################################
 # 20.13 The Levy skew alpha-Stable Distribution #
 #################################################
-export gsl_ran_levy_skew
+export ran_levy_skew
 
 
 
@@ -24,7 +24,7 @@ export gsl_ran_levy_skew
 # 2.
 # 
 #   Returns: Cdouble
-function gsl_ran_levy_skew(r::Ptr{gsl_rng}, c::Real, alpha::Real, beta::Real)
+function ran_levy_skew(r::Ptr{gsl_rng}, c::Real, alpha::Real, beta::Real)
     ccall( (:gsl_ran_levy_skew, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
         Cdouble, Cdouble), r, c, alpha, beta )
 end

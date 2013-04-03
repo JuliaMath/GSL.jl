@@ -4,8 +4,7 @@
 ######################################
 # 8.4.4 Reading and writing matrices #
 ######################################
-export gsl_matrix_fwrite, gsl_matrix_fread, gsl_matrix_fprintf,
-       gsl_matrix_fscanf
+export matrix_fwrite, matrix_fread, matrix_fprintf, matrix_fscanf
 
 
 # This function writes the elements of the matrix m to the stream stream in
@@ -14,10 +13,10 @@ export gsl_matrix_fwrite, gsl_matrix_fread, gsl_matrix_fprintf,
 # binary format it may not be portable between different architectures.
 # 
 #   Returns: Cint
-function gsl_matrix_fwrite(stream::Ptr{Void}, m::Ptr{gsl_matrix})
-    gsl_errno = ccall( (:gsl_matrix_fwrite, :libgsl), Cint, (Ptr{Void},
+function matrix_fwrite(stream::Ptr{Void}, m::Ptr{gsl_matrix})
+    errno = ccall( (:gsl_matrix_fwrite, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_matrix}), stream, m )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -29,11 +28,11 @@ end
 # format on the same architecture.
 # 
 #   Returns: Cint
-function gsl_matrix_fread(stream::Ptr{Void})
+function matrix_fread(stream::Ptr{Void})
     m = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    gsl_errno = ccall( (:gsl_matrix_fread, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_matrix_fread, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_matrix}), stream, m )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(m)[1]
 end
 
@@ -45,11 +44,11 @@ end
 # file.
 # 
 #   Returns: Cint
-function gsl_matrix_fprintf(stream::Ptr{Void}, m::Ptr{gsl_matrix})
+function matrix_fprintf(stream::Ptr{Void}, m::Ptr{gsl_matrix})
     format = convert(Ptr{Cchar}, Array(Cchar, 1))
-    gsl_errno = ccall( (:gsl_matrix_fprintf, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_matrix_fprintf, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_matrix}, Ptr{Cchar}), stream, m, format )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(format)[1]
 end
 
@@ -61,10 +60,10 @@ end
 # from the file.
 # 
 #   Returns: Cint
-function gsl_matrix_fscanf(stream::Ptr{Void})
+function matrix_fscanf(stream::Ptr{Void})
     m = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    gsl_errno = ccall( (:gsl_matrix_fscanf, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_matrix_fscanf, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_matrix}), stream, m )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(m)[1]
 end

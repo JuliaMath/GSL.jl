@@ -4,7 +4,7 @@
 #############################################
 # 20.12 The Levy alpha-Stable Distributions #
 #############################################
-export gsl_ran_levy
+export ran_levy
 
 
 
@@ -20,7 +20,7 @@ export gsl_ran_levy
 # become extremely wide.          The algorithm only works for  0 < alpha <= 2.
 # 
 #   Returns: Cdouble
-function gsl_ran_levy(r::Ptr{gsl_rng}, c::Real, alpha::Real)
+function ran_levy(r::Ptr{gsl_rng}, c::Real, alpha::Real)
     ccall( (:gsl_ran_levy, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
         Cdouble), r, c, alpha )
 end

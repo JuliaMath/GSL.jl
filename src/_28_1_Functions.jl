@@ -4,7 +4,7 @@
 ##################
 # 28.1 Functions #
 ##################
-export gsl_deriv_central, gsl_deriv_forward, gsl_deriv_backward
+export deriv_central, deriv_forward, deriv_backward
 
 
 # This function computes the numerical derivative of the function f at the
@@ -20,13 +20,13 @@ export gsl_deriv_central, gsl_deriv_forward, gsl_deriv_backward
 # actually used.
 # 
 #   Returns: Cint
-function gsl_deriv_central(f::Ptr{gsl_function}, x::Real, h::Real)
+function deriv_central(f::Ptr{gsl_function}, x::Real, h::Real)
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_deriv_central, :libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f,
-        x, h, result, abserr )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_deriv_central, :libgsl), Cint, (Ptr{gsl_function},
+        Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f, x, h, result, abserr
+        )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end
 
@@ -45,13 +45,13 @@ end
 # corresponding 2-point rule x+h/2, x+h.
 # 
 #   Returns: Cint
-function gsl_deriv_forward(f::Ptr{gsl_function}, x::Real, h::Real)
+function deriv_forward(f::Ptr{gsl_function}, x::Real, h::Real)
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_deriv_forward, :libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f,
-        x, h, result, abserr )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_deriv_forward, :libgsl), Cint, (Ptr{gsl_function},
+        Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f, x, h, result, abserr
+        )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end
 
@@ -66,12 +66,12 @@ end
 # size.
 # 
 #   Returns: Cint
-function gsl_deriv_backward(f::Ptr{gsl_function}, x::Real, h::Real)
+function deriv_backward(f::Ptr{gsl_function}, x::Real, h::Real)
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_deriv_backward, :libgsl), Cint,
+    errno = ccall( (:gsl_deriv_backward, :libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f,
         x, h, result, abserr )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end

@@ -4,8 +4,8 @@
 ############################################
 # 20.33 The Negative Binomial Distribution #
 ############################################
-export gsl_ran_negative_binomial, gsl_ran_negative_binomial_pdf,
-       gsl_cdf_negative_binomial_P, gsl_cdf_negative_binomial_Q
+export ran_negative_binomial, ran_negative_binomial_pdf,
+       cdf_negative_binomial_P, cdf_negative_binomial_Q
 
 
 
@@ -18,7 +18,7 @@ export gsl_ran_negative_binomial, gsl_ran_negative_binomial_pdf,
 # required to be an integer.
 # 
 #   Returns: Cuint
-function gsl_ran_negative_binomial(r::Ptr{gsl_rng}, p::Real, n::Real)
+function ran_negative_binomial(r::Ptr{gsl_rng}, p::Real, n::Real)
     ccall( (:gsl_ran_negative_binomial, :libgsl), Cuint, (Ptr{gsl_rng},
         Cdouble, Cdouble), r, p, n )
 end
@@ -28,33 +28,33 @@ end
 # binomial distribution with parameters p and n, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_negative_binomial_pdf(k::Integer, p::Real, n::Real)
+function ran_negative_binomial_pdf(k::Integer, p::Real, n::Real)
     ccall( (:gsl_ran_negative_binomial_pdf, :libgsl), Cdouble, (Cuint,
         Cdouble, Cdouble), k, p, n )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_ran_negative_binomial_pdf
+#@vectorize_3arg Number ran_negative_binomial_pdf
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
 # the negative binomial distribution with parameters p and n.
 # 
 #   Returns: Cdouble
-function gsl_cdf_negative_binomial_P(k::Integer, p::Real, n::Real)
+function cdf_negative_binomial_P(k::Integer, p::Real, n::Real)
     ccall( (:gsl_cdf_negative_binomial_P, :libgsl), Cdouble, (Cuint,
         Cdouble, Cdouble), k, p, n )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_negative_binomial_P
+#@vectorize_3arg Number cdf_negative_binomial_P
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
 # the negative binomial distribution with parameters p and n.
 # 
 #   Returns: Cdouble
-function gsl_cdf_negative_binomial_Q(k::Integer, p::Real, n::Real)
+function cdf_negative_binomial_Q(k::Integer, p::Real, n::Real)
     ccall( (:gsl_cdf_negative_binomial_Q, :libgsl), Cdouble, (Cuint,
         Cdouble, Cdouble), k, p, n )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_negative_binomial_Q
+#@vectorize_3arg Number cdf_negative_binomial_Q

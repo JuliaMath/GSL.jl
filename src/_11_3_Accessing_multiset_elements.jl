@@ -4,7 +4,7 @@
 ####################################
 # 11.3 Accessing multiset elements #
 ####################################
-export gsl_multiset_get
+export multiset_get
 
 
 # This function returns the value of the i-th element of the multiset c.  If i
@@ -13,7 +13,7 @@ export gsl_multiset_get
 # HAVE_INLINE is defined.
 # 
 #   Returns: Csize_t
-function gsl_multiset_get(c::Ptr{gsl_multiset}, i::Integer)
+function multiset_get(c::Ptr{gsl_multiset}, i::Integer)
     ccall( (:gsl_multiset_get, :libgsl), Csize_t, (Ptr{gsl_multiset},
         Csize_t), c, i )
 end

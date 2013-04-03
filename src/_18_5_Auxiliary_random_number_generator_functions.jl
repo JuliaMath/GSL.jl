@@ -4,8 +4,7 @@
 ####################################################
 # 18.5 Auxiliary random number generator functions #
 ####################################################
-export gsl_rng_name, gsl_rng_max, gsl_rng_min, gsl_rng_state, gsl_rng_size,
-       gsl_rng_types_setup
+export rng_name, rng_max, rng_min, rng_state, rng_size, rng_types_setup
 
 
 
@@ -19,7 +18,7 @@ export gsl_rng_name, gsl_rng_max, gsl_rng_min, gsl_rng_state, gsl_rng_size,
 # would print something like r is a 'taus' generator.
 # 
 #   Returns: Ptr{Cchar}
-function gsl_rng_name(r::Ptr{gsl_rng})
+function rng_name(r::Ptr{gsl_rng})
     output_string = ccall( (:gsl_rng_name, :libgsl), Ptr{Cchar},
         (Ptr{gsl_rng}, ), r )
     bytestring(convert(Ptr{Uint8}, output_string))
@@ -29,7 +28,7 @@ end
 # gsl_rng_max returns the largest value that gsl_rng_get can return.
 # 
 #   Returns: Culong
-function gsl_rng_max(r::Ptr{gsl_rng})
+function rng_max(r::Ptr{gsl_rng})
     ccall( (:gsl_rng_max, :libgsl), Culong, (Ptr{gsl_rng}, ), r )
 end
 
@@ -39,7 +38,7 @@ end
 # return zero, and for these generators the minimum value is 1.
 # 
 #   Returns: Culong
-function gsl_rng_min(r::Ptr{gsl_rng})
+function rng_min(r::Ptr{gsl_rng})
     ccall( (:gsl_rng_min, :libgsl), Culong, (Ptr{gsl_rng}, ), r )
 end
 
@@ -51,7 +50,7 @@ end
 # fwrite (state, n, 1, stream);
 # 
 #   Returns: Ptr{Void}
-function gsl_rng_state(r::Ptr{gsl_rng})
+function rng_state(r::Ptr{gsl_rng})
     ccall( (:gsl_rng_state, :libgsl), Ptr{Void}, (Ptr{gsl_rng}, ), r )
 end
 
@@ -63,7 +62,7 @@ end
 # fwrite (state, n, 1, stream);
 # 
 #   Returns: Csize_t
-function gsl_rng_size(r::Ptr{gsl_rng})
+function rng_size(r::Ptr{gsl_rng})
     ccall( (:gsl_rng_size, :libgsl), Csize_t, (Ptr{gsl_rng}, ), r )
 end
 
@@ -78,6 +77,6 @@ end
 # {               printf ("%s\n", (*t)->name);             }
 # 
 #   Returns: Ptr{Ptr{gsl_rng_type}}
-function gsl_rng_types_setup()
+function rng_types_setup()
     ccall( (:gsl_rng_types_setup, :libgsl), Ptr{Ptr{gsl_rng_type}}, () )
 end

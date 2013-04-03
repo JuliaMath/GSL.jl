@@ -4,8 +4,7 @@
 #################################
 # 17.3 QAG adaptive integration #
 #################################
-export gsl_integration_workspace_alloc, gsl_integration_workspace_free,
-       gsl_integration_qag
+export integration_workspace_alloc, integration_workspace_free, integration_qag
 
 
 
@@ -14,17 +13,17 @@ export gsl_integration_workspace_alloc, gsl_integration_workspace_free,
 # intervals, their integration results and error estimates.
 # 
 #   Returns: Ptr{gsl_integration_workspace}
-function gsl_integration_workspace_alloc(n::Integer)
+function integration_workspace_alloc(n::Integer)
     ccall( (:gsl_integration_workspace_alloc, :libgsl),
         Ptr{gsl_integration_workspace}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_integration_workspace_alloc
+@vectorize_1arg Number integration_workspace_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-function gsl_integration_workspace_free(w::Ptr{gsl_integration_workspace})
+function integration_workspace_free(w::Ptr{gsl_integration_workspace})
     ccall( (:gsl_integration_workspace_free, :libgsl), Void,
         (Ptr{gsl_integration_workspace}, ), w )
 end
@@ -48,14 +47,14 @@ end
 # given by limit, which may not exceed the allocated size of the workspace.
 # 
 #   Returns: Cint
-function gsl_integration_qag(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real, limit::Integer, key::Integer)
+function integration_qag(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real, limit::Integer, key::Integer)
     workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_integration_qag, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_qag, :libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Csize_t, Cint,
         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, b,
         epsabs, epsrel, limit, key, workspace, result, abserr )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(workspace)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end

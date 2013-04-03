@@ -4,8 +4,8 @@
 #######################################################
 # 22.10 The histogram probability distribution struct #
 #######################################################
-export gsl_histogram_pdf, gsl_histogram_pdf_alloc, gsl_histogram_pdf_init,
-       gsl_histogram_pdf_free, gsl_histogram_pdf_sample
+export gsl_histogram_pdf, histogram_pdf_alloc, histogram_pdf_init,
+       histogram_pdf_free, histogram_pdf_sample
 
 
 
@@ -23,11 +23,11 @@ end
 # handler is invoked with an error code of GSL_ENOMEM.
 # 
 #   Returns: Ptr{gsl_histogram_pdf}
-function gsl_histogram_pdf_alloc(n::Integer)
+function histogram_pdf_alloc(n::Integer)
     ccall( (:gsl_histogram_pdf_alloc, :libgsl), Ptr{gsl_histogram_pdf},
         (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_histogram_pdf_alloc
+@vectorize_1arg Number histogram_pdf_alloc
 
 
 # This function initializes the probability distribution p with the contents of
@@ -36,10 +36,10 @@ end
 # cannot contain negative values.
 # 
 #   Returns: Cint
-function gsl_histogram_pdf_init(p::Ptr{gsl_histogram_pdf}, h::Ptr{gsl_histogram})
-    gsl_errno = ccall( (:gsl_histogram_pdf_init, :libgsl), Cint,
+function histogram_pdf_init(p::Ptr{gsl_histogram_pdf}, h::Ptr{gsl_histogram})
+    errno = ccall( (:gsl_histogram_pdf_init, :libgsl), Cint,
         (Ptr{gsl_histogram_pdf}, Ptr{gsl_histogram}), p, h )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -47,7 +47,7 @@ end
 # memory associated with it.
 # 
 #   Returns: Void
-function gsl_histogram_pdf_free(p::Ptr{gsl_histogram_pdf})
+function histogram_pdf_free(p::Ptr{gsl_histogram_pdf})
     ccall( (:gsl_histogram_pdf_free, :libgsl), Void,
         (Ptr{gsl_histogram_pdf}, ), p )
 end
@@ -61,7 +61,7 @@ end
 # sum[i]).
 # 
 #   Returns: Cdouble
-function gsl_histogram_pdf_sample(p::Ptr{gsl_histogram_pdf}, r::Real)
+function histogram_pdf_sample(p::Ptr{gsl_histogram_pdf}, r::Real)
     ccall( (:gsl_histogram_pdf_sample, :libgsl), Cdouble,
         (Ptr{gsl_histogram_pdf}, Cdouble), p, r )
 end

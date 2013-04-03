@@ -4,8 +4,8 @@
 #########################################
 # 20.15 The Flat (Uniform) Distribution #
 #########################################
-export gsl_ran_flat, gsl_ran_flat_pdf, gsl_cdf_flat_P, gsl_cdf_flat_Q,
-       gsl_cdf_flat_Pinv, gsl_cdf_flat_Qinv
+export ran_flat, ran_flat_pdf, cdf_flat_P, cdf_flat_Q, cdf_flat_Pinv,
+       cdf_flat_Qinv
 
 
 
@@ -15,7 +15,7 @@ export gsl_ran_flat, gsl_ran_flat_pdf, gsl_cdf_flat_P, gsl_cdf_flat_Q,
 # dx  if  a <= x < b and 0 otherwise.
 # 
 #   Returns: Cdouble
-function gsl_ran_flat(r::Ptr{gsl_rng}, a::Real, b::Real)
+function ran_flat(r::Ptr{gsl_rng}, a::Real, b::Real)
     ccall( (:gsl_ran_flat, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
         Cdouble), r, a, b )
 end
@@ -25,57 +25,57 @@ end
 # distribution from a to b, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_flat_pdf(x::Real, a::Real, b::Real)
+function ran_flat_pdf(x::Real, a::Real, b::Real)
     ccall( (:gsl_ran_flat_pdf, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_ran_flat_pdf
+#@vectorize_3arg Number ran_flat_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for a uniform distribution from a to b.
 # 
 #   Returns: Cdouble
-function gsl_cdf_flat_P(x::Real, a::Real, b::Real)
+function cdf_flat_P(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_flat_P, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_flat_P
+#@vectorize_3arg Number cdf_flat_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for a uniform distribution from a to b.
 # 
 #   Returns: Cdouble
-function gsl_cdf_flat_Q(x::Real, a::Real, b::Real)
+function cdf_flat_Q(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_flat_Q, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_flat_Q
+#@vectorize_3arg Number cdf_flat_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for a uniform distribution from a to b.
 # 
 #   Returns: Cdouble
-function gsl_cdf_flat_Pinv(P::Real, a::Real, b::Real)
+function cdf_flat_Pinv(P::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_flat_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), P, a, b )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_flat_Pinv
+#@vectorize_3arg Number cdf_flat_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for a uniform distribution from a to b.
 # 
 #   Returns: Cdouble
-function gsl_cdf_flat_Qinv(Q::Real, a::Real, b::Real)
+function cdf_flat_Qinv(Q::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_flat_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), Q, a, b )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_flat_Qinv
+#@vectorize_3arg Number cdf_flat_Qinv

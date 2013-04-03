@@ -4,7 +4,7 @@
 ####################
 # 21.6 Correlation #
 ####################
-export gsl_stats_correlation
+export stats_correlation
 
 
 
@@ -16,7 +16,7 @@ export gsl_stats_correlation
 # \sum (x_i - \Hat x)^2} \sqrt{1/(n-1) \sum (y_i - \Hat y)^2}               }
 # 
 #   Returns: Cdouble
-function gsl_stats_correlation(data1::Real)
+function stats_correlation(data1::Real)
     ccall( (:gsl_stats_correlation, :libgsl), Cdouble, (Cdouble, ), data1 )
 end
-@vectorize_1arg Number gsl_stats_correlation
+@vectorize_1arg Number stats_correlation

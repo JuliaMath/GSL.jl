@@ -4,7 +4,7 @@
 ###################
 # 14.14 Balancing #
 ###################
-export gsl_linalg_balance_matrix
+export linalg_balance_matrix
 
 
 
@@ -13,11 +13,11 @@ export gsl_linalg_balance_matrix
 # the diagonal elements of the similarity transformation into the vector D.
 # 
 #   Returns: Cint
-function gsl_linalg_balance_matrix()
+function linalg_balance_matrix()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     D = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_linalg_balance_matrix, :libgsl), Cint,
+    errno = ccall( (:gsl_linalg_balance_matrix, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}), A, D )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1] ,unsafe_ref(D)[1]
 end

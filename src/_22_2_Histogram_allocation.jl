@@ -4,8 +4,8 @@
 #############################
 # 22.2 Histogram allocation #
 #############################
-export gsl_histogram_alloc, gsl_histogram_set_ranges,
-       gsl_histogram_set_ranges_uniform, gsl_histogram_free
+export histogram_alloc, histogram_set_ranges, histogram_set_ranges_uniform,
+       histogram_free
 
 
 
@@ -18,11 +18,11 @@ export gsl_histogram_alloc, gsl_histogram_set_ranges,
 # the histogram ready for use.
 # 
 #   Returns: Ptr{gsl_histogram}
-function gsl_histogram_alloc(n::Integer)
+function histogram_alloc(n::Integer)
     ccall( (:gsl_histogram_alloc, :libgsl), Ptr{gsl_histogram}, (Csize_t,
         ), n )
 end
-@vectorize_1arg Number gsl_histogram_alloc
+@vectorize_1arg Number histogram_alloc
 
 
 # This function sets the ranges of the existing histogram h using the array
@@ -40,14 +40,14 @@ end
 # The additional element is required for the upper value of the final bin.
 # 
 #   Returns: Cint
-function gsl_histogram_set_ranges(range::Real)
+function histogram_set_ranges(range::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    gsl_errno = ccall( (:gsl_histogram_set_ranges, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_set_ranges, :libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble), h, range )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(h)[1]
 end
-@vectorize_1arg Number gsl_histogram_set_ranges
+@vectorize_1arg Number histogram_set_ranges
 
 
 # This function sets the ranges of the existing histogram h to cover the range
@@ -58,20 +58,20 @@ end
 # (n-1)d <= x < xmax  where d is the bin spacing, d = (xmax-xmin)/n.
 # 
 #   Returns: Cint
-function gsl_histogram_set_ranges_uniform(xmin::Real, xmax::Real)
+function histogram_set_ranges_uniform(xmin::Real, xmax::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    gsl_errno = ccall( (:gsl_histogram_set_ranges_uniform, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_set_ranges_uniform, :libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble, Cdouble), h, xmin, xmax )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(h)[1]
 end
-@vectorize_2arg Number gsl_histogram_set_ranges_uniform
+@vectorize_2arg Number histogram_set_ranges_uniform
 
 
 # This function frees the histogram h and all of the memory associated with it.
 # 
 #   Returns: Void
-function gsl_histogram_free(h::Ptr{gsl_histogram})
+function histogram_free(h::Ptr{gsl_histogram})
     ccall( (:gsl_histogram_free, :libgsl), Void, (Ptr{gsl_histogram}, ), h
         )
 end

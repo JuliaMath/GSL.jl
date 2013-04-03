@@ -4,14 +4,13 @@
 ###############################
 # 10.4 Combination properties #
 ###############################
-export gsl_combination_n, gsl_combination_k, gsl_combination_data,
-       gsl_combination_valid
+export combination_n, combination_k, combination_data, combination_valid
 
 
 # This function returns the range (n) of the combination c.
 # 
 #   Returns: Csize_t
-function gsl_combination_n(c::Ptr{gsl_combination})
+function combination_n(c::Ptr{gsl_combination})
     ccall( (:gsl_combination_n, :libgsl), Csize_t, (Ptr{gsl_combination},
         ), c )
 end
@@ -20,7 +19,7 @@ end
 # This function returns the number of elements (k) in the combination c.
 # 
 #   Returns: Csize_t
-function gsl_combination_k(c::Ptr{gsl_combination})
+function combination_k(c::Ptr{gsl_combination})
     ccall( (:gsl_combination_k, :libgsl), Csize_t, (Ptr{gsl_combination},
         ), c )
 end
@@ -30,7 +29,7 @@ end
 # c.
 # 
 #   Returns: Ptr{Csize_t}
-function gsl_combination_data(c::Ptr{gsl_combination})
+function combination_data(c::Ptr{gsl_combination})
     ccall( (:gsl_combination_data, :libgsl), Ptr{Csize_t},
         (Ptr{gsl_combination}, ), c )
 end
@@ -41,10 +40,10 @@ end
 # increasing order.
 # 
 #   Returns: Cint
-function gsl_combination_valid()
+function combination_valid()
     c = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
-    gsl_errno = ccall( (:gsl_combination_valid, :libgsl), Cint,
+    errno = ccall( (:gsl_combination_valid, :libgsl), Cint,
         (Ptr{gsl_combination}, ), c )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(c)[1]
 end

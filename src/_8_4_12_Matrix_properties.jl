@@ -4,8 +4,7 @@
 ############################
 # 8.4.12 Matrix properties #
 ############################
-export gsl_matrix_isnull, gsl_matrix_ispos, gsl_matrix_isneg,
-       gsl_matrix_isnonneg, gsl_matrix_equal
+export matrix_isnull, matrix_ispos, matrix_isneg, matrix_isnonneg, matrix_equal
 
 
 # These functions return 1 if all the elements of the matrix m are zero,
@@ -14,10 +13,10 @@ export gsl_matrix_isnull, gsl_matrix_ispos, gsl_matrix_isneg,
 # decomposition (see Cholesky Decomposition).
 # 
 #   Returns: Cint
-function gsl_matrix_isnull(m::Ptr{gsl_matrix})
-    gsl_errno = ccall( (:gsl_matrix_isnull, :libgsl), Cint,
-        (Ptr{gsl_matrix}, ), m )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function matrix_isnull(m::Ptr{gsl_matrix})
+    errno = ccall( (:gsl_matrix_isnull, :libgsl), Cint, (Ptr{gsl_matrix},
+        ), m )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -27,10 +26,10 @@ end
 # decomposition (see Cholesky Decomposition).
 # 
 #   Returns: Cint
-function gsl_matrix_ispos(m::Ptr{gsl_matrix})
-    gsl_errno = ccall( (:gsl_matrix_ispos, :libgsl), Cint,
-        (Ptr{gsl_matrix}, ), m )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function matrix_ispos(m::Ptr{gsl_matrix})
+    errno = ccall( (:gsl_matrix_ispos, :libgsl), Cint, (Ptr{gsl_matrix}, ),
+        m )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -40,10 +39,10 @@ end
 # decomposition (see Cholesky Decomposition).
 # 
 #   Returns: Cint
-function gsl_matrix_isneg(m::Ptr{gsl_matrix})
-    gsl_errno = ccall( (:gsl_matrix_isneg, :libgsl), Cint,
-        (Ptr{gsl_matrix}, ), m )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function matrix_isneg(m::Ptr{gsl_matrix})
+    errno = ccall( (:gsl_matrix_isneg, :libgsl), Cint, (Ptr{gsl_matrix}, ),
+        m )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -53,10 +52,10 @@ end
 # decomposition (see Cholesky Decomposition).
 # 
 #   Returns: Cint
-function gsl_matrix_isnonneg(m::Ptr{gsl_matrix})
-    gsl_errno = ccall( (:gsl_matrix_isnonneg, :libgsl), Cint,
-        (Ptr{gsl_matrix}, ), m )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function matrix_isnonneg(m::Ptr{gsl_matrix})
+    errno = ccall( (:gsl_matrix_isnonneg, :libgsl), Cint, (Ptr{gsl_matrix},
+        ), m )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -64,8 +63,8 @@ end
 # element values) and 0 otherwise.
 # 
 #   Returns: Cint
-function gsl_matrix_equal(a::Ptr{gsl_matrix}, b::Ptr{gsl_matrix})
-    gsl_errno = ccall( (:gsl_matrix_equal, :libgsl), Cint,
-        (Ptr{gsl_matrix}, Ptr{gsl_matrix}), a, b )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function matrix_equal(a::Ptr{gsl_matrix}, b::Ptr{gsl_matrix})
+    errno = ccall( (:gsl_matrix_equal, :libgsl), Cint, (Ptr{gsl_matrix},
+        Ptr{gsl_matrix}), a, b )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end

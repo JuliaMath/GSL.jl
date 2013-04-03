@@ -4,8 +4,8 @@
 ############################
 # 4.4 Small integer powers #
 ############################
-export gsl_pow_int, gsl_pow_uint, gsl_pow_2, gsl_pow_3, gsl_pow_4, gsl_pow_5,
-       gsl_pow_6, gsl_pow_7, gsl_pow_8, gsl_pow_9
+export pow_int, pow_uint, pow_2, pow_3, pow_4, pow_5, pow_6, pow_7, pow_8,
+       pow_9
 
 
 
@@ -16,10 +16,10 @@ export gsl_pow_int, gsl_pow_uint, gsl_pow_2, gsl_pow_3, gsl_pow_4, gsl_pow_5,
 # numerical error in the result is available as gsl_sf_pow_int_e.
 # 
 #   Returns: Cdouble
-function gsl_pow_int(x::Real, n::Integer)
+function pow_int(x::Real, n::Integer)
     ccall( (:gsl_pow_int, :libgsl), Cdouble, (Cdouble, Cint), x, n )
 end
-@vectorize_2arg Number gsl_pow_int
+@vectorize_2arg Number pow_int
 
 
 # These routines computes the power x^n for integer n.  The power is computed
@@ -28,10 +28,10 @@ end
 # numerical error in the result is available as gsl_sf_pow_int_e.
 # 
 #   Returns: Cdouble
-function gsl_pow_uint(x::Real, n::Integer)
+function pow_uint(x::Real, n::Integer)
     ccall( (:gsl_pow_uint, :libgsl), Cdouble, (Cdouble, Cuint), x, n )
 end
-@vectorize_2arg Number gsl_pow_uint
+@vectorize_2arg Number pow_uint
 
 
 # These functions can be used to compute small integer powers x^2, x^3, etc.
@@ -40,10 +40,10 @@ end
 # corresponding product expression.
 # 
 #   Returns: Cdouble
-function gsl_pow_2(x::Real)
+function pow_2(x::Real)
     ccall( (:gsl_pow_2, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_pow_2
+@vectorize_1arg Number pow_2
 
 
 # These functions can be used to compute small integer powers x^2, x^3, etc.
@@ -52,10 +52,10 @@ end
 # corresponding product expression.
 # 
 #   Returns: Cdouble
-function gsl_pow_3(x::Real)
+function pow_3(x::Real)
     ccall( (:gsl_pow_3, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_pow_3
+@vectorize_1arg Number pow_3
 
 
 # These functions can be used to compute small integer powers x^2, x^3, etc.
@@ -64,10 +64,10 @@ end
 # corresponding product expression.
 # 
 #   Returns: Cdouble
-function gsl_pow_4(x::Real)
+function pow_4(x::Real)
     ccall( (:gsl_pow_4, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_pow_4
+@vectorize_1arg Number pow_4
 
 
 # These functions can be used to compute small integer powers x^2, x^3, etc.
@@ -76,10 +76,10 @@ end
 # corresponding product expression.
 # 
 #   Returns: Cdouble
-function gsl_pow_5(x::Real)
+function pow_5(x::Real)
     ccall( (:gsl_pow_5, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_pow_5
+@vectorize_1arg Number pow_5
 
 
 # These functions can be used to compute small integer powers x^2, x^3, etc.
@@ -88,10 +88,10 @@ end
 # corresponding product expression.
 # 
 #   Returns: Cdouble
-function gsl_pow_6(x::Real)
+function pow_6(x::Real)
     ccall( (:gsl_pow_6, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_pow_6
+@vectorize_1arg Number pow_6
 
 
 # These functions can be used to compute small integer powers x^2, x^3, etc.
@@ -100,10 +100,10 @@ end
 # corresponding product expression.
 # 
 #   Returns: Cdouble
-function gsl_pow_7(x::Real)
+function pow_7(x::Real)
     ccall( (:gsl_pow_7, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_pow_7
+@vectorize_1arg Number pow_7
 
 
 # These functions can be used to compute small integer powers x^2, x^3, etc.
@@ -112,10 +112,10 @@ end
 # corresponding product expression.
 # 
 #   Returns: Cdouble
-function gsl_pow_8(x::Real)
+function pow_8(x::Real)
     ccall( (:gsl_pow_8, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_pow_8
+@vectorize_1arg Number pow_8
 
 
 # These functions can be used to compute small integer powers x^2, x^3, etc.
@@ -124,7 +124,7 @@ end
 # corresponding product expression.
 # 
 #   Returns: Cdouble
-function gsl_pow_9(x::Real)
+function pow_9(x::Real)
     ccall( (:gsl_pow_9, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_pow_9
+@vectorize_1arg Number pow_9

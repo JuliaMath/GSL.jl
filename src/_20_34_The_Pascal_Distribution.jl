@@ -4,7 +4,7 @@
 #################################
 # 20.34 The Pascal Distribution #
 #################################
-export gsl_ran_pascal, gsl_ran_pascal_pdf, gsl_cdf_pascal_P, gsl_cdf_pascal_Q
+export ran_pascal, ran_pascal_pdf, cdf_pascal_P, cdf_pascal_Q
 
 
 
@@ -15,7 +15,7 @@ export gsl_ran_pascal, gsl_ran_pascal_pdf, gsl_cdf_pascal_P, gsl_cdf_pascal_Q
 # p^n (1-p)^k  for  k >= 0
 # 
 #   Returns: Cuint
-function gsl_ran_pascal(r::Ptr{gsl_rng}, p::Real, n::Integer)
+function ran_pascal(r::Ptr{gsl_rng}, p::Real, n::Integer)
     ccall( (:gsl_ran_pascal, :libgsl), Cuint, (Ptr{gsl_rng}, Cdouble,
         Cuint), r, p, n )
 end
@@ -25,33 +25,33 @@ end
 # distribution with parameters p and n, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_pascal_pdf(k::Integer, p::Real, n::Integer)
+function ran_pascal_pdf(k::Integer, p::Real, n::Integer)
     ccall( (:gsl_ran_pascal_pdf, :libgsl), Cdouble, (Cuint, Cdouble,
         Cuint), k, p, n )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_ran_pascal_pdf
+#@vectorize_3arg Number ran_pascal_pdf
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
 # the Pascal distribution with parameters p and n.
 # 
 #   Returns: Cdouble
-function gsl_cdf_pascal_P(k::Integer, p::Real, n::Integer)
+function cdf_pascal_P(k::Integer, p::Real, n::Integer)
     ccall( (:gsl_cdf_pascal_P, :libgsl), Cdouble, (Cuint, Cdouble, Cuint),
         k, p, n )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_pascal_P
+#@vectorize_3arg Number cdf_pascal_P
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
 # the Pascal distribution with parameters p and n.
 # 
 #   Returns: Cdouble
-function gsl_cdf_pascal_Q(k::Integer, p::Real, n::Integer)
+function cdf_pascal_Q(k::Integer, p::Real, n::Integer)
     ccall( (:gsl_cdf_pascal_Q, :libgsl), Cdouble, (Cuint, Cdouble, Cuint),
         k, p, n )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_pascal_Q
+#@vectorize_3arg Number cdf_pascal_Q

@@ -4,13 +4,11 @@
 ######################
 # 8.3.5 Vector views #
 ######################
-export gsl_vector_subvector, gsl_vector_const_subvector,
-       gsl_vector_subvector_with_stride,
-       gsl_vector_const_subvector_with_stride, gsl_vector_complex_real,
-       gsl_vector_complex_const_real, gsl_vector_complex_imag,
-       gsl_vector_complex_const_imag, gsl_vector_view_array,
-       gsl_vector_const_view_array, gsl_vector_view_array_with_stride,
-       gsl_vector_const_view_array_with_stride
+export vector_subvector, vector_const_subvector, vector_subvector_with_stride,
+       vector_const_subvector_with_stride, vector_complex_real,
+       vector_complex_const_real, vector_complex_imag,
+       vector_complex_const_imag, vector_view_array, vector_const_view_array,
+       vector_view_array_with_stride, vector_const_view_array_with_stride
 
 
 
@@ -42,7 +40,7 @@ export gsl_vector_subvector, gsl_vector_const_subvector,
 # used for vectors which are declared const.
 # 
 #   Returns: gsl_vector_view
-function gsl_vector_subvector(v::Ptr{gsl_vector}, offset::Integer, n::Integer)
+function vector_subvector(v::Ptr{gsl_vector}, offset::Integer, n::Integer)
     ccall( (:gsl_vector_subvector, :libgsl), gsl_vector_view,
         (Ptr{gsl_vector}, Csize_t, Csize_t), v, offset, n )
 end
@@ -65,7 +63,7 @@ end
 # used for vectors which are declared const.
 # 
 #   Returns: gsl_vector__view
-function gsl_vector_const_subvector(v::Ptr{gsl_vector}, offset::Integer, n::Integer)
+function vector_const_subvector(v::Ptr{gsl_vector}, offset::Integer, n::Integer)
     ccall( (:gsl_vector_const_subvector, :libgsl), gsl_vector__view,
         (Ptr{gsl_vector}, Csize_t, Csize_t), v, offset, n )
 end
@@ -93,7 +91,7 @@ end
 # declared const.
 # 
 #   Returns: gsl_vector_view
-function gsl_vector_subvector_with_stride(v::Ptr{gsl_vector}, offset::Integer, stride::Integer, n::Integer)
+function vector_subvector_with_stride(v::Ptr{gsl_vector}, offset::Integer, stride::Integer, n::Integer)
     ccall( (:gsl_vector_subvector_with_stride, :libgsl), gsl_vector_view,
         (Ptr{gsl_vector}, Csize_t, Csize_t, Csize_t), v, offset, stride, n )
 end
@@ -121,7 +119,7 @@ end
 # declared const.
 # 
 #   Returns: gsl_vector__view
-function gsl_vector_const_subvector_with_stride(v::Ptr{gsl_vector}, offset::Integer, stride::Integer, n::Integer)
+function vector_const_subvector_with_stride(v::Ptr{gsl_vector}, offset::Integer, stride::Integer, n::Integer)
     ccall( (:gsl_vector_const_subvector_with_stride, :libgsl),
         gsl_vector__view, (Ptr{gsl_vector}, Csize_t, Csize_t, Csize_t), v,
         offset, stride, n )
@@ -133,7 +131,7 @@ end
 # gsl_vector_complex_real but can be used for vectors which are declared const.
 # 
 #   Returns: gsl_vector_view
-function gsl_vector_complex_real(v::Ptr{gsl_vector_complex})
+function vector_complex_real(v::Ptr{gsl_vector_complex})
     ccall( (:gsl_vector_complex_real, :libgsl), gsl_vector_view,
         (Ptr{gsl_vector_complex}, ), v )
 end
@@ -144,7 +142,7 @@ end
 # gsl_vector_complex_real but can be used for vectors which are declared const.
 # 
 #   Returns: gsl_vector__view
-function gsl_vector_complex_const_real(v::Ptr{gsl_vector_complex})
+function vector_complex_const_real(v::Ptr{gsl_vector_complex})
     ccall( (:gsl_vector_complex_const_real, :libgsl), gsl_vector__view,
         (Ptr{gsl_vector_complex}, ), v )
 end
@@ -156,7 +154,7 @@ end
 # const.
 # 
 #   Returns: gsl_vector_view
-function gsl_vector_complex_imag(v::Ptr{gsl_vector_complex})
+function vector_complex_imag(v::Ptr{gsl_vector_complex})
     ccall( (:gsl_vector_complex_imag, :libgsl), gsl_vector_view,
         (Ptr{gsl_vector_complex}, ), v )
 end
@@ -168,7 +166,7 @@ end
 # const.
 # 
 #   Returns: gsl_vector__view
-function gsl_vector_complex_const_imag(v::Ptr{gsl_vector_complex})
+function vector_complex_const_imag(v::Ptr{gsl_vector_complex})
     ccall( (:gsl_vector_complex_const_imag, :libgsl), gsl_vector__view,
         (Ptr{gsl_vector_complex}, ), v )
 end
@@ -186,7 +184,7 @@ end
 # but can be used for arrays which are declared const.
 # 
 #   Returns: gsl_vector_view
-function gsl_vector_view_array{tA<:Real}(base::Ptr{tA}, n::Integer)
+function vector_view_array{tA<:Real}(base::Ptr{tA}, n::Integer)
     ccall( (:gsl_vector_view_array, :libgsl), gsl_vector_view,
         (Ptr{Cdouble}, Csize_t), base, n )
 end
@@ -204,7 +202,7 @@ end
 # but can be used for arrays which are declared const.
 # 
 #   Returns: gsl_vector__view
-function gsl_vector_const_view_array{tA<:Real}(base::Ptr{tA}, n::Integer)
+function vector_const_view_array{tA<:Real}(base::Ptr{tA}, n::Integer)
     ccall( (:gsl_vector_const_view_array, :libgsl), gsl_vector__view,
         (Ptr{Cdouble}, Csize_t), base, n )
 end
@@ -224,7 +222,7 @@ end
 # declared const.
 # 
 #   Returns: gsl_vector_view
-function gsl_vector_view_array_with_stride{tA<:Real}(base::Ptr{tA}, stride::Integer, n::Integer)
+function vector_view_array_with_stride{tA<:Real}(base::Ptr{tA}, stride::Integer, n::Integer)
     ccall( (:gsl_vector_view_array_with_stride, :libgsl), gsl_vector_view,
         (Ptr{Cdouble}, Csize_t, Csize_t), base, stride, n )
 end
@@ -244,7 +242,7 @@ end
 # declared const.
 # 
 #   Returns: gsl_vector__view
-function gsl_vector_const_view_array_with_stride{tA<:Real}(base::Ptr{tA}, stride::Integer, n::Integer)
+function vector_const_view_array_with_stride{tA<:Real}(base::Ptr{tA}, stride::Integer, n::Integer)
     ccall( (:gsl_vector_const_view_array_with_stride, :libgsl),
         gsl_vector__view, (Ptr{Cdouble}, Csize_t, Csize_t), base, stride, n )
 end

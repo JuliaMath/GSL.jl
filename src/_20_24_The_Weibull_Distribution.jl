@@ -4,8 +4,8 @@
 ##################################
 # 20.24 The Weibull Distribution #
 ##################################
-export gsl_ran_weibull, gsl_ran_weibull_pdf, gsl_cdf_weibull_P,
-       gsl_cdf_weibull_Q, gsl_cdf_weibull_Pinv, gsl_cdf_weibull_Qinv
+export ran_weibull, ran_weibull_pdf, cdf_weibull_P, cdf_weibull_Q,
+       cdf_weibull_Pinv, cdf_weibull_Qinv
 
 
 
@@ -15,7 +15,7 @@ export gsl_ran_weibull, gsl_ran_weibull_pdf, gsl_cdf_weibull_P,
 # \exp(-(x/a)^b) dx  for  x >= 0.
 # 
 #   Returns: Cdouble
-function gsl_ran_weibull(r::Ptr{gsl_rng}, a::Real, b::Real)
+function ran_weibull(r::Ptr{gsl_rng}, a::Real, b::Real)
     ccall( (:gsl_ran_weibull, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
         Cdouble), r, a, b )
 end
@@ -25,57 +25,57 @@ end
 # distribution with scale a and exponent b, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_weibull_pdf(x::Real, a::Real, b::Real)
+function ran_weibull_pdf(x::Real, a::Real, b::Real)
     ccall( (:gsl_ran_weibull_pdf, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_ran_weibull_pdf
+#@vectorize_3arg Number ran_weibull_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Weibull distribution with scale a and exponent b.
 # 
 #   Returns: Cdouble
-function gsl_cdf_weibull_P(x::Real, a::Real, b::Real)
+function cdf_weibull_P(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_weibull_P, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_weibull_P
+#@vectorize_3arg Number cdf_weibull_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Weibull distribution with scale a and exponent b.
 # 
 #   Returns: Cdouble
-function gsl_cdf_weibull_Q(x::Real, a::Real, b::Real)
+function cdf_weibull_Q(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_weibull_Q, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_weibull_Q
+#@vectorize_3arg Number cdf_weibull_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Weibull distribution with scale a and exponent b.
 # 
 #   Returns: Cdouble
-function gsl_cdf_weibull_Pinv(P::Real, a::Real, b::Real)
+function cdf_weibull_Pinv(P::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_weibull_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), P, a, b )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_weibull_Pinv
+#@vectorize_3arg Number cdf_weibull_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Weibull distribution with scale a and exponent b.
 # 
 #   Returns: Cdouble
-function gsl_cdf_weibull_Qinv(Q::Real, a::Real, b::Real)
+function cdf_weibull_Qinv(Q::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_weibull_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), Q, a, b )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_weibull_Qinv
+#@vectorize_3arg Number cdf_weibull_Qinv

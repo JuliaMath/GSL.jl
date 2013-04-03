@@ -4,8 +4,8 @@
 ######################################
 # 20.17 The Chi-squared Distribution #
 ######################################
-export gsl_ran_chisq, gsl_ran_chisq_pdf, gsl_cdf_chisq_P, gsl_cdf_chisq_Q,
-       gsl_cdf_chisq_Pinv, gsl_cdf_chisq_Qinv
+export ran_chisq, ran_chisq_pdf, cdf_chisq_P, cdf_chisq_Q, cdf_chisq_Pinv,
+       cdf_chisq_Qinv
 
 
 
@@ -17,7 +17,7 @@ export gsl_ran_chisq, gsl_ran_chisq_pdf, gsl_cdf_chisq_P, gsl_cdf_chisq_Q,
 # = {1 \over 2 \Gamma(\nu/2) } (x/2)^{\nu/2 - 1} \exp(-x/2) dx  for  x >= 0.
 # 
 #   Returns: Cdouble
-function gsl_ran_chisq(r::Ptr{gsl_rng}, nu::Real)
+function ran_chisq(r::Ptr{gsl_rng}, nu::Real)
     ccall( (:gsl_ran_chisq, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble), r,
         nu )
 end
@@ -27,52 +27,52 @@ end
 # distribution with nu degrees of freedom, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_chisq_pdf(x::Real, nu::Real)
+function ran_chisq_pdf(x::Real, nu::Real)
     ccall( (:gsl_ran_chisq_pdf, :libgsl), Cdouble, (Cdouble, Cdouble), x,
         nu )
 end
-@vectorize_2arg Number gsl_ran_chisq_pdf
+@vectorize_2arg Number ran_chisq_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the chi-squared distribution with nu degrees of freedom.
 # 
 #   Returns: Cdouble
-function gsl_cdf_chisq_P(x::Real, nu::Real)
+function cdf_chisq_P(x::Real, nu::Real)
     ccall( (:gsl_cdf_chisq_P, :libgsl), Cdouble, (Cdouble, Cdouble), x, nu
         )
 end
-@vectorize_2arg Number gsl_cdf_chisq_P
+@vectorize_2arg Number cdf_chisq_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the chi-squared distribution with nu degrees of freedom.
 # 
 #   Returns: Cdouble
-function gsl_cdf_chisq_Q(x::Real, nu::Real)
+function cdf_chisq_Q(x::Real, nu::Real)
     ccall( (:gsl_cdf_chisq_Q, :libgsl), Cdouble, (Cdouble, Cdouble), x, nu
         )
 end
-@vectorize_2arg Number gsl_cdf_chisq_Q
+@vectorize_2arg Number cdf_chisq_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the chi-squared distribution with nu degrees of freedom.
 # 
 #   Returns: Cdouble
-function gsl_cdf_chisq_Pinv(P::Real, nu::Real)
+function cdf_chisq_Pinv(P::Real, nu::Real)
     ccall( (:gsl_cdf_chisq_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble), P,
         nu )
 end
-@vectorize_2arg Number gsl_cdf_chisq_Pinv
+@vectorize_2arg Number cdf_chisq_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the chi-squared distribution with nu degrees of freedom.
 # 
 #   Returns: Cdouble
-function gsl_cdf_chisq_Qinv(Q::Real, nu::Real)
+function cdf_chisq_Qinv(Q::Real, nu::Real)
     ccall( (:gsl_cdf_chisq_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble), Q,
         nu )
 end
-@vectorize_2arg Number gsl_cdf_chisq_Qinv
+@vectorize_2arg Number cdf_chisq_Qinv

@@ -4,7 +4,7 @@
 ##########################################################
 # 19.3 Auxiliary quasi-random number generator functions #
 ##########################################################
-export gsl_qrng_name, gsl_qrng_size, gsl_qrng_state
+export qrng_name, qrng_size, qrng_state
 
 
 
@@ -12,7 +12,7 @@ export gsl_qrng_name, gsl_qrng_size, gsl_qrng_state
 # This function returns a pointer to the name of the generator.
 # 
 #   Returns: Ptr{Cchar}
-function gsl_qrng_name(q::Ptr{gsl_qrng})
+function qrng_name(q::Ptr{gsl_qrng})
     output_string = ccall( (:gsl_qrng_name, :libgsl), Ptr{Cchar},
         (Ptr{gsl_qrng}, ), q )
     bytestring(convert(Ptr{Uint8}, output_string))
@@ -26,7 +26,7 @@ end
 # fwrite (state, n, 1, stream);
 # 
 #   Returns: Csize_t
-function gsl_qrng_size(q::Ptr{gsl_qrng})
+function qrng_size(q::Ptr{gsl_qrng})
     ccall( (:gsl_qrng_size, :libgsl), Csize_t, (Ptr{gsl_qrng}, ), q )
 end
 
@@ -38,6 +38,6 @@ end
 # fwrite (state, n, 1, stream);
 # 
 #   Returns: Ptr{Void}
-function gsl_qrng_state(q::Ptr{gsl_qrng})
+function qrng_state(q::Ptr{gsl_qrng})
     ccall( (:gsl_qrng_state, :libgsl), Ptr{Void}, (Ptr{gsl_qrng}, ), q )
 end

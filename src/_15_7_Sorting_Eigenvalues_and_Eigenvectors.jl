@@ -4,9 +4,9 @@
 #############################################
 # 15.7 Sorting Eigenvalues and Eigenvectors #
 #############################################
-export gsl_eigen_symmv_sort, gsl_eigen_symmv_sort, gsl_eigen_symmv_sort,
-       gsl_eigen_symmv_sort, gsl_eigen_hermv_sort, gsl_eigen_nonsymmv_sort,
-       gsl_eigen_gensymmv_sort, gsl_eigen_genhermv_sort, gsl_eigen_genv_sort
+export eigen_symmv_sort, eigen_symmv_sort, eigen_symmv_sort, eigen_symmv_sort,
+       eigen_hermv_sort, eigen_nonsymmv_sort, eigen_gensymmv_sort,
+       eigen_genhermv_sort, eigen_genv_sort
 
 
 # This function simultaneously sorts the eigenvalues stored in the vector eval
@@ -18,13 +18,13 @@ export gsl_eigen_symmv_sort, gsl_eigen_symmv_sort, gsl_eigen_symmv_sort,
 # GSL_EIGEN_SORT_ABS_DESCdescending order in magnitude
 # 
 #   Returns: Cint
-function gsl_eigen_symmv_sort(sort_type::gsl_eigen_sort_t)
+function eigen_symmv_sort(sort_type::gsl_eigen_sort_t)
     eval = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     evec = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    gsl_errno = ccall( (:gsl_eigen_symmv_sort, :libgsl), Cint,
+    errno = ccall( (:gsl_eigen_symmv_sort, :libgsl), Cint,
         (Ptr{gsl_vector}, Ptr{gsl_matrix}, gsl_eigen_sort_t), eval, evec,
         sort_type )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
 end
 
@@ -35,13 +35,13 @@ end
 # parameter sort_type as shown above.
 # 
 #   Returns: Cint
-function gsl_eigen_symmv_sort(sort_type::gsl_eigen_sort_t)
+function eigen_symmv_sort(sort_type::gsl_eigen_sort_t)
     eval = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     evec = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    gsl_errno = ccall( (:gsl_eigen_symmv_sort, :libgsl), Cint,
+    errno = ccall( (:gsl_eigen_symmv_sort, :libgsl), Cint,
         (Ptr{gsl_vector}, Ptr{gsl_matrix}, gsl_eigen_sort_t), eval, evec,
         sort_type )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
 end
 
@@ -52,13 +52,13 @@ end
 # parameter sort_type as shown above.
 # 
 #   Returns: Cint
-function gsl_eigen_symmv_sort(sort_type::gsl_eigen_sort_t)
+function eigen_symmv_sort(sort_type::gsl_eigen_sort_t)
     eval = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     evec = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    gsl_errno = ccall( (:gsl_eigen_symmv_sort, :libgsl), Cint,
+    errno = ccall( (:gsl_eigen_symmv_sort, :libgsl), Cint,
         (Ptr{gsl_vector}, Ptr{gsl_matrix}, gsl_eigen_sort_t), eval, evec,
         sort_type )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
 end
 
@@ -69,13 +69,13 @@ end
 # parameter sort_type as shown above.
 # 
 #   Returns: Cint
-function gsl_eigen_symmv_sort(sort_type::gsl_eigen_sort_t)
+function eigen_symmv_sort(sort_type::gsl_eigen_sort_t)
     eval = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     evec = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    gsl_errno = ccall( (:gsl_eigen_symmv_sort, :libgsl), Cint,
+    errno = ccall( (:gsl_eigen_symmv_sort, :libgsl), Cint,
         (Ptr{gsl_vector}, Ptr{gsl_matrix}, gsl_eigen_sort_t), eval, evec,
         sort_type )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
 end
 
@@ -86,13 +86,13 @@ end
 # parameter sort_type as shown above.
 # 
 #   Returns: Cint
-function gsl_eigen_hermv_sort(sort_type::gsl_eigen_sort_t)
+function eigen_hermv_sort(sort_type::gsl_eigen_sort_t)
     eval = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     evec = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
-    gsl_errno = ccall( (:gsl_eigen_hermv_sort, :libgsl), Cint,
+    errno = ccall( (:gsl_eigen_hermv_sort, :libgsl), Cint,
         (Ptr{gsl_vector}, Ptr{gsl_matrix_complex}, gsl_eigen_sort_t), eval,
         evec, sort_type )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
 end
 
@@ -104,13 +104,13 @@ end
 # GSL_EIGEN_SORT_ABS_DESC are supported due to the eigenvalues being complex.
 # 
 #   Returns: Cint
-function gsl_eigen_nonsymmv_sort(sort_type::gsl_eigen_sort_t)
+function eigen_nonsymmv_sort(sort_type::gsl_eigen_sort_t)
     eval = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     evec = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
-    gsl_errno = ccall( (:gsl_eigen_nonsymmv_sort, :libgsl), Cint,
+    errno = ccall( (:gsl_eigen_nonsymmv_sort, :libgsl), Cint,
         (Ptr{gsl_vector_complex}, Ptr{gsl_matrix_complex}, gsl_eigen_sort_t),
         eval, evec, sort_type )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
 end
 
@@ -121,13 +121,13 @@ end
 # parameter sort_type as shown above.
 # 
 #   Returns: Cint
-function gsl_eigen_gensymmv_sort(sort_type::gsl_eigen_sort_t)
+function eigen_gensymmv_sort(sort_type::gsl_eigen_sort_t)
     eval = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     evec = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    gsl_errno = ccall( (:gsl_eigen_gensymmv_sort, :libgsl), Cint,
+    errno = ccall( (:gsl_eigen_gensymmv_sort, :libgsl), Cint,
         (Ptr{gsl_vector}, Ptr{gsl_matrix}, gsl_eigen_sort_t), eval, evec,
         sort_type )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
 end
 
@@ -138,13 +138,13 @@ end
 # parameter sort_type as shown above.
 # 
 #   Returns: Cint
-function gsl_eigen_genhermv_sort(sort_type::gsl_eigen_sort_t)
+function eigen_genhermv_sort(sort_type::gsl_eigen_sort_t)
     eval = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     evec = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
-    gsl_errno = ccall( (:gsl_eigen_genhermv_sort, :libgsl), Cint,
+    errno = ccall( (:gsl_eigen_genhermv_sort, :libgsl), Cint,
         (Ptr{gsl_vector}, Ptr{gsl_matrix_complex}, gsl_eigen_sort_t), eval,
         evec, sort_type )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
 end
 
@@ -157,13 +157,13 @@ end
 # eigenvalues being complex.
 # 
 #   Returns: Cint
-function gsl_eigen_genv_sort(sort_type::gsl_eigen_sort_t)
+function eigen_genv_sort(sort_type::gsl_eigen_sort_t)
     alpha = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     beta = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     evec = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
-    gsl_errno = ccall( (:gsl_eigen_genv_sort, :libgsl), Cint,
+    errno = ccall( (:gsl_eigen_genv_sort, :libgsl), Cint,
         (Ptr{gsl_vector_complex}, Ptr{gsl_vector}, Ptr{gsl_matrix_complex},
         gsl_eigen_sort_t), alpha, beta, evec, sort_type )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(alpha)[1] ,unsafe_ref(beta)[1] ,unsafe_ref(evec)[1]
 end

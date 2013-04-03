@@ -4,7 +4,7 @@
 ##############################################
 # 16.3 Radix-2 FFT routines for complex data #
 ##############################################
-export gsl_fft_complex_radix2_forward, gsl_fft_complex_radix2_dif_forward
+export fft_complex_radix2_forward, fft_complex_radix2_dif_forward
 
 
 
@@ -18,18 +18,18 @@ export gsl_fft_complex_radix2_forward, gsl_fft_complex_radix2_dif_forward
 # the data n is not a power of two.
 # 
 #   Returns: Cint
-function gsl_fft_complex_radix2_forward(data::gsl_complex_packed_array, stride::Integer, n::Integer)
-    gsl_errno = ccall( (:gsl_fft_complex_radix2_forward, :libgsl), Cint,
+function fft_complex_radix2_forward(data::gsl_complex_packed_array, stride::Integer, n::Integer)
+    errno = ccall( (:gsl_fft_complex_radix2_forward, :libgsl), Cint,
         (gsl_complex_packed_array, Csize_t, Csize_t), data, stride, n )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
 # These are decimation-in-frequency versions of the radix-2 FFT functions.
 # 
 #   Returns: Cint
-function gsl_fft_complex_radix2_dif_forward(data::gsl_complex_packed_array, stride::Integer, n::Integer)
-    gsl_errno = ccall( (:gsl_fft_complex_radix2_dif_forward, :libgsl),
-        Cint, (gsl_complex_packed_array, Csize_t, Csize_t), data, stride, n )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function fft_complex_radix2_dif_forward(data::gsl_complex_packed_array, stride::Integer, n::Integer)
+    errno = ccall( (:gsl_fft_complex_radix2_dif_forward, :libgsl), Cint,
+        (gsl_complex_packed_array, Csize_t, Csize_t), data, stride, n )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end

@@ -4,7 +4,7 @@
 ###############################
 # 21.9 Median and Percentiles #
 ###############################
-export gsl_stats_median_from_sorted_data, gsl_stats_quantile_from_sorted_data
+export stats_median_from_sorted_data, stats_quantile_from_sorted_data
 
 
 
@@ -20,11 +20,11 @@ export gsl_stats_median_from_sorted_data, gsl_stats_quantile_from_sorted_data
 # floating-point number, even for integer data types.
 # 
 #   Returns: Cdouble
-function gsl_stats_median_from_sorted_data(sorted_data::Real)
+function stats_median_from_sorted_data(sorted_data::Real)
     ccall( (:gsl_stats_median_from_sorted_data, :libgsl), Cdouble,
         (Cdouble, ), sorted_data )
 end
-@vectorize_1arg Number gsl_stats_median_from_sorted_data
+@vectorize_1arg Number stats_median_from_sorted_data
 
 
 # This function returns a quantile value of sorted_data, a double-precision
@@ -43,8 +43,8 @@ end
 # integer data types.
 # 
 #   Returns: Cdouble
-function gsl_stats_quantile_from_sorted_data(sorted_data::Real)
+function stats_quantile_from_sorted_data(sorted_data::Real)
     ccall( (:gsl_stats_quantile_from_sorted_data, :libgsl), Cdouble,
         (Cdouble, ), sorted_data )
 end
-@vectorize_1arg Number gsl_stats_quantile_from_sorted_data
+@vectorize_1arg Number stats_quantile_from_sorted_data

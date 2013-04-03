@@ -4,9 +4,8 @@
 ################################
 # 7.7.2 Coulomb Wave Functions #
 ################################
-export gsl_sf_coulomb_wave_FG_e, gsl_sf_coulomb_wave_F_array,
-       gsl_sf_coulomb_wave_FG_array, gsl_sf_coulomb_wave_FGp_array,
-       gsl_sf_coulomb_wave_sphF_array
+export sf_coulomb_wave_FG_e, sf_coulomb_wave_F_array, sf_coulomb_wave_FG_array,
+       sf_coulomb_wave_FGp_array, sf_coulomb_wave_sphF_array
 
 
 
@@ -20,23 +19,22 @@ export gsl_sf_coulomb_wave_FG_e, gsl_sf_coulomb_wave_F_array,
 # and scaling exponents are stored in the modifiable parameters exp_F, exp_G.
 # 
 #   Returns: Cint
-function gsl_sf_coulomb_wave_FG_e(eta::Real, x::Real, L_F::Real, k::Integer)
+function sf_coulomb_wave_FG_e(eta::Real, x::Real, L_F::Real, k::Integer)
     F = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     Fp = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     G = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     Gp = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     exp_F = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     exp_G = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_sf_coulomb_wave_FG_e, :libgsl), Cint,
-        (Cdouble, Cdouble, Cdouble, Cint, Ptr{gsl_sf_result},
-        Ptr{gsl_sf_result}, Ptr{gsl_sf_result}, Ptr{gsl_sf_result},
-        Ptr{Cdouble}, Ptr{Cdouble}), eta, x, L_F, k, F, Fp, G, Gp, exp_F, exp_G
-        )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_sf_coulomb_wave_FG_e, :libgsl), Cint, (Cdouble,
+        Cdouble, Cdouble, Cint, Ptr{gsl_sf_result}, Ptr{gsl_sf_result},
+        Ptr{gsl_sf_result}, Ptr{gsl_sf_result}, Ptr{Cdouble}, Ptr{Cdouble}),
+        eta, x, L_F, k, F, Fp, G, Gp, exp_F, exp_G )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(F)[1] ,unsafe_ref(Fp)[1] ,unsafe_ref(G)[1] ,unsafe_ref(Gp)[1] ,unsafe_ref(exp_F)[1] ,unsafe_ref(exp_G)[1]
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_4arg Number gsl_sf_coulomb_wave_FG_e
+#@vectorize_4arg Number sf_coulomb_wave_FG_e
 
 
 # This function computes the Coulomb wave function F_L(\eta,x) for L = Lmin
@@ -44,14 +42,13 @@ end
 # the exponent is stored in F_exponent.
 # 
 #   Returns: Cint
-function gsl_sf_coulomb_wave_F_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
-    gsl_errno = ccall( (:gsl_sf_coulomb_wave_F_array, :libgsl), Cint,
-        (Cdouble, Cint, Cdouble, Cdouble, Cdouble), L_min, kmax, eta, x,
-        fc_array )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function sf_coulomb_wave_F_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
+    errno = ccall( (:gsl_sf_coulomb_wave_F_array, :libgsl), Cint, (Cdouble,
+        Cint, Cdouble, Cdouble, Cdouble), L_min, kmax, eta, x, fc_array )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_5arg Number gsl_sf_coulomb_wave_F_array
+#@vectorize_5arg Number sf_coulomb_wave_F_array
 
 
 # This function computes the functions F_L(\eta,x), G_L(\eta,x) for L = Lmin
@@ -59,14 +56,14 @@ end
 # of overflow the exponents are stored in F_exponent and G_exponent.
 # 
 #   Returns: Cint
-function gsl_sf_coulomb_wave_FG_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
-    gsl_errno = ccall( (:gsl_sf_coulomb_wave_FG_array, :libgsl), Cint,
+function sf_coulomb_wave_FG_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
+    errno = ccall( (:gsl_sf_coulomb_wave_FG_array, :libgsl), Cint,
         (Cdouble, Cint, Cdouble, Cdouble, Cdouble), L_min, kmax, eta, x,
         fc_array )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_5arg Number gsl_sf_coulomb_wave_FG_array
+#@vectorize_5arg Number sf_coulomb_wave_FG_array
 
 
 # This function computes the functions F_L(\eta,x), G_L(\eta,x) and their
@@ -75,14 +72,14 @@ end
 # overflow the exponents are stored in F_exponent and G_exponent.
 # 
 #   Returns: Cint
-function gsl_sf_coulomb_wave_FGp_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
-    gsl_errno = ccall( (:gsl_sf_coulomb_wave_FGp_array, :libgsl), Cint,
+function sf_coulomb_wave_FGp_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
+    errno = ccall( (:gsl_sf_coulomb_wave_FGp_array, :libgsl), Cint,
         (Cdouble, Cint, Cdouble, Cdouble, Cdouble), L_min, kmax, eta, x,
         fc_array )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_5arg Number gsl_sf_coulomb_wave_FGp_array
+#@vectorize_5arg Number sf_coulomb_wave_FGp_array
 
 
 # This function computes the Coulomb wave function divided by the argument
@@ -91,11 +88,11 @@ end
 # function reduces to spherical Bessel functions in the limit \eta \to 0.
 # 
 #   Returns: Cint
-function gsl_sf_coulomb_wave_sphF_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
-    gsl_errno = ccall( (:gsl_sf_coulomb_wave_sphF_array, :libgsl), Cint,
+function sf_coulomb_wave_sphF_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
+    errno = ccall( (:gsl_sf_coulomb_wave_sphF_array, :libgsl), Cint,
         (Cdouble, Cint, Cdouble, Cdouble, Cdouble), L_min, kmax, eta, x,
         fc_array )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_5arg Number gsl_sf_coulomb_wave_sphF_array
+#@vectorize_5arg Number sf_coulomb_wave_sphF_array

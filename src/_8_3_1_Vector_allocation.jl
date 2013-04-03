@@ -4,7 +4,7 @@
 ###########################
 # 8.3.1 Vector allocation #
 ###########################
-export gsl_vector_alloc, gsl_vector_calloc, gsl_vector_free
+export vector_alloc, vector_calloc, vector_free
 
 
 # This function creates a vector of length n, returning a pointer to a newly
@@ -14,20 +14,20 @@ export gsl_vector_alloc, gsl_vector_calloc, gsl_vector_free
 # deallocated.
 # 
 #   Returns: Ptr{gsl_vector}
-function gsl_vector_alloc(n::Integer)
+function vector_alloc(n::Integer)
     ccall( (:gsl_vector_alloc, :libgsl), Ptr{gsl_vector}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_vector_alloc
+@vectorize_1arg Number vector_alloc
 
 
 # This function allocates memory for a vector of length n and initializes all
 # the elements of the vector to zero.
 # 
 #   Returns: Ptr{gsl_vector}
-function gsl_vector_calloc(n::Integer)
+function vector_calloc(n::Integer)
     ccall( (:gsl_vector_calloc, :libgsl), Ptr{gsl_vector}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_vector_calloc
+@vectorize_1arg Number vector_calloc
 
 
 # This function frees a previously allocated vector v.  If the vector was
@@ -37,6 +37,6 @@ end
 # v must be a valid vector object (a null pointer is not allowed).
 # 
 #   Returns: Void
-function gsl_vector_free(v::Ptr{gsl_vector})
+function vector_free(v::Ptr{gsl_vector})
     ccall( (:gsl_vector_free, :libgsl), Void, (Ptr{gsl_vector}, ), v )
 end

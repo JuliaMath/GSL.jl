@@ -4,8 +4,8 @@
 ###############################
 # 7.17.1 Exponential Integral #
 ###############################
-export gsl_sf_expint_E1, gsl_sf_expint_E1_e, gsl_sf_expint_E2,
-       gsl_sf_expint_E2_e, gsl_sf_expint_En, gsl_sf_expint_En_e
+export sf_expint_E1, sf_expint_E1_e, sf_expint_E2, sf_expint_E2_e,
+       sf_expint_En, sf_expint_En_e
 
 
 
@@ -18,69 +18,69 @@ export gsl_sf_expint_E1, gsl_sf_expint_E1_e, gsl_sf_expint_E2,
 # E_1(x) := \Re \int_1^\infty dt \exp(-xt)/t.
 # 
 #   Returns: Cdouble
-function gsl_sf_expint_E1(x::Real)
+function sf_expint_E1(x::Real)
     ccall( (:gsl_sf_expint_E1, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_sf_expint_E1
+@vectorize_1arg Number sf_expint_E1
 
 
 # These routines compute the exponential integral E_1(x),
 # E_1(x) := \Re \int_1^\infty dt \exp(-xt)/t.
 # 
 #   Returns: Cint
-function gsl_sf_expint_E1_e(x::Real)
+function sf_expint_E1_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_expint_E1_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_expint_E1_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1]
 end
-@vectorize_1arg Number gsl_sf_expint_E1_e
+@vectorize_1arg Number sf_expint_E1_e
 
 
 # These routines compute the second-order exponential integral E_2(x),
 # E_2(x) := \Re \int_1^\infty dt \exp(-xt)/t^2.
 # 
 #   Returns: Cdouble
-function gsl_sf_expint_E2(x::Real)
+function sf_expint_E2(x::Real)
     ccall( (:gsl_sf_expint_E2, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_sf_expint_E2
+@vectorize_1arg Number sf_expint_E2
 
 
 # These routines compute the second-order exponential integral E_2(x),
 # E_2(x) := \Re \int_1^\infty dt \exp(-xt)/t^2.
 # 
 #   Returns: Cint
-function gsl_sf_expint_E2_e(x::Real)
+function sf_expint_E2_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_expint_E2_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_expint_E2_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1]
 end
-@vectorize_1arg Number gsl_sf_expint_E2_e
+@vectorize_1arg Number sf_expint_E2_e
 
 
 # These routines compute the exponential integral E_n(x) of order n,
 # E_n(x) := \Re \int_1^\infty dt \exp(-xt)/t^n.
 # 
 #   Returns: Cdouble
-function gsl_sf_expint_En(n::Integer, x::Real)
+function sf_expint_En(n::Integer, x::Real)
     ccall( (:gsl_sf_expint_En, :libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
-@vectorize_2arg Number gsl_sf_expint_En
+@vectorize_2arg Number sf_expint_En
 
 
 # These routines compute the exponential integral E_n(x) of order n,
 # E_n(x) := \Re \int_1^\infty dt \exp(-xt)/t^n.
 # 
 #   Returns: Cint
-function gsl_sf_expint_En_e(n::Integer, x::Real)
+function sf_expint_En_e(n::Integer, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_expint_En_e, :libgsl), Cint, (Cint,
-        Cdouble, Ptr{gsl_sf_result}), n, x, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_sf_expint_En_e, :libgsl), Cint, (Cint, Cdouble,
+        Ptr{gsl_sf_result}), n, x, result )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1]
 end
-@vectorize_2arg Number gsl_sf_expint_En_e
+@vectorize_2arg Number sf_expint_En_e

@@ -4,7 +4,7 @@
 ###########################################
 # 39.5 Evaluation of B-spline derivatives #
 ###########################################
-export gsl_bspline_deriv_eval, gsl_bspline_deriv_eval_nonzero
+export bspline_deriv_eval, bspline_deriv_eval_nonzero
 
 
 # This function evaluates all B-spline basis function derivatives of orders 0
@@ -17,17 +17,17 @@ export gsl_bspline_deriv_eval, gsl_bspline_deriv_eval_nonzero
 # to the nature of the defining recurrence relation.
 # 
 #   Returns: Cint
-function gsl_bspline_deriv_eval(x::Real, nderiv::Integer)
+function bspline_deriv_eval(x::Real, nderiv::Integer)
     dB = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     w = convert(Ptr{gsl_bspline_workspace}, Array(gsl_bspline_workspace, 1))
     dw = convert(Ptr{gsl_bspline_deriv_workspace}, Array(gsl_bspline_deriv_workspace, 1))
-    gsl_errno = ccall( (:gsl_bspline_deriv_eval, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_bspline_deriv_eval, :libgsl), Cint, (Cdouble,
         Csize_t, Ptr{gsl_matrix}, Ptr{gsl_bspline_workspace},
         Ptr{gsl_bspline_deriv_workspace}), x, nderiv, dB, w, dw )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(dB)[1] ,unsafe_ref(w)[1] ,unsafe_ref(dw)[1]
 end
-@vectorize_2arg Number gsl_bspline_deriv_eval
+@vectorize_2arg Number bspline_deriv_eval
 
 
 # This function evaluates all potentially nonzero B-spline basis function
@@ -41,17 +41,17 @@ end
 # without unnecessary terms.
 # 
 #   Returns: Cint
-function gsl_bspline_deriv_eval_nonzero(x::Real, nderiv::Integer)
+function bspline_deriv_eval_nonzero(x::Real, nderiv::Integer)
     dB = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     istart = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     iend = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     w = convert(Ptr{gsl_bspline_workspace}, Array(gsl_bspline_workspace, 1))
     dw = convert(Ptr{gsl_bspline_deriv_workspace}, Array(gsl_bspline_deriv_workspace, 1))
-    gsl_errno = ccall( (:gsl_bspline_deriv_eval_nonzero, :libgsl), Cint,
+    errno = ccall( (:gsl_bspline_deriv_eval_nonzero, :libgsl), Cint,
         (Cdouble, Csize_t, Ptr{gsl_matrix}, Ptr{Csize_t}, Ptr{Csize_t},
         Ptr{gsl_bspline_workspace}, Ptr{gsl_bspline_deriv_workspace}), x,
         nderiv, dB, istart, iend, w, dw )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(dB)[1] ,unsafe_ref(istart)[1] ,unsafe_ref(iend)[1] ,unsafe_ref(w)[1] ,unsafe_ref(dw)[1]
 end
-@vectorize_2arg Number gsl_bspline_deriv_eval_nonzero
+@vectorize_2arg Number bspline_deriv_eval_nonzero

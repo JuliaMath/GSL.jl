@@ -4,15 +4,15 @@
 #######################################
 # 5.5 Complex Trigonometric Functions #
 #######################################
-export gsl_complex_sin, gsl_complex_cos, gsl_complex_tan, gsl_complex_sec,
-       gsl_complex_csc, gsl_complex_cot
+export complex_sin, complex_cos, complex_tan, complex_sec, complex_csc,
+       complex_cot
 
 
 # This function returns the complex sine of the complex number z, \sin(z) =
 # (\exp(iz) - \exp(-iz))/(2i).
 # 
 #   Returns: gsl_complex
-function gsl_complex_sin(z::gsl_complex)
+function complex_sin(z::gsl_complex)
     ccall( (:gsl_complex_sin, :libgsl), gsl_complex, (gsl_complex, ), z )
 end
 
@@ -21,7 +21,7 @@ end
 # (\exp(iz) + \exp(-iz))/2.
 # 
 #   Returns: gsl_complex
-function gsl_complex_cos(z::gsl_complex)
+function complex_cos(z::gsl_complex)
     ccall( (:gsl_complex_cos, :libgsl), gsl_complex, (gsl_complex, ), z )
 end
 
@@ -30,7 +30,7 @@ end
 # \sin(z)/\cos(z).
 # 
 #   Returns: gsl_complex
-function gsl_complex_tan(z::gsl_complex)
+function complex_tan(z::gsl_complex)
     ccall( (:gsl_complex_tan, :libgsl), gsl_complex, (gsl_complex, ), z )
 end
 
@@ -39,7 +39,7 @@ end
 # 1/\cos(z).
 # 
 #   Returns: gsl_complex
-function gsl_complex_sec(z::gsl_complex)
+function complex_sec(z::gsl_complex)
     ccall( (:gsl_complex_sec, :libgsl), gsl_complex, (gsl_complex, ), z )
 end
 
@@ -48,7 +48,7 @@ end
 # 1/\sin(z).
 # 
 #   Returns: gsl_complex
-function gsl_complex_csc(z::gsl_complex)
+function complex_csc(z::gsl_complex)
     ccall( (:gsl_complex_csc, :libgsl), gsl_complex, (gsl_complex, ), z )
 end
 
@@ -57,6 +57,6 @@ end
 # = 1/\tan(z).
 # 
 #   Returns: gsl_complex
-function gsl_complex_cot(z::gsl_complex)
+function complex_cot(z::gsl_complex)
     ccall( (:gsl_complex_cot, :libgsl), gsl_complex, (gsl_complex, ), z )
 end

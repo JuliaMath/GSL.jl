@@ -4,14 +4,14 @@
 ################################
 # 27.2 Interpolation Functions #
 ################################
-export gsl_interp_alloc, gsl_interp_init, gsl_interp_free
+export interp_alloc, interp_init, interp_free
 
 
 # This function returns a pointer to a newly allocated interpolation object of
 # type T for size data-points.
 # 
 #   Returns: Ptr{gsl_interp}
-function gsl_interp_alloc(T::Ptr{gsl_interp_type}, size::Integer)
+function interp_alloc(T::Ptr{gsl_interp_type}, size::Integer)
     ccall( (:gsl_interp_alloc, :libgsl), Ptr{gsl_interp},
         (Ptr{gsl_interp_type}, Csize_t), T, size )
 end
@@ -25,16 +25,16 @@ end
 # arrangements is not defined.
 # 
 #   Returns: Cint
-function gsl_interp_init(interp::Ptr{gsl_interp}, xa::Real)
-    gsl_errno = ccall( (:gsl_interp_init, :libgsl), Cint, (Ptr{gsl_interp},
+function interp_init(interp::Ptr{gsl_interp}, xa::Real)
+    errno = ccall( (:gsl_interp_init, :libgsl), Cint, (Ptr{gsl_interp},
         Cdouble), interp, xa )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
 # This function frees the interpolation object interp.
 # 
 #   Returns: Void
-function gsl_interp_free(interp::Ptr{gsl_interp})
+function interp_free(interp::Ptr{gsl_interp})
     ccall( (:gsl_interp_free, :libgsl), Void, (Ptr{gsl_interp}, ), interp )
 end

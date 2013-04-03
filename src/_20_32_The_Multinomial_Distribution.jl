@@ -4,7 +4,7 @@
 ######################################
 # 20.32 The Multinomial Distribution #
 ######################################
-export gsl_ran_multinomial, gsl_ran_multinomial_pdf, gsl_ran_multinomial_lnpdf
+export ran_multinomial, ran_multinomial_pdf, ran_multinomial_lnpdf
 
 
 
@@ -22,7 +22,7 @@ export gsl_ran_multinomial, gsl_ran_multinomial_pdf, gsl_ran_multinomial_lnpdf
 # Data Anal. 16 (1993) 205–217 for details).
 # 
 #   Returns: Void
-function gsl_ran_multinomial(r::Ptr{gsl_rng}, K::Integer, N::Integer, p::Real)
+function ran_multinomial(r::Ptr{gsl_rng}, K::Integer, N::Integer, p::Real)
     ccall( (:gsl_ran_multinomial, :libgsl), Void, (Ptr{gsl_rng}, Csize_t,
         Cuint, Cdouble), r, K, N, p )
 end
@@ -33,19 +33,19 @@ end
 # given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_multinomial_pdf(K::Integer, p::Real)
+function ran_multinomial_pdf(K::Integer, p::Real)
     ccall( (:gsl_ran_multinomial_pdf, :libgsl), Cdouble, (Csize_t,
         Cdouble), K, p )
 end
-@vectorize_2arg Number gsl_ran_multinomial_pdf
+@vectorize_2arg Number ran_multinomial_pdf
 
 
 # This function returns the logarithm of the probability for the multinomial
 # distribution  P(n_1, n_2, ..., n_K) with parameters p[K].
 # 
 #   Returns: Cdouble
-function gsl_ran_multinomial_lnpdf(K::Integer, p::Real)
+function ran_multinomial_lnpdf(K::Integer, p::Real)
     ccall( (:gsl_ran_multinomial_lnpdf, :libgsl), Cdouble, (Csize_t,
         Cdouble), K, p )
 end
-@vectorize_2arg Number gsl_ran_multinomial_lnpdf
+@vectorize_2arg Number ran_multinomial_lnpdf

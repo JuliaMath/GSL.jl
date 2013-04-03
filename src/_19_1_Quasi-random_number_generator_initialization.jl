@@ -4,7 +4,7 @@
 #####################################################
 # 19.1 Quasi-random number generator initialization #
 #####################################################
-export gsl_qrng_alloc, gsl_qrng_free, gsl_qrng_init
+export qrng_alloc, qrng_free, qrng_init
 
 
 # This function returns a pointer to a newly-created instance of a quasi-random
@@ -13,7 +13,7 @@ export gsl_qrng_alloc, gsl_qrng_free, gsl_qrng_init
 # the error handler is invoked with an error code of GSL_ENOMEM.
 # 
 #   Returns: Ptr{gsl_qrng}
-function gsl_qrng_alloc(T::Ptr{gsl_qrng_type}, d::Integer)
+function qrng_alloc(T::Ptr{gsl_qrng_type}, d::Integer)
     ccall( (:gsl_qrng_alloc, :libgsl), Ptr{gsl_qrng}, (Ptr{gsl_qrng_type},
         Cuint), T, d )
 end
@@ -22,7 +22,7 @@ end
 # This function frees all the memory associated with the generator q.
 # 
 #   Returns: Void
-function gsl_qrng_free(q::Ptr{gsl_qrng})
+function qrng_free(q::Ptr{gsl_qrng})
     ccall( (:gsl_qrng_free, :libgsl), Void, (Ptr{gsl_qrng}, ), q )
 end
 
@@ -32,6 +32,6 @@ end
 # values.
 # 
 #   Returns: Void
-function gsl_qrng_init(q::Ptr{gsl_qrng})
+function qrng_init(q::Ptr{gsl_qrng})
     ccall( (:gsl_qrng_init, :libgsl), Void, (Ptr{gsl_qrng}, ), q )
 end

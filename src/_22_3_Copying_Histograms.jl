@@ -4,7 +4,7 @@
 ###########################
 # 22.3 Copying Histograms #
 ###########################
-export gsl_histogram_memcpy, gsl_histogram_clone
+export histogram_memcpy, histogram_clone
 
 
 # This function copies the histogram src into the pre-existing histogram dest,
@@ -12,11 +12,11 @@ export gsl_histogram_memcpy, gsl_histogram_clone
 # same size.
 # 
 #   Returns: Cint
-function gsl_histogram_memcpy(src::Ptr{gsl_histogram})
+function histogram_memcpy(src::Ptr{gsl_histogram})
     dest = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    gsl_errno = ccall( (:gsl_histogram_memcpy, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_memcpy, :libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), dest, src )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(dest)[1]
 end
 
@@ -25,7 +25,7 @@ end
 # exact copy of the histogram src.
 # 
 #   Returns: Ptr{gsl_histogram}
-function gsl_histogram_clone(src::Ptr{gsl_histogram})
+function histogram_clone(src::Ptr{gsl_histogram})
     ccall( (:gsl_histogram_clone, :libgsl), Ptr{gsl_histogram},
         (Ptr{gsl_histogram}, ), src )
 end

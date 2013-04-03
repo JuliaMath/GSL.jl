@@ -4,7 +4,7 @@
 ########################################
 # 23.3 Opening an existing ntuple file #
 ########################################
-export gsl_ntuple_open
+export ntuple_open
 
 
 # This function opens an existing ntuple file filename for reading and returns
@@ -13,7 +13,7 @@ export gsl_ntuple_open
 # be supplied—this is used to copy ntuples in and out of the file.
 # 
 #   Returns: Ptr{gsl_ntuple}
-function gsl_ntuple_open{tA<:Char}(filename::Ptr{tA}, ntuple_data::Ptr{Void}, size::Integer)
+function ntuple_open{tA<:Char}(filename::Ptr{tA}, ntuple_data::Ptr{Void}, size::Integer)
     ccall( (:gsl_ntuple_open, :libgsl), Ptr{gsl_ntuple}, (Ptr{Cchar},
         Ptr{Void}, Csize_t), filename, ntuple_data, size )
 end

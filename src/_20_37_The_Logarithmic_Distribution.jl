@@ -4,7 +4,7 @@
 ######################################
 # 20.37 The Logarithmic Distribution #
 ######################################
-export gsl_ran_logarithmic, gsl_ran_logarithmic_pdf
+export ran_logarithmic, ran_logarithmic_pdf
 
 
 
@@ -14,7 +14,7 @@ export gsl_ran_logarithmic, gsl_ran_logarithmic_pdf
 # p(k) = {-1 \over \log(1-p)} {(p^k \over k)}  for  k >= 1.
 # 
 #   Returns: Cuint
-function gsl_ran_logarithmic(r::Ptr{gsl_rng}, p::Real)
+function ran_logarithmic(r::Ptr{gsl_rng}, p::Real)
     ccall( (:gsl_ran_logarithmic, :libgsl), Cuint, (Ptr{gsl_rng}, Cdouble),
         r, p )
 end
@@ -24,8 +24,8 @@ end
 # distribution with probability parameter p, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_logarithmic_pdf(k::Integer, p::Real)
+function ran_logarithmic_pdf(k::Integer, p::Real)
     ccall( (:gsl_ran_logarithmic_pdf, :libgsl), Cdouble, (Cuint, Cdouble),
         k, p )
 end
-@vectorize_2arg Number gsl_ran_logarithmic_pdf
+@vectorize_2arg Number ran_logarithmic_pdf

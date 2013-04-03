@@ -4,7 +4,7 @@
 ############################
 # 34.6 Stopping Parameters #
 ############################
-export gsl_min_test_interval
+export min_test_interval
 
 
 
@@ -25,10 +25,10 @@ export gsl_min_test_interval
 # interval.
 # 
 #   Returns: Cint
-function gsl_min_test_interval(x_lower::Real, x_upper::Real, epsabs::Real, epsrel::Real)
-    gsl_errno = ccall( (:gsl_min_test_interval, :libgsl), Cint, (Cdouble,
+function min_test_interval(x_lower::Real, x_upper::Real, epsabs::Real, epsrel::Real)
+    errno = ccall( (:gsl_min_test_interval, :libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Cdouble), x_lower, x_upper, epsabs, epsrel )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_4arg Number gsl_min_test_interval
+#@vectorize_4arg Number min_test_interval

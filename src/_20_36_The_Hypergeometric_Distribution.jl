@@ -4,8 +4,8 @@
 #########################################
 # 20.36 The Hypergeometric Distribution #
 #########################################
-export gsl_ran_hypergeometric, gsl_ran_hypergeometric_pdf,
-       gsl_cdf_hypergeometric_P, gsl_cdf_hypergeometric_Q
+export ran_hypergeometric, ran_hypergeometric_pdf, cdf_hypergeometric_P,
+       cdf_hypergeometric_Q
 
 
 
@@ -20,7 +20,7 @@ export gsl_ran_hypergeometric, gsl_ran_hypergeometric_pdf,
 # population without replacement.
 # 
 #   Returns: Cuint
-function gsl_ran_hypergeometric(r::Ptr{gsl_rng}, n1::Integer, n2::Integer, t::Integer)
+function ran_hypergeometric(r::Ptr{gsl_rng}, n1::Integer, n2::Integer, t::Integer)
     ccall( (:gsl_ran_hypergeometric, :libgsl), Cuint, (Ptr{gsl_rng}, Cuint,
         Cuint, Cuint), r, n1, n2, t )
 end
@@ -31,33 +31,33 @@ end
 # given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_hypergeometric_pdf(k::Integer, n1::Integer, n2::Integer, t::Integer)
+function ran_hypergeometric_pdf(k::Integer, n1::Integer, n2::Integer, t::Integer)
     ccall( (:gsl_ran_hypergeometric_pdf, :libgsl), Cdouble, (Cuint, Cuint,
         Cuint, Cuint), k, n1, n2, t )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_4arg Number gsl_ran_hypergeometric_pdf
+#@vectorize_4arg Number ran_hypergeometric_pdf
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
 # the hypergeometric distribution with parameters n1, n2 and t.
 # 
 #   Returns: Cdouble
-function gsl_cdf_hypergeometric_P(k::Integer, n1::Integer, n2::Integer, t::Integer)
+function cdf_hypergeometric_P(k::Integer, n1::Integer, n2::Integer, t::Integer)
     ccall( (:gsl_cdf_hypergeometric_P, :libgsl), Cdouble, (Cuint, Cuint,
         Cuint, Cuint), k, n1, n2, t )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_4arg Number gsl_cdf_hypergeometric_P
+#@vectorize_4arg Number cdf_hypergeometric_P
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
 # the hypergeometric distribution with parameters n1, n2 and t.
 # 
 #   Returns: Cdouble
-function gsl_cdf_hypergeometric_Q(k::Integer, n1::Integer, n2::Integer, t::Integer)
+function cdf_hypergeometric_Q(k::Integer, n1::Integer, n2::Integer, t::Integer)
     ccall( (:gsl_cdf_hypergeometric_Q, :libgsl), Cdouble, (Cuint, Cuint,
         Cuint, Cuint), k, n1, n2, t )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_4arg Number gsl_cdf_hypergeometric_Q
+#@vectorize_4arg Number cdf_hypergeometric_Q

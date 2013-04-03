@@ -4,7 +4,7 @@
 #####################################################
 # 17.4 QAGS adaptive integration with singularities #
 #####################################################
-export gsl_integration_qags
+export integration_qags
 
 
 # This function applies the Gauss-Kronrod 21-point integration rule adaptively
@@ -19,14 +19,14 @@ export gsl_integration_qags
 # not exceed the allocated size of the workspace.
 # 
 #   Returns: Cint
-function gsl_integration_qags(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real, limit::Integer)
+function integration_qags(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real, limit::Integer)
     workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_integration_qags, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_qags, :libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Csize_t,
         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, b,
         epsabs, epsrel, limit, workspace, result, abserr )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(workspace)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end

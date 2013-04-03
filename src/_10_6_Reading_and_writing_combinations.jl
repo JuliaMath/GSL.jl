@@ -7,8 +7,8 @@
 #############
 # Footnotes #
 #############
-export gsl_combination_fwrite, gsl_combination_fread, gsl_combination_fprintf,
-       gsl_combination_fscanf
+export combination_fwrite, combination_fread, combination_fprintf,
+       combination_fscanf
 
 
 # This function writes the elements of the combination c to the stream stream
@@ -17,10 +17,10 @@ export gsl_combination_fwrite, gsl_combination_fread, gsl_combination_fprintf,
 # it may not be portable between different architectures.
 # 
 #   Returns: Cint
-function gsl_combination_fwrite(stream::Ptr{Void}, c::Ptr{gsl_combination})
-    gsl_errno = ccall( (:gsl_combination_fwrite, :libgsl), Cint,
-        (Ptr{Void}, Ptr{gsl_combination}), stream, c )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function combination_fwrite(stream::Ptr{Void}, c::Ptr{gsl_combination})
+    errno = ccall( (:gsl_combination_fwrite, :libgsl), Cint, (Ptr{Void},
+        Ptr{gsl_combination}), stream, c )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -32,11 +32,11 @@ end
 # native binary format on the same architecture.
 # 
 #   Returns: Cint
-function gsl_combination_fread(stream::Ptr{Void})
+function combination_fread(stream::Ptr{Void})
     c = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
-    gsl_errno = ccall( (:gsl_combination_fread, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_combination_fread, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_combination}), stream, c )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(c)[1]
 end
 
@@ -48,11 +48,11 @@ end
 # a problem writing to the file.
 # 
 #   Returns: Cint
-function gsl_combination_fprintf(stream::Ptr{Void}, c::Ptr{gsl_combination})
+function combination_fprintf(stream::Ptr{Void}, c::Ptr{gsl_combination})
     format = convert(Ptr{Cchar}, Array(Cchar, 1))
-    gsl_errno = ccall( (:gsl_combination_fprintf, :libgsl), Cint,
-        (Ptr{Void}, Ptr{gsl_combination}, Ptr{Cchar}), stream, c, format )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_combination_fprintf, :libgsl), Cint, (Ptr{Void},
+        Ptr{gsl_combination}, Ptr{Cchar}), stream, c, format )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(format)[1]
 end
 
@@ -64,10 +64,10 @@ end
 # from the file.
 # 
 #   Returns: Cint
-function gsl_combination_fscanf(stream::Ptr{Void})
+function combination_fscanf(stream::Ptr{Void})
     c = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
-    gsl_errno = ccall( (:gsl_combination_fscanf, :libgsl), Cint,
-        (Ptr{Void}, Ptr{gsl_combination}), stream, c )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_combination_fscanf, :libgsl), Cint, (Ptr{Void},
+        Ptr{gsl_combination}), stream, c )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(c)[1]
 end

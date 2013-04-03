@@ -4,12 +4,11 @@
 #######################################
 # 8.4.6 Creating row and column views #
 #######################################
-export gsl_matrix_row, gsl_matrix_const_row, gsl_matrix_column,
-       gsl_matrix_const_column, gsl_matrix_subrow, gsl_matrix_const_subrow,
-       gsl_matrix_subcolumn, gsl_matrix_const_subcolumn, gsl_matrix_diagonal,
-       gsl_matrix_const_diagonal, gsl_matrix_subdiagonal,
-       gsl_matrix_const_subdiagonal, gsl_matrix_superdiagonal,
-       gsl_matrix_const_superdiagonal
+export matrix_row, matrix_const_row, matrix_column, matrix_const_column,
+       matrix_subrow, matrix_const_subrow, matrix_subcolumn,
+       matrix_const_subcolumn, matrix_diagonal, matrix_const_diagonal,
+       matrix_subdiagonal, matrix_const_subdiagonal, matrix_superdiagonal,
+       matrix_const_superdiagonal
 
 
 # These functions return a vector view of the i-th row of the matrix m.  The
@@ -18,7 +17,7 @@ export gsl_matrix_row, gsl_matrix_const_row, gsl_matrix_column,
 # used for matrices which are declared const.
 # 
 #   Returns: gsl_vector_view
-function gsl_matrix_row(m::Ptr{gsl_matrix}, i::Integer)
+function matrix_row(m::Ptr{gsl_matrix}, i::Integer)
     ccall( (:gsl_matrix_row, :libgsl), gsl_vector_view, (Ptr{gsl_matrix},
         Csize_t), m, i )
 end
@@ -30,7 +29,7 @@ end
 # used for matrices which are declared const.
 # 
 #   Returns: gsl_vector__view
-function gsl_matrix_const_row(m::Ptr{gsl_matrix}, i::Integer)
+function matrix_const_row(m::Ptr{gsl_matrix}, i::Integer)
     ccall( (:gsl_matrix_const_row, :libgsl), gsl_vector__view,
         (Ptr{gsl_matrix}, Csize_t), m, i )
 end
@@ -42,7 +41,7 @@ end
 # can be used for matrices which are declared const.
 # 
 #   Returns: gsl_vector_view
-function gsl_matrix_column(m::Ptr{gsl_matrix}, j::Integer)
+function matrix_column(m::Ptr{gsl_matrix}, j::Integer)
     ccall( (:gsl_matrix_column, :libgsl), gsl_vector_view,
         (Ptr{gsl_matrix}, Csize_t), m, j )
 end
@@ -54,7 +53,7 @@ end
 # can be used for matrices which are declared const.
 # 
 #   Returns: gsl_vector__view
-function gsl_matrix_const_column(m::Ptr{gsl_matrix}, j::Integer)
+function matrix_const_column(m::Ptr{gsl_matrix}, j::Integer)
     ccall( (:gsl_matrix_const_column, :libgsl), gsl_vector__view,
         (Ptr{gsl_matrix}, Csize_t), m, j )
 end
@@ -67,7 +66,7 @@ end
 # gsl_matrix_subrow but can be used for matrices which are declared const.
 # 
 #   Returns: gsl_vector_view
-function gsl_matrix_subrow(m::Ptr{gsl_matrix}, i::Integer, offset::Integer, n::Integer)
+function matrix_subrow(m::Ptr{gsl_matrix}, i::Integer, offset::Integer, n::Integer)
     ccall( (:gsl_matrix_subrow, :libgsl), gsl_vector_view,
         (Ptr{gsl_matrix}, Csize_t, Csize_t, Csize_t), m, i, offset, n )
 end
@@ -80,7 +79,7 @@ end
 # gsl_matrix_subrow but can be used for matrices which are declared const.
 # 
 #   Returns: gsl_vector__view
-function gsl_matrix_const_subrow(m::Ptr{gsl_matrix}, i::Integer, offset::Integer, n::Integer)
+function matrix_const_subrow(m::Ptr{gsl_matrix}, i::Integer, offset::Integer, n::Integer)
     ccall( (:gsl_matrix_const_subrow, :libgsl), gsl_vector__view,
         (Ptr{gsl_matrix}, Csize_t, Csize_t, Csize_t), m, i, offset, n )
 end
@@ -93,7 +92,7 @@ end
 # gsl_matrix_subcolumn but can be used for matrices which are declared const.
 # 
 #   Returns: gsl_vector_view
-function gsl_matrix_subcolumn(m::Ptr{gsl_matrix}, j::Integer, offset::Integer, n::Integer)
+function matrix_subcolumn(m::Ptr{gsl_matrix}, j::Integer, offset::Integer, n::Integer)
     ccall( (:gsl_matrix_subcolumn, :libgsl), gsl_vector_view,
         (Ptr{gsl_matrix}, Csize_t, Csize_t, Csize_t), m, j, offset, n )
 end
@@ -106,7 +105,7 @@ end
 # gsl_matrix_subcolumn but can be used for matrices which are declared const.
 # 
 #   Returns: gsl_vector__view
-function gsl_matrix_const_subcolumn(m::Ptr{gsl_matrix}, j::Integer, offset::Integer, n::Integer)
+function matrix_const_subcolumn(m::Ptr{gsl_matrix}, j::Integer, offset::Integer, n::Integer)
     ccall( (:gsl_matrix_const_subcolumn, :libgsl), gsl_vector__view,
         (Ptr{gsl_matrix}, Csize_t, Csize_t, Csize_t), m, j, offset, n )
 end
@@ -119,7 +118,7 @@ end
 # can be used for matrices which are declared const.
 # 
 #   Returns: gsl_vector_view
-function gsl_matrix_diagonal(m::Ptr{gsl_matrix})
+function matrix_diagonal(m::Ptr{gsl_matrix})
     ccall( (:gsl_matrix_diagonal, :libgsl), gsl_vector_view,
         (Ptr{gsl_matrix}, ), m )
 end
@@ -132,7 +131,7 @@ end
 # can be used for matrices which are declared const.
 # 
 #   Returns: gsl_vector__view
-function gsl_matrix_const_diagonal(m::Ptr{gsl_matrix})
+function matrix_const_diagonal(m::Ptr{gsl_matrix})
     ccall( (:gsl_matrix_const_diagonal, :libgsl), gsl_vector__view,
         (Ptr{gsl_matrix}, ), m )
 end
@@ -145,7 +144,7 @@ end
 # declared const.
 # 
 #   Returns: gsl_vector_view
-function gsl_matrix_subdiagonal(m::Ptr{gsl_matrix}, k::Integer)
+function matrix_subdiagonal(m::Ptr{gsl_matrix}, k::Integer)
     ccall( (:gsl_matrix_subdiagonal, :libgsl), gsl_vector_view,
         (Ptr{gsl_matrix}, Csize_t), m, k )
 end
@@ -158,7 +157,7 @@ end
 # declared const.
 # 
 #   Returns: gsl_vector__view
-function gsl_matrix_const_subdiagonal(m::Ptr{gsl_matrix}, k::Integer)
+function matrix_const_subdiagonal(m::Ptr{gsl_matrix}, k::Integer)
     ccall( (:gsl_matrix_const_subdiagonal, :libgsl), gsl_vector__view,
         (Ptr{gsl_matrix}, Csize_t), m, k )
 end
@@ -171,7 +170,7 @@ end
 # declared const.
 # 
 #   Returns: gsl_vector_view
-function gsl_matrix_superdiagonal(m::Ptr{gsl_matrix}, k::Integer)
+function matrix_superdiagonal(m::Ptr{gsl_matrix}, k::Integer)
     ccall( (:gsl_matrix_superdiagonal, :libgsl), gsl_vector_view,
         (Ptr{gsl_matrix}, Csize_t), m, k )
 end
@@ -184,7 +183,7 @@ end
 # declared const.
 # 
 #   Returns: gsl_vector__view
-function gsl_matrix_const_superdiagonal(m::Ptr{gsl_matrix}, k::Integer)
+function matrix_const_superdiagonal(m::Ptr{gsl_matrix}, k::Integer)
     ccall( (:gsl_matrix_const_superdiagonal, :libgsl), gsl_vector__view,
         (Ptr{gsl_matrix}, Csize_t), m, k )
 end

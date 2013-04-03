@@ -4,10 +4,9 @@
 #################################################
 # 41.1 Representation of floating point numbers #
 #################################################
-export gsl_ieee_fprintf_float, gsl_ieee_fprintf_double,
-       gsl_ieee_fprintf_double, gsl_ieee_fprintf_double,
-       gsl_ieee_fprintf_double, gsl_ieee_fprintf_double, gsl_ieee_printf_float,
-       gsl_ieee_printf_double
+export ieee_fprintf_float, ieee_fprintf_double, ieee_fprintf_double,
+       ieee_fprintf_double, ieee_fprintf_double, ieee_fprintf_double,
+       ieee_printf_float, ieee_printf_double
 
 
 
@@ -27,7 +26,7 @@ export gsl_ieee_fprintf_float, gsl_ieee_fprintf_double,
 # in GNU Emacs Calc mode by preceding it with 2# to indicate binary.
 # 
 #   Returns: Void
-function gsl_ieee_fprintf_float{tA<:Real}(stream::Ptr{Void}, x::Ptr{tA})
+function ieee_fprintf_float{tA<:Real}(stream::Ptr{Void}, x::Ptr{tA})
     ccall( (:gsl_ieee_fprintf_float, :libgsl), Void, (Ptr{Void},
         Ptr{Cfloat}), stream, x )
 end
@@ -44,7 +43,7 @@ end
 # in GNU Emacs Calc mode by preceding it with 2# to indicate binary.
 # 
 #   Returns: Void
-function gsl_ieee_fprintf_double{tA<:Real}(stream::Ptr{Void}, x::Ptr{tA})
+function ieee_fprintf_double{tA<:Real}(stream::Ptr{Void}, x::Ptr{tA})
     ccall( (:gsl_ieee_fprintf_double, :libgsl), Void, (Ptr{Void},
         Ptr{Cdouble}), stream, x )
 end
@@ -54,7 +53,7 @@ end
 # pointed to by x to the stream stdout.
 # 
 #   Returns: Void
-function gsl_ieee_fprintf_double{tA<:Real}(stream::Ptr{Void}, x::Ptr{tA})
+function ieee_fprintf_double{tA<:Real}(stream::Ptr{Void}, x::Ptr{tA})
     ccall( (:gsl_ieee_fprintf_double, :libgsl), Void, (Ptr{Void},
         Ptr{Cdouble}), stream, x )
 end
@@ -64,7 +63,7 @@ end
 # pointed to by x to the stream stdout.
 # 
 #   Returns: Void
-function gsl_ieee_fprintf_double{tA<:Real}(stream::Ptr{Void}, x::Ptr{tA})
+function ieee_fprintf_double{tA<:Real}(stream::Ptr{Void}, x::Ptr{tA})
     ccall( (:gsl_ieee_fprintf_double, :libgsl), Void, (Ptr{Void},
         Ptr{Cdouble}), stream, x )
 end
@@ -74,7 +73,7 @@ end
 # pointed to by x to the stream stdout.
 # 
 #   Returns: Void
-function gsl_ieee_fprintf_double{tA<:Real}(stream::Ptr{Void}, x::Ptr{tA})
+function ieee_fprintf_double{tA<:Real}(stream::Ptr{Void}, x::Ptr{tA})
     ccall( (:gsl_ieee_fprintf_double, :libgsl), Void, (Ptr{Void},
         Ptr{Cdouble}), stream, x )
 end
@@ -84,7 +83,7 @@ end
 # pointed to by x to the stream stdout.
 # 
 #   Returns: Void
-function gsl_ieee_fprintf_double{tA<:Real}(stream::Ptr{Void}, x::Ptr{tA})
+function ieee_fprintf_double{tA<:Real}(stream::Ptr{Void}, x::Ptr{tA})
     ccall( (:gsl_ieee_fprintf_double, :libgsl), Void, (Ptr{Void},
         Ptr{Cdouble}), stream, x )
 end
@@ -94,7 +93,7 @@ end
 # pointed to by x to the stream stdout.
 # 
 #   Returns: Void
-function gsl_ieee_printf_float{tA<:Real}(x::Ptr{tA})
+function ieee_printf_float{tA<:Real}(x::Ptr{tA})
     ccall( (:gsl_ieee_printf_float, :libgsl), Void, (Ptr{Cfloat}, ), x )
 end
 
@@ -103,6 +102,6 @@ end
 # pointed to by x to the stream stdout.
 # 
 #   Returns: Void
-function gsl_ieee_printf_double{tA<:Real}(x::Ptr{tA})
+function ieee_printf_double{tA<:Real}(x::Ptr{tA})
     ccall( (:gsl_ieee_printf_double, :libgsl), Void, (Ptr{Cdouble}, ), x )
 end

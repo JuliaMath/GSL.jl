@@ -4,13 +4,13 @@
 ############################
 # 29.3 Auxiliary Functions #
 ############################
-export gsl_cheb_order, gsl_cheb_size, gsl_cheb_coeffs
+export cheb_order, cheb_size, cheb_coeffs
 
 
 # This function returns the order of Chebyshev series cs.
 # 
 #   Returns: Csize_t
-function gsl_cheb_order(cs::Ptr{gsl_cheb_series})
+function cheb_order(cs::Ptr{gsl_cheb_series})
     ccall( (:gsl_cheb_order, :libgsl), Csize_t, (Ptr{gsl_cheb_series}, ),
         cs )
 end
@@ -20,7 +20,7 @@ end
 # pointer to its location in memory for the Chebyshev series cs.
 # 
 #   Returns: Csize_t
-function gsl_cheb_size(cs::Ptr{gsl_cheb_series})
+function cheb_size(cs::Ptr{gsl_cheb_series})
     ccall( (:gsl_cheb_size, :libgsl), Csize_t, (Ptr{gsl_cheb_series}, ), cs
         )
 end
@@ -30,7 +30,7 @@ end
 # pointer to its location in memory for the Chebyshev series cs.
 # 
 #   Returns: Ptr{Cdouble}
-function gsl_cheb_coeffs(cs::Ptr{gsl_cheb_series})
+function cheb_coeffs(cs::Ptr{gsl_cheb_series})
     ccall( (:gsl_cheb_coeffs, :libgsl), Ptr{Cdouble},
         (Ptr{gsl_cheb_series}, ), cs )
 end

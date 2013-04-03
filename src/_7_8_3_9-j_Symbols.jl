@@ -4,7 +4,7 @@
 #####################
 # 7.8.3 9-j Symbols #
 #####################
-export gsl_sf_coupling_9j, gsl_sf_coupling_9j_e
+export sf_coupling_9j, sf_coupling_9j_e
 
 
 
@@ -14,13 +14,13 @@ export gsl_sf_coupling_9j, gsl_sf_coupling_9j_e
 # units, ja = two_ja/2, ma = two_ma/2, etc.
 # 
 #   Returns: Cdouble
-function gsl_sf_coupling_9j(two_ja::Integer, two_jb::Integer, two_jc::Integer, two_jd::Integer, two_je::Integer, two_jf::Integer, two_jg::Integer, two_jh::Integer, two_ji::Integer)
+function sf_coupling_9j(two_ja::Integer, two_jb::Integer, two_jc::Integer, two_jd::Integer, two_je::Integer, two_jf::Integer, two_jg::Integer, two_jh::Integer, two_ji::Integer)
     ccall( (:gsl_sf_coupling_9j, :libgsl), Cdouble, (Cint, Cint, Cint,
         Cint, Cint, Cint, Cint, Cint, Cint), two_ja, two_jb, two_jc, two_jd,
         two_je, two_jf, two_jg, two_jh, two_ji )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_9arg Number gsl_sf_coupling_9j
+#@vectorize_9arg Number sf_coupling_9j
 
 
 # These routines compute the Wigner 9-j coefficient,                 {ja jb jc
@@ -28,14 +28,14 @@ end
 # units, ja = two_ja/2, ma = two_ma/2, etc.
 # 
 #   Returns: Cint
-function gsl_sf_coupling_9j_e(two_ja::Integer, two_jb::Integer, two_jc::Integer, two_jd::Integer, two_je::Integer, two_jf::Integer, two_jg::Integer, two_jh::Integer, two_ji::Integer)
+function sf_coupling_9j_e(two_ja::Integer, two_jb::Integer, two_jc::Integer, two_jd::Integer, two_je::Integer, two_jf::Integer, two_jg::Integer, two_jh::Integer, two_ji::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_coupling_9j_e, :libgsl), Cint, (Cint, Cint,
+    errno = ccall( (:gsl_sf_coupling_9j_e, :libgsl), Cint, (Cint, Cint,
         Cint, Cint, Cint, Cint, Cint, Cint, Cint, Ptr{gsl_sf_result}), two_ja,
         two_jb, two_jc, two_jd, two_je, two_jf, two_jg, two_jh, two_ji, result
         )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1]
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_9arg Number gsl_sf_coupling_9j_e
+#@vectorize_9arg Number sf_coupling_9j_e

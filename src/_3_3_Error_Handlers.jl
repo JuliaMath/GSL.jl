@@ -4,7 +4,7 @@
 ######################
 # 3.3 Error Handlers #
 ######################
-export gsl_error_handler_t, gsl_set_error_handler, gsl_set_error_handler_off
+export gsl_error_handler_t, set_error_handler, set_error_handler_off
 
 
 
@@ -32,7 +32,7 @@ end
 # old_handler = gsl_set_error_handler (NULL);
 # 
 #   Returns: Ptr{gsl_error_handler_t}
-function gsl_set_error_handler(new_handler::Ptr{gsl_error_handler_t})
+function set_error_handler(new_handler::Ptr{gsl_error_handler_t})
     ccall( (:gsl_set_error_handler, :libgsl), Ptr{gsl_error_handler_t},
         (Ptr{gsl_error_handler_t}, ), new_handler )
 end
@@ -45,7 +45,7 @@ end
 # returned (so that you can restore it later).
 # 
 #   Returns: Ptr{gsl_error_handler_t}
-function gsl_set_error_handler_off()
+function set_error_handler_off()
     ccall( (:gsl_set_error_handler_off, :libgsl), Ptr{gsl_error_handler_t},
         () )
 end

@@ -4,8 +4,8 @@
 ###################################
 # 20.21 The Logistic Distribution #
 ###################################
-export gsl_ran_logistic, gsl_ran_logistic_pdf, gsl_cdf_logistic_P,
-       gsl_cdf_logistic_Q, gsl_cdf_logistic_Pinv, gsl_cdf_logistic_Qinv
+export ran_logistic, ran_logistic_pdf, cdf_logistic_P, cdf_logistic_Q,
+       cdf_logistic_Pinv, cdf_logistic_Qinv
 
 
 
@@ -15,7 +15,7 @@ export gsl_ran_logistic, gsl_ran_logistic_pdf, gsl_cdf_logistic_P,
 # \exp(-x/a))^2 } dx  for -\infty < x < +\infty.
 # 
 #   Returns: Cdouble
-function gsl_ran_logistic(r::Ptr{gsl_rng}, a::Real)
+function ran_logistic(r::Ptr{gsl_rng}, a::Real)
     ccall( (:gsl_ran_logistic, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
         r, a )
 end
@@ -25,52 +25,52 @@ end
 # distribution with scale parameter a, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_logistic_pdf(x::Real, a::Real)
+function ran_logistic_pdf(x::Real, a::Real)
     ccall( (:gsl_ran_logistic_pdf, :libgsl), Cdouble, (Cdouble, Cdouble),
         x, a )
 end
-@vectorize_2arg Number gsl_ran_logistic_pdf
+@vectorize_2arg Number ran_logistic_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the logistic distribution with scale parameter a.
 # 
 #   Returns: Cdouble
-function gsl_cdf_logistic_P(x::Real, a::Real)
+function cdf_logistic_P(x::Real, a::Real)
     ccall( (:gsl_cdf_logistic_P, :libgsl), Cdouble, (Cdouble, Cdouble), x,
         a )
 end
-@vectorize_2arg Number gsl_cdf_logistic_P
+@vectorize_2arg Number cdf_logistic_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the logistic distribution with scale parameter a.
 # 
 #   Returns: Cdouble
-function gsl_cdf_logistic_Q(x::Real, a::Real)
+function cdf_logistic_Q(x::Real, a::Real)
     ccall( (:gsl_cdf_logistic_Q, :libgsl), Cdouble, (Cdouble, Cdouble), x,
         a )
 end
-@vectorize_2arg Number gsl_cdf_logistic_Q
+@vectorize_2arg Number cdf_logistic_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the logistic distribution with scale parameter a.
 # 
 #   Returns: Cdouble
-function gsl_cdf_logistic_Pinv(P::Real, a::Real)
+function cdf_logistic_Pinv(P::Real, a::Real)
     ccall( (:gsl_cdf_logistic_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble),
         P, a )
 end
-@vectorize_2arg Number gsl_cdf_logistic_Pinv
+@vectorize_2arg Number cdf_logistic_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the logistic distribution with scale parameter a.
 # 
 #   Returns: Cdouble
-function gsl_cdf_logistic_Qinv(Q::Real, a::Real)
+function cdf_logistic_Qinv(Q::Real, a::Real)
     ccall( (:gsl_cdf_logistic_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble),
         Q, a )
 end
-@vectorize_2arg Number gsl_cdf_logistic_Qinv
+@vectorize_2arg Number cdf_logistic_Qinv

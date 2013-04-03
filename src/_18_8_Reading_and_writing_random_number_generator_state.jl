@@ -4,7 +4,7 @@
 ##########################################################
 # 18.8 Reading and writing random number generator state #
 ##########################################################
-export gsl_rng_fwrite, gsl_rng_fread
+export rng_fwrite, rng_fread
 
 
 # This function writes the random number state of the random number generator r
@@ -14,10 +14,10 @@ export gsl_rng_fwrite, gsl_rng_fread
 # architectures.
 # 
 #   Returns: Cint
-function gsl_rng_fwrite(stream::Ptr{Void}, r::Ptr{gsl_rng})
-    gsl_errno = ccall( (:gsl_rng_fwrite, :libgsl), Cint, (Ptr{Void},
+function rng_fwrite(stream::Ptr{Void}, r::Ptr{gsl_rng})
+    errno = ccall( (:gsl_rng_fwrite, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_rng}), stream, r )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -30,10 +30,10 @@ end
 # architecture.
 # 
 #   Returns: Cint
-function gsl_rng_fread(stream::Ptr{Void})
+function rng_fread(stream::Ptr{Void})
     r = convert(Ptr{gsl_rng}, Array(gsl_rng, 1))
-    gsl_errno = ccall( (:gsl_rng_fread, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_rng_fread, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_rng}), stream, r )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(r)[1]
 end

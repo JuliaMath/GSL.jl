@@ -4,8 +4,8 @@
 #######################################
 # 20.3 The Gaussian Tail Distribution #
 #######################################
-export gsl_ran_gaussian_tail, gsl_ran_gaussian_tail_pdf,
-       gsl_ran_ugaussian_tail, gsl_ran_ugaussian_tail_pdf
+export ran_gaussian_tail, ran_gaussian_tail_pdf, ran_ugaussian_tail,
+       ran_ugaussian_tail_pdf
 
 
 
@@ -24,7 +24,7 @@ export gsl_ran_gaussian_tail, gsl_ran_gaussian_tail_pdf,
 # sigma^2)).
 # 
 #   Returns: Cdouble
-function gsl_ran_gaussian_tail(r::Ptr{gsl_rng}, a::Real, sigma::Real)
+function ran_gaussian_tail(r::Ptr{gsl_rng}, a::Real, sigma::Real)
     ccall( (:gsl_ran_gaussian_tail, :libgsl), Cdouble, (Ptr{gsl_rng},
         Cdouble, Cdouble), r, a, sigma )
 end
@@ -35,12 +35,12 @@ end
 # formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_gaussian_tail_pdf(x::Real, a::Real, sigma::Real)
+function ran_gaussian_tail_pdf(x::Real, a::Real, sigma::Real)
     ccall( (:gsl_ran_gaussian_tail_pdf, :libgsl), Cdouble, (Cdouble,
         Cdouble, Cdouble), x, a, sigma )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_ran_gaussian_tail_pdf
+#@vectorize_3arg Number ran_gaussian_tail_pdf
 
 
 # These functions compute results for the tail of a unit Gaussian distribution.
@@ -48,7 +48,7 @@ end
 # sigma = 1.
 # 
 #   Returns: Cdouble
-function gsl_ran_ugaussian_tail(r::Ptr{gsl_rng}, a::Real)
+function ran_ugaussian_tail(r::Ptr{gsl_rng}, a::Real)
     ccall( (:gsl_ran_ugaussian_tail, :libgsl), Cdouble, (Ptr{gsl_rng},
         Cdouble), r, a )
 end
@@ -59,8 +59,8 @@ end
 # sigma = 1.
 # 
 #   Returns: Cdouble
-function gsl_ran_ugaussian_tail_pdf(x::Real, a::Real)
+function ran_ugaussian_tail_pdf(x::Real, a::Real)
     ccall( (:gsl_ran_ugaussian_tail_pdf, :libgsl), Cdouble, (Cdouble,
         Cdouble), x, a )
 end
-@vectorize_2arg Number gsl_ran_ugaussian_tail_pdf
+@vectorize_2arg Number ran_ugaussian_tail_pdf

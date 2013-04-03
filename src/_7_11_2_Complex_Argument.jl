@@ -4,7 +4,7 @@
 ###########################
 # 7.11.2 Complex Argument #
 ###########################
-export gsl_sf_complex_dilog_e
+export sf_complex_dilog_e
 
 
 # This function computes the full complex-valued dilogarithm for the complex
@@ -12,13 +12,13 @@ export gsl_sf_complex_dilog_e
 # returned in result_re, result_im.
 # 
 #   Returns: Cint
-function gsl_sf_complex_dilog_e(r::Real, theta::Real)
+function sf_complex_dilog_e(r::Real, theta::Real)
     result_re = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     result_im = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_complex_dilog_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_complex_dilog_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), r, theta, result_re,
         result_im )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result_re)[1] ,unsafe_ref(result_im)[1]
 end
-@vectorize_2arg Number gsl_sf_complex_dilog_e
+@vectorize_2arg Number sf_complex_dilog_e

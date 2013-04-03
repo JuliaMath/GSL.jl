@@ -4,8 +4,8 @@
 #########################################################
 # 15.4 Real Generalized Symmetric-Definite Eigensystems #
 #########################################################
-export gsl_eigen_gensymm_alloc, gsl_eigen_gensymm_free, gsl_eigen_gensymm,
-       gsl_eigen_gensymmv_alloc, gsl_eigen_gensymmv_free, gsl_eigen_gensymmv
+export eigen_gensymm_alloc, eigen_gensymm_free, eigen_gensymm,
+       eigen_gensymmv_alloc, eigen_gensymmv_free, eigen_gensymmv
 
 
 
@@ -17,17 +17,17 @@ export gsl_eigen_gensymm_alloc, gsl_eigen_gensymm_free, gsl_eigen_gensymm,
 # O(2n).
 # 
 #   Returns: Ptr{gsl_eigen_gensymm_workspace}
-function gsl_eigen_gensymm_alloc(n::Integer)
+function eigen_gensymm_alloc(n::Integer)
     ccall( (:gsl_eigen_gensymm_alloc, :libgsl),
         Ptr{gsl_eigen_gensymm_workspace}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_eigen_gensymm_alloc
+@vectorize_1arg Number eigen_gensymm_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-function gsl_eigen_gensymm_free(w::Ptr{gsl_eigen_gensymm_workspace})
+function eigen_gensymm_free(w::Ptr{gsl_eigen_gensymm_workspace})
     ccall( (:gsl_eigen_gensymm_free, :libgsl), Void,
         (Ptr{gsl_eigen_gensymm_workspace}, ), w )
 end
@@ -39,15 +39,15 @@ end
 # destroyed.
 # 
 #   Returns: Cint
-function gsl_eigen_gensymm()
+function eigen_gensymm()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     B = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     eval = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     w = convert(Ptr{gsl_eigen_gensymm_workspace}, Array(gsl_eigen_gensymm_workspace, 1))
-    gsl_errno = ccall( (:gsl_eigen_gensymm, :libgsl), Cint,
-        (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_vector},
-        Ptr{gsl_eigen_gensymm_workspace}), A, B, eval, w )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_eigen_gensymm, :libgsl), Cint, (Ptr{gsl_matrix},
+        Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_eigen_gensymm_workspace}), A,
+        B, eval, w )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1] ,unsafe_ref(B)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(w)[1]
 end
 
@@ -57,17 +57,17 @@ end
 # size of the workspace is O(4n).
 # 
 #   Returns: Ptr{gsl_eigen_gensymmv_workspace}
-function gsl_eigen_gensymmv_alloc(n::Integer)
+function eigen_gensymmv_alloc(n::Integer)
     ccall( (:gsl_eigen_gensymmv_alloc, :libgsl),
         Ptr{gsl_eigen_gensymmv_workspace}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_eigen_gensymmv_alloc
+@vectorize_1arg Number eigen_gensymmv_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-function gsl_eigen_gensymmv_free(w::Ptr{gsl_eigen_gensymmv_workspace})
+function eigen_gensymmv_free(w::Ptr{gsl_eigen_gensymmv_workspace})
     ccall( (:gsl_eigen_gensymmv_free, :libgsl), Void,
         (Ptr{gsl_eigen_gensymmv_workspace}, ), w )
 end
@@ -80,15 +80,15 @@ end
 # destroyed.
 # 
 #   Returns: Cint
-function gsl_eigen_gensymmv()
+function eigen_gensymmv()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     B = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     eval = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     evec = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     w = convert(Ptr{gsl_eigen_gensymmv_workspace}, Array(gsl_eigen_gensymmv_workspace, 1))
-    gsl_errno = ccall( (:gsl_eigen_gensymmv, :libgsl), Cint,
-        (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_matrix},
+    errno = ccall( (:gsl_eigen_gensymmv, :libgsl), Cint, (Ptr{gsl_matrix},
+        Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_matrix},
         Ptr{gsl_eigen_gensymmv_workspace}), A, B, eval, evec, w )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1] ,unsafe_ref(B)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(evec)[1] ,unsafe_ref(w)[1]
 end

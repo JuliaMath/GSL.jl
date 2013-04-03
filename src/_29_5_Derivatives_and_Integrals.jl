@@ -4,7 +4,7 @@
 ##################################
 # 29.5 Derivatives and Integrals #
 ##################################
-export gsl_cheb_calc_deriv, gsl_cheb_calc_integ
+export cheb_calc_deriv, cheb_calc_integ
 
 
 # This function computes the derivative of the series cs, storing the
@@ -12,11 +12,11 @@ export gsl_cheb_calc_deriv, gsl_cheb_calc_integ
 # and deriv must have been allocated with the same order.
 # 
 #   Returns: Cint
-function gsl_cheb_calc_deriv(cs::Ptr{gsl_cheb_series})
+function cheb_calc_deriv(cs::Ptr{gsl_cheb_series})
     deriv = convert(Ptr{gsl_cheb_series}, Array(gsl_cheb_series, 1))
-    gsl_errno = ccall( (:gsl_cheb_calc_deriv, :libgsl), Cint,
+    errno = ccall( (:gsl_cheb_calc_deriv, :libgsl), Cint,
         (Ptr{gsl_cheb_series}, Ptr{gsl_cheb_series}), deriv, cs )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(deriv)[1]
 end
 
@@ -27,10 +27,10 @@ end
 # integration is taken to be the left hand end of the range a.
 # 
 #   Returns: Cint
-function gsl_cheb_calc_integ(cs::Ptr{gsl_cheb_series})
+function cheb_calc_integ(cs::Ptr{gsl_cheb_series})
     integ = convert(Ptr{gsl_cheb_series}, Array(gsl_cheb_series, 1))
-    gsl_errno = ccall( (:gsl_cheb_calc_integ, :libgsl), Cint,
+    errno = ccall( (:gsl_cheb_calc_integ, :libgsl), Cint,
         (Ptr{gsl_cheb_series}, Ptr{gsl_cheb_series}), integ, cs )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(integ)[1]
 end

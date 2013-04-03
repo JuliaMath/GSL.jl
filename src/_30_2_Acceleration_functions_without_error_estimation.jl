@@ -4,25 +4,24 @@
 ########################################################
 # 30.2 Acceleration functions without error estimation #
 ########################################################
-export gsl_sum_levin_utrunc_alloc, gsl_sum_levin_utrunc_free,
-       gsl_sum_levin_utrunc_accel
+export sum_levin_utrunc_alloc, sum_levin_utrunc_free, sum_levin_utrunc_accel
 
 
 # This function allocates a workspace for a Levin u-transform of n terms,
 # without error estimation.  The size of the workspace is O(3n).
 # 
 #   Returns: Ptr{gsl_sum_levin_utrunc_workspace}
-function gsl_sum_levin_utrunc_alloc(n::Integer)
+function sum_levin_utrunc_alloc(n::Integer)
     ccall( (:gsl_sum_levin_utrunc_alloc, :libgsl),
         Ptr{gsl_sum_levin_utrunc_workspace}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_sum_levin_utrunc_alloc
+@vectorize_1arg Number sum_levin_utrunc_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-function gsl_sum_levin_utrunc_free(w::Ptr{gsl_sum_levin_utrunc_workspace})
+function sum_levin_utrunc_free(w::Ptr{gsl_sum_levin_utrunc_workspace})
     ccall( (:gsl_sum_levin_utrunc_free, :libgsl), Void,
         (Ptr{gsl_sum_levin_utrunc_workspace}, ), w )
 end
@@ -40,14 +39,14 @@ end
 # truncation error, smoothing out any fluctuations.
 # 
 #   Returns: Cint
-function gsl_sum_levin_utrunc_accel{tA<:Real}(array::Ptr{tA}, array_size::Integer)
+function sum_levin_utrunc_accel{tA<:Real}(array::Ptr{tA}, array_size::Integer)
     w = convert(Ptr{gsl_sum_levin_utrunc_workspace}, Array(gsl_sum_levin_utrunc_workspace, 1))
     sum_accel = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr_trunc = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_sum_levin_utrunc_accel, :libgsl), Cint,
+    errno = ccall( (:gsl_sum_levin_utrunc_accel, :libgsl), Cint,
         (Ptr{Cdouble}, Csize_t, Ptr{gsl_sum_levin_utrunc_workspace},
         Ptr{Cdouble}, Ptr{Cdouble}), array, array_size, w, sum_accel,
         abserr_trunc )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(w)[1] ,unsafe_ref(sum_accel)[1] ,unsafe_ref(abserr_trunc)[1]
 end

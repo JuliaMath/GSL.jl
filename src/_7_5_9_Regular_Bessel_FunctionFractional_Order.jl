@@ -4,32 +4,32 @@
 ##################################################
 # 7.5.9 Regular Bessel Function—Fractional Order #
 ##################################################
-export gsl_sf_bessel_Jnu, gsl_sf_bessel_Jnu_e, gsl_sf_bessel_sequence_Jnu_e
+export sf_bessel_Jnu, sf_bessel_Jnu_e, sf_bessel_sequence_Jnu_e
 
 
 # These routines compute the regular cylindrical Bessel function of fractional
 # order \nu, J_\nu(x).
 # 
 #   Returns: Cdouble
-function gsl_sf_bessel_Jnu(nu::Real, x::Real)
+function sf_bessel_Jnu(nu::Real, x::Real)
     ccall( (:gsl_sf_bessel_Jnu, :libgsl), Cdouble, (Cdouble, Cdouble), nu,
         x )
 end
-@vectorize_2arg Number gsl_sf_bessel_Jnu
+@vectorize_2arg Number sf_bessel_Jnu
 
 
 # These routines compute the regular cylindrical Bessel function of fractional
 # order \nu, J_\nu(x).
 # 
 #   Returns: Cint
-function gsl_sf_bessel_Jnu_e(nu::Real, x::Real)
+function sf_bessel_Jnu_e(nu::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_bessel_Jnu_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_bessel_Jnu_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), nu, x, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1]
 end
-@vectorize_2arg Number gsl_sf_bessel_Jnu_e
+@vectorize_2arg Number sf_bessel_Jnu_e
 
 
 # This function computes the regular cylindrical Bessel function of fractional
@@ -38,8 +38,8 @@ end
 # and positive.  The array is over-written with the values of J_\nu(x_i).
 # 
 #   Returns: Cint
-function gsl_sf_bessel_sequence_Jnu_e(nu::Real, mode::gsl_mode_t, size::Integer, v::Real)
-    gsl_errno = ccall( (:gsl_sf_bessel_sequence_Jnu_e, :libgsl), Cint,
+function sf_bessel_sequence_Jnu_e(nu::Real, mode::gsl_mode_t, size::Integer, v::Real)
+    errno = ccall( (:gsl_sf_bessel_sequence_Jnu_e, :libgsl), Cint,
         (Cdouble, gsl_mode_t, Csize_t, Cdouble), nu, mode, size, v )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end

@@ -4,14 +4,14 @@
 #############################
 # 9.5 Permutation functions #
 #############################
-export gsl_permutation_reverse, gsl_permutation_inverse, gsl_permutation_next,
-       gsl_permutation_prev
+export permutation_reverse, permutation_inverse, permutation_next,
+       permutation_prev
 
 
 # This function reverses the elements of the permutation p.
 # 
 #   Returns: Void
-function gsl_permutation_reverse()
+function permutation_reverse()
     p = convert(Ptr{gsl_permutation}, Array(gsl_permutation, 1))
     ccall( (:gsl_permutation_reverse, :libgsl), Void,
         (Ptr{gsl_permutation}, ), p )
@@ -23,11 +23,11 @@ end
 # in inv.
 # 
 #   Returns: Cint
-function gsl_permutation_inverse(p::Ptr{gsl_permutation})
+function permutation_inverse(p::Ptr{gsl_permutation})
     inv = convert(Ptr{gsl_permutation}, Array(gsl_permutation, 1))
-    gsl_errno = ccall( (:gsl_permutation_inverse, :libgsl), Cint,
+    errno = ccall( (:gsl_permutation_inverse, :libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_permutation}), inv, p )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(inv)[1]
 end
 
@@ -39,10 +39,10 @@ end
 # through all possible permutations of a given order.
 # 
 #   Returns: Cint
-function gsl_permutation_next(p::Ptr{gsl_permutation})
-    gsl_errno = ccall( (:gsl_permutation_next, :libgsl), Cint,
+function permutation_next(p::Ptr{gsl_permutation})
+    errno = ccall( (:gsl_permutation_next, :libgsl), Cint,
         (Ptr{gsl_permutation}, ), p )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -51,10 +51,10 @@ end
 # permutation is available it returns GSL_FAILURE and leaves p unmodified.
 # 
 #   Returns: Cint
-function gsl_permutation_prev()
+function permutation_prev()
     p = convert(Ptr{gsl_permutation}, Array(gsl_permutation, 1))
-    gsl_errno = ccall( (:gsl_permutation_prev, :libgsl), Cint,
+    errno = ccall( (:gsl_permutation_prev, :libgsl), Cint,
         (Ptr{gsl_permutation}, ), p )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(p)[1]
 end

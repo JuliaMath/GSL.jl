@@ -4,10 +4,10 @@
 ###################################
 # 15.3 Real Nonsymmetric Matrices #
 ###################################
-export gsl_eigen_nonsymm_alloc, gsl_eigen_nonsymm_free,
-       gsl_eigen_nonsymm_params, gsl_eigen_nonsymm, gsl_eigen_nonsymm_Z,
-       gsl_eigen_nonsymmv_alloc, gsl_eigen_nonsymmv_free,
-       gsl_eigen_nonsymmv_params, gsl_eigen_nonsymmv, gsl_eigen_nonsymmv_Z
+export eigen_nonsymm_alloc, eigen_nonsymm_free, eigen_nonsymm_params,
+       eigen_nonsymm, eigen_nonsymm_Z, eigen_nonsymmv_alloc,
+       eigen_nonsymmv_free, eigen_nonsymmv_params, eigen_nonsymmv,
+       eigen_nonsymmv_Z
 
 
 
@@ -20,17 +20,17 @@ export gsl_eigen_nonsymm_alloc, gsl_eigen_nonsymm_free,
 # nonsymmetric matrices. The size of the workspace is O(2n).
 # 
 #   Returns: Ptr{gsl_eigen_nonsymm_workspace}
-function gsl_eigen_nonsymm_alloc(n::Integer)
+function eigen_nonsymm_alloc(n::Integer)
     ccall( (:gsl_eigen_nonsymm_alloc, :libgsl),
         Ptr{gsl_eigen_nonsymm_workspace}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_eigen_nonsymm_alloc
+@vectorize_1arg Number eigen_nonsymm_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-function gsl_eigen_nonsymm_free(w::Ptr{gsl_eigen_nonsymm_workspace})
+function eigen_nonsymm_free(w::Ptr{gsl_eigen_nonsymm_workspace})
     ccall( (:gsl_eigen_nonsymm_free, :libgsl), Void,
         (Ptr{gsl_eigen_nonsymm_workspace}, ), w )
 end
@@ -56,13 +56,13 @@ end
 # be orthogonal. For this reason, balancing is not performed by default.
 # 
 #   Returns: Void
-function gsl_eigen_nonsymm_params(compute_t::Integer, balance::Integer)
+function eigen_nonsymm_params(compute_t::Integer, balance::Integer)
     w = convert(Ptr{gsl_eigen_nonsymm_workspace}, Array(gsl_eigen_nonsymm_workspace, 1))
     ccall( (:gsl_eigen_nonsymm_params, :libgsl), Void, (Cint, Cint,
         Ptr{gsl_eigen_nonsymm_workspace}), compute_t, balance, w )
     return unsafe_ref(w)[1]
 end
-@vectorize_2arg Number gsl_eigen_nonsymm_params
+@vectorize_2arg Number eigen_nonsymm_params
 
 
 # This function computes the eigenvalues of the real nonsymmetric matrix A and
@@ -75,14 +75,14 @@ end
 # stored in the beginning of eval.
 # 
 #   Returns: Cint
-function gsl_eigen_nonsymm()
+function eigen_nonsymm()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     eval = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     w = convert(Ptr{gsl_eigen_nonsymm_workspace}, Array(gsl_eigen_nonsymm_workspace, 1))
-    gsl_errno = ccall( (:gsl_eigen_nonsymm, :libgsl), Cint,
-        (Ptr{gsl_matrix}, Ptr{gsl_vector_complex},
-        Ptr{gsl_eigen_nonsymm_workspace}), A, eval, w )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_eigen_nonsymm, :libgsl), Cint, (Ptr{gsl_matrix},
+        Ptr{gsl_vector_complex}, Ptr{gsl_eigen_nonsymm_workspace}), A, eval, w
+        )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(w)[1]
 end
 
@@ -91,15 +91,15 @@ end
 # the Schur vectors and stores them into Z.
 # 
 #   Returns: Cint
-function gsl_eigen_nonsymm_Z()
+function eigen_nonsymm_Z()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     eval = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     Z = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     w = convert(Ptr{gsl_eigen_nonsymm_workspace}, Array(gsl_eigen_nonsymm_workspace, 1))
-    gsl_errno = ccall( (:gsl_eigen_nonsymm_Z, :libgsl), Cint,
-        (Ptr{gsl_matrix}, Ptr{gsl_vector_complex}, Ptr{gsl_matrix},
+    errno = ccall( (:gsl_eigen_nonsymm_Z, :libgsl), Cint, (Ptr{gsl_matrix},
+        Ptr{gsl_vector_complex}, Ptr{gsl_matrix},
         Ptr{gsl_eigen_nonsymm_workspace}), A, eval, Z, w )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(Z)[1] ,unsafe_ref(w)[1]
 end
 
@@ -109,17 +109,17 @@ end
 # is O(5n).
 # 
 #   Returns: Ptr{gsl_eigen_nonsymmv_workspace}
-function gsl_eigen_nonsymmv_alloc(n::Integer)
+function eigen_nonsymmv_alloc(n::Integer)
     ccall( (:gsl_eigen_nonsymmv_alloc, :libgsl),
         Ptr{gsl_eigen_nonsymmv_workspace}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_eigen_nonsymmv_alloc
+@vectorize_1arg Number eigen_nonsymmv_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-function gsl_eigen_nonsymmv_free(w::Ptr{gsl_eigen_nonsymmv_workspace})
+function eigen_nonsymmv_free(w::Ptr{gsl_eigen_nonsymmv_workspace})
     ccall( (:gsl_eigen_nonsymmv_free, :libgsl), Void,
         (Ptr{gsl_eigen_nonsymmv_workspace}, ), w )
 end
@@ -132,13 +132,13 @@ end
 # default since it does not preserve the orthogonality of the Schur vectors.
 # 
 #   Returns: Void
-function gsl_eigen_nonsymmv_params(balance::Integer)
+function eigen_nonsymmv_params(balance::Integer)
     w = convert(Ptr{gsl_eigen_nonsymm_workspace}, Array(gsl_eigen_nonsymm_workspace, 1))
     ccall( (:gsl_eigen_nonsymmv_params, :libgsl), Void, (Cint,
         Ptr{gsl_eigen_nonsymm_workspace}), balance, w )
     return unsafe_ref(w)[1]
 end
-@vectorize_1arg Number gsl_eigen_nonsymmv_params
+@vectorize_1arg Number eigen_nonsymmv_params
 
 
 # This function computes eigenvalues and right eigenvectors of the n-by-n real
@@ -151,15 +151,15 @@ end
 # eigenvectors are computed, and an error code is returned.
 # 
 #   Returns: Cint
-function gsl_eigen_nonsymmv()
+function eigen_nonsymmv()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     eval = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     evec = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
     w = convert(Ptr{gsl_eigen_nonsymmv_workspace}, Array(gsl_eigen_nonsymmv_workspace, 1))
-    gsl_errno = ccall( (:gsl_eigen_nonsymmv, :libgsl), Cint,
-        (Ptr{gsl_matrix}, Ptr{gsl_vector_complex}, Ptr{gsl_matrix_complex},
+    errno = ccall( (:gsl_eigen_nonsymmv, :libgsl), Cint, (Ptr{gsl_matrix},
+        Ptr{gsl_vector_complex}, Ptr{gsl_matrix_complex},
         Ptr{gsl_eigen_nonsymmv_workspace}), A, eval, evec, w )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(evec)[1] ,unsafe_ref(w)[1]
 end
 
@@ -168,16 +168,16 @@ end
 # the Schur vectors into Z.
 # 
 #   Returns: Cint
-function gsl_eigen_nonsymmv_Z()
+function eigen_nonsymmv_Z()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     eval = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     evec = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
     Z = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     w = convert(Ptr{gsl_eigen_nonsymmv_workspace}, Array(gsl_eigen_nonsymmv_workspace, 1))
-    gsl_errno = ccall( (:gsl_eigen_nonsymmv_Z, :libgsl), Cint,
+    errno = ccall( (:gsl_eigen_nonsymmv_Z, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector_complex}, Ptr{gsl_matrix_complex},
         Ptr{gsl_matrix}, Ptr{gsl_eigen_nonsymmv_workspace}), A, eval, evec, Z,
         w )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(evec)[1] ,unsafe_ref(Z)[1] ,unsafe_ref(w)[1]
 end

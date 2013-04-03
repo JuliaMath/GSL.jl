@@ -4,8 +4,8 @@
 ############################
 # 11.2 Multiset allocation #
 ############################
-export gsl_multiset_alloc, gsl_multiset_calloc, gsl_multiset_init_first,
-       gsl_multiset_init_last, gsl_multiset_free, gsl_multiset_memcpy
+export multiset_alloc, multiset_calloc, multiset_init_first,
+       multiset_init_last, multiset_free, multiset_memcpy
 
 
 # This function allocates memory for a new multiset with parameters n, k.  The
@@ -15,11 +15,11 @@ export gsl_multiset_alloc, gsl_multiset_calloc, gsl_multiset_init_first,
 # insufficient memory is available to create the multiset.
 # 
 #   Returns: Ptr{gsl_multiset}
-function gsl_multiset_alloc(n::Integer, k::Integer)
+function multiset_alloc(n::Integer, k::Integer)
     ccall( (:gsl_multiset_alloc, :libgsl), Ptr{gsl_multiset}, (Csize_t,
         Csize_t), n, k )
 end
-@vectorize_2arg Number gsl_multiset_alloc
+@vectorize_2arg Number multiset_alloc
 
 
 # This function allocates memory for a new multiset with parameters n, k and
@@ -28,18 +28,18 @@ end
 # multiset.
 # 
 #   Returns: Ptr{gsl_multiset}
-function gsl_multiset_calloc(n::Integer, k::Integer)
+function multiset_calloc(n::Integer, k::Integer)
     ccall( (:gsl_multiset_calloc, :libgsl), Ptr{gsl_multiset}, (Csize_t,
         Csize_t), n, k )
 end
-@vectorize_2arg Number gsl_multiset_calloc
+@vectorize_2arg Number multiset_calloc
 
 
 # This function initializes the multiset c to the lexicographically first
 # multiset element, i.e. 0 repeated k times.
 # 
 #   Returns: Void
-function gsl_multiset_init_first()
+function multiset_init_first()
     c = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
     ccall( (:gsl_multiset_init_first, :libgsl), Void, (Ptr{gsl_multiset},
         ), c )
@@ -51,7 +51,7 @@ end
 # multiset element, i.e. n-1 repeated k times.
 # 
 #   Returns: Void
-function gsl_multiset_init_last()
+function multiset_init_last()
     c = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
     ccall( (:gsl_multiset_init_last, :libgsl), Void, (Ptr{gsl_multiset}, ),
         c )
@@ -62,7 +62,7 @@ end
 # This function frees all the memory used by the multiset c.
 # 
 #   Returns: Void
-function gsl_multiset_free(c::Ptr{gsl_multiset})
+function multiset_free(c::Ptr{gsl_multiset})
     ccall( (:gsl_multiset_free, :libgsl), Void, (Ptr{gsl_multiset}, ), c )
 end
 
@@ -71,10 +71,10 @@ end
 # The two multisets must have the same size.
 # 
 #   Returns: Cint
-function gsl_multiset_memcpy(src::Ptr{gsl_multiset})
+function multiset_memcpy(src::Ptr{gsl_multiset})
     dest = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
-    gsl_errno = ccall( (:gsl_multiset_memcpy, :libgsl), Cint,
+    errno = ccall( (:gsl_multiset_memcpy, :libgsl), Cint,
         (Ptr{gsl_multiset}, Ptr{gsl_multiset}), dest, src )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(dest)[1]
 end

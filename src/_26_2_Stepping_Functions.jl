@@ -4,9 +4,9 @@
 ###########################
 # 26.2 Stepping Functions #
 ###########################
-export gsl_odeiv2_step_alloc, gsl_odeiv2_step_reset, gsl_odeiv2_step_free,
-       gsl_odeiv2_step_name, gsl_odeiv2_step_order, gsl_odeiv2_step_set_driver,
-       gsl_odeiv2_step_apply
+export odeiv2_step_alloc, odeiv2_step_reset, odeiv2_step_free,
+       odeiv2_step_name, odeiv2_step_order, odeiv2_step_set_driver,
+       odeiv2_step_apply
 
 
 
@@ -18,7 +18,7 @@ export gsl_odeiv2_step_alloc, gsl_odeiv2_step_reset, gsl_odeiv2_step_free,
 # too.
 # 
 #   Returns: Ptr{gsl_odeiv2_step}
-function gsl_odeiv2_step_alloc(T::Ptr{gsl_odeiv2_step_type}, dim::Integer)
+function odeiv2_step_alloc(T::Ptr{gsl_odeiv2_step_type}, dim::Integer)
     ccall( (:gsl_odeiv2_step_alloc, :libgsl), Ptr{gsl_odeiv2_step},
         (Ptr{gsl_odeiv2_step_type}, Csize_t), T, dim )
 end
@@ -28,11 +28,11 @@ end
 # next use of s will not be a continuation of a previous step.
 # 
 #   Returns: Cint
-function gsl_odeiv2_step_reset()
+function odeiv2_step_reset()
     s = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
-    gsl_errno = ccall( (:gsl_odeiv2_step_reset, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_step_reset, :libgsl), Cint,
         (Ptr{gsl_odeiv2_step}, ), s )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(s)[1]
 end
 
@@ -40,7 +40,7 @@ end
 # This function frees all the memory associated with the stepping function s.
 # 
 #   Returns: Void
-function gsl_odeiv2_step_free(s::Ptr{gsl_odeiv2_step})
+function odeiv2_step_free(s::Ptr{gsl_odeiv2_step})
     ccall( (:gsl_odeiv2_step_free, :libgsl), Void, (Ptr{gsl_odeiv2_step},
         ), s )
 end
@@ -52,7 +52,7 @@ end
 # 'rkf45'.
 # 
 #   Returns: Ptr{Cchar}
-function gsl_odeiv2_step_name(s::Ptr{gsl_odeiv2_step})
+function odeiv2_step_name(s::Ptr{gsl_odeiv2_step})
     output_string = ccall( (:gsl_odeiv2_step_name, :libgsl), Ptr{Cchar},
         (Ptr{gsl_odeiv2_step}, ), s )
     bytestring(convert(Ptr{Uint8}, output_string))
@@ -63,7 +63,7 @@ end
 # step. The order can vary if the stepping function itself is adaptive.
 # 
 #   Returns: Cuint
-function gsl_odeiv2_step_order(s::Ptr{gsl_odeiv2_step})
+function odeiv2_step_order(s::Ptr{gsl_odeiv2_step})
     ccall( (:gsl_odeiv2_step_order, :libgsl), Cuint, (Ptr{gsl_odeiv2_step},
         ), s )
 end
@@ -76,11 +76,11 @@ end
 # function automatically.
 # 
 #   Returns: Cint
-function gsl_odeiv2_step_set_driver(d::Ptr{gsl_odeiv2_driver})
+function odeiv2_step_set_driver(d::Ptr{gsl_odeiv2_driver})
     s = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
-    gsl_errno = ccall( (:gsl_odeiv2_step_set_driver, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_step_set_driver, :libgsl), Cint,
         (Ptr{gsl_odeiv2_step}, Ptr{gsl_odeiv2_driver}), s, d )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(s)[1]
 end
 
@@ -108,12 +108,12 @@ end
 # user must call gsl_odeiv2_step_reset before calling this function again.
 # 
 #   Returns: Cint
-function gsl_odeiv2_step_apply(t::Real, h::Real, y::Real)
+function odeiv2_step_apply(t::Real, h::Real, y::Real)
     s = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
-    gsl_errno = ccall( (:gsl_odeiv2_step_apply, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_step_apply, :libgsl), Cint,
         (Ptr{gsl_odeiv2_step}, Cdouble, Cdouble, Cdouble), s, t, h, y )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(s)[1]
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_odeiv2_step_apply
+#@vectorize_3arg Number odeiv2_step_apply

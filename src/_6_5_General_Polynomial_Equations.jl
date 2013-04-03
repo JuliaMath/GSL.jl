@@ -4,8 +4,8 @@
 ####################################
 # 6.5 General Polynomial Equations #
 ####################################
-export gsl_poly_complex_workspace_alloc, gsl_poly_complex_workspace_free,
-       gsl_poly_complex_solve
+export poly_complex_workspace_alloc, poly_complex_workspace_free,
+       poly_complex_solve
 
 
 # This function allocates space for a gsl_poly_complex_workspace struct and a
@@ -15,17 +15,17 @@ export gsl_poly_complex_workspace_alloc, gsl_poly_complex_workspace_free,
 # and a null pointer in the case of error.
 # 
 #   Returns: Ptr{gsl_poly_complex_workspace}
-function gsl_poly_complex_workspace_alloc(n::Integer)
+function poly_complex_workspace_alloc(n::Integer)
     ccall( (:gsl_poly_complex_workspace_alloc, :libgsl),
         Ptr{gsl_poly_complex_workspace}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_poly_complex_workspace_alloc
+@vectorize_1arg Number poly_complex_workspace_alloc
 
 
 # This function frees all the memory associated with the workspace w.
 # 
 #   Returns: Void
-function gsl_poly_complex_workspace_free(w::Ptr{gsl_poly_complex_workspace})
+function poly_complex_workspace_free(w::Ptr{gsl_poly_complex_workspace})
     ccall( (:gsl_poly_complex_workspace_free, :libgsl), Void,
         (Ptr{gsl_poly_complex_workspace}, ), w )
 end
@@ -47,11 +47,11 @@ end
 # Mathematical Software, Volume 30, Issue 2 (2004), pp 218–236).
 # 
 #   Returns: Cint
-function gsl_poly_complex_solve{tA<:Real}(a::Ptr{tA}, n::Integer, z::gsl_complex_packed_ptr)
+function poly_complex_solve{tA<:Real}(a::Ptr{tA}, n::Integer, z::gsl_complex_packed_ptr)
     w = convert(Ptr{gsl_poly_complex_workspace}, Array(gsl_poly_complex_workspace, 1))
-    gsl_errno = ccall( (:gsl_poly_complex_solve, :libgsl), Cint,
-        (Ptr{Cdouble}, Csize_t, Ptr{gsl_poly_complex_workspace},
-        gsl_complex_packed_ptr), a, n, w, z )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_poly_complex_solve, :libgsl), Cint, (Ptr{Cdouble},
+        Csize_t, Ptr{gsl_poly_complex_workspace}, gsl_complex_packed_ptr), a,
+        n, w, z )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(w)[1]
 end

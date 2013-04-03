@@ -4,94 +4,93 @@
 ############################
 # 7.30 Transport Functions #
 ############################
-export gsl_sf_transport_2, gsl_sf_transport_2_e, gsl_sf_transport_3,
-       gsl_sf_transport_3_e, gsl_sf_transport_4, gsl_sf_transport_4_e,
-       gsl_sf_transport_5, gsl_sf_transport_5_e
+export sf_transport_2, sf_transport_2_e, sf_transport_3, sf_transport_3_e,
+       sf_transport_4, sf_transport_4_e, sf_transport_5, sf_transport_5_e
 
 
 # These routines compute the transport function J(2,x).
 # 
 #   Returns: Cdouble
-function gsl_sf_transport_2(x::Real)
+function sf_transport_2(x::Real)
     ccall( (:gsl_sf_transport_2, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_sf_transport_2
+@vectorize_1arg Number sf_transport_2
 
 
 # These routines compute the transport function J(2,x).
 # 
 #   Returns: Cint
-function gsl_sf_transport_2_e(x::Real)
+function sf_transport_2_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_transport_2_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_transport_2_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1]
 end
-@vectorize_1arg Number gsl_sf_transport_2_e
+@vectorize_1arg Number sf_transport_2_e
 
 
 # These routines compute the transport function J(3,x).
 # 
 #   Returns: Cdouble
-function gsl_sf_transport_3(x::Real)
+function sf_transport_3(x::Real)
     ccall( (:gsl_sf_transport_3, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_sf_transport_3
+@vectorize_1arg Number sf_transport_3
 
 
 # These routines compute the transport function J(3,x).
 # 
 #   Returns: Cint
-function gsl_sf_transport_3_e(x::Real)
+function sf_transport_3_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_transport_3_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_transport_3_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1]
 end
-@vectorize_1arg Number gsl_sf_transport_3_e
+@vectorize_1arg Number sf_transport_3_e
 
 
 # These routines compute the transport function J(4,x).
 # 
 #   Returns: Cdouble
-function gsl_sf_transport_4(x::Real)
+function sf_transport_4(x::Real)
     ccall( (:gsl_sf_transport_4, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_sf_transport_4
+@vectorize_1arg Number sf_transport_4
 
 
 # These routines compute the transport function J(4,x).
 # 
 #   Returns: Cint
-function gsl_sf_transport_4_e(x::Real)
+function sf_transport_4_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_transport_4_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_transport_4_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1]
 end
-@vectorize_1arg Number gsl_sf_transport_4_e
+@vectorize_1arg Number sf_transport_4_e
 
 
 # These routines compute the transport function J(5,x).
 # 
 #   Returns: Cdouble
-function gsl_sf_transport_5(x::Real)
+function sf_transport_5(x::Real)
     ccall( (:gsl_sf_transport_5, :libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_sf_transport_5
+@vectorize_1arg Number sf_transport_5
 
 
 # These routines compute the transport function J(5,x).
 # 
 #   Returns: Cint
-function gsl_sf_transport_5_e(x::Real)
+function sf_transport_5_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_transport_5_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_transport_5_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1]
 end
-@vectorize_1arg Number gsl_sf_transport_5_e
+@vectorize_1arg Number sf_transport_5_e

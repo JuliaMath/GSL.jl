@@ -4,14 +4,11 @@
 ##################
 # 13.1.2 Level 2 #
 ##################
-export gsl_blas_sgemv, gsl_blas_dgemv, gsl_blas_cgemv, gsl_blas_zgemv,
-       gsl_blas_strmv, gsl_blas_dtrmv, gsl_blas_ctrmv, gsl_blas_ztrmv,
-       gsl_blas_strsv, gsl_blas_dtrsv, gsl_blas_ctrsv, gsl_blas_ztrsv,
-       gsl_blas_ssymv, gsl_blas_dsymv, gsl_blas_chemv, gsl_blas_zhemv,
-       gsl_blas_sger, gsl_blas_dger, gsl_blas_cgeru, gsl_blas_zgeru,
-       gsl_blas_cgerc, gsl_blas_zgerc, gsl_blas_ssyr, gsl_blas_dsyr,
-       gsl_blas_cher, gsl_blas_zher, gsl_blas_ssyr2, gsl_blas_dsyr2,
-       gsl_blas_cher2, gsl_blas_zher2
+export blas_sgemv, blas_dgemv, blas_cgemv, blas_zgemv, blas_strmv, blas_dtrmv,
+       blas_ctrmv, blas_ztrmv, blas_strsv, blas_dtrsv, blas_ctrsv, blas_ztrsv,
+       blas_ssymv, blas_dsymv, blas_chemv, blas_zhemv, blas_sger, blas_dger,
+       blas_cgeru, blas_zgeru, blas_cgerc, blas_zgerc, blas_ssyr, blas_dsyr,
+       blas_cher, blas_zher, blas_ssyr2, blas_dsyr2, blas_cher2, blas_zher2
 
 
 # These functions compute the matrix-vector product and sum y = \alpha op(A) x
@@ -19,13 +16,12 @@ export gsl_blas_sgemv, gsl_blas_dgemv, gsl_blas_cgemv, gsl_blas_zgemv,
 # CblasConjTrans.
 # 
 #   Returns: Cint
-function gsl_blas_sgemv(TransA::CBLAS_TRANSPOSE_t, alpha::Real, A::Ptr{gsl_matrix_float}, x::Ptr{gsl_vector_float}, beta::Real)
+function blas_sgemv(TransA::CBLAS_TRANSPOSE_t, alpha::Real, A::Ptr{gsl_matrix_float}, x::Ptr{gsl_vector_float}, beta::Real)
     y = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
-    gsl_errno = ccall( (:gsl_blas_sgemv, :libgsl), Cint,
-        (CBLAS_TRANSPOSE_t, Cfloat, Ptr{gsl_matrix_float},
-        Ptr{gsl_vector_float}, Cfloat, Ptr{gsl_vector_float}), TransA, alpha,
-        A, x, beta, y )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_blas_sgemv, :libgsl), Cint, (CBLAS_TRANSPOSE_t,
+        Cfloat, Ptr{gsl_matrix_float}, Ptr{gsl_vector_float}, Cfloat,
+        Ptr{gsl_vector_float}), TransA, alpha, A, x, beta, y )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(y)[1]
 end
 
@@ -35,12 +31,12 @@ end
 # CblasConjTrans.
 # 
 #   Returns: Cint
-function gsl_blas_dgemv(TransA::CBLAS_TRANSPOSE_t, alpha::Real, A::Ptr{gsl_matrix}, x::Ptr{gsl_vector}, beta::Real)
+function blas_dgemv(TransA::CBLAS_TRANSPOSE_t, alpha::Real, A::Ptr{gsl_matrix}, x::Ptr{gsl_vector}, beta::Real)
     y = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_blas_dgemv, :libgsl), Cint,
-        (CBLAS_TRANSPOSE_t, Cdouble, Ptr{gsl_matrix}, Ptr{gsl_vector}, Cdouble,
-        Ptr{gsl_vector}), TransA, alpha, A, x, beta, y )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_blas_dgemv, :libgsl), Cint, (CBLAS_TRANSPOSE_t,
+        Cdouble, Ptr{gsl_matrix}, Ptr{gsl_vector}, Cdouble, Ptr{gsl_vector}),
+        TransA, alpha, A, x, beta, y )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(y)[1]
 end
 
@@ -50,13 +46,13 @@ end
 # CblasConjTrans.
 # 
 #   Returns: Cint
-function gsl_blas_cgemv(TransA::CBLAS_TRANSPOSE_t, alpha::gsl_complex_float, A::Ptr{gsl_matrix_complex_float}, x::Ptr{gsl_vector_complex_float}, beta::gsl_complex_float)
+function blas_cgemv(TransA::CBLAS_TRANSPOSE_t, alpha::gsl_complex_float, A::Ptr{gsl_matrix_complex_float}, x::Ptr{gsl_vector_complex_float}, beta::gsl_complex_float)
     y = convert(Ptr{gsl_vector_complex_float}, Array(gsl_vector_complex_float, 1))
-    gsl_errno = ccall( (:gsl_blas_cgemv, :libgsl), Cint,
-        (CBLAS_TRANSPOSE_t, gsl_complex_float, Ptr{gsl_matrix_complex_float},
+    errno = ccall( (:gsl_blas_cgemv, :libgsl), Cint, (CBLAS_TRANSPOSE_t,
+        gsl_complex_float, Ptr{gsl_matrix_complex_float},
         Ptr{gsl_vector_complex_float}, gsl_complex_float,
         Ptr{gsl_vector_complex_float}), TransA, alpha, A, x, beta, y )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(y)[1]
 end
 
@@ -66,13 +62,12 @@ end
 # CblasConjTrans.
 # 
 #   Returns: Cint
-function gsl_blas_zgemv(TransA::CBLAS_TRANSPOSE_t, alpha::gsl_complex, A::Ptr{gsl_matrix_complex}, x::Ptr{gsl_vector_complex}, beta::gsl_complex)
+function blas_zgemv(TransA::CBLAS_TRANSPOSE_t, alpha::gsl_complex, A::Ptr{gsl_matrix_complex}, x::Ptr{gsl_vector_complex}, beta::gsl_complex)
     y = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
-    gsl_errno = ccall( (:gsl_blas_zgemv, :libgsl), Cint,
-        (CBLAS_TRANSPOSE_t, gsl_complex, Ptr{gsl_matrix_complex},
-        Ptr{gsl_vector_complex}, gsl_complex, Ptr{gsl_vector_complex}), TransA,
-        alpha, A, x, beta, y )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_blas_zgemv, :libgsl), Cint, (CBLAS_TRANSPOSE_t,
+        gsl_complex, Ptr{gsl_matrix_complex}, Ptr{gsl_vector_complex},
+        gsl_complex, Ptr{gsl_vector_complex}), TransA, alpha, A, x, beta, y )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(y)[1]
 end
 
@@ -86,12 +81,12 @@ end
 # unity and are not referenced.
 # 
 #   Returns: Cint
-function gsl_blas_strmv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_float})
+function blas_strmv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_float})
     x = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
-    gsl_errno = ccall( (:gsl_blas_strmv, :libgsl), Cint, (CBLAS_UPLO_t,
+    errno = ccall( (:gsl_blas_strmv, :libgsl), Cint, (CBLAS_UPLO_t,
         CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix_float},
         Ptr{gsl_vector_float}), Uplo, TransA, Diag, A, x )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(x)[1]
 end
 
@@ -105,12 +100,12 @@ end
 # unity and are not referenced.
 # 
 #   Returns: Cint
-function gsl_blas_dtrmv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix})
+function blas_dtrmv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix})
     x = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_blas_dtrmv, :libgsl), Cint, (CBLAS_UPLO_t,
+    errno = ccall( (:gsl_blas_dtrmv, :libgsl), Cint, (CBLAS_UPLO_t,
         CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix}, Ptr{gsl_vector}),
         Uplo, TransA, Diag, A, x )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(x)[1]
 end
 
@@ -124,12 +119,12 @@ end
 # unity and are not referenced.
 # 
 #   Returns: Cint
-function gsl_blas_ctrmv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_complex_float})
+function blas_ctrmv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_complex_float})
     x = convert(Ptr{gsl_vector_complex_float}, Array(gsl_vector_complex_float, 1))
-    gsl_errno = ccall( (:gsl_blas_ctrmv, :libgsl), Cint, (CBLAS_UPLO_t,
+    errno = ccall( (:gsl_blas_ctrmv, :libgsl), Cint, (CBLAS_UPLO_t,
         CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix_complex_float},
         Ptr{gsl_vector_complex_float}), Uplo, TransA, Diag, A, x )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(x)[1]
 end
 
@@ -143,12 +138,12 @@ end
 # unity and are not referenced.
 # 
 #   Returns: Cint
-function gsl_blas_ztrmv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_complex})
+function blas_ztrmv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_complex})
     x = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
-    gsl_errno = ccall( (:gsl_blas_ztrmv, :libgsl), Cint, (CBLAS_UPLO_t,
+    errno = ccall( (:gsl_blas_ztrmv, :libgsl), Cint, (CBLAS_UPLO_t,
         CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix_complex},
         Ptr{gsl_vector_complex}), Uplo, TransA, Diag, A, x )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(x)[1]
 end
 
@@ -161,12 +156,12 @@ end
 # the matrix A are taken as unity and are not referenced.
 # 
 #   Returns: Cint
-function gsl_blas_strsv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_float})
+function blas_strsv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_float})
     x = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
-    gsl_errno = ccall( (:gsl_blas_strsv, :libgsl), Cint, (CBLAS_UPLO_t,
+    errno = ccall( (:gsl_blas_strsv, :libgsl), Cint, (CBLAS_UPLO_t,
         CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix_float},
         Ptr{gsl_vector_float}), Uplo, TransA, Diag, A, x )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(x)[1]
 end
 
@@ -179,12 +174,12 @@ end
 # the matrix A are taken as unity and are not referenced.
 # 
 #   Returns: Cint
-function gsl_blas_dtrsv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix})
+function blas_dtrsv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix})
     x = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_blas_dtrsv, :libgsl), Cint, (CBLAS_UPLO_t,
+    errno = ccall( (:gsl_blas_dtrsv, :libgsl), Cint, (CBLAS_UPLO_t,
         CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix}, Ptr{gsl_vector}),
         Uplo, TransA, Diag, A, x )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(x)[1]
 end
 
@@ -197,12 +192,12 @@ end
 # the matrix A are taken as unity and are not referenced.
 # 
 #   Returns: Cint
-function gsl_blas_ctrsv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_complex_float})
+function blas_ctrsv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_complex_float})
     x = convert(Ptr{gsl_vector_complex_float}, Array(gsl_vector_complex_float, 1))
-    gsl_errno = ccall( (:gsl_blas_ctrsv, :libgsl), Cint, (CBLAS_UPLO_t,
+    errno = ccall( (:gsl_blas_ctrsv, :libgsl), Cint, (CBLAS_UPLO_t,
         CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix_complex_float},
         Ptr{gsl_vector_complex_float}), Uplo, TransA, Diag, A, x )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(x)[1]
 end
 
@@ -215,12 +210,12 @@ end
 # the matrix A are taken as unity and are not referenced.
 # 
 #   Returns: Cint
-function gsl_blas_ztrsv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_complex})
+function blas_ztrsv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_complex})
     x = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
-    gsl_errno = ccall( (:gsl_blas_ztrsv, :libgsl), Cint, (CBLAS_UPLO_t,
+    errno = ccall( (:gsl_blas_ztrsv, :libgsl), Cint, (CBLAS_UPLO_t,
         CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix_complex},
         Ptr{gsl_vector_complex}), Uplo, TransA, Diag, A, x )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(x)[1]
 end
 
@@ -232,12 +227,12 @@ end
 # the lower triangle and diagonal of A are used.
 # 
 #   Returns: Cint
-function gsl_blas_ssymv(Uplo::CBLAS_UPLO_t, alpha::Real, A::Ptr{gsl_matrix_float}, x::Ptr{gsl_vector_float}, beta::Real)
+function blas_ssymv(Uplo::CBLAS_UPLO_t, alpha::Real, A::Ptr{gsl_matrix_float}, x::Ptr{gsl_vector_float}, beta::Real)
     y = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
-    gsl_errno = ccall( (:gsl_blas_ssymv, :libgsl), Cint, (CBLAS_UPLO_t,
-        Cfloat, Ptr{gsl_matrix_float}, Ptr{gsl_vector_float}, Cfloat,
+    errno = ccall( (:gsl_blas_ssymv, :libgsl), Cint, (CBLAS_UPLO_t, Cfloat,
+        Ptr{gsl_matrix_float}, Ptr{gsl_vector_float}, Cfloat,
         Ptr{gsl_vector_float}), Uplo, alpha, A, x, beta, y )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(y)[1]
 end
 
@@ -249,12 +244,12 @@ end
 # the lower triangle and diagonal of A are used.
 # 
 #   Returns: Cint
-function gsl_blas_dsymv(Uplo::CBLAS_UPLO_t, alpha::Real, A::Ptr{gsl_matrix}, x::Ptr{gsl_vector}, beta::Real)
+function blas_dsymv(Uplo::CBLAS_UPLO_t, alpha::Real, A::Ptr{gsl_matrix}, x::Ptr{gsl_vector}, beta::Real)
     y = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_blas_dsymv, :libgsl), Cint, (CBLAS_UPLO_t,
+    errno = ccall( (:gsl_blas_dsymv, :libgsl), Cint, (CBLAS_UPLO_t,
         Cdouble, Ptr{gsl_matrix}, Ptr{gsl_vector}, Cdouble, Ptr{gsl_vector}),
         Uplo, alpha, A, x, beta, y )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(y)[1]
 end
 
@@ -267,13 +262,13 @@ end
 # diagonal are automatically assumed to be zero and are not referenced.
 # 
 #   Returns: Cint
-function gsl_blas_chemv(Uplo::CBLAS_UPLO_t, alpha::gsl_complex_float, A::Ptr{gsl_matrix_complex_float}, x::Ptr{gsl_vector_complex_float}, beta::gsl_complex_float)
+function blas_chemv(Uplo::CBLAS_UPLO_t, alpha::gsl_complex_float, A::Ptr{gsl_matrix_complex_float}, x::Ptr{gsl_vector_complex_float}, beta::gsl_complex_float)
     y = convert(Ptr{gsl_vector_complex_float}, Array(gsl_vector_complex_float, 1))
-    gsl_errno = ccall( (:gsl_blas_chemv, :libgsl), Cint, (CBLAS_UPLO_t,
+    errno = ccall( (:gsl_blas_chemv, :libgsl), Cint, (CBLAS_UPLO_t,
         gsl_complex_float, Ptr{gsl_matrix_complex_float},
         Ptr{gsl_vector_complex_float}, gsl_complex_float,
         Ptr{gsl_vector_complex_float}), Uplo, alpha, A, x, beta, y )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(y)[1]
 end
 
@@ -286,12 +281,12 @@ end
 # diagonal are automatically assumed to be zero and are not referenced.
 # 
 #   Returns: Cint
-function gsl_blas_zhemv(Uplo::CBLAS_UPLO_t, alpha::gsl_complex, A::Ptr{gsl_matrix_complex}, x::Ptr{gsl_vector_complex}, beta::gsl_complex)
+function blas_zhemv(Uplo::CBLAS_UPLO_t, alpha::gsl_complex, A::Ptr{gsl_matrix_complex}, x::Ptr{gsl_vector_complex}, beta::gsl_complex)
     y = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
-    gsl_errno = ccall( (:gsl_blas_zhemv, :libgsl), Cint, (CBLAS_UPLO_t,
+    errno = ccall( (:gsl_blas_zhemv, :libgsl), Cint, (CBLAS_UPLO_t,
         gsl_complex, Ptr{gsl_matrix_complex}, Ptr{gsl_vector_complex},
         gsl_complex, Ptr{gsl_vector_complex}), Uplo, alpha, A, x, beta, y )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(y)[1]
 end
 
@@ -300,12 +295,12 @@ end
 # A.
 # 
 #   Returns: Cint
-function gsl_blas_sger(alpha::Real, x::Ptr{gsl_vector_float}, y::Ptr{gsl_vector_float})
+function blas_sger(alpha::Real, x::Ptr{gsl_vector_float}, y::Ptr{gsl_vector_float})
     A = convert(Ptr{gsl_matrix_float}, Array(gsl_matrix_float, 1))
-    gsl_errno = ccall( (:gsl_blas_sger, :libgsl), Cint, (Cfloat,
+    errno = ccall( (:gsl_blas_sger, :libgsl), Cint, (Cfloat,
         Ptr{gsl_vector_float}, Ptr{gsl_vector_float}, Ptr{gsl_matrix_float}),
         alpha, x, y, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1]
 end
 
@@ -314,11 +309,11 @@ end
 # A.
 # 
 #   Returns: Cint
-function gsl_blas_dger(alpha::Real, x::Ptr{gsl_vector}, y::Ptr{gsl_vector})
+function blas_dger(alpha::Real, x::Ptr{gsl_vector}, y::Ptr{gsl_vector})
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    gsl_errno = ccall( (:gsl_blas_dger, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_blas_dger, :libgsl), Cint, (Cdouble,
         Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_matrix}), alpha, x, y, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1]
 end
 
@@ -327,13 +322,12 @@ end
 # A.
 # 
 #   Returns: Cint
-function gsl_blas_cgeru(alpha::gsl_complex_float, x::Ptr{gsl_vector_complex_float}, y::Ptr{gsl_vector_complex_float})
+function blas_cgeru(alpha::gsl_complex_float, x::Ptr{gsl_vector_complex_float}, y::Ptr{gsl_vector_complex_float})
     A = convert(Ptr{gsl_matrix_complex_float}, Array(gsl_matrix_complex_float, 1))
-    gsl_errno = ccall( (:gsl_blas_cgeru, :libgsl), Cint,
-        (gsl_complex_float, Ptr{gsl_vector_complex_float},
-        Ptr{gsl_vector_complex_float}, Ptr{gsl_matrix_complex_float}), alpha,
-        x, y, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_blas_cgeru, :libgsl), Cint, (gsl_complex_float,
+        Ptr{gsl_vector_complex_float}, Ptr{gsl_vector_complex_float},
+        Ptr{gsl_matrix_complex_float}), alpha, x, y, A )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1]
 end
 
@@ -342,12 +336,12 @@ end
 # A.
 # 
 #   Returns: Cint
-function gsl_blas_zgeru(alpha::gsl_complex, x::Ptr{gsl_vector_complex}, y::Ptr{gsl_vector_complex})
+function blas_zgeru(alpha::gsl_complex, x::Ptr{gsl_vector_complex}, y::Ptr{gsl_vector_complex})
     A = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
-    gsl_errno = ccall( (:gsl_blas_zgeru, :libgsl), Cint, (gsl_complex,
+    errno = ccall( (:gsl_blas_zgeru, :libgsl), Cint, (gsl_complex,
         Ptr{gsl_vector_complex}, Ptr{gsl_vector_complex},
         Ptr{gsl_matrix_complex}), alpha, x, y, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1]
 end
 
@@ -356,13 +350,12 @@ end
 # the matrix A.
 # 
 #   Returns: Cint
-function gsl_blas_cgerc(alpha::gsl_complex_float, x::Ptr{gsl_vector_complex_float}, y::Ptr{gsl_vector_complex_float})
+function blas_cgerc(alpha::gsl_complex_float, x::Ptr{gsl_vector_complex_float}, y::Ptr{gsl_vector_complex_float})
     A = convert(Ptr{gsl_matrix_complex_float}, Array(gsl_matrix_complex_float, 1))
-    gsl_errno = ccall( (:gsl_blas_cgerc, :libgsl), Cint,
-        (gsl_complex_float, Ptr{gsl_vector_complex_float},
-        Ptr{gsl_vector_complex_float}, Ptr{gsl_matrix_complex_float}), alpha,
-        x, y, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_blas_cgerc, :libgsl), Cint, (gsl_complex_float,
+        Ptr{gsl_vector_complex_float}, Ptr{gsl_vector_complex_float},
+        Ptr{gsl_matrix_complex_float}), alpha, x, y, A )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1]
 end
 
@@ -371,12 +364,12 @@ end
 # the matrix A.
 # 
 #   Returns: Cint
-function gsl_blas_zgerc(alpha::gsl_complex, x::Ptr{gsl_vector_complex}, y::Ptr{gsl_vector_complex})
+function blas_zgerc(alpha::gsl_complex, x::Ptr{gsl_vector_complex}, y::Ptr{gsl_vector_complex})
     A = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
-    gsl_errno = ccall( (:gsl_blas_zgerc, :libgsl), Cint, (gsl_complex,
+    errno = ccall( (:gsl_blas_zgerc, :libgsl), Cint, (gsl_complex,
         Ptr{gsl_vector_complex}, Ptr{gsl_vector_complex},
         Ptr{gsl_matrix_complex}), alpha, x, y, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1]
 end
 
@@ -388,12 +381,11 @@ end
 # lower triangle and diagonal of A are used.
 # 
 #   Returns: Cint
-function gsl_blas_ssyr(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector_float})
+function blas_ssyr(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector_float})
     A = convert(Ptr{gsl_matrix_float}, Array(gsl_matrix_float, 1))
-    gsl_errno = ccall( (:gsl_blas_ssyr, :libgsl), Cint, (CBLAS_UPLO_t,
-        Cfloat, Ptr{gsl_vector_float}, Ptr{gsl_matrix_float}), Uplo, alpha, x,
-        A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_blas_ssyr, :libgsl), Cint, (CBLAS_UPLO_t, Cfloat,
+        Ptr{gsl_vector_float}, Ptr{gsl_matrix_float}), Uplo, alpha, x, A )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1]
 end
 
@@ -405,11 +397,11 @@ end
 # lower triangle and diagonal of A are used.
 # 
 #   Returns: Cint
-function gsl_blas_dsyr(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector})
+function blas_dsyr(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector})
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    gsl_errno = ccall( (:gsl_blas_dsyr, :libgsl), Cint, (CBLAS_UPLO_t,
-        Cdouble, Ptr{gsl_vector}, Ptr{gsl_matrix}), Uplo, alpha, x, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_blas_dsyr, :libgsl), Cint, (CBLAS_UPLO_t, Cdouble,
+        Ptr{gsl_vector}, Ptr{gsl_matrix}), Uplo, alpha, x, A )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1]
 end
 
@@ -422,30 +414,29 @@ end
 # diagonal are automatically set to zero.
 # 
 #   Returns: Cint
-function gsl_blas_cher(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector_complex_float})
+function blas_cher(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector_complex_float})
     A = convert(Ptr{gsl_matrix_complex_float}, Array(gsl_matrix_complex_float, 1))
-    gsl_errno = ccall( (:gsl_blas_cher, :libgsl), Cint, (CBLAS_UPLO_t,
-        Cfloat, Ptr{gsl_vector_complex_float}, Ptr{gsl_matrix_complex_float}),
-        Uplo, alpha, x, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A)[1]
-end
-
-
-# These functions compute the hermitian rank-1 update A = \alpha x x^H + A of
-# the hermitian matrix A.  Since the matrix A is hermitian only its upper half
-# or lower half need to be stored.  When Uplo is CblasUpper then the upper
-# triangle and diagonal of A are used, and when Uplo is CblasLower then the
-# lower triangle and diagonal of A are used.  The imaginary elements of the
-# diagonal are automatically set to zero.
-# 
-#   Returns: Cint
-function gsl_blas_zher(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector_complex})
-    A = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
-    gsl_errno = ccall( (:gsl_blas_zher, :libgsl), Cint, (CBLAS_UPLO_t,
-        Cdouble, Ptr{gsl_vector_complex}, Ptr{gsl_matrix_complex}), Uplo,
+    errno = ccall( (:gsl_blas_cher, :libgsl), Cint, (CBLAS_UPLO_t, Cfloat,
+        Ptr{gsl_vector_complex_float}, Ptr{gsl_matrix_complex_float}), Uplo,
         alpha, x, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
+    return unsafe_ref(A)[1]
+end
+
+
+# These functions compute the hermitian rank-1 update A = \alpha x x^H + A of
+# the hermitian matrix A.  Since the matrix A is hermitian only its upper half
+# or lower half need to be stored.  When Uplo is CblasUpper then the upper
+# triangle and diagonal of A are used, and when Uplo is CblasLower then the
+# lower triangle and diagonal of A are used.  The imaginary elements of the
+# diagonal are automatically set to zero.
+# 
+#   Returns: Cint
+function blas_zher(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector_complex})
+    A = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
+    errno = ccall( (:gsl_blas_zher, :libgsl), Cint, (CBLAS_UPLO_t, Cdouble,
+        Ptr{gsl_vector_complex}, Ptr{gsl_matrix_complex}), Uplo, alpha, x, A )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1]
 end
 
@@ -457,12 +448,12 @@ end
 # then the lower triangle and diagonal of A are used.
 # 
 #   Returns: Cint
-function gsl_blas_ssyr2(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector_float}, y::Ptr{gsl_vector_float})
+function blas_ssyr2(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector_float}, y::Ptr{gsl_vector_float})
     A = convert(Ptr{gsl_matrix_float}, Array(gsl_matrix_float, 1))
-    gsl_errno = ccall( (:gsl_blas_ssyr2, :libgsl), Cint, (CBLAS_UPLO_t,
-        Cfloat, Ptr{gsl_vector_float}, Ptr{gsl_vector_float},
-        Ptr{gsl_matrix_float}), Uplo, alpha, x, y, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_blas_ssyr2, :libgsl), Cint, (CBLAS_UPLO_t, Cfloat,
+        Ptr{gsl_vector_float}, Ptr{gsl_vector_float}, Ptr{gsl_matrix_float}),
+        Uplo, alpha, x, y, A )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1]
 end
 
@@ -474,12 +465,12 @@ end
 # then the lower triangle and diagonal of A are used.
 # 
 #   Returns: Cint
-function gsl_blas_dsyr2(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector}, y::Ptr{gsl_vector})
+function blas_dsyr2(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector}, y::Ptr{gsl_vector})
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    gsl_errno = ccall( (:gsl_blas_dsyr2, :libgsl), Cint, (CBLAS_UPLO_t,
+    errno = ccall( (:gsl_blas_dsyr2, :libgsl), Cint, (CBLAS_UPLO_t,
         Cdouble, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_matrix}), Uplo,
         alpha, x, y, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1]
 end
 
@@ -492,13 +483,13 @@ end
 # imaginary elements of the diagonal are automatically set to zero.
 # 
 #   Returns: Cint
-function gsl_blas_cher2(Uplo::CBLAS_UPLO_t, alpha::gsl_complex_float, x::Ptr{gsl_vector_complex_float}, y::Ptr{gsl_vector_complex_float})
+function blas_cher2(Uplo::CBLAS_UPLO_t, alpha::gsl_complex_float, x::Ptr{gsl_vector_complex_float}, y::Ptr{gsl_vector_complex_float})
     A = convert(Ptr{gsl_matrix_complex_float}, Array(gsl_matrix_complex_float, 1))
-    gsl_errno = ccall( (:gsl_blas_cher2, :libgsl), Cint, (CBLAS_UPLO_t,
+    errno = ccall( (:gsl_blas_cher2, :libgsl), Cint, (CBLAS_UPLO_t,
         gsl_complex_float, Ptr{gsl_vector_complex_float},
         Ptr{gsl_vector_complex_float}, Ptr{gsl_matrix_complex_float}), Uplo,
         alpha, x, y, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1]
 end
 
@@ -511,11 +502,11 @@ end
 # imaginary elements of the diagonal are automatically set to zero.
 # 
 #   Returns: Cint
-function gsl_blas_zher2(Uplo::CBLAS_UPLO_t, alpha::gsl_complex, x::Ptr{gsl_vector_complex}, y::Ptr{gsl_vector_complex})
+function blas_zher2(Uplo::CBLAS_UPLO_t, alpha::gsl_complex, x::Ptr{gsl_vector_complex}, y::Ptr{gsl_vector_complex})
     A = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
-    gsl_errno = ccall( (:gsl_blas_zher2, :libgsl), Cint, (CBLAS_UPLO_t,
+    errno = ccall( (:gsl_blas_zher2, :libgsl), Cint, (CBLAS_UPLO_t,
         gsl_complex, Ptr{gsl_vector_complex}, Ptr{gsl_vector_complex},
         Ptr{gsl_matrix_complex}), Uplo, alpha, x, y, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1]
 end

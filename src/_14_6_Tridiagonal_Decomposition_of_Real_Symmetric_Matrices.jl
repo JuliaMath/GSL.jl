@@ -4,8 +4,7 @@
 #############################################################
 # 14.6 Tridiagonal Decomposition of Real Symmetric Matrices #
 #############################################################
-export gsl_linalg_symmtd_decomp, gsl_linalg_symmtd_unpack,
-       gsl_linalg_symmtd_unpack_T
+export linalg_symmtd_decomp, linalg_symmtd_unpack, linalg_symmtd_unpack_T
 
 
 
@@ -19,12 +18,12 @@ export gsl_linalg_symmtd_decomp, gsl_linalg_symmtd_unpack,
 # triangular part of A is not referenced.
 # 
 #   Returns: Cint
-function gsl_linalg_symmtd_decomp()
+function linalg_symmtd_decomp()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     tau = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_linalg_symmtd_decomp, :libgsl), Cint,
+    errno = ccall( (:gsl_linalg_symmtd_decomp, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}), A, tau )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1] ,unsafe_ref(tau)[1]
 end
 
@@ -35,14 +34,14 @@ end
 # subdiag.
 # 
 #   Returns: Cint
-function gsl_linalg_symmtd_unpack(A::Ptr{gsl_matrix}, tau::Ptr{gsl_vector})
+function linalg_symmtd_unpack(A::Ptr{gsl_matrix}, tau::Ptr{gsl_vector})
     Q = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     diag = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     subdiag = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_linalg_symmtd_unpack, :libgsl), Cint,
+    errno = ccall( (:gsl_linalg_symmtd_unpack, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{gsl_vector},
         Ptr{gsl_vector}), A, tau, Q, diag, subdiag )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(Q)[1] ,unsafe_ref(diag)[1] ,unsafe_ref(subdiag)[1]
 end
 
@@ -52,11 +51,11 @@ end
 # into the vectors diag and subdiag.
 # 
 #   Returns: Cint
-function gsl_linalg_symmtd_unpack_T(A::Ptr{gsl_matrix})
+function linalg_symmtd_unpack_T(A::Ptr{gsl_matrix})
     diag = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     subdiag = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_linalg_symmtd_unpack_T, :libgsl), Cint,
+    errno = ccall( (:gsl_linalg_symmtd_unpack_T, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), A, diag, subdiag )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(diag)[1] ,unsafe_ref(subdiag)[1]
 end

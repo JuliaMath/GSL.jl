@@ -4,7 +4,7 @@
 ########################################
 # 20.10 The Rayleigh Tail Distribution #
 ########################################
-export gsl_ran_rayleigh_tail, gsl_ran_rayleigh_tail_pdf
+export ran_rayleigh_tail, ran_rayleigh_tail_pdf
 
 
 
@@ -15,7 +15,7 @@ export gsl_ran_rayleigh_tail, gsl_ran_rayleigh_tail_pdf
 # x^2) /(2 \sigma^2)) dx  for x > a.
 # 
 #   Returns: Cdouble
-function gsl_ran_rayleigh_tail(r::Ptr{gsl_rng}, a::Real, sigma::Real)
+function ran_rayleigh_tail(r::Ptr{gsl_rng}, a::Real, sigma::Real)
     ccall( (:gsl_ran_rayleigh_tail, :libgsl), Cdouble, (Ptr{gsl_rng},
         Cdouble, Cdouble), r, a, sigma )
 end
@@ -26,9 +26,9 @@ end
 # given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_rayleigh_tail_pdf(x::Real, a::Real, sigma::Real)
+function ran_rayleigh_tail_pdf(x::Real, a::Real, sigma::Real)
     ccall( (:gsl_ran_rayleigh_tail_pdf, :libgsl), Cdouble, (Cdouble,
         Cdouble, Cdouble), x, a, sigma )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_ran_rayleigh_tail_pdf
+#@vectorize_3arg Number ran_rayleigh_tail_pdf

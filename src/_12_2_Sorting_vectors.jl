@@ -4,27 +4,27 @@
 ########################
 # 12.2 Sorting vectors #
 ########################
-export gsl_sort, gsl_sort_vector, gsl_sort_index, gsl_sort_vector_index
+export sort, sort_vector, sort_index, sort_vector_index
 
 
 # This function sorts the n elements of the array data with stride stride into
 # ascending numerical order.
 # 
 #   Returns: Void
-function gsl_sort(stride::Integer, n::Integer)
+function sort(stride::Integer, n::Integer)
     data = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:gsl_sort, :libgsl), Void, (Ptr{Cdouble}, Csize_t, Csize_t),
         data, stride, n )
     return unsafe_ref(data)[1]
 end
-@vectorize_2arg Number gsl_sort
+@vectorize_2arg Number sort
 
 
 # This function sorts the elements of the vector v into ascending numerical
 # order.
 # 
 #   Returns: Void
-function gsl_sort_vector()
+function sort_vector()
     v = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     ccall( (:gsl_sort_vector, :libgsl), Void, (Ptr{gsl_vector}, ), v )
     return unsafe_ref(v)[1]
@@ -39,7 +39,7 @@ end
 # place.  The array data is not changed.
 # 
 #   Returns: Void
-function gsl_sort_index{tA<:Real}(data::Ptr{tA}, stride::Integer, n::Integer)
+function sort_index{tA<:Real}(data::Ptr{tA}, stride::Integer, n::Integer)
     p = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     ccall( (:gsl_sort_index, :libgsl), Void, (Ptr{Csize_t}, Ptr{Cdouble},
         Csize_t, Csize_t), p, data, stride, n )
@@ -55,10 +55,10 @@ end
 # greatest element in v.  The vector v is not changed.
 # 
 #   Returns: Cint
-function gsl_sort_vector_index(v::Ptr{gsl_vector})
+function sort_vector_index(v::Ptr{gsl_vector})
     p = convert(Ptr{gsl_permutation}, Array(gsl_permutation, 1))
-    gsl_errno = ccall( (:gsl_sort_vector_index, :libgsl), Cint,
+    errno = ccall( (:gsl_sort_vector_index, :libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_vector}), p, v )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(p)[1]
 end

@@ -4,8 +4,7 @@
 ########################################
 # 20.28 General Discrete Distributions #
 ########################################
-export gsl_ran_discrete_preproc, gsl_ran_discrete, gsl_ran_discrete_pdf,
-       gsl_ran_discrete_free
+export ran_discrete_preproc, ran_discrete, ran_discrete_pdf, ran_discrete_free
 
 
 
@@ -18,7 +17,7 @@ export gsl_ran_discrete_preproc, gsl_ran_discrete, gsl_ran_discrete_pdf,
 # return value is used as an argument for the gsl_ran_discrete function below.
 # 
 #   Returns: Ptr{gsl_ran_discrete_t}
-function gsl_ran_discrete_preproc{tA<:Real}(K::Integer, P::Ptr{tA})
+function ran_discrete_preproc{tA<:Real}(K::Integer, P::Ptr{tA})
     ccall( (:gsl_ran_discrete_preproc, :libgsl), Ptr{gsl_ran_discrete_t},
         (Csize_t, Ptr{Cdouble}), K, P )
 end
@@ -28,7 +27,7 @@ end
 # the discrete random numbers.
 # 
 #   Returns: Csize_t
-function gsl_ran_discrete(r::Ptr{gsl_rng}, g::Ptr{gsl_ran_discrete_t})
+function ran_discrete(r::Ptr{gsl_rng}, g::Ptr{gsl_ran_discrete_t})
     ccall( (:gsl_ran_discrete, :libgsl), Csize_t, (Ptr{gsl_rng},
         Ptr{gsl_ran_discrete_t}), r, g )
 end
@@ -41,7 +40,7 @@ end
 # P[k] around.
 # 
 #   Returns: Cdouble
-function gsl_ran_discrete_pdf(k::Integer, g::Ptr{gsl_ran_discrete_t})
+function ran_discrete_pdf(k::Integer, g::Ptr{gsl_ran_discrete_t})
     ccall( (:gsl_ran_discrete_pdf, :libgsl), Cdouble, (Csize_t,
         Ptr{gsl_ran_discrete_t}), k, g )
 end
@@ -50,7 +49,7 @@ end
 # De-allocates the lookup table pointed to by g.
 # 
 #   Returns: Void
-function gsl_ran_discrete_free(g::Ptr{gsl_ran_discrete_t})
+function ran_discrete_free(g::Ptr{gsl_ran_discrete_t})
     ccall( (:gsl_ran_discrete_free, :libgsl), Void,
         (Ptr{gsl_ran_discrete_t}, ), g )
 end

@@ -4,7 +4,7 @@
 ########################
 # 21.4 Autocorrelation #
 ########################
-export gsl_stats_lag1_autocorrelation, gsl_stats_lag1_autocorrelation_m
+export stats_lag1_autocorrelation, stats_lag1_autocorrelation_m
 
 
 
@@ -14,19 +14,19 @@ export gsl_stats_lag1_autocorrelation, gsl_stats_lag1_autocorrelation_m
 # \over                  \sum_{i = 1}^{n} (x_{i} - \Hat\mu) (x_{i} - \Hat\mu)}
 # 
 #   Returns: Cdouble
-function gsl_stats_lag1_autocorrelation(data::Real)
+function stats_lag1_autocorrelation(data::Real)
     ccall( (:gsl_stats_lag1_autocorrelation, :libgsl), Cdouble, (Cdouble,
         ), data )
 end
-@vectorize_1arg Number gsl_stats_lag1_autocorrelation
+@vectorize_1arg Number stats_lag1_autocorrelation
 
 
 # This function computes the lag-1 autocorrelation of the dataset data using
 # the given value of the mean mean.
 # 
 #   Returns: Cdouble
-function gsl_stats_lag1_autocorrelation_m(data::Real)
+function stats_lag1_autocorrelation_m(data::Real)
     ccall( (:gsl_stats_lag1_autocorrelation_m, :libgsl), Cdouble, (Cdouble,
         ), data )
 end
-@vectorize_1arg Number gsl_stats_lag1_autocorrelation_m
+@vectorize_1arg Number stats_lag1_autocorrelation_m

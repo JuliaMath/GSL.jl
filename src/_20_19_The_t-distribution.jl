@@ -4,8 +4,8 @@
 ############################
 # 20.19 The t-distribution #
 ############################
-export gsl_ran_tdist, gsl_ran_tdist_pdf, gsl_cdf_tdist_P, gsl_cdf_tdist_Q,
-       gsl_cdf_tdist_Pinv, gsl_cdf_tdist_Qinv
+export ran_tdist, ran_tdist_pdf, cdf_tdist_P, cdf_tdist_Q, cdf_tdist_Pinv,
+       cdf_tdist_Qinv
 
 
 
@@ -18,7 +18,7 @@ export gsl_ran_tdist, gsl_ran_tdist_pdf, gsl_cdf_tdist_P, gsl_cdf_tdist_Q,
 # dx  for -\infty < x < +\infty.
 # 
 #   Returns: Cdouble
-function gsl_ran_tdist(r::Ptr{gsl_rng}, nu::Real)
+function ran_tdist(r::Ptr{gsl_rng}, nu::Real)
     ccall( (:gsl_ran_tdist, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble), r,
         nu )
 end
@@ -28,52 +28,52 @@ end
 # with nu degrees of freedom, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_tdist_pdf(x::Real, nu::Real)
+function ran_tdist_pdf(x::Real, nu::Real)
     ccall( (:gsl_ran_tdist_pdf, :libgsl), Cdouble, (Cdouble, Cdouble), x,
         nu )
 end
-@vectorize_2arg Number gsl_ran_tdist_pdf
+@vectorize_2arg Number ran_tdist_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the t-distribution with nu degrees of freedom.
 # 
 #   Returns: Cdouble
-function gsl_cdf_tdist_P(x::Real, nu::Real)
+function cdf_tdist_P(x::Real, nu::Real)
     ccall( (:gsl_cdf_tdist_P, :libgsl), Cdouble, (Cdouble, Cdouble), x, nu
         )
 end
-@vectorize_2arg Number gsl_cdf_tdist_P
+@vectorize_2arg Number cdf_tdist_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the t-distribution with nu degrees of freedom.
 # 
 #   Returns: Cdouble
-function gsl_cdf_tdist_Q(x::Real, nu::Real)
+function cdf_tdist_Q(x::Real, nu::Real)
     ccall( (:gsl_cdf_tdist_Q, :libgsl), Cdouble, (Cdouble, Cdouble), x, nu
         )
 end
-@vectorize_2arg Number gsl_cdf_tdist_Q
+@vectorize_2arg Number cdf_tdist_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the t-distribution with nu degrees of freedom.
 # 
 #   Returns: Cdouble
-function gsl_cdf_tdist_Pinv(P::Real, nu::Real)
+function cdf_tdist_Pinv(P::Real, nu::Real)
     ccall( (:gsl_cdf_tdist_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble), P,
         nu )
 end
-@vectorize_2arg Number gsl_cdf_tdist_Pinv
+@vectorize_2arg Number cdf_tdist_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the t-distribution with nu degrees of freedom.
 # 
 #   Returns: Cdouble
-function gsl_cdf_tdist_Qinv(Q::Real, nu::Real)
+function cdf_tdist_Qinv(Q::Real, nu::Real)
     ccall( (:gsl_cdf_tdist_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble), Q,
         nu )
 end
-@vectorize_2arg Number gsl_cdf_tdist_Qinv
+@vectorize_2arg Number cdf_tdist_Qinv

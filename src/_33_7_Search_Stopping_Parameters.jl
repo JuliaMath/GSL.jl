@@ -4,7 +4,7 @@
 ###################################
 # 33.7 Search Stopping Parameters #
 ###################################
-export gsl_root_test_interval, gsl_root_test_delta, gsl_root_test_residual
+export root_test_interval, root_test_delta, root_test_residual
 
 
 
@@ -28,13 +28,13 @@ export gsl_root_test_interval, gsl_root_test_delta, gsl_root_test_residual
 # assuming that the true root r^* is contained within the interval.
 # 
 #   Returns: Cint
-function gsl_root_test_interval(x_lower::Real, x_upper::Real, epsabs::Real, epsrel::Real)
-    gsl_errno = ccall( (:gsl_root_test_interval, :libgsl), Cint, (Cdouble,
+function root_test_interval(x_lower::Real, x_upper::Real, epsabs::Real, epsrel::Real)
+    errno = ccall( (:gsl_root_test_interval, :libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Cdouble), x_lower, x_upper, epsabs, epsrel )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_4arg Number gsl_root_test_interval
+#@vectorize_4arg Number root_test_interval
 
 
 # This function tests for the convergence of the sequence ..., x0, x1 with
@@ -43,13 +43,13 @@ end
 # x_0| < epsabs + epsrel |x_1|  and returns GSL_CONTINUE otherwise.
 # 
 #   Returns: Cint
-function gsl_root_test_delta(x1::Real, x0::Real, epsabs::Real, epsrel::Real)
-    gsl_errno = ccall( (:gsl_root_test_delta, :libgsl), Cint, (Cdouble,
+function root_test_delta(x1::Real, x0::Real, epsabs::Real, epsrel::Real)
+    errno = ccall( (:gsl_root_test_delta, :libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Cdouble), x1, x0, epsabs, epsrel )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_4arg Number gsl_root_test_delta
+#@vectorize_4arg Number root_test_delta
 
 
 # This function tests the residual value f against the absolute error bound
@@ -59,9 +59,9 @@ end
 # provided a value can be found where the residual, |f(x)|, is small enough.
 # 
 #   Returns: Cint
-function gsl_root_test_residual(f::Real, epsabs::Real)
-    gsl_errno = ccall( (:gsl_root_test_residual, :libgsl), Cint, (Cdouble,
+function root_test_residual(f::Real, epsabs::Real)
+    errno = ccall( (:gsl_root_test_residual, :libgsl), Cint, (Cdouble,
         Cdouble), f, epsabs )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-@vectorize_2arg Number gsl_root_test_residual
+@vectorize_2arg Number root_test_residual

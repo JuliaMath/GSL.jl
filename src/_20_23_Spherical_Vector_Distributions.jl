@@ -4,8 +4,7 @@
 ########################################
 # 20.23 Spherical Vector Distributions #
 ########################################
-export gsl_ran_dir_2d, gsl_ran_dir_2d_trig_method, gsl_ran_dir_3d,
-       gsl_ran_dir_nd
+export ran_dir_2d, ran_dir_2d_trig_method, ran_dir_3d, ran_dir_nd
 
 
 # This function returns a random direction vector v = (x,y) in two dimensions.
@@ -24,7 +23,7 @@ export gsl_ran_dir_2d, gsl_ran_dir_2d_trig_method, gsl_ran_dir_3d,
 # x=(u^2-v^2)/(u^2+v^2) and y=2uv/(u^2+v^2).
 # 
 #   Returns: Void
-function gsl_ran_dir_2d(r::Ptr{gsl_rng})
+function ran_dir_2d(r::Ptr{gsl_rng})
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:gsl_ran_dir_2d, :libgsl), Void, (Ptr{gsl_rng}, Ptr{Cdouble},
@@ -49,7 +48,7 @@ end
 # x=(u^2-v^2)/(u^2+v^2) and y=2uv/(u^2+v^2).
 # 
 #   Returns: Void
-function gsl_ran_dir_2d_trig_method(r::Ptr{gsl_rng})
+function ran_dir_2d_trig_method(r::Ptr{gsl_rng})
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:gsl_ran_dir_2d_trig_method, :libgsl), Void, (Ptr{gsl_rng},
@@ -66,7 +65,7 @@ end
 # for 3 dimensions).
 # 
 #   Returns: Void
-function gsl_ran_dir_3d(r::Ptr{gsl_rng})
+function ran_dir_3d(r::Ptr{gsl_rng})
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     z = convert(Ptr{Cdouble}, Array(Cdouble, 1))
@@ -85,7 +84,7 @@ end
 # Modern Mathematics for the Engineer (1956).
 # 
 #   Returns: Void
-function gsl_ran_dir_nd(r::Ptr{gsl_rng}, n::Integer)
+function ran_dir_nd(r::Ptr{gsl_rng}, n::Integer)
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:gsl_ran_dir_nd, :libgsl), Void, (Ptr{gsl_rng}, Csize_t,
         Ptr{Cdouble}), r, n, x )

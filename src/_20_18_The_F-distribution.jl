@@ -4,8 +4,8 @@
 ############################
 # 20.18 The F-distribution #
 ############################
-export gsl_ran_fdist, gsl_ran_fdist_pdf, gsl_cdf_fdist_P, gsl_cdf_fdist_Q,
-       gsl_cdf_fdist_Pinv, gsl_cdf_fdist_Qinv
+export ran_fdist, ran_fdist_pdf, cdf_fdist_P, cdf_fdist_Q, cdf_fdist_Pinv,
+       cdf_fdist_Qinv
 
 
 
@@ -20,7 +20,7 @@ export gsl_ran_fdist, gsl_ran_fdist_pdf, gsl_cdf_fdist_P, gsl_cdf_fdist_Q,
 # -\nu_2/2}  for  x >= 0.
 # 
 #   Returns: Cdouble
-function gsl_ran_fdist(r::Ptr{gsl_rng}, nu1::Real, nu2::Real)
+function ran_fdist(r::Ptr{gsl_rng}, nu1::Real, nu2::Real)
     ccall( (:gsl_ran_fdist, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
         Cdouble), r, nu1, nu2 )
 end
@@ -31,57 +31,57 @@ end
 # above.
 # 
 #   Returns: Cdouble
-function gsl_ran_fdist_pdf(x::Real, nu1::Real, nu2::Real)
+function ran_fdist_pdf(x::Real, nu1::Real, nu2::Real)
     ccall( (:gsl_ran_fdist_pdf, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, nu1, nu2 )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_ran_fdist_pdf
+#@vectorize_3arg Number ran_fdist_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the F-distribution with nu1 and nu2 degrees of freedom.
 # 
 #   Returns: Cdouble
-function gsl_cdf_fdist_P(x::Real, nu1::Real, nu2::Real)
+function cdf_fdist_P(x::Real, nu1::Real, nu2::Real)
     ccall( (:gsl_cdf_fdist_P, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, nu1, nu2 )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_fdist_P
+#@vectorize_3arg Number cdf_fdist_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the F-distribution with nu1 and nu2 degrees of freedom.
 # 
 #   Returns: Cdouble
-function gsl_cdf_fdist_Q(x::Real, nu1::Real, nu2::Real)
+function cdf_fdist_Q(x::Real, nu1::Real, nu2::Real)
     ccall( (:gsl_cdf_fdist_Q, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, nu1, nu2 )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_fdist_Q
+#@vectorize_3arg Number cdf_fdist_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the F-distribution with nu1 and nu2 degrees of freedom.
 # 
 #   Returns: Cdouble
-function gsl_cdf_fdist_Pinv(P::Real, nu1::Real, nu2::Real)
+function cdf_fdist_Pinv(P::Real, nu1::Real, nu2::Real)
     ccall( (:gsl_cdf_fdist_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), P, nu1, nu2 )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_fdist_Pinv
+#@vectorize_3arg Number cdf_fdist_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the F-distribution with nu1 and nu2 degrees of freedom.
 # 
 #   Returns: Cdouble
-function gsl_cdf_fdist_Qinv(Q::Real, nu1::Real, nu2::Real)
+function cdf_fdist_Qinv(Q::Real, nu1::Real, nu2::Real)
     ccall( (:gsl_cdf_fdist_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), Q, nu1, nu2 )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_cdf_fdist_Qinv
+#@vectorize_3arg Number cdf_fdist_Qinv

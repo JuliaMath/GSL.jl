@@ -4,8 +4,8 @@
 ###################################
 # 21.8 Maximum and Minimum values #
 ###################################
-export gsl_stats_max, gsl_stats_min, gsl_stats_minmax, gsl_stats_max_index,
-       gsl_stats_min_index, gsl_stats_minmax_index
+export stats_max, stats_min, stats_minmax, stats_max_index, stats_min_index,
+       stats_minmax_index
 
 
 # This function returns the maximum value in data, a dataset of length n with
@@ -15,10 +15,10 @@ export gsl_stats_max, gsl_stats_min, gsl_stats_minmax, gsl_stats_max_index,
 # or abs to your data before calling this function.
 # 
 #   Returns: Cdouble
-function gsl_stats_max(data::Real)
+function stats_max(data::Real)
     ccall( (:gsl_stats_max, :libgsl), Cdouble, (Cdouble, ), data )
 end
-@vectorize_1arg Number gsl_stats_max
+@vectorize_1arg Number stats_max
 
 
 # This function returns the minimum value in data, a dataset of length n with
@@ -28,24 +28,24 @@ end
 # or abs to your data before calling this function.
 # 
 #   Returns: Cdouble
-function gsl_stats_min(data::Real)
+function stats_min(data::Real)
     ccall( (:gsl_stats_min, :libgsl), Cdouble, (Cdouble, ), data )
 end
-@vectorize_1arg Number gsl_stats_min
+@vectorize_1arg Number stats_min
 
 
 # This function finds both the minimum and maximum values min, max in data in a
 # single pass.
 # 
 #   Returns: Void
-function gsl_stats_minmax(data::Real)
+function stats_minmax(data::Real)
     min = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     max = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:gsl_stats_minmax, :libgsl), Void, (Ptr{Cdouble}, Ptr{Cdouble},
         Cdouble), min, max, data )
     return unsafe_ref(min)[1] ,unsafe_ref(max)[1]
 end
-@vectorize_1arg Number gsl_stats_minmax
+@vectorize_1arg Number stats_minmax
 
 
 # This function returns the index of the maximum value in data, a dataset of
@@ -54,10 +54,10 @@ end
 # several equal maximum elements then the first one is chosen.
 # 
 #   Returns: Csize_t
-function gsl_stats_max_index(data::Real)
+function stats_max_index(data::Real)
     ccall( (:gsl_stats_max_index, :libgsl), Csize_t, (Cdouble, ), data )
 end
-@vectorize_1arg Number gsl_stats_max_index
+@vectorize_1arg Number stats_max_index
 
 
 # This function returns the index of the minimum value in data, a dataset of
@@ -66,21 +66,21 @@ end
 # several equal minimum elements then the first one is chosen.
 # 
 #   Returns: Csize_t
-function gsl_stats_min_index(data::Real)
+function stats_min_index(data::Real)
     ccall( (:gsl_stats_min_index, :libgsl), Csize_t, (Cdouble, ), data )
 end
-@vectorize_1arg Number gsl_stats_min_index
+@vectorize_1arg Number stats_min_index
 
 
 # This function returns the indexes min_index, max_index of the minimum and
 # maximum values in data in a single pass.
 # 
 #   Returns: Void
-function gsl_stats_minmax_index(data::Real)
+function stats_minmax_index(data::Real)
     min_index = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     max_index = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     ccall( (:gsl_stats_minmax_index, :libgsl), Void, (Ptr{Csize_t},
         Ptr{Csize_t}, Cdouble), min_index, max_index, data )
     return unsafe_ref(min_index)[1] ,unsafe_ref(max_index)[1]
 end
-@vectorize_1arg Number gsl_stats_minmax_index
+@vectorize_1arg Number stats_minmax_index

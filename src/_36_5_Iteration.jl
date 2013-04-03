@@ -4,11 +4,11 @@
 ##################
 # 36.5 Iteration #
 ##################
-export gsl_multimin_fdfminimizer_iterate, gsl_multimin_fminimizer_iterate,
-       gsl_multimin_fdfminimizer_x, gsl_multimin_fminimizer_x,
-       gsl_multimin_fdfminimizer_minimum, gsl_multimin_fminimizer_minimum,
-       gsl_multimin_fdfminimizer_gradient, gsl_multimin_fminimizer_size,
-       gsl_multimin_fdfminimizer_restart
+export multimin_fdfminimizer_iterate, multimin_fminimizer_iterate,
+       multimin_fdfminimizer_x, multimin_fminimizer_x,
+       multimin_fdfminimizer_minimum, multimin_fminimizer_minimum,
+       multimin_fdfminimizer_gradient, multimin_fminimizer_size,
+       multimin_fdfminimizer_restart
 
 
 # These functions perform a single iteration of the minimizer s.  If the
@@ -18,11 +18,11 @@ export gsl_multimin_fdfminimizer_iterate, gsl_multimin_fminimizer_iterate,
 # because a genuine local minimum has been reached.
 # 
 #   Returns: Cint
-function gsl_multimin_fdfminimizer_iterate()
+function multimin_fdfminimizer_iterate()
     s = convert(Ptr{gsl_multimin_fdfminimizer}, Array(gsl_multimin_fdfminimizer, 1))
-    gsl_errno = ccall( (:gsl_multimin_fdfminimizer_iterate, :libgsl), Cint,
+    errno = ccall( (:gsl_multimin_fdfminimizer_iterate, :libgsl), Cint,
         (Ptr{gsl_multimin_fdfminimizer}, ), s )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(s)[1]
 end
 
@@ -34,11 +34,11 @@ end
 # because a genuine local minimum has been reached.
 # 
 #   Returns: Cint
-function gsl_multimin_fminimizer_iterate()
+function multimin_fminimizer_iterate()
     s = convert(Ptr{gsl_multimin_fminimizer}, Array(gsl_multimin_fminimizer, 1))
-    gsl_errno = ccall( (:gsl_multimin_fminimizer_iterate, :libgsl), Cint,
+    errno = ccall( (:gsl_multimin_fminimizer_iterate, :libgsl), Cint,
         (Ptr{gsl_multimin_fminimizer}, ), s )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(s)[1]
 end
 
@@ -48,7 +48,7 @@ end
 # specific characteristic size for the minimizer s.
 # 
 #   Returns: Ptr{gsl_vector}
-function gsl_multimin_fdfminimizer_x(s::Ptr{gsl_multimin_fdfminimizer})
+function multimin_fdfminimizer_x(s::Ptr{gsl_multimin_fdfminimizer})
     ccall( (:gsl_multimin_fdfminimizer_x, :libgsl), Ptr{gsl_vector},
         (Ptr{gsl_multimin_fdfminimizer}, ), s )
 end
@@ -59,7 +59,7 @@ end
 # specific characteristic size for the minimizer s.
 # 
 #   Returns: Ptr{gsl_vector}
-function gsl_multimin_fminimizer_x(s::Ptr{gsl_multimin_fminimizer})
+function multimin_fminimizer_x(s::Ptr{gsl_multimin_fminimizer})
     ccall( (:gsl_multimin_fminimizer_x, :libgsl), Ptr{gsl_vector},
         (Ptr{gsl_multimin_fminimizer}, ), s )
 end
@@ -70,7 +70,7 @@ end
 # specific characteristic size for the minimizer s.
 # 
 #   Returns: Cdouble
-function gsl_multimin_fdfminimizer_minimum(s::Ptr{gsl_multimin_fdfminimizer})
+function multimin_fdfminimizer_minimum(s::Ptr{gsl_multimin_fdfminimizer})
     ccall( (:gsl_multimin_fdfminimizer_minimum, :libgsl), Cdouble,
         (Ptr{gsl_multimin_fdfminimizer}, ), s )
 end
@@ -81,7 +81,7 @@ end
 # specific characteristic size for the minimizer s.
 # 
 #   Returns: Cdouble
-function gsl_multimin_fminimizer_minimum(s::Ptr{gsl_multimin_fminimizer})
+function multimin_fminimizer_minimum(s::Ptr{gsl_multimin_fminimizer})
     ccall( (:gsl_multimin_fminimizer_minimum, :libgsl), Cdouble,
         (Ptr{gsl_multimin_fminimizer}, ), s )
 end
@@ -92,7 +92,7 @@ end
 # specific characteristic size for the minimizer s.
 # 
 #   Returns: Ptr{gsl_vector}
-function gsl_multimin_fdfminimizer_gradient(s::Ptr{gsl_multimin_fdfminimizer})
+function multimin_fdfminimizer_gradient(s::Ptr{gsl_multimin_fdfminimizer})
     ccall( (:gsl_multimin_fdfminimizer_gradient, :libgsl), Ptr{gsl_vector},
         (Ptr{gsl_multimin_fdfminimizer}, ), s )
 end
@@ -103,7 +103,7 @@ end
 # specific characteristic size for the minimizer s.
 # 
 #   Returns: Cdouble
-function gsl_multimin_fminimizer_size(s::Ptr{gsl_multimin_fminimizer})
+function multimin_fminimizer_size(s::Ptr{gsl_multimin_fminimizer})
     ccall( (:gsl_multimin_fminimizer_size, :libgsl), Cdouble,
         (Ptr{gsl_multimin_fminimizer}, ), s )
 end
@@ -113,10 +113,10 @@ end
 # starting point.
 # 
 #   Returns: Cint
-function gsl_multimin_fdfminimizer_restart()
+function multimin_fdfminimizer_restart()
     s = convert(Ptr{gsl_multimin_fdfminimizer}, Array(gsl_multimin_fdfminimizer, 1))
-    gsl_errno = ccall( (:gsl_multimin_fdfminimizer_restart, :libgsl), Cint,
+    errno = ccall( (:gsl_multimin_fdfminimizer_restart, :libgsl), Cint,
         (Ptr{gsl_multimin_fdfminimizer}, ), s )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(s)[1]
 end

@@ -4,11 +4,10 @@
 ###############################################
 # 16.7 Mixed-radix FFT routines for real data #
 ###############################################
-export gsl_fft_real_wavetable_alloc, gsl_fft_halfcomplex_wavetable_alloc,
-       gsl_fft_real_wavetable_free, gsl_fft_halfcomplex_wavetable_free,
-       gsl_fft_real_workspace_alloc, gsl_fft_real_workspace_free,
-       gsl_fft_real_transform, gsl_fft_halfcomplex_transform,
-       gsl_fft_real_unpack, gsl_fft_halfcomplex_unpack
+export fft_real_wavetable_alloc, fft_halfcomplex_wavetable_alloc,
+       fft_real_wavetable_free, fft_halfcomplex_wavetable_free,
+       fft_real_workspace_alloc, fft_real_workspace_free, fft_real_transform,
+       fft_halfcomplex_transform, fft_real_unpack, fft_halfcomplex_unpack
 
 
 
@@ -36,11 +35,11 @@ export gsl_fft_real_wavetable_alloc, gsl_fft_halfcomplex_wavetable_alloc,
 # or inverse half-complex transforms.
 # 
 #   Returns: Ptr{gsl_fft_real_wavetable}
-function gsl_fft_real_wavetable_alloc(n::Integer)
+function fft_real_wavetable_alloc(n::Integer)
     ccall( (:gsl_fft_real_wavetable_alloc, :libgsl),
         Ptr{gsl_fft_real_wavetable}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_fft_real_wavetable_alloc
+@vectorize_1arg Number fft_real_wavetable_alloc
 
 
 # These functions prepare trigonometric lookup tables for an FFT of size n real
@@ -58,18 +57,18 @@ end
 # or inverse half-complex transforms.
 # 
 #   Returns: Ptr{gsl_fft_halfcomplex_wavetable}
-function gsl_fft_halfcomplex_wavetable_alloc(n::Integer)
+function fft_halfcomplex_wavetable_alloc(n::Integer)
     ccall( (:gsl_fft_halfcomplex_wavetable_alloc, :libgsl),
         Ptr{gsl_fft_halfcomplex_wavetable}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_fft_halfcomplex_wavetable_alloc
+@vectorize_1arg Number fft_halfcomplex_wavetable_alloc
 
 
 # These functions free the memory associated with the wavetable wavetable. The
 # wavetable can be freed if no further FFTs of the same length will be needed.
 # 
 #   Returns: Void
-function gsl_fft_real_wavetable_free(wavetable::Ptr{gsl_fft_real_wavetable})
+function fft_real_wavetable_free(wavetable::Ptr{gsl_fft_real_wavetable})
     ccall( (:gsl_fft_real_wavetable_free, :libgsl), Void,
         (Ptr{gsl_fft_real_wavetable}, ), wavetable )
 end
@@ -79,7 +78,7 @@ end
 # wavetable can be freed if no further FFTs of the same length will be needed.
 # 
 #   Returns: Void
-function gsl_fft_halfcomplex_wavetable_free(wavetable::Ptr{gsl_fft_halfcomplex_wavetable})
+function fft_halfcomplex_wavetable_free(wavetable::Ptr{gsl_fft_halfcomplex_wavetable})
     ccall( (:gsl_fft_halfcomplex_wavetable_free, :libgsl), Void,
         (Ptr{gsl_fft_halfcomplex_wavetable}, ), wavetable )
 end
@@ -90,18 +89,18 @@ end
 # transforms.
 # 
 #   Returns: Ptr{gsl_fft_real_workspace}
-function gsl_fft_real_workspace_alloc(n::Integer)
+function fft_real_workspace_alloc(n::Integer)
     ccall( (:gsl_fft_real_workspace_alloc, :libgsl),
         Ptr{gsl_fft_real_workspace}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_fft_real_workspace_alloc
+@vectorize_1arg Number fft_real_workspace_alloc
 
 
 # This function frees the memory associated with the workspace workspace. The
 # workspace can be freed if no further FFTs of the same length will be needed.
 # 
 #   Returns: Void
-function gsl_fft_real_workspace_free(workspace::Ptr{gsl_fft_real_workspace})
+function fft_real_workspace_free(workspace::Ptr{gsl_fft_real_workspace})
     ccall( (:gsl_fft_real_workspace_free, :libgsl), Void,
         (Ptr{gsl_fft_real_workspace}, ), workspace )
 end
@@ -118,12 +117,12 @@ end
 # a workspace work.
 # 
 #   Returns: Cint
-function gsl_fft_real_transform(data::Real)
-    gsl_errno = ccall( (:gsl_fft_real_transform, :libgsl), Cint, (Cdouble,
-        ), data )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function fft_real_transform(data::Real)
+    errno = ccall( (:gsl_fft_real_transform, :libgsl), Cint, (Cdouble, ),
+        data )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-@vectorize_1arg Number gsl_fft_real_transform
+@vectorize_1arg Number fft_real_transform
 
 
 # These functions compute the FFT of data, a real or half-complex array of
@@ -137,12 +136,12 @@ end
 # a workspace work.
 # 
 #   Returns: Cint
-function gsl_fft_halfcomplex_transform(data::Real)
-    gsl_errno = ccall( (:gsl_fft_halfcomplex_transform, :libgsl), Cint,
+function fft_halfcomplex_transform(data::Real)
+    errno = ccall( (:gsl_fft_halfcomplex_transform, :libgsl), Cint,
         (Cdouble, ), data )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-@vectorize_1arg Number gsl_fft_halfcomplex_transform
+@vectorize_1arg Number fft_halfcomplex_transform
 
 
 # This function converts a single real array, real_coefficient into an
@@ -154,12 +153,12 @@ end
 # = 0.0;             }
 # 
 #   Returns: Cint
-function gsl_fft_real_unpack(real_coefficient::Real)
-    gsl_errno = ccall( (:gsl_fft_real_unpack, :libgsl), Cint, (Cdouble, ),
+function fft_real_unpack(real_coefficient::Real)
+    errno = ccall( (:gsl_fft_real_unpack, :libgsl), Cint, (Cdouble, ),
         real_coefficient )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-@vectorize_1arg Number gsl_fft_real_unpack
+@vectorize_1arg Number fft_real_unpack
 
 
 # This function converts halfcomplex_coefficient, an array of half-complex
@@ -181,9 +180,9 @@ end
 # complex_coefficient[i*stride].imag                 = 0.0;             }
 # 
 #   Returns: Cint
-function gsl_fft_halfcomplex_unpack(halfcomplex_coefficient::Real)
-    gsl_errno = ccall( (:gsl_fft_halfcomplex_unpack, :libgsl), Cint,
-        (Cdouble, ), halfcomplex_coefficient )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function fft_halfcomplex_unpack(halfcomplex_coefficient::Real)
+    errno = ccall( (:gsl_fft_halfcomplex_unpack, :libgsl), Cint, (Cdouble,
+        ), halfcomplex_coefficient )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-@vectorize_1arg Number gsl_fft_halfcomplex_unpack
+@vectorize_1arg Number fft_halfcomplex_unpack

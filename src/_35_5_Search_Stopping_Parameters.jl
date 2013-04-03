@@ -4,7 +4,7 @@
 ###################################
 # 35.5 Search Stopping Parameters #
 ###################################
-export gsl_multiroot_test_delta, gsl_multiroot_test_residual
+export multiroot_test_delta, multiroot_test_residual
 
 
 
@@ -18,11 +18,11 @@ export gsl_multiroot_test_delta, gsl_multiroot_test_residual
 # component of x and returns GSL_CONTINUE otherwise.
 # 
 #   Returns: Cint
-function gsl_multiroot_test_delta(dx::Ptr{gsl_vector}, x::Ptr{gsl_vector}, epsabs::Real, epsrel::Real)
-    gsl_errno = ccall( (:gsl_multiroot_test_delta, :libgsl), Cint,
+function multiroot_test_delta(dx::Ptr{gsl_vector}, x::Ptr{gsl_vector}, epsabs::Real, epsrel::Real)
+    errno = ccall( (:gsl_multiroot_test_delta, :libgsl), Cint,
         (Ptr{gsl_vector}, Ptr{gsl_vector}, Cdouble, Cdouble), dx, x, epsabs,
         epsrel )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -33,8 +33,8 @@ end
 # unimportant provided a value can be found where the residual is small enough.
 # 
 #   Returns: Cint
-function gsl_multiroot_test_residual(f::Ptr{gsl_vector}, epsabs::Real)
-    gsl_errno = ccall( (:gsl_multiroot_test_residual, :libgsl), Cint,
+function multiroot_test_residual(f::Ptr{gsl_vector}, epsabs::Real)
+    errno = ccall( (:gsl_multiroot_test_residual, :libgsl), Cint,
         (Ptr{gsl_vector}, Cdouble), f, epsabs )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end

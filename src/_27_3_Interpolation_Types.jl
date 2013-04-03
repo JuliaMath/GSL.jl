@@ -4,7 +4,7 @@
 ############################
 # 27.3 Interpolation Types #
 ############################
-export gsl_interp_name, gsl_interp_min_size, gsl_interp_type_min_size
+export interp_name, interp_min_size, interp_type_min_size
 
 
 
@@ -17,7 +17,7 @@ export gsl_interp_name, gsl_interp_min_size, gsl_interp_type_min_size
 # interp uses 'cspline' interpolation.
 # 
 #   Returns: Ptr{Cchar}
-function gsl_interp_name(interp::Ptr{gsl_interp})
+function interp_name(interp::Ptr{gsl_interp})
     output_string = ccall( (:gsl_interp_name, :libgsl), Ptr{Cchar},
         (Ptr{gsl_interp}, ), interp )
     bytestring(convert(Ptr{Uint8}, output_string))
@@ -29,7 +29,7 @@ end
 # spline interpolation requires a minimum of 5 points.
 # 
 #   Returns: Cuint
-function gsl_interp_min_size(interp::Ptr{gsl_interp})
+function interp_min_size(interp::Ptr{gsl_interp})
     ccall( (:gsl_interp_min_size, :libgsl), Cuint, (Ptr{gsl_interp}, ),
         interp )
 end
@@ -40,7 +40,7 @@ end
 # spline interpolation requires a minimum of 5 points.
 # 
 #   Returns: Cuint
-function gsl_interp_type_min_size(T::Ptr{gsl_interp_type})
+function interp_type_min_size(T::Ptr{gsl_interp_type})
     ccall( (:gsl_interp_type_min_size, :libgsl), Cuint,
         (Ptr{gsl_interp_type}, ), T )
 end

@@ -4,7 +4,7 @@
 ##############################
 # 10.5 Combination functions #
 ##############################
-export gsl_combination_next, gsl_combination_prev
+export combination_next, combination_prev
 
 
 # This function advances the combination c to the next combination in
@@ -14,10 +14,10 @@ export gsl_combination_next, gsl_combination_prev
 # all possible combinations of a given order.
 # 
 #   Returns: Cint
-function gsl_combination_next(c::Ptr{gsl_combination})
-    gsl_errno = ccall( (:gsl_combination_next, :libgsl), Cint,
+function combination_next(c::Ptr{gsl_combination})
+    errno = ccall( (:gsl_combination_next, :libgsl), Cint,
         (Ptr{gsl_combination}, ), c )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -26,10 +26,10 @@ end
 # combination is available it returns GSL_FAILURE and leaves c unmodified.
 # 
 #   Returns: Cint
-function gsl_combination_prev()
+function combination_prev()
     c = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
-    gsl_errno = ccall( (:gsl_combination_prev, :libgsl), Cint,
+    errno = ccall( (:gsl_combination_prev, :libgsl), Cint,
         (Ptr{gsl_combination}, ), c )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(c)[1]
 end

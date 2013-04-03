@@ -4,7 +4,7 @@
 ########################################################
 # 4.8 Approximate Comparison of Floating Point Numbers #
 ########################################################
-export gsl_fcmp
+export fcmp
 
 
 # This function determines whether x and y are approximately equal to a
@@ -19,10 +19,10 @@ export gsl_fcmp
 # package fcmp by T.C. Belding.
 # 
 #   Returns: Cint
-function gsl_fcmp(x::Real, y::Real, epsilon::Real)
-    gsl_errno = ccall( (:gsl_fcmp, :libgsl), Cint, (Cdouble, Cdouble,
-        Cdouble), x, y, epsilon )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function fcmp(x::Real, y::Real, epsilon::Real)
+    errno = ccall( (:gsl_fcmp, :libgsl), Cint, (Cdouble, Cdouble, Cdouble),
+        x, y, epsilon )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_fcmp
+#@vectorize_3arg Number fcmp

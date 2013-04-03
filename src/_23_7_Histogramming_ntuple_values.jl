@@ -4,7 +4,7 @@
 ####################################
 # 23.7 Histogramming ntuple values #
 ####################################
-export gsl_ntuple_project
+export ntuple_project
 
 
 # This function updates the histogram h from the ntuple ntuple using the
@@ -16,14 +16,14 @@ export gsl_ntuple_project
 # data in the same histogram.
 # 
 #   Returns: Cint
-function gsl_ntuple_project()
+function ntuple_project()
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
     ntuple = convert(Ptr{gsl_ntuple}, Array(gsl_ntuple, 1))
     value_func = convert(Ptr{gsl_ntuple_value_fn}, Array(gsl_ntuple_value_fn, 1))
     select_func = convert(Ptr{gsl_ntuple_select_fn}, Array(gsl_ntuple_select_fn, 1))
-    gsl_errno = ccall( (:gsl_ntuple_project, :libgsl), Cint,
+    errno = ccall( (:gsl_ntuple_project, :libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_ntuple}, Ptr{gsl_ntuple_value_fn},
         Ptr{gsl_ntuple_select_fn}), h, ntuple, value_func, select_func )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(h)[1] ,unsafe_ref(ntuple)[1] ,unsafe_ref(value_func)[1] ,unsafe_ref(select_func)[1]
 end

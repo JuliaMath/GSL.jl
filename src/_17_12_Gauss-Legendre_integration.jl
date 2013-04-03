@@ -4,8 +4,8 @@
 ####################################
 # 17.12 Gauss-Legendre integration #
 ####################################
-export gsl_integration_glfixed_table_alloc, gsl_integration_glfixed,
-       gsl_integration_glfixed_point, gsl_integration_glfixed_table_free
+export integration_glfixed_table_alloc, integration_glfixed,
+       integration_glfixed_point, integration_glfixed_table_free
 
 
 # This function determines the Gauss-Legendre abscissae and weights necessary
@@ -14,18 +14,18 @@ export gsl_integration_glfixed_table_alloc, gsl_integration_glfixed,
 # lower precision coefficients are computed on the fly.
 # 
 #   Returns: Ptr{gsl_integration_glfixed_table}
-function gsl_integration_glfixed_table_alloc(n::Integer)
+function integration_glfixed_table_alloc(n::Integer)
     ccall( (:gsl_integration_glfixed_table_alloc, :libgsl),
         Ptr{gsl_integration_glfixed_table}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_integration_glfixed_table_alloc
+@vectorize_1arg Number integration_glfixed_table_alloc
 
 
 # This function applies the Gauss-Legendre integration rule contained in table
 # t and returns the result.
 # 
 #   Returns: Cdouble
-function gsl_integration_glfixed(f::Ptr{gsl_function}, a::Real, b::Real, t::Ptr{gsl_integration_glfixed_table})
+function integration_glfixed(f::Ptr{gsl_function}, a::Real, b::Real, t::Ptr{gsl_integration_glfixed_table})
     ccall( (:gsl_integration_glfixed, :libgsl), Cdouble,
         (Ptr{gsl_function}, Cdouble, Cdouble,
         Ptr{gsl_integration_glfixed_table}), f, a, b, t )
@@ -38,13 +38,13 @@ end
 # by summing wi * f(xi) over i.
 # 
 #   Returns: Cint
-function gsl_integration_glfixed_point(a::Real, b::Real, i::Integer, t::Ptr{gsl_integration_glfixed_table})
+function integration_glfixed_point(a::Real, b::Real, i::Integer, t::Ptr{gsl_integration_glfixed_table})
     xi = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     wi = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_integration_glfixed_point, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_glfixed_point, :libgsl), Cint,
         (Cdouble, Cdouble, Csize_t, Ptr{Cdouble}, Ptr{Cdouble},
         Ptr{gsl_integration_glfixed_table}), a, b, i, xi, wi, t )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(xi)[1] ,unsafe_ref(wi)[1]
 end
 
@@ -52,7 +52,7 @@ end
 # This function frees the memory associated with the table t.
 # 
 #   Returns: Void
-function gsl_integration_glfixed_table_free(t::Ptr{gsl_integration_glfixed_table})
+function integration_glfixed_table_free(t::Ptr{gsl_integration_glfixed_table})
     ccall( (:gsl_integration_glfixed_table_free, :libgsl), Void,
         (Ptr{gsl_integration_glfixed_table}, ), t )
 end

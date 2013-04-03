@@ -4,7 +4,7 @@
 ###################################
 # 8.4.2 Accessing matrix elements #
 ###################################
-export gsl_matrix_get, gsl_matrix_set, gsl_matrix_ptr, gsl_matrix_const_ptr
+export matrix_get, matrix_set, matrix_ptr, matrix_const_ptr
 
 
 
@@ -15,7 +15,7 @@ export gsl_matrix_get, gsl_matrix_set, gsl_matrix_ptr, gsl_matrix_const_ptr
 # when HAVE_INLINE is defined.
 # 
 #   Returns: Cdouble
-function gsl_matrix_get(m::Ptr{gsl_matrix}, i::Integer, j::Integer)
+function matrix_get(m::Ptr{gsl_matrix}, i::Integer, j::Integer)
     ccall( (:gsl_matrix_get, :libgsl), Cdouble, (Ptr{gsl_matrix}, Csize_t,
         Csize_t), m, i, j )
 end
@@ -27,7 +27,7 @@ end
 # HAVE_INLINE is defined.
 # 
 #   Returns: Void
-function gsl_matrix_set(m::Ptr{gsl_matrix}, i::Integer, j::Integer, x::Real)
+function matrix_set(m::Ptr{gsl_matrix}, i::Integer, j::Integer, x::Real)
     ccall( (:gsl_matrix_set, :libgsl), Void, (Ptr{gsl_matrix}, Csize_t,
         Csize_t, Cdouble), m, i, j, x )
 end
@@ -39,7 +39,7 @@ end
 # functions are used when HAVE_INLINE is defined.
 # 
 #   Returns: Ptr{Cdouble}
-function gsl_matrix_ptr(m::Ptr{gsl_matrix}, i::Integer, j::Integer)
+function matrix_ptr(m::Ptr{gsl_matrix}, i::Integer, j::Integer)
     ccall( (:gsl_matrix_ptr, :libgsl), Ptr{Cdouble}, (Ptr{gsl_matrix},
         Csize_t, Csize_t), m, i, j )
 end
@@ -51,7 +51,7 @@ end
 # functions are used when HAVE_INLINE is defined.
 # 
 #   Returns: Ptr{Cdouble}
-function gsl_matrix_const_ptr(m::Ptr{gsl_matrix}, i::Integer, j::Integer)
+function matrix_const_ptr(m::Ptr{gsl_matrix}, i::Integer, j::Integer)
     ccall( (:gsl_matrix_const_ptr, :libgsl), Ptr{Cdouble},
         (Ptr{gsl_matrix}, Csize_t, Csize_t), m, i, j )
 end

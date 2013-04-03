@@ -4,8 +4,8 @@
 #######################################
 # 27.4 Index Look-up and Acceleration #
 #######################################
-export gsl_interp_bsearch, gsl_interp_accel_alloc, gsl_interp_accel_find,
-       gsl_interp_accel_reset, gsl_interp_accel_free
+export interp_bsearch, interp_accel_alloc, interp_accel_find,
+       interp_accel_reset, interp_accel_free
 
 
 # This function returns the index i of the array x_array such that x_array[i]
@@ -14,10 +14,10 @@ export gsl_interp_bsearch, gsl_interp_accel_alloc, gsl_interp_accel_find,
 # HAVE_INLINE is defined.
 # 
 #   Returns: Csize_t
-function gsl_interp_bsearch(x_array::Real)
+function interp_bsearch(x_array::Real)
     ccall( (:gsl_interp_bsearch, :libgsl), Csize_t, (Cdouble, ), x_array )
 end
-@vectorize_1arg Number gsl_interp_bsearch
+@vectorize_1arg Number interp_bsearch
 
 
 # This function returns a pointer to an accelerator object, which is a kind of
@@ -25,7 +25,7 @@ end
 # allowing for application of various acceleration strategies.
 # 
 #   Returns: Ptr{gsl_interp_accel}
-function gsl_interp_accel_alloc()
+function interp_accel_alloc()
     ccall( (:gsl_interp_accel_alloc, :libgsl), Ptr{gsl_interp_accel}, () )
 end
 
@@ -37,7 +37,7 @@ end
 # used when HAVE_INLINE is defined.
 # 
 #   Returns: Csize_t
-function gsl_interp_accel_find(a::Ptr{gsl_interp_accel}, x_array::Real)
+function interp_accel_find(a::Ptr{gsl_interp_accel}, x_array::Real)
     ccall( (:gsl_interp_accel_find, :libgsl), Csize_t,
         (Ptr{gsl_interp_accel}, Cdouble), a, x_array )
 end
@@ -48,11 +48,11 @@ end
 # switching to a new dataset.
 # 
 #   Returns: Cint
-function gsl_interp_accel_reset()
+function interp_accel_reset()
     acc = convert(Ptr{gsl_interp_accel}, Array(gsl_interp_accel, 1))
-    gsl_errno = ccall( (:gsl_interp_accel_reset, :libgsl), Cint,
+    errno = ccall( (:gsl_interp_accel_reset, :libgsl), Cint,
         (Ptr{gsl_interp_accel}, ), acc )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(acc)[1]
 end
 
@@ -60,7 +60,7 @@ end
 # This function frees the accelerator object acc.
 # 
 #   Returns: Void
-function gsl_interp_accel_free(acc::Ptr{gsl_interp_accel})
+function interp_accel_free(acc::Ptr{gsl_interp_accel})
     ccall( (:gsl_interp_accel_free, :libgsl), Void, (Ptr{gsl_interp_accel},
         ), acc )
 end

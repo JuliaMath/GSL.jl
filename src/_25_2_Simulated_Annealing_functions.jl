@@ -6,7 +6,7 @@
 ######################################
 export gsl_siman_Efunc_t, gsl_siman_step_t, gsl_siman_metric_t,
        gsl_siman_print_t, gsl_siman_copy_t, gsl_siman_copy_construct_t,
-       gsl_siman_destroy_t, gsl_siman_params_t, gsl_siman_solve
+       gsl_siman_destroy_t, gsl_siman_params_t, siman_solve
 
 
 
@@ -89,7 +89,7 @@ end
 # printed.
 # 
 #   Returns: Void
-function gsl_siman_solve(r::Ptr{gsl_rng}, x0_p::Ptr{Void}, Ef::gsl_siman_Efunc_t, take_step::gsl_siman_step_t, distance::gsl_siman_metric_t, print_position::gsl_siman_print_t, copyfunc::gsl_siman_copy_t, copy_constructor::gsl_siman_copy_ruct_t, destructor::gsl_siman_destroy_t, element_size::Integer, params::gsl_siman_params_t)
+function siman_solve(r::Ptr{gsl_rng}, x0_p::Ptr{Void}, Ef::gsl_siman_Efunc_t, take_step::gsl_siman_step_t, distance::gsl_siman_metric_t, print_position::gsl_siman_print_t, copyfunc::gsl_siman_copy_t, copy_constructor::gsl_siman_copy_ruct_t, destructor::gsl_siman_destroy_t, element_size::Integer, params::gsl_siman_params_t)
     ccall( (:gsl_siman_solve, :libgsl), Void, (Ptr{gsl_rng}, Ptr{Void},
         gsl_siman_Efunc_t, gsl_siman_step_t, gsl_siman_metric_t,
         gsl_siman_print_t, gsl_siman_copy_t, gsl_siman_copy_ruct_t,

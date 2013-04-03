@@ -4,8 +4,8 @@
 ##################################################
 # 14.8 Hessenberg Decomposition of Real Matrices #
 ##################################################
-export gsl_linalg_hessenberg_decomp, gsl_linalg_hessenberg_unpack,
-       gsl_linalg_hessenberg_unpack_accum, gsl_linalg_hessenberg_set_zero
+export linalg_hessenberg_decomp, linalg_hessenberg_unpack,
+       linalg_hessenberg_unpack_accum, linalg_hessenberg_set_zero
 
 
 
@@ -19,12 +19,12 @@ export gsl_linalg_hessenberg_decomp, gsl_linalg_hessenberg_unpack,
 # the vector tau.  tau must be of length N.
 # 
 #   Returns: Cint
-function gsl_linalg_hessenberg_decomp()
+function linalg_hessenberg_decomp()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     tau = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_linalg_hessenberg_decomp, :libgsl), Cint,
+    errno = ccall( (:gsl_linalg_hessenberg_decomp, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}), A, tau )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1] ,unsafe_ref(tau)[1]
 end
 
@@ -34,13 +34,13 @@ end
 # from gsl_linalg_hessenberg_decomp.
 # 
 #   Returns: Cint
-function gsl_linalg_hessenberg_unpack()
+function linalg_hessenberg_unpack()
     H = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     tau = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     U = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    gsl_errno = ccall( (:gsl_linalg_hessenberg_unpack, :libgsl), Cint,
+    errno = ccall( (:gsl_linalg_hessenberg_unpack, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_matrix}), H, tau, U )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(H)[1] ,unsafe_ref(tau)[1] ,unsafe_ref(U)[1]
 end
 
@@ -52,13 +52,13 @@ end
 # then V must have N columns but may have any number of rows.
 # 
 #   Returns: Cint
-function gsl_linalg_hessenberg_unpack_accum()
+function linalg_hessenberg_unpack_accum()
     H = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     tau = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     V = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    gsl_errno = ccall( (:gsl_linalg_hessenberg_unpack_accum, :libgsl),
-        Cint, (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_matrix}), H, tau, V )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_linalg_hessenberg_unpack_accum, :libgsl), Cint,
+        (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_matrix}), H, tau, V )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(H)[1] ,unsafe_ref(tau)[1] ,unsafe_ref(V)[1]
 end
 
@@ -68,10 +68,10 @@ end
 # gsl_linalg_hessenberg_decomp.
 # 
 #   Returns: Cint
-function gsl_linalg_hessenberg_set_zero()
+function linalg_hessenberg_set_zero()
     H = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    gsl_errno = ccall( (:gsl_linalg_hessenberg_set_zero, :libgsl), Cint,
+    errno = ccall( (:gsl_linalg_hessenberg_set_zero, :libgsl), Cint,
         (Ptr{gsl_matrix}, ), H )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(H)[1]
 end

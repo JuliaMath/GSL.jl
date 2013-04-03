@@ -4,7 +4,7 @@
 #######################
 # 7.27 Power Function #
 #######################
-export gsl_sf_pow_int, gsl_sf_pow_int_e
+export sf_pow_int, sf_pow_int_e
 
 
 
@@ -15,10 +15,10 @@ export gsl_sf_pow_int, gsl_sf_pow_int_e
 # these functions do not check for overflow or underflow conditions.
 # 
 #   Returns: Cdouble
-function gsl_sf_pow_int(x::Real, n::Integer)
+function sf_pow_int(x::Real, n::Integer)
     ccall( (:gsl_sf_pow_int, :libgsl), Cdouble, (Cdouble, Cint), x, n )
 end
-@vectorize_2arg Number gsl_sf_pow_int
+@vectorize_2arg Number sf_pow_int
 
 
 # These routines compute the power x^n for integer n.  The power is computed
@@ -27,11 +27,11 @@ end
 # these functions do not check for overflow or underflow conditions.
 # 
 #   Returns: Cint
-function gsl_sf_pow_int_e(x::Real, n::Integer)
+function sf_pow_int_e(x::Real, n::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_pow_int_e, :libgsl), Cint, (Cdouble, Cint,
+    errno = ccall( (:gsl_sf_pow_int_e, :libgsl), Cint, (Cdouble, Cint,
         Ptr{gsl_sf_result}), x, n, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1]
 end
-@vectorize_2arg Number gsl_sf_pow_int_e
+@vectorize_2arg Number sf_pow_int_e

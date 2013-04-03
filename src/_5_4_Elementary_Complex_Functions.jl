@@ -4,9 +4,8 @@
 ####################################
 # 5.4 Elementary Complex Functions #
 ####################################
-export gsl_complex_sqrt, gsl_complex_sqrt_real, gsl_complex_pow,
-       gsl_complex_pow_real, gsl_complex_exp, gsl_complex_log,
-       gsl_complex_log10, gsl_complex_log_b
+export complex_sqrt, complex_sqrt_real, complex_pow, complex_pow_real,
+       complex_exp, complex_log, complex_log10, complex_log_b
 
 
 # This function returns the square root of the complex number z, \sqrt z. The
@@ -14,7 +13,7 @@ export gsl_complex_sqrt, gsl_complex_sqrt_real, gsl_complex_pow,
 # half of the complex plane.
 # 
 #   Returns: gsl_complex
-function gsl_complex_sqrt(z::gsl_complex)
+function complex_sqrt(z::gsl_complex)
     ccall( (:gsl_complex_sqrt, :libgsl), gsl_complex, (gsl_complex, ), z )
 end
 
@@ -23,10 +22,10 @@ end
 # may be negative.
 # 
 #   Returns: gsl_complex
-function gsl_complex_sqrt_real(x::Real)
+function complex_sqrt_real(x::Real)
     ccall( (:gsl_complex_sqrt_real, :libgsl), gsl_complex, (Cdouble, ), x )
 end
-@vectorize_1arg Number gsl_complex_sqrt_real
+@vectorize_1arg Number complex_sqrt_real
 
 
 # The function returns the complex number z raised to the complex power a, z^a.
@@ -34,7 +33,7 @@ end
 # exponentials.
 # 
 #   Returns: gsl_complex
-function gsl_complex_pow(z::gsl_complex, a::gsl_complex)
+function complex_pow(z::gsl_complex, a::gsl_complex)
     ccall( (:gsl_complex_pow, :libgsl), gsl_complex, (gsl_complex,
         gsl_complex), z, a )
 end
@@ -43,7 +42,7 @@ end
 # This function returns the complex number z raised to the real power x, z^x.
 # 
 #   Returns: gsl_complex
-function gsl_complex_pow_real(z::gsl_complex, x::Real)
+function complex_pow_real(z::gsl_complex, x::Real)
     ccall( (:gsl_complex_pow_real, :libgsl), gsl_complex, (gsl_complex,
         Cdouble), z, x )
 end
@@ -53,7 +52,7 @@ end
 # \exp(z).
 # 
 #   Returns: gsl_complex
-function gsl_complex_exp(z::gsl_complex)
+function complex_exp(z::gsl_complex)
     ccall( (:gsl_complex_exp, :libgsl), gsl_complex, (gsl_complex, ), z )
 end
 
@@ -62,7 +61,7 @@ end
 # number z, \log(z).  The branch cut is the negative real axis.
 # 
 #   Returns: gsl_complex
-function gsl_complex_log(z::gsl_complex)
+function complex_log(z::gsl_complex)
     ccall( (:gsl_complex_log, :libgsl), gsl_complex, (gsl_complex, ), z )
 end
 
@@ -71,7 +70,7 @@ end
 # \log_10 (z).
 # 
 #   Returns: gsl_complex
-function gsl_complex_log10(z::gsl_complex)
+function complex_log10(z::gsl_complex)
     ccall( (:gsl_complex_log10, :libgsl), gsl_complex, (gsl_complex, ), z )
 end
 
@@ -80,7 +79,7 @@ end
 # \log_b(z). This quantity is computed as the ratio \log(z)/\log(b).
 # 
 #   Returns: gsl_complex
-function gsl_complex_log_b(z::gsl_complex, b::gsl_complex)
+function complex_log_b(z::gsl_complex, b::gsl_complex)
     ccall( (:gsl_complex_log_b, :libgsl), gsl_complex, (gsl_complex,
         gsl_complex), z, b )
 end

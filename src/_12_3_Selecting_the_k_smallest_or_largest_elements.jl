@@ -4,10 +4,9 @@
 #####################################################
 # 12.3 Selecting the k smallest or largest elements #
 #####################################################
-export gsl_sort_smallest, gsl_sort_largest, gsl_sort_vector_smallest,
-       gsl_sort_vector_largest, gsl_sort_smallest_index,
-       gsl_sort_largest_index, gsl_sort_vector_smallest_index,
-       gsl_sort_vector_largest_index
+export sort_smallest, sort_largest, sort_vector_smallest, sort_vector_largest,
+       sort_smallest_index, sort_largest_index, sort_vector_smallest_index,
+       sort_vector_largest_index
 
 
 # This function copies the k smallest elements of the array src, of size n and
@@ -16,11 +15,11 @@ export gsl_sort_smallest, gsl_sort_largest, gsl_sort_vector_smallest,
 # by this operation.
 # 
 #   Returns: Cint
-function gsl_sort_smallest{tA<:Real}(k::Integer, src::Ptr{tA}, stride::Integer, n::Integer)
+function sort_smallest{tA<:Real}(k::Integer, src::Ptr{tA}, stride::Integer, n::Integer)
     dest = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_sort_smallest, :libgsl), Cint, (Ptr{Cdouble},
+    errno = ccall( (:gsl_sort_smallest, :libgsl), Cint, (Ptr{Cdouble},
         Csize_t, Ptr{Cdouble}, Csize_t, Csize_t), dest, k, src, stride, n )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(dest)[1]
 end
 
@@ -30,11 +29,11 @@ end
 # less than or equal to n. The data src is not modified by this operation.
 # 
 #   Returns: Cint
-function gsl_sort_largest{tA<:Real}(k::Integer, src::Ptr{tA}, stride::Integer, n::Integer)
+function sort_largest{tA<:Real}(k::Integer, src::Ptr{tA}, stride::Integer, n::Integer)
     dest = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_sort_largest, :libgsl), Cint, (Ptr{Cdouble},
+    errno = ccall( (:gsl_sort_largest, :libgsl), Cint, (Ptr{Cdouble},
         Csize_t, Ptr{Cdouble}, Csize_t, Csize_t), dest, k, src, stride, n )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(dest)[1]
 end
 
@@ -43,11 +42,11 @@ end
 # the array dest. k must be less than or equal to the length of the vector v.
 # 
 #   Returns: Cint
-function gsl_sort_vector_smallest(k::Integer, v::Ptr{gsl_vector})
+function sort_vector_smallest(k::Integer, v::Ptr{gsl_vector})
     dest = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_sort_vector_smallest, :libgsl), Cint,
+    errno = ccall( (:gsl_sort_vector_smallest, :libgsl), Cint,
         (Ptr{Cdouble}, Csize_t, Ptr{gsl_vector}), dest, k, v )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(dest)[1]
 end
 
@@ -56,11 +55,11 @@ end
 # the array dest. k must be less than or equal to the length of the vector v.
 # 
 #   Returns: Cint
-function gsl_sort_vector_largest(k::Integer, v::Ptr{gsl_vector})
+function sort_vector_largest(k::Integer, v::Ptr{gsl_vector})
     dest = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_sort_vector_largest, :libgsl), Cint,
+    errno = ccall( (:gsl_sort_vector_largest, :libgsl), Cint,
         (Ptr{Cdouble}, Csize_t, Ptr{gsl_vector}), dest, k, v )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(dest)[1]
 end
 
@@ -71,12 +70,12 @@ end
 # or equal to n. The data src is not modified by this operation.
 # 
 #   Returns: Cint
-function gsl_sort_smallest_index{tA<:Real}(k::Integer, src::Ptr{tA}, stride::Integer, n::Integer)
+function sort_smallest_index{tA<:Real}(k::Integer, src::Ptr{tA}, stride::Integer, n::Integer)
     p = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    gsl_errno = ccall( (:gsl_sort_smallest_index, :libgsl), Cint,
+    errno = ccall( (:gsl_sort_smallest_index, :libgsl), Cint,
         (Ptr{Csize_t}, Csize_t, Ptr{Cdouble}, Csize_t, Csize_t), p, k, src,
         stride, n )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(p)[1]
 end
 
@@ -87,12 +86,11 @@ end
 # or equal to n. The data src is not modified by this operation.
 # 
 #   Returns: Cint
-function gsl_sort_largest_index{tA<:Real}(k::Integer, src::Ptr{tA}, stride::Integer, n::Integer)
+function sort_largest_index{tA<:Real}(k::Integer, src::Ptr{tA}, stride::Integer, n::Integer)
     p = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    gsl_errno = ccall( (:gsl_sort_largest_index, :libgsl), Cint,
-        (Ptr{Csize_t}, Csize_t, Ptr{Cdouble}, Csize_t, Csize_t), p, k, src,
-        stride, n )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_sort_largest_index, :libgsl), Cint, (Ptr{Csize_t},
+        Csize_t, Ptr{Cdouble}, Csize_t, Csize_t), p, k, src, stride, n )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(p)[1]
 end
 
@@ -102,11 +100,11 @@ end
 # the vector v.
 # 
 #   Returns: Cint
-function gsl_sort_vector_smallest_index(k::Integer, v::Ptr{gsl_vector})
+function sort_vector_smallest_index(k::Integer, v::Ptr{gsl_vector})
     p = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    gsl_errno = ccall( (:gsl_sort_vector_smallest_index, :libgsl), Cint,
+    errno = ccall( (:gsl_sort_vector_smallest_index, :libgsl), Cint,
         (Ptr{Csize_t}, Csize_t, Ptr{gsl_vector}), p, k, v )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(p)[1]
 end
 
@@ -116,10 +114,10 @@ end
 # the vector v.
 # 
 #   Returns: Cint
-function gsl_sort_vector_largest_index(k::Integer, v::Ptr{gsl_vector})
+function sort_vector_largest_index(k::Integer, v::Ptr{gsl_vector})
     p = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    gsl_errno = ccall( (:gsl_sort_vector_largest_index, :libgsl), Cint,
+    errno = ccall( (:gsl_sort_vector_largest_index, :libgsl), Cint,
         (Ptr{Csize_t}, Csize_t, Ptr{gsl_vector}), p, k, v )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(p)[1]
 end

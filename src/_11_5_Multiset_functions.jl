@@ -4,7 +4,7 @@
 ###########################
 # 11.5 Multiset functions #
 ###########################
-export gsl_multiset_next, gsl_multiset_prev
+export multiset_next, multiset_prev
 
 
 # This function advances the multiset c to the next multiset element in
@@ -14,10 +14,10 @@ export gsl_multiset_next, gsl_multiset_prev
 # iterate through all possible multisets of a given order.
 # 
 #   Returns: Cint
-function gsl_multiset_next(c::Ptr{gsl_multiset})
-    gsl_errno = ccall( (:gsl_multiset_next, :libgsl), Cint,
-        (Ptr{gsl_multiset}, ), c )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function multiset_next(c::Ptr{gsl_multiset})
+    errno = ccall( (:gsl_multiset_next, :libgsl), Cint, (Ptr{gsl_multiset},
+        ), c )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -26,10 +26,10 @@ end
 # multiset is available it returns GSL_FAILURE and leaves c unmodified.
 # 
 #   Returns: Cint
-function gsl_multiset_prev()
+function multiset_prev()
     c = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
-    gsl_errno = ccall( (:gsl_multiset_prev, :libgsl), Cint,
-        (Ptr{gsl_multiset}, ), c )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_multiset_prev, :libgsl), Cint, (Ptr{gsl_multiset},
+        ), c )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(c)[1]
 end

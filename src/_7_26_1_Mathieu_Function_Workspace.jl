@@ -4,7 +4,7 @@
 #####################################
 # 7.26.1 Mathieu Function Workspace #
 #####################################
-export gsl_sf_mathieu_alloc, gsl_sf_mathieu_free
+export sf_mathieu_alloc, sf_mathieu_free
 
 
 # This function returns a workspace for the array versions of the Mathieu
@@ -12,17 +12,17 @@ export gsl_sf_mathieu_alloc, gsl_sf_mathieu_free
 # Mathieu functions which can be computed with this workspace.
 # 
 #   Returns: Ptr{gsl_sf_mathieu_workspace}
-function gsl_sf_mathieu_alloc(n::Integer, qmax::Real)
+function sf_mathieu_alloc(n::Integer, qmax::Real)
     ccall( (:gsl_sf_mathieu_alloc, :libgsl), Ptr{gsl_sf_mathieu_workspace},
         (Csize_t, Cdouble), n, qmax )
 end
-@vectorize_2arg Number gsl_sf_mathieu_alloc
+@vectorize_2arg Number sf_mathieu_alloc
 
 
 # This function frees the workspace work.
 # 
 #   Returns: Void
-function gsl_sf_mathieu_free(work::Ptr{gsl_sf_mathieu_workspace})
+function sf_mathieu_free(work::Ptr{gsl_sf_mathieu_workspace})
     ccall( (:gsl_sf_mathieu_free, :libgsl), Void,
         (Ptr{gsl_sf_mathieu_workspace}, ), work )
 end

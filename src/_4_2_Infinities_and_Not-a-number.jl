@@ -7,36 +7,36 @@
 #############
 # Footnotes #
 #############
-export gsl_isnan, gsl_isinf, gsl_finite
+export isnan, isinf, finite
 
 
 # This function returns 1 if x is not-a-number.
 # 
 #   Returns: Cint
-function gsl_isnan(x::Real)
-    gsl_errno = ccall( (:gsl_isnan, :libgsl), Cint, (Cdouble, ), x )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function isnan(x::Real)
+    errno = ccall( (:gsl_isnan, :libgsl), Cint, (Cdouble, ), x )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-@vectorize_1arg Number gsl_isnan
+@vectorize_1arg Number isnan
 
 
 # This function returns +1 if x is positive infinity, -1 if x is negative
 # infinity and 0 otherwise.1
 # 
 #   Returns: Cint
-function gsl_isinf(x::Real)
-    gsl_errno = ccall( (:gsl_isinf, :libgsl), Cint, (Cdouble, ), x )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function isinf(x::Real)
+    errno = ccall( (:gsl_isinf, :libgsl), Cint, (Cdouble, ), x )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-@vectorize_1arg Number gsl_isinf
+@vectorize_1arg Number isinf
 
 
 # This function returns 1 if x is a real number, and 0 if it is infinite or
 # not-a-number.
 # 
 #   Returns: Cint
-function gsl_finite(x::Real)
-    gsl_errno = ccall( (:gsl_finite, :libgsl), Cint, (Cdouble, ), x )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+function finite(x::Real)
+    errno = ccall( (:gsl_finite, :libgsl), Cint, (Cdouble, ), x )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-@vectorize_1arg Number gsl_finite
+@vectorize_1arg Number finite

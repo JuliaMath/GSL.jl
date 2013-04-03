@@ -4,9 +4,9 @@
 ##############################################
 # 21.1 Mean, Standard Deviation and Variance #
 ##############################################
-export gsl_stats_mean, gsl_stats_variance, gsl_stats_variance_m, gsl_stats_sd,
-       gsl_stats_sd_m, gsl_stats_tss, gsl_stats_tss_m,
-       gsl_stats_variance_with_fixed_mean, gsl_stats_sd_with_fixed_mean
+export stats_mean, stats_variance, stats_variance_m, stats_sd, stats_sd_m,
+       stats_tss, stats_tss_m, stats_variance_with_fixed_mean,
+       stats_sd_with_fixed_mean
 
 
 
@@ -26,10 +26,10 @@ export gsl_stats_mean, gsl_stats_variance, gsl_stats_variance_m, gsl_stats_sd,
 # the variance of \Hat\mu is \sigma^2 / N.
 # 
 #   Returns: Cdouble
-function gsl_stats_mean(data::Real)
+function stats_mean(data::Real)
     ccall( (:gsl_stats_mean, :libgsl), Cdouble, (Cdouble, ), data )
 end
-@vectorize_1arg Number gsl_stats_mean
+@vectorize_1arg Number stats_mean
 
 
 # This function returns the estimated, or sample, variance of data, a dataset
@@ -44,10 +44,10 @@ end
 # it directly to gsl_stats_variance_m.
 # 
 #   Returns: Cdouble
-function gsl_stats_variance(data::Real)
+function stats_variance(data::Real)
     ccall( (:gsl_stats_variance, :libgsl), Cdouble, (Cdouble, ), data )
 end
-@vectorize_1arg Number gsl_stats_variance
+@vectorize_1arg Number stats_variance
 
 
 # This function returns the sample variance of data relative to the given value
@@ -55,10 +55,10 @@ end
 # that you supply,                 \Hat\sigma^2 = (1/(N-1)) \sum (x_i - mean)^2
 # 
 #   Returns: Cdouble
-function gsl_stats_variance_m(data::Real)
+function stats_variance_m(data::Real)
     ccall( (:gsl_stats_variance_m, :libgsl), Cdouble, (Cdouble, ), data )
 end
-@vectorize_1arg Number gsl_stats_variance_m
+@vectorize_1arg Number stats_variance_m
 
 
 # The standard deviation is defined as the square root of the variance.  These
@@ -66,10 +66,10 @@ end
 # above.
 # 
 #   Returns: Cdouble
-function gsl_stats_sd(data::Real)
+function stats_sd(data::Real)
     ccall( (:gsl_stats_sd, :libgsl), Cdouble, (Cdouble, ), data )
 end
-@vectorize_1arg Number gsl_stats_sd
+@vectorize_1arg Number stats_sd
 
 
 # The standard deviation is defined as the square root of the variance.  These
@@ -77,10 +77,10 @@ end
 # above.
 # 
 #   Returns: Cdouble
-function gsl_stats_sd_m(data::Real)
+function stats_sd_m(data::Real)
     ccall( (:gsl_stats_sd_m, :libgsl), Cdouble, (Cdouble, ), data )
 end
-@vectorize_1arg Number gsl_stats_sd_m
+@vectorize_1arg Number stats_sd_m
 
 
 # These functions return the total sum of squares (TSS) of data about the mean.
@@ -89,10 +89,10 @@ end
 # \sum (x_i - mean)^2
 # 
 #   Returns: Cdouble
-function gsl_stats_tss(data::Real)
+function stats_tss(data::Real)
     ccall( (:gsl_stats_tss, :libgsl), Cdouble, (Cdouble, ), data )
 end
-@vectorize_1arg Number gsl_stats_tss
+@vectorize_1arg Number stats_tss
 
 
 # These functions return the total sum of squares (TSS) of data about the mean.
@@ -101,10 +101,10 @@ end
 # \sum (x_i - mean)^2
 # 
 #   Returns: Cdouble
-function gsl_stats_tss_m(data::Real)
+function stats_tss_m(data::Real)
     ccall( (:gsl_stats_tss_m, :libgsl), Cdouble, (Cdouble, ), data )
 end
-@vectorize_1arg Number gsl_stats_tss_m
+@vectorize_1arg Number stats_tss_m
 
 
 # This function computes an unbiased estimate of the variance of data when the
@@ -114,11 +114,11 @@ end
 # \Hat\sigma^2 = (1/N) \sum (x_i - \mu)^2
 # 
 #   Returns: Cdouble
-function gsl_stats_variance_with_fixed_mean(data::Real)
+function stats_variance_with_fixed_mean(data::Real)
     ccall( (:gsl_stats_variance_with_fixed_mean, :libgsl), Cdouble,
         (Cdouble, ), data )
 end
-@vectorize_1arg Number gsl_stats_variance_with_fixed_mean
+@vectorize_1arg Number stats_variance_with_fixed_mean
 
 
 # This function calculates the standard deviation of data for a fixed
@@ -126,8 +126,8 @@ end
 # variance function.
 # 
 #   Returns: Cdouble
-function gsl_stats_sd_with_fixed_mean(data::Real)
+function stats_sd_with_fixed_mean(data::Real)
     ccall( (:gsl_stats_sd_with_fixed_mean, :libgsl), Cdouble, (Cdouble, ),
         data )
 end
-@vectorize_1arg Number gsl_stats_sd_with_fixed_mean
+@vectorize_1arg Number stats_sd_with_fixed_mean

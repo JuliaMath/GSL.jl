@@ -4,14 +4,14 @@
 ###########################
 # 39.6 Greville abscissae #
 ###########################
-export gsl_bspline_greville_abscissa
+export bspline_greville_abscissa
 
 
 # Returns the location of the i-th Greville abscissa for the given spline
 # basis.  Here, i = 0, ..., gsl_bspline_ncoeffs(w) - 1.
 # 
 #   Returns: Cdouble
-function gsl_bspline_greville_abscissa(i::Integer, w::Ptr{gsl_bspline_workspace})
+function bspline_greville_abscissa(i::Integer, w::Ptr{gsl_bspline_workspace})
     ccall( (:gsl_bspline_greville_abscissa, :libgsl), Cdouble, (Csize_t,
         Ptr{gsl_bspline_workspace}), i, w )
 end

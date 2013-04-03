@@ -4,8 +4,8 @@
 #####################################
 # 14.4 Singular Value Decomposition #
 #####################################
-export gsl_linalg_SV_decomp, gsl_linalg_SV_decomp_mod,
-       gsl_linalg_SV_decomp_jacobi, gsl_linalg_SV_solve
+export linalg_SV_decomp, linalg_SV_decomp_mod, linalg_SV_decomp_jacobi,
+       linalg_SV_solve
 
 
 
@@ -20,15 +20,15 @@ export gsl_linalg_SV_decomp, gsl_linalg_SV_decomp_mod,
 # routine uses the Golub-Reinsch SVD algorithm.
 # 
 #   Returns: Cint
-function gsl_linalg_SV_decomp()
+function linalg_SV_decomp()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     V = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     S = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     work = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_linalg_SV_decomp, :libgsl), Cint,
+    errno = ccall( (:gsl_linalg_SV_decomp, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}),
         A, V, S, work )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1] ,unsafe_ref(V)[1] ,unsafe_ref(S)[1] ,unsafe_ref(work)[1]
 end
 
@@ -38,16 +38,16 @@ end
 # N-by-N matrix X as additional working space.
 # 
 #   Returns: Cint
-function gsl_linalg_SV_decomp_mod()
+function linalg_SV_decomp_mod()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     X = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     V = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     S = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     work = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_linalg_SV_decomp_mod, :libgsl), Cint,
+    errno = ccall( (:gsl_linalg_SV_decomp_mod, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_vector},
         Ptr{gsl_vector}), A, X, V, S, work )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1] ,unsafe_ref(X)[1] ,unsafe_ref(V)[1] ,unsafe_ref(S)[1] ,unsafe_ref(work)[1]
 end
 
@@ -58,13 +58,13 @@ end
 # details).
 # 
 #   Returns: Cint
-function gsl_linalg_SV_decomp_jacobi()
+function linalg_SV_decomp_jacobi()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     V = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     S = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_linalg_SV_decomp_jacobi, :libgsl), Cint,
+    errno = ccall( (:gsl_linalg_SV_decomp_jacobi, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_vector}), A, V, S )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(A)[1] ,unsafe_ref(V)[1] ,unsafe_ref(S)[1]
 end
 
@@ -80,11 +80,11 @@ end
 # b||_2.
 # 
 #   Returns: Cint
-function gsl_linalg_SV_solve(U::Ptr{gsl_matrix}, V::Ptr{gsl_matrix}, S::Ptr{gsl_vector}, b::Ptr{gsl_vector})
+function linalg_SV_solve(U::Ptr{gsl_matrix}, V::Ptr{gsl_matrix}, S::Ptr{gsl_vector}, b::Ptr{gsl_vector})
     x = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_linalg_SV_solve, :libgsl), Cint,
-        (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector},
-        Ptr{gsl_vector}), U, V, S, b, x )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_linalg_SV_solve, :libgsl), Cint, (Ptr{gsl_matrix},
+        Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector}), U,
+        V, S, b, x )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(x)[1]
 end

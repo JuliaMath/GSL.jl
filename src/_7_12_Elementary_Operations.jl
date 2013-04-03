@@ -4,33 +4,33 @@
 ##############################
 # 7.12 Elementary Operations #
 ##############################
-export gsl_sf_multiply_e, gsl_sf_multiply_err_e
+export sf_multiply_e, sf_multiply_err_e
 
 
 # This function multiplies x and y storing the product and its associated error
 # in result.
 # 
 #   Returns: Cint
-function gsl_sf_multiply_e(x::Real, y::Real)
+function sf_multiply_e(x::Real, y::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_multiply_e, :libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), x, y, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_sf_multiply_e, :libgsl), Cint, (Cdouble, Cdouble,
+        Ptr{gsl_sf_result}), x, y, result )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1]
 end
-@vectorize_2arg Number gsl_sf_multiply_e
+@vectorize_2arg Number sf_multiply_e
 
 
 # This function multiplies x and y with associated absolute errors dx and dy.
 # The product  xy +/- xy \sqrt((dx/x)^2 +(dy/y)^2) is stored in result.
 # 
 #   Returns: Cint
-function gsl_sf_multiply_err_e(x::Real, dx::Real, y::Real, dy::Real)
+function sf_multiply_err_e(x::Real, dx::Real, y::Real, dy::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_multiply_err_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_multiply_err_e, :libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Cdouble, Ptr{gsl_sf_result}), x, dx, y, dy, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1]
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_4arg Number gsl_sf_multiply_err_e
+#@vectorize_4arg Number sf_multiply_err_e

@@ -4,7 +4,7 @@
 ##########################
 # 36.6 Stopping Criteria #
 ##########################
-export gsl_multimin_test_gradient, gsl_multimin_test_size
+export multimin_test_gradient, multimin_test_size
 
 
 
@@ -18,10 +18,10 @@ export gsl_multimin_test_gradient, gsl_multimin_test_size
 # \delta f = g \delta x.
 # 
 #   Returns: Cint
-function gsl_multimin_test_gradient(g::Ptr{gsl_vector}, epsabs::Real)
-    gsl_errno = ccall( (:gsl_multimin_test_gradient, :libgsl), Cint,
+function multimin_test_gradient(g::Ptr{gsl_vector}, epsabs::Real)
+    errno = ccall( (:gsl_multimin_test_gradient, :libgsl), Cint,
         (Ptr{gsl_vector}, Cdouble), g, epsabs )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -31,9 +31,9 @@ end
 # returned.
 # 
 #   Returns: Cint
-function gsl_multimin_test_size(size::Real, epsabs::Real)
-    gsl_errno = ccall( (:gsl_multimin_test_size, :libgsl), Cint, (Cdouble,
+function multimin_test_size(size::Real, epsabs::Real)
+    errno = ccall( (:gsl_multimin_test_size, :libgsl), Cint, (Cdouble,
         Cdouble), size, epsabs )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-@vectorize_2arg Number gsl_multimin_test_size
+@vectorize_2arg Number multimin_test_size

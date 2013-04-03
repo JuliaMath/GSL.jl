@@ -4,8 +4,8 @@
 ###########################################
 # 17.11 CQUAD doubly-adaptive integration #
 ###########################################
-export gsl_integration_cquad_workspace_alloc,
-       gsl_integration_cquad_workspace_free, gsl_integration_cquad
+export integration_cquad_workspace_alloc, integration_cquad_workspace_free,
+       integration_cquad
 
 
 # This function allocates a workspace sufficient to hold the data for n
@@ -15,17 +15,17 @@ export gsl_integration_cquad_workspace_alloc,
 # functions, a workspace of size 100 is sufficient.
 # 
 #   Returns: Ptr{gsl_integration_cquad_workspace}
-function gsl_integration_cquad_workspace_alloc(n::Integer)
+function integration_cquad_workspace_alloc(n::Integer)
     ccall( (:gsl_integration_cquad_workspace_alloc, :libgsl),
         Ptr{gsl_integration_cquad_workspace}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_integration_cquad_workspace_alloc
+@vectorize_1arg Number integration_cquad_workspace_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-function gsl_integration_cquad_workspace_free(w::Ptr{gsl_integration_cquad_workspace})
+function integration_cquad_workspace_free(w::Ptr{gsl_integration_cquad_workspace})
     ccall( (:gsl_integration_cquad_workspace_free, :libgsl), Void,
         (Ptr{gsl_integration_cquad_workspace}, ), w )
 end
@@ -50,16 +50,16 @@ end
 # to NULL.
 # 
 #   Returns: Cint
-function gsl_integration_cquad(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real)
+function integration_cquad(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real)
     workspace = convert(Ptr{gsl_integration_cquad_workspace}, Array(gsl_integration_cquad_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     nevals = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    gsl_errno = ccall( (:gsl_integration_cquad, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_cquad, :libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble,
         Ptr{gsl_integration_cquad_workspace}, Ptr{Cdouble}, Ptr{Cdouble},
         Ptr{Csize_t}), f, a, b, epsabs, epsrel, workspace, result, abserr,
         nevals )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(workspace)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1] ,unsafe_ref(nevals)[1]
 end

@@ -4,7 +4,7 @@
 ###############################################
 # 18.3 Random number generator initialization #
 ###############################################
-export gsl_rng_alloc, gsl_rng_set, gsl_rng_free
+export rng_alloc, rng_set, rng_free
 
 
 
@@ -22,7 +22,7 @@ export gsl_rng_alloc, gsl_rng_set, gsl_rng_free
 # chapter.
 # 
 #   Returns: Ptr{gsl_rng}
-function gsl_rng_alloc(T::Ptr{gsl_rng_type})
+function rng_alloc(T::Ptr{gsl_rng_type})
     ccall( (:gsl_rng_alloc, :libgsl), Ptr{gsl_rng}, (Ptr{gsl_rng_type}, ),
         T )
 end
@@ -44,7 +44,7 @@ end
 # lower.
 # 
 #   Returns: Void
-function gsl_rng_set(r::Ptr{gsl_rng}, s::Integer)
+function rng_set(r::Ptr{gsl_rng}, s::Integer)
     ccall( (:gsl_rng_set, :libgsl), Void, (Ptr{gsl_rng}, Culong), r, s )
 end
 
@@ -52,6 +52,6 @@ end
 # This function frees all the memory associated with the generator r.
 # 
 #   Returns: Void
-function gsl_rng_free(r::Ptr{gsl_rng})
+function rng_free(r::Ptr{gsl_rng})
     ccall( (:gsl_rng_free, :libgsl), Void, (Ptr{gsl_rng}, ), r )
 end

@@ -4,7 +4,7 @@
 ######################################
 # 9.3 Accessing permutation elements #
 ######################################
-export gsl_permutation_get, gsl_permutation_swap
+export permutation_get, permutation_swap
 
 
 # This function returns the value of the i-th element of the permutation p.  If
@@ -13,7 +13,7 @@ export gsl_permutation_get, gsl_permutation_swap
 # HAVE_INLINE is defined.
 # 
 #   Returns: Csize_t
-function gsl_permutation_get(p::Ptr{gsl_permutation}, i::Integer)
+function permutation_get(p::Ptr{gsl_permutation}, i::Integer)
     ccall( (:gsl_permutation_get, :libgsl), Csize_t, (Ptr{gsl_permutation},
         Csize_t), p, i )
 end
@@ -22,11 +22,11 @@ end
 # This function exchanges the i-th and j-th elements of the permutation p.
 # 
 #   Returns: Cint
-function gsl_permutation_swap(i::Integer, j::Integer)
+function permutation_swap(i::Integer, j::Integer)
     p = convert(Ptr{gsl_permutation}, Array(gsl_permutation, 1))
-    gsl_errno = ccall( (:gsl_permutation_swap, :libgsl), Cint,
+    errno = ccall( (:gsl_permutation_swap, :libgsl), Cint,
         (Ptr{gsl_permutation}, Csize_t, Csize_t), p, i, j )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(p)[1]
 end
-@vectorize_2arg Number gsl_permutation_swap
+@vectorize_2arg Number permutation_swap

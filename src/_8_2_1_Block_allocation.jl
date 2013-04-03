@@ -4,7 +4,7 @@
 ##########################
 # 8.2.1 Block allocation #
 ##########################
-export gsl_block_alloc, gsl_block_calloc, gsl_block_free
+export block_alloc, block_calloc, block_free
 
 
 # This function allocates memory for a block of n double-precision elements,
@@ -15,20 +15,20 @@ export gsl_block_alloc, gsl_block_calloc, gsl_block_free
 # block.
 # 
 #   Returns: Ptr{gsl_block}
-function gsl_block_alloc(n::Integer)
+function block_alloc(n::Integer)
     ccall( (:gsl_block_alloc, :libgsl), Ptr{gsl_block}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_block_alloc
+@vectorize_1arg Number block_alloc
 
 
 # This function allocates memory for a block and initializes all the elements
 # of the block to zero.
 # 
 #   Returns: Ptr{gsl_block}
-function gsl_block_calloc(n::Integer)
+function block_calloc(n::Integer)
     ccall( (:gsl_block_calloc, :libgsl), Ptr{gsl_block}, (Csize_t, ), n )
 end
-@vectorize_1arg Number gsl_block_calloc
+@vectorize_1arg Number block_calloc
 
 
 # This function frees the memory used by a block b previously allocated with
@@ -36,6 +36,6 @@ end
 # object (a null pointer is not allowed).
 # 
 #   Returns: Void
-function gsl_block_free(b::Ptr{gsl_block})
+function block_free(b::Ptr{gsl_block})
     ccall( (:gsl_block_free, :libgsl), Void, (Ptr{gsl_block}, ), b )
 end

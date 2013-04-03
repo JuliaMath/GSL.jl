@@ -4,7 +4,7 @@
 ############################################
 # 18.6 Random number environment variables #
 ############################################
-export gsl_rng_env_setup
+export rng_env_setup
 
 
 
@@ -25,6 +25,6 @@ export gsl_rng_env_setup
 # used as the default.  The initial value of gsl_rng_default_seed is zero.
 # 
 #   Returns: Ptr{gsl_rng_type}
-function gsl_rng_env_setup()
+function rng_env_setup()
     ccall( (:gsl_rng_env_setup, :libgsl), Ptr{gsl_rng_type}, () )
 end

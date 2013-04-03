@@ -4,7 +4,7 @@
 ############################################
 # 20.4 The Bivariate Gaussian Distribution #
 ############################################
-export gsl_ran_bivariate_gaussian, gsl_ran_bivariate_gaussian_pdf
+export ran_bivariate_gaussian, ran_bivariate_gaussian_pdf
 
 
 
@@ -19,7 +19,7 @@ export gsl_ran_bivariate_gaussian, gsl_ran_bivariate_gaussian_pdf
 # -1.
 # 
 #   Returns: Void
-function gsl_ran_bivariate_gaussian(r::Ptr{gsl_rng}, sigma_x::Real, sigma_y::Real, rho::Real)
+function ran_bivariate_gaussian(r::Ptr{gsl_rng}, sigma_x::Real, sigma_y::Real, rho::Real)
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:gsl_ran_bivariate_gaussian, :libgsl), Void, (Ptr{gsl_rng},
@@ -34,9 +34,9 @@ end
 # correlation coefficient rho, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_bivariate_gaussian_pdf(x::Real, y::Real, sigma_x::Real, sigma_y::Real, rho::Real)
+function ran_bivariate_gaussian_pdf(x::Real, y::Real, sigma_x::Real, sigma_y::Real, rho::Real)
     ccall( (:gsl_ran_bivariate_gaussian_pdf, :libgsl), Cdouble, (Cdouble,
         Cdouble, Cdouble, Cdouble, Cdouble), x, y, sigma_x, sigma_y, rho )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_5arg Number gsl_ran_bivariate_gaussian_pdf
+#@vectorize_5arg Number ran_bivariate_gaussian_pdf

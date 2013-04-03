@@ -7,8 +7,7 @@
 #############
 # Footnotes #
 #############
-export gsl_multiset_fwrite, gsl_multiset_fread, gsl_multiset_fprintf,
-       gsl_multiset_fscanf
+export multiset_fwrite, multiset_fread, multiset_fprintf, multiset_fscanf
 
 
 # This function writes the elements of the multiset c to the stream stream in
@@ -17,10 +16,10 @@ export gsl_multiset_fwrite, gsl_multiset_fread, gsl_multiset_fprintf,
 # it may not be portable between different architectures.
 # 
 #   Returns: Cint
-function gsl_multiset_fwrite(stream::Ptr{Void}, c::Ptr{gsl_multiset})
-    gsl_errno = ccall( (:gsl_multiset_fwrite, :libgsl), Cint, (Ptr{Void},
+function multiset_fwrite(stream::Ptr{Void}, c::Ptr{gsl_multiset})
+    errno = ccall( (:gsl_multiset_fwrite, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_multiset}), stream, c )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
 
@@ -32,11 +31,11 @@ end
 # format on the same architecture.
 # 
 #   Returns: Cint
-function gsl_multiset_fread(stream::Ptr{Void})
+function multiset_fread(stream::Ptr{Void})
     c = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
-    gsl_errno = ccall( (:gsl_multiset_fread, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_multiset_fread, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_multiset}), stream, c )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(c)[1]
 end
 
@@ -48,11 +47,11 @@ end
 # a problem writing to the file.
 # 
 #   Returns: Cint
-function gsl_multiset_fprintf(stream::Ptr{Void}, c::Ptr{gsl_multiset})
+function multiset_fprintf(stream::Ptr{Void}, c::Ptr{gsl_multiset})
     format = convert(Ptr{Cchar}, Array(Cchar, 1))
-    gsl_errno = ccall( (:gsl_multiset_fprintf, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_multiset_fprintf, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_multiset}, Ptr{Cchar}), stream, c, format )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(format)[1]
 end
 
@@ -63,10 +62,10 @@ end
 # function returns GSL_EFAILED if there was a problem reading from the file.
 # 
 #   Returns: Cint
-function gsl_multiset_fscanf(stream::Ptr{Void})
+function multiset_fscanf(stream::Ptr{Void})
     c = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
-    gsl_errno = ccall( (:gsl_multiset_fscanf, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_multiset_fscanf, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_multiset}), stream, c )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(c)[1]
 end

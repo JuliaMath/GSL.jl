@@ -4,7 +4,7 @@
 #######################################
 # 22.17 Searching 2D histogram ranges #
 #######################################
-export gsl_histogram2d_find
+export histogram2d_find
 
 
 # This function finds and sets the indices i and j to the to the bin which
@@ -16,12 +16,12 @@ export gsl_histogram2d_find
 # and the error handler is invoked.
 # 
 #   Returns: Cint
-function gsl_histogram2d_find(h::Ptr{gsl_histogram2d}, x::Real, y::Real)
+function histogram2d_find(h::Ptr{gsl_histogram2d}, x::Real, y::Real)
     i = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     j = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    gsl_errno = ccall( (:gsl_histogram2d_find, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram2d_find, :libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble, Cdouble, Ptr{Csize_t}, Ptr{Csize_t}),
         h, x, y, i, j )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(i)[1] ,unsafe_ref(j)[1]
 end

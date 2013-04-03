@@ -4,67 +4,67 @@
 ##################################################################
 # 7.24.2 Associated Legendre Polynomials and Spherical Harmonics #
 ##################################################################
-export gsl_sf_legendre_Plm, gsl_sf_legendre_Plm_e, gsl_sf_legendre_Plm_array,
-       gsl_sf_legendre_Plm_deriv_array, gsl_sf_legendre_sphPlm,
-       gsl_sf_legendre_sphPlm_e, gsl_sf_legendre_sphPlm_array,
-       gsl_sf_legendre_sphPlm_deriv_array, gsl_sf_legendre_array_size
+export sf_legendre_Plm, sf_legendre_Plm_e, sf_legendre_Plm_array,
+       sf_legendre_Plm_deriv_array, sf_legendre_sphPlm, sf_legendre_sphPlm_e,
+       sf_legendre_sphPlm_array, sf_legendre_sphPlm_deriv_array,
+       sf_legendre_array_size
 
 
 # These routines compute the associated Legendre polynomial P_l^m(x) for  m >=
 # 0,  l >= m,  |x| <= 1.
 # 
 #   Returns: Cdouble
-function gsl_sf_legendre_Plm(l::Integer, m::Integer, x::Real)
+function sf_legendre_Plm(l::Integer, m::Integer, x::Real)
     ccall( (:gsl_sf_legendre_Plm, :libgsl), Cdouble, (Cint, Cint, Cdouble),
         l, m, x )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_sf_legendre_Plm
+#@vectorize_3arg Number sf_legendre_Plm
 
 
 # These routines compute the associated Legendre polynomial P_l^m(x) for  m >=
 # 0,  l >= m,  |x| <= 1.
 # 
 #   Returns: Cint
-function gsl_sf_legendre_Plm_e(l::Integer, m::Integer, x::Real)
+function sf_legendre_Plm_e(l::Integer, m::Integer, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_legendre_Plm_e, :libgsl), Cint, (Cint,
-        Cint, Cdouble, Ptr{gsl_sf_result}), l, m, x, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_sf_legendre_Plm_e, :libgsl), Cint, (Cint, Cint,
+        Cdouble, Ptr{gsl_sf_result}), l, m, x, result )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1]
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_sf_legendre_Plm_e
+#@vectorize_3arg Number sf_legendre_Plm_e
 
 
 # These functions compute arrays of Legendre polynomials P_l^m(x) and
 # derivatives dP_l^m(x)/dx, for  m >= 0,  l = |m|, ..., lmax,  |x| <= 1.
 # 
 #   Returns: Cint
-function gsl_sf_legendre_Plm_array(lmax::Integer, m::Integer, x::Real)
+function sf_legendre_Plm_array(lmax::Integer, m::Integer, x::Real)
     result_array = convert(Cdouble, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_sf_legendre_Plm_array, :libgsl), Cint, (Cint,
+    errno = ccall( (:gsl_sf_legendre_Plm_array, :libgsl), Cint, (Cint,
         Cint, Cdouble, Cdouble), lmax, m, x, result_array )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result_array)[1]
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_sf_legendre_Plm_array
+#@vectorize_3arg Number sf_legendre_Plm_array
 
 
 # These functions compute arrays of Legendre polynomials P_l^m(x) and
 # derivatives dP_l^m(x)/dx, for  m >= 0,  l = |m|, ..., lmax,  |x| <= 1.
 # 
 #   Returns: Cint
-function gsl_sf_legendre_Plm_deriv_array(lmax::Integer, m::Integer, x::Real)
+function sf_legendre_Plm_deriv_array(lmax::Integer, m::Integer, x::Real)
     result_array = convert(Cdouble, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_sf_legendre_Plm_deriv_array, :libgsl), Cint,
+    errno = ccall( (:gsl_sf_legendre_Plm_deriv_array, :libgsl), Cint,
         (Cint, Cint, Cdouble, Cdouble), lmax, m, x, result_array )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result_array)[1]
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_sf_legendre_Plm_deriv_array
+#@vectorize_3arg Number sf_legendre_Plm_deriv_array
 
 
 # These routines compute the normalized associated Legendre polynomial
@@ -74,12 +74,12 @@ end
 # normalization of P_l^m(x).
 # 
 #   Returns: Cdouble
-function gsl_sf_legendre_sphPlm(l::Integer, m::Integer, x::Real)
+function sf_legendre_sphPlm(l::Integer, m::Integer, x::Real)
     ccall( (:gsl_sf_legendre_sphPlm, :libgsl), Cdouble, (Cint, Cint,
         Cdouble), l, m, x )
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_sf_legendre_sphPlm
+#@vectorize_3arg Number sf_legendre_sphPlm
 
 
 # These routines compute the normalized associated Legendre polynomial
@@ -89,15 +89,15 @@ end
 # normalization of P_l^m(x).
 # 
 #   Returns: Cint
-function gsl_sf_legendre_sphPlm_e(l::Integer, m::Integer, x::Real)
+function sf_legendre_sphPlm_e(l::Integer, m::Integer, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_legendre_sphPlm_e, :libgsl), Cint, (Cint,
-        Cint, Cdouble, Ptr{gsl_sf_result}), l, m, x, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    errno = ccall( (:gsl_sf_legendre_sphPlm_e, :libgsl), Cint, (Cint, Cint,
+        Cdouble, Ptr{gsl_sf_result}), l, m, x, result )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result)[1]
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_sf_legendre_sphPlm_e
+#@vectorize_3arg Number sf_legendre_sphPlm_e
 
 
 # These functions compute arrays of normalized associated Legendre functions
@@ -105,31 +105,31 @@ end
 # >= 0,  l = |m|, ..., lmax,  |x| <= 1.0
 # 
 #   Returns: Cint
-function gsl_sf_legendre_sphPlm_array(lmax::Integer, m::Integer, x::Real)
+function sf_legendre_sphPlm_array(lmax::Integer, m::Integer, x::Real)
     result_array = convert(Cdouble, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_sf_legendre_sphPlm_array, :libgsl), Cint,
+    errno = ccall( (:gsl_sf_legendre_sphPlm_array, :libgsl), Cint, (Cint,
+        Cint, Cdouble, Cdouble), lmax, m, x, result_array )
+    if errno!= 0 throw(GSL_ERROR(errno)) end
+    return unsafe_ref(result_array)[1]
+end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number sf_legendre_sphPlm_array
+
+
+# These functions compute arrays of normalized associated Legendre functions
+# \sqrt{(2l+1)/(4\pi)} \sqrt{(l-m)!/(l+m)!} P_l^m(x), and derivatives, for  m
+# >= 0,  l = |m|, ..., lmax,  |x| <= 1.0
+# 
+#   Returns: Cint
+function sf_legendre_sphPlm_deriv_array(lmax::Integer, m::Integer, x::Real)
+    result_array = convert(Cdouble, Array(Cdouble, 1))
+    errno = ccall( (:gsl_sf_legendre_sphPlm_deriv_array, :libgsl), Cint,
         (Cint, Cint, Cdouble, Cdouble), lmax, m, x, result_array )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(result_array)[1]
 end
 #TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_sf_legendre_sphPlm_array
-
-
-# These functions compute arrays of normalized associated Legendre functions
-# \sqrt{(2l+1)/(4\pi)} \sqrt{(l-m)!/(l+m)!} P_l^m(x), and derivatives, for  m
-# >= 0,  l = |m|, ..., lmax,  |x| <= 1.0
-# 
-#   Returns: Cint
-function gsl_sf_legendre_sphPlm_deriv_array(lmax::Integer, m::Integer, x::Real)
-    result_array = convert(Cdouble, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_sf_legendre_sphPlm_deriv_array, :libgsl),
-        Cint, (Cint, Cint, Cdouble, Cdouble), lmax, m, x, result_array )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result_array)[1]
-end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number gsl_sf_legendre_sphPlm_deriv_array
+#@vectorize_3arg Number sf_legendre_sphPlm_deriv_array
 
 
 # This function returns the size of result_array[] needed for the array
@@ -137,9 +137,9 @@ end
 # used when HAVE_INLINE is defined.
 # 
 #   Returns: Cint
-function gsl_sf_legendre_array_size(lmax::Integer, m::Integer)
-    gsl_errno = ccall( (:gsl_sf_legendre_array_size, :libgsl), Cint, (Cint,
+function sf_legendre_array_size(lmax::Integer, m::Integer)
+    errno = ccall( (:gsl_sf_legendre_array_size, :libgsl), Cint, (Cint,
         Cint), lmax, m )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-@vectorize_2arg Number gsl_sf_legendre_array_size
+@vectorize_2arg Number sf_legendre_array_size
