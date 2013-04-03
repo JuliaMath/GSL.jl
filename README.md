@@ -20,13 +20,14 @@ Pkg.add("GSL")
 
 This package provides wrappers to all documented functions and structs in the
 [GSL manual](http://www.gnu.org/software/gsl/manual/html_node).
+For the functions, the `gsl_` prefix is not necessary in the name.
 More information is available below.
 
 Example:
 ```julia
     using GSL
     x = randn()
-    gsl_sf_hyperg_U(-1.0, -1.0, x) - (1 + x)
+    sf_hyperg_U(-1.0, -1.0, x) - (1 + x)
     #Answer: 0.0
 ```
 
@@ -69,19 +70,15 @@ Translated examples from the GSL documentation are available in `examples/`.
 # Current status
 
 ## What is available
-* All `gsl_*` functions except the ones described below
+* All functions except the ones described below
 * All documented `gsl_*` structs
 
 ## What is not available
-* Functions that duplicate Julia's native capabilities, such as
- * The CBLAS wrappers `gsl_cblas_*`
- * Data I/O functions, such as `gsl_*_fprintf` and `gsl_*_fscanf`
- Wrappers to these functions exist but most likely won't work
-* Row and column views of matrices, `gsl_matrix_row*` and `gsl_matrix_column*` (Sec. 8.4.6)
-* All undocumented `gsl_*` structs:
-  Function calls involving these structs have had their data types changed to `Void`
-  in Julia so that they can be used as opaque pointers without knowledge of what is
-  inside them.
+* GSL's BLAS and CBLAS wrappers `blas_*`, `cblas_*`. Use Julia's interface instead.
+* Data I/O functions, such as `*_fprintf` and `*_fscanf`
+  Work in progress.
+  Wrappers to these functions exist but most likely won't work
+* Row and column views of matrices, `matrix_row*` and `matrix_column*` (Sec. 8.4.6)
 * All `GSL_*` constants
 * All `GSL_*` macros
 
@@ -91,5 +88,5 @@ The wrappers are automatically generated using `util/makewrapper.py`.
 
 1. Test function wrappers for correctness.
 2. Expose `GSL_*` constants and macros to Julia.
-3. Write convenience methods to further wrap the `gsl_*` calls with a Julia-
+3. Write convenience methods to further wrap the function calls with a Julia-
    friendly syntax.
