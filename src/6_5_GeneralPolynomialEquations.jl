@@ -5,32 +5,32 @@
 # 6.5 General Polynomial Equations #
 ####################################
 
-export roots
+export roots, poly_complex_solve
 
 function roots{T<:Real}(c::Vector{T}, realOnly::Bool)
     n = length(c)
     a = convert(Vector{Cdouble}, c)
-    if n==0
+    if n<2
         return nothing #No solution
-    elseif n==1
-        poly_solve_quadratic(0.0, a[2], a[1])
     elseif n==2
-        if realOnly
-            poly_solve_quadratic(a[3], a[2], a[1])
-        else
-            poly_complex_solve_quadratic(a[3], a[2], a[1])
-        end
+        [poly_solve_quadratic(0.0, a[2], a[1])...]
     elseif n==3
         if realOnly
-            poly_solve_cubic(a[3]/a[4], a[2]/a[4], a[1]/a[4])
+            [poly_solve_quadratic(a[3], a[2], a[1])...]
         else
-            poly_complex_solve_cubic(a[3]/a[4], a[2]/a[4], a[1]/a[4])
+            [poly_complex_solve_quadratic(a[3], a[2], a[1])...]
+        end
+    elseif n==4
+        if realOnly
+            [poly_solve_cubic(a[3]/a[4], a[2]/a[4], a[1]/a[4])...]
+        else
+            [poly_complex_solve_cubic(a[3]/a[4], a[2]/a[4], a[1]/a[4])...]
         end
     else #Use general solver
         w = poly_complex_workspace_alloc(n)
         z = poly_complex_solve(a, n, w)
         poly_complex_workspace_free(w)
-        complex_packed_ptr(z)
+        z
     end
 end
 
@@ -53,10 +53,13 @@ roots{T<:Real}(c::Vector{T}) = roots(c, false) #By default, all complex roots
 # Mathematical Software, Volume 30, Issue 2 (2004), pp 218–236).
 # 
 #   Returns: Cint
-function poly_complex_solve{tA<:Real, tB<:Real}(a::Ptr{tA}, n::Integer, w::Ptr{gsl_poly_complex_workspace}, z::Vector{tB})
+
+function poly_complex_solve{tA<:Real}(a_in::Vector{tA}, n::Integer, w::Ptr{gsl_poly_complex_workspace})
+    a = convert(Vector{Cdouble}, a_in)
+    z = Array(Complex{Cdouble}, n-1)
     errno = ccall( (:gsl_poly_complex_solve, :libgsl), Cint,
-        (Ptr{Cdouble}, Csize_t, Ptr{Void}, Void), a, n, w, z )
+        (Ptr{Cdouble}, Csize_t, Ptr{Void}, Ptr{Complex{Cdouble}}), a, n, w, z )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return z
+    z#complex_packed_ptr(z)
 end
 
