@@ -4,7 +4,7 @@
 ###########################
 # 6.3 Quadratic Equations #
 ###########################
-export gsl_poly_solve_quadratic, gsl_poly_complex_solve_quadratic
+export poly_solve_quadratic, poly_complex_solve_quadratic
 
 
 # This function finds the real roots of the quadratic equation,
@@ -23,7 +23,7 @@ export gsl_poly_solve_quadratic, gsl_poly_complex_solve_quadratic
 # computed exactly.
 # 
 #   Returns: Cint
-function gsl_poly_solve_quadratic (a::Cdouble, b::Cdouble, c::Cdouble)
+function poly_solve_quadratic (a::Cdouble, b::Cdouble, c::Cdouble)
     x0 = Array(Float64, 1)
     x1 = Array(Float64, 1)
     num_roots = ccall( (:gsl_poly_solve_quadratic, :libgsl), Cint,
@@ -50,7 +50,7 @@ end
 # then it is stored in z0.
 # 
 #   Returns: Cint
-function gsl_poly_complex_solve_quadratic (a::Cdouble, b::Cdouble, c::Cdouble)
+function poly_complex_solve_quadratic (a::Cdouble, b::Cdouble, c::Cdouble)
     z0 = Array(Complex128, 1)
     z1 = Array(Complex128, 1)
     num_roots = ccall( (:gsl_poly_complex_solve_quadratic, :libgsl), Cint,

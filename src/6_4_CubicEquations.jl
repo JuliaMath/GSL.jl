@@ -4,7 +4,7 @@
 #######################
 # 6.4 Cubic Equations #
 #######################
-export gsl_poly_solve_cubic, gsl_poly_complex_solve_cubic
+export poly_solve_cubic, poly_complex_solve_cubic
 
 
 # This function finds the real roots of the cubic equation,                 x^3
@@ -19,7 +19,7 @@ export gsl_poly_solve_cubic, gsl_poly_complex_solve_cubic
 # discrete change in the number of real roots.
 # 
 #   Returns: Cint
-function gsl_poly_solve_cubic (a::Cdouble, b::Cdouble, c::Cdouble)
+function poly_solve_cubic (a::Cdouble, b::Cdouble, c::Cdouble)
     x0 = Array(Float64, 1)
     x1 = Array(Float64, 1)
     x2 = Array(Float64, 1)
@@ -32,7 +32,7 @@ function gsl_poly_solve_cubic (a::Cdouble, b::Cdouble, c::Cdouble)
     elseif num_roots==3
         x0, x1, x2
     else #Not supposed to happen
-        throw(GSL_ERROR, num_roots)
+        throw(GSL_ERROR(num_roots))
     end
 end
 
@@ -44,7 +44,7 @@ end
 # then by their imaginary components.
 # 
 #   Returns: Cint
-function gsl_poly_complex_solve_cubic (a::Cdouble, b::Cdouble, c::Cdouble)
+function poly_complex_solve_cubic (a::Cdouble, b::Cdouble, c::Cdouble)
     z0 = Array(Complex128, 1)
     z1 = Array(Complex128, 1)
     z2 = Array(Complex128, 1)
@@ -54,6 +54,6 @@ function gsl_poly_complex_solve_cubic (a::Cdouble, b::Cdouble, c::Cdouble)
     if num_roots==3
         return z0[1], z1[1], z2[1]
     else #Not supposed to happen
-        throw(GSL_ERROR, num_roots)
+        throw(GSL_ERROR(num_roots))
     end
 end

@@ -4,15 +4,15 @@
 ########################################
 # 20.23 Spherical Vector Distributions #
 ########################################
-export gsl_ran_dir_2d, gsl_ran_dir_2d_trig_method, gsl_ran_dir_3d,
-       gsl_ran_dir_nd
+export ran_dir_2d, ran_dir_2d_trig_method, ran_dir_3d,
+       ran_dir_nd
 
-for gsl_ran_dir in (:gsl_ran_dir_2d, :gsl_ran_dir_2d_trig_method)
+for ran_dir in (:ran_dir_2d, :ran_dir_2d_trig_method)
     @eval begin
-        function ($gsl_ran_dir)(r::Ptr{Void})
+        function ($ran_dir)(r::Ptr{Void})
             x = Array(Cdouble, 1)
             y = Array(Cdouble, 1)
-            ccall( ($(string(gsl_ran_dir)), :libgsl), Void, (Ptr{Void}, Ptr{Cdouble},
+            ccall( ($(string("gsl_", ran_dir)), :libgsl), Void, (Ptr{Void}, Ptr{Cdouble},
                 Ptr{Cdouble}), r, x, y)
             return x[1], y[1]
         end
@@ -28,7 +28,7 @@ end
 # for 3 dimensions).
 # 
 #   Returns: Void
-function gsl_ran_dir_3d (r::Ptr{Void})
+function ran_dir_3d (r::Ptr{Void})
     x = Array(Cdouble, 1)
     y = Array(Cdouble, 1)
     z = Array(Cdouble, 1)
@@ -47,7 +47,7 @@ end
 # Modern Mathematics for the Engineer (1956).
 # 
 #   Returns: Void
-function gsl_ran_dir_nd (r::Ptr{Void}, n::Csize_t)
+function ran_dir_nd (r::Ptr{Void}, n::Csize_t)
     x = Array(Cdouble, n)
     ccall( (:gsl_ran_dir_nd, :libgsl), Void, (Ptr{Void}, Csize_t,
         Ptr{Cdouble}), r, n, x)

@@ -415,6 +415,11 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                         new_julia_inputs.append(inp)
                         new_julia_input_names.append(input_name)
 
+            #Strip redundant gsl_ prefix
+            ccall_funcname = funcname
+            if funcname[:4]=='gsl_':
+                funcname=funcname[4:]
+
             #Generate declaration line
             julia_decl = []
             functemplatevars={}
@@ -455,7 +460,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             if len(julia_inputs) == 1: julia_inputs.append('') #Generate comma for tuple
 
 
-            ccall_args = ['(:%s, :libgsl)' % funcname,
+            ccall_args = ['(:%s, :libgsl)' % ccall_funcname,
                     julia_output,
                     '(' + ', '.join(julia_inputs) + ')']
             ccall_args += julia_input_names
@@ -476,7 +481,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             ccall_line = 'ccall( '+', '.join(ccall_args)+' )'
             #If return type is Cint, assume this is an error code
             if julia_output == 'Cint':
-                ccall_line = "gsl_errno = "+ccall_line
+                ccall_line = "errno = "+ccall_line
             if julia_output == 'Ptr{Cchar}':
                 ccall_line = "output_string = "+ccall_line
             ccall_line = wrap(ccall_line, maxwidth-8)
@@ -484,7 +489,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             
             #Trap error code
             if julia_output == 'Cint':
-                ccall_line.append('    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end')
+                ccall_line.append('    if errno!= 0 throw(GSL_ERROR(errno)) end')
             if julia_output == 'Ptr{Cchar}':
                 ccall_line.append('    bytestring(convert(Ptr{Uint8}, output_string))')
             #Dump out any new outputs
@@ -652,7 +657,9 @@ if __name__ == '__main__':
         #f.write('typealias '+'p'+unknown+' Ptr{'+unknown+'}\n')
 
     f.write('\n\n#Automatically generated include list\n')
-    f.write('\n'.join(['include("'+x+'")' for x in filenames]))
+    #f.write('\n\n'.join(['\nprintln("'+x+')\ninclude("'+x+'")' for x in filenames]))
+    f.write('\n\n'.join(['\ninclude("'+x+'")' for x in filenames]))
     f.write('\n')
     f.close()
+    print "Wrote ../src/__FILELIST.jl"
 
