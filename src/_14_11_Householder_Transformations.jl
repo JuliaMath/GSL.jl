@@ -46,7 +46,7 @@ function linalg_householder_hm(tau::Real, v::Ptr{gsl_vector})
     errno = ccall( (:gsl_linalg_householder_hm, :libgsl), Cint, (Cdouble,
         Ptr{gsl_vector}, Ptr{gsl_matrix}), tau, v, A )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1]
+    return unsafe_ref(A)
 end
 
 
@@ -61,7 +61,7 @@ function linalg_complex_householder_hm(tau::gsl_complex, v::Ptr{gsl_vector_compl
         (gsl_complex, Ptr{gsl_vector_complex}, Ptr{gsl_matrix_complex}), tau,
         v, A )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1]
+    return unsafe_ref(A)
 end
 
 
@@ -75,7 +75,7 @@ function linalg_householder_mh(tau::Real, v::Ptr{gsl_vector})
     errno = ccall( (:gsl_linalg_householder_mh, :libgsl), Cint, (Cdouble,
         Ptr{gsl_vector}, Ptr{gsl_matrix}), tau, v, A )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1]
+    return unsafe_ref(A)
 end
 
 
@@ -90,7 +90,7 @@ function linalg_complex_householder_mh(tau::gsl_complex, v::Ptr{gsl_vector_compl
         (gsl_complex, Ptr{gsl_vector_complex}, Ptr{gsl_matrix_complex}), tau,
         v, A )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1]
+    return unsafe_ref(A)
 end
 
 
@@ -104,7 +104,7 @@ function linalg_householder_hv(tau::Real, v::Ptr{gsl_vector})
     errno = ccall( (:gsl_linalg_householder_hv, :libgsl), Cint, (Cdouble,
         Ptr{gsl_vector}, Ptr{gsl_vector}), tau, v, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(w)[1]
+    return unsafe_ref(w)
 end
 
 
@@ -119,5 +119,5 @@ function linalg_complex_householder_hv(tau::gsl_complex, v::Ptr{gsl_vector_compl
         (gsl_complex, Ptr{gsl_vector_complex}, Ptr{gsl_vector_complex}), tau,
         v, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(w)[1]
+    return unsafe_ref(w)
 end

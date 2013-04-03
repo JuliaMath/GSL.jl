@@ -95,7 +95,7 @@ function fft_complex_forward(data::gsl_complex_packed_array, stride::Integer, n:
         Ptr{gsl_fft_complex_wavetable}, Ptr{gsl_fft_complex_workspace}), data,
         stride, n, wavetable, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(work)[1]
+    return unsafe_ref(work)
 end
 
 
@@ -121,7 +121,7 @@ function fft_complex_transform(data::gsl_complex_packed_array, stride::Integer, 
         Ptr{gsl_fft_complex_wavetable}, Ptr{gsl_fft_complex_workspace},
         gsl_fft_direction), data, stride, n, wavetable, work, sign )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(work)[1]
+    return unsafe_ref(work)
 end
 
 
@@ -147,7 +147,7 @@ function fft_complex_backward(data::gsl_complex_packed_array, stride::Integer, n
         Ptr{gsl_fft_complex_wavetable}, Ptr{gsl_fft_complex_workspace}), data,
         stride, n, wavetable, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(work)[1]
+    return unsafe_ref(work)
 end
 
 
@@ -173,7 +173,7 @@ function fft_complex_inverse(data::gsl_complex_packed_array, stride::Integer, n:
         Ptr{gsl_fft_complex_wavetable}, Ptr{gsl_fft_complex_workspace}), data,
         stride, n, wavetable, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(work)[1]
+    return unsafe_ref(work)
 end
 
 
@@ -187,5 +187,5 @@ function fft_complex_inverse(data::gsl_complex_packed_array, stride::Integer, n:
         Ptr{gsl_fft_complex_wavetable}, Ptr{gsl_fft_complex_workspace}), data,
         stride, n, wavetable, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(work)[1]
+    return unsafe_ref(work)
 end

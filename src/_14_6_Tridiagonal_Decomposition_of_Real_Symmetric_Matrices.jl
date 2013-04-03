@@ -24,7 +24,7 @@ function linalg_symmtd_decomp()
     errno = ccall( (:gsl_linalg_symmtd_decomp, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}), A, tau )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(tau)[1]
+    return unsafe_ref(A) ,unsafe_ref(tau)
 end
 
 
@@ -42,7 +42,7 @@ function linalg_symmtd_unpack(A::Ptr{gsl_matrix}, tau::Ptr{gsl_vector})
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{gsl_vector},
         Ptr{gsl_vector}), A, tau, Q, diag, subdiag )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(Q)[1] ,unsafe_ref(diag)[1] ,unsafe_ref(subdiag)[1]
+    return unsafe_ref(Q) ,unsafe_ref(diag) ,unsafe_ref(subdiag)
 end
 
 
@@ -57,5 +57,5 @@ function linalg_symmtd_unpack_T(A::Ptr{gsl_matrix})
     errno = ccall( (:gsl_linalg_symmtd_unpack_T, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), A, diag, subdiag )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(diag)[1] ,unsafe_ref(subdiag)[1]
+    return unsafe_ref(diag) ,unsafe_ref(subdiag)
 end

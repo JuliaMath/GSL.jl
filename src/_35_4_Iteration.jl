@@ -22,7 +22,7 @@ function multiroot_fsolver_iterate()
     errno = ccall( (:gsl_multiroot_fsolver_iterate, :libgsl), Cint,
         (Ptr{gsl_multiroot_fsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(s)[1]
+    return unsafe_ref(s)
 end
 
 
@@ -38,7 +38,7 @@ function multiroot_fdfsolver_iterate()
     errno = ccall( (:gsl_multiroot_fdfsolver_iterate, :libgsl), Cint,
         (Ptr{gsl_multiroot_fdfsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(s)[1]
+    return unsafe_ref(s)
 end
 
 
@@ -51,7 +51,7 @@ function multiroot_fdfsolver_iterate()
     errno = ccall( (:gsl_multiroot_fdfsolver_iterate, :libgsl), Cint,
         (Ptr{gsl_multiroot_fdfsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(s)[1]
+    return unsafe_ref(s)
 end
 
 

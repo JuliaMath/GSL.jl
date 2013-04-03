@@ -31,7 +31,7 @@ function poly_solve_cubic(a::Real, b::Real, c::Real)
         Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}), a, b, c,
         x0, x1, x2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x0)[1] ,unsafe_ref(x1)[1] ,unsafe_ref(x2)[1]
+    return unsafe_ref(x0) ,unsafe_ref(x1) ,unsafe_ref(x2)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number poly_solve_cubic
@@ -52,7 +52,7 @@ function poly_complex_solve_cubic(a::Real, b::Real, c::Real)
         (Cdouble, Cdouble, Cdouble, Ptr{gsl_complex}, Ptr{gsl_complex},
         Ptr{gsl_complex}), a, b, c, z0, z1, z2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(z0)[1] ,unsafe_ref(z1)[1] ,unsafe_ref(z2)[1]
+    return unsafe_ref(z0) ,unsafe_ref(z1) ,unsafe_ref(z2)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number poly_complex_solve_cubic

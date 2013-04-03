@@ -48,7 +48,7 @@ function eigen_gensymm()
         Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_eigen_gensymm_workspace}), A,
         B, eval, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(B)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(A) ,unsafe_ref(B) ,unsafe_ref(eval) ,unsafe_ref(w)
 end
 
 
@@ -90,5 +90,5 @@ function eigen_gensymmv()
         Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_matrix},
         Ptr{gsl_eigen_gensymmv_workspace}), A, B, eval, evec, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(B)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(evec)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(A) ,unsafe_ref(B) ,unsafe_ref(eval) ,unsafe_ref(evec) ,unsafe_ref(w)
 end

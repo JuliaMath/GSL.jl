@@ -19,5 +19,5 @@ function linalg_balance_matrix()
     errno = ccall( (:gsl_linalg_balance_matrix, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}), A, D )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(D)[1]
+    return unsafe_ref(A) ,unsafe_ref(D)
 end

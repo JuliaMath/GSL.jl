@@ -14,7 +14,7 @@ function matrix_set_all(x::Real)
     m = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     ccall( (:gsl_matrix_set_all, :libgsl), Void, (Ptr{gsl_matrix},
         Cdouble), m, x )
-    return unsafe_ref(m)[1]
+    return unsafe_ref(m)
 end
 @vectorize_1arg Number matrix_set_all
 
@@ -25,7 +25,7 @@ end
 function matrix_set_zero()
     m = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     ccall( (:gsl_matrix_set_zero, :libgsl), Void, (Ptr{gsl_matrix}, ), m )
-    return unsafe_ref(m)[1]
+    return unsafe_ref(m)
 end
 
 
@@ -39,5 +39,5 @@ function matrix_set_identity()
     m = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     ccall( (:gsl_matrix_set_identity, :libgsl), Void, (Ptr{gsl_matrix}, ),
         m )
-    return unsafe_ref(m)[1]
+    return unsafe_ref(m)
 end

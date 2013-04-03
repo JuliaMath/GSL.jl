@@ -18,6 +18,6 @@ function sf_elljac_e(u::Real, m::Real)
     errno = ccall( (:gsl_sf_elljac_e, :libgsl), Cint, (Cdouble, Cdouble,
         Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}), u, m, sn, cn, dn )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(sn)[1] ,unsafe_ref(cn)[1] ,unsafe_ref(dn)[1]
+    return unsafe_ref(sn) ,unsafe_ref(cn) ,unsafe_ref(dn)
 end
 @vectorize_2arg Number sf_elljac_e

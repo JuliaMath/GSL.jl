@@ -25,7 +25,7 @@ function sf_sin_e(x::Real)
     errno = ccall( (:gsl_sf_sin_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_sin_e
 
@@ -47,7 +47,7 @@ function sf_cos_e(x::Real)
     errno = ccall( (:gsl_sf_cos_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_cos_e
 
@@ -71,7 +71,7 @@ function sf_hypot_e(x::Real, y::Real)
     errno = ccall( (:gsl_sf_hypot_e, :libgsl), Cint, (Cdouble, Cdouble,
         Ptr{gsl_sf_result}), x, y, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_2arg Number sf_hypot_e
 
@@ -93,6 +93,6 @@ function sf_sinc_e(x::Real)
     errno = ccall( (:gsl_sf_sinc_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_sinc_e

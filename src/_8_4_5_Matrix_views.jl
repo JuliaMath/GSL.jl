@@ -86,7 +86,8 @@ end
 # used for matrices which are declared const.
 # 
 #   Returns: gsl_matrix_view
-function matrix_view_array{tA<:Real}(base::Ptr{tA}, n1::Integer, n2::Integer)
+function matrix_view_array{tA<:Real}(base_in::Vector{tA}, n1::Integer, n2::Integer)
+    convert(Vector{Cdouble}, base_in)
     ccall( (:gsl_matrix_view_array, :libgsl), gsl_matrix_view,
         (Ptr{Cdouble}, Csize_t, Csize_t), base, n1, n2 )
 end
@@ -105,7 +106,8 @@ end
 # used for matrices which are declared const.
 # 
 #   Returns: gsl_matrix__view
-function matrix_const_view_array{tA<:Real}(base::Ptr{tA}, n1::Integer, n2::Integer)
+function matrix_const_view_array{tA<:Real}(base_in::Vector{tA}, n1::Integer, n2::Integer)
+    convert(Vector{Cdouble}, base_in)
     ccall( (:gsl_matrix_const_view_array, :libgsl), gsl_matrix__view,
         (Ptr{Cdouble}, Csize_t, Csize_t), base, n1, n2 )
 end
@@ -126,7 +128,8 @@ end
 # declared const.
 # 
 #   Returns: gsl_matrix_view
-function matrix_view_array_with_tda{tA<:Real}(base::Ptr{tA}, n1::Integer, n2::Integer, tda::Integer)
+function matrix_view_array_with_tda{tA<:Real}(base_in::Vector{tA}, n1::Integer, n2::Integer, tda::Integer)
+    convert(Vector{Cdouble}, base_in)
     ccall( (:gsl_matrix_view_array_with_tda, :libgsl), gsl_matrix_view,
         (Ptr{Cdouble}, Csize_t, Csize_t, Csize_t), base, n1, n2, tda )
 end
@@ -147,7 +150,8 @@ end
 # declared const.
 # 
 #   Returns: gsl_matrix__view
-function matrix_const_view_array_with_tda{tA<:Real}(base::Ptr{tA}, n1::Integer, n2::Integer, tda::Integer)
+function matrix_const_view_array_with_tda{tA<:Real}(base_in::Vector{tA}, n1::Integer, n2::Integer, tda::Integer)
+    convert(Vector{Cdouble}, base_in)
     ccall( (:gsl_matrix_const_view_array_with_tda, :libgsl),
         gsl_matrix__view, (Ptr{Cdouble}, Csize_t, Csize_t, Csize_t), base, n1,
         n2, tda )

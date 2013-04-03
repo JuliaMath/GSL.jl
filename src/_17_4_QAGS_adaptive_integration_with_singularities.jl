@@ -28,5 +28,5 @@ function integration_qags(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, 
         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, b,
         epsabs, epsrel, limit, workspace, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(workspace)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
+    return unsafe_ref(workspace) ,unsafe_ref(result) ,unsafe_ref(abserr)
 end

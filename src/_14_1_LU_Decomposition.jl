@@ -34,7 +34,7 @@ function linalg_LU_decomp()
     errno = ccall( (:gsl_linalg_LU_decomp, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_permutation}, Ptr{Cint}), A, p, signum )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(p)[1] ,unsafe_ref(signum)[1]
+    return unsafe_ref(A) ,unsafe_ref(p) ,unsafe_ref(signum)
 end
 
 
@@ -59,7 +59,7 @@ function linalg_complex_LU_decomp()
         (Ptr{gsl_matrix_complex}, Ptr{gsl_permutation}, Ptr{Cint}), A, p,
         signum )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(p)[1] ,unsafe_ref(signum)[1]
+    return unsafe_ref(A) ,unsafe_ref(p) ,unsafe_ref(signum)
 end
 
 
@@ -73,7 +73,7 @@ function linalg_LU_solve(LU::Ptr{gsl_matrix}, p::Ptr{gsl_permutation}, b::Ptr{gs
     errno = ccall( (:gsl_linalg_LU_solve, :libgsl), Cint, (Ptr{gsl_matrix},
         Ptr{gsl_permutation}, Ptr{gsl_vector}, Ptr{gsl_vector}), LU, p, b, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1]
+    return unsafe_ref(x)
 end
 
 
@@ -88,7 +88,7 @@ function linalg_complex_LU_solve(LU::Ptr{gsl_matrix_complex}, p::Ptr{gsl_permuta
         (Ptr{gsl_matrix_complex}, Ptr{gsl_permutation},
         Ptr{gsl_vector_complex}, Ptr{gsl_vector_complex}), LU, p, b, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1]
+    return unsafe_ref(x)
 end
 
 
@@ -102,7 +102,7 @@ function linalg_LU_svx(LU::Ptr{gsl_matrix}, p::Ptr{gsl_permutation})
     errno = ccall( (:gsl_linalg_LU_svx, :libgsl), Cint, (Ptr{gsl_matrix},
         Ptr{gsl_permutation}, Ptr{gsl_vector}), LU, p, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1]
+    return unsafe_ref(x)
 end
 
 
@@ -117,7 +117,7 @@ function linalg_complex_LU_svx(LU::Ptr{gsl_matrix_complex}, p::Ptr{gsl_permutati
         (Ptr{gsl_matrix_complex}, Ptr{gsl_permutation},
         Ptr{gsl_vector_complex}), LU, p, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1]
+    return unsafe_ref(x)
 end
 
 
@@ -134,7 +134,7 @@ function linalg_LU_refine(A::Ptr{gsl_matrix}, LU::Ptr{gsl_matrix}, p::Ptr{gsl_pe
         Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector}), A, LU, p, b, x,
         residual )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1] ,unsafe_ref(residual)[1]
+    return unsafe_ref(x) ,unsafe_ref(residual)
 end
 
 
@@ -151,7 +151,7 @@ function linalg_complex_LU_refine(A::Ptr{gsl_matrix_complex}, LU::Ptr{gsl_matrix
         Ptr{gsl_permutation}, Ptr{gsl_vector_complex}, Ptr{gsl_vector_complex},
         Ptr{gsl_vector_complex}), A, LU, p, b, x, residual )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1] ,unsafe_ref(residual)[1]
+    return unsafe_ref(x) ,unsafe_ref(residual)
 end
 
 
@@ -170,7 +170,7 @@ function linalg_LU_invert(LU::Ptr{gsl_matrix}, p::Ptr{gsl_permutation})
         (Ptr{gsl_matrix}, Ptr{gsl_permutation}, Ptr{gsl_matrix}), LU, p,
         inverse )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(inverse)[1]
+    return unsafe_ref(inverse)
 end
 
 
@@ -189,7 +189,7 @@ function linalg_complex_LU_invert(LU::Ptr{gsl_matrix_complex}, p::Ptr{gsl_permut
         (Ptr{gsl_matrix_complex}, Ptr{gsl_permutation},
         Ptr{gsl_matrix_complex}), LU, p, inverse )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(inverse)[1]
+    return unsafe_ref(inverse)
 end
 
 
@@ -248,7 +248,7 @@ function linalg_LU_sgndet(signum::Integer)
     errno = ccall( (:gsl_linalg_LU_sgndet, :libgsl), Cint,
         (Ptr{gsl_matrix}, Cint), LU, signum )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(LU)[1]
+    return unsafe_ref(LU)
 end
 @vectorize_1arg Number linalg_LU_sgndet
 

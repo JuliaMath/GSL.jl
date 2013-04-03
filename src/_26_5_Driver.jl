@@ -84,7 +84,7 @@ function odeiv2_driver_set_hmin(hmin::Real)
     errno = ccall( (:gsl_odeiv2_driver_set_hmin, :libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, Cdouble), d, hmin )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(d)[1]
+    return unsafe_ref(d)
 end
 @vectorize_1arg Number odeiv2_driver_set_hmin
 
@@ -98,7 +98,7 @@ function odeiv2_driver_set_hmax(hmax::Real)
     errno = ccall( (:gsl_odeiv2_driver_set_hmax, :libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, Cdouble), d, hmax )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(d)[1]
+    return unsafe_ref(d)
 end
 @vectorize_1arg Number odeiv2_driver_set_hmax
 
@@ -112,7 +112,7 @@ function odeiv2_driver_set_nmax(nmax::Integer)
     errno = ccall( (:gsl_odeiv2_driver_set_nmax, :libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, Culong), d, nmax )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(d)[1]
+    return unsafe_ref(d)
 end
 @vectorize_1arg Number odeiv2_driver_set_nmax
 
@@ -135,7 +135,7 @@ function odeiv2_driver_apply(t1::Real, y::Real)
     errno = ccall( (:gsl_odeiv2_driver_apply, :libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, Ptr{Cdouble}, Cdouble, Cdouble), d, t, t1, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(d)[1] ,unsafe_ref(t)[1]
+    return unsafe_ref(d) ,unsafe_ref(t)
 end
 @vectorize_2arg Number odeiv2_driver_apply
 
@@ -153,7 +153,7 @@ function odeiv2_driver_apply_fixed_step(h::Real, n::Integer, y::Real)
         (Ptr{gsl_odeiv2_driver}, Ptr{Cdouble}, Cdouble, Culong, Cdouble), d, t,
         h, n, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(d)[1] ,unsafe_ref(t)[1]
+    return unsafe_ref(d) ,unsafe_ref(t)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number odeiv2_driver_apply_fixed_step
@@ -167,7 +167,7 @@ function odeiv2_driver_reset()
     errno = ccall( (:gsl_odeiv2_driver_reset, :libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, ), d )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(d)[1]
+    return unsafe_ref(d)
 end
 
 

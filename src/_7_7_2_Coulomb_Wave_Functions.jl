@@ -31,7 +31,7 @@ function sf_coulomb_wave_FG_e(eta::Real, x::Real, L_F::Real, k::Integer)
         Ptr{gsl_sf_result}, Ptr{gsl_sf_result}, Ptr{Cdouble}, Ptr{Cdouble}),
         eta, x, L_F, k, F, Fp, G, Gp, exp_F, exp_G )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(F)[1] ,unsafe_ref(Fp)[1] ,unsafe_ref(G)[1] ,unsafe_ref(Gp)[1] ,unsafe_ref(exp_F)[1] ,unsafe_ref(exp_G)[1]
+    return unsafe_ref(F) ,unsafe_ref(Fp) ,unsafe_ref(G) ,unsafe_ref(Gp) ,unsafe_ref(exp_F) ,unsafe_ref(exp_G)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number sf_coulomb_wave_FG_e

@@ -14,7 +14,7 @@ function vector_set_all(x::Real)
     v = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     ccall( (:gsl_vector_set_all, :libgsl), Void, (Ptr{gsl_vector},
         Cdouble), v, x )
-    return unsafe_ref(v)[1]
+    return unsafe_ref(v)
 end
 @vectorize_1arg Number vector_set_all
 
@@ -25,7 +25,7 @@ end
 function vector_set_zero()
     v = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     ccall( (:gsl_vector_set_zero, :libgsl), Void, (Ptr{gsl_vector}, ), v )
-    return unsafe_ref(v)[1]
+    return unsafe_ref(v)
 end
 
 
@@ -38,6 +38,6 @@ function vector_set_basis(i::Integer)
     errno = ccall( (:gsl_vector_set_basis, :libgsl), Cint,
         (Ptr{gsl_vector}, Csize_t), v, i )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(v)[1]
+    return unsafe_ref(v)
 end
 @vectorize_1arg Number vector_set_basis

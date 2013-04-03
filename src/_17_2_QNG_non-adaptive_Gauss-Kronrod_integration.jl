@@ -26,5 +26,5 @@ function integration_qng(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, e
         Ptr{Cdouble}, Ptr{Csize_t}), f, a, b, epsabs, epsrel, result, abserr,
         neval )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1] ,unsafe_ref(abserr)[1] ,unsafe_ref(neval)[1]
+    return unsafe_ref(result) ,unsafe_ref(abserr) ,unsafe_ref(neval)
 end

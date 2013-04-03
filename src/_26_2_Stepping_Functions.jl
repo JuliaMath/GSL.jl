@@ -33,7 +33,7 @@ function odeiv2_step_reset()
     errno = ccall( (:gsl_odeiv2_step_reset, :libgsl), Cint,
         (Ptr{gsl_odeiv2_step}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(s)[1]
+    return unsafe_ref(s)
 end
 
 
@@ -81,7 +81,7 @@ function odeiv2_step_set_driver(d::Ptr{gsl_odeiv2_driver})
     errno = ccall( (:gsl_odeiv2_step_set_driver, :libgsl), Cint,
         (Ptr{gsl_odeiv2_step}, Ptr{gsl_odeiv2_driver}), s, d )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(s)[1]
+    return unsafe_ref(s)
 end
 
 
@@ -113,7 +113,7 @@ function odeiv2_step_apply(t::Real, h::Real, y::Real)
     errno = ccall( (:gsl_odeiv2_step_apply, :libgsl), Cint,
         (Ptr{gsl_odeiv2_step}, Cdouble, Cdouble, Cdouble), s, t, h, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(s)[1]
+    return unsafe_ref(s)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number odeiv2_step_apply

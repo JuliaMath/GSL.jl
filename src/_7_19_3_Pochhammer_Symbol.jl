@@ -31,7 +31,7 @@ function sf_poch_e(a::Real, x::Real)
     errno = ccall( (:gsl_sf_poch_e, :libgsl), Cint, (Cdouble, Cdouble,
         Ptr{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_2arg Number sf_poch_e
 
@@ -55,7 +55,7 @@ function sf_lnpoch_e(a::Real, x::Real)
     errno = ccall( (:gsl_sf_lnpoch_e, :libgsl), Cint, (Cdouble, Cdouble,
         Ptr{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_2arg Number sf_lnpoch_e
 
@@ -72,7 +72,7 @@ function sf_lnpoch_sgn_e(a::Real, x::Real)
     errno = ccall( (:gsl_sf_lnpoch_sgn_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{Cdouble}), a, x, result, sgn )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1] ,unsafe_ref(sgn)[1]
+    return unsafe_ref(result) ,unsafe_ref(sgn)
 end
 @vectorize_2arg Number sf_lnpoch_sgn_e
 
@@ -96,6 +96,6 @@ function sf_pochrel_e(a::Real, x::Real)
     errno = ccall( (:gsl_sf_pochrel_e, :libgsl), Cint, (Cdouble, Cdouble,
         Ptr{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_2arg Number sf_pochrel_e

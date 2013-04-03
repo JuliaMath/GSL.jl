@@ -60,7 +60,7 @@ function eigen_nonsymm_params(compute_t::Integer, balance::Integer)
     w = convert(Ptr{gsl_eigen_nonsymm_workspace}, Array(gsl_eigen_nonsymm_workspace, 1))
     ccall( (:gsl_eigen_nonsymm_params, :libgsl), Void, (Cint, Cint,
         Ptr{gsl_eigen_nonsymm_workspace}), compute_t, balance, w )
-    return unsafe_ref(w)[1]
+    return unsafe_ref(w)
 end
 @vectorize_2arg Number eigen_nonsymm_params
 
@@ -83,7 +83,7 @@ function eigen_nonsymm()
         Ptr{gsl_vector_complex}, Ptr{gsl_eigen_nonsymm_workspace}), A, eval, w
         )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(A) ,unsafe_ref(eval) ,unsafe_ref(w)
 end
 
 
@@ -100,7 +100,7 @@ function eigen_nonsymm_Z()
         Ptr{gsl_vector_complex}, Ptr{gsl_matrix},
         Ptr{gsl_eigen_nonsymm_workspace}), A, eval, Z, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(Z)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(A) ,unsafe_ref(eval) ,unsafe_ref(Z) ,unsafe_ref(w)
 end
 
 
@@ -136,7 +136,7 @@ function eigen_nonsymmv_params(balance::Integer)
     w = convert(Ptr{gsl_eigen_nonsymm_workspace}, Array(gsl_eigen_nonsymm_workspace, 1))
     ccall( (:gsl_eigen_nonsymmv_params, :libgsl), Void, (Cint,
         Ptr{gsl_eigen_nonsymm_workspace}), balance, w )
-    return unsafe_ref(w)[1]
+    return unsafe_ref(w)
 end
 @vectorize_1arg Number eigen_nonsymmv_params
 
@@ -160,7 +160,7 @@ function eigen_nonsymmv()
         Ptr{gsl_vector_complex}, Ptr{gsl_matrix_complex},
         Ptr{gsl_eigen_nonsymmv_workspace}), A, eval, evec, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(evec)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(A) ,unsafe_ref(eval) ,unsafe_ref(evec) ,unsafe_ref(w)
 end
 
 
@@ -179,5 +179,5 @@ function eigen_nonsymmv_Z()
         Ptr{gsl_matrix}, Ptr{gsl_eigen_nonsymmv_workspace}), A, eval, evec, Z,
         w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(evec)[1] ,unsafe_ref(Z)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(A) ,unsafe_ref(eval) ,unsafe_ref(evec) ,unsafe_ref(Z) ,unsafe_ref(w)
 end

@@ -30,7 +30,7 @@ function sf_fact_e(n::Integer)
     errno = ccall( (:gsl_sf_fact_e, :libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_fact_e
 
@@ -56,7 +56,7 @@ function sf_doublefact_e(n::Integer)
     errno = ccall( (:gsl_sf_doublefact_e, :libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_doublefact_e
 
@@ -82,7 +82,7 @@ function sf_lnfact_e(n::Integer)
     errno = ccall( (:gsl_sf_lnfact_e, :libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_lnfact_e
 
@@ -104,7 +104,7 @@ function sf_lndoublefact_e(n::Integer)
     errno = ccall( (:gsl_sf_lndoublefact_e, :libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_lndoublefact_e
 
@@ -126,7 +126,7 @@ function sf_choose_e(n::Integer, m::Integer)
     errno = ccall( (:gsl_sf_choose_e, :libgsl), Cint, (Cuint, Cuint,
         Ptr{gsl_sf_result}), n, m, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_2arg Number sf_choose_e
 
@@ -150,7 +150,7 @@ function sf_lnchoose_e(n::Integer, m::Integer)
     errno = ccall( (:gsl_sf_lnchoose_e, :libgsl), Cint, (Cuint, Cuint,
         Ptr{gsl_sf_result}), n, m, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_2arg Number sf_lnchoose_e
 
@@ -172,6 +172,6 @@ function sf_taylorcoeff_e(n::Integer, x::Real)
     errno = ccall( (:gsl_sf_taylorcoeff_e, :libgsl), Cint, (Cint, Cdouble,
         Ptr{gsl_sf_result}), n, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_2arg Number sf_taylorcoeff_e

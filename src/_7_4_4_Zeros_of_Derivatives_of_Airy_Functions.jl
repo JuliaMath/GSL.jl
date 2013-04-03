@@ -27,7 +27,7 @@ function sf_airy_zero_Ai_deriv_e(s::Integer)
     errno = ccall( (:gsl_sf_airy_zero_Ai_deriv_e, :libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), s, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_airy_zero_Ai_deriv_e
 
@@ -51,6 +51,6 @@ function sf_airy_zero_Bi_deriv_e(s::Integer)
     errno = ccall( (:gsl_sf_airy_zero_Bi_deriv_e, :libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), s, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_airy_zero_Bi_deriv_e

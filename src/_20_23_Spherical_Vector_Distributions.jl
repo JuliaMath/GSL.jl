@@ -28,7 +28,7 @@ function ran_dir_2d(r::Ptr{gsl_rng})
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:gsl_ran_dir_2d, :libgsl), Void, (Ptr{gsl_rng}, Ptr{Cdouble},
         Ptr{Cdouble}), r, x, y )
-    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
+    return unsafe_ref(x) ,unsafe_ref(y)
 end
 
 
@@ -53,7 +53,7 @@ function ran_dir_2d_trig_method(r::Ptr{gsl_rng})
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:gsl_ran_dir_2d_trig_method, :libgsl), Void, (Ptr{gsl_rng},
         Ptr{Cdouble}, Ptr{Cdouble}), r, x, y )
-    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
+    return unsafe_ref(x) ,unsafe_ref(y)
 end
 
 
@@ -71,7 +71,7 @@ function ran_dir_3d(r::Ptr{gsl_rng})
     z = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:gsl_ran_dir_3d, :libgsl), Void, (Ptr{gsl_rng}, Ptr{Cdouble},
         Ptr{Cdouble}, Ptr{Cdouble}), r, x, y, z )
-    return unsafe_ref(x)[1] ,unsafe_ref(y)[1] ,unsafe_ref(z)[1]
+    return unsafe_ref(x) ,unsafe_ref(y) ,unsafe_ref(z)
 end
 
 
@@ -88,5 +88,5 @@ function ran_dir_nd(r::Ptr{gsl_rng}, n::Integer)
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:gsl_ran_dir_nd, :libgsl), Void, (Ptr{gsl_rng}, Csize_t,
         Ptr{Cdouble}), r, n, x )
-    return unsafe_ref(x)[1]
+    return unsafe_ref(x)
 end

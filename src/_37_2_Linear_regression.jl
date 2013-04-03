@@ -18,7 +18,9 @@ export fit_linear, fit_wlinear, fit_linear_est
 # does not depend on the fit.
 # 
 #   Returns: Cint
-function fit_linear{tB<:Real ,tA<:Real}(x::Ptr{tA}, xstride::Integer, y::Ptr{tB}, ystride::Integer, n::Integer)
+function fit_linear{tA<:Real, tB<:Real}(x_in::Vector{tA}, xstride::Integer, y_in::Vector{tB}, ystride::Integer, n::Integer)
+    convert(Vector{Cdouble}, x_in)
+    convert(Vector{Cdouble}, y_in)
     c0 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     c1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     cov00 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
@@ -30,7 +32,7 @@ function fit_linear{tB<:Real ,tA<:Real}(x::Ptr{tA}, xstride::Integer, y::Ptr{tB}
         Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}), x, xstride, y,
         ystride, n, c0, c1, cov00, cov01, cov11, sumsq )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(c0)[1] ,unsafe_ref(c1)[1] ,unsafe_ref(cov00)[1] ,unsafe_ref(cov01)[1] ,unsafe_ref(cov11)[1] ,unsafe_ref(sumsq)[1]
+    return unsafe_ref(c0) ,unsafe_ref(c1) ,unsafe_ref(cov00) ,unsafe_ref(cov01) ,unsafe_ref(cov11) ,unsafe_ref(sumsq)
 end
 
 
@@ -44,7 +46,10 @@ end
 # residuals from the best-fit line, \chi^2, is returned in chisq.
 # 
 #   Returns: Cint
-function fit_wlinear{tB<:Real ,tC<:Real ,tA<:Real}(x::Ptr{tA}, xstride::Integer, w::Ptr{tB}, wstride::Integer, y::Ptr{tC}, ystride::Integer, n::Integer)
+function fit_wlinear{tA<:Real, tB<:Real, tC<:Real}(x_in::Vector{tA}, xstride::Integer, w_in::Vector{tB}, wstride::Integer, y_in::Vector{tC}, ystride::Integer, n::Integer)
+    convert(Vector{Cdouble}, x_in)
+    convert(Vector{Cdouble}, w_in)
+    convert(Vector{Cdouble}, y_in)
     c0 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     c1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     cov00 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
@@ -57,7 +62,7 @@ function fit_wlinear{tB<:Real ,tC<:Real ,tA<:Real}(x::Ptr{tA}, xstride::Integer,
         Ptr{Cdouble}), x, xstride, w, wstride, y, ystride, n, c0, c1, cov00,
         cov01, cov11, chisq )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(c0)[1] ,unsafe_ref(c1)[1] ,unsafe_ref(cov00)[1] ,unsafe_ref(cov01)[1] ,unsafe_ref(cov11)[1] ,unsafe_ref(chisq)[1]
+    return unsafe_ref(c0) ,unsafe_ref(c1) ,unsafe_ref(cov00) ,unsafe_ref(cov01) ,unsafe_ref(cov11) ,unsafe_ref(chisq)
 end
 
 
@@ -73,7 +78,7 @@ function fit_linear_est(x::Real, c0::Real, c1::Real, cov00::Real, cov01::Real, c
         Cdouble, Cdouble, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), x, c0,
         c1, cov00, cov01, cov11, y, y_err )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(y)[1] ,unsafe_ref(y_err)[1]
+    return unsafe_ref(y) ,unsafe_ref(y_err)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_6arg Number fit_linear_est

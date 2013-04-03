@@ -15,7 +15,7 @@ function sf_exp_err_e(x::Real, dx::Real)
     errno = ccall( (:gsl_sf_exp_err_e, :libgsl), Cint, (Cdouble, Cdouble,
         Ptr{gsl_sf_result}), x, dx, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_2arg Number sf_exp_err_e
 
@@ -29,7 +29,7 @@ function sf_exp_err_e10_e(x::Real, dx::Real)
     errno = ccall( (:gsl_sf_exp_err_e10_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result_e10}), x, dx, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_2arg Number sf_exp_err_e10_e
 
@@ -43,7 +43,7 @@ function sf_exp_mult_err_e(x::Real, dx::Real, y::Real, dy::Real)
     errno = ccall( (:gsl_sf_exp_mult_err_e, :libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Cdouble, Ptr{gsl_sf_result}), x, dx, y, dy, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number sf_exp_mult_err_e
@@ -60,7 +60,7 @@ function sf_exp_mult_err_e10_e(x::Real, dx::Real, y::Real, dy::Real)
         Cdouble, Cdouble, Cdouble, Ptr{gsl_sf_result_e10}), x, dx, y, dy,
         result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number sf_exp_mult_err_e10_e

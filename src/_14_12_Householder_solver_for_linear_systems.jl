@@ -18,7 +18,7 @@ function linalg_HH_solve(b::Ptr{gsl_vector})
     errno = ccall( (:gsl_linalg_HH_solve, :libgsl), Cint, (Ptr{gsl_matrix},
         Ptr{gsl_vector}, Ptr{gsl_vector}), A, b, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(x)[1]
+    return unsafe_ref(A) ,unsafe_ref(x)
 end
 
 
@@ -34,5 +34,5 @@ function linalg_HH_svx()
     errno = ccall( (:gsl_linalg_HH_svx, :libgsl), Cint, (Ptr{gsl_matrix},
         Ptr{gsl_vector}), A, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(x)[1]
+    return unsafe_ref(A) ,unsafe_ref(x)
 end

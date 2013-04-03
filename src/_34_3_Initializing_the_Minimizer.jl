@@ -54,7 +54,7 @@ function min_fminimizer_set_with_values(x_minimum::Real, f_minimum::Real, x_lowe
         Cdouble, Cdouble, Cdouble), s, f, x_minimum, f_minimum, x_lower,
         f_lower, x_upper, f_upper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(s)[1] ,unsafe_ref(f)[1]
+    return unsafe_ref(s) ,unsafe_ref(f)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_6arg Number min_fminimizer_set_with_values

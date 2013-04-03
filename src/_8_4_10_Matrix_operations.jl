@@ -18,7 +18,7 @@ function matrix_add(b::Ptr{gsl_matrix})
     errno = ccall( (:gsl_matrix_add, :libgsl), Cint, (Ptr{gsl_matrix},
         Ptr{gsl_matrix}), a, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(a)[1]
+    return unsafe_ref(a)
 end
 
 
@@ -32,7 +32,7 @@ function matrix_sub(b::Ptr{gsl_matrix})
     errno = ccall( (:gsl_matrix_sub, :libgsl), Cint, (Ptr{gsl_matrix},
         Ptr{gsl_matrix}), a, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(a)[1]
+    return unsafe_ref(a)
 end
 
 
@@ -46,7 +46,7 @@ function matrix_mul_elements(b::Ptr{gsl_matrix})
     errno = ccall( (:gsl_matrix_mul_elements, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}), a, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(a)[1]
+    return unsafe_ref(a)
 end
 
 
@@ -60,7 +60,7 @@ function matrix_div_elements(b::Ptr{gsl_matrix})
     errno = ccall( (:gsl_matrix_div_elements, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}), a, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(a)[1]
+    return unsafe_ref(a)
 end
 
 
@@ -73,7 +73,7 @@ function matrix_scale(x::Real)
     errno = ccall( (:gsl_matrix_scale, :libgsl), Cint, (Ptr{gsl_matrix},
         Cdouble), a, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(a)[1]
+    return unsafe_ref(a)
 end
 @vectorize_1arg Number matrix_scale
 
@@ -87,6 +87,6 @@ function matrix_add_constant(x::Real)
     errno = ccall( (:gsl_matrix_add_constant, :libgsl), Cint,
         (Ptr{gsl_matrix}, Cdouble), a, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(a)[1]
+    return unsafe_ref(a)
 end
 @vectorize_1arg Number matrix_add_constant

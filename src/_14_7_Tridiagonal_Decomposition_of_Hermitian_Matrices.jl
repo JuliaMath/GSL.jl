@@ -25,7 +25,7 @@ function linalg_hermtd_decomp()
     errno = ccall( (:gsl_linalg_hermtd_decomp, :libgsl), Cint,
         (Ptr{gsl_matrix_complex}, Ptr{gsl_vector_complex}), A, tau )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(tau)[1]
+    return unsafe_ref(A) ,unsafe_ref(tau)
 end
 
 
@@ -43,7 +43,7 @@ function linalg_hermtd_unpack(A::Ptr{gsl_matrix_complex}, tau::Ptr{gsl_vector_co
         Ptr{gsl_matrix_complex}, Ptr{gsl_vector}, Ptr{gsl_vector}), A, tau, U,
         diag, subdiag )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(U)[1] ,unsafe_ref(diag)[1] ,unsafe_ref(subdiag)[1]
+    return unsafe_ref(U) ,unsafe_ref(diag) ,unsafe_ref(subdiag)
 end
 
 
@@ -59,5 +59,5 @@ function linalg_hermtd_unpack_T(A::Ptr{gsl_matrix_complex})
         (Ptr{gsl_matrix_complex}, Ptr{gsl_vector}, Ptr{gsl_vector}), A, diag,
         subdiag )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(diag)[1] ,unsafe_ref(subdiag)[1]
+    return unsafe_ref(diag) ,unsafe_ref(subdiag)
 end

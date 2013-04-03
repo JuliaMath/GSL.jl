@@ -16,7 +16,7 @@ function matrix_memcpy(src::Ptr{gsl_matrix})
     errno = ccall( (:gsl_matrix_memcpy, :libgsl), Cint, (Ptr{gsl_matrix},
         Ptr{gsl_matrix}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(dest)[1]
+    return unsafe_ref(dest)
 end
 
 
@@ -30,5 +30,5 @@ function matrix_swap()
     errno = ccall( (:gsl_matrix_swap, :libgsl), Cint, (Ptr{gsl_matrix},
         Ptr{gsl_matrix}), m1, m2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(m1)[1] ,unsafe_ref(m2)[1]
+    return unsafe_ref(m1) ,unsafe_ref(m2)
 end

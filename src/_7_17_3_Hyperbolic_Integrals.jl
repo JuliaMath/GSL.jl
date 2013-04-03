@@ -24,7 +24,7 @@ function sf_Shi_e(x::Real)
     errno = ccall( (:gsl_sf_Shi_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_Shi_e
 
@@ -50,6 +50,6 @@ function sf_Chi_e(x::Real)
     errno = ccall( (:gsl_sf_Chi_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_Chi_e

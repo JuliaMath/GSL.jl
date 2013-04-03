@@ -1,22 +1,10 @@
 
 
 #Automatically generated list of dummy opaque pointer types
-type CBLAS_DIAG_t; end
-type CBLAS_INDEX; end
-type CBLAS_INDEX_t; end
-type CBLAS_SIDE_t; end
-type CBLAS_TRANSPOSE_t; end
-type CBLAS_UPLO_t; end
-type enumCBLAS_DIAG; end
-type enumCBLAS_ORDER; end
-type enumCBLAS_SIDE; end
-type enumCBLAS_TRANSPOSE; end
-type enumCBLAS_UPLO; end
 type enumgsl_integration_qawo_enum; end
 type gsl_bspline_deriv_workspace; end
 type gsl_bspline_workspace; end
 type gsl_comparison_fn_t; end
-type gsl_complex_float; end
 type gsl_complex_packed_array; end
 type gsl_complex_packed_ptr; end
 type gsl_dht; end
@@ -48,8 +36,6 @@ type gsl_interp_accel; end
 type gsl_interp_type; end
 type gsl_matrix__view; end
 type gsl_matrix_complex; end
-type gsl_matrix_complex_float; end
-type gsl_matrix_float; end
 type gsl_matrix_view; end
 type gsl_min_fminimizer; end
 type gsl_min_fminimizer_type; end
@@ -97,8 +83,6 @@ type gsl_sum_levin_u_workspace; end
 type gsl_sum_levin_utrunc_workspace; end
 type gsl_vector__view; end
 type gsl_vector_complex; end
-type gsl_vector_complex_float; end
-type gsl_vector_float; end
 type gsl_vector_view; end
 type gsl_wavelet; end
 type gsl_wavelet_direction; end
@@ -613,24 +597,6 @@ include("../src/_7_13_4_Legendre_Form_of_Incomplete_Elliptic_Integrals.jl")
 
 
 include("../src/_7_24_1_Legendre_Polynomials.jl")
-
-
-include("../src/_D_1_Level_1.jl")
-
-
-include("../src/_13_1_1_Level_1.jl")
-
-
-include("../src/_D_2_Level_2.jl")
-
-
-include("../src/_13_1_2_Level_2.jl")
-
-
-include("../src/_D_3_Level_3.jl")
-
-
-include("../src/_13_1_3_Level_3.jl")
 
 
 include("../src/_37_3_Linear_fitting_without_a_constant_term.jl")

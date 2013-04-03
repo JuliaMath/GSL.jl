@@ -25,7 +25,7 @@ function eigen_symmv_sort(sort_type::gsl_eigen_sort_t)
         (Ptr{gsl_vector}, Ptr{gsl_matrix}, gsl_eigen_sort_t), eval, evec,
         sort_type )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
+    return unsafe_ref(eval) ,unsafe_ref(evec)
 end
 
 
@@ -42,7 +42,7 @@ function eigen_symmv_sort(sort_type::gsl_eigen_sort_t)
         (Ptr{gsl_vector}, Ptr{gsl_matrix}, gsl_eigen_sort_t), eval, evec,
         sort_type )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
+    return unsafe_ref(eval) ,unsafe_ref(evec)
 end
 
 
@@ -59,7 +59,7 @@ function eigen_symmv_sort(sort_type::gsl_eigen_sort_t)
         (Ptr{gsl_vector}, Ptr{gsl_matrix}, gsl_eigen_sort_t), eval, evec,
         sort_type )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
+    return unsafe_ref(eval) ,unsafe_ref(evec)
 end
 
 
@@ -76,7 +76,7 @@ function eigen_symmv_sort(sort_type::gsl_eigen_sort_t)
         (Ptr{gsl_vector}, Ptr{gsl_matrix}, gsl_eigen_sort_t), eval, evec,
         sort_type )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
+    return unsafe_ref(eval) ,unsafe_ref(evec)
 end
 
 
@@ -93,7 +93,7 @@ function eigen_hermv_sort(sort_type::gsl_eigen_sort_t)
         (Ptr{gsl_vector}, Ptr{gsl_matrix_complex}, gsl_eigen_sort_t), eval,
         evec, sort_type )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
+    return unsafe_ref(eval) ,unsafe_ref(evec)
 end
 
 
@@ -111,7 +111,7 @@ function eigen_nonsymmv_sort(sort_type::gsl_eigen_sort_t)
         (Ptr{gsl_vector_complex}, Ptr{gsl_matrix_complex}, gsl_eigen_sort_t),
         eval, evec, sort_type )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
+    return unsafe_ref(eval) ,unsafe_ref(evec)
 end
 
 
@@ -128,7 +128,7 @@ function eigen_gensymmv_sort(sort_type::gsl_eigen_sort_t)
         (Ptr{gsl_vector}, Ptr{gsl_matrix}, gsl_eigen_sort_t), eval, evec,
         sort_type )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
+    return unsafe_ref(eval) ,unsafe_ref(evec)
 end
 
 
@@ -145,7 +145,7 @@ function eigen_genhermv_sort(sort_type::gsl_eigen_sort_t)
         (Ptr{gsl_vector}, Ptr{gsl_matrix_complex}, gsl_eigen_sort_t), eval,
         evec, sort_type )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(eval)[1] ,unsafe_ref(evec)[1]
+    return unsafe_ref(eval) ,unsafe_ref(evec)
 end
 
 
@@ -165,5 +165,5 @@ function eigen_genv_sort(sort_type::gsl_eigen_sort_t)
         (Ptr{gsl_vector_complex}, Ptr{gsl_vector}, Ptr{gsl_matrix_complex},
         gsl_eigen_sort_t), alpha, beta, evec, sort_type )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(alpha)[1] ,unsafe_ref(beta)[1] ,unsafe_ref(evec)[1]
+    return unsafe_ref(alpha) ,unsafe_ref(beta) ,unsafe_ref(evec)
 end

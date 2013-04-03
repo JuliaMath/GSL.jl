@@ -30,7 +30,7 @@ function linalg_solve_tridiag(diag::Ptr{gsl_vector}, e::Ptr{gsl_vector}, f::Ptr{
         (Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector},
         Ptr{gsl_vector}), diag, e, f, b, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1]
+    return unsafe_ref(x)
 end
 
 
@@ -47,7 +47,7 @@ function linalg_solve_symm_tridiag(diag::Ptr{gsl_vector}, e::Ptr{gsl_vector}, b:
         (Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector}),
         diag, e, b, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1]
+    return unsafe_ref(x)
 end
 
 
@@ -65,7 +65,7 @@ function linalg_solve_cyc_tridiag(diag::Ptr{gsl_vector}, e::Ptr{gsl_vector}, f::
         (Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector},
         Ptr{gsl_vector}), diag, e, f, b, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1]
+    return unsafe_ref(x)
 end
 
 
@@ -83,5 +83,5 @@ function linalg_solve_symm_cyc_tridiag(diag::Ptr{gsl_vector}, e::Ptr{gsl_vector}
         (Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector}),
         diag, e, b, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1]
+    return unsafe_ref(x)
 end

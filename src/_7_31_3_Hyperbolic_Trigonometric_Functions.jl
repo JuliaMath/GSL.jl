@@ -24,7 +24,7 @@ function sf_lnsinh_e(x::Real)
     errno = ccall( (:gsl_sf_lnsinh_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_lnsinh_e
 
@@ -46,6 +46,6 @@ function sf_lncosh_e(x::Real)
     errno = ccall( (:gsl_sf_lncosh_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_lncosh_e

@@ -47,11 +47,12 @@ end
 # Mathematical Software, Volume 30, Issue 2 (2004), pp 218–236).
 # 
 #   Returns: Cint
-function poly_complex_solve{tA<:Real}(a::Ptr{tA}, n::Integer, z::gsl_complex_packed_ptr)
+function poly_complex_solve{tA<:Real}(a_in::Vector{tA}, n::Integer, z::gsl_complex_packed_ptr)
+    convert(Vector{Cdouble}, a_in)
     w = convert(Ptr{gsl_poly_complex_workspace}, Array(gsl_poly_complex_workspace, 1))
     errno = ccall( (:gsl_poly_complex_solve, :libgsl), Cint, (Ptr{Cdouble},
         Csize_t, Ptr{gsl_poly_complex_workspace}, gsl_complex_packed_ptr), a,
         n, w, z )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(w)[1]
+    return unsafe_ref(w)
 end

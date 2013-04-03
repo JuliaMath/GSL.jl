@@ -18,7 +18,7 @@ function multifit_fsolver_iterate()
     errno = ccall( (:gsl_multifit_fsolver_iterate, :libgsl), Cint,
         (Ptr{gsl_multifit_fsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(s)[1]
+    return unsafe_ref(s)
 end
 
 
@@ -32,7 +32,7 @@ function multifit_fdfsolver_iterate()
     errno = ccall( (:gsl_multifit_fdfsolver_iterate, :libgsl), Cint,
         (Ptr{gsl_multifit_fdfsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(s)[1]
+    return unsafe_ref(s)
 end
 
 

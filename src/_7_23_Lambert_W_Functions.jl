@@ -24,7 +24,7 @@ function sf_lambert_W0_e(x::Real)
     errno = ccall( (:gsl_sf_lambert_W0_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_lambert_W0_e
 
@@ -48,6 +48,6 @@ function sf_lambert_Wm1_e(x::Real)
     errno = ccall( (:gsl_sf_lambert_Wm1_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_lambert_Wm1_e

@@ -28,7 +28,7 @@ function sf_airy_Ai_deriv_e(x::Real, mode::gsl_mode_t)
     errno = ccall( (:gsl_sf_airy_Ai_deriv_e, :libgsl), Cint, (Cdouble,
         gsl_mode_t, Ptr{gsl_sf_result}), x, mode, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 
 
@@ -51,7 +51,7 @@ function sf_airy_Bi_deriv_e(x::Real, mode::gsl_mode_t)
     errno = ccall( (:gsl_sf_airy_Bi_deriv_e, :libgsl), Cint, (Cdouble,
         gsl_mode_t, Ptr{gsl_sf_result}), x, mode, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 
 
@@ -74,7 +74,7 @@ function sf_airy_Ai_deriv_scaled_e(x::Real, mode::gsl_mode_t)
     errno = ccall( (:gsl_sf_airy_Ai_deriv_scaled_e, :libgsl), Cint,
         (Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), x, mode, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 
 
@@ -97,5 +97,5 @@ function sf_airy_Bi_deriv_scaled_e(x::Real, mode::gsl_mode_t)
     errno = ccall( (:gsl_sf_airy_Bi_deriv_scaled_e, :libgsl), Cint,
         (Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), x, mode, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end

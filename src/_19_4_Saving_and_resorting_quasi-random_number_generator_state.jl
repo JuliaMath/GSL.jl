@@ -17,7 +17,7 @@ function qrng_memcpy(src::Ptr{gsl_qrng})
     errno = ccall( (:gsl_qrng_memcpy, :libgsl), Cint, (Ptr{gsl_qrng},
         Ptr{gsl_qrng}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(dest)[1]
+    return unsafe_ref(dest)
 end
 
 

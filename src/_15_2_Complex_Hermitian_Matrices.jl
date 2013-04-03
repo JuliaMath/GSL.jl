@@ -44,7 +44,7 @@ function eigen_herm()
         (Ptr{gsl_matrix_complex}, Ptr{gsl_vector},
         Ptr{gsl_eigen_herm_workspace}), A, eval, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(A) ,unsafe_ref(eval) ,unsafe_ref(w)
 end
 
 
@@ -90,5 +90,5 @@ function eigen_hermv()
         (Ptr{gsl_matrix_complex}, Ptr{gsl_vector}, Ptr{gsl_matrix_complex},
         Ptr{gsl_eigen_hermv_workspace}), A, eval, evec, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(evec)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(A) ,unsafe_ref(eval) ,unsafe_ref(evec) ,unsafe_ref(w)
 end

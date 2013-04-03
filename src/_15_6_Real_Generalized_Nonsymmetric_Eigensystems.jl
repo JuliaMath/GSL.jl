@@ -55,7 +55,7 @@ function eigen_gen_params(compute_s::Integer, compute_t::Integer, balance::Integ
     w = convert(Ptr{gsl_eigen_gen_workspace}, Array(gsl_eigen_gen_workspace, 1))
     ccall( (:gsl_eigen_gen_params, :libgsl), Void, (Cint, Cint, Cint,
         Ptr{gsl_eigen_gen_workspace}), compute_s, compute_t, balance, w )
-    return unsafe_ref(w)[1]
+    return unsafe_ref(w)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number eigen_gen_params
@@ -83,7 +83,7 @@ function eigen_gen()
         Ptr{gsl_matrix}, Ptr{gsl_vector_complex}, Ptr{gsl_vector},
         Ptr{gsl_eigen_gen_workspace}), A, B, alpha, beta, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(B)[1] ,unsafe_ref(alpha)[1] ,unsafe_ref(beta)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(A) ,unsafe_ref(B) ,unsafe_ref(alpha) ,unsafe_ref(beta) ,unsafe_ref(w)
 end
 
 
@@ -104,7 +104,7 @@ function eigen_gen_QZ()
         Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_eigen_gen_workspace}), A, B,
         alpha, beta, Q, Z, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(B)[1] ,unsafe_ref(alpha)[1] ,unsafe_ref(beta)[1] ,unsafe_ref(Q)[1] ,unsafe_ref(Z)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(A) ,unsafe_ref(B) ,unsafe_ref(alpha) ,unsafe_ref(beta) ,unsafe_ref(Q) ,unsafe_ref(Z) ,unsafe_ref(w)
 end
 
 
@@ -153,7 +153,7 @@ function eigen_genv()
         Ptr{gsl_matrix_complex}, Ptr{gsl_eigen_genv_workspace}), A, B, alpha,
         beta, evec, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(B)[1] ,unsafe_ref(alpha)[1] ,unsafe_ref(beta)[1] ,unsafe_ref(evec)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(A) ,unsafe_ref(B) ,unsafe_ref(alpha) ,unsafe_ref(beta) ,unsafe_ref(evec) ,unsafe_ref(w)
 end
 
 
@@ -175,5 +175,5 @@ function eigen_genv_QZ()
         Ptr{gsl_matrix_complex}, Ptr{gsl_matrix}, Ptr{gsl_matrix},
         Ptr{gsl_eigen_genv_workspace}), A, B, alpha, beta, evec, Q, Z, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(B)[1] ,unsafe_ref(alpha)[1] ,unsafe_ref(beta)[1] ,unsafe_ref(evec)[1] ,unsafe_ref(Q)[1] ,unsafe_ref(Z)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(A) ,unsafe_ref(B) ,unsafe_ref(alpha) ,unsafe_ref(beta) ,unsafe_ref(evec) ,unsafe_ref(Q) ,unsafe_ref(Z) ,unsafe_ref(w)
 end

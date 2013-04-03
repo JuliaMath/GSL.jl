@@ -39,7 +39,8 @@ end
 # truncation error, smoothing out any fluctuations.
 # 
 #   Returns: Cint
-function sum_levin_utrunc_accel{tA<:Real}(array::Ptr{tA}, array_size::Integer)
+function sum_levin_utrunc_accel{tA<:Real}(array_in::Vector{tA}, array_size::Integer)
+    convert(Vector{Cdouble}, array_in)
     w = convert(Ptr{gsl_sum_levin_utrunc_workspace}, Array(gsl_sum_levin_utrunc_workspace, 1))
     sum_accel = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr_trunc = convert(Ptr{Cdouble}, Array(Cdouble, 1))
@@ -48,5 +49,5 @@ function sum_levin_utrunc_accel{tA<:Real}(array::Ptr{tA}, array_size::Integer)
         Ptr{Cdouble}, Ptr{Cdouble}), array, array_size, w, sum_accel,
         abserr_trunc )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(w)[1] ,unsafe_ref(sum_accel)[1] ,unsafe_ref(abserr_trunc)[1]
+    return unsafe_ref(w) ,unsafe_ref(sum_accel) ,unsafe_ref(abserr_trunc)
 end

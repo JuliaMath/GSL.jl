@@ -15,7 +15,7 @@ function sort(stride::Integer, n::Integer)
     data = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:gsl_sort, :libgsl), Void, (Ptr{Cdouble}, Csize_t, Csize_t),
         data, stride, n )
-    return unsafe_ref(data)[1]
+    return unsafe_ref(data)
 end
 @vectorize_2arg Number sort
 
@@ -27,7 +27,7 @@ end
 function sort_vector()
     v = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     ccall( (:gsl_sort_vector, :libgsl), Void, (Ptr{gsl_vector}, ), v )
-    return unsafe_ref(v)[1]
+    return unsafe_ref(v)
 end
 
 
@@ -39,11 +39,12 @@ end
 # place.  The array data is not changed.
 # 
 #   Returns: Void
-function sort_index{tA<:Real}(data::Ptr{tA}, stride::Integer, n::Integer)
+function sort_index{tA<:Real}(data_in::Vector{tA}, stride::Integer, n::Integer)
+    convert(Vector{Cdouble}, data_in)
     p = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     ccall( (:gsl_sort_index, :libgsl), Void, (Ptr{Csize_t}, Ptr{Cdouble},
         Csize_t, Csize_t), p, data, stride, n )
-    return unsafe_ref(p)[1]
+    return unsafe_ref(p)
 end
 
 
@@ -60,5 +61,5 @@ function sort_vector_index(v::Ptr{gsl_vector})
     errno = ccall( (:gsl_sort_vector_index, :libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_vector}), p, v )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(p)[1]
+    return unsafe_ref(p)
 end

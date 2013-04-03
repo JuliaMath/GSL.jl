@@ -15,7 +15,7 @@ function vector_swap_elements(i::Integer, j::Integer)
     errno = ccall( (:gsl_vector_swap_elements, :libgsl), Cint,
         (Ptr{gsl_vector}, Csize_t, Csize_t), v, i, j )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(v)[1]
+    return unsafe_ref(v)
 end
 @vectorize_2arg Number vector_swap_elements
 
@@ -28,5 +28,5 @@ function vector_reverse()
     errno = ccall( (:gsl_vector_reverse, :libgsl), Cint, (Ptr{gsl_vector},
         ), v )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(v)[1]
+    return unsafe_ref(v)
 end

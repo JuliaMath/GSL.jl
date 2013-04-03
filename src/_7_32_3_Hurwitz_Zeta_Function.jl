@@ -24,6 +24,6 @@ function sf_hzeta_e(s::Real, q::Real)
     errno = ccall( (:gsl_sf_hzeta_e, :libgsl), Cint, (Cdouble, Cdouble,
         Ptr{gsl_sf_result}), s, q, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_2arg Number sf_hzeta_e

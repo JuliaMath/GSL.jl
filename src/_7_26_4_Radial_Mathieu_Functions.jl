@@ -19,7 +19,7 @@ function sf_mathieu_Mc(j::Integer, n::Integer, q::Real, x::Real)
     errno = ccall( (:gsl_sf_mathieu_Mc, :libgsl), Cint, (Cint, Cint,
         Cdouble, Cdouble, Ptr{gsl_sf_result}), j, n, q, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number sf_mathieu_Mc
@@ -37,7 +37,7 @@ function sf_mathieu_Ms(j::Integer, n::Integer, q::Real, x::Real)
     errno = ccall( (:gsl_sf_mathieu_Ms, :libgsl), Cint, (Cint, Cint,
         Cdouble, Cdouble, Ptr{gsl_sf_result}), j, n, q, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number sf_mathieu_Ms
@@ -50,12 +50,12 @@ end
 #   Returns: Cint
 function sf_mathieu_Mc_array(j::Integer, nmin::Integer, nmax::Integer, q::Real, x::Real)
     work = convert(Ptr{gsl_sf_mathieu_workspace}, Array(gsl_sf_mathieu_workspace, 1))
-    result_array = convert(Cdouble, Array(Cdouble, 1))
+    result_array = Array(Cdouble, 1)
     errno = ccall( (:gsl_sf_mathieu_Mc_array, :libgsl), Cint, (Cint, Cint,
         Cint, Cdouble, Cdouble, Ptr{gsl_sf_mathieu_workspace}, Cdouble), j,
         nmin, nmax, q, x, work, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(work)[1] ,unsafe_ref(result_array)[1]
+    return unsafe_ref(work) ,unsafe_ref(result_array)[1]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_5arg Number sf_mathieu_Mc_array
@@ -68,12 +68,12 @@ end
 #   Returns: Cint
 function sf_mathieu_Ms_array(j::Integer, nmin::Integer, nmax::Integer, q::Real, x::Real)
     work = convert(Ptr{gsl_sf_mathieu_workspace}, Array(gsl_sf_mathieu_workspace, 1))
-    result_array = convert(Cdouble, Array(Cdouble, 1))
+    result_array = Array(Cdouble, 1)
     errno = ccall( (:gsl_sf_mathieu_Ms_array, :libgsl), Cint, (Cint, Cint,
         Cint, Cdouble, Cdouble, Ptr{gsl_sf_mathieu_workspace}, Cdouble), j,
         nmin, nmax, q, x, work, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(work)[1] ,unsafe_ref(result_array)[1]
+    return unsafe_ref(work) ,unsafe_ref(result_array)[1]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_5arg Number sf_mathieu_Ms_array

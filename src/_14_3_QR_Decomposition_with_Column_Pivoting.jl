@@ -38,7 +38,7 @@ function linalg_QRPT_decomp()
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_permutation}, Ptr{Cint},
         Ptr{gsl_vector}), A, tau, p, signum, norm )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(tau)[1] ,unsafe_ref(p)[1] ,unsafe_ref(signum)[1] ,unsafe_ref(norm)[1]
+    return unsafe_ref(A) ,unsafe_ref(tau) ,unsafe_ref(p) ,unsafe_ref(signum) ,unsafe_ref(norm)
 end
 
 
@@ -59,7 +59,7 @@ function linalg_QRPT_decomp2(A::Ptr{gsl_matrix})
         Ptr{gsl_permutation}, Ptr{Cint}, Ptr{gsl_vector}), A, q, r, tau, p,
         signum, norm )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(q)[1] ,unsafe_ref(r)[1] ,unsafe_ref(tau)[1] ,unsafe_ref(p)[1] ,unsafe_ref(signum)[1] ,unsafe_ref(norm)[1]
+    return unsafe_ref(q) ,unsafe_ref(r) ,unsafe_ref(tau) ,unsafe_ref(p) ,unsafe_ref(signum) ,unsafe_ref(norm)
 end
 
 
@@ -74,7 +74,7 @@ function linalg_QRPT_solve(QR::Ptr{gsl_matrix}, tau::Ptr{gsl_vector}, p::Ptr{gsl
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_permutation},
         Ptr{gsl_vector}, Ptr{gsl_vector}), QR, tau, p, b, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1]
+    return unsafe_ref(x)
 end
 
 
@@ -89,7 +89,7 @@ function linalg_QRPT_svx(QR::Ptr{gsl_matrix}, tau::Ptr{gsl_vector}, p::Ptr{gsl_p
         Ptr{gsl_vector}, Ptr{gsl_permutation}, Ptr{gsl_vector}), QR, tau, p, x
         )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1]
+    return unsafe_ref(x)
 end
 
 
@@ -104,7 +104,7 @@ function linalg_QRPT_QRsolve(Q::Ptr{gsl_matrix}, R::Ptr{gsl_matrix}, p::Ptr{gsl_
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_permutation},
         Ptr{gsl_vector}, Ptr{gsl_vector}), Q, R, p, b, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1]
+    return unsafe_ref(x)
 end
 
 
@@ -122,7 +122,7 @@ function linalg_QRPT_update(p::Ptr{gsl_permutation}, v::Ptr{gsl_vector})
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_permutation},
         Ptr{gsl_vector}, Ptr{gsl_vector}), Q, R, p, w, v )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(Q)[1] ,unsafe_ref(R)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(Q) ,unsafe_ref(R) ,unsafe_ref(w)
 end
 
 
@@ -136,7 +136,7 @@ function linalg_QRPT_Rsolve(QR::Ptr{gsl_matrix}, p::Ptr{gsl_permutation}, b::Ptr
         (Ptr{gsl_matrix}, Ptr{gsl_permutation}, Ptr{gsl_vector},
         Ptr{gsl_vector}), QR, p, b, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1]
+    return unsafe_ref(x)
 end
 
 
@@ -150,5 +150,5 @@ function linalg_QRPT_Rsvx(QR::Ptr{gsl_matrix}, p::Ptr{gsl_permutation})
     errno = ccall( (:gsl_linalg_QRPT_Rsvx, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_permutation}, Ptr{gsl_vector}), QR, p, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1]
+    return unsafe_ref(x)
 end

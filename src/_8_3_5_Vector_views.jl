@@ -184,7 +184,8 @@ end
 # but can be used for arrays which are declared const.
 # 
 #   Returns: gsl_vector_view
-function vector_view_array{tA<:Real}(base::Ptr{tA}, n::Integer)
+function vector_view_array{tA<:Real}(base_in::Vector{tA}, n::Integer)
+    convert(Vector{Cdouble}, base_in)
     ccall( (:gsl_vector_view_array, :libgsl), gsl_vector_view,
         (Ptr{Cdouble}, Csize_t), base, n )
 end
@@ -202,7 +203,8 @@ end
 # but can be used for arrays which are declared const.
 # 
 #   Returns: gsl_vector__view
-function vector_const_view_array{tA<:Real}(base::Ptr{tA}, n::Integer)
+function vector_const_view_array{tA<:Real}(base_in::Vector{tA}, n::Integer)
+    convert(Vector{Cdouble}, base_in)
     ccall( (:gsl_vector_const_view_array, :libgsl), gsl_vector__view,
         (Ptr{Cdouble}, Csize_t), base, n )
 end
@@ -222,7 +224,8 @@ end
 # declared const.
 # 
 #   Returns: gsl_vector_view
-function vector_view_array_with_stride{tA<:Real}(base::Ptr{tA}, stride::Integer, n::Integer)
+function vector_view_array_with_stride{tA<:Real}(base_in::Vector{tA}, stride::Integer, n::Integer)
+    convert(Vector{Cdouble}, base_in)
     ccall( (:gsl_vector_view_array_with_stride, :libgsl), gsl_vector_view,
         (Ptr{Cdouble}, Csize_t, Csize_t), base, stride, n )
 end
@@ -242,7 +245,8 @@ end
 # declared const.
 # 
 #   Returns: gsl_vector__view
-function vector_const_view_array_with_stride{tA<:Real}(base::Ptr{tA}, stride::Integer, n::Integer)
+function vector_const_view_array_with_stride{tA<:Real}(base_in::Vector{tA}, stride::Integer, n::Integer)
+    convert(Vector{Cdouble}, base_in)
     ccall( (:gsl_vector_const_view_array_with_stride, :libgsl),
         gsl_vector__view, (Ptr{Cdouble}, Csize_t, Csize_t), base, stride, n )
 end

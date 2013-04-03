@@ -33,7 +33,7 @@ function vector_fread(stream::Ptr{Void})
     errno = ccall( (:gsl_vector_fread, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_vector}), stream, v )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(v)[1]
+    return unsafe_ref(v)
 end
 
 
@@ -49,7 +49,7 @@ function vector_fprintf(stream::Ptr{Void}, v::Ptr{gsl_vector})
     errno = ccall( (:gsl_vector_fprintf, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_vector}, Ptr{Cchar}), stream, v, format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(format)[1]
+    return unsafe_ref(format)
 end
 
 
@@ -65,5 +65,5 @@ function vector_fscanf(stream::Ptr{Void})
     errno = ccall( (:gsl_vector_fscanf, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_vector}), stream, v )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(v)[1]
+    return unsafe_ref(v)
 end

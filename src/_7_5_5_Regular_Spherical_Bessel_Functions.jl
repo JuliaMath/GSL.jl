@@ -28,7 +28,7 @@ function sf_bessel_j0_e(x::Real)
     errno = ccall( (:gsl_sf_bessel_j0_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_bessel_j0_e
 
@@ -52,7 +52,7 @@ function sf_bessel_j1_e(x::Real)
     errno = ccall( (:gsl_sf_bessel_j1_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_bessel_j1_e
 
@@ -76,7 +76,7 @@ function sf_bessel_j2_e(x::Real)
     errno = ccall( (:gsl_sf_bessel_j2_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_1arg Number sf_bessel_j2_e
 
@@ -100,7 +100,7 @@ function sf_bessel_jl_e(l::Integer, x::Real)
     errno = ccall( (:gsl_sf_bessel_jl_e, :libgsl), Cint, (Cint, Cdouble,
         Ptr{gsl_sf_result}), l, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_2arg Number sf_bessel_jl_e
 
@@ -113,7 +113,7 @@ end
 # 
 #   Returns: Cint
 function sf_bessel_jl_array(lmax::Integer, x::Real)
-    result_array = convert(Cdouble, Array(Cdouble, 1))
+    result_array = Array(Cdouble, 1)
     errno = ccall( (:gsl_sf_bessel_jl_array, :libgsl), Cint, (Cint,
         Cdouble, Cdouble), lmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -135,6 +135,6 @@ function sf_bessel_jl_steed_array(lmax::Integer, x::Real)
     errno = ccall( (:gsl_sf_bessel_jl_steed_array, :libgsl), Cint, (Cint,
         Cdouble, Ptr{Cdouble}), lmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result_array)[1]
+    return unsafe_ref(result_array)
 end
 @vectorize_2arg Number sf_bessel_jl_steed_array

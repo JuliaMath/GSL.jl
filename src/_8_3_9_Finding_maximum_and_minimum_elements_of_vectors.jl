@@ -33,7 +33,7 @@ function vector_minmax(v::Ptr{gsl_vector})
     max_out = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:gsl_vector_minmax, :libgsl), Void, (Ptr{gsl_vector},
         Ptr{Cdouble}, Ptr{Cdouble}), v, min_out, max_out )
-    return unsafe_ref(min_out)[1] ,unsafe_ref(max_out)[1]
+    return unsafe_ref(min_out) ,unsafe_ref(max_out)
 end
 
 
@@ -67,5 +67,5 @@ function vector_minmax_index(v::Ptr{gsl_vector})
     imax = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     ccall( (:gsl_vector_minmax_index, :libgsl), Void, (Ptr{gsl_vector},
         Ptr{Csize_t}, Ptr{Csize_t}), v, imin, imax )
-    return unsafe_ref(imin)[1] ,unsafe_ref(imax)[1]
+    return unsafe_ref(imin) ,unsafe_ref(imax)
 end

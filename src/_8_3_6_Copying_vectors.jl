@@ -16,7 +16,7 @@ function vector_memcpy(src::Ptr{gsl_vector})
     errno = ccall( (:gsl_vector_memcpy, :libgsl), Cint, (Ptr{gsl_vector},
         Ptr{gsl_vector}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(dest)[1]
+    return unsafe_ref(dest)
 end
 
 
@@ -30,5 +30,5 @@ function vector_swap()
     errno = ccall( (:gsl_vector_swap, :libgsl), Cint, (Ptr{gsl_vector},
         Ptr{gsl_vector}), v, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(v)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(v) ,unsafe_ref(w)
 end

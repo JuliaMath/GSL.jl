@@ -31,7 +31,7 @@ function sf_legendre_Plm_e(l::Integer, m::Integer, x::Real)
     errno = ccall( (:gsl_sf_legendre_Plm_e, :libgsl), Cint, (Cint, Cint,
         Cdouble, Ptr{gsl_sf_result}), l, m, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_legendre_Plm_e
@@ -42,7 +42,7 @@ end
 # 
 #   Returns: Cint
 function sf_legendre_Plm_array(lmax::Integer, m::Integer, x::Real)
-    result_array = convert(Cdouble, Array(Cdouble, 1))
+    result_array = Array(Cdouble, 1)
     errno = ccall( (:gsl_sf_legendre_Plm_array, :libgsl), Cint, (Cint,
         Cint, Cdouble, Cdouble), lmax, m, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -57,7 +57,7 @@ end
 # 
 #   Returns: Cint
 function sf_legendre_Plm_deriv_array(lmax::Integer, m::Integer, x::Real)
-    result_array = convert(Cdouble, Array(Cdouble, 1))
+    result_array = Array(Cdouble, 1)
     errno = ccall( (:gsl_sf_legendre_Plm_deriv_array, :libgsl), Cint,
         (Cint, Cint, Cdouble, Cdouble), lmax, m, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -94,7 +94,7 @@ function sf_legendre_sphPlm_e(l::Integer, m::Integer, x::Real)
     errno = ccall( (:gsl_sf_legendre_sphPlm_e, :libgsl), Cint, (Cint, Cint,
         Cdouble, Ptr{gsl_sf_result}), l, m, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_legendre_sphPlm_e
@@ -106,7 +106,7 @@ end
 # 
 #   Returns: Cint
 function sf_legendre_sphPlm_array(lmax::Integer, m::Integer, x::Real)
-    result_array = convert(Cdouble, Array(Cdouble, 1))
+    result_array = Array(Cdouble, 1)
     errno = ccall( (:gsl_sf_legendre_sphPlm_array, :libgsl), Cint, (Cint,
         Cint, Cdouble, Cdouble), lmax, m, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -122,7 +122,7 @@ end
 # 
 #   Returns: Cint
 function sf_legendre_sphPlm_deriv_array(lmax::Integer, m::Integer, x::Real)
-    result_array = convert(Cdouble, Array(Cdouble, 1))
+    result_array = Array(Cdouble, 1)
     errno = ccall( (:gsl_sf_legendre_sphPlm_deriv_array, :libgsl), Cint,
         (Cint, Cint, Cdouble, Cdouble), lmax, m, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end

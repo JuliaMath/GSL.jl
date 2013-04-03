@@ -29,7 +29,7 @@ function linalg_SV_decomp()
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}),
         A, V, S, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(V)[1] ,unsafe_ref(S)[1] ,unsafe_ref(work)[1]
+    return unsafe_ref(A) ,unsafe_ref(V) ,unsafe_ref(S) ,unsafe_ref(work)
 end
 
 
@@ -48,7 +48,7 @@ function linalg_SV_decomp_mod()
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_vector},
         Ptr{gsl_vector}), A, X, V, S, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(X)[1] ,unsafe_ref(V)[1] ,unsafe_ref(S)[1] ,unsafe_ref(work)[1]
+    return unsafe_ref(A) ,unsafe_ref(X) ,unsafe_ref(V) ,unsafe_ref(S) ,unsafe_ref(work)
 end
 
 
@@ -65,7 +65,7 @@ function linalg_SV_decomp_jacobi()
     errno = ccall( (:gsl_linalg_SV_decomp_jacobi, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_vector}), A, V, S )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(A)[1] ,unsafe_ref(V)[1] ,unsafe_ref(S)[1]
+    return unsafe_ref(A) ,unsafe_ref(V) ,unsafe_ref(S)
 end
 
 
@@ -86,5 +86,5 @@ function linalg_SV_solve(U::Ptr{gsl_matrix}, V::Ptr{gsl_matrix}, S::Ptr{gsl_vect
         Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector}), U,
         V, S, b, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x)[1]
+    return unsafe_ref(x)
 end

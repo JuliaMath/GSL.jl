@@ -30,7 +30,7 @@ function sf_conicalP_half_e(lambda::Real, x::Real)
     errno = ccall( (:gsl_sf_conicalP_half_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_2arg Number sf_conicalP_half_e
 
@@ -55,7 +55,7 @@ function sf_conicalP_mhalf_e(lambda::Real, x::Real)
     errno = ccall( (:gsl_sf_conicalP_mhalf_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_2arg Number sf_conicalP_mhalf_e
 
@@ -80,7 +80,7 @@ function sf_conicalP_0_e(lambda::Real, x::Real)
     errno = ccall( (:gsl_sf_conicalP_0_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_2arg Number sf_conicalP_0_e
 
@@ -105,7 +105,7 @@ function sf_conicalP_1_e(lambda::Real, x::Real)
     errno = ccall( (:gsl_sf_conicalP_1_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 @vectorize_2arg Number sf_conicalP_1_e
 
@@ -131,7 +131,7 @@ function sf_conicalP_sph_reg_e(l::Integer, lambda::Real, x::Real)
     errno = ccall( (:gsl_sf_conicalP_sph_reg_e, :libgsl), Cint, (Cint,
         Cdouble, Cdouble, Ptr{gsl_sf_result}), l, lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_conicalP_sph_reg_e
@@ -158,7 +158,7 @@ function sf_conicalP_cyl_reg_e(m::Integer, lambda::Real, x::Real)
     errno = ccall( (:gsl_sf_conicalP_cyl_reg_e, :libgsl), Cint, (Cint,
         Cdouble, Cdouble, Ptr{gsl_sf_result}), m, lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)[1]
+    return unsafe_ref(result)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_conicalP_cyl_reg_e

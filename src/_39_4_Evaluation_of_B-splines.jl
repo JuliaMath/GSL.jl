@@ -21,7 +21,7 @@ function bspline_eval(x::Real)
     errno = ccall( (:gsl_bspline_eval, :libgsl), Cint, (Cdouble,
         Ptr{gsl_vector}, Ptr{gsl_bspline_workspace}), x, B, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(B)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(B) ,unsafe_ref(w)
 end
 @vectorize_1arg Number bspline_eval
 
@@ -44,7 +44,7 @@ function bspline_eval_nonzero(x::Real)
         Ptr{gsl_vector}, Ptr{Csize_t}, Ptr{Csize_t},
         Ptr{gsl_bspline_workspace}), x, Bk, istart, iend, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(Bk)[1] ,unsafe_ref(istart)[1] ,unsafe_ref(iend)[1] ,unsafe_ref(w)[1]
+    return unsafe_ref(Bk) ,unsafe_ref(istart) ,unsafe_ref(iend) ,unsafe_ref(w)
 end
 @vectorize_1arg Number bspline_eval_nonzero
 

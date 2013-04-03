@@ -16,7 +16,7 @@ function matrix_swap_rows(i::Integer, j::Integer)
     errno = ccall( (:gsl_matrix_swap_rows, :libgsl), Cint,
         (Ptr{gsl_matrix}, Csize_t, Csize_t), m, i, j )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(m)[1]
+    return unsafe_ref(m)
 end
 @vectorize_2arg Number matrix_swap_rows
 
@@ -29,7 +29,7 @@ function matrix_swap_columns(i::Integer, j::Integer)
     errno = ccall( (:gsl_matrix_swap_columns, :libgsl), Cint,
         (Ptr{gsl_matrix}, Csize_t, Csize_t), m, i, j )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(m)[1]
+    return unsafe_ref(m)
 end
 @vectorize_2arg Number matrix_swap_columns
 
@@ -43,7 +43,7 @@ function matrix_swap_rowcol(i::Integer, j::Integer)
     errno = ccall( (:gsl_matrix_swap_rowcol, :libgsl), Cint,
         (Ptr{gsl_matrix}, Csize_t, Csize_t), m, i, j )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(m)[1]
+    return unsafe_ref(m)
 end
 @vectorize_2arg Number matrix_swap_rowcol
 
@@ -59,7 +59,7 @@ function matrix_transpose_memcpy(src::Ptr{gsl_matrix})
     errno = ccall( (:gsl_matrix_transpose_memcpy, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(dest)[1]
+    return unsafe_ref(dest)
 end
 
 
@@ -73,5 +73,5 @@ function matrix_transpose()
     errno = ccall( (:gsl_matrix_transpose, :libgsl), Cint,
         (Ptr{gsl_matrix}, ), m )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(m)[1]
+    return unsafe_ref(m)
 end

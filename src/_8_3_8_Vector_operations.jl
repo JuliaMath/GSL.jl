@@ -18,7 +18,7 @@ function vector_add(b::Ptr{gsl_vector})
     errno = ccall( (:gsl_vector_add, :libgsl), Cint, (Ptr{gsl_vector},
         Ptr{gsl_vector}), a, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(a)[1]
+    return unsafe_ref(a)
 end
 
 
@@ -32,7 +32,7 @@ function vector_sub(b::Ptr{gsl_vector})
     errno = ccall( (:gsl_vector_sub, :libgsl), Cint, (Ptr{gsl_vector},
         Ptr{gsl_vector}), a, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(a)[1]
+    return unsafe_ref(a)
 end
 
 
@@ -46,7 +46,7 @@ function vector_mul(b::Ptr{gsl_vector})
     errno = ccall( (:gsl_vector_mul, :libgsl), Cint, (Ptr{gsl_vector},
         Ptr{gsl_vector}), a, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(a)[1]
+    return unsafe_ref(a)
 end
 
 
@@ -60,7 +60,7 @@ function vector_div(b::Ptr{gsl_vector})
     errno = ccall( (:gsl_vector_div, :libgsl), Cint, (Ptr{gsl_vector},
         Ptr{gsl_vector}), a, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(a)[1]
+    return unsafe_ref(a)
 end
 
 
@@ -73,7 +73,7 @@ function vector_scale(x::Real)
     errno = ccall( (:gsl_vector_scale, :libgsl), Cint, (Ptr{gsl_vector},
         Cdouble), a, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(a)[1]
+    return unsafe_ref(a)
 end
 @vectorize_1arg Number vector_scale
 
@@ -87,6 +87,6 @@ function vector_add_constant(x::Real)
     errno = ccall( (:gsl_vector_add_constant, :libgsl), Cint,
         (Ptr{gsl_vector}, Cdouble), a, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(a)[1]
+    return unsafe_ref(a)
 end
 @vectorize_1arg Number vector_add_constant

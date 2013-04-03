@@ -95,6 +95,7 @@ end
 # provides an alternative to the standard math function frexp(x, e).
 # 
 #   Returns: Cdouble
-function frexp{tA<:Integer}(x::Real, e::Ptr{tA})
+function frexp{tA<:Integer}(x::Real, e_in::Vector{tA})
+    convert(Vector{Cint}, e_in)
     ccall( (:gsl_frexp, :libgsl), Cdouble, (Cdouble, Ptr{Cint}), x, e )
 end

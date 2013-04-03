@@ -17,7 +17,7 @@ function matrix_get_row(m::Ptr{gsl_matrix}, i::Integer)
     errno = ccall( (:gsl_matrix_get_row, :libgsl), Cint, (Ptr{gsl_vector},
         Ptr{gsl_matrix}, Csize_t), v, m, i )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(v)[1]
+    return unsafe_ref(v)
 end
 
 
@@ -31,7 +31,7 @@ function matrix_get_col(m::Ptr{gsl_matrix}, j::Integer)
     errno = ccall( (:gsl_matrix_get_col, :libgsl), Cint, (Ptr{gsl_vector},
         Ptr{gsl_matrix}, Csize_t), v, m, j )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(v)[1]
+    return unsafe_ref(v)
 end
 
 
@@ -45,7 +45,7 @@ function matrix_set_row(i::Integer, v::Ptr{gsl_vector})
     errno = ccall( (:gsl_matrix_set_row, :libgsl), Cint, (Ptr{gsl_matrix},
         Csize_t, Ptr{gsl_vector}), m, i, v )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(m)[1]
+    return unsafe_ref(m)
 end
 
 
@@ -59,5 +59,5 @@ function matrix_set_col(j::Integer, v::Ptr{gsl_vector})
     errno = ccall( (:gsl_matrix_set_col, :libgsl), Cint, (Ptr{gsl_matrix},
         Csize_t, Ptr{gsl_vector}), m, j, v )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(m)[1]
+    return unsafe_ref(m)
 end

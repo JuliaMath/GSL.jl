@@ -33,7 +33,7 @@ function matrix_minmax(m::Ptr{gsl_matrix})
     max_out = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:gsl_matrix_minmax, :libgsl), Void, (Ptr{gsl_matrix},
         Ptr{Cdouble}, Ptr{Cdouble}), m, min_out, max_out )
-    return unsafe_ref(min_out)[1] ,unsafe_ref(max_out)[1]
+    return unsafe_ref(min_out) ,unsafe_ref(max_out)
 end
 
 
@@ -47,7 +47,7 @@ function matrix_max_index(m::Ptr{gsl_matrix})
     jmax = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     ccall( (:gsl_matrix_max_index, :libgsl), Void, (Ptr{gsl_matrix},
         Ptr{Csize_t}, Ptr{Csize_t}), m, imax, jmax )
-    return unsafe_ref(imax)[1] ,unsafe_ref(jmax)[1]
+    return unsafe_ref(imax) ,unsafe_ref(jmax)
 end
 
 
@@ -61,7 +61,7 @@ function matrix_min_index(m::Ptr{gsl_matrix})
     jmin = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     ccall( (:gsl_matrix_min_index, :libgsl), Void, (Ptr{gsl_matrix},
         Ptr{Csize_t}, Ptr{Csize_t}), m, imin, jmin )
-    return unsafe_ref(imin)[1] ,unsafe_ref(jmin)[1]
+    return unsafe_ref(imin) ,unsafe_ref(jmin)
 end
 
 
@@ -79,5 +79,5 @@ function matrix_minmax_index(m::Ptr{gsl_matrix})
     ccall( (:gsl_matrix_minmax_index, :libgsl), Void, (Ptr{gsl_matrix},
         Ptr{Csize_t}, Ptr{Csize_t}, Ptr{Csize_t}, Ptr{Csize_t}), m, imin, jmin,
         imax, jmax )
-    return unsafe_ref(imin)[1] ,unsafe_ref(jmin)[1] ,unsafe_ref(imax)[1] ,unsafe_ref(jmax)[1]
+    return unsafe_ref(imin) ,unsafe_ref(jmin) ,unsafe_ref(imax) ,unsafe_ref(jmax)
 end

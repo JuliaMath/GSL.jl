@@ -21,5 +21,5 @@ function histogram_find(h::Ptr{gsl_histogram}, x::Real)
     errno = ccall( (:gsl_histogram_find, :libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble, Ptr{Csize_t}), h, x, i )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(i)[1]
+    return unsafe_ref(i)
 end
