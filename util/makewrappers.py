@@ -321,6 +321,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             isDisabled = False #Will be disabled if the parse fails
             outputs = fn.find_previous('b').previous
             funcname = fn.find_previous('b').string
+            if 'blas_' in funcname: continue #Don't bother with BLAS wrappers
             inputs = fn.find_previous('b').find_next('var').get_text()
             try:
                 comments = fn.find_next('blockquote').findAll(text=lambda text:isinstance(text, Comment))
@@ -407,7 +408,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                     elif 'Ptr{Cchar}' in inp or ('Ptr{' in inp and not julia_input_const[i]):
                         NewOutputs.append(input_name)
                         NewOutputs_types.append(inp)
-                    #If they are called something like 'result'
+                    #Assume all variables called something like 'result' are output
                     elif 'result' in input_name.lower():
                         NewOutputs.append(input_name)
                         NewOutputs_types.append(inp)
@@ -426,7 +427,9 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             ccall_input_names = []
             template='tA'
             do_vectorize=0
+            convert_lines = []
             for i, var in enumerate(new_julia_input_names):
+                var_in = var
                 intype = new_julia_inputs[i]
                 #Generalize types in function declaration
                 
@@ -435,6 +438,10 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                     basetype=intype[intype.rfind('{')+1:intype.find('}')]
                     if basetype in GeneralType:
                         gentype = GeneralType[basetype]
+                        if gentype in ['Complex', 'Integer', 'Real']:
+                            intype=intype.replace('Ptr', 'Vector')
+                        var_in = var+'_in'
+                        convert_lines.append('    convert('+intype+', '+var_in+')')
                         functemplatevars[template] = gentype
                         intype = intype[:intype.rfind('{')+1]+template+intype[intype.find('}')-1+1:]
                         template=template[:-1]+chr(ord(template[-1])+1)
@@ -447,13 +454,13 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                     else:
                         do_vectorize=-1
 
-                julia_decl.append(var+'::'+intype)
+                julia_decl.append(var_in+'::'+intype)
                 #When to put ampersands?
                 #if ('Ptr{gsl_' in intype):
                 #    ccall_input_names.append('&'+var)
 
             if len(functemplatevars) > 0:
-                functemplate='{'+' ,'.join([k+'<:'+v for k,v in functemplatevars.items()])+'}'
+                functemplate='{'+', '.join([k+'<:'+v for k,v in sorted(functemplatevars.items())])+'}'
             else:
                 functemplate=''
                 
@@ -473,10 +480,13 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                     ty = NewOutputs_types[i]
                     dims = ty.count('}')
                     ty_decl=ty.replace('}','').replace('Ptr{','')
-                    if dims==0: dims=1
-                    ty_decl='convert('+ty+', Array('*dims+ty_decl+', 1)'*dims+')'
+                    if dims==0:
+                        ty_decl='Array('+ty_decl+', 1)'
+                        return_me.append('unsafe_ref('+x+')[1]')
+                    else:
+                        ty_decl='convert('+ty+', Array('*dims+ty_decl+', 1)'*dims+')'
+                        return_me.append('unsafe_ref('*dims+x+')'*dims)
                     new_vars.append('    '+x+' = '+ty_decl)
-                    return_me.append('unsafe_ref('*dims+x+')[1]'*dims)
 
             ccall_line = 'ccall( '+', '.join(ccall_args)+' )'
             #If return type is Cint, assume this is an error code
@@ -500,6 +510,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             parsed_out += ['#   Returns: '+julia_output]
             parsed_out += warnings
             parsed_out += ['function '+funcname+functemplate+'('+', '.join(julia_decl) +varargs+')']
+            parsed_out += convert_lines
             parsed_out += new_vars
             parsed_out += ccall_line
             parsed_out += ['end']
@@ -657,7 +668,7 @@ if __name__ == '__main__':
         #f.write('typealias '+'p'+unknown+' Ptr{'+unknown+'}\n')
 
     f.write('\n\n#Automatically generated include list\n')
-    #f.write('\n\n'.join(['\nprintln("'+x+')\ninclude("'+x+'")' for x in filenames]))
+    #f.write('\n\n'.join(['\nprintln("'+x+'")\ninclude("'+x+'")' for x in filenames]))
     f.write('\n\n'.join(['\ninclude("'+x+'")' for x in filenames]))
     f.write('\n')
     f.close()
