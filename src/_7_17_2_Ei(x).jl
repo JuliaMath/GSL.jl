@@ -14,9 +14,10 @@ export gsl_sf_expint_Ei, gsl_sf_expint_Ei_e
 # of the integral.
 # 
 #   Returns: Cdouble
-function gsl_sf_expint_Ei(x::Cdouble)
+function gsl_sf_expint_Ei(x::Real)
     ccall( (:gsl_sf_expint_Ei, :libgsl), Cdouble, (Cdouble, ), x )
 end
+@vectorize_1arg Number gsl_sf_expint_Ei
 
 
 # These routines compute the exponential integral  Ei(x),                 Ei(x)
@@ -24,10 +25,11 @@ end
 # of the integral.
 # 
 #   Returns: Cint
-function gsl_sf_expint_Ei_e(x::Cdouble)
+function gsl_sf_expint_Ei_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_expint_Ei_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_1arg Number gsl_sf_expint_Ei_e

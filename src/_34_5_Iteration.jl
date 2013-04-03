@@ -18,12 +18,12 @@ export gsl_min_fminimizer_iterate, gsl_min_fminimizer_iterate,
 # interval.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_min_fminimizer_iterate(s::Ptr{Void})
+function gsl_min_fminimizer_iterate()
+    s = convert(Ptr{gsl_min_fminimizer}, Array(gsl_min_fminimizer, 1))
     gsl_errno = ccall( (:gsl_min_fminimizer_iterate, :libgsl), Cint,
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_min_fminimizer}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end
 
 
@@ -31,12 +31,12 @@ end
 # the minimizer s.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_min_fminimizer_iterate(s::Ptr{Void})
+function gsl_min_fminimizer_iterate()
+    s = convert(Ptr{gsl_min_fminimizer}, Array(gsl_min_fminimizer, 1))
     gsl_errno = ccall( (:gsl_min_fminimizer_iterate, :libgsl), Cint,
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_min_fminimizer}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end
 
 
@@ -44,11 +44,9 @@ end
 # the minimizer s.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_min_fminimizer_x_minimum(s::Ptr{Void})
-    ccall( (:gsl_min_fminimizer_x_minimum, :libgsl), Cdouble, (Ptr{Void},
-        ), s )
+function gsl_min_fminimizer_x_minimum(s::Ptr{gsl_min_fminimizer})
+    ccall( (:gsl_min_fminimizer_x_minimum, :libgsl), Cdouble,
+        (Ptr{gsl_min_fminimizer}, ), s )
 end
 
 
@@ -56,11 +54,9 @@ end
 # the minimizer s.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_min_fminimizer_x_upper(s::Ptr{Void})
-    ccall( (:gsl_min_fminimizer_x_upper, :libgsl), Cdouble, (Ptr{Void}, ),
-        s )
+function gsl_min_fminimizer_x_upper(s::Ptr{gsl_min_fminimizer})
+    ccall( (:gsl_min_fminimizer_x_upper, :libgsl), Cdouble,
+        (Ptr{gsl_min_fminimizer}, ), s )
 end
 
 
@@ -68,11 +64,9 @@ end
 # the minimizer s.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_min_fminimizer_x_lower(s::Ptr{Void})
-    ccall( (:gsl_min_fminimizer_x_lower, :libgsl), Cdouble, (Ptr{Void}, ),
-        s )
+function gsl_min_fminimizer_x_lower(s::Ptr{gsl_min_fminimizer})
+    ccall( (:gsl_min_fminimizer_x_lower, :libgsl), Cdouble,
+        (Ptr{gsl_min_fminimizer}, ), s )
 end
 
 
@@ -81,11 +75,9 @@ end
 # minimizer s.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_min_fminimizer_f_minimum(s::Ptr{Void})
-    ccall( (:gsl_min_fminimizer_f_minimum, :libgsl), Cdouble, (Ptr{Void},
-        ), s )
+function gsl_min_fminimizer_f_minimum(s::Ptr{gsl_min_fminimizer})
+    ccall( (:gsl_min_fminimizer_f_minimum, :libgsl), Cdouble,
+        (Ptr{gsl_min_fminimizer}, ), s )
 end
 
 
@@ -94,11 +86,9 @@ end
 # minimizer s.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_min_fminimizer_f_upper(s::Ptr{Void})
-    ccall( (:gsl_min_fminimizer_f_upper, :libgsl), Cdouble, (Ptr{Void}, ),
-        s )
+function gsl_min_fminimizer_f_upper(s::Ptr{gsl_min_fminimizer})
+    ccall( (:gsl_min_fminimizer_f_upper, :libgsl), Cdouble,
+        (Ptr{gsl_min_fminimizer}, ), s )
 end
 
 
@@ -107,9 +97,7 @@ end
 # minimizer s.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type s::Ptr{gsl_min_fminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_min_fminimizer_f_lower(s::Ptr{Void})
-    ccall( (:gsl_min_fminimizer_f_lower, :libgsl), Cdouble, (Ptr{Void}, ),
-        s )
+function gsl_min_fminimizer_f_lower(s::Ptr{gsl_min_fminimizer})
+    ccall( (:gsl_min_fminimizer_f_lower, :libgsl), Cdouble,
+        (Ptr{gsl_min_fminimizer}, ), s )
 end

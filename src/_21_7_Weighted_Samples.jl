@@ -31,9 +31,10 @@ export gsl_stats_wmean, gsl_stats_wvariance, gsl_stats_wvariance_m,
 # w_i x_i) / (\sum w_i)
 # 
 #   Returns: Cdouble
-function gsl_stats_wmean(w::Cdouble)
+function gsl_stats_wmean(w::Real)
     ccall( (:gsl_stats_wmean, :libgsl), Cdouble, (Cdouble, ), w )
 end
+@vectorize_1arg Number gsl_stats_wmean
 
 
 # This function returns the estimated variance of the dataset data with stride
@@ -45,18 +46,20 @@ end
 # non-zero weights.
 # 
 #   Returns: Cdouble
-function gsl_stats_wvariance(w::Cdouble)
+function gsl_stats_wvariance(w::Real)
     ccall( (:gsl_stats_wvariance, :libgsl), Cdouble, (Cdouble, ), w )
 end
+@vectorize_1arg Number gsl_stats_wvariance
 
 
 # This function returns the estimated variance of the weighted dataset data
 # using the given weighted mean wmean.
 # 
 #   Returns: Cdouble
-function gsl_stats_wvariance_m(w::Cdouble)
+function gsl_stats_wvariance_m(w::Real)
     ccall( (:gsl_stats_wvariance_m, :libgsl), Cdouble, (Cdouble, ), w )
 end
+@vectorize_1arg Number gsl_stats_wvariance_m
 
 
 # The standard deviation is defined as the square root of the variance.  This
@@ -64,18 +67,20 @@ end
 # gsl_stats_wvariance above.
 # 
 #   Returns: Cdouble
-function gsl_stats_wsd(w::Cdouble)
+function gsl_stats_wsd(w::Real)
     ccall( (:gsl_stats_wsd, :libgsl), Cdouble, (Cdouble, ), w )
 end
+@vectorize_1arg Number gsl_stats_wsd
 
 
 # This function returns the square root of the corresponding variance function
 # gsl_stats_wvariance_m above.
 # 
 #   Returns: Cdouble
-function gsl_stats_wsd_m(w::Cdouble)
+function gsl_stats_wsd_m(w::Real)
     ccall( (:gsl_stats_wsd_m, :libgsl), Cdouble, (Cdouble, ), w )
 end
+@vectorize_1arg Number gsl_stats_wsd_m
 
 
 # This function computes an unbiased estimate of the variance of the weighted
@@ -85,10 +90,11 @@ end
 # \Hat\sigma^2 = (\sum w_i (x_i - \mu)^2) / (\sum w_i)
 # 
 #   Returns: Cdouble
-function gsl_stats_wvariance_with_fixed_mean(w::Cdouble)
+function gsl_stats_wvariance_with_fixed_mean(w::Real)
     ccall( (:gsl_stats_wvariance_with_fixed_mean, :libgsl), Cdouble,
         (Cdouble, ), w )
 end
+@vectorize_1arg Number gsl_stats_wvariance_with_fixed_mean
 
 
 # The standard deviation is defined as the square root of the variance.  This
@@ -96,10 +102,11 @@ end
 # above.
 # 
 #   Returns: Cdouble
-function gsl_stats_wsd_with_fixed_mean(w::Cdouble)
+function gsl_stats_wsd_with_fixed_mean(w::Real)
     ccall( (:gsl_stats_wsd_with_fixed_mean, :libgsl), Cdouble, (Cdouble, ),
         w )
 end
+@vectorize_1arg Number gsl_stats_wsd_with_fixed_mean
 
 
 # These functions return the weighted total sum of squares (TSS) of data about
@@ -108,9 +115,10 @@ end
 # TSS =  \sum w_i (x_i - wmean)^2
 # 
 #   Returns: Cdouble
-function gsl_stats_wtss(w::Cdouble)
+function gsl_stats_wtss(w::Real)
     ccall( (:gsl_stats_wtss, :libgsl), Cdouble, (Cdouble, ), w )
 end
+@vectorize_1arg Number gsl_stats_wtss
 
 
 # These functions return the weighted total sum of squares (TSS) of data about
@@ -119,9 +127,10 @@ end
 # TSS =  \sum w_i (x_i - wmean)^2
 # 
 #   Returns: Cdouble
-function gsl_stats_wtss_m(w::Cdouble)
+function gsl_stats_wtss_m(w::Real)
     ccall( (:gsl_stats_wtss_m, :libgsl), Cdouble, (Cdouble, ), w )
 end
+@vectorize_1arg Number gsl_stats_wtss_m
 
 
 # This function computes the weighted absolute deviation from the weighted mean
@@ -129,27 +138,30 @@ end
 # absdev = (\sum w_i |x_i - \Hat\mu|) / (\sum w_i)
 # 
 #   Returns: Cdouble
-function gsl_stats_wabsdev(w::Cdouble)
+function gsl_stats_wabsdev(w::Real)
     ccall( (:gsl_stats_wabsdev, :libgsl), Cdouble, (Cdouble, ), w )
 end
+@vectorize_1arg Number gsl_stats_wabsdev
 
 
 # This function computes the absolute deviation of the weighted dataset data
 # about the given weighted mean wmean.
 # 
 #   Returns: Cdouble
-function gsl_stats_wabsdev_m(w::Cdouble)
+function gsl_stats_wabsdev_m(w::Real)
     ccall( (:gsl_stats_wabsdev_m, :libgsl), Cdouble, (Cdouble, ), w )
 end
+@vectorize_1arg Number gsl_stats_wabsdev_m
 
 
 # This function computes the weighted skewness of the dataset data.
 # skew = (\sum w_i ((x_i - \Hat x)/\Hat \sigma)^3) / (\sum w_i)
 # 
 #   Returns: Cdouble
-function gsl_stats_wskew(w::Cdouble)
+function gsl_stats_wskew(w::Real)
     ccall( (:gsl_stats_wskew, :libgsl), Cdouble, (Cdouble, ), w )
 end
+@vectorize_1arg Number gsl_stats_wskew
 
 
 # This function computes the weighted skewness of the dataset data using the
@@ -157,18 +169,20 @@ end
 # wsd.
 # 
 #   Returns: Cdouble
-function gsl_stats_wskew_m_sd(w::Cdouble)
+function gsl_stats_wskew_m_sd(w::Real)
     ccall( (:gsl_stats_wskew_m_sd, :libgsl), Cdouble, (Cdouble, ), w )
 end
+@vectorize_1arg Number gsl_stats_wskew_m_sd
 
 
 # This function computes the weighted kurtosis of the dataset data.
 # kurtosis = ((\sum w_i ((x_i - \Hat x)/\Hat \sigma)^4) / (\sum w_i)) - 3
 # 
 #   Returns: Cdouble
-function gsl_stats_wkurtosis(w::Cdouble)
+function gsl_stats_wkurtosis(w::Real)
     ccall( (:gsl_stats_wkurtosis, :libgsl), Cdouble, (Cdouble, ), w )
 end
+@vectorize_1arg Number gsl_stats_wkurtosis
 
 
 # This function computes the weighted kurtosis of the dataset data using the
@@ -176,6 +190,7 @@ end
 # wsd.
 # 
 #   Returns: Cdouble
-function gsl_stats_wkurtosis_m_sd(w::Cdouble)
+function gsl_stats_wkurtosis_m_sd(w::Real)
     ccall( (:gsl_stats_wkurtosis_m_sd, :libgsl), Cdouble, (Cdouble, ), w )
 end
+@vectorize_1arg Number gsl_stats_wkurtosis_m_sd

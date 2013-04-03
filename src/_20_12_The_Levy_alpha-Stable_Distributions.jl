@@ -20,9 +20,7 @@ export gsl_ran_levy
 # become extremely wide.          The algorithm only works for  0 < alpha <= 2.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_levy(r::Ptr{Void}, c::Cdouble, alpha::Cdouble)
-    ccall( (:gsl_ran_levy, :libgsl), Cdouble, (Ptr{Void}, Cdouble,
+function gsl_ran_levy(r::Ptr{gsl_rng}, c::Real, alpha::Real)
+    ccall( (:gsl_ran_levy, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
         Cdouble), r, c, alpha )
 end

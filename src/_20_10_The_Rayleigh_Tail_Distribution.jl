@@ -15,11 +15,9 @@ export gsl_ran_rayleigh_tail, gsl_ran_rayleigh_tail_pdf
 # x^2) /(2 \sigma^2)) dx  for x > a.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_rayleigh_tail(r::Ptr{Void}, a::Cdouble, sigma::Cdouble)
-    ccall( (:gsl_ran_rayleigh_tail, :libgsl), Cdouble, (Ptr{Void}, Cdouble,
-        Cdouble), r, a, sigma )
+function gsl_ran_rayleigh_tail(r::Ptr{gsl_rng}, a::Real, sigma::Real)
+    ccall( (:gsl_ran_rayleigh_tail, :libgsl), Cdouble, (Ptr{gsl_rng},
+        Cdouble, Cdouble), r, a, sigma )
 end
 
 
@@ -28,7 +26,9 @@ end
 # given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_rayleigh_tail_pdf(x::Cdouble, a::Cdouble, sigma::Cdouble)
+function gsl_ran_rayleigh_tail_pdf(x::Real, a::Real, sigma::Real)
     ccall( (:gsl_ran_rayleigh_tail_pdf, :libgsl), Cdouble, (Cdouble,
         Cdouble, Cdouble), x, a, sigma )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_ran_rayleigh_tail_pdf

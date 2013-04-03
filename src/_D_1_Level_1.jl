@@ -19,7 +19,7 @@ export cblas_sdsdot, cblas_dsdot, cblas_sdot, cblas_ddot, cblas_cdotu_sub,
 # 
 # 
 #   Returns: Cfloat
-function cblas_sdsdot{gsl_int<:Integer}(N::gsl_int, alpha::Cfloat, x::Ptr{Cfloat}, incx::gsl_int, y::Ptr{Cfloat}, incy::gsl_int)
+function cblas_sdsdot{tB<:Real ,tA<:Real}(N::Integer, alpha::Real, x::Ptr{tA}, incx::Integer, y::Ptr{tB}, incy::Integer)
     ccall( (:cblas_sdsdot, :libgsl), Cfloat, (Cint, Cfloat, Ptr{Cfloat},
         Cint, Ptr{Cfloat}, Cint), N, alpha, x, incx, y, incy )
 end
@@ -28,7 +28,7 @@ end
 # 
 # 
 #   Returns: Cdouble
-function cblas_dsdot{gsl_int<:Integer}(N::gsl_int, x::Ptr{Cfloat}, incx::gsl_int, y::Ptr{Cfloat}, incy::gsl_int)
+function cblas_dsdot{tB<:Real ,tA<:Real}(N::Integer, x::Ptr{tA}, incx::Integer, y::Ptr{tB}, incy::Integer)
     ccall( (:cblas_dsdot, :libgsl), Cdouble, (Cint, Ptr{Cfloat}, Cint,
         Ptr{Cfloat}, Cint), N, x, incx, y, incy )
 end
@@ -37,7 +37,7 @@ end
 # 
 # 
 #   Returns: Cfloat
-function cblas_sdot{gsl_int<:Integer}(N::gsl_int, x::Ptr{Cfloat}, incx::gsl_int, y::Ptr{Cfloat}, incy::gsl_int)
+function cblas_sdot{tB<:Real ,tA<:Real}(N::Integer, x::Ptr{tA}, incx::Integer, y::Ptr{tB}, incy::Integer)
     ccall( (:cblas_sdot, :libgsl), Cfloat, (Cint, Ptr{Cfloat}, Cint,
         Ptr{Cfloat}, Cint), N, x, incx, y, incy )
 end
@@ -46,7 +46,7 @@ end
 # 
 # 
 #   Returns: Cdouble
-function cblas_ddot{gsl_int<:Integer}(N::gsl_int, x::Ptr{Cdouble}, incx::gsl_int, y::Ptr{Cdouble}, incy::gsl_int)
+function cblas_ddot{tB<:Real ,tA<:Real}(N::Integer, x::Ptr{tA}, incx::Integer, y::Ptr{tB}, incy::Integer)
     ccall( (:cblas_ddot, :libgsl), Cdouble, (Cint, Ptr{Cdouble}, Cint,
         Ptr{Cdouble}, Cint), N, x, incx, y, incy )
 end
@@ -55,7 +55,7 @@ end
 # 
 # 
 #   Returns: Void
-function cblas_cdotu_sub{gsl_int<:Integer}(N::gsl_int, x::Ptr{Void}, incx::gsl_int, y::Ptr{Void}, incy::gsl_int, dotu::Ptr{Void})
+function cblas_cdotu_sub(N::Integer, x::Ptr{Void}, incx::Integer, y::Ptr{Void}, incy::Integer, dotu::Ptr{Void})
     ccall( (:cblas_cdotu_sub, :libgsl), Void, (Cint, Ptr{Void}, Cint,
         Ptr{Void}, Cint, Ptr{Void}), N, x, incx, y, incy, dotu )
 end
@@ -64,7 +64,7 @@ end
 # 
 # 
 #   Returns: Void
-function cblas_cdotc_sub{gsl_int<:Integer}(N::gsl_int, x::Ptr{Void}, incx::gsl_int, y::Ptr{Void}, incy::gsl_int, dotc::Ptr{Void})
+function cblas_cdotc_sub(N::Integer, x::Ptr{Void}, incx::Integer, y::Ptr{Void}, incy::Integer, dotc::Ptr{Void})
     ccall( (:cblas_cdotc_sub, :libgsl), Void, (Cint, Ptr{Void}, Cint,
         Ptr{Void}, Cint, Ptr{Void}), N, x, incx, y, incy, dotc )
 end
@@ -73,7 +73,7 @@ end
 # 
 # 
 #   Returns: Void
-function cblas_zdotu_sub{gsl_int<:Integer}(N::gsl_int, x::Ptr{Void}, incx::gsl_int, y::Ptr{Void}, incy::gsl_int, dotu::Ptr{Void})
+function cblas_zdotu_sub(N::Integer, x::Ptr{Void}, incx::Integer, y::Ptr{Void}, incy::Integer, dotu::Ptr{Void})
     ccall( (:cblas_zdotu_sub, :libgsl), Void, (Cint, Ptr{Void}, Cint,
         Ptr{Void}, Cint, Ptr{Void}), N, x, incx, y, incy, dotu )
 end
@@ -82,7 +82,7 @@ end
 # 
 # 
 #   Returns: Void
-function cblas_zdotc_sub{gsl_int<:Integer}(N::gsl_int, x::Ptr{Void}, incx::gsl_int, y::Ptr{Void}, incy::gsl_int, dotc::Ptr{Void})
+function cblas_zdotc_sub(N::Integer, x::Ptr{Void}, incx::Integer, y::Ptr{Void}, incy::Integer, dotc::Ptr{Void})
     ccall( (:cblas_zdotc_sub, :libgsl), Void, (Cint, Ptr{Void}, Cint,
         Ptr{Void}, Cint, Ptr{Void}), N, x, incx, y, incy, dotc )
 end
@@ -91,7 +91,7 @@ end
 # 
 # 
 #   Returns: Cfloat
-function cblas_snrm2{gsl_int<:Integer}(N::gsl_int, x::Ptr{Cfloat}, incx::gsl_int)
+function cblas_snrm2{tA<:Real}(N::Integer, x::Ptr{tA}, incx::Integer)
     ccall( (:cblas_snrm2, :libgsl), Cfloat, (Cint, Ptr{Cfloat}, Cint), N,
         x, incx )
 end
@@ -100,7 +100,7 @@ end
 # 
 # 
 #   Returns: Cfloat
-function cblas_sasum{gsl_int<:Integer}(N::gsl_int, x::Ptr{Cfloat}, incx::gsl_int)
+function cblas_sasum{tA<:Real}(N::Integer, x::Ptr{tA}, incx::Integer)
     ccall( (:cblas_sasum, :libgsl), Cfloat, (Cint, Ptr{Cfloat}, Cint), N,
         x, incx )
 end
@@ -109,7 +109,7 @@ end
 # 
 # 
 #   Returns: Cdouble
-function cblas_dnrm2{gsl_int<:Integer}(N::gsl_int, x::Ptr{Cdouble}, incx::gsl_int)
+function cblas_dnrm2{tA<:Real}(N::Integer, x::Ptr{tA}, incx::Integer)
     ccall( (:cblas_dnrm2, :libgsl), Cdouble, (Cint, Ptr{Cdouble}, Cint), N,
         x, incx )
 end
@@ -118,7 +118,7 @@ end
 # 
 # 
 #   Returns: Cdouble
-function cblas_dasum{gsl_int<:Integer}(N::gsl_int, x::Ptr{Cdouble}, incx::gsl_int)
+function cblas_dasum{tA<:Real}(N::Integer, x::Ptr{tA}, incx::Integer)
     ccall( (:cblas_dasum, :libgsl), Cdouble, (Cint, Ptr{Cdouble}, Cint), N,
         x, incx )
 end
@@ -127,7 +127,7 @@ end
 # 
 # 
 #   Returns: Cfloat
-function cblas_scnrm2{gsl_int<:Integer}(N::gsl_int, x::Ptr{Void}, incx::gsl_int)
+function cblas_scnrm2(N::Integer, x::Ptr{Void}, incx::Integer)
     ccall( (:cblas_scnrm2, :libgsl), Cfloat, (Cint, Ptr{Void}, Cint), N, x,
         incx )
 end
@@ -136,7 +136,7 @@ end
 # 
 # 
 #   Returns: Cfloat
-function cblas_scasum{gsl_int<:Integer}(N::gsl_int, x::Ptr{Void}, incx::gsl_int)
+function cblas_scasum(N::Integer, x::Ptr{Void}, incx::Integer)
     ccall( (:cblas_scasum, :libgsl), Cfloat, (Cint, Ptr{Void}, Cint), N, x,
         incx )
 end
@@ -145,7 +145,7 @@ end
 # 
 # 
 #   Returns: Cdouble
-function cblas_dznrm2{gsl_int<:Integer}(N::gsl_int, x::Ptr{Void}, incx::gsl_int)
+function cblas_dznrm2(N::Integer, x::Ptr{Void}, incx::Integer)
     ccall( (:cblas_dznrm2, :libgsl), Cdouble, (Cint, Ptr{Void}, Cint), N,
         x, incx )
 end
@@ -154,7 +154,7 @@ end
 # 
 # 
 #   Returns: Cdouble
-function cblas_dzasum{gsl_int<:Integer}(N::gsl_int, x::Ptr{Void}, incx::gsl_int)
+function cblas_dzasum(N::Integer, x::Ptr{Void}, incx::Integer)
     ccall( (:cblas_dzasum, :libgsl), Cdouble, (Cint, Ptr{Void}, Cint), N,
         x, incx )
 end
@@ -162,120 +162,116 @@ end
 
 # 
 # 
-#   Returns: Void
-#XXX Unknown output type CBLAS_INDEX
-#XXX Coerced type for output Void
-function cblas_isamax{gsl_int<:Integer}(N::gsl_int, x::Ptr{Cfloat}, incx::gsl_int)
-    ccall( (:cblas_isamax, :libgsl), Void, (Cint, Ptr{Cfloat}, Cint), N, x,
-        incx )
+#   Returns: CBLAS_INDEX
+function cblas_isamax{tA<:Real}(N::Integer, x::Ptr{tA}, incx::Integer)
+    ccall( (:cblas_isamax, :libgsl), CBLAS_INDEX, (Cint, Ptr{Cfloat},
+        Cint), N, x, incx )
+end
+
+
+# 
+# 
+#   Returns: CBLAS_INDEX
+function cblas_idamax{tA<:Real}(N::Integer, x::Ptr{tA}, incx::Integer)
+    ccall( (:cblas_idamax, :libgsl), CBLAS_INDEX, (Cint, Ptr{Cdouble},
+        Cint), N, x, incx )
+end
+
+
+# 
+# 
+#   Returns: CBLAS_INDEX
+function cblas_icamax(N::Integer, x::Ptr{Void}, incx::Integer)
+    ccall( (:cblas_icamax, :libgsl), CBLAS_INDEX, (Cint, Ptr{Void}, Cint),
+        N, x, incx )
+end
+
+
+# 
+# 
+#   Returns: CBLAS_INDEX
+function cblas_izamax(N::Integer, x::Ptr{Void}, incx::Integer)
+    ccall( (:cblas_izamax, :libgsl), CBLAS_INDEX, (Cint, Ptr{Void}, Cint),
+        N, x, incx )
 end
 
 
 # 
 # 
 #   Returns: Void
-#XXX Unknown output type CBLAS_INDEX
-#XXX Coerced type for output Void
-function cblas_idamax{gsl_int<:Integer}(N::gsl_int, x::Ptr{Cdouble}, incx::gsl_int)
-    ccall( (:cblas_idamax, :libgsl), Void, (Cint, Ptr{Cdouble}, Cint), N,
-        x, incx )
-end
-
-
-# 
-# 
-#   Returns: Void
-#XXX Unknown output type CBLAS_INDEX
-#XXX Coerced type for output Void
-function cblas_icamax{gsl_int<:Integer}(N::gsl_int, x::Ptr{Void}, incx::gsl_int)
-    ccall( (:cblas_icamax, :libgsl), Void, (Cint, Ptr{Void}, Cint), N, x,
-        incx )
-end
-
-
-# 
-# 
-#   Returns: Void
-#XXX Unknown output type CBLAS_INDEX
-#XXX Coerced type for output Void
-function cblas_izamax{gsl_int<:Integer}(N::gsl_int, x::Ptr{Void}, incx::gsl_int)
-    ccall( (:cblas_izamax, :libgsl), Void, (Cint, Ptr{Void}, Cint), N, x,
-        incx )
-end
-
-
-# 
-# 
-#   Returns: Void
-function cblas_sswap{gsl_int<:Integer}(N::gsl_int, incx::gsl_int, incy::gsl_int)
+function cblas_sswap(N::Integer, incx::Integer, incy::Integer)
     x = convert(Ptr{Cfloat}, Array(Cfloat, 1))
     y = convert(Ptr{Cfloat}, Array(Cfloat, 1))
     ccall( (:cblas_sswap, :libgsl), Void, (Cint, Ptr{Cfloat}, Cint,
         Ptr{Cfloat}, Cint), N, x, incx, y, incy )
-    return unsafe_ref(x) ,unsafe_ref(y)
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number cblas_sswap
 
 
 # 
 # 
 #   Returns: Void
-function cblas_scopy{gsl_int<:Integer}(N::gsl_int, x::Ptr{Cfloat}, incx::gsl_int, incy::gsl_int)
+function cblas_scopy{tA<:Real}(N::Integer, x::Ptr{tA}, incx::Integer, incy::Integer)
     y = convert(Ptr{Cfloat}, Array(Cfloat, 1))
     ccall( (:cblas_scopy, :libgsl), Void, (Cint, Ptr{Cfloat}, Cint,
         Ptr{Cfloat}, Cint), N, x, incx, y, incy )
-    return unsafe_ref(y)
+    return unsafe_ref(y)[1]
 end
 
 
 # 
 # 
 #   Returns: Void
-function cblas_saxpy{gsl_int<:Integer}(N::gsl_int, alpha::Cfloat, x::Ptr{Cfloat}, incx::gsl_int, incy::gsl_int)
+function cblas_saxpy{tA<:Real}(N::Integer, alpha::Real, x::Ptr{tA}, incx::Integer, incy::Integer)
     y = convert(Ptr{Cfloat}, Array(Cfloat, 1))
     ccall( (:cblas_saxpy, :libgsl), Void, (Cint, Cfloat, Ptr{Cfloat}, Cint,
         Ptr{Cfloat}, Cint), N, alpha, x, incx, y, incy )
-    return unsafe_ref(y)
+    return unsafe_ref(y)[1]
 end
 
 
 # 
 # 
 #   Returns: Void
-function cblas_dswap{gsl_int<:Integer}(N::gsl_int, incx::gsl_int, incy::gsl_int)
+function cblas_dswap(N::Integer, incx::Integer, incy::Integer)
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:cblas_dswap, :libgsl), Void, (Cint, Ptr{Cdouble}, Cint,
         Ptr{Cdouble}, Cint), N, x, incx, y, incy )
-    return unsafe_ref(x) ,unsafe_ref(y)
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number cblas_dswap
 
 
 # 
 # 
 #   Returns: Void
-function cblas_dcopy{gsl_int<:Integer}(N::gsl_int, x::Ptr{Cdouble}, incx::gsl_int, incy::gsl_int)
+function cblas_dcopy{tA<:Real}(N::Integer, x::Ptr{tA}, incx::Integer, incy::Integer)
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:cblas_dcopy, :libgsl), Void, (Cint, Ptr{Cdouble}, Cint,
         Ptr{Cdouble}, Cint), N, x, incx, y, incy )
-    return unsafe_ref(y)
+    return unsafe_ref(y)[1]
 end
 
 
 # 
 # 
 #   Returns: Void
-function cblas_daxpy{gsl_int<:Integer}(N::gsl_int, alpha::Cdouble, x::Ptr{Cdouble}, incx::gsl_int, incy::gsl_int)
+function cblas_daxpy{tA<:Real}(N::Integer, alpha::Real, x::Ptr{tA}, incx::Integer, incy::Integer)
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:cblas_daxpy, :libgsl), Void, (Cint, Cdouble, Ptr{Cdouble},
         Cint, Ptr{Cdouble}, Cint), N, alpha, x, incx, y, incy )
-    return unsafe_ref(y)
+    return unsafe_ref(y)[1]
 end
 
 
 # 
 # 
 #   Returns: Void
-function cblas_cswap{gsl_int<:Integer}(N::gsl_int, x::Ptr{Void}, incx::gsl_int, y::Ptr{Void}, incy::gsl_int)
+function cblas_cswap(N::Integer, x::Ptr{Void}, incx::Integer, y::Ptr{Void}, incy::Integer)
     ccall( (:cblas_cswap, :libgsl), Void, (Cint, Ptr{Void}, Cint,
         Ptr{Void}, Cint), N, x, incx, y, incy )
 end
@@ -284,7 +280,7 @@ end
 # 
 # 
 #   Returns: Void
-function cblas_ccopy{gsl_int<:Integer}(N::gsl_int, x::Ptr{Void}, incx::gsl_int, y::Ptr{Void}, incy::gsl_int)
+function cblas_ccopy(N::Integer, x::Ptr{Void}, incx::Integer, y::Ptr{Void}, incy::Integer)
     ccall( (:cblas_ccopy, :libgsl), Void, (Cint, Ptr{Void}, Cint,
         Ptr{Void}, Cint), N, x, incx, y, incy )
 end
@@ -293,7 +289,7 @@ end
 # 
 # 
 #   Returns: Void
-function cblas_caxpy{gsl_int<:Integer}(N::gsl_int, alpha::Ptr{Void}, x::Ptr{Void}, incx::gsl_int, y::Ptr{Void}, incy::gsl_int)
+function cblas_caxpy(N::Integer, alpha::Ptr{Void}, x::Ptr{Void}, incx::Integer, y::Ptr{Void}, incy::Integer)
     ccall( (:cblas_caxpy, :libgsl), Void, (Cint, Ptr{Void}, Ptr{Void},
         Cint, Ptr{Void}, Cint), N, alpha, x, incx, y, incy )
 end
@@ -302,7 +298,7 @@ end
 # 
 # 
 #   Returns: Void
-function cblas_zswap{gsl_int<:Integer}(N::gsl_int, x::Ptr{Void}, incx::gsl_int, y::Ptr{Void}, incy::gsl_int)
+function cblas_zswap(N::Integer, x::Ptr{Void}, incx::Integer, y::Ptr{Void}, incy::Integer)
     ccall( (:cblas_zswap, :libgsl), Void, (Cint, Ptr{Void}, Cint,
         Ptr{Void}, Cint), N, x, incx, y, incy )
 end
@@ -311,7 +307,7 @@ end
 # 
 # 
 #   Returns: Void
-function cblas_zcopy{gsl_int<:Integer}(N::gsl_int, x::Ptr{Void}, incx::gsl_int, y::Ptr{Void}, incy::gsl_int)
+function cblas_zcopy(N::Integer, x::Ptr{Void}, incx::Integer, y::Ptr{Void}, incy::Integer)
     ccall( (:cblas_zcopy, :libgsl), Void, (Cint, Ptr{Void}, Cint,
         Ptr{Void}, Cint), N, x, incx, y, incy )
 end
@@ -320,7 +316,7 @@ end
 # 
 # 
 #   Returns: Void
-function cblas_zaxpy{gsl_int<:Integer}(N::gsl_int, alpha::Ptr{Void}, x::Ptr{Void}, incx::gsl_int, y::Ptr{Void}, incy::gsl_int)
+function cblas_zaxpy(N::Integer, alpha::Ptr{Void}, x::Ptr{Void}, incx::Integer, y::Ptr{Void}, incy::Integer)
     ccall( (:cblas_zaxpy, :libgsl), Void, (Cint, Ptr{Void}, Ptr{Void},
         Cint, Ptr{Void}, Cint), N, alpha, x, incx, y, incy )
 end
@@ -336,45 +332,48 @@ function cblas_srotg()
     s = convert(Ptr{Cfloat}, Array(Cfloat, 1))
     ccall( (:cblas_srotg, :libgsl), Void, (Ptr{Cfloat}, Ptr{Cfloat},
         Ptr{Cfloat}, Ptr{Cfloat}), a, b, c, s )
-    return unsafe_ref(a) ,unsafe_ref(b) ,unsafe_ref(c) ,unsafe_ref(s)
+    return unsafe_ref(a)[1] ,unsafe_ref(b)[1] ,unsafe_ref(c)[1] ,unsafe_ref(s)[1]
 end
 
 
 # 
 # 
 #   Returns: Void
-function cblas_srotmg(b2::Cfloat)
+function cblas_srotmg(b2::Real)
     d1 = convert(Ptr{Cfloat}, Array(Cfloat, 1))
     d2 = convert(Ptr{Cfloat}, Array(Cfloat, 1))
     b1 = convert(Ptr{Cfloat}, Array(Cfloat, 1))
     P = convert(Ptr{Cfloat}, Array(Cfloat, 1))
     ccall( (:cblas_srotmg, :libgsl), Void, (Ptr{Cfloat}, Ptr{Cfloat},
         Ptr{Cfloat}, Cfloat, Ptr{Cfloat}), d1, d2, b1, b2, P )
-    return unsafe_ref(d1) ,unsafe_ref(d2) ,unsafe_ref(b1) ,unsafe_ref(P)
+    return unsafe_ref(d1)[1] ,unsafe_ref(d2)[1] ,unsafe_ref(b1)[1] ,unsafe_ref(P)[1]
 end
+@vectorize_1arg Number cblas_srotmg
 
 
 # 
 # 
 #   Returns: Void
-function cblas_srot{gsl_int<:Integer}(N::gsl_int, incx::gsl_int, incy::gsl_int, c::Cfloat, s::Cfloat)
+function cblas_srot(N::Integer, incx::Integer, incy::Integer, c::Real, s::Real)
     x = convert(Ptr{Cfloat}, Array(Cfloat, 1))
     y = convert(Ptr{Cfloat}, Array(Cfloat, 1))
     ccall( (:cblas_srot, :libgsl), Void, (Cint, Ptr{Cfloat}, Cint,
         Ptr{Cfloat}, Cint, Cfloat, Cfloat), N, x, incx, y, incy, c, s )
-    return unsafe_ref(x) ,unsafe_ref(y)
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_5arg Number cblas_srot
 
 
 # 
 # 
 #   Returns: Void
-function cblas_srotm{gsl_int<:Integer}(N::gsl_int, incx::gsl_int, incy::gsl_int, P::Ptr{Cfloat})
+function cblas_srotm{tA<:Real}(N::Integer, incx::Integer, incy::Integer, P::Ptr{tA})
     x = convert(Ptr{Cfloat}, Array(Cfloat, 1))
     y = convert(Ptr{Cfloat}, Array(Cfloat, 1))
     ccall( (:cblas_srotm, :libgsl), Void, (Cint, Ptr{Cfloat}, Cint,
         Ptr{Cfloat}, Cint, Ptr{Cfloat}), N, x, incx, y, incy, P )
-    return unsafe_ref(x) ,unsafe_ref(y)
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
 
 
@@ -388,74 +387,81 @@ function cblas_drotg()
     s = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:cblas_drotg, :libgsl), Void, (Ptr{Cdouble}, Ptr{Cdouble},
         Ptr{Cdouble}, Ptr{Cdouble}), a, b, c, s )
-    return unsafe_ref(a) ,unsafe_ref(b) ,unsafe_ref(c) ,unsafe_ref(s)
+    return unsafe_ref(a)[1] ,unsafe_ref(b)[1] ,unsafe_ref(c)[1] ,unsafe_ref(s)[1]
 end
 
 
 # 
 # 
 #   Returns: Void
-function cblas_drotmg(b2::Cdouble)
+function cblas_drotmg(b2::Real)
     d1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     d2 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     b1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     P = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:cblas_drotmg, :libgsl), Void, (Ptr{Cdouble}, Ptr{Cdouble},
         Ptr{Cdouble}, Cdouble, Ptr{Cdouble}), d1, d2, b1, b2, P )
-    return unsafe_ref(d1) ,unsafe_ref(d2) ,unsafe_ref(b1) ,unsafe_ref(P)
+    return unsafe_ref(d1)[1] ,unsafe_ref(d2)[1] ,unsafe_ref(b1)[1] ,unsafe_ref(P)[1]
 end
+@vectorize_1arg Number cblas_drotmg
 
 
 # 
 # 
 #   Returns: Void
-function cblas_drot{gsl_int<:Integer}(N::gsl_int, incx::gsl_int, incy::gsl_int, c::Cdouble, s::Cdouble)
+function cblas_drot(N::Integer, incx::Integer, incy::Integer, c::Real, s::Real)
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:cblas_drot, :libgsl), Void, (Cint, Ptr{Cdouble}, Cint,
         Ptr{Cdouble}, Cint, Cdouble, Cdouble), N, x, incx, y, incy, c, s )
-    return unsafe_ref(x) ,unsafe_ref(y)
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_5arg Number cblas_drot
 
 
 # 
 # 
 #   Returns: Void
-function cblas_drotm{gsl_int<:Integer}(N::gsl_int, incx::gsl_int, incy::gsl_int, P::Ptr{Cdouble})
+function cblas_drotm{tA<:Real}(N::Integer, incx::Integer, incy::Integer, P::Ptr{tA})
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:cblas_drotm, :libgsl), Void, (Cint, Ptr{Cdouble}, Cint,
         Ptr{Cdouble}, Cint, Ptr{Cdouble}), N, x, incx, y, incy, P )
-    return unsafe_ref(x) ,unsafe_ref(y)
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
 
 
 # 
 # 
 #   Returns: Void
-function cblas_sscal{gsl_int<:Integer}(N::gsl_int, alpha::Cfloat, incx::gsl_int)
+function cblas_sscal(N::Integer, alpha::Real, incx::Integer)
     x = convert(Ptr{Cfloat}, Array(Cfloat, 1))
     ccall( (:cblas_sscal, :libgsl), Void, (Cint, Cfloat, Ptr{Cfloat},
         Cint), N, alpha, x, incx )
-    return unsafe_ref(x)
+    return unsafe_ref(x)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number cblas_sscal
 
 
 # 
 # 
 #   Returns: Void
-function cblas_dscal{gsl_int<:Integer}(N::gsl_int, alpha::Cdouble, incx::gsl_int)
+function cblas_dscal(N::Integer, alpha::Real, incx::Integer)
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:cblas_dscal, :libgsl), Void, (Cint, Cdouble, Ptr{Cdouble},
         Cint), N, alpha, x, incx )
-    return unsafe_ref(x)
+    return unsafe_ref(x)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number cblas_dscal
 
 
 # 
 # 
 #   Returns: Void
-function cblas_cscal{gsl_int<:Integer}(N::gsl_int, alpha::Ptr{Void}, x::Ptr{Void}, incx::gsl_int)
+function cblas_cscal(N::Integer, alpha::Ptr{Void}, x::Ptr{Void}, incx::Integer)
     ccall( (:cblas_cscal, :libgsl), Void, (Cint, Ptr{Void}, Ptr{Void},
         Cint), N, alpha, x, incx )
 end
@@ -464,7 +470,7 @@ end
 # 
 # 
 #   Returns: Void
-function cblas_zscal{gsl_int<:Integer}(N::gsl_int, alpha::Ptr{Void}, x::Ptr{Void}, incx::gsl_int)
+function cblas_zscal(N::Integer, alpha::Ptr{Void}, x::Ptr{Void}, incx::Integer)
     ccall( (:cblas_zscal, :libgsl), Void, (Cint, Ptr{Void}, Ptr{Void},
         Cint), N, alpha, x, incx )
 end
@@ -473,7 +479,7 @@ end
 # 
 # 
 #   Returns: Void
-function cblas_csscal{gsl_int<:Integer}(N::gsl_int, alpha::Cfloat, x::Ptr{Void}, incx::gsl_int)
+function cblas_csscal(N::Integer, alpha::Real, x::Ptr{Void}, incx::Integer)
     ccall( (:cblas_csscal, :libgsl), Void, (Cint, Cfloat, Ptr{Void}, Cint),
         N, alpha, x, incx )
 end
@@ -482,7 +488,7 @@ end
 # 
 # 
 #   Returns: Void
-function cblas_zdscal{gsl_int<:Integer}(N::gsl_int, alpha::Cdouble, x::Ptr{Void}, incx::gsl_int)
+function cblas_zdscal(N::Integer, alpha::Real, x::Ptr{Void}, incx::Integer)
     ccall( (:cblas_zdscal, :libgsl), Void, (Cint, Cdouble, Ptr{Void},
         Cint), N, alpha, x, incx )
 end

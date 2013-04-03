@@ -12,25 +12,20 @@ export gsl_qrng_memcpy, gsl_qrng_clone
 # generators must be of the same type.
 # 
 #   Returns: Cint
-#XXX Unknown input type dest::Ptr{gsl_qrng}
-#XXX Coerced type for dest::Ptr{Void}
-#XXX Unknown input type src::Ptr{gsl_qrng}
-#XXX Coerced type for src::Ptr{Void}
-function gsl_qrng_memcpy(dest::Ptr{Void}, src::Ptr{Void})
-    gsl_errno = ccall( (:gsl_qrng_memcpy, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}), dest, src )
+function gsl_qrng_memcpy(src::Ptr{gsl_qrng})
+    dest = convert(Ptr{gsl_qrng}, Array(gsl_qrng, 1))
+    gsl_errno = ccall( (:gsl_qrng_memcpy, :libgsl), Cint, (Ptr{gsl_qrng},
+        Ptr{gsl_qrng}), dest, src )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(dest)[1]
 end
 
 
 # This function returns a pointer to a newly created generator which is an
 # exact copy of the generator q.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown input type q::Ptr{gsl_qrng}
-#XXX Coerced type for q::Ptr{Void}
-#XXX Unknown output type Ptr{gsl_qrng}
-#XXX Coerced type for output Ptr{Void}
-function gsl_qrng_clone(q::Ptr{Void})
-    ccall( (:gsl_qrng_clone, :libgsl), Ptr{Void}, (Ptr{Void}, ), q )
+#   Returns: Ptr{gsl_qrng}
+function gsl_qrng_clone(q::Ptr{gsl_qrng})
+    ccall( (:gsl_qrng_clone, :libgsl), Ptr{gsl_qrng}, (Ptr{gsl_qrng}, ), q
+        )
 end

@@ -12,24 +12,18 @@ export gsl_qrng_alloc, gsl_qrng_free, gsl_qrng_init
 # memory to create the generator then the function returns a null pointer and
 # the error handler is invoked with an error code of GSL_ENOMEM.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown input type T::Ptr{gsl_qrng_type}
-#XXX Coerced type for T::Ptr{Void}
-#XXX Unknown output type Ptr{gsl_qrng}
-#XXX Coerced type for output Ptr{Void}
-function gsl_qrng_alloc(T::Ptr{Void}, d::Cuint)
-    ccall( (:gsl_qrng_alloc, :libgsl), Ptr{Void}, (Ptr{Void}, Cuint), T, d
-        )
+#   Returns: Ptr{gsl_qrng}
+function gsl_qrng_alloc(T::Ptr{gsl_qrng_type}, d::Integer)
+    ccall( (:gsl_qrng_alloc, :libgsl), Ptr{gsl_qrng}, (Ptr{gsl_qrng_type},
+        Cuint), T, d )
 end
 
 
 # This function frees all the memory associated with the generator q.
 # 
 #   Returns: Void
-#XXX Unknown input type q::Ptr{gsl_qrng}
-#XXX Coerced type for q::Ptr{Void}
-function gsl_qrng_free(q::Ptr{Void})
-    ccall( (:gsl_qrng_free, :libgsl), Void, (Ptr{Void}, ), q )
+function gsl_qrng_free(q::Ptr{gsl_qrng})
+    ccall( (:gsl_qrng_free, :libgsl), Void, (Ptr{gsl_qrng}, ), q )
 end
 
 
@@ -38,8 +32,6 @@ end
 # values.
 # 
 #   Returns: Void
-#XXX Unknown input type q::Ptr{gsl_qrng}
-#XXX Coerced type for q::Ptr{Void}
-function gsl_qrng_init(q::Ptr{Void})
-    ccall( (:gsl_qrng_init, :libgsl), Void, (Ptr{Void}, ), q )
+function gsl_qrng_init(q::Ptr{gsl_qrng})
+    ccall( (:gsl_qrng_init, :libgsl), Void, (Ptr{gsl_qrng}, ), q )
 end

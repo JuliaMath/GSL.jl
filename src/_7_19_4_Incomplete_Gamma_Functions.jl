@@ -12,46 +12,50 @@ export gsl_sf_gamma_inc, gsl_sf_gamma_inc_e, gsl_sf_gamma_inc_Q,
 # \Gamma(a,x) = \int_x^\infty dt t^{a-1} \exp(-t) for a real and  x >= 0.
 # 
 #   Returns: Cdouble
-function gsl_sf_gamma_inc(a::Cdouble, x::Cdouble)
+function gsl_sf_gamma_inc(a::Real, x::Real)
     ccall( (:gsl_sf_gamma_inc, :libgsl), Cdouble, (Cdouble, Cdouble), a, x
         )
 end
+@vectorize_2arg Number gsl_sf_gamma_inc
 
 
 # These functions compute the unnormalized incomplete Gamma Function
 # \Gamma(a,x) = \int_x^\infty dt t^{a-1} \exp(-t) for a real and  x >= 0.
 # 
 #   Returns: Cint
-function gsl_sf_gamma_inc_e(a::Cdouble, x::Cdouble)
+function gsl_sf_gamma_inc_e(a::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_gamma_inc_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), a, x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_gamma_inc_e
 
 
 # These routines compute the normalized incomplete Gamma Function  Q(a,x) =
 # 1/\Gamma(a) \int_x^\infty dt t^{a-1} \exp(-t) for a > 0,  x >= 0.
 # 
 #   Returns: Cdouble
-function gsl_sf_gamma_inc_Q(a::Cdouble, x::Cdouble)
+function gsl_sf_gamma_inc_Q(a::Real, x::Real)
     ccall( (:gsl_sf_gamma_inc_Q, :libgsl), Cdouble, (Cdouble, Cdouble), a,
         x )
 end
+@vectorize_2arg Number gsl_sf_gamma_inc_Q
 
 
 # These routines compute the normalized incomplete Gamma Function  Q(a,x) =
 # 1/\Gamma(a) \int_x^\infty dt t^{a-1} \exp(-t) for a > 0,  x >= 0.
 # 
 #   Returns: Cint
-function gsl_sf_gamma_inc_Q_e(a::Cdouble, x::Cdouble)
+function gsl_sf_gamma_inc_Q_e(a::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_gamma_inc_Q_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), a, x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_gamma_inc_Q_e
 
 
 # These routines compute the complementary normalized incomplete Gamma Function
@@ -60,10 +64,11 @@ end
 # function (section 6.5).
 # 
 #   Returns: Cdouble
-function gsl_sf_gamma_inc_P(a::Cdouble, x::Cdouble)
+function gsl_sf_gamma_inc_P(a::Real, x::Real)
     ccall( (:gsl_sf_gamma_inc_P, :libgsl), Cdouble, (Cdouble, Cdouble), a,
         x )
 end
+@vectorize_2arg Number gsl_sf_gamma_inc_P
 
 
 # These routines compute the complementary normalized incomplete Gamma Function
@@ -72,10 +77,11 @@ end
 # function (section 6.5).
 # 
 #   Returns: Cint
-function gsl_sf_gamma_inc_P_e(a::Cdouble, x::Cdouble)
+function gsl_sf_gamma_inc_P_e(a::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_gamma_inc_P_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), a, x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_gamma_inc_P_e

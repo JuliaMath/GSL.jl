@@ -11,19 +11,21 @@ export gsl_sf_psi_n, gsl_sf_psi_n_e
 # 0.
 # 
 #   Returns: Cdouble
-function gsl_sf_psi_n{gsl_int<:Integer}(n::gsl_int, x::Cdouble)
+function gsl_sf_psi_n(n::Integer, x::Real)
     ccall( (:gsl_sf_psi_n, :libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
+@vectorize_2arg Number gsl_sf_psi_n
 
 
 # These routines compute the polygamma function  \psi^{(n)}(x) for  n >= 0, x >
 # 0.
 # 
 #   Returns: Cint
-function gsl_sf_psi_n_e{gsl_int<:Integer}(n::gsl_int, x::Cdouble)
+function gsl_sf_psi_n_e(n::Integer, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_psi_n_e, :libgsl), Cint, (Cint, Cdouble,
         Ptr{gsl_sf_result}), n, x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_psi_n_e

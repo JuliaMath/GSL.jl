@@ -15,11 +15,9 @@ export gsl_ran_rayleigh, gsl_ran_rayleigh_pdf, gsl_cdf_rayleigh_P,
 # \over \sigma^2} \exp(- x^2/(2 \sigma^2)) dx  for x > 0.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_rayleigh(r::Ptr{Void}, sigma::Cdouble)
-    ccall( (:gsl_ran_rayleigh, :libgsl), Cdouble, (Ptr{Void}, Cdouble), r,
-        sigma )
+function gsl_ran_rayleigh(r::Ptr{gsl_rng}, sigma::Real)
+    ccall( (:gsl_ran_rayleigh, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
+        r, sigma )
 end
 
 
@@ -27,47 +25,52 @@ end
 # distribution with scale parameter sigma, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_rayleigh_pdf(x::Cdouble, sigma::Cdouble)
+function gsl_ran_rayleigh_pdf(x::Real, sigma::Real)
     ccall( (:gsl_ran_rayleigh_pdf, :libgsl), Cdouble, (Cdouble, Cdouble),
         x, sigma )
 end
+@vectorize_2arg Number gsl_ran_rayleigh_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Rayleigh distribution with scale parameter sigma.
 # 
 #   Returns: Cdouble
-function gsl_cdf_rayleigh_P(x::Cdouble, sigma::Cdouble)
+function gsl_cdf_rayleigh_P(x::Real, sigma::Real)
     ccall( (:gsl_cdf_rayleigh_P, :libgsl), Cdouble, (Cdouble, Cdouble), x,
         sigma )
 end
+@vectorize_2arg Number gsl_cdf_rayleigh_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Rayleigh distribution with scale parameter sigma.
 # 
 #   Returns: Cdouble
-function gsl_cdf_rayleigh_Q(x::Cdouble, sigma::Cdouble)
+function gsl_cdf_rayleigh_Q(x::Real, sigma::Real)
     ccall( (:gsl_cdf_rayleigh_Q, :libgsl), Cdouble, (Cdouble, Cdouble), x,
         sigma )
 end
+@vectorize_2arg Number gsl_cdf_rayleigh_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Rayleigh distribution with scale parameter sigma.
 # 
 #   Returns: Cdouble
-function gsl_cdf_rayleigh_Pinv(P::Cdouble, sigma::Cdouble)
+function gsl_cdf_rayleigh_Pinv(P::Real, sigma::Real)
     ccall( (:gsl_cdf_rayleigh_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble),
         P, sigma )
 end
+@vectorize_2arg Number gsl_cdf_rayleigh_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Rayleigh distribution with scale parameter sigma.
 # 
 #   Returns: Cdouble
-function gsl_cdf_rayleigh_Qinv(Q::Cdouble, sigma::Cdouble)
+function gsl_cdf_rayleigh_Qinv(Q::Real, sigma::Real)
     ccall( (:gsl_cdf_rayleigh_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble),
         Q, sigma )
 end
+@vectorize_2arg Number gsl_cdf_rayleigh_Qinv

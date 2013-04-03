@@ -14,10 +14,12 @@ export gsl_sf_coupling_3j, gsl_sf_coupling_3j_e
 # two_ja/2, ma = two_ma/2, etc.
 # 
 #   Returns: Cdouble
-function gsl_sf_coupling_3j{gsl_int<:Integer}(two_ja::gsl_int, two_jb::gsl_int, two_jc::gsl_int, two_ma::gsl_int, two_mb::gsl_int, two_mc::gsl_int)
+function gsl_sf_coupling_3j(two_ja::Integer, two_jb::Integer, two_jc::Integer, two_ma::Integer, two_mb::Integer, two_mc::Integer)
     ccall( (:gsl_sf_coupling_3j, :libgsl), Cdouble, (Cint, Cint, Cint,
         Cint, Cint, Cint), two_ja, two_jb, two_jc, two_ma, two_mb, two_mc )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_6arg Number gsl_sf_coupling_3j
 
 
 # These routines compute the Wigner 3-j coefficient,                 (ja jb jc
@@ -25,11 +27,13 @@ end
 # two_ja/2, ma = two_ma/2, etc.
 # 
 #   Returns: Cint
-function gsl_sf_coupling_3j_e{gsl_int<:Integer}(two_ja::gsl_int, two_jb::gsl_int, two_jc::gsl_int, two_ma::gsl_int, two_mb::gsl_int, two_mc::gsl_int)
+function gsl_sf_coupling_3j_e(two_ja::Integer, two_jb::Integer, two_jc::Integer, two_ma::Integer, two_mb::Integer, two_mc::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_coupling_3j_e, :libgsl), Cint, (Cint, Cint,
         Cint, Cint, Cint, Cint, Ptr{gsl_sf_result}), two_ja, two_jb, two_jc,
         two_ma, two_mb, two_mc, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_6arg Number gsl_sf_coupling_3j_e

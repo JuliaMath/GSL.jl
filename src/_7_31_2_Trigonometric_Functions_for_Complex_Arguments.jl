@@ -11,39 +11,42 @@ export gsl_sf_complex_sin_e, gsl_sf_complex_cos_e, gsl_sf_complex_logsin_e
 # and imaginary parts in szr, szi.
 # 
 #   Returns: Cint
-function gsl_sf_complex_sin_e(zr::Cdouble, zi::Cdouble)
+function gsl_sf_complex_sin_e(zr::Real, zi::Real)
     szr = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     szi = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_complex_sin_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, szr, szi )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(szr) ,unsafe_ref(szi)
+    return unsafe_ref(szr)[1] ,unsafe_ref(szi)[1]
 end
+@vectorize_2arg Number gsl_sf_complex_sin_e
 
 
 # This function computes the complex cosine, \cos(z_r + i z_i) storing the real
 # and imaginary parts in czr, czi.
 # 
 #   Returns: Cint
-function gsl_sf_complex_cos_e(zr::Cdouble, zi::Cdouble)
+function gsl_sf_complex_cos_e(zr::Real, zi::Real)
     czr = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     czi = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_complex_cos_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, czr, czi )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(czr) ,unsafe_ref(czi)
+    return unsafe_ref(czr)[1] ,unsafe_ref(czi)[1]
 end
+@vectorize_2arg Number gsl_sf_complex_cos_e
 
 
 # This function computes the logarithm of the complex sine, \log(\sin(z_r + i
 # z_i)) storing the real and imaginary parts in lszr, lszi.
 # 
 #   Returns: Cint
-function gsl_sf_complex_logsin_e(zr::Cdouble, zi::Cdouble)
+function gsl_sf_complex_logsin_e(zr::Real, zi::Real)
     lszr = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     lszi = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_complex_logsin_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, lszr, lszi )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(lszr) ,unsafe_ref(lszi)
+    return unsafe_ref(lszr)[1] ,unsafe_ref(lszi)[1]
 end
+@vectorize_2arg Number gsl_sf_complex_logsin_e

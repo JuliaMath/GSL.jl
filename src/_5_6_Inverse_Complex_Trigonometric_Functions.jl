@@ -28,10 +28,11 @@ end
 # \pi/2 and a negative imaginary part.
 # 
 #   Returns: gsl_complex
-function gsl_complex_arcsin_real(z::Cdouble)
+function gsl_complex_arcsin_real(z::Real)
     ccall( (:gsl_complex_arcsin_real, :libgsl), gsl_complex, (Cdouble, ), z
         )
 end
+@vectorize_1arg Number gsl_complex_arcsin_real
 
 
 # This function returns the complex arccosine of the complex number z,
@@ -52,10 +53,11 @@ end
 # positive.
 # 
 #   Returns: gsl_complex
-function gsl_complex_arccos_real(z::Cdouble)
+function gsl_complex_arccos_real(z::Real)
     ccall( (:gsl_complex_arccos_real, :libgsl), gsl_complex, (Cdouble, ), z
         )
 end
+@vectorize_1arg Number gsl_complex_arccos_real
 
 
 # This function returns the complex arctangent of the complex number z,
@@ -82,10 +84,11 @@ end
 # = \arccos(1/z).
 # 
 #   Returns: gsl_complex
-function gsl_complex_arcsec_real(z::Cdouble)
+function gsl_complex_arcsec_real(z::Real)
     ccall( (:gsl_complex_arcsec_real, :libgsl), gsl_complex, (Cdouble, ), z
         )
 end
+@vectorize_1arg Number gsl_complex_arcsec_real
 
 
 # This function returns the complex arccosecant of the complex number z,
@@ -102,10 +105,11 @@ end
 # \arccsc(z) = \arcsin(1/z).
 # 
 #   Returns: gsl_complex
-function gsl_complex_arccsc_real(z::Cdouble)
+function gsl_complex_arccsc_real(z::Real)
     ccall( (:gsl_complex_arccsc_real, :libgsl), gsl_complex, (Cdouble, ), z
         )
 end
+@vectorize_1arg Number gsl_complex_arccsc_real
 
 
 # This function returns the complex arccotangent of the complex number z,

@@ -18,7 +18,7 @@ export gsl_multimin_test_gradient, gsl_multimin_test_size
 # \delta f = g \delta x.
 # 
 #   Returns: Cint
-function gsl_multimin_test_gradient(g::Ptr{gsl_vector}, epsabs::Cdouble)
+function gsl_multimin_test_gradient(g::Ptr{gsl_vector}, epsabs::Real)
     gsl_errno = ccall( (:gsl_multimin_test_gradient, :libgsl), Cint,
         (Ptr{gsl_vector}, Cdouble), g, epsabs )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
@@ -31,8 +31,9 @@ end
 # returned.
 # 
 #   Returns: Cint
-function gsl_multimin_test_size(size::Cdouble, epsabs::Cdouble)
+function gsl_multimin_test_size(size::Real, epsabs::Real)
     gsl_errno = ccall( (:gsl_multimin_test_size, :libgsl), Cint, (Cdouble,
         Cdouble), size, epsabs )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+@vectorize_2arg Number gsl_multimin_test_size

@@ -23,9 +23,10 @@ end
 # may be negative.
 # 
 #   Returns: gsl_complex
-function gsl_complex_sqrt_real(x::Cdouble)
+function gsl_complex_sqrt_real(x::Real)
     ccall( (:gsl_complex_sqrt_real, :libgsl), gsl_complex, (Cdouble, ), x )
 end
+@vectorize_1arg Number gsl_complex_sqrt_real
 
 
 # The function returns the complex number z raised to the complex power a, z^a.
@@ -42,7 +43,7 @@ end
 # This function returns the complex number z raised to the real power x, z^x.
 # 
 #   Returns: gsl_complex
-function gsl_complex_pow_real(z::gsl_complex, x::Cdouble)
+function gsl_complex_pow_real(z::gsl_complex, x::Real)
     ccall( (:gsl_complex_pow_real, :libgsl), gsl_complex, (gsl_complex,
         Cdouble), z, x )
 end

@@ -14,9 +14,10 @@ export GSL_MAX_DBL, GSL_MIN_DBL, GSL_MAX_INT, GSL_MIN_INT, GSL_MAX_LDBL,
 # are not available the macro GSL_MAX will be automatically substituted.
 # 
 #   Returns: Cdouble
-function GSL_MAX_DBL(a::Cdouble, b::Cdouble)
+function GSL_MAX_DBL(a::Real, b::Real)
     ccall( (:GSL_MAX_DBL, :libgsl), Cdouble, (Cdouble, Cdouble), a, b )
 end
+@vectorize_2arg Number GSL_MAX_DBL
 
 
 # This function returns the minimum of the double precision numbers a and b
@@ -25,9 +26,10 @@ end
 # are not available the macro GSL_MIN will be automatically substituted.
 # 
 #   Returns: Cdouble
-function GSL_MIN_DBL(a::Cdouble, b::Cdouble)
+function GSL_MIN_DBL(a::Real, b::Real)
     ccall( (:GSL_MIN_DBL, :libgsl), Cdouble, (Cdouble, Cdouble), a, b )
 end
+@vectorize_2arg Number GSL_MIN_DBL
 
 
 # These functions return the maximum or minimum of the integers a and b using
@@ -35,10 +37,11 @@ end
 # the macros GSL_MAX or GSL_MIN will be automatically substituted.
 # 
 #   Returns: Cint
-function GSL_MAX_INT{gsl_int<:Integer}(a::gsl_int, b::gsl_int)
+function GSL_MAX_INT(a::Integer, b::Integer)
     gsl_errno = ccall( (:GSL_MAX_INT, :libgsl), Cint, (Cint, Cint), a, b )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+@vectorize_2arg Number GSL_MAX_INT
 
 
 # These functions return the maximum or minimum of the integers a and b using
@@ -46,10 +49,11 @@ end
 # the macros GSL_MAX or GSL_MIN will be automatically substituted.
 # 
 #   Returns: Cint
-function GSL_MIN_INT{gsl_int<:Integer}(a::gsl_int, b::gsl_int)
+function GSL_MIN_INT(a::Integer, b::Integer)
     gsl_errno = ccall( (:GSL_MIN_INT, :libgsl), Cint, (Cint, Cint), a, b )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+@vectorize_2arg Number GSL_MIN_INT
 
 
 # These functions return the maximum or minimum of the long doubles a and b
@@ -57,9 +61,10 @@ end
 # available the macros GSL_MAX or GSL_MIN will be automatically substituted.
 # 
 #   Returns: Cdouble
-function GSL_MAX_LDBL(a::Cdouble, b::Cdouble)
+function GSL_MAX_LDBL(a::Real, b::Real)
     ccall( (:GSL_MAX_LDBL, :libgsl), Cdouble, (Cdouble, Cdouble), a, b )
 end
+@vectorize_2arg Number GSL_MAX_LDBL
 
 
 # These functions return the maximum or minimum of the long doubles a and b
@@ -67,6 +72,7 @@ end
 # available the macros GSL_MAX or GSL_MIN will be automatically substituted.
 # 
 #   Returns: Cdouble
-function GSL_MIN_LDBL(a::Cdouble, b::Cdouble)
+function GSL_MIN_LDBL(a::Real, b::Real)
     ccall( (:GSL_MIN_LDBL, :libgsl), Cdouble, (Cdouble, Cdouble), a, b )
 end
+@vectorize_2arg Number GSL_MIN_LDBL

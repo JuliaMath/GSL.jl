@@ -13,11 +13,9 @@ export gsl_sf_ellint_RC, gsl_sf_ellint_RC_e, gsl_sf_ellint_RD,
 # accuracy specified by the mode variable mode.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type mode::gsl_mode_t
-#XXX Coerced type for mode::Void
-function gsl_sf_ellint_RC(x::Cdouble, y::Cdouble, mode::Void)
-    ccall( (:gsl_sf_ellint_RC, :libgsl), Cdouble, (Cdouble, Cdouble, Void),
-        x, y, mode )
+function gsl_sf_ellint_RC(x::Real, y::Real, mode::gsl_mode_t)
+    ccall( (:gsl_sf_ellint_RC, :libgsl), Cdouble, (Cdouble, Cdouble,
+        gsl_mode_t), x, y, mode )
 end
 
 
@@ -25,14 +23,12 @@ end
 # accuracy specified by the mode variable mode.
 # 
 #   Returns: Cint
-#XXX Unknown input type mode::gsl_mode_t
-#XXX Coerced type for mode::Void
-function gsl_sf_ellint_RC_e(x::Cdouble, y::Cdouble, mode::Void)
+function gsl_sf_ellint_RC_e(x::Real, y::Real, mode::gsl_mode_t)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_ellint_RC_e, :libgsl), Cint, (Cdouble,
-        Cdouble, Void, Ptr{gsl_sf_result}), x, y, mode, result )
+        Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), x, y, mode, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
 
 
@@ -40,11 +36,9 @@ end
 # accuracy specified by the mode variable mode.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type mode::gsl_mode_t
-#XXX Coerced type for mode::Void
-function gsl_sf_ellint_RD(x::Cdouble, y::Cdouble, z::Cdouble, mode::Void)
+function gsl_sf_ellint_RD(x::Real, y::Real, z::Real, mode::gsl_mode_t)
     ccall( (:gsl_sf_ellint_RD, :libgsl), Cdouble, (Cdouble, Cdouble,
-        Cdouble, Void), x, y, z, mode )
+        Cdouble, gsl_mode_t), x, y, z, mode )
 end
 
 
@@ -52,67 +46,59 @@ end
 # accuracy specified by the mode variable mode.
 # 
 #   Returns: Cint
-#XXX Unknown input type mode::gsl_mode_t
-#XXX Coerced type for mode::Void
-function gsl_sf_ellint_RD_e(x::Cdouble, y::Cdouble, z::Cdouble, mode::Void)
+function gsl_sf_ellint_RD_e(x::Real, y::Real, z::Real, mode::gsl_mode_t)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_ellint_RD_e, :libgsl), Cint, (Cdouble,
-        Cdouble, Cdouble, Void, Ptr{gsl_sf_result}), x, y, z, mode, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
-end
-
-
-# These routines compute the incomplete elliptic integral RF(x,y,z) to the
-# accuracy specified by the mode variable mode.
-# 
-#   Returns: Cdouble
-#XXX Unknown input type mode::gsl_mode_t
-#XXX Coerced type for mode::Void
-function gsl_sf_ellint_RF(x::Cdouble, y::Cdouble, z::Cdouble, mode::Void)
-    ccall( (:gsl_sf_ellint_RF, :libgsl), Cdouble, (Cdouble, Cdouble,
-        Cdouble, Void), x, y, z, mode )
-end
-
-
-# These routines compute the incomplete elliptic integral RF(x,y,z) to the
-# accuracy specified by the mode variable mode.
-# 
-#   Returns: Cint
-#XXX Unknown input type mode::gsl_mode_t
-#XXX Coerced type for mode::Void
-function gsl_sf_ellint_RF_e(x::Cdouble, y::Cdouble, z::Cdouble, mode::Void)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_ellint_RF_e, :libgsl), Cint, (Cdouble,
-        Cdouble, Cdouble, Void, Ptr{gsl_sf_result}), x, y, z, mode, result )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
-end
-
-
-# These routines compute the incomplete elliptic integral RJ(x,y,z,p) to the
-# accuracy specified by the mode variable mode.
-# 
-#   Returns: Cdouble
-#XXX Unknown input type mode::gsl_mode_t
-#XXX Coerced type for mode::Void
-function gsl_sf_ellint_RJ(x::Cdouble, y::Cdouble, z::Cdouble, p::Cdouble, mode::Void)
-    ccall( (:gsl_sf_ellint_RJ, :libgsl), Cdouble, (Cdouble, Cdouble,
-        Cdouble, Cdouble, Void), x, y, z, p, mode )
-end
-
-
-# These routines compute the incomplete elliptic integral RJ(x,y,z,p) to the
-# accuracy specified by the mode variable mode.
-# 
-#   Returns: Cint
-#XXX Unknown input type mode::gsl_mode_t
-#XXX Coerced type for mode::Void
-function gsl_sf_ellint_RJ_e(x::Cdouble, y::Cdouble, z::Cdouble, p::Cdouble, mode::Void)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    gsl_errno = ccall( (:gsl_sf_ellint_RJ_e, :libgsl), Cint, (Cdouble,
-        Cdouble, Cdouble, Cdouble, Void, Ptr{gsl_sf_result}), x, y, z, p, mode,
+        Cdouble, Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), x, y, z, mode,
         result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
+end
+
+
+# These routines compute the incomplete elliptic integral RF(x,y,z) to the
+# accuracy specified by the mode variable mode.
+# 
+#   Returns: Cdouble
+function gsl_sf_ellint_RF(x::Real, y::Real, z::Real, mode::gsl_mode_t)
+    ccall( (:gsl_sf_ellint_RF, :libgsl), Cdouble, (Cdouble, Cdouble,
+        Cdouble, gsl_mode_t), x, y, z, mode )
+end
+
+
+# These routines compute the incomplete elliptic integral RF(x,y,z) to the
+# accuracy specified by the mode variable mode.
+# 
+#   Returns: Cint
+function gsl_sf_ellint_RF_e(x::Real, y::Real, z::Real, mode::gsl_mode_t)
+    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    gsl_errno = ccall( (:gsl_sf_ellint_RF_e, :libgsl), Cint, (Cdouble,
+        Cdouble, Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), x, y, z, mode,
+        result )
+    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(result)[1]
+end
+
+
+# These routines compute the incomplete elliptic integral RJ(x,y,z,p) to the
+# accuracy specified by the mode variable mode.
+# 
+#   Returns: Cdouble
+function gsl_sf_ellint_RJ(x::Real, y::Real, z::Real, p::Real, mode::gsl_mode_t)
+    ccall( (:gsl_sf_ellint_RJ, :libgsl), Cdouble, (Cdouble, Cdouble,
+        Cdouble, Cdouble, gsl_mode_t), x, y, z, p, mode )
+end
+
+
+# These routines compute the incomplete elliptic integral RJ(x,y,z,p) to the
+# accuracy specified by the mode variable mode.
+# 
+#   Returns: Cint
+function gsl_sf_ellint_RJ_e(x::Real, y::Real, z::Real, p::Real, mode::gsl_mode_t)
+    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    gsl_errno = ccall( (:gsl_sf_ellint_RJ_e, :libgsl), Cint, (Cdouble,
+        Cdouble, Cdouble, Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), x, y, z, p,
+        mode, result )
+    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(result)[1]
 end

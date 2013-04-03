@@ -37,11 +37,12 @@ export gsl_fft_real_radix2_transform, gsl_fft_halfcomplex_radix2_inverse,
 # using the function gsl_fft_halfcomplex_radix2_unpack described below.
 # 
 #   Returns: Cint
-function gsl_fft_real_radix2_transform(data::Cdouble)
+function gsl_fft_real_radix2_transform(data::Real)
     gsl_errno = ccall( (:gsl_fft_real_radix2_transform, :libgsl), Cint,
         (Cdouble, ), data )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+@vectorize_1arg Number gsl_fft_real_radix2_transform
 
 
 # These functions compute the inverse or backwards in-place radix-2 FFT of
@@ -50,11 +51,12 @@ end
 # stored in natural order.
 # 
 #   Returns: Cint
-function gsl_fft_halfcomplex_radix2_inverse(data::Cdouble)
+function gsl_fft_halfcomplex_radix2_inverse(data::Real)
     gsl_errno = ccall( (:gsl_fft_halfcomplex_radix2_inverse, :libgsl),
         Cint, (Cdouble, ), data )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+@vectorize_1arg Number gsl_fft_halfcomplex_radix2_inverse
 
 
 # These functions compute the inverse or backwards in-place radix-2 FFT of
@@ -63,11 +65,12 @@ end
 # stored in natural order.
 # 
 #   Returns: Cint
-function gsl_fft_halfcomplex_radix2_backward(data::Cdouble)
+function gsl_fft_halfcomplex_radix2_backward(data::Real)
     gsl_errno = ccall( (:gsl_fft_halfcomplex_radix2_backward, :libgsl),
         Cint, (Cdouble, ), data )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+@vectorize_1arg Number gsl_fft_halfcomplex_radix2_backward
 
 
 # This function converts halfcomplex_coefficient, an array of half-complex
@@ -89,8 +92,9 @@ end
 # complex_coefficient[i*stride].imag                 = 0.0;             }
 # 
 #   Returns: Cint
-function gsl_fft_halfcomplex_radix2_unpack(halfcomplex_coefficient::Cdouble)
+function gsl_fft_halfcomplex_radix2_unpack(halfcomplex_coefficient::Real)
     gsl_errno = ccall( (:gsl_fft_halfcomplex_radix2_unpack, :libgsl), Cint,
         (Cdouble, ), halfcomplex_coefficient )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+@vectorize_1arg Number gsl_fft_halfcomplex_radix2_unpack

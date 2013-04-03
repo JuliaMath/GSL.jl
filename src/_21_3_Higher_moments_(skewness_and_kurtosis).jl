@@ -24,9 +24,10 @@ export gsl_stats_skew, gsl_stats_skew_m_sd, gsl_stats_kurtosis,
 # calls to gsl_stats_mean and gsl_stats_sd.
 # 
 #   Returns: Cdouble
-function gsl_stats_skew(data::Cdouble)
+function gsl_stats_skew(data::Real)
     ccall( (:gsl_stats_skew, :libgsl), Cdouble, (Cdouble, ), data )
 end
+@vectorize_1arg Number gsl_stats_skew
 
 
 # This function computes the skewness of the dataset data using the given
@@ -36,9 +37,10 @@ end
 # recomputing them.
 # 
 #   Returns: Cdouble
-function gsl_stats_skew_m_sd(data::Cdouble)
+function gsl_stats_skew_m_sd(data::Real)
     ccall( (:gsl_stats_skew_m_sd, :libgsl), Cdouble, (Cdouble, ), data )
 end
+@vectorize_1arg Number gsl_stats_skew_m_sd
 
 
 # This function computes the kurtosis of data, a dataset of length n with
@@ -48,9 +50,10 @@ end
 # to zero for a Gaussian distribution.
 # 
 #   Returns: Cdouble
-function gsl_stats_kurtosis(data::Cdouble)
+function gsl_stats_kurtosis(data::Real)
     ccall( (:gsl_stats_kurtosis, :libgsl), Cdouble, (Cdouble, ), data )
 end
+@vectorize_1arg Number gsl_stats_kurtosis
 
 
 # This function computes the kurtosis of the dataset data using the given
@@ -60,7 +63,8 @@ end
 # recomputing them.
 # 
 #   Returns: Cdouble
-function gsl_stats_kurtosis_m_sd(data::Cdouble)
+function gsl_stats_kurtosis_m_sd(data::Real)
     ccall( (:gsl_stats_kurtosis_m_sd, :libgsl), Cdouble, (Cdouble, ), data
         )
 end
+@vectorize_1arg Number gsl_stats_kurtosis_m_sd

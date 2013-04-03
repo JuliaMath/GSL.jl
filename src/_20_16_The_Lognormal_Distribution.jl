@@ -15,10 +15,8 @@ export gsl_ran_lognormal, gsl_ran_lognormal_pdf, gsl_cdf_lognormal_P,
 # \sigma^2} } \exp(-(\ln(x) - \zeta)^2/2 \sigma^2) dx  for x > 0.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_lognormal(r::Ptr{Void}, zeta::Cdouble, sigma::Cdouble)
-    ccall( (:gsl_ran_lognormal, :libgsl), Cdouble, (Ptr{Void}, Cdouble,
+function gsl_ran_lognormal(r::Ptr{gsl_rng}, zeta::Real, sigma::Real)
+    ccall( (:gsl_ran_lognormal, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
         Cdouble), r, zeta, sigma )
 end
 
@@ -27,47 +25,57 @@ end
 # distribution with parameters zeta and sigma, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_lognormal_pdf(x::Cdouble, zeta::Cdouble, sigma::Cdouble)
+function gsl_ran_lognormal_pdf(x::Real, zeta::Real, sigma::Real)
     ccall( (:gsl_ran_lognormal_pdf, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, zeta, sigma )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_ran_lognormal_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the lognormal distribution with parameters zeta and sigma.
 # 
 #   Returns: Cdouble
-function gsl_cdf_lognormal_P(x::Cdouble, zeta::Cdouble, sigma::Cdouble)
+function gsl_cdf_lognormal_P(x::Real, zeta::Real, sigma::Real)
     ccall( (:gsl_cdf_lognormal_P, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, zeta, sigma )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_cdf_lognormal_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the lognormal distribution with parameters zeta and sigma.
 # 
 #   Returns: Cdouble
-function gsl_cdf_lognormal_Q(x::Cdouble, zeta::Cdouble, sigma::Cdouble)
+function gsl_cdf_lognormal_Q(x::Real, zeta::Real, sigma::Real)
     ccall( (:gsl_cdf_lognormal_Q, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, zeta, sigma )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_cdf_lognormal_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the lognormal distribution with parameters zeta and sigma.
 # 
 #   Returns: Cdouble
-function gsl_cdf_lognormal_Pinv(P::Cdouble, zeta::Cdouble, sigma::Cdouble)
+function gsl_cdf_lognormal_Pinv(P::Real, zeta::Real, sigma::Real)
     ccall( (:gsl_cdf_lognormal_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), P, zeta, sigma )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_cdf_lognormal_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the lognormal distribution with parameters zeta and sigma.
 # 
 #   Returns: Cdouble
-function gsl_cdf_lognormal_Qinv(Q::Cdouble, zeta::Cdouble, sigma::Cdouble)
+function gsl_cdf_lognormal_Qinv(Q::Real, zeta::Real, sigma::Real)
     ccall( (:gsl_cdf_lognormal_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), Q, zeta, sigma )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_cdf_lognormal_Qinv

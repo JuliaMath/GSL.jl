@@ -15,10 +15,11 @@ export gsl_permutation_alloc, gsl_permutation_calloc, gsl_permutation_init,
 # memory is available to create the permutation.
 # 
 #   Returns: Ptr{gsl_permutation}
-function gsl_permutation_alloc{gsl_int<:Integer}(n::gsl_int)
+function gsl_permutation_alloc(n::Integer)
     ccall( (:gsl_permutation_alloc, :libgsl), Ptr{gsl_permutation},
         (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_permutation_alloc
 
 
 # This function allocates memory for a new permutation of size n and
@@ -26,10 +27,11 @@ end
 # memory is available to create the permutation.
 # 
 #   Returns: Ptr{gsl_permutation}
-function gsl_permutation_calloc{gsl_int<:Integer}(n::gsl_int)
+function gsl_permutation_calloc(n::Integer)
     ccall( (:gsl_permutation_calloc, :libgsl), Ptr{gsl_permutation},
         (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_permutation_calloc
 
 
 # This function initializes the permutation p to the identity, i.e.
@@ -60,5 +62,5 @@ function gsl_permutation_memcpy(src::Ptr{gsl_permutation})
     gsl_errno = ccall( (:gsl_permutation_memcpy, :libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_permutation}), dest, src )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(dest)
+    return unsafe_ref(dest)[1]
 end

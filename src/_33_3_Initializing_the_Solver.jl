@@ -23,14 +23,10 @@ export gsl_root_fsolver_alloc, gsl_root_fdfsolver_alloc, gsl_root_fsolver_set,
 # solver then the function returns a null pointer and the error handler is
 # invoked with an error code of GSL_ENOMEM.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown input type T::Ptr{gsl_root_fsolver_type}
-#XXX Coerced type for T::Ptr{Void}
-#XXX Unknown output type Ptr{gsl_root_fsolver}
-#XXX Coerced type for output Ptr{Void}
-function gsl_root_fsolver_alloc(T::Ptr{Void})
-    ccall( (:gsl_root_fsolver_alloc, :libgsl), Ptr{Void}, (Ptr{Void}, ), T
-        )
+#   Returns: Ptr{gsl_root_fsolver}
+function gsl_root_fsolver_alloc(T::Ptr{gsl_root_fsolver_type})
+    ccall( (:gsl_root_fsolver_alloc, :libgsl), Ptr{gsl_root_fsolver},
+        (Ptr{gsl_root_fsolver_type}, ), T )
 end
 
 
@@ -42,14 +38,10 @@ end
 # is insufficient memory to create the solver then the function returns a null
 # pointer and the error handler is invoked with an error code of GSL_ENOMEM.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown input type T::Ptr{gsl_root_fdfsolver_type}
-#XXX Coerced type for T::Ptr{Void}
-#XXX Unknown output type Ptr{gsl_root_fdfsolver}
-#XXX Coerced type for output Ptr{Void}
-function gsl_root_fdfsolver_alloc(T::Ptr{Void})
-    ccall( (:gsl_root_fdfsolver_alloc, :libgsl), Ptr{Void}, (Ptr{Void}, ),
-        T )
+#   Returns: Ptr{gsl_root_fdfsolver}
+function gsl_root_fdfsolver_alloc(T::Ptr{gsl_root_fdfsolver_type})
+    ccall( (:gsl_root_fdfsolver_alloc, :libgsl), Ptr{gsl_root_fdfsolver},
+        (Ptr{gsl_root_fdfsolver_type}, ), T )
 end
 
 
@@ -57,11 +49,10 @@ end
 # function f and the initial search interval [x_lower, x_upper].
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_root_fsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_root_fsolver_set(s::Ptr{Void}, f::Ptr{gsl_function}, x_lower::Cdouble, x_upper::Cdouble)
-    gsl_errno = ccall( (:gsl_root_fsolver_set, :libgsl), Cint, (Ptr{Void},
-        Ptr{gsl_function}, Cdouble, Cdouble), s, f, x_lower, x_upper )
+function gsl_root_fsolver_set(s::Ptr{gsl_root_fsolver}, f::Ptr{gsl_function}, x_lower::Real, x_upper::Real)
+    gsl_errno = ccall( (:gsl_root_fsolver_set, :libgsl), Cint,
+        (Ptr{gsl_root_fsolver}, Ptr{gsl_function}, Cdouble, Cdouble), s, f,
+        x_lower, x_upper )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
 
@@ -70,11 +61,10 @@ end
 # function and derivative fdf and the initial guess root.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_root_fdfsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_root_fdfsolver_set(s::Ptr{Void}, fdf::Ptr{gsl_function_fdf}, root::Cdouble)
+function gsl_root_fdfsolver_set(s::Ptr{gsl_root_fdfsolver}, fdf::Ptr{gsl_function_fdf}, root::Real)
     gsl_errno = ccall( (:gsl_root_fdfsolver_set, :libgsl), Cint,
-        (Ptr{Void}, Ptr{gsl_function_fdf}, Cdouble), s, fdf, root )
+        (Ptr{gsl_root_fdfsolver}, Ptr{gsl_function_fdf}, Cdouble), s, fdf, root
+        )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
 
@@ -82,20 +72,18 @@ end
 # These functions free all the memory associated with the solver s.
 # 
 #   Returns: Void
-#XXX Unknown input type s::Ptr{gsl_root_fsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_root_fsolver_free(s::Ptr{Void})
-    ccall( (:gsl_root_fsolver_free, :libgsl), Void, (Ptr{Void}, ), s )
+function gsl_root_fsolver_free(s::Ptr{gsl_root_fsolver})
+    ccall( (:gsl_root_fsolver_free, :libgsl), Void, (Ptr{gsl_root_fsolver},
+        ), s )
 end
 
 
 # These functions free all the memory associated with the solver s.
 # 
 #   Returns: Void
-#XXX Unknown input type s::Ptr{gsl_root_fdfsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_root_fdfsolver_free(s::Ptr{Void})
-    ccall( (:gsl_root_fdfsolver_free, :libgsl), Void, (Ptr{Void}, ), s )
+function gsl_root_fdfsolver_free(s::Ptr{gsl_root_fdfsolver})
+    ccall( (:gsl_root_fdfsolver_free, :libgsl), Void,
+        (Ptr{gsl_root_fdfsolver}, ), s )
 end
 
 
@@ -104,11 +92,9 @@ end
 # would print something like s is a 'bisection' solver.
 # 
 #   Returns: Ptr{Cchar}
-#XXX Unknown input type s::Ptr{gsl_root_fsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_root_fsolver_name(s::Ptr{Void})
+function gsl_root_fsolver_name(s::Ptr{gsl_root_fsolver})
     output_string = ccall( (:gsl_root_fsolver_name, :libgsl), Ptr{Cchar},
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_root_fsolver}, ), s )
     bytestring(convert(Ptr{Uint8}, output_string))
 end
 
@@ -118,10 +104,8 @@ end
 # would print something like s is a 'bisection' solver.
 # 
 #   Returns: Ptr{Cchar}
-#XXX Unknown input type s::Ptr{gsl_root_fdfsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_root_fdfsolver_name(s::Ptr{Void})
+function gsl_root_fdfsolver_name(s::Ptr{gsl_root_fdfsolver})
     output_string = ccall( (:gsl_root_fdfsolver_name, :libgsl), Ptr{Cchar},
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_root_fdfsolver}, ), s )
     bytestring(convert(Ptr{Uint8}, output_string))
 end

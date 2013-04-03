@@ -23,10 +23,11 @@ end
 # handler is invoked with an error code of GSL_ENOMEM.
 # 
 #   Returns: Ptr{gsl_histogram_pdf}
-function gsl_histogram_pdf_alloc{gsl_int<:Integer}(n::gsl_int)
+function gsl_histogram_pdf_alloc(n::Integer)
     ccall( (:gsl_histogram_pdf_alloc, :libgsl), Ptr{gsl_histogram_pdf},
         (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_histogram_pdf_alloc
 
 
 # This function initializes the probability distribution p with the contents of
@@ -60,7 +61,7 @@ end
 # sum[i]).
 # 
 #   Returns: Cdouble
-function gsl_histogram_pdf_sample(p::Ptr{gsl_histogram_pdf}, r::Cdouble)
+function gsl_histogram_pdf_sample(p::Ptr{gsl_histogram_pdf}, r::Real)
     ccall( (:gsl_histogram_pdf_sample, :libgsl), Cdouble,
         (Ptr{gsl_histogram_pdf}, Cdouble), p, r )
 end

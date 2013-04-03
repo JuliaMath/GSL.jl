@@ -19,15 +19,14 @@ export gsl_integration_qags
 # not exceed the allocated size of the workspace.
 # 
 #   Returns: Cint
-#XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
-#XXX Coerced type for workspace::Ptr{Void}
-function gsl_integration_qags{gsl_int<:Integer}(f::Ptr{gsl_function}, a::Cdouble, b::Cdouble, epsabs::Cdouble, epsrel::Cdouble, limit::gsl_int, workspace::Ptr{Void})
+function gsl_integration_qags(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real, limit::Integer)
+    workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_integration_qags, :libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Csize_t,
-        Ptr{Void}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, b, epsabs, epsrel, limit,
-        workspace, result, abserr )
+        Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, b,
+        epsabs, epsrel, limit, workspace, result, abserr )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(workspace)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end

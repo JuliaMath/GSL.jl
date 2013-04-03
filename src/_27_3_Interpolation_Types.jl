@@ -17,11 +17,9 @@ export gsl_interp_name, gsl_interp_min_size, gsl_interp_type_min_size
 # interp uses 'cspline' interpolation.
 # 
 #   Returns: Ptr{Cchar}
-#XXX Unknown input type interp::Ptr{gsl_interp}
-#XXX Coerced type for interp::Ptr{Void}
-function gsl_interp_name(interp::Ptr{Void})
+function gsl_interp_name(interp::Ptr{gsl_interp})
     output_string = ccall( (:gsl_interp_name, :libgsl), Ptr{Cchar},
-        (Ptr{Void}, ), interp )
+        (Ptr{gsl_interp}, ), interp )
     bytestring(convert(Ptr{Uint8}, output_string))
 end
 
@@ -31,10 +29,9 @@ end
 # spline interpolation requires a minimum of 5 points.
 # 
 #   Returns: Cuint
-#XXX Unknown input type interp::Ptr{gsl_interp}
-#XXX Coerced type for interp::Ptr{Void}
-function gsl_interp_min_size(interp::Ptr{Void})
-    ccall( (:gsl_interp_min_size, :libgsl), Cuint, (Ptr{Void}, ), interp )
+function gsl_interp_min_size(interp::Ptr{gsl_interp})
+    ccall( (:gsl_interp_min_size, :libgsl), Cuint, (Ptr{gsl_interp}, ),
+        interp )
 end
 
 
@@ -43,8 +40,7 @@ end
 # spline interpolation requires a minimum of 5 points.
 # 
 #   Returns: Cuint
-#XXX Unknown input type T::Ptr{gsl_interp_type}
-#XXX Coerced type for T::Ptr{Void}
-function gsl_interp_type_min_size(T::Ptr{Void})
-    ccall( (:gsl_interp_type_min_size, :libgsl), Cuint, (Ptr{Void}, ), T )
+function gsl_interp_type_min_size(T::Ptr{gsl_interp_type})
+    ccall( (:gsl_interp_type_min_size, :libgsl), Cuint,
+        (Ptr{gsl_interp_type}, ), T )
 end

@@ -21,13 +21,10 @@ export gsl_rng_alloc, gsl_rng_set, gsl_rng_free
 # The details of the available generator types are described later in this
 # chapter.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown input type T::Ptr{gsl_rng_type}
-#XXX Coerced type for T::Ptr{Void}
-#XXX Unknown output type Ptr{gsl_rng}
-#XXX Coerced type for output Ptr{Void}
-function gsl_rng_alloc(T::Ptr{Void})
-    ccall( (:gsl_rng_alloc, :libgsl), Ptr{Void}, (Ptr{Void}, ), T )
+#   Returns: Ptr{gsl_rng}
+function gsl_rng_alloc(T::Ptr{gsl_rng_type})
+    ccall( (:gsl_rng_alloc, :libgsl), Ptr{gsl_rng}, (Ptr{gsl_rng_type}, ),
+        T )
 end
 
 
@@ -47,18 +44,14 @@ end
 # lower.
 # 
 #   Returns: Void
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_rng_set(r::Ptr{Void}, s::Culong)
-    ccall( (:gsl_rng_set, :libgsl), Void, (Ptr{Void}, Culong), r, s )
+function gsl_rng_set(r::Ptr{gsl_rng}, s::Integer)
+    ccall( (:gsl_rng_set, :libgsl), Void, (Ptr{gsl_rng}, Culong), r, s )
 end
 
 
 # This function frees all the memory associated with the generator r.
 # 
 #   Returns: Void
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_rng_free(r::Ptr{Void})
-    ccall( (:gsl_rng_free, :libgsl), Void, (Ptr{Void}, ), r )
+function gsl_rng_free(r::Ptr{gsl_rng})
+    ccall( (:gsl_rng_free, :libgsl), Void, (Ptr{gsl_rng}, ), r )
 end

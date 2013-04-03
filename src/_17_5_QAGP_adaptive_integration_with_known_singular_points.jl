@@ -21,16 +21,15 @@ export gsl_integration_qagp
 # faster than QAGS.
 # 
 #   Returns: Cint
-#XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
-#XXX Coerced type for workspace::Ptr{Void}
-function gsl_integration_qagp{gsl_int<:Integer}(f::Ptr{gsl_function}, npts::gsl_int, epsabs::Cdouble, epsrel::Cdouble, limit::gsl_int, workspace::Ptr{Void})
+function gsl_integration_qagp(f::Ptr{gsl_function}, npts::Integer, epsabs::Real, epsrel::Real, limit::Integer)
     pts = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_integration_qagp, :libgsl), Cint,
         (Ptr{gsl_function}, Ptr{Cdouble}, Csize_t, Cdouble, Cdouble, Csize_t,
-        Ptr{Void}, Ptr{Cdouble}, Ptr{Cdouble}), f, pts, npts, epsabs, epsrel,
-        limit, workspace, result, abserr )
+        Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, pts,
+        npts, epsabs, epsrel, limit, workspace, result, abserr )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(pts) ,unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(pts)[1] ,unsafe_ref(workspace)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end

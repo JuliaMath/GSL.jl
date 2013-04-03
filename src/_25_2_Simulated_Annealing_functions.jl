@@ -89,15 +89,11 @@ end
 # printed.
 # 
 #   Returns: Void
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-#XXX Unknown input type copy_constructor::gsl_siman_copy_ruct_t
-#XXX Coerced type for copy_constructor::Void
-function gsl_siman_solve{gsl_int<:Integer}(r::Ptr{Void}, x0_p::Ptr{Void}, Ef::gsl_siman_Efunc_t, take_step::gsl_siman_step_t, distance::gsl_siman_metric_t, print_position::gsl_siman_print_t, copyfunc::gsl_siman_copy_t, copy_constructor::Void, destructor::gsl_siman_destroy_t, element_size::gsl_int, params::gsl_siman_params_t)
-    ccall( (:gsl_siman_solve, :libgsl), Void, (Ptr{Void}, Ptr{Void},
+function gsl_siman_solve(r::Ptr{gsl_rng}, x0_p::Ptr{Void}, Ef::gsl_siman_Efunc_t, take_step::gsl_siman_step_t, distance::gsl_siman_metric_t, print_position::gsl_siman_print_t, copyfunc::gsl_siman_copy_t, copy_constructor::gsl_siman_copy_ruct_t, destructor::gsl_siman_destroy_t, element_size::Integer, params::gsl_siman_params_t)
+    ccall( (:gsl_siman_solve, :libgsl), Void, (Ptr{gsl_rng}, Ptr{Void},
         gsl_siman_Efunc_t, gsl_siman_step_t, gsl_siman_metric_t,
-        gsl_siman_print_t, gsl_siman_copy_t, Void, gsl_siman_destroy_t,
-        Csize_t, gsl_siman_params_t), r, x0_p, Ef, take_step, distance,
-        print_position, copyfunc, copy_constructor, destructor, element_size,
-        params )
+        gsl_siman_print_t, gsl_siman_copy_t, gsl_siman_copy_ruct_t,
+        gsl_siman_destroy_t, Csize_t, gsl_siman_params_t), r, x0_p, Ef,
+        take_step, distance, print_position, copyfunc, copy_constructor,
+        destructor, element_size, params )
 end

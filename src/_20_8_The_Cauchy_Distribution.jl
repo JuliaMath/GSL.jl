@@ -17,11 +17,9 @@ export gsl_ran_cauchy, gsl_ran_cauchy_pdf, gsl_cdf_cauchy_P, gsl_cdf_cauchy_Q,
 # Lorentz distribution.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_cauchy(r::Ptr{Void}, a::Cdouble)
-    ccall( (:gsl_ran_cauchy, :libgsl), Cdouble, (Ptr{Void}, Cdouble), r, a
-        )
+function gsl_ran_cauchy(r::Ptr{gsl_rng}, a::Real)
+    ccall( (:gsl_ran_cauchy, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble), r,
+        a )
 end
 
 
@@ -29,47 +27,52 @@ end
 # distribution with scale parameter a, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_cauchy_pdf(x::Cdouble, a::Cdouble)
+function gsl_ran_cauchy_pdf(x::Real, a::Real)
     ccall( (:gsl_ran_cauchy_pdf, :libgsl), Cdouble, (Cdouble, Cdouble), x,
         a )
 end
+@vectorize_2arg Number gsl_ran_cauchy_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Cauchy distribution with scale parameter a.
 # 
 #   Returns: Cdouble
-function gsl_cdf_cauchy_P(x::Cdouble, a::Cdouble)
+function gsl_cdf_cauchy_P(x::Real, a::Real)
     ccall( (:gsl_cdf_cauchy_P, :libgsl), Cdouble, (Cdouble, Cdouble), x, a
         )
 end
+@vectorize_2arg Number gsl_cdf_cauchy_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Cauchy distribution with scale parameter a.
 # 
 #   Returns: Cdouble
-function gsl_cdf_cauchy_Q(x::Cdouble, a::Cdouble)
+function gsl_cdf_cauchy_Q(x::Real, a::Real)
     ccall( (:gsl_cdf_cauchy_Q, :libgsl), Cdouble, (Cdouble, Cdouble), x, a
         )
 end
+@vectorize_2arg Number gsl_cdf_cauchy_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Cauchy distribution with scale parameter a.
 # 
 #   Returns: Cdouble
-function gsl_cdf_cauchy_Pinv(P::Cdouble, a::Cdouble)
+function gsl_cdf_cauchy_Pinv(P::Real, a::Real)
     ccall( (:gsl_cdf_cauchy_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble), P,
         a )
 end
+@vectorize_2arg Number gsl_cdf_cauchy_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Cauchy distribution with scale parameter a.
 # 
 #   Returns: Cdouble
-function gsl_cdf_cauchy_Qinv(Q::Cdouble, a::Cdouble)
+function gsl_cdf_cauchy_Qinv(Q::Real, a::Real)
     ccall( (:gsl_cdf_cauchy_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble), Q,
         a )
 end
+@vectorize_2arg Number gsl_cdf_cauchy_Qinv

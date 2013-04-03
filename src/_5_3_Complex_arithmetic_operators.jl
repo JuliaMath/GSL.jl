@@ -51,7 +51,7 @@ end
 # z=a+x.
 # 
 #   Returns: gsl_complex
-function gsl_complex_add_real(a::gsl_complex, x::Cdouble)
+function gsl_complex_add_real(a::gsl_complex, x::Real)
     ccall( (:gsl_complex_add_real, :libgsl), gsl_complex, (gsl_complex,
         Cdouble), a, x )
 end
@@ -61,7 +61,7 @@ end
 # number x, z=a-x.
 # 
 #   Returns: gsl_complex
-function gsl_complex_sub_real(a::gsl_complex, x::Cdouble)
+function gsl_complex_sub_real(a::gsl_complex, x::Real)
     ccall( (:gsl_complex_sub_real, :libgsl), gsl_complex, (gsl_complex,
         Cdouble), a, x )
 end
@@ -71,7 +71,7 @@ end
 # x, z=ax.
 # 
 #   Returns: gsl_complex
-function gsl_complex_mul_real(a::gsl_complex, x::Cdouble)
+function gsl_complex_mul_real(a::gsl_complex, x::Real)
     ccall( (:gsl_complex_mul_real, :libgsl), gsl_complex, (gsl_complex,
         Cdouble), a, x )
 end
@@ -81,7 +81,7 @@ end
 # number x, z=a/x.
 # 
 #   Returns: gsl_complex
-function gsl_complex_div_real(a::gsl_complex, x::Cdouble)
+function gsl_complex_div_real(a::gsl_complex, x::Real)
     ccall( (:gsl_complex_div_real, :libgsl), gsl_complex, (gsl_complex,
         Cdouble), a, x )
 end
@@ -91,7 +91,7 @@ end
 # number iy, z=a+iy.
 # 
 #   Returns: gsl_complex
-function gsl_complex_add_imag(a::gsl_complex, y::Cdouble)
+function gsl_complex_add_imag(a::gsl_complex, y::Real)
     ccall( (:gsl_complex_add_imag, :libgsl), gsl_complex, (gsl_complex,
         Cdouble), a, y )
 end
@@ -101,7 +101,7 @@ end
 # imaginary number iy, z=a-iy.
 # 
 #   Returns: gsl_complex
-function gsl_complex_sub_imag(a::gsl_complex, y::Cdouble)
+function gsl_complex_sub_imag(a::gsl_complex, y::Real)
     ccall( (:gsl_complex_sub_imag, :libgsl), gsl_complex, (gsl_complex,
         Cdouble), a, y )
 end
@@ -111,7 +111,7 @@ end
 # number iy, z=a*(iy).
 # 
 #   Returns: gsl_complex
-function gsl_complex_mul_imag(a::gsl_complex, y::Cdouble)
+function gsl_complex_mul_imag(a::gsl_complex, y::Real)
     ccall( (:gsl_complex_mul_imag, :libgsl), gsl_complex, (gsl_complex,
         Cdouble), a, y )
 end
@@ -121,7 +121,7 @@ end
 # number iy, z=a/(iy).
 # 
 #   Returns: gsl_complex
-function gsl_complex_div_imag(a::gsl_complex, y::Cdouble)
+function gsl_complex_div_imag(a::gsl_complex, y::Real)
     ccall( (:gsl_complex_div_imag, :libgsl), gsl_complex, (gsl_complex,
         Cdouble), a, y )
 end

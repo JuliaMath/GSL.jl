@@ -25,5 +25,5 @@ function gsl_linalg_hesstri_decomp()
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_matrix},
         Ptr{gsl_vector}), A, B, U, V, work )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A) ,unsafe_ref(B) ,unsafe_ref(U) ,unsafe_ref(V) ,unsafe_ref(work)
+    return unsafe_ref(A)[1] ,unsafe_ref(B)[1] ,unsafe_ref(U)[1] ,unsafe_ref(V)[1] ,unsafe_ref(work)[1]
 end

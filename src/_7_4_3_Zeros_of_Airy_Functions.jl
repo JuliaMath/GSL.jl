@@ -12,41 +12,45 @@ export gsl_sf_airy_zero_Ai, gsl_sf_airy_zero_Ai_e, gsl_sf_airy_zero_Bi,
 # Ai(x).
 # 
 #   Returns: Cdouble
-function gsl_sf_airy_zero_Ai(s::Cuint)
+function gsl_sf_airy_zero_Ai(s::Integer)
     ccall( (:gsl_sf_airy_zero_Ai, :libgsl), Cdouble, (Cuint, ), s )
 end
+@vectorize_1arg Number gsl_sf_airy_zero_Ai
 
 
 # These routines compute the location of the s-th zero of the Airy function
 # Ai(x).
 # 
 #   Returns: Cint
-function gsl_sf_airy_zero_Ai_e(s::Cuint)
+function gsl_sf_airy_zero_Ai_e(s::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_airy_zero_Ai_e, :libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), s, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_1arg Number gsl_sf_airy_zero_Ai_e
 
 
 # These routines compute the location of the s-th zero of the Airy function
 # Bi(x).
 # 
 #   Returns: Cdouble
-function gsl_sf_airy_zero_Bi(s::Cuint)
+function gsl_sf_airy_zero_Bi(s::Integer)
     ccall( (:gsl_sf_airy_zero_Bi, :libgsl), Cdouble, (Cuint, ), s )
 end
+@vectorize_1arg Number gsl_sf_airy_zero_Bi
 
 
 # These routines compute the location of the s-th zero of the Airy function
 # Bi(x).
 # 
 #   Returns: Cint
-function gsl_sf_airy_zero_Bi_e(s::Cuint)
+function gsl_sf_airy_zero_Bi_e(s::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_airy_zero_Bi_e, :libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), s, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_1arg Number gsl_sf_airy_zero_Bi_e

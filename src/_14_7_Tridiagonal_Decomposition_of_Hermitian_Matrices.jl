@@ -20,14 +20,13 @@ export gsl_linalg_hermtd_decomp, gsl_linalg_hermtd_unpack,
 # are not referenced.
 # 
 #   Returns: Cint
-#XXX Unknown input type A::Ptr{gsl_matrix_complex}
-#XXX Coerced type for A::Ptr{Void}
-#XXX Unknown input type tau::Ptr{gsl_vector_complex}
-#XXX Coerced type for tau::Ptr{Void}
-function gsl_linalg_hermtd_decomp(A::Ptr{Void}, tau::Ptr{Void})
+function gsl_linalg_hermtd_decomp()
+    A = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
+    tau = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     gsl_errno = ccall( (:gsl_linalg_hermtd_decomp, :libgsl), Cint,
-        (Ptr{Void}, Ptr{Void}), A, tau )
+        (Ptr{gsl_matrix_complex}, Ptr{gsl_vector_complex}), A, tau )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1] ,unsafe_ref(tau)[1]
 end
 
 
@@ -36,20 +35,16 @@ end
 # diagonal elements diag and the real vector of subdiagonal elements subdiag.
 # 
 #   Returns: Cint
-#XXX Unknown input type A::Ptr{gsl_matrix_complex}
-#XXX Coerced type for A::Ptr{Void}
-#XXX Unknown input type tau::Ptr{gsl_vector_complex}
-#XXX Coerced type for tau::Ptr{Void}
-#XXX Unknown input type U::Ptr{gsl_matrix_complex}
-#XXX Coerced type for U::Ptr{Void}
-function gsl_linalg_hermtd_unpack(A::Ptr{Void}, tau::Ptr{Void}, U::Ptr{Void})
+function gsl_linalg_hermtd_unpack(A::Ptr{gsl_matrix_complex}, tau::Ptr{gsl_vector_complex})
+    U = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
     diag = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     subdiag = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     gsl_errno = ccall( (:gsl_linalg_hermtd_unpack, :libgsl), Cint,
-        (Ptr{Void}, Ptr{Void}, Ptr{Void}, Ptr{gsl_vector}, Ptr{gsl_vector}), A,
-        tau, U, diag, subdiag )
+        (Ptr{gsl_matrix_complex}, Ptr{gsl_vector_complex},
+        Ptr{gsl_matrix_complex}, Ptr{gsl_vector}, Ptr{gsl_vector}), A, tau, U,
+        diag, subdiag )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(diag) ,unsafe_ref(subdiag)
+    return unsafe_ref(U)[1] ,unsafe_ref(diag)[1] ,unsafe_ref(subdiag)[1]
 end
 
 
@@ -58,13 +53,12 @@ end
 # real vectors diag and subdiag.
 # 
 #   Returns: Cint
-#XXX Unknown input type A::Ptr{gsl_matrix_complex}
-#XXX Coerced type for A::Ptr{Void}
-function gsl_linalg_hermtd_unpack_T(A::Ptr{Void})
+function gsl_linalg_hermtd_unpack_T(A::Ptr{gsl_matrix_complex})
     diag = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     subdiag = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     gsl_errno = ccall( (:gsl_linalg_hermtd_unpack_T, :libgsl), Cint,
-        (Ptr{Void}, Ptr{gsl_vector}, Ptr{gsl_vector}), A, diag, subdiag )
+        (Ptr{gsl_matrix_complex}, Ptr{gsl_vector}, Ptr{gsl_vector}), A, diag,
+        subdiag )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(diag) ,unsafe_ref(subdiag)
+    return unsafe_ref(diag)[1] ,unsafe_ref(subdiag)[1]
 end

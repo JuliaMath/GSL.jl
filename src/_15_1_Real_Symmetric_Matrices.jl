@@ -11,21 +11,20 @@ export gsl_eigen_symm_alloc, gsl_eigen_symm_free, gsl_eigen_symm,
 # This function allocates a workspace for computing eigenvalues of n-by-n real
 # symmetric matrices.  The size of the workspace is O(2n).
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_eigen_symm_workspace}
-#XXX Coerced type for output Ptr{Void}
-function gsl_eigen_symm_alloc{gsl_int<:Integer}(n::gsl_int)
-    ccall( (:gsl_eigen_symm_alloc, :libgsl), Ptr{Void}, (Csize_t, ), n )
+#   Returns: Ptr{gsl_eigen_symm_workspace}
+function gsl_eigen_symm_alloc(n::Integer)
+    ccall( (:gsl_eigen_symm_alloc, :libgsl), Ptr{gsl_eigen_symm_workspace},
+        (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_eigen_symm_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-#XXX Unknown input type w::Ptr{gsl_eigen_symm_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_symm_free(w::Ptr{Void})
-    ccall( (:gsl_eigen_symm_free, :libgsl), Void, (Ptr{Void}, ), w )
+function gsl_eigen_symm_free(w::Ptr{gsl_eigen_symm_workspace})
+    ccall( (:gsl_eigen_symm_free, :libgsl), Void,
+        (Ptr{gsl_eigen_symm_workspace}, ), w )
 end
 
 
@@ -36,15 +35,14 @@ end
 # stored in the vector eval and are unordered.
 # 
 #   Returns: Cint
-#XXX Unknown input type w::Ptr{gsl_eigen_symm_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_symm(w::Ptr{Void})
+function gsl_eigen_symm()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     eval = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
+    w = convert(Ptr{gsl_eigen_symm_workspace}, Array(gsl_eigen_symm_workspace, 1))
     gsl_errno = ccall( (:gsl_eigen_symm, :libgsl), Cint, (Ptr{gsl_matrix},
-        Ptr{gsl_vector}, Ptr{Void}), A, eval, w )
+        Ptr{gsl_vector}, Ptr{gsl_eigen_symm_workspace}), A, eval, w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A) ,unsafe_ref(eval)
+    return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(w)[1]
 end
 
 
@@ -52,21 +50,20 @@ end
 # eigenvectors of n-by-n real symmetric matrices.  The size of the workspace is
 # O(4n).
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_eigen_symmv_workspace}
-#XXX Coerced type for output Ptr{Void}
-function gsl_eigen_symmv_alloc{gsl_int<:Integer}(n::gsl_int)
-    ccall( (:gsl_eigen_symmv_alloc, :libgsl), Ptr{Void}, (Csize_t, ), n )
+#   Returns: Ptr{gsl_eigen_symmv_workspace}
+function gsl_eigen_symmv_alloc(n::Integer)
+    ccall( (:gsl_eigen_symmv_alloc, :libgsl),
+        Ptr{gsl_eigen_symmv_workspace}, (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_eigen_symmv_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-#XXX Unknown input type w::Ptr{gsl_eigen_symmv_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_symmv_free(w::Ptr{Void})
-    ccall( (:gsl_eigen_symmv_free, :libgsl), Void, (Ptr{Void}, ), w )
+function gsl_eigen_symmv_free(w::Ptr{gsl_eigen_symmv_workspace})
+    ccall( (:gsl_eigen_symmv_free, :libgsl), Void,
+        (Ptr{gsl_eigen_symmv_workspace}, ), w )
 end
 
 
@@ -81,14 +78,14 @@ end
 # normalised to unit magnitude.
 # 
 #   Returns: Cint
-#XXX Unknown input type w::Ptr{gsl_eigen_symmv_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_symmv(w::Ptr{Void})
+function gsl_eigen_symmv()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     eval = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     evec = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    w = convert(Ptr{gsl_eigen_symmv_workspace}, Array(gsl_eigen_symmv_workspace, 1))
     gsl_errno = ccall( (:gsl_eigen_symmv, :libgsl), Cint, (Ptr{gsl_matrix},
-        Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Void}), A, eval, evec, w )
+        Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{gsl_eigen_symmv_workspace}), A,
+        eval, evec, w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A) ,unsafe_ref(eval) ,unsafe_ref(evec)
+    return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(evec)[1] ,unsafe_ref(w)[1]
 end

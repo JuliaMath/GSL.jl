@@ -17,12 +17,10 @@ export gsl_ran_discrete_preproc, gsl_ran_discrete, gsl_ran_discrete_pdf,
 # generally as “weights”)—the preprocessor will normalize appropriately.  This
 # return value is used as an argument for the gsl_ran_discrete function below.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_ran_discrete_t}
-#XXX Coerced type for output Ptr{Void}
-function gsl_ran_discrete_preproc{gsl_int<:Integer}(K::gsl_int, P::Ptr{Cdouble})
-    ccall( (:gsl_ran_discrete_preproc, :libgsl), Ptr{Void}, (Csize_t,
-        Ptr{Cdouble}), K, P )
+#   Returns: Ptr{gsl_ran_discrete_t}
+function gsl_ran_discrete_preproc{tA<:Real}(K::Integer, P::Ptr{tA})
+    ccall( (:gsl_ran_discrete_preproc, :libgsl), Ptr{gsl_ran_discrete_t},
+        (Csize_t, Ptr{Cdouble}), K, P )
 end
 
 
@@ -30,13 +28,9 @@ end
 # the discrete random numbers.
 # 
 #   Returns: Csize_t
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-#XXX Unknown input type g::Ptr{gsl_ran_discrete_t}
-#XXX Coerced type for g::Ptr{Void}
-function gsl_ran_discrete(r::Ptr{Void}, g::Ptr{Void})
-    ccall( (:gsl_ran_discrete, :libgsl), Csize_t, (Ptr{Void}, Ptr{Void}),
-        r, g )
+function gsl_ran_discrete(r::Ptr{gsl_rng}, g::Ptr{gsl_ran_discrete_t})
+    ccall( (:gsl_ran_discrete, :libgsl), Csize_t, (Ptr{gsl_rng},
+        Ptr{gsl_ran_discrete_t}), r, g )
 end
 
 
@@ -47,19 +41,16 @@ end
 # P[k] around.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type g::Ptr{gsl_ran_discrete_t}
-#XXX Coerced type for g::Ptr{Void}
-function gsl_ran_discrete_pdf{gsl_int<:Integer}(k::gsl_int, g::Ptr{Void})
-    ccall( (:gsl_ran_discrete_pdf, :libgsl), Cdouble, (Csize_t, Ptr{Void}),
-        k, g )
+function gsl_ran_discrete_pdf(k::Integer, g::Ptr{gsl_ran_discrete_t})
+    ccall( (:gsl_ran_discrete_pdf, :libgsl), Cdouble, (Csize_t,
+        Ptr{gsl_ran_discrete_t}), k, g )
 end
 
 
 # De-allocates the lookup table pointed to by g.
 # 
 #   Returns: Void
-#XXX Unknown input type g::Ptr{gsl_ran_discrete_t}
-#XXX Coerced type for g::Ptr{Void}
-function gsl_ran_discrete_free(g::Ptr{Void})
-    ccall( (:gsl_ran_discrete_free, :libgsl), Void, (Ptr{Void}, ), g )
+function gsl_ran_discrete_free(g::Ptr{gsl_ran_discrete_t})
+    ccall( (:gsl_ran_discrete_free, :libgsl), Void,
+        (Ptr{gsl_ran_discrete_t}, ), g )
 end

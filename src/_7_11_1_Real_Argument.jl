@@ -15,9 +15,10 @@ export gsl_sf_dilog, gsl_sf_dilog_e
 # S(x)=Li_2(1-x) as the dilogarithm rather than Li_2(x).
 # 
 #   Returns: Cdouble
-function gsl_sf_dilog(x::Cdouble)
+function gsl_sf_dilog(x::Real)
     ccall( (:gsl_sf_dilog, :libgsl), Cdouble, (Cdouble, ), x )
 end
+@vectorize_1arg Number gsl_sf_dilog
 
 
 # These routines compute the dilogarithm for a real argument. In Lewin's
@@ -28,10 +29,11 @@ end
 # S(x)=Li_2(1-x) as the dilogarithm rather than Li_2(x).
 # 
 #   Returns: Cint
-function gsl_sf_dilog_e(x::Cdouble)
+function gsl_sf_dilog_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_dilog_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_1arg Number gsl_sf_dilog_e

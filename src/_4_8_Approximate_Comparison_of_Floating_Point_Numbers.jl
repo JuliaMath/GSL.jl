@@ -19,8 +19,10 @@ export gsl_fcmp
 # package fcmp by T.C. Belding.
 # 
 #   Returns: Cint
-function gsl_fcmp(x::Cdouble, y::Cdouble, epsilon::Cdouble)
+function gsl_fcmp(x::Real, y::Real, epsilon::Real)
     gsl_errno = ccall( (:gsl_fcmp, :libgsl), Cint, (Cdouble, Cdouble,
         Cdouble), x, y, epsilon )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_fcmp

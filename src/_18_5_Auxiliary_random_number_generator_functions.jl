@@ -19,11 +19,9 @@ export gsl_rng_name, gsl_rng_max, gsl_rng_min, gsl_rng_state, gsl_rng_size,
 # would print something like r is a 'taus' generator.
 # 
 #   Returns: Ptr{Cchar}
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_rng_name(r::Ptr{Void})
+function gsl_rng_name(r::Ptr{gsl_rng})
     output_string = ccall( (:gsl_rng_name, :libgsl), Ptr{Cchar},
-        (Ptr{Void}, ), r )
+        (Ptr{gsl_rng}, ), r )
     bytestring(convert(Ptr{Uint8}, output_string))
 end
 
@@ -31,10 +29,8 @@ end
 # gsl_rng_max returns the largest value that gsl_rng_get can return.
 # 
 #   Returns: Culong
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_rng_max(r::Ptr{Void})
-    ccall( (:gsl_rng_max, :libgsl), Culong, (Ptr{Void}, ), r )
+function gsl_rng_max(r::Ptr{gsl_rng})
+    ccall( (:gsl_rng_max, :libgsl), Culong, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -43,10 +39,8 @@ end
 # return zero, and for these generators the minimum value is 1.
 # 
 #   Returns: Culong
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_rng_min(r::Ptr{Void})
-    ccall( (:gsl_rng_min, :libgsl), Culong, (Ptr{Void}, ), r )
+function gsl_rng_min(r::Ptr{gsl_rng})
+    ccall( (:gsl_rng_min, :libgsl), Culong, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -57,10 +51,8 @@ end
 # fwrite (state, n, 1, stream);
 # 
 #   Returns: Ptr{Void}
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_rng_state(r::Ptr{Void})
-    ccall( (:gsl_rng_state, :libgsl), Ptr{Void}, (Ptr{Void}, ), r )
+function gsl_rng_state(r::Ptr{gsl_rng})
+    ccall( (:gsl_rng_state, :libgsl), Ptr{Void}, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -71,10 +63,8 @@ end
 # fwrite (state, n, 1, stream);
 # 
 #   Returns: Csize_t
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_rng_size(r::Ptr{Void})
-    ccall( (:gsl_rng_size, :libgsl), Csize_t, (Ptr{Void}, ), r )
+function gsl_rng_size(r::Ptr{gsl_rng})
+    ccall( (:gsl_rng_size, :libgsl), Csize_t, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -87,9 +77,7 @@ end
 # generators:\n");                      for (t = t0; *t != 0; t++)
 # {               printf ("%s\n", (*t)->name);             }
 # 
-#   Returns: Ptr{Ptr{Void}}
-#XXX Unknown output type Ptr{Ptr{gsl_rng_type}}
-#XXX Coerced type for output Ptr{Ptr{Void}}
+#   Returns: Ptr{Ptr{gsl_rng_type}}
 function gsl_rng_types_setup()
-    ccall( (:gsl_rng_types_setup, :libgsl), Ptr{Ptr{Void}}, () )
+    ccall( (:gsl_rng_types_setup, :libgsl), Ptr{Ptr{gsl_rng_type}}, () )
 end

@@ -13,12 +13,12 @@ export gsl_multifit_fsolver_iterate, gsl_multifit_fdfsolver_iterate,
 # solver maintains a current estimate of the best-fit parameters at all times.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_multifit_fsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multifit_fsolver_iterate(s::Ptr{Void})
+function gsl_multifit_fsolver_iterate()
+    s = convert(Ptr{gsl_multifit_fsolver}, Array(gsl_multifit_fsolver, 1))
     gsl_errno = ccall( (:gsl_multifit_fsolver_iterate, :libgsl), Cint,
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multifit_fsolver}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end
 
 
@@ -27,12 +27,12 @@ end
 # solver maintains a current estimate of the best-fit parameters at all times.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_multifit_fdfsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multifit_fdfsolver_iterate(s::Ptr{Void})
+function gsl_multifit_fdfsolver_iterate()
+    s = convert(Ptr{gsl_multifit_fdfsolver}, Array(gsl_multifit_fdfsolver, 1))
     gsl_errno = ccall( (:gsl_multifit_fdfsolver_iterate, :libgsl), Cint,
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multifit_fdfsolver}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end
 
 
@@ -40,11 +40,9 @@ end
 # of the solver s.
 # 
 #   Returns: Ptr{gsl_vector}
-#XXX Unknown input type s::Ptr{gsl_multifit_fsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multifit_fsolver_position(s::Ptr{Void})
+function gsl_multifit_fsolver_position(s::Ptr{gsl_multifit_fsolver})
     ccall( (:gsl_multifit_fsolver_position, :libgsl), Ptr{gsl_vector},
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multifit_fsolver}, ), s )
 end
 
 
@@ -52,9 +50,7 @@ end
 # of the solver s.
 # 
 #   Returns: Ptr{gsl_vector}
-#XXX Unknown input type s::Ptr{gsl_multifit_fdfsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multifit_fdfsolver_position(s::Ptr{Void})
+function gsl_multifit_fdfsolver_position(s::Ptr{gsl_multifit_fdfsolver})
     ccall( (:gsl_multifit_fdfsolver_position, :libgsl), Ptr{gsl_vector},
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multifit_fdfsolver}, ), s )
 end

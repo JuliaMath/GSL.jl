@@ -16,16 +16,14 @@ export gsl_ntuple_project
 # data in the same histogram.
 # 
 #   Returns: Cint
-#XXX Unknown input type value_func::Ptr{gsl_ntuple_value_fn}
-#XXX Coerced type for value_func::Ptr{Void}
-#XXX Unknown input type select_func::Ptr{gsl_ntuple_select_fn}
-#XXX Coerced type for select_func::Ptr{Void}
-function gsl_ntuple_project(value_func::Ptr{Void}, select_func::Ptr{Void})
+function gsl_ntuple_project()
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
     ntuple = convert(Ptr{gsl_ntuple}, Array(gsl_ntuple, 1))
+    value_func = convert(Ptr{gsl_ntuple_value_fn}, Array(gsl_ntuple_value_fn, 1))
+    select_func = convert(Ptr{gsl_ntuple_select_fn}, Array(gsl_ntuple_select_fn, 1))
     gsl_errno = ccall( (:gsl_ntuple_project, :libgsl), Cint,
-        (Ptr{gsl_histogram}, Ptr{gsl_ntuple}, Ptr{Void}, Ptr{Void}), h, ntuple,
-        value_func, select_func )
+        (Ptr{gsl_histogram}, Ptr{gsl_ntuple}, Ptr{gsl_ntuple_value_fn},
+        Ptr{gsl_ntuple_select_fn}), h, ntuple, value_func, select_func )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(h) ,unsafe_ref(ntuple)
+    return unsafe_ref(h)[1] ,unsafe_ref(ntuple)[1] ,unsafe_ref(value_func)[1] ,unsafe_ref(select_func)[1]
 end

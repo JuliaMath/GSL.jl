@@ -20,21 +20,20 @@ export gsl_eigen_gen_alloc, gsl_eigen_gen_free, gsl_eigen_gen_params,
 # This function allocates a workspace for computing eigenvalues of n-by-n real
 # generalized nonsymmetric eigensystems. The size of the workspace is O(n).
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_eigen_gen_workspace}
-#XXX Coerced type for output Ptr{Void}
-function gsl_eigen_gen_alloc{gsl_int<:Integer}(n::gsl_int)
-    ccall( (:gsl_eigen_gen_alloc, :libgsl), Ptr{Void}, (Csize_t, ), n )
+#   Returns: Ptr{gsl_eigen_gen_workspace}
+function gsl_eigen_gen_alloc(n::Integer)
+    ccall( (:gsl_eigen_gen_alloc, :libgsl), Ptr{gsl_eigen_gen_workspace},
+        (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_eigen_gen_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-#XXX Unknown input type w::Ptr{gsl_eigen_gen_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_gen_free(w::Ptr{Void})
-    ccall( (:gsl_eigen_gen_free, :libgsl), Void, (Ptr{Void}, ), w )
+function gsl_eigen_gen_free(w::Ptr{gsl_eigen_gen_workspace})
+    ccall( (:gsl_eigen_gen_free, :libgsl), Void,
+        (Ptr{gsl_eigen_gen_workspace}, ), w )
 end
 
 
@@ -52,12 +51,14 @@ end
 # ignored, since generalized balancing is not yet implemented.
 # 
 #   Returns: Void
-#XXX Unknown input type w::Ptr{gsl_eigen_gen_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_gen_params{gsl_int<:Integer}(compute_s::gsl_int, compute_t::gsl_int, balance::gsl_int, w::Ptr{Void})
+function gsl_eigen_gen_params(compute_s::Integer, compute_t::Integer, balance::Integer)
+    w = convert(Ptr{gsl_eigen_gen_workspace}, Array(gsl_eigen_gen_workspace, 1))
     ccall( (:gsl_eigen_gen_params, :libgsl), Void, (Cint, Cint, Cint,
-        Ptr{Void}), compute_s, compute_t, balance, w )
+        Ptr{gsl_eigen_gen_workspace}), compute_s, compute_t, balance, w )
+    return unsafe_ref(w)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_eigen_gen_params
 
 
 # This function computes the eigenvalues of the real generalized nonsymmetric
@@ -72,19 +73,17 @@ end
 # may fail to find all eigenvalues. If this occurs, an error code is returned.
 # 
 #   Returns: Cint
-#XXX Unknown input type alpha::Ptr{gsl_vector_complex}
-#XXX Coerced type for alpha::Ptr{Void}
-#XXX Unknown input type w::Ptr{gsl_eigen_gen_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_gen(alpha::Ptr{Void}, w::Ptr{Void})
+function gsl_eigen_gen()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     B = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    alpha = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     beta = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
+    w = convert(Ptr{gsl_eigen_gen_workspace}, Array(gsl_eigen_gen_workspace, 1))
     gsl_errno = ccall( (:gsl_eigen_gen, :libgsl), Cint, (Ptr{gsl_matrix},
-        Ptr{gsl_matrix}, Ptr{Void}, Ptr{gsl_vector}, Ptr{Void}), A, B, alpha,
-        beta, w )
+        Ptr{gsl_matrix}, Ptr{gsl_vector_complex}, Ptr{gsl_vector},
+        Ptr{gsl_eigen_gen_workspace}), A, B, alpha, beta, w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A) ,unsafe_ref(B) ,unsafe_ref(beta)
+    return unsafe_ref(A)[1] ,unsafe_ref(B)[1] ,unsafe_ref(alpha)[1] ,unsafe_ref(beta)[1] ,unsafe_ref(w)[1]
 end
 
 
@@ -92,22 +91,20 @@ end
 # left and right Schur vectors and stores them into Q and Z respectively.
 # 
 #   Returns: Cint
-#XXX Unknown input type alpha::Ptr{gsl_vector_complex}
-#XXX Coerced type for alpha::Ptr{Void}
-#XXX Unknown input type w::Ptr{gsl_eigen_gen_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_gen_QZ(alpha::Ptr{Void}, w::Ptr{Void})
+function gsl_eigen_gen_QZ()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     B = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    alpha = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     beta = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     Q = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     Z = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    w = convert(Ptr{gsl_eigen_gen_workspace}, Array(gsl_eigen_gen_workspace, 1))
     gsl_errno = ccall( (:gsl_eigen_gen_QZ, :libgsl), Cint,
-        (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{Void}, Ptr{gsl_vector},
-        Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{Void}), A, B, alpha, beta, Q, Z,
-        w )
+        (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_vector_complex},
+        Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{gsl_matrix},
+        Ptr{gsl_eigen_gen_workspace}), A, B, alpha, beta, Q, Z, w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A) ,unsafe_ref(B) ,unsafe_ref(beta) ,unsafe_ref(Q) ,unsafe_ref(Z)
+    return unsafe_ref(A)[1] ,unsafe_ref(B)[1] ,unsafe_ref(alpha)[1] ,unsafe_ref(beta)[1] ,unsafe_ref(Q)[1] ,unsafe_ref(Z)[1] ,unsafe_ref(w)[1]
 end
 
 
@@ -115,21 +112,20 @@ end
 # eigenvectors of n-by-n real generalized nonsymmetric eigensystems. The size
 # of the workspace is O(7n).
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_eigen_genv_workspace}
-#XXX Coerced type for output Ptr{Void}
-function gsl_eigen_genv_alloc{gsl_int<:Integer}(n::gsl_int)
-    ccall( (:gsl_eigen_genv_alloc, :libgsl), Ptr{Void}, (Csize_t, ), n )
+#   Returns: Ptr{gsl_eigen_genv_workspace}
+function gsl_eigen_genv_alloc(n::Integer)
+    ccall( (:gsl_eigen_genv_alloc, :libgsl), Ptr{gsl_eigen_genv_workspace},
+        (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_eigen_genv_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-#XXX Unknown input type w::Ptr{gsl_eigen_genv_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_genv_free(w::Ptr{Void})
-    ccall( (:gsl_eigen_genv_free, :libgsl), Void, (Ptr{Void}, ), w )
+function gsl_eigen_genv_free(w::Ptr{gsl_eigen_genv_workspace})
+    ccall( (:gsl_eigen_genv_free, :libgsl), Void,
+        (Ptr{gsl_eigen_genv_workspace}, ), w )
 end
 
 
@@ -145,21 +141,19 @@ end
 # code is returned.
 # 
 #   Returns: Cint
-#XXX Unknown input type alpha::Ptr{gsl_vector_complex}
-#XXX Coerced type for alpha::Ptr{Void}
-#XXX Unknown input type evec::Ptr{gsl_matrix_complex}
-#XXX Coerced type for evec::Ptr{Void}
-#XXX Unknown input type w::Ptr{gsl_eigen_genv_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_genv(alpha::Ptr{Void}, evec::Ptr{Void}, w::Ptr{Void})
+function gsl_eigen_genv()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     B = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    alpha = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     beta = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
+    evec = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
+    w = convert(Ptr{gsl_eigen_genv_workspace}, Array(gsl_eigen_genv_workspace, 1))
     gsl_errno = ccall( (:gsl_eigen_genv, :libgsl), Cint, (Ptr{gsl_matrix},
-        Ptr{gsl_matrix}, Ptr{Void}, Ptr{gsl_vector}, Ptr{Void}, Ptr{Void}), A,
-        B, alpha, beta, evec, w )
+        Ptr{gsl_matrix}, Ptr{gsl_vector_complex}, Ptr{gsl_vector},
+        Ptr{gsl_matrix_complex}, Ptr{gsl_eigen_genv_workspace}), A, B, alpha,
+        beta, evec, w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A) ,unsafe_ref(B) ,unsafe_ref(beta)
+    return unsafe_ref(A)[1] ,unsafe_ref(B)[1] ,unsafe_ref(alpha)[1] ,unsafe_ref(beta)[1] ,unsafe_ref(evec)[1] ,unsafe_ref(w)[1]
 end
 
 
@@ -167,22 +161,20 @@ end
 # left and right Schur vectors and stores them into Q and Z respectively.
 # 
 #   Returns: Cint
-#XXX Unknown input type alpha::Ptr{gsl_vector_complex}
-#XXX Coerced type for alpha::Ptr{Void}
-#XXX Unknown input type evec::Ptr{gsl_matrix_complex}
-#XXX Coerced type for evec::Ptr{Void}
-#XXX Unknown input type w::Ptr{gsl_eigen_genv_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_genv_QZ(alpha::Ptr{Void}, evec::Ptr{Void}, w::Ptr{Void})
+function gsl_eigen_genv_QZ()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     B = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    alpha = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     beta = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
+    evec = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
     Q = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     Z = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    w = convert(Ptr{gsl_eigen_genv_workspace}, Array(gsl_eigen_genv_workspace, 1))
     gsl_errno = ccall( (:gsl_eigen_genv_QZ, :libgsl), Cint,
-        (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{Void}, Ptr{gsl_vector},
-        Ptr{Void}, Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{Void}), A, B, alpha,
-        beta, evec, Q, Z, w )
+        (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_vector_complex},
+        Ptr{gsl_vector}, Ptr{gsl_matrix_complex}, Ptr{gsl_matrix},
+        Ptr{gsl_matrix}, Ptr{gsl_eigen_genv_workspace}), A, B, alpha, beta,
+        evec, Q, Z, w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A) ,unsafe_ref(B) ,unsafe_ref(beta) ,unsafe_ref(Q) ,unsafe_ref(Z)
+    return unsafe_ref(A)[1] ,unsafe_ref(B)[1] ,unsafe_ref(alpha)[1] ,unsafe_ref(beta)[1] ,unsafe_ref(evec)[1] ,unsafe_ref(Q)[1] ,unsafe_ref(Z)[1] ,unsafe_ref(w)[1]
 end

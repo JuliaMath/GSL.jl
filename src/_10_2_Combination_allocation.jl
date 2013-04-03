@@ -16,10 +16,11 @@ export gsl_combination_alloc, gsl_combination_calloc,
 # returned if insufficient memory is available to create the combination.
 # 
 #   Returns: Ptr{gsl_combination}
-function gsl_combination_alloc{gsl_int<:Integer}(n::gsl_int, k::gsl_int)
+function gsl_combination_alloc(n::Integer, k::Integer)
     ccall( (:gsl_combination_alloc, :libgsl), Ptr{gsl_combination},
         (Csize_t, Csize_t), n, k )
 end
+@vectorize_2arg Number gsl_combination_alloc
 
 
 # This function allocates memory for a new combination with parameters n, k and
@@ -27,10 +28,11 @@ end
 # returned if insufficient memory is available to create the combination.
 # 
 #   Returns: Ptr{gsl_combination}
-function gsl_combination_calloc{gsl_int<:Integer}(n::gsl_int, k::gsl_int)
+function gsl_combination_calloc(n::Integer, k::Integer)
     ccall( (:gsl_combination_calloc, :libgsl), Ptr{gsl_combination},
         (Csize_t, Csize_t), n, k )
 end
+@vectorize_2arg Number gsl_combination_calloc
 
 
 # This function initializes the combination c to the lexicographically first
@@ -41,7 +43,7 @@ function gsl_combination_init_first()
     c = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
     ccall( (:gsl_combination_init_first, :libgsl), Void,
         (Ptr{gsl_combination}, ), c )
-    return unsafe_ref(c)
+    return unsafe_ref(c)[1]
 end
 
 
@@ -53,7 +55,7 @@ function gsl_combination_init_last()
     c = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
     ccall( (:gsl_combination_init_last, :libgsl), Void,
         (Ptr{gsl_combination}, ), c )
-    return unsafe_ref(c)
+    return unsafe_ref(c)[1]
 end
 
 
@@ -75,5 +77,5 @@ function gsl_combination_memcpy(src::Ptr{gsl_combination})
     gsl_errno = ccall( (:gsl_combination_memcpy, :libgsl), Cint,
         (Ptr{gsl_combination}, Ptr{gsl_combination}), dest, src )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(dest)
+    return unsafe_ref(dest)[1]
 end

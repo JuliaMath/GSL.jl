@@ -41,14 +41,10 @@ export gsl_vector_subvector, gsl_vector_const_subvector,
 # gsl_vector_const_subvector is equivalent to gsl_vector_subvector but can be
 # used for vectors which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector_view
-#XXX Coerced type for output Void
-function gsl_vector_subvector{gsl_int<:Integer}(offset::gsl_int, n::gsl_int)
-    v = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    ccall( (:gsl_vector_subvector, :libgsl), Void, (Ptr{gsl_vector},
-        Csize_t, Csize_t), v, offset, n )
-    return unsafe_ref(v)
+#   Returns: gsl_vector_view
+function gsl_vector_subvector(v::Ptr{gsl_vector}, offset::Integer, n::Integer)
+    ccall( (:gsl_vector_subvector, :libgsl), gsl_vector_view,
+        (Ptr{gsl_vector}, Csize_t, Csize_t), v, offset, n )
 end
 
 
@@ -68,12 +64,10 @@ end
 # gsl_vector_const_subvector is equivalent to gsl_vector_subvector but can be
 # used for vectors which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector__view
-#XXX Coerced type for output Void
-function gsl_vector_const_subvector{gsl_int<:Integer}(v::Ptr{gsl_vector}, offset::gsl_int, n::gsl_int)
-    ccall( (:gsl_vector_const_subvector, :libgsl), Void, (Ptr{gsl_vector},
-        Csize_t, Csize_t), v, offset, n )
+#   Returns: gsl_vector__view
+function gsl_vector_const_subvector(v::Ptr{gsl_vector}, offset::Integer, n::Integer)
+    ccall( (:gsl_vector_const_subvector, :libgsl), gsl_vector__view,
+        (Ptr{gsl_vector}, Csize_t, Csize_t), v, offset, n )
 end
 
 
@@ -98,14 +92,10 @@ end
 # gsl_vector_subvector_with_stride but can be used for vectors which are
 # declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector_view
-#XXX Coerced type for output Void
-function gsl_vector_subvector_with_stride{gsl_int<:Integer}(offset::gsl_int, stride::gsl_int, n::gsl_int)
-    v = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    ccall( (:gsl_vector_subvector_with_stride, :libgsl), Void,
+#   Returns: gsl_vector_view
+function gsl_vector_subvector_with_stride(v::Ptr{gsl_vector}, offset::Integer, stride::Integer, n::Integer)
+    ccall( (:gsl_vector_subvector_with_stride, :libgsl), gsl_vector_view,
         (Ptr{gsl_vector}, Csize_t, Csize_t, Csize_t), v, offset, stride, n )
-    return unsafe_ref(v)
 end
 
 
@@ -130,12 +120,11 @@ end
 # gsl_vector_subvector_with_stride but can be used for vectors which are
 # declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector__view
-#XXX Coerced type for output Void
-function gsl_vector_const_subvector_with_stride{gsl_int<:Integer}(v::Ptr{gsl_vector}, offset::gsl_int, stride::gsl_int, n::gsl_int)
-    ccall( (:gsl_vector_const_subvector_with_stride, :libgsl), Void,
-        (Ptr{gsl_vector}, Csize_t, Csize_t, Csize_t), v, offset, stride, n )
+#   Returns: gsl_vector__view
+function gsl_vector_const_subvector_with_stride(v::Ptr{gsl_vector}, offset::Integer, stride::Integer, n::Integer)
+    ccall( (:gsl_vector_const_subvector_with_stride, :libgsl),
+        gsl_vector__view, (Ptr{gsl_vector}, Csize_t, Csize_t, Csize_t), v,
+        offset, stride, n )
 end
 
 
@@ -143,13 +132,10 @@ end
 # v.          The function gsl_vector_complex_const_real is equivalent to
 # gsl_vector_complex_real but can be used for vectors which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown input type v::Ptr{gsl_vector_complex}
-#XXX Coerced type for v::Ptr{Void}
-#XXX Unknown output type gsl_vector_view
-#XXX Coerced type for output Void
-function gsl_vector_complex_real(v::Ptr{Void})
-    ccall( (:gsl_vector_complex_real, :libgsl), Void, (Ptr{Void}, ), v )
+#   Returns: gsl_vector_view
+function gsl_vector_complex_real(v::Ptr{gsl_vector_complex})
+    ccall( (:gsl_vector_complex_real, :libgsl), gsl_vector_view,
+        (Ptr{gsl_vector_complex}, ), v )
 end
 
 
@@ -157,14 +143,10 @@ end
 # v.          The function gsl_vector_complex_const_real is equivalent to
 # gsl_vector_complex_real but can be used for vectors which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown input type v::Ptr{gsl_vector_complex}
-#XXX Coerced type for v::Ptr{Void}
-#XXX Unknown output type gsl_vector__view
-#XXX Coerced type for output Void
-function gsl_vector_complex_const_real(v::Ptr{Void})
-    ccall( (:gsl_vector_complex_const_real, :libgsl), Void, (Ptr{Void}, ),
-        v )
+#   Returns: gsl_vector__view
+function gsl_vector_complex_const_real(v::Ptr{gsl_vector_complex})
+    ccall( (:gsl_vector_complex_const_real, :libgsl), gsl_vector__view,
+        (Ptr{gsl_vector_complex}, ), v )
 end
 
 
@@ -173,13 +155,10 @@ end
 # to gsl_vector_complex_imag but can be used for vectors which are declared
 # const.
 # 
-#   Returns: Void
-#XXX Unknown input type v::Ptr{gsl_vector_complex}
-#XXX Coerced type for v::Ptr{Void}
-#XXX Unknown output type gsl_vector_view
-#XXX Coerced type for output Void
-function gsl_vector_complex_imag(v::Ptr{Void})
-    ccall( (:gsl_vector_complex_imag, :libgsl), Void, (Ptr{Void}, ), v )
+#   Returns: gsl_vector_view
+function gsl_vector_complex_imag(v::Ptr{gsl_vector_complex})
+    ccall( (:gsl_vector_complex_imag, :libgsl), gsl_vector_view,
+        (Ptr{gsl_vector_complex}, ), v )
 end
 
 
@@ -188,14 +167,10 @@ end
 # to gsl_vector_complex_imag but can be used for vectors which are declared
 # const.
 # 
-#   Returns: Void
-#XXX Unknown input type v::Ptr{gsl_vector_complex}
-#XXX Coerced type for v::Ptr{Void}
-#XXX Unknown output type gsl_vector__view
-#XXX Coerced type for output Void
-function gsl_vector_complex_const_imag(v::Ptr{Void})
-    ccall( (:gsl_vector_complex_const_imag, :libgsl), Void, (Ptr{Void}, ),
-        v )
+#   Returns: gsl_vector__view
+function gsl_vector_complex_const_imag(v::Ptr{gsl_vector_complex})
+    ccall( (:gsl_vector_complex_const_imag, :libgsl), gsl_vector__view,
+        (Ptr{gsl_vector_complex}, ), v )
 end
 
 
@@ -210,14 +185,10 @@ end
 # function gsl_vector_const_view_array is equivalent to gsl_vector_view_array
 # but can be used for arrays which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector_view
-#XXX Coerced type for output Void
-function gsl_vector_view_array{gsl_int<:Integer}(n::gsl_int)
-    base = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    ccall( (:gsl_vector_view_array, :libgsl), Void, (Ptr{Cdouble},
-        Csize_t), base, n )
-    return unsafe_ref(base)
+#   Returns: gsl_vector_view
+function gsl_vector_view_array{tA<:Real}(base::Ptr{tA}, n::Integer)
+    ccall( (:gsl_vector_view_array, :libgsl), gsl_vector_view,
+        (Ptr{Cdouble}, Csize_t), base, n )
 end
 
 
@@ -232,12 +203,10 @@ end
 # function gsl_vector_const_view_array is equivalent to gsl_vector_view_array
 # but can be used for arrays which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector__view
-#XXX Coerced type for output Void
-function gsl_vector_const_view_array{gsl_int<:Integer}(base::Ptr{Cdouble}, n::gsl_int)
-    ccall( (:gsl_vector_const_view_array, :libgsl), Void, (Ptr{Cdouble},
-        Csize_t), base, n )
+#   Returns: gsl_vector__view
+function gsl_vector_const_view_array{tA<:Real}(base::Ptr{tA}, n::Integer)
+    ccall( (:gsl_vector_const_view_array, :libgsl), gsl_vector__view,
+        (Ptr{Cdouble}, Csize_t), base, n )
 end
 
 
@@ -254,14 +223,10 @@ end
 # gsl_vector_view_array_with_stride but can be used for arrays which are
 # declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector_view
-#XXX Coerced type for output Void
-function gsl_vector_view_array_with_stride{gsl_int<:Integer}(stride::gsl_int, n::gsl_int)
-    base = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    ccall( (:gsl_vector_view_array_with_stride, :libgsl), Void,
+#   Returns: gsl_vector_view
+function gsl_vector_view_array_with_stride{tA<:Real}(base::Ptr{tA}, stride::Integer, n::Integer)
+    ccall( (:gsl_vector_view_array_with_stride, :libgsl), gsl_vector_view,
         (Ptr{Cdouble}, Csize_t, Csize_t), base, stride, n )
-    return unsafe_ref(base)
 end
 
 
@@ -278,10 +243,8 @@ end
 # gsl_vector_view_array_with_stride but can be used for arrays which are
 # declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector__view
-#XXX Coerced type for output Void
-function gsl_vector_const_view_array_with_stride{gsl_int<:Integer}(base::Ptr{Cdouble}, stride::gsl_int, n::gsl_int)
-    ccall( (:gsl_vector_const_view_array_with_stride, :libgsl), Void,
-        (Ptr{Cdouble}, Csize_t, Csize_t), base, stride, n )
+#   Returns: gsl_vector__view
+function gsl_vector_const_view_array_with_stride{tA<:Real}(base::Ptr{tA}, stride::Integer, n::Integer)
+    ccall( (:gsl_vector_const_view_array_with_stride, :libgsl),
+        gsl_vector__view, (Ptr{Cdouble}, Csize_t, Csize_t), base, stride, n )
 end

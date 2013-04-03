@@ -17,14 +17,10 @@ export gsl_matrix_row, gsl_matrix_const_row, gsl_matrix_column,
 # The function gsl_vector_const_row is equivalent to gsl_matrix_row but can be
 # used for matrices which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector_view
-#XXX Coerced type for output Void
-function gsl_matrix_row{gsl_int<:Integer}(i::gsl_int)
-    m = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    ccall( (:gsl_matrix_row, :libgsl), Void, (Ptr{gsl_matrix}, Csize_t), m,
-        i )
-    return unsafe_ref(m)
+#   Returns: gsl_vector_view
+function gsl_matrix_row(m::Ptr{gsl_matrix}, i::Integer)
+    ccall( (:gsl_matrix_row, :libgsl), gsl_vector_view, (Ptr{gsl_matrix},
+        Csize_t), m, i )
 end
 
 
@@ -33,12 +29,10 @@ end
 # The function gsl_vector_const_row is equivalent to gsl_matrix_row but can be
 # used for matrices which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector__view
-#XXX Coerced type for output Void
-function gsl_matrix_const_row{gsl_int<:Integer}(m::Ptr{gsl_matrix}, i::gsl_int)
-    ccall( (:gsl_matrix_const_row, :libgsl), Void, (Ptr{gsl_matrix},
-        Csize_t), m, i )
+#   Returns: gsl_vector__view
+function gsl_matrix_const_row(m::Ptr{gsl_matrix}, i::Integer)
+    ccall( (:gsl_matrix_const_row, :libgsl), gsl_vector__view,
+        (Ptr{gsl_matrix}, Csize_t), m, i )
 end
 
 
@@ -47,14 +41,10 @@ end
 # The function gsl_vector_const_column is equivalent to gsl_matrix_column but
 # can be used for matrices which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector_view
-#XXX Coerced type for output Void
-function gsl_matrix_column{gsl_int<:Integer}(j::gsl_int)
-    m = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    ccall( (:gsl_matrix_column, :libgsl), Void, (Ptr{gsl_matrix}, Csize_t),
-        m, j )
-    return unsafe_ref(m)
+#   Returns: gsl_vector_view
+function gsl_matrix_column(m::Ptr{gsl_matrix}, j::Integer)
+    ccall( (:gsl_matrix_column, :libgsl), gsl_vector_view,
+        (Ptr{gsl_matrix}, Csize_t), m, j )
 end
 
 
@@ -63,12 +53,10 @@ end
 # The function gsl_vector_const_column is equivalent to gsl_matrix_column but
 # can be used for matrices which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector__view
-#XXX Coerced type for output Void
-function gsl_matrix_const_column{gsl_int<:Integer}(m::Ptr{gsl_matrix}, j::gsl_int)
-    ccall( (:gsl_matrix_const_column, :libgsl), Void, (Ptr{gsl_matrix},
-        Csize_t), m, j )
+#   Returns: gsl_vector__view
+function gsl_matrix_const_column(m::Ptr{gsl_matrix}, j::Integer)
+    ccall( (:gsl_matrix_const_column, :libgsl), gsl_vector__view,
+        (Ptr{gsl_matrix}, Csize_t), m, j )
 end
 
 
@@ -78,14 +66,10 @@ end
 # of range.          The function gsl_vector_const_subrow is equivalent to
 # gsl_matrix_subrow but can be used for matrices which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector_view
-#XXX Coerced type for output Void
-function gsl_matrix_subrow{gsl_int<:Integer}(i::gsl_int, offset::gsl_int, n::gsl_int)
-    m = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    ccall( (:gsl_matrix_subrow, :libgsl), Void, (Ptr{gsl_matrix}, Csize_t,
-        Csize_t, Csize_t), m, i, offset, n )
-    return unsafe_ref(m)
+#   Returns: gsl_vector_view
+function gsl_matrix_subrow(m::Ptr{gsl_matrix}, i::Integer, offset::Integer, n::Integer)
+    ccall( (:gsl_matrix_subrow, :libgsl), gsl_vector_view,
+        (Ptr{gsl_matrix}, Csize_t, Csize_t, Csize_t), m, i, offset, n )
 end
 
 
@@ -95,12 +79,10 @@ end
 # of range.          The function gsl_vector_const_subrow is equivalent to
 # gsl_matrix_subrow but can be used for matrices which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector__view
-#XXX Coerced type for output Void
-function gsl_matrix_const_subrow{gsl_int<:Integer}(m::Ptr{gsl_matrix}, i::gsl_int, offset::gsl_int, n::gsl_int)
-    ccall( (:gsl_matrix_const_subrow, :libgsl), Void, (Ptr{gsl_matrix},
-        Csize_t, Csize_t, Csize_t), m, i, offset, n )
+#   Returns: gsl_vector__view
+function gsl_matrix_const_subrow(m::Ptr{gsl_matrix}, i::Integer, offset::Integer, n::Integer)
+    ccall( (:gsl_matrix_const_subrow, :libgsl), gsl_vector__view,
+        (Ptr{gsl_matrix}, Csize_t, Csize_t, Csize_t), m, i, offset, n )
 end
 
 
@@ -110,14 +92,10 @@ end
 # of range.          The function gsl_vector_const_subcolumn is equivalent to
 # gsl_matrix_subcolumn but can be used for matrices which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector_view
-#XXX Coerced type for output Void
-function gsl_matrix_subcolumn{gsl_int<:Integer}(j::gsl_int, offset::gsl_int, n::gsl_int)
-    m = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    ccall( (:gsl_matrix_subcolumn, :libgsl), Void, (Ptr{gsl_matrix},
-        Csize_t, Csize_t, Csize_t), m, j, offset, n )
-    return unsafe_ref(m)
+#   Returns: gsl_vector_view
+function gsl_matrix_subcolumn(m::Ptr{gsl_matrix}, j::Integer, offset::Integer, n::Integer)
+    ccall( (:gsl_matrix_subcolumn, :libgsl), gsl_vector_view,
+        (Ptr{gsl_matrix}, Csize_t, Csize_t, Csize_t), m, j, offset, n )
 end
 
 
@@ -127,12 +105,10 @@ end
 # of range.          The function gsl_vector_const_subcolumn is equivalent to
 # gsl_matrix_subcolumn but can be used for matrices which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector__view
-#XXX Coerced type for output Void
-function gsl_matrix_const_subcolumn{gsl_int<:Integer}(m::Ptr{gsl_matrix}, j::gsl_int, offset::gsl_int, n::gsl_int)
-    ccall( (:gsl_matrix_const_subcolumn, :libgsl), Void, (Ptr{gsl_matrix},
-        Csize_t, Csize_t, Csize_t), m, j, offset, n )
+#   Returns: gsl_vector__view
+function gsl_matrix_const_subcolumn(m::Ptr{gsl_matrix}, j::Integer, offset::Integer, n::Integer)
+    ccall( (:gsl_matrix_const_subcolumn, :libgsl), gsl_vector__view,
+        (Ptr{gsl_matrix}, Csize_t, Csize_t, Csize_t), m, j, offset, n )
 end
 
 
@@ -142,13 +118,10 @@ end
 # function gsl_matrix_const_diagonal is equivalent to gsl_matrix_diagonal but
 # can be used for matrices which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector_view
-#XXX Coerced type for output Void
-function gsl_matrix_diagonal()
-    m = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    ccall( (:gsl_matrix_diagonal, :libgsl), Void, (Ptr{gsl_matrix}, ), m )
-    return unsafe_ref(m)
+#   Returns: gsl_vector_view
+function gsl_matrix_diagonal(m::Ptr{gsl_matrix})
+    ccall( (:gsl_matrix_diagonal, :libgsl), gsl_vector_view,
+        (Ptr{gsl_matrix}, ), m )
 end
 
 
@@ -158,12 +131,10 @@ end
 # function gsl_matrix_const_diagonal is equivalent to gsl_matrix_diagonal but
 # can be used for matrices which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector__view
-#XXX Coerced type for output Void
+#   Returns: gsl_vector__view
 function gsl_matrix_const_diagonal(m::Ptr{gsl_matrix})
-    ccall( (:gsl_matrix_const_diagonal, :libgsl), Void, (Ptr{gsl_matrix},
-        ), m )
+    ccall( (:gsl_matrix_const_diagonal, :libgsl), gsl_vector__view,
+        (Ptr{gsl_matrix}, ), m )
 end
 
 
@@ -173,14 +144,10 @@ end
 # equivalent to gsl_matrix_subdiagonal but can be used for matrices which are
 # declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector_view
-#XXX Coerced type for output Void
-function gsl_matrix_subdiagonal{gsl_int<:Integer}(k::gsl_int)
-    m = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    ccall( (:gsl_matrix_subdiagonal, :libgsl), Void, (Ptr{gsl_matrix},
-        Csize_t), m, k )
-    return unsafe_ref(m)
+#   Returns: gsl_vector_view
+function gsl_matrix_subdiagonal(m::Ptr{gsl_matrix}, k::Integer)
+    ccall( (:gsl_matrix_subdiagonal, :libgsl), gsl_vector_view,
+        (Ptr{gsl_matrix}, Csize_t), m, k )
 end
 
 
@@ -190,11 +157,9 @@ end
 # equivalent to gsl_matrix_subdiagonal but can be used for matrices which are
 # declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector__view
-#XXX Coerced type for output Void
-function gsl_matrix_const_subdiagonal{gsl_int<:Integer}(m::Ptr{gsl_matrix}, k::gsl_int)
-    ccall( (:gsl_matrix_const_subdiagonal, :libgsl), Void,
+#   Returns: gsl_vector__view
+function gsl_matrix_const_subdiagonal(m::Ptr{gsl_matrix}, k::Integer)
+    ccall( (:gsl_matrix_const_subdiagonal, :libgsl), gsl_vector__view,
         (Ptr{gsl_matrix}, Csize_t), m, k )
 end
 
@@ -205,14 +170,10 @@ end
 # equivalent to gsl_matrix_superdiagonal but can be used for matrices which are
 # declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector_view
-#XXX Coerced type for output Void
-function gsl_matrix_superdiagonal{gsl_int<:Integer}(k::gsl_int)
-    m = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    ccall( (:gsl_matrix_superdiagonal, :libgsl), Void, (Ptr{gsl_matrix},
-        Csize_t), m, k )
-    return unsafe_ref(m)
+#   Returns: gsl_vector_view
+function gsl_matrix_superdiagonal(m::Ptr{gsl_matrix}, k::Integer)
+    ccall( (:gsl_matrix_superdiagonal, :libgsl), gsl_vector_view,
+        (Ptr{gsl_matrix}, Csize_t), m, k )
 end
 
 
@@ -222,10 +183,8 @@ end
 # equivalent to gsl_matrix_superdiagonal but can be used for matrices which are
 # declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_vector__view
-#XXX Coerced type for output Void
-function gsl_matrix_const_superdiagonal{gsl_int<:Integer}(m::Ptr{gsl_matrix}, k::gsl_int)
-    ccall( (:gsl_matrix_const_superdiagonal, :libgsl), Void,
+#   Returns: gsl_vector__view
+function gsl_matrix_const_superdiagonal(m::Ptr{gsl_matrix}, k::Integer)
+    ccall( (:gsl_matrix_const_superdiagonal, :libgsl), gsl_vector__view,
         (Ptr{gsl_matrix}, Csize_t), m, k )
 end

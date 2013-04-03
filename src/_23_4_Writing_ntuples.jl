@@ -16,7 +16,7 @@ function gsl_ntuple_write()
     gsl_errno = ccall( (:gsl_ntuple_write, :libgsl), Cint,
         (Ptr{gsl_ntuple}, ), ntuple )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(ntuple)
+    return unsafe_ref(ntuple)[1]
 end
 
 
@@ -28,5 +28,5 @@ function gsl_ntuple_bookdata()
     gsl_errno = ccall( (:gsl_ntuple_bookdata, :libgsl), Cint,
         (Ptr{gsl_ntuple}, ), ntuple )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(ntuple)
+    return unsafe_ref(ntuple)[1]
 end

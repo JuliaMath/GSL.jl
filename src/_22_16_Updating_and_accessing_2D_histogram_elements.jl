@@ -21,13 +21,14 @@ export gsl_histogram2d_increment, gsl_histogram2d_accumulate,
 # of interest.
 # 
 #   Returns: Cint
-function gsl_histogram2d_increment(x::Cdouble, y::Cdouble)
+function gsl_histogram2d_increment(x::Real, y::Real)
     h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
     gsl_errno = ccall( (:gsl_histogram2d_increment, :libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble, Cdouble), h, x, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(h)
+    return unsafe_ref(h)[1]
 end
+@vectorize_2arg Number gsl_histogram2d_increment
 
 
 # This function is similar to gsl_histogram2d_increment but increases the value
@@ -35,13 +36,15 @@ end
 # weight.
 # 
 #   Returns: Cint
-function gsl_histogram2d_accumulate(x::Cdouble, y::Cdouble, weight::Cdouble)
+function gsl_histogram2d_accumulate(x::Real, y::Real, weight::Real)
     h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
     gsl_errno = ccall( (:gsl_histogram2d_accumulate, :libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble, Cdouble, Cdouble), h, x, y, weight )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(h)
+    return unsafe_ref(h)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_histogram2d_accumulate
 
 
 # This function returns the contents of the (i,j)-th bin of the histogram h.
@@ -50,7 +53,7 @@ end
 # returns 0.
 # 
 #   Returns: Cdouble
-function gsl_histogram2d_get{gsl_int<:Integer}(h::Ptr{gsl_histogram2d}, i::gsl_int, j::gsl_int)
+function gsl_histogram2d_get(h::Ptr{gsl_histogram2d}, i::Integer, j::Integer)
     ccall( (:gsl_histogram2d_get, :libgsl), Cdouble, (Ptr{gsl_histogram2d},
         Csize_t, Csize_t), h, i, j )
 end
@@ -67,14 +70,14 @@ end
 # error code of GSL_EDOM.
 # 
 #   Returns: Cint
-function gsl_histogram2d_get_xrange{gsl_int<:Integer}(h::Ptr{gsl_histogram2d}, i::gsl_int)
+function gsl_histogram2d_get_xrange(h::Ptr{gsl_histogram2d}, i::Integer)
     xlower = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     xupper = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_histogram2d_get_xrange, :libgsl), Cint,
         (Ptr{gsl_histogram2d}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, i,
         xlower, xupper )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(xlower) ,unsafe_ref(xupper)
+    return unsafe_ref(xlower)[1] ,unsafe_ref(xupper)[1]
 end
 
 
@@ -89,14 +92,14 @@ end
 # error code of GSL_EDOM.
 # 
 #   Returns: Cint
-function gsl_histogram2d_get_yrange{gsl_int<:Integer}(h::Ptr{gsl_histogram2d}, j::gsl_int)
+function gsl_histogram2d_get_yrange(h::Ptr{gsl_histogram2d}, j::Integer)
     ylower = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     yupper = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_histogram2d_get_yrange, :libgsl), Cint,
         (Ptr{gsl_histogram2d}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, j,
         ylower, yupper )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(ylower) ,unsafe_ref(yupper)
+    return unsafe_ref(ylower)[1] ,unsafe_ref(yupper)[1]
 end
 
 
@@ -179,5 +182,5 @@ function gsl_histogram2d_reset()
     h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
     ccall( (:gsl_histogram2d_reset, :libgsl), Void, (Ptr{gsl_histogram2d},
         ), h )
-    return unsafe_ref(h)
+    return unsafe_ref(h)[1]
 end

@@ -15,11 +15,9 @@ export gsl_ran_poisson, gsl_ran_poisson_pdf, gsl_cdf_poisson_P,
 # p(k) = {\mu^k \over k!} \exp(-\mu)  for  k >= 0.
 # 
 #   Returns: Cuint
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_poisson(r::Ptr{Void}, mu::Cdouble)
-    ccall( (:gsl_ran_poisson, :libgsl), Cuint, (Ptr{Void}, Cdouble), r, mu
-        )
+function gsl_ran_poisson(r::Ptr{gsl_rng}, mu::Real)
+    ccall( (:gsl_ran_poisson, :libgsl), Cuint, (Ptr{gsl_rng}, Cdouble), r,
+        mu )
 end
 
 
@@ -27,27 +25,30 @@ end
 # distribution with mean mu, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_poisson_pdf(k::Cuint, mu::Cdouble)
+function gsl_ran_poisson_pdf(k::Integer, mu::Real)
     ccall( (:gsl_ran_poisson_pdf, :libgsl), Cdouble, (Cuint, Cdouble), k,
         mu )
 end
+@vectorize_2arg Number gsl_ran_poisson_pdf
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
 # the Poisson distribution with parameter mu.
 # 
 #   Returns: Cdouble
-function gsl_cdf_poisson_P(k::Cuint, mu::Cdouble)
+function gsl_cdf_poisson_P(k::Integer, mu::Real)
     ccall( (:gsl_cdf_poisson_P, :libgsl), Cdouble, (Cuint, Cdouble), k, mu
         )
 end
+@vectorize_2arg Number gsl_cdf_poisson_P
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
 # the Poisson distribution with parameter mu.
 # 
 #   Returns: Cdouble
-function gsl_cdf_poisson_Q(k::Cuint, mu::Cdouble)
+function gsl_cdf_poisson_Q(k::Integer, mu::Real)
     ccall( (:gsl_cdf_poisson_Q, :libgsl), Cdouble, (Cuint, Cdouble), k, mu
         )
 end
+@vectorize_2arg Number gsl_cdf_poisson_Q

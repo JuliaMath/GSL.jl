@@ -12,25 +12,19 @@ export gsl_rng_memcpy, gsl_rng_clone
 # must be of the same type.
 # 
 #   Returns: Cint
-#XXX Unknown input type dest::Ptr{gsl_rng}
-#XXX Coerced type for dest::Ptr{Void}
-#XXX Unknown input type src::Ptr{gsl_rng}
-#XXX Coerced type for src::Ptr{Void}
-function gsl_rng_memcpy(dest::Ptr{Void}, src::Ptr{Void})
-    gsl_errno = ccall( (:gsl_rng_memcpy, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}), dest, src )
+function gsl_rng_memcpy(src::Ptr{gsl_rng})
+    dest = convert(Ptr{gsl_rng}, Array(gsl_rng, 1))
+    gsl_errno = ccall( (:gsl_rng_memcpy, :libgsl), Cint, (Ptr{gsl_rng},
+        Ptr{gsl_rng}), dest, src )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(dest)[1]
 end
 
 
 # This function returns a pointer to a newly created generator which is an
 # exact copy of the generator r.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-#XXX Unknown output type Ptr{gsl_rng}
-#XXX Coerced type for output Ptr{Void}
-function gsl_rng_clone(r::Ptr{Void})
-    ccall( (:gsl_rng_clone, :libgsl), Ptr{Void}, (Ptr{Void}, ), r )
+#   Returns: Ptr{gsl_rng}
+function gsl_rng_clone(r::Ptr{gsl_rng})
+    ccall( (:gsl_rng_clone, :libgsl), Ptr{gsl_rng}, (Ptr{gsl_rng}, ), r )
 end

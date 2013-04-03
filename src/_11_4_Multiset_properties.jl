@@ -41,5 +41,5 @@ function gsl_multiset_valid()
     gsl_errno = ccall( (:gsl_multiset_valid, :libgsl), Cint,
         (Ptr{gsl_multiset}, ), c )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(c)
+    return unsafe_ref(c)[1]
 end

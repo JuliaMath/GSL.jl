@@ -15,10 +15,11 @@ export gsl_multiset_alloc, gsl_multiset_calloc, gsl_multiset_init_first,
 # insufficient memory is available to create the multiset.
 # 
 #   Returns: Ptr{gsl_multiset}
-function gsl_multiset_alloc{gsl_int<:Integer}(n::gsl_int, k::gsl_int)
+function gsl_multiset_alloc(n::Integer, k::Integer)
     ccall( (:gsl_multiset_alloc, :libgsl), Ptr{gsl_multiset}, (Csize_t,
         Csize_t), n, k )
 end
+@vectorize_2arg Number gsl_multiset_alloc
 
 
 # This function allocates memory for a new multiset with parameters n, k and
@@ -27,10 +28,11 @@ end
 # multiset.
 # 
 #   Returns: Ptr{gsl_multiset}
-function gsl_multiset_calloc{gsl_int<:Integer}(n::gsl_int, k::gsl_int)
+function gsl_multiset_calloc(n::Integer, k::Integer)
     ccall( (:gsl_multiset_calloc, :libgsl), Ptr{gsl_multiset}, (Csize_t,
         Csize_t), n, k )
 end
+@vectorize_2arg Number gsl_multiset_calloc
 
 
 # This function initializes the multiset c to the lexicographically first
@@ -41,7 +43,7 @@ function gsl_multiset_init_first()
     c = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
     ccall( (:gsl_multiset_init_first, :libgsl), Void, (Ptr{gsl_multiset},
         ), c )
-    return unsafe_ref(c)
+    return unsafe_ref(c)[1]
 end
 
 
@@ -53,7 +55,7 @@ function gsl_multiset_init_last()
     c = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
     ccall( (:gsl_multiset_init_last, :libgsl), Void, (Ptr{gsl_multiset}, ),
         c )
-    return unsafe_ref(c)
+    return unsafe_ref(c)[1]
 end
 
 
@@ -74,5 +76,5 @@ function gsl_multiset_memcpy(src::Ptr{gsl_multiset})
     gsl_errno = ccall( (:gsl_multiset_memcpy, :libgsl), Cint,
         (Ptr{gsl_multiset}, Ptr{gsl_multiset}), dest, src )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(dest)
+    return unsafe_ref(dest)[1]
 end

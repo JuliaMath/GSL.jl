@@ -16,11 +16,9 @@ export gsl_ran_exponential, gsl_ran_exponential_pdf, gsl_cdf_exponential_P,
 # \exp(-x/\mu) dx  for  x >= 0.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_exponential(r::Ptr{Void}, mu::Cdouble)
-    ccall( (:gsl_ran_exponential, :libgsl), Cdouble, (Ptr{Void}, Cdouble),
-        r, mu )
+function gsl_ran_exponential(r::Ptr{gsl_rng}, mu::Real)
+    ccall( (:gsl_ran_exponential, :libgsl), Cdouble, (Ptr{gsl_rng},
+        Cdouble), r, mu )
 end
 
 
@@ -28,47 +26,52 @@ end
 # distribution with mean mu, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_exponential_pdf(x::Cdouble, mu::Cdouble)
+function gsl_ran_exponential_pdf(x::Real, mu::Real)
     ccall( (:gsl_ran_exponential_pdf, :libgsl), Cdouble, (Cdouble,
         Cdouble), x, mu )
 end
+@vectorize_2arg Number gsl_ran_exponential_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the exponential distribution with mean mu.
 # 
 #   Returns: Cdouble
-function gsl_cdf_exponential_P(x::Cdouble, mu::Cdouble)
+function gsl_cdf_exponential_P(x::Real, mu::Real)
     ccall( (:gsl_cdf_exponential_P, :libgsl), Cdouble, (Cdouble, Cdouble),
         x, mu )
 end
+@vectorize_2arg Number gsl_cdf_exponential_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the exponential distribution with mean mu.
 # 
 #   Returns: Cdouble
-function gsl_cdf_exponential_Q(x::Cdouble, mu::Cdouble)
+function gsl_cdf_exponential_Q(x::Real, mu::Real)
     ccall( (:gsl_cdf_exponential_Q, :libgsl), Cdouble, (Cdouble, Cdouble),
         x, mu )
 end
+@vectorize_2arg Number gsl_cdf_exponential_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the exponential distribution with mean mu.
 # 
 #   Returns: Cdouble
-function gsl_cdf_exponential_Pinv(P::Cdouble, mu::Cdouble)
+function gsl_cdf_exponential_Pinv(P::Real, mu::Real)
     ccall( (:gsl_cdf_exponential_Pinv, :libgsl), Cdouble, (Cdouble,
         Cdouble), P, mu )
 end
+@vectorize_2arg Number gsl_cdf_exponential_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the exponential distribution with mean mu.
 # 
 #   Returns: Cdouble
-function gsl_cdf_exponential_Qinv(Q::Cdouble, mu::Cdouble)
+function gsl_cdf_exponential_Qinv(Q::Real, mu::Real)
     ccall( (:gsl_cdf_exponential_Qinv, :libgsl), Cdouble, (Cdouble,
         Cdouble), Q, mu )
 end
+@vectorize_2arg Number gsl_cdf_exponential_Qinv

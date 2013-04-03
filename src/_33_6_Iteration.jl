@@ -18,12 +18,12 @@ export gsl_root_fsolver_iterate, gsl_root_fdfsolver_iterate,
 # from continuing without a division by zero.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_root_fsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_root_fsolver_iterate(s::Ptr{Void})
+function gsl_root_fsolver_iterate()
+    s = convert(Ptr{gsl_root_fsolver}, Array(gsl_root_fsolver, 1))
     gsl_errno = ccall( (:gsl_root_fsolver_iterate, :libgsl), Cint,
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_root_fsolver}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end
 
 
@@ -35,64 +35,58 @@ end
 # from continuing without a division by zero.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_root_fdfsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_root_fdfsolver_iterate(s::Ptr{Void})
+function gsl_root_fdfsolver_iterate()
+    s = convert(Ptr{gsl_root_fdfsolver}, Array(gsl_root_fdfsolver, 1))
     gsl_errno = ccall( (:gsl_root_fdfsolver_iterate, :libgsl), Cint,
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_root_fdfsolver}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end
 
 
 # These functions return the current estimate of the root for the solver s.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_root_fdfsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_root_fdfsolver_iterate(s::Ptr{Void})
+function gsl_root_fdfsolver_iterate()
+    s = convert(Ptr{gsl_root_fdfsolver}, Array(gsl_root_fdfsolver, 1))
     gsl_errno = ccall( (:gsl_root_fdfsolver_iterate, :libgsl), Cint,
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_root_fdfsolver}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end
 
 
 # These functions return the current estimate of the root for the solver s.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type s::Ptr{gsl_root_fsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_root_fsolver_root(s::Ptr{Void})
-    ccall( (:gsl_root_fsolver_root, :libgsl), Cdouble, (Ptr{Void}, ), s )
+function gsl_root_fsolver_root(s::Ptr{gsl_root_fsolver})
+    ccall( (:gsl_root_fsolver_root, :libgsl), Cdouble,
+        (Ptr{gsl_root_fsolver}, ), s )
 end
 
 
 # These functions return the current estimate of the root for the solver s.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type s::Ptr{gsl_root_fdfsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_root_fdfsolver_root(s::Ptr{Void})
-    ccall( (:gsl_root_fdfsolver_root, :libgsl), Cdouble, (Ptr{Void}, ), s )
+function gsl_root_fdfsolver_root(s::Ptr{gsl_root_fdfsolver})
+    ccall( (:gsl_root_fdfsolver_root, :libgsl), Cdouble,
+        (Ptr{gsl_root_fdfsolver}, ), s )
 end
 
 
 # These functions return the current bracketing interval for the solver s.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type s::Ptr{gsl_root_fsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_root_fsolver_x_lower(s::Ptr{Void})
-    ccall( (:gsl_root_fsolver_x_lower, :libgsl), Cdouble, (Ptr{Void}, ), s
-        )
+function gsl_root_fsolver_x_lower(s::Ptr{gsl_root_fsolver})
+    ccall( (:gsl_root_fsolver_x_lower, :libgsl), Cdouble,
+        (Ptr{gsl_root_fsolver}, ), s )
 end
 
 
 # These functions return the current bracketing interval for the solver s.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type s::Ptr{gsl_root_fsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_root_fsolver_x_upper(s::Ptr{Void})
-    ccall( (:gsl_root_fsolver_x_upper, :libgsl), Cdouble, (Ptr{Void}, ), s
-        )
+function gsl_root_fsolver_x_upper(s::Ptr{gsl_root_fsolver})
+    ccall( (:gsl_root_fsolver_x_upper, :libgsl), Cdouble,
+        (Ptr{gsl_root_fsolver}, ), s )
 end

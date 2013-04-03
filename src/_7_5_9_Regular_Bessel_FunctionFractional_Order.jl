@@ -11,23 +11,25 @@ export gsl_sf_bessel_Jnu, gsl_sf_bessel_Jnu_e, gsl_sf_bessel_sequence_Jnu_e
 # order \nu, J_\nu(x).
 # 
 #   Returns: Cdouble
-function gsl_sf_bessel_Jnu(nu::Cdouble, x::Cdouble)
+function gsl_sf_bessel_Jnu(nu::Real, x::Real)
     ccall( (:gsl_sf_bessel_Jnu, :libgsl), Cdouble, (Cdouble, Cdouble), nu,
         x )
 end
+@vectorize_2arg Number gsl_sf_bessel_Jnu
 
 
 # These routines compute the regular cylindrical Bessel function of fractional
 # order \nu, J_\nu(x).
 # 
 #   Returns: Cint
-function gsl_sf_bessel_Jnu_e(nu::Cdouble, x::Cdouble)
+function gsl_sf_bessel_Jnu_e(nu::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_bessel_Jnu_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), nu, x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_bessel_Jnu_e
 
 
 # This function computes the regular cylindrical Bessel function of fractional
@@ -36,10 +38,8 @@ end
 # and positive.  The array is over-written with the values of J_\nu(x_i).
 # 
 #   Returns: Cint
-#XXX Unknown input type mode::gsl_mode_t
-#XXX Coerced type for mode::Void
-function gsl_sf_bessel_sequence_Jnu_e{gsl_int<:Integer}(nu::Cdouble, mode::Void, size::gsl_int, v::Cdouble)
+function gsl_sf_bessel_sequence_Jnu_e(nu::Real, mode::gsl_mode_t, size::Integer, v::Real)
     gsl_errno = ccall( (:gsl_sf_bessel_sequence_Jnu_e, :libgsl), Cint,
-        (Cdouble, Void, Csize_t, Cdouble), nu, mode, size, v )
+        (Cdouble, gsl_mode_t, Csize_t, Cdouble), nu, mode, size, v )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end

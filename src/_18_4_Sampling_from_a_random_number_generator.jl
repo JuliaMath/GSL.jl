@@ -13,10 +13,8 @@ export gsl_rng_get, gsl_rng_uniform, gsl_rng_uniform_pos, gsl_rng_uniform_int
 # the auxiliary functions gsl_rng_max (r) and gsl_rng_min (r).
 # 
 #   Returns: Culong
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_rng_get(r::Ptr{Void})
-    ccall( (:gsl_rng_get, :libgsl), Culong, (Ptr{Void}, ), r )
+function gsl_rng_get(r::Ptr{gsl_rng})
+    ccall( (:gsl_rng_get, :libgsl), Culong, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -29,10 +27,8 @@ end
 # represented in a single unsigned long int).
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_rng_uniform(r::Ptr{Void})
-    ccall( (:gsl_rng_uniform, :libgsl), Cdouble, (Ptr{Void}, ), r )
+function gsl_rng_uniform(r::Ptr{gsl_rng})
+    ccall( (:gsl_rng_uniform, :libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -43,10 +39,8 @@ end
 # function if you need to avoid a singularity at 0.0.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_rng_uniform_pos(r::Ptr{Void})
-    ccall( (:gsl_rng_uniform_pos, :libgsl), Cdouble, (Ptr{Void}, ), r )
+function gsl_rng_uniform_pos(r::Ptr{gsl_rng})
+    ccall( (:gsl_rng_uniform_pos, :libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -67,9 +61,7 @@ end
 # described in the next section.
 # 
 #   Returns: Culong
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_rng_uniform_int(r::Ptr{Void}, n::Culong)
-    ccall( (:gsl_rng_uniform_int, :libgsl), Culong, (Ptr{Void}, Culong), r,
-        n )
+function gsl_rng_uniform_int(r::Ptr{gsl_rng}, n::Integer)
+    ccall( (:gsl_rng_uniform_int, :libgsl), Culong, (Ptr{gsl_rng}, Culong),
+        r, n )
 end

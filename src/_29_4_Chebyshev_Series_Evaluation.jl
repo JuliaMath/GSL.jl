@@ -10,7 +10,7 @@ export gsl_cheb_eval, gsl_cheb_eval_err, gsl_cheb_eval_n, gsl_cheb_eval_n_err
 # This function evaluates the Chebyshev series cs at a given point x.
 # 
 #   Returns: Cdouble
-function gsl_cheb_eval(cs::Ptr{gsl_cheb_series}, x::Cdouble)
+function gsl_cheb_eval(cs::Ptr{gsl_cheb_series}, x::Real)
     ccall( (:gsl_cheb_eval, :libgsl), Cdouble, (Ptr{gsl_cheb_series},
         Cdouble), cs, x )
 end
@@ -21,14 +21,14 @@ end
 # made from the first neglected term in the series.
 # 
 #   Returns: Cint
-function gsl_cheb_eval_err(cs::Ptr{gsl_cheb_series}, x::Cdouble)
+function gsl_cheb_eval_err(cs::Ptr{gsl_cheb_series}, x::Real)
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_cheb_eval_err, :libgsl), Cint,
         (Ptr{gsl_cheb_series}, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), cs, x,
         result, abserr )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end
 
 
@@ -36,7 +36,7 @@ end
 # most) the given order order.
 # 
 #   Returns: Cdouble
-function gsl_cheb_eval_n{gsl_int<:Integer}(cs::Ptr{gsl_cheb_series}, order::gsl_int, x::Cdouble)
+function gsl_cheb_eval_n(cs::Ptr{gsl_cheb_series}, order::Integer, x::Real)
     ccall( (:gsl_cheb_eval_n, :libgsl), Cdouble, (Ptr{gsl_cheb_series},
         Csize_t, Cdouble), cs, order, x )
 end
@@ -48,12 +48,12 @@ end
 # series.
 # 
 #   Returns: Cint
-function gsl_cheb_eval_n_err{gsl_int<:Integer}(cs::Ptr{gsl_cheb_series}, order::gsl_int, x::Cdouble)
+function gsl_cheb_eval_n_err(cs::Ptr{gsl_cheb_series}, order::Integer, x::Real)
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_cheb_eval_n_err, :libgsl), Cint,
         (Ptr{gsl_cheb_series}, Csize_t, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}),
         cs, order, x, result, abserr )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end

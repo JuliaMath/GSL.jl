@@ -43,20 +43,20 @@ export gsl_integration_qawf
 # workspace for the QAWO algorithm.
 # 
 #   Returns: Cint
-#XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
-#XXX Coerced type for workspace::Ptr{Void}
-#XXX Unknown input type cycle_workspace::Ptr{gsl_integration_workspace}
-#XXX Coerced type for cycle_workspace::Ptr{Void}
-#XXX Unknown input type wf::Ptr{gsl_integration_qawo_table}
-#XXX Coerced type for wf::Ptr{Void}
-function gsl_integration_qawf{gsl_int<:Integer}(a::Cdouble, epsabs::Cdouble, limit::gsl_int, workspace::Ptr{Void}, cycle_workspace::Ptr{Void}, wf::Ptr{Void})
+function gsl_integration_qawf(a::Real, epsabs::Real, limit::Integer)
     f = convert(Ptr{gsl_function}, Array(gsl_function, 1))
+    workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
+    cycle_workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
+    wf = convert(Ptr{gsl_integration_qawo_table}, Array(gsl_integration_qawo_table, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_integration_qawf, :libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Csize_t, Ptr{Void}, Ptr{Void},
-        Ptr{Void}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, epsabs, limit, workspace,
-        cycle_workspace, wf, result, abserr )
+        (Ptr{gsl_function}, Cdouble, Cdouble, Csize_t,
+        Ptr{gsl_integration_workspace}, Ptr{gsl_integration_workspace},
+        Ptr{gsl_integration_qawo_table}, Ptr{Cdouble}, Ptr{Cdouble}), f, a,
+        epsabs, limit, workspace, cycle_workspace, wf, result, abserr )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(f) ,unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(f)[1] ,unsafe_ref(workspace)[1] ,unsafe_ref(cycle_workspace)[1] ,unsafe_ref(wf)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_integration_qawf

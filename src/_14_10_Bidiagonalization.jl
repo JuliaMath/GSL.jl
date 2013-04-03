@@ -26,7 +26,7 @@ function gsl_linalg_bidiag_decomp()
     gsl_errno = ccall( (:gsl_linalg_bidiag_decomp, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), A, tau_U, tau_V )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A) ,unsafe_ref(tau_U) ,unsafe_ref(tau_V)
+    return unsafe_ref(A)[1] ,unsafe_ref(tau_U)[1] ,unsafe_ref(tau_V)[1]
 end
 
 
@@ -47,7 +47,7 @@ function gsl_linalg_bidiag_unpack(A::Ptr{gsl_matrix}, tau_U::Ptr{gsl_vector}, ta
         Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), A, tau_U, U, tau_V,
         V, diag, superdiag )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(U) ,unsafe_ref(V) ,unsafe_ref(diag) ,unsafe_ref(superdiag)
+    return unsafe_ref(U)[1] ,unsafe_ref(V)[1] ,unsafe_ref(diag)[1] ,unsafe_ref(superdiag)[1]
 end
 
 
@@ -66,7 +66,7 @@ function gsl_linalg_bidiag_unpack2()
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_matrix}),
         A, tau_U, tau_V, V )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A) ,unsafe_ref(tau_U) ,unsafe_ref(tau_V) ,unsafe_ref(V)
+    return unsafe_ref(A)[1] ,unsafe_ref(tau_U)[1] ,unsafe_ref(tau_V)[1] ,unsafe_ref(V)[1]
 end
 
 
@@ -82,5 +82,5 @@ function gsl_linalg_bidiag_unpack_B(A::Ptr{gsl_matrix})
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), A, diag, superdiag
         )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(diag) ,unsafe_ref(superdiag)
+    return unsafe_ref(diag)[1] ,unsafe_ref(superdiag)[1]
 end

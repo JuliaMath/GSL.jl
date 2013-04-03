@@ -13,25 +13,19 @@ export gsl_wavelet_alloc, gsl_wavelet_name, gsl_wavelet_free,
 # pointer is returned if insufficient memory is available or if a unsupported
 # member is selected.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown input type T::Ptr{gsl_wavelet_type}
-#XXX Coerced type for T::Ptr{Void}
-#XXX Unknown output type Ptr{gsl_wavelet}
-#XXX Coerced type for output Ptr{Void}
-function gsl_wavelet_alloc{gsl_int<:Integer}(T::Ptr{Void}, k::gsl_int)
-    ccall( (:gsl_wavelet_alloc, :libgsl), Ptr{Void}, (Ptr{Void}, Csize_t),
-        T, k )
+#   Returns: Ptr{gsl_wavelet}
+function gsl_wavelet_alloc(T::Ptr{gsl_wavelet_type}, k::Integer)
+    ccall( (:gsl_wavelet_alloc, :libgsl), Ptr{gsl_wavelet},
+        (Ptr{gsl_wavelet_type}, Csize_t), T, k )
 end
 
 
 # This function returns a pointer to the name of the wavelet family for w.
 # 
 #   Returns: Ptr{Cchar}
-#XXX Unknown input type w::Ptr{gsl_wavelet}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_wavelet_name(w::Ptr{Void})
+function gsl_wavelet_name(w::Ptr{gsl_wavelet})
     output_string = ccall( (:gsl_wavelet_name, :libgsl), Ptr{Cchar},
-        (Ptr{Void}, ), w )
+        (Ptr{gsl_wavelet}, ), w )
     bytestring(convert(Ptr{Uint8}, output_string))
 end
 
@@ -39,10 +33,8 @@ end
 # This function frees the wavelet object w.
 # 
 #   Returns: Void
-#XXX Unknown input type w::Ptr{gsl_wavelet}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_wavelet_free(w::Ptr{Void})
-    ccall( (:gsl_wavelet_free, :libgsl), Void, (Ptr{Void}, ), w )
+function gsl_wavelet_free(w::Ptr{gsl_wavelet})
+    ccall( (:gsl_wavelet_free, :libgsl), Void, (Ptr{gsl_wavelet}, ), w )
 end
 
 
@@ -53,21 +45,18 @@ end
 # individual rows and columns. A null pointer is returned if insufficient
 # memory is available.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_wavelet_workspace}
-#XXX Coerced type for output Ptr{Void}
-function gsl_wavelet_workspace_alloc{gsl_int<:Integer}(n::gsl_int)
-    ccall( (:gsl_wavelet_workspace_alloc, :libgsl), Ptr{Void}, (Csize_t, ),
-        n )
+#   Returns: Ptr{gsl_wavelet_workspace}
+function gsl_wavelet_workspace_alloc(n::Integer)
+    ccall( (:gsl_wavelet_workspace_alloc, :libgsl),
+        Ptr{gsl_wavelet_workspace}, (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_wavelet_workspace_alloc
 
 
 # This function frees the allocated workspace work.
 # 
 #   Returns: Void
-#XXX Unknown input type work::Ptr{gsl_wavelet_workspace}
-#XXX Coerced type for work::Ptr{Void}
-function gsl_wavelet_workspace_free(work::Ptr{Void})
-    ccall( (:gsl_wavelet_workspace_free, :libgsl), Void, (Ptr{Void}, ),
-        work )
+function gsl_wavelet_workspace_free(work::Ptr{gsl_wavelet_workspace})
+    ccall( (:gsl_wavelet_workspace_free, :libgsl), Void,
+        (Ptr{gsl_wavelet_workspace}, ), work )
 end

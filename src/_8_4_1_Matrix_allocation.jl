@@ -14,20 +14,22 @@ export gsl_matrix_alloc, gsl_matrix_calloc, gsl_matrix_free
 # matrix is deallocated.
 # 
 #   Returns: Ptr{gsl_matrix}
-function gsl_matrix_alloc{gsl_int<:Integer}(n1::gsl_int, n2::gsl_int)
+function gsl_matrix_alloc(n1::Integer, n2::Integer)
     ccall( (:gsl_matrix_alloc, :libgsl), Ptr{gsl_matrix}, (Csize_t,
         Csize_t), n1, n2 )
 end
+@vectorize_2arg Number gsl_matrix_alloc
 
 
 # This function allocates memory for a matrix of size n1 rows by n2 columns and
 # initializes all the elements of the matrix to zero.
 # 
 #   Returns: Ptr{gsl_matrix}
-function gsl_matrix_calloc{gsl_int<:Integer}(n1::gsl_int, n2::gsl_int)
+function gsl_matrix_calloc(n1::Integer, n2::Integer)
     ccall( (:gsl_matrix_calloc, :libgsl), Ptr{gsl_matrix}, (Csize_t,
         Csize_t), n1, n2 )
 end
+@vectorize_2arg Number gsl_matrix_calloc
 
 
 # This function frees a previously allocated matrix m.  If the matrix was

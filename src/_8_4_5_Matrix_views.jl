@@ -39,14 +39,11 @@ export gsl_matrix_submatrix, gsl_matrix_const_submatrix, gsl_matrix_view_array,
 # gsl_matrix_const_submatrix is equivalent to gsl_matrix_submatrix but can be
 # used for matrices which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_matrix_view
-#XXX Coerced type for output Void
-function gsl_matrix_submatrix{gsl_int<:Integer}(k1::gsl_int, k2::gsl_int, n1::gsl_int, n2::gsl_int)
-    m = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    ccall( (:gsl_matrix_submatrix, :libgsl), Void, (Ptr{gsl_matrix},
-        Csize_t, Csize_t, Csize_t, Csize_t), m, k1, k2, n1, n2 )
-    return unsafe_ref(m)
+#   Returns: gsl_matrix_view
+function gsl_matrix_submatrix(m::Ptr{gsl_matrix}, k1::Integer, k2::Integer, n1::Integer, n2::Integer)
+    ccall( (:gsl_matrix_submatrix, :libgsl), gsl_matrix_view,
+        (Ptr{gsl_matrix}, Csize_t, Csize_t, Csize_t, Csize_t), m, k1, k2, n1,
+        n2 )
 end
 
 
@@ -68,12 +65,11 @@ end
 # gsl_matrix_const_submatrix is equivalent to gsl_matrix_submatrix but can be
 # used for matrices which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_matrix__view
-#XXX Coerced type for output Void
-function gsl_matrix_const_submatrix{gsl_int<:Integer}(m::Ptr{gsl_matrix}, k1::gsl_int, k2::gsl_int, n1::gsl_int, n2::gsl_int)
-    ccall( (:gsl_matrix_const_submatrix, :libgsl), Void, (Ptr{gsl_matrix},
-        Csize_t, Csize_t, Csize_t, Csize_t), m, k1, k2, n1, n2 )
+#   Returns: gsl_matrix__view
+function gsl_matrix_const_submatrix(m::Ptr{gsl_matrix}, k1::Integer, k2::Integer, n1::Integer, n2::Integer)
+    ccall( (:gsl_matrix_const_submatrix, :libgsl), gsl_matrix__view,
+        (Ptr{gsl_matrix}, Csize_t, Csize_t, Csize_t, Csize_t), m, k1, k2, n1,
+        n2 )
 end
 
 
@@ -89,14 +85,10 @@ end
 # gsl_matrix_const_view_array is equivalent to gsl_matrix_view_array but can be
 # used for matrices which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_matrix_view
-#XXX Coerced type for output Void
-function gsl_matrix_view_array{gsl_int<:Integer}(n1::gsl_int, n2::gsl_int)
-    base = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    ccall( (:gsl_matrix_view_array, :libgsl), Void, (Ptr{Cdouble}, Csize_t,
-        Csize_t), base, n1, n2 )
-    return unsafe_ref(base)
+#   Returns: gsl_matrix_view
+function gsl_matrix_view_array{tA<:Real}(base::Ptr{tA}, n1::Integer, n2::Integer)
+    ccall( (:gsl_matrix_view_array, :libgsl), gsl_matrix_view,
+        (Ptr{Cdouble}, Csize_t, Csize_t), base, n1, n2 )
 end
 
 
@@ -112,12 +104,10 @@ end
 # gsl_matrix_const_view_array is equivalent to gsl_matrix_view_array but can be
 # used for matrices which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_matrix__view
-#XXX Coerced type for output Void
-function gsl_matrix_const_view_array{gsl_int<:Integer}(base::Ptr{Cdouble}, n1::gsl_int, n2::gsl_int)
-    ccall( (:gsl_matrix_const_view_array, :libgsl), Void, (Ptr{Cdouble},
-        Csize_t, Csize_t), base, n1, n2 )
+#   Returns: gsl_matrix__view
+function gsl_matrix_const_view_array{tA<:Real}(base::Ptr{tA}, n1::Integer, n2::Integer)
+    ccall( (:gsl_matrix_const_view_array, :libgsl), gsl_matrix__view,
+        (Ptr{Cdouble}, Csize_t, Csize_t), base, n1, n2 )
 end
 
 
@@ -135,60 +125,32 @@ end
 # gsl_matrix_view_array_with_tda but can be used for matrices which are
 # declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_matrix_view
-#XXX Coerced type for output Void
-function gsl_matrix_view_array_with_tda{gsl_int<:Integer}(n1::gsl_int, n2::gsl_int, tda::gsl_int)
-    base = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    ccall( (:gsl_matrix_view_array_with_tda, :libgsl), Void, (Ptr{Cdouble},
-        Csize_t, Csize_t, Csize_t), base, n1, n2, tda )
-    return unsafe_ref(base)
-end
-
-
-# These functions return a matrix view of the array base with a physical number
-# of columns tda which may differ from the corresponding dimension of the
-# matrix.  The matrix has n1 rows and n2 columns, and the physical number of
-# columns in memory is given by tda.  Mathematically, the (i,j)-th element of
-# the new matrix is given by,                 m'(i,j) = base[i*tda + j]  where
-# the index i runs from 0 to n1-1 and the index j runs from 0 to n2-1.
-# The new matrix is only a view of the array base.  When the view goes out of
-# scope the original array base will continue to exist.  The original memory
-# can only be deallocated by freeing the original array.  Of course, the
-# original array should not be deallocated while the view is still in use.
-# The function gsl_matrix_const_view_array_with_tda is equivalent to
-# gsl_matrix_view_array_with_tda but can be used for matrices which are
-# declared const.
-# 
-#   Returns: Void
-#XXX Unknown output type gsl_matrix__view
-#XXX Coerced type for output Void
-function gsl_matrix_const_view_array_with_tda{gsl_int<:Integer}(base::Ptr{Cdouble}, n1::gsl_int, n2::gsl_int, tda::gsl_int)
-    ccall( (:gsl_matrix_const_view_array_with_tda, :libgsl), Void,
+#   Returns: gsl_matrix_view
+function gsl_matrix_view_array_with_tda{tA<:Real}(base::Ptr{tA}, n1::Integer, n2::Integer, tda::Integer)
+    ccall( (:gsl_matrix_view_array_with_tda, :libgsl), gsl_matrix_view,
         (Ptr{Cdouble}, Csize_t, Csize_t, Csize_t), base, n1, n2, tda )
 end
 
 
-# These functions return a matrix view of the vector v.  The matrix has n1 rows
-# and n2 columns. The vector must have unit stride. The physical number of
-# columns in memory is also given by n2.  Mathematically, the (i,j)-th element
-# of the new matrix is given by,                 m'(i,j) = v->data[i*n2 + j]
-# where the index i runs from 0 to n1-1 and the index j runs from 0 to n2-1.
-# The new matrix is only a view of the vector v.  When the view goes out of
-# scope the original vector v will continue to exist.  The original memory can
-# only be deallocated by freeing the original vector.  Of course, the original
-# vector should not be deallocated while the view is still in use.          The
-# function gsl_matrix_const_view_vector is equivalent to gsl_matrix_view_vector
-# but can be used for matrices which are declared const.
+# These functions return a matrix view of the array base with a physical number
+# of columns tda which may differ from the corresponding dimension of the
+# matrix.  The matrix has n1 rows and n2 columns, and the physical number of
+# columns in memory is given by tda.  Mathematically, the (i,j)-th element of
+# the new matrix is given by,                 m'(i,j) = base[i*tda + j]  where
+# the index i runs from 0 to n1-1 and the index j runs from 0 to n2-1.
+# The new matrix is only a view of the array base.  When the view goes out of
+# scope the original array base will continue to exist.  The original memory
+# can only be deallocated by freeing the original array.  Of course, the
+# original array should not be deallocated while the view is still in use.
+# The function gsl_matrix_const_view_array_with_tda is equivalent to
+# gsl_matrix_view_array_with_tda but can be used for matrices which are
+# declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_matrix_view
-#XXX Coerced type for output Void
-function gsl_matrix_view_vector{gsl_int<:Integer}(n1::gsl_int, n2::gsl_int)
-    v = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    ccall( (:gsl_matrix_view_vector, :libgsl), Void, (Ptr{gsl_vector},
-        Csize_t, Csize_t), v, n1, n2 )
-    return unsafe_ref(v)
+#   Returns: gsl_matrix__view
+function gsl_matrix_const_view_array_with_tda{tA<:Real}(base::Ptr{tA}, n1::Integer, n2::Integer, tda::Integer)
+    ccall( (:gsl_matrix_const_view_array_with_tda, :libgsl),
+        gsl_matrix__view, (Ptr{Cdouble}, Csize_t, Csize_t, Csize_t), base, n1,
+        n2, tda )
 end
 
 
@@ -204,11 +166,28 @@ end
 # function gsl_matrix_const_view_vector is equivalent to gsl_matrix_view_vector
 # but can be used for matrices which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_matrix__view
-#XXX Coerced type for output Void
-function gsl_matrix_const_view_vector{gsl_int<:Integer}(v::Ptr{gsl_vector}, n1::gsl_int, n2::gsl_int)
-    ccall( (:gsl_matrix_const_view_vector, :libgsl), Void,
+#   Returns: gsl_matrix_view
+function gsl_matrix_view_vector(v::Ptr{gsl_vector}, n1::Integer, n2::Integer)
+    ccall( (:gsl_matrix_view_vector, :libgsl), gsl_matrix_view,
+        (Ptr{gsl_vector}, Csize_t, Csize_t), v, n1, n2 )
+end
+
+
+# These functions return a matrix view of the vector v.  The matrix has n1 rows
+# and n2 columns. The vector must have unit stride. The physical number of
+# columns in memory is also given by n2.  Mathematically, the (i,j)-th element
+# of the new matrix is given by,                 m'(i,j) = v->data[i*n2 + j]
+# where the index i runs from 0 to n1-1 and the index j runs from 0 to n2-1.
+# The new matrix is only a view of the vector v.  When the view goes out of
+# scope the original vector v will continue to exist.  The original memory can
+# only be deallocated by freeing the original vector.  Of course, the original
+# vector should not be deallocated while the view is still in use.          The
+# function gsl_matrix_const_view_vector is equivalent to gsl_matrix_view_vector
+# but can be used for matrices which are declared const.
+# 
+#   Returns: gsl_matrix__view
+function gsl_matrix_const_view_vector(v::Ptr{gsl_vector}, n1::Integer, n2::Integer)
+    ccall( (:gsl_matrix_const_view_vector, :libgsl), gsl_matrix__view,
         (Ptr{gsl_vector}, Csize_t, Csize_t), v, n1, n2 )
 end
 
@@ -227,14 +206,10 @@ end
 # equivalent to gsl_matrix_view_vector_with_tda but can be used for matrices
 # which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_matrix_view
-#XXX Coerced type for output Void
-function gsl_matrix_view_vector_with_tda{gsl_int<:Integer}(n1::gsl_int, n2::gsl_int, tda::gsl_int)
-    v = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    ccall( (:gsl_matrix_view_vector_with_tda, :libgsl), Void,
+#   Returns: gsl_matrix_view
+function gsl_matrix_view_vector_with_tda(v::Ptr{gsl_vector}, n1::Integer, n2::Integer, tda::Integer)
+    ccall( (:gsl_matrix_view_vector_with_tda, :libgsl), gsl_matrix_view,
         (Ptr{gsl_vector}, Csize_t, Csize_t, Csize_t), v, n1, n2, tda )
-    return unsafe_ref(v)
 end
 
 
@@ -252,10 +227,9 @@ end
 # equivalent to gsl_matrix_view_vector_with_tda but can be used for matrices
 # which are declared const.
 # 
-#   Returns: Void
-#XXX Unknown output type gsl_matrix__view
-#XXX Coerced type for output Void
-function gsl_matrix_const_view_vector_with_tda{gsl_int<:Integer}(v::Ptr{gsl_vector}, n1::gsl_int, n2::gsl_int, tda::gsl_int)
-    ccall( (:gsl_matrix_const_view_vector_with_tda, :libgsl), Void,
-        (Ptr{gsl_vector}, Csize_t, Csize_t, Csize_t), v, n1, n2, tda )
+#   Returns: gsl_matrix__view
+function gsl_matrix_const_view_vector_with_tda(v::Ptr{gsl_vector}, n1::Integer, n2::Integer, tda::Integer)
+    ccall( (:gsl_matrix_const_view_vector_with_tda, :libgsl),
+        gsl_matrix__view, (Ptr{gsl_vector}, Csize_t, Csize_t, Csize_t), v, n1,
+        n2, tda )
 end

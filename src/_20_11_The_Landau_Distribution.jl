@@ -19,10 +19,8 @@ export gsl_ran_landau, gsl_ran_landau_pdf
 # p(x) = (1/\pi) \int_0^\infty dt \exp(-t \log(t) - x t) \sin(\pi t).
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_landau(r::Ptr{Void})
-    ccall( (:gsl_ran_landau, :libgsl), Cdouble, (Ptr{Void}, ), r )
+function gsl_ran_landau(r::Ptr{gsl_rng})
+    ccall( (:gsl_ran_landau, :libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -30,6 +28,7 @@ end
 # distribution using an approximation to the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_landau_pdf(x::Cdouble)
+function gsl_ran_landau_pdf(x::Real)
     ccall( (:gsl_ran_landau_pdf, :libgsl), Cdouble, (Cdouble, ), x )
 end
+@vectorize_1arg Number gsl_ran_landau_pdf

@@ -21,10 +21,8 @@ export gsl_ran_shuffle, gsl_ran_choose, gsl_ran_sample
 # gsl_ran_shuffle (r, a, 52, sizeof (int));
 # 
 #   Returns: Void
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_shuffle{gsl_int<:Integer}(r::Ptr{Void}, base::Ptr{Void}, n::gsl_int, size::gsl_int)
-    ccall( (:gsl_ran_shuffle, :libgsl), Void, (Ptr{Void}, Ptr{Void},
+function gsl_ran_shuffle(r::Ptr{gsl_rng}, base::Ptr{Void}, n::Integer, size::Integer)
+    ccall( (:gsl_ran_shuffle, :libgsl), Void, (Ptr{gsl_rng}, Ptr{Void},
         Csize_t, Csize_t), r, base, n, size )
 end
 
@@ -44,10 +42,8 @@ end
 # gsl_ran_choose (r, a, 3, b, 100, sizeof (double));
 # 
 #   Returns: Cint
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_choose{gsl_int<:Integer}(r::Ptr{Void}, dest::Ptr{Void}, k::gsl_int, src::Ptr{Void}, n::gsl_int, size::gsl_int)
-    gsl_errno = ccall( (:gsl_ran_choose, :libgsl), Cint, (Ptr{Void},
+function gsl_ran_choose(r::Ptr{gsl_rng}, dest::Ptr{Void}, k::Integer, src::Ptr{Void}, n::Integer, size::Integer)
+    gsl_errno = ccall( (:gsl_ran_choose, :libgsl), Cint, (Ptr{gsl_rng},
         Ptr{Void}, Csize_t, Ptr{Void}, Csize_t, Csize_t), r, dest, k, src, n,
         size )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
@@ -60,9 +56,7 @@ end
 # less than n in this case.
 # 
 #   Returns: Void
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_sample{gsl_int<:Integer}(r::Ptr{Void}, dest::Ptr{Void}, k::gsl_int, src::Ptr{Void}, n::gsl_int, size::gsl_int)
-    ccall( (:gsl_ran_sample, :libgsl), Void, (Ptr{Void}, Ptr{Void},
+function gsl_ran_sample(r::Ptr{gsl_rng}, dest::Ptr{Void}, k::Integer, src::Ptr{Void}, n::Integer, size::Integer)
+    ccall( (:gsl_ran_sample, :libgsl), Void, (Ptr{gsl_rng}, Ptr{Void},
         Csize_t, Ptr{Void}, Csize_t, Csize_t), r, dest, k, src, n, size )
 end

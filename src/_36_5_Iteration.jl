@@ -18,12 +18,12 @@ export gsl_multimin_fdfminimizer_iterate, gsl_multimin_fminimizer_iterate,
 # because a genuine local minimum has been reached.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multimin_fdfminimizer_iterate(s::Ptr{Void})
+function gsl_multimin_fdfminimizer_iterate()
+    s = convert(Ptr{gsl_multimin_fdfminimizer}, Array(gsl_multimin_fdfminimizer, 1))
     gsl_errno = ccall( (:gsl_multimin_fdfminimizer_iterate, :libgsl), Cint,
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multimin_fdfminimizer}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end
 
 
@@ -34,12 +34,12 @@ end
 # because a genuine local minimum has been reached.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_multimin_fminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multimin_fminimizer_iterate(s::Ptr{Void})
+function gsl_multimin_fminimizer_iterate()
+    s = convert(Ptr{gsl_multimin_fminimizer}, Array(gsl_multimin_fminimizer, 1))
     gsl_errno = ccall( (:gsl_multimin_fminimizer_iterate, :libgsl), Cint,
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multimin_fminimizer}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end
 
 
@@ -48,11 +48,9 @@ end
 # specific characteristic size for the minimizer s.
 # 
 #   Returns: Ptr{gsl_vector}
-#XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multimin_fdfminimizer_x(s::Ptr{Void})
+function gsl_multimin_fdfminimizer_x(s::Ptr{gsl_multimin_fdfminimizer})
     ccall( (:gsl_multimin_fdfminimizer_x, :libgsl), Ptr{gsl_vector},
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multimin_fdfminimizer}, ), s )
 end
 
 
@@ -61,11 +59,9 @@ end
 # specific characteristic size for the minimizer s.
 # 
 #   Returns: Ptr{gsl_vector}
-#XXX Unknown input type s::Ptr{gsl_multimin_fminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multimin_fminimizer_x(s::Ptr{Void})
+function gsl_multimin_fminimizer_x(s::Ptr{gsl_multimin_fminimizer})
     ccall( (:gsl_multimin_fminimizer_x, :libgsl), Ptr{gsl_vector},
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multimin_fminimizer}, ), s )
 end
 
 
@@ -74,11 +70,9 @@ end
 # specific characteristic size for the minimizer s.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multimin_fdfminimizer_minimum(s::Ptr{Void})
+function gsl_multimin_fdfminimizer_minimum(s::Ptr{gsl_multimin_fdfminimizer})
     ccall( (:gsl_multimin_fdfminimizer_minimum, :libgsl), Cdouble,
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multimin_fdfminimizer}, ), s )
 end
 
 
@@ -87,11 +81,9 @@ end
 # specific characteristic size for the minimizer s.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type s::Ptr{gsl_multimin_fminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multimin_fminimizer_minimum(s::Ptr{Void})
+function gsl_multimin_fminimizer_minimum(s::Ptr{gsl_multimin_fminimizer})
     ccall( (:gsl_multimin_fminimizer_minimum, :libgsl), Cdouble,
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multimin_fminimizer}, ), s )
 end
 
 
@@ -100,11 +92,9 @@ end
 # specific characteristic size for the minimizer s.
 # 
 #   Returns: Ptr{gsl_vector}
-#XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multimin_fdfminimizer_gradient(s::Ptr{Void})
+function gsl_multimin_fdfminimizer_gradient(s::Ptr{gsl_multimin_fdfminimizer})
     ccall( (:gsl_multimin_fdfminimizer_gradient, :libgsl), Ptr{gsl_vector},
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multimin_fdfminimizer}, ), s )
 end
 
 
@@ -113,11 +103,9 @@ end
 # specific characteristic size for the minimizer s.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type s::Ptr{gsl_multimin_fminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multimin_fminimizer_size(s::Ptr{Void})
-    ccall( (:gsl_multimin_fminimizer_size, :libgsl), Cdouble, (Ptr{Void},
-        ), s )
+function gsl_multimin_fminimizer_size(s::Ptr{gsl_multimin_fminimizer})
+    ccall( (:gsl_multimin_fminimizer_size, :libgsl), Cdouble,
+        (Ptr{gsl_multimin_fminimizer}, ), s )
 end
 
 
@@ -125,10 +113,10 @@ end
 # starting point.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_multimin_fdfminimizer}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multimin_fdfminimizer_restart(s::Ptr{Void})
+function gsl_multimin_fdfminimizer_restart()
+    s = convert(Ptr{gsl_multimin_fdfminimizer}, Array(gsl_multimin_fdfminimizer, 1))
     gsl_errno = ccall( (:gsl_multimin_fdfminimizer_restart, :libgsl), Cint,
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multimin_fdfminimizer}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end

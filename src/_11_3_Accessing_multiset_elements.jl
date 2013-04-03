@@ -13,7 +13,7 @@ export gsl_multiset_get
 # HAVE_INLINE is defined.
 # 
 #   Returns: Csize_t
-function gsl_multiset_get{gsl_int<:Integer}(c::Ptr{gsl_multiset}, i::gsl_int)
+function gsl_multiset_get(c::Ptr{gsl_multiset}, i::Integer)
     ccall( (:gsl_multiset_get, :libgsl), Csize_t, (Ptr{gsl_multiset},
         Csize_t), c, i )
 end

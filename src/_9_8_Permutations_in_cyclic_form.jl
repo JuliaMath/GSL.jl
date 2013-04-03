@@ -18,7 +18,7 @@ function gsl_permutation_linear_to_canonical(p::Ptr{gsl_permutation})
     gsl_errno = ccall( (:gsl_permutation_linear_to_canonical, :libgsl),
         Cint, (Ptr{gsl_permutation}, Ptr{gsl_permutation}), q, p )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(q)
+    return unsafe_ref(q)[1]
 end
 
 
@@ -31,7 +31,7 @@ function gsl_permutation_canonical_to_linear(q::Ptr{gsl_permutation})
     gsl_errno = ccall( (:gsl_permutation_canonical_to_linear, :libgsl),
         Cint, (Ptr{gsl_permutation}, Ptr{gsl_permutation}), p, q )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(p)
+    return unsafe_ref(p)[1]
 end
 
 

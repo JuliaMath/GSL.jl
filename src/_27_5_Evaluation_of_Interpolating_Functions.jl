@@ -15,11 +15,9 @@ export gsl_interp_eval, gsl_interp_eval_e, gsl_interp_eval_deriv,
 # with a value of GSL_NAN for y.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type interp::Ptr{gsl_interp}
-#XXX Coerced type for interp::Ptr{Void}
-function gsl_interp_eval(interp::Ptr{Void}, xa::Cdouble)
-    ccall( (:gsl_interp_eval, :libgsl), Cdouble, (Ptr{Void}, Cdouble),
-        interp, xa )
+function gsl_interp_eval(interp::Ptr{gsl_interp}, xa::Real)
+    ccall( (:gsl_interp_eval, :libgsl), Cdouble, (Ptr{gsl_interp},
+        Cdouble), interp, xa )
 end
 
 
@@ -29,11 +27,9 @@ end
 # with a value of GSL_NAN for y.
 # 
 #   Returns: Cint
-#XXX Unknown input type interp::Ptr{gsl_interp}
-#XXX Coerced type for interp::Ptr{Void}
-function gsl_interp_eval_e(interp::Ptr{Void}, xa::Cdouble)
-    gsl_errno = ccall( (:gsl_interp_eval_e, :libgsl), Cint, (Ptr{Void},
-        Cdouble), interp, xa )
+function gsl_interp_eval_e(interp::Ptr{gsl_interp}, xa::Real)
+    gsl_errno = ccall( (:gsl_interp_eval_e, :libgsl), Cint,
+        (Ptr{gsl_interp}, Cdouble), interp, xa )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
 
@@ -43,10 +39,8 @@ end
 # and the accelerator acc.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type interp::Ptr{gsl_interp}
-#XXX Coerced type for interp::Ptr{Void}
-function gsl_interp_eval_deriv(interp::Ptr{Void}, xa::Cdouble)
-    ccall( (:gsl_interp_eval_deriv, :libgsl), Cdouble, (Ptr{Void},
+function gsl_interp_eval_deriv(interp::Ptr{gsl_interp}, xa::Real)
+    ccall( (:gsl_interp_eval_deriv, :libgsl), Cdouble, (Ptr{gsl_interp},
         Cdouble), interp, xa )
 end
 
@@ -56,11 +50,9 @@ end
 # and the accelerator acc.
 # 
 #   Returns: Cint
-#XXX Unknown input type interp::Ptr{gsl_interp}
-#XXX Coerced type for interp::Ptr{Void}
-function gsl_interp_eval_deriv_e(interp::Ptr{Void}, xa::Cdouble)
+function gsl_interp_eval_deriv_e(interp::Ptr{gsl_interp}, xa::Real)
     gsl_errno = ccall( (:gsl_interp_eval_deriv_e, :libgsl), Cint,
-        (Ptr{Void}, Cdouble), interp, xa )
+        (Ptr{gsl_interp}, Cdouble), interp, xa )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
 
@@ -70,10 +62,8 @@ end
 # and ya and the accelerator acc.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type interp::Ptr{gsl_interp}
-#XXX Coerced type for interp::Ptr{Void}
-function gsl_interp_eval_deriv2(interp::Ptr{Void}, xa::Cdouble)
-    ccall( (:gsl_interp_eval_deriv2, :libgsl), Cdouble, (Ptr{Void},
+function gsl_interp_eval_deriv2(interp::Ptr{gsl_interp}, xa::Real)
+    ccall( (:gsl_interp_eval_deriv2, :libgsl), Cdouble, (Ptr{gsl_interp},
         Cdouble), interp, xa )
 end
 
@@ -83,11 +73,9 @@ end
 # and ya and the accelerator acc.
 # 
 #   Returns: Cint
-#XXX Unknown input type interp::Ptr{gsl_interp}
-#XXX Coerced type for interp::Ptr{Void}
-function gsl_interp_eval_deriv2_e(interp::Ptr{Void}, xa::Cdouble)
+function gsl_interp_eval_deriv2_e(interp::Ptr{gsl_interp}, xa::Real)
     gsl_errno = ccall( (:gsl_interp_eval_deriv2_e, :libgsl), Cint,
-        (Ptr{Void}, Cdouble), interp, xa )
+        (Ptr{gsl_interp}, Cdouble), interp, xa )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
 
@@ -97,10 +85,8 @@ end
 # arrays xa and ya and the accelerator acc.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type interp::Ptr{gsl_interp}
-#XXX Coerced type for interp::Ptr{Void}
-function gsl_interp_eval_integ(interp::Ptr{Void}, xa::Cdouble)
-    ccall( (:gsl_interp_eval_integ, :libgsl), Cdouble, (Ptr{Void},
+function gsl_interp_eval_integ(interp::Ptr{gsl_interp}, xa::Real)
+    ccall( (:gsl_interp_eval_integ, :libgsl), Cdouble, (Ptr{gsl_interp},
         Cdouble), interp, xa )
 end
 
@@ -110,10 +96,8 @@ end
 # arrays xa and ya and the accelerator acc.
 # 
 #   Returns: Cint
-#XXX Unknown input type interp::Ptr{gsl_interp}
-#XXX Coerced type for interp::Ptr{Void}
-function gsl_interp_eval_integ_e(interp::Ptr{Void}, xa::Cdouble)
+function gsl_interp_eval_integ_e(interp::Ptr{gsl_interp}, xa::Real)
     gsl_errno = ccall( (:gsl_interp_eval_integ_e, :libgsl), Cint,
-        (Ptr{Void}, Cdouble), interp, xa )
+        (Ptr{gsl_interp}, Cdouble), interp, xa )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end

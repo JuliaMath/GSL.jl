@@ -15,15 +15,15 @@ export gsl_bspline_eval, gsl_bspline_eval_nonzero, gsl_bspline_ncoeffs
 # defining recurrence relation.
 # 
 #   Returns: Cint
-#XXX Unknown input type w::Ptr{gsl_bspline_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_bspline_eval(x::Cdouble, w::Ptr{Void})
+function gsl_bspline_eval(x::Real)
     B = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
+    w = convert(Ptr{gsl_bspline_workspace}, Array(gsl_bspline_workspace, 1))
     gsl_errno = ccall( (:gsl_bspline_eval, :libgsl), Cint, (Cdouble,
-        Ptr{gsl_vector}, Ptr{Void}), x, B, w )
+        Ptr{gsl_vector}, Ptr{gsl_bspline_workspace}), x, B, w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(B)
+    return unsafe_ref(B)[1] ,unsafe_ref(w)[1]
 end
+@vectorize_1arg Number gsl_bspline_eval
 
 
 # This function evaluates all potentially nonzero B-spline basis functions at
@@ -35,26 +35,25 @@ end
 # evaluating an interpolated function).
 # 
 #   Returns: Cint
-#XXX Unknown input type w::Ptr{gsl_bspline_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_bspline_eval_nonzero(x::Cdouble, w::Ptr{Void})
+function gsl_bspline_eval_nonzero(x::Real)
     Bk = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     istart = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     iend = convert(Ptr{Csize_t}, Array(Csize_t, 1))
+    w = convert(Ptr{gsl_bspline_workspace}, Array(gsl_bspline_workspace, 1))
     gsl_errno = ccall( (:gsl_bspline_eval_nonzero, :libgsl), Cint,
-        (Cdouble, Ptr{gsl_vector}, Ptr{Csize_t}, Ptr{Csize_t}, Ptr{Void}), x,
-        Bk, istart, iend, w )
+        (Cdouble, Ptr{gsl_vector}, Ptr{Csize_t}, Ptr{Csize_t},
+        Ptr{gsl_bspline_workspace}), x, Bk, istart, iend, w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(Bk) ,unsafe_ref(istart) ,unsafe_ref(iend)
+    return unsafe_ref(Bk)[1] ,unsafe_ref(istart)[1] ,unsafe_ref(iend)[1] ,unsafe_ref(w)[1]
 end
+@vectorize_1arg Number gsl_bspline_eval_nonzero
 
 
 # This function returns the number of B-spline coefficients given by n = nbreak
 # + k - 2.
 # 
 #   Returns: Csize_t
-#XXX Unknown input type w::Ptr{gsl_bspline_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_bspline_ncoeffs(w::Ptr{Void})
-    ccall( (:gsl_bspline_ncoeffs, :libgsl), Csize_t, (Ptr{Void}, ), w )
+function gsl_bspline_ncoeffs(w::Ptr{gsl_bspline_workspace})
+    ccall( (:gsl_bspline_ncoeffs, :libgsl), Csize_t,
+        (Ptr{gsl_bspline_workspace}, ), w )
 end

@@ -26,16 +26,13 @@ export gsl_blas_sdsdot, gsl_blas_sdot, gsl_blas_dsdot, gsl_blas_ddot,
 # returning the result in result.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_float}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_sdsdot(alpha::Cfloat, x::Ptr{Void}, y::Ptr{Void})
+function gsl_blas_sdsdot(alpha::Real, x::Ptr{gsl_vector_float}, y::Ptr{gsl_vector_float})
     result = convert(Ptr{Cfloat}, Array(Cfloat, 1))
     gsl_errno = ccall( (:gsl_blas_sdsdot, :libgsl), Cint, (Cfloat,
-        Ptr{Void}, Ptr{Void}, Ptr{Cfloat}), alpha, x, y, result )
+        Ptr{gsl_vector_float}, Ptr{gsl_vector_float}, Ptr{Cfloat}), alpha, x,
+        y, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
 
 
@@ -43,16 +40,13 @@ end
 # returning the result in result.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_float}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_sdot(x::Ptr{Void}, y::Ptr{Void})
+function gsl_blas_sdot(x::Ptr{gsl_vector_float}, y::Ptr{gsl_vector_float})
     result = convert(Ptr{Cfloat}, Array(Cfloat, 1))
-    gsl_errno = ccall( (:gsl_blas_sdot, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}, Ptr{Cfloat}), x, y, result )
+    gsl_errno = ccall( (:gsl_blas_sdot, :libgsl), Cint,
+        (Ptr{gsl_vector_float}, Ptr{gsl_vector_float}, Ptr{Cfloat}), x, y,
+        result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
 
 
@@ -60,16 +54,13 @@ end
 # returning the result in result.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_float}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_dsdot(x::Ptr{Void}, y::Ptr{Void})
+function gsl_blas_dsdot(x::Ptr{gsl_vector_float}, y::Ptr{gsl_vector_float})
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_blas_dsdot, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}, Ptr{Cdouble}), x, y, result )
+    gsl_errno = ccall( (:gsl_blas_dsdot, :libgsl), Cint,
+        (Ptr{gsl_vector_float}, Ptr{gsl_vector_float}, Ptr{Cdouble}), x, y,
+        result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
 
 
@@ -82,7 +73,7 @@ function gsl_blas_ddot(x::Ptr{gsl_vector}, y::Ptr{gsl_vector})
     gsl_errno = ccall( (:gsl_blas_ddot, :libgsl), Cint, (Ptr{gsl_vector},
         Ptr{gsl_vector}, Ptr{Cdouble}), x, y, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
 
 
@@ -90,16 +81,13 @@ end
 # and y, returning the result in dotu
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for y::Ptr{Void}
-#XXX Unknown input type dotu::Ptr{gsl_complex_float}
-#XXX Coerced type for dotu::Ptr{Void}
-function gsl_blas_cdotu(x::Ptr{Void}, y::Ptr{Void}, dotu::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_cdotu, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}, Ptr{Void}), x, y, dotu )
+function gsl_blas_cdotu(x::Ptr{gsl_vector_complex_float}, y::Ptr{gsl_vector_complex_float})
+    dotu = convert(Ptr{gsl_complex_float}, Array(gsl_complex_float, 1))
+    gsl_errno = ccall( (:gsl_blas_cdotu, :libgsl), Cint,
+        (Ptr{gsl_vector_complex_float}, Ptr{gsl_vector_complex_float},
+        Ptr{gsl_complex_float}), x, y, dotu )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(dotu)[1]
 end
 
 
@@ -107,16 +95,13 @@ end
 # and y, returning the result in dotu
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_zdotu(x::Ptr{Void}, y::Ptr{Void})
+function gsl_blas_zdotu(x::Ptr{gsl_vector_complex}, y::Ptr{gsl_vector_complex})
     dotu = convert(Ptr{gsl_complex}, Array(gsl_complex, 1))
-    gsl_errno = ccall( (:gsl_blas_zdotu, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}, Ptr{gsl_complex}), x, y, dotu )
+    gsl_errno = ccall( (:gsl_blas_zdotu, :libgsl), Cint,
+        (Ptr{gsl_vector_complex}, Ptr{gsl_vector_complex}, Ptr{gsl_complex}),
+        x, y, dotu )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(dotu)
+    return unsafe_ref(dotu)[1]
 end
 
 
@@ -124,16 +109,13 @@ end
 # vectors x and y, returning the result in dotc
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for y::Ptr{Void}
-#XXX Unknown input type dotc::Ptr{gsl_complex_float}
-#XXX Coerced type for dotc::Ptr{Void}
-function gsl_blas_cdotc(x::Ptr{Void}, y::Ptr{Void}, dotc::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_cdotc, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}, Ptr{Void}), x, y, dotc )
+function gsl_blas_cdotc(x::Ptr{gsl_vector_complex_float}, y::Ptr{gsl_vector_complex_float})
+    dotc = convert(Ptr{gsl_complex_float}, Array(gsl_complex_float, 1))
+    gsl_errno = ccall( (:gsl_blas_cdotc, :libgsl), Cint,
+        (Ptr{gsl_vector_complex_float}, Ptr{gsl_vector_complex_float},
+        Ptr{gsl_complex_float}), x, y, dotc )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(dotc)[1]
 end
 
 
@@ -141,16 +123,13 @@ end
 # vectors x and y, returning the result in dotc
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_zdotc(x::Ptr{Void}, y::Ptr{Void})
+function gsl_blas_zdotc(x::Ptr{gsl_vector_complex}, y::Ptr{gsl_vector_complex})
     dotc = convert(Ptr{gsl_complex}, Array(gsl_complex, 1))
-    gsl_errno = ccall( (:gsl_blas_zdotc, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}, Ptr{gsl_complex}), x, y, dotc )
+    gsl_errno = ccall( (:gsl_blas_zdotc, :libgsl), Cint,
+        (Ptr{gsl_vector_complex}, Ptr{gsl_vector_complex}, Ptr{gsl_complex}),
+        x, y, dotc )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(dotc)
+    return unsafe_ref(dotc)[1]
 end
 
 
@@ -158,10 +137,9 @@ end
 # the vector x.
 # 
 #   Returns: Cfloat
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_snrm2(x::Ptr{Void})
-    ccall( (:gsl_blas_snrm2, :libgsl), Cfloat, (Ptr{Void}, ), x )
+function gsl_blas_snrm2(x::Ptr{gsl_vector_float})
+    ccall( (:gsl_blas_snrm2, :libgsl), Cfloat, (Ptr{gsl_vector_float}, ), x
+        )
 end
 
 
@@ -178,10 +156,9 @@ end
 # ||x||_2 = \sqrt {\sum (\Re(x_i)^2 + \Im(x_i)^2)}.
 # 
 #   Returns: Cfloat
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_scnrm2(x::Ptr{Void})
-    ccall( (:gsl_blas_scnrm2, :libgsl), Cfloat, (Ptr{Void}, ), x )
+function gsl_blas_scnrm2(x::Ptr{gsl_vector_complex_float})
+    ccall( (:gsl_blas_scnrm2, :libgsl), Cfloat,
+        (Ptr{gsl_vector_complex_float}, ), x )
 end
 
 
@@ -189,10 +166,9 @@ end
 # ||x||_2 = \sqrt {\sum (\Re(x_i)^2 + \Im(x_i)^2)}.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_dznrm2(x::Ptr{Void})
-    ccall( (:gsl_blas_dznrm2, :libgsl), Cdouble, (Ptr{Void}, ), x )
+function gsl_blas_dznrm2(x::Ptr{gsl_vector_complex})
+    ccall( (:gsl_blas_dznrm2, :libgsl), Cdouble, (Ptr{gsl_vector_complex},
+        ), x )
 end
 
 
@@ -200,10 +176,9 @@ end
 # vector x.
 # 
 #   Returns: Cfloat
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_sasum(x::Ptr{Void})
-    ccall( (:gsl_blas_sasum, :libgsl), Cfloat, (Ptr{Void}, ), x )
+function gsl_blas_sasum(x::Ptr{gsl_vector_float})
+    ccall( (:gsl_blas_sasum, :libgsl), Cfloat, (Ptr{gsl_vector_float}, ), x
+        )
 end
 
 
@@ -220,10 +195,9 @@ end
 # parts of the complex vector x,  \sum |\Re(x_i)| + |\Im(x_i)|.
 # 
 #   Returns: Cfloat
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_scasum(x::Ptr{Void})
-    ccall( (:gsl_blas_scasum, :libgsl), Cfloat, (Ptr{Void}, ), x )
+function gsl_blas_scasum(x::Ptr{gsl_vector_complex_float})
+    ccall( (:gsl_blas_scasum, :libgsl), Cfloat,
+        (Ptr{gsl_vector_complex_float}, ), x )
 end
 
 
@@ -231,10 +205,9 @@ end
 # parts of the complex vector x,  \sum |\Re(x_i)| + |\Im(x_i)|.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_dzasum(x::Ptr{Void})
-    ccall( (:gsl_blas_dzasum, :libgsl), Cdouble, (Ptr{Void}, ), x )
+function gsl_blas_dzasum(x::Ptr{gsl_vector_complex})
+    ccall( (:gsl_blas_dzasum, :libgsl), Cdouble, (Ptr{gsl_vector_complex},
+        ), x )
 end
 
 
@@ -244,13 +217,10 @@ end
 # |\Im(x_i)| for complex vectors.  If the largest value occurs several times
 # then the index of the first occurrence is returned.
 # 
-#   Returns: Void
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown output type CBLAS_INDEX_t
-#XXX Coerced type for output Void
-function gsl_blas_isamax(x::Ptr{Void})
-    ccall( (:gsl_blas_isamax, :libgsl), Void, (Ptr{Void}, ), x )
+#   Returns: CBLAS_INDEX_t
+function gsl_blas_isamax(x::Ptr{gsl_vector_float})
+    ccall( (:gsl_blas_isamax, :libgsl), CBLAS_INDEX_t,
+        (Ptr{gsl_vector_float}, ), x )
 end
 
 
@@ -260,11 +230,10 @@ end
 # |\Im(x_i)| for complex vectors.  If the largest value occurs several times
 # then the index of the first occurrence is returned.
 # 
-#   Returns: Void
-#XXX Unknown output type CBLAS_INDEX_t
-#XXX Coerced type for output Void
+#   Returns: CBLAS_INDEX_t
 function gsl_blas_idamax(x::Ptr{gsl_vector})
-    ccall( (:gsl_blas_idamax, :libgsl), Void, (Ptr{gsl_vector}, ), x )
+    ccall( (:gsl_blas_idamax, :libgsl), CBLAS_INDEX_t, (Ptr{gsl_vector}, ),
+        x )
 end
 
 
@@ -274,13 +243,10 @@ end
 # |\Im(x_i)| for complex vectors.  If the largest value occurs several times
 # then the index of the first occurrence is returned.
 # 
-#   Returns: Void
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown output type CBLAS_INDEX_t
-#XXX Coerced type for output Void
-function gsl_blas_icamax(x::Ptr{Void})
-    ccall( (:gsl_blas_icamax, :libgsl), Void, (Ptr{Void}, ), x )
+#   Returns: CBLAS_INDEX_t
+function gsl_blas_icamax(x::Ptr{gsl_vector_complex_float})
+    ccall( (:gsl_blas_icamax, :libgsl), CBLAS_INDEX_t,
+        (Ptr{gsl_vector_complex_float}, ), x )
 end
 
 
@@ -290,27 +256,23 @@ end
 # |\Im(x_i)| for complex vectors.  If the largest value occurs several times
 # then the index of the first occurrence is returned.
 # 
-#   Returns: Void
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown output type CBLAS_INDEX_t
-#XXX Coerced type for output Void
-function gsl_blas_izamax(x::Ptr{Void})
-    ccall( (:gsl_blas_izamax, :libgsl), Void, (Ptr{Void}, ), x )
+#   Returns: CBLAS_INDEX_t
+function gsl_blas_izamax(x::Ptr{gsl_vector_complex})
+    ccall( (:gsl_blas_izamax, :libgsl), CBLAS_INDEX_t,
+        (Ptr{gsl_vector_complex}, ), x )
 end
 
 
 # These functions exchange the elements of the vectors x and y.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_float}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_sswap(x::Ptr{Void}, y::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_sswap, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}), x, y )
+function gsl_blas_sswap()
+    x = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
+    y = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
+    gsl_errno = ccall( (:gsl_blas_sswap, :libgsl), Cint,
+        (Ptr{gsl_vector_float}, Ptr{gsl_vector_float}), x, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
 
 
@@ -323,49 +285,45 @@ function gsl_blas_dswap()
     gsl_errno = ccall( (:gsl_blas_dswap, :libgsl), Cint, (Ptr{gsl_vector},
         Ptr{gsl_vector}), x, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x) ,unsafe_ref(y)
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
 
 
 # These functions exchange the elements of the vectors x and y.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_cswap(x::Ptr{Void}, y::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_cswap, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}), x, y )
+function gsl_blas_cswap()
+    x = convert(Ptr{gsl_vector_complex_float}, Array(gsl_vector_complex_float, 1))
+    y = convert(Ptr{gsl_vector_complex_float}, Array(gsl_vector_complex_float, 1))
+    gsl_errno = ccall( (:gsl_blas_cswap, :libgsl), Cint,
+        (Ptr{gsl_vector_complex_float}, Ptr{gsl_vector_complex_float}), x, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
 
 
 # These functions exchange the elements of the vectors x and y.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_zswap(x::Ptr{Void}, y::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_zswap, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}), x, y )
+function gsl_blas_zswap()
+    x = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
+    y = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
+    gsl_errno = ccall( (:gsl_blas_zswap, :libgsl), Cint,
+        (Ptr{gsl_vector_complex}, Ptr{gsl_vector_complex}), x, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
 
 
 # These functions copy the elements of the vector x into the vector y.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_float}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_scopy(x::Ptr{Void}, y::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_scopy, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}), x, y )
+function gsl_blas_scopy(x::Ptr{gsl_vector_float})
+    y = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
+    gsl_errno = ccall( (:gsl_blas_scopy, :libgsl), Cint,
+        (Ptr{gsl_vector_float}, Ptr{gsl_vector_float}), x, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(y)[1]
 end
 
 
@@ -377,159 +335,151 @@ function gsl_blas_dcopy(x::Ptr{gsl_vector})
     gsl_errno = ccall( (:gsl_blas_dcopy, :libgsl), Cint, (Ptr{gsl_vector},
         Ptr{gsl_vector}), x, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(y)
+    return unsafe_ref(y)[1]
 end
 
 
 # These functions copy the elements of the vector x into the vector y.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_ccopy(x::Ptr{Void}, y::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_ccopy, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}), x, y )
+function gsl_blas_ccopy(x::Ptr{gsl_vector_complex_float})
+    y = convert(Ptr{gsl_vector_complex_float}, Array(gsl_vector_complex_float, 1))
+    gsl_errno = ccall( (:gsl_blas_ccopy, :libgsl), Cint,
+        (Ptr{gsl_vector_complex_float}, Ptr{gsl_vector_complex_float}), x, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(y)[1]
 end
 
 
 # These functions copy the elements of the vector x into the vector y.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_zcopy(x::Ptr{Void}, y::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_zcopy, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}), x, y )
+function gsl_blas_zcopy(x::Ptr{gsl_vector_complex})
+    y = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
+    gsl_errno = ccall( (:gsl_blas_zcopy, :libgsl), Cint,
+        (Ptr{gsl_vector_complex}, Ptr{gsl_vector_complex}), x, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(y)[1]
 end
 
 
 # These functions compute the sum y = \alpha x + y for the vectors x and y.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_float}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_saxpy(alpha::Cfloat, x::Ptr{Void}, y::Ptr{Void})
+function gsl_blas_saxpy(alpha::Real, x::Ptr{gsl_vector_float})
+    y = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
     gsl_errno = ccall( (:gsl_blas_saxpy, :libgsl), Cint, (Cfloat,
-        Ptr{Void}, Ptr{Void}), alpha, x, y )
+        Ptr{gsl_vector_float}, Ptr{gsl_vector_float}), alpha, x, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(y)[1]
 end
 
 
 # These functions compute the sum y = \alpha x + y for the vectors x and y.
 # 
 #   Returns: Cint
-function gsl_blas_daxpy(alpha::Cdouble, x::Ptr{gsl_vector})
+function gsl_blas_daxpy(alpha::Real, x::Ptr{gsl_vector})
     y = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     gsl_errno = ccall( (:gsl_blas_daxpy, :libgsl), Cint, (Cdouble,
         Ptr{gsl_vector}, Ptr{gsl_vector}), alpha, x, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(y)
+    return unsafe_ref(y)[1]
 end
 
 
 # These functions compute the sum y = \alpha x + y for the vectors x and y.
 # 
 #   Returns: Cint
-#XXX Unknown input type alpha::gsl_complex_float
-#XXX Coerced type for alpha::Void
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_caxpy(alpha::Void, x::Ptr{Void}, y::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_caxpy, :libgsl), Cint, (Void, Ptr{Void},
-        Ptr{Void}), alpha, x, y )
+function gsl_blas_caxpy(alpha::gsl_complex_float, x::Ptr{gsl_vector_complex_float})
+    y = convert(Ptr{gsl_vector_complex_float}, Array(gsl_vector_complex_float, 1))
+    gsl_errno = ccall( (:gsl_blas_caxpy, :libgsl), Cint,
+        (gsl_complex_float, Ptr{gsl_vector_complex_float},
+        Ptr{gsl_vector_complex_float}), alpha, x, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(y)[1]
 end
 
 
 # These functions compute the sum y = \alpha x + y for the vectors x and y.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_zaxpy(alpha::gsl_complex, x::Ptr{Void}, y::Ptr{Void})
+function gsl_blas_zaxpy(alpha::gsl_complex, x::Ptr{gsl_vector_complex})
+    y = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     gsl_errno = ccall( (:gsl_blas_zaxpy, :libgsl), Cint, (gsl_complex,
-        Ptr{Void}, Ptr{Void}), alpha, x, y )
+        Ptr{gsl_vector_complex}, Ptr{gsl_vector_complex}), alpha, x, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(y)[1]
 end
 
 
 # These functions rescale the vector x by the multiplicative factor alpha.
 # 
 #   Returns: Void
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_sscal(alpha::Cfloat, x::Ptr{Void})
-    ccall( (:gsl_blas_sscal, :libgsl), Void, (Cfloat, Ptr{Void}), alpha, x
-        )
+function gsl_blas_sscal(alpha::Real)
+    x = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
+    ccall( (:gsl_blas_sscal, :libgsl), Void, (Cfloat,
+        Ptr{gsl_vector_float}), alpha, x )
+    return unsafe_ref(x)[1]
 end
+@vectorize_1arg Number gsl_blas_sscal
 
 
 # These functions rescale the vector x by the multiplicative factor alpha.
 # 
 #   Returns: Void
-function gsl_blas_dscal(alpha::Cdouble)
+function gsl_blas_dscal(alpha::Real)
     x = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     ccall( (:gsl_blas_dscal, :libgsl), Void, (Cdouble, Ptr{gsl_vector}),
         alpha, x )
-    return unsafe_ref(x)
+    return unsafe_ref(x)[1]
+end
+@vectorize_1arg Number gsl_blas_dscal
+
+
+# These functions rescale the vector x by the multiplicative factor alpha.
+# 
+#   Returns: Void
+function gsl_blas_cscal(alpha::gsl_complex_float)
+    x = convert(Ptr{gsl_vector_complex_float}, Array(gsl_vector_complex_float, 1))
+    ccall( (:gsl_blas_cscal, :libgsl), Void, (gsl_complex_float,
+        Ptr{gsl_vector_complex_float}), alpha, x )
+    return unsafe_ref(x)[1]
 end
 
 
 # These functions rescale the vector x by the multiplicative factor alpha.
 # 
 #   Returns: Void
-#XXX Unknown input type alpha::gsl_complex_float
-#XXX Coerced type for alpha::Void
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_cscal(alpha::Void, x::Ptr{Void})
-    ccall( (:gsl_blas_cscal, :libgsl), Void, (Void, Ptr{Void}), alpha, x )
+function gsl_blas_zscal(alpha::gsl_complex)
+    x = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
+    ccall( (:gsl_blas_zscal, :libgsl), Void, (gsl_complex,
+        Ptr{gsl_vector_complex}), alpha, x )
+    return unsafe_ref(x)[1]
 end
 
 
 # These functions rescale the vector x by the multiplicative factor alpha.
 # 
 #   Returns: Void
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_zscal(alpha::gsl_complex, x::Ptr{Void})
-    ccall( (:gsl_blas_zscal, :libgsl), Void, (gsl_complex, Ptr{Void}),
-        alpha, x )
+function gsl_blas_csscal(alpha::Real)
+    x = convert(Ptr{gsl_vector_complex_float}, Array(gsl_vector_complex_float, 1))
+    ccall( (:gsl_blas_csscal, :libgsl), Void, (Cfloat,
+        Ptr{gsl_vector_complex_float}), alpha, x )
+    return unsafe_ref(x)[1]
 end
+@vectorize_1arg Number gsl_blas_csscal
 
 
 # These functions rescale the vector x by the multiplicative factor alpha.
 # 
 #   Returns: Void
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_csscal(alpha::Cfloat, x::Ptr{Void})
-    ccall( (:gsl_blas_csscal, :libgsl), Void, (Cfloat, Ptr{Void}), alpha, x
-        )
+function gsl_blas_zdscal(alpha::Real)
+    x = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
+    ccall( (:gsl_blas_zdscal, :libgsl), Void, (Cdouble,
+        Ptr{gsl_vector_complex}), alpha, x )
+    return unsafe_ref(x)[1]
 end
-
-
-# These functions rescale the vector x by the multiplicative factor alpha.
-# 
-#   Returns: Void
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_zdscal(alpha::Cdouble, x::Ptr{Void})
-    ccall( (:gsl_blas_zdscal, :libgsl), Void, (Cdouble, Ptr{Void}), alpha,
-        x )
-end
+@vectorize_1arg Number gsl_blas_zdscal
 
 
 # These functions compute a Givens rotation (c,s) which zeroes the vector
@@ -537,10 +487,11 @@ end
 # 0 ]  The variables a and b are overwritten by the routine.
 # 
 #   Returns: Cint
-function gsl_blas_srotg(a::Cfloat)
+function gsl_blas_srotg(a::Real)
     gsl_errno = ccall( (:gsl_blas_srotg, :libgsl), Cint, (Cfloat, ), a )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+@vectorize_1arg Number gsl_blas_srotg
 
 
 # These functions compute a Givens rotation (c,s) which zeroes the vector
@@ -548,39 +499,42 @@ end
 # 0 ]  The variables a and b are overwritten by the routine.
 # 
 #   Returns: Cint
-function gsl_blas_drotg(a::Cdouble)
+function gsl_blas_drotg(a::Real)
     gsl_errno = ccall( (:gsl_blas_drotg, :libgsl), Cint, (Cdouble, ), a )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+@vectorize_1arg Number gsl_blas_drotg
 
 
 # These functions apply a Givens rotation (x', y') = (c x + s y, -s x + c y) to
 # the vectors x, y.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_float}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_srot(x::Ptr{Void}, y::Ptr{Void}, c::Cfloat, s::Cfloat)
-    gsl_errno = ccall( (:gsl_blas_srot, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}, Cfloat, Cfloat), x, y, c, s )
+function gsl_blas_srot(c::Real, s::Real)
+    x = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
+    y = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
+    gsl_errno = ccall( (:gsl_blas_srot, :libgsl), Cint,
+        (Ptr{gsl_vector_float}, Ptr{gsl_vector_float}, Cfloat, Cfloat), x, y,
+        c, s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
+@vectorize_2arg Number gsl_blas_srot
 
 
 # These functions apply a Givens rotation (x', y') = (c x + s y, -s x + c y) to
 # the vectors x, y.
 # 
 #   Returns: Cint
-function gsl_blas_drot(c::Cdouble, s::Cdouble)
+function gsl_blas_drot(c::Real, s::Real)
     x = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     y = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     gsl_errno = ccall( (:gsl_blas_drot, :libgsl), Cint, (Ptr{gsl_vector},
         Ptr{gsl_vector}, Cdouble, Cdouble), x, y, c, s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x) ,unsafe_ref(y)
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
+@vectorize_2arg Number gsl_blas_drot
 
 
 # These functions compute a modified Givens transformation.  The modified
@@ -588,10 +542,11 @@ end
 # given in the references.
 # 
 #   Returns: Cint
-function gsl_blas_srotmg(d1::Cfloat)
+function gsl_blas_srotmg(d1::Real)
     gsl_errno = ccall( (:gsl_blas_srotmg, :libgsl), Cint, (Cfloat, ), d1 )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+@vectorize_1arg Number gsl_blas_srotmg
 
 
 # These functions compute a modified Givens transformation.  The modified
@@ -599,34 +554,36 @@ end
 # given in the references.
 # 
 #   Returns: Cint
-function gsl_blas_drotmg(d1::Cdouble)
+function gsl_blas_drotmg(d1::Real)
     gsl_errno = ccall( (:gsl_blas_drotmg, :libgsl), Cint, (Cdouble, ), d1 )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+@vectorize_1arg Number gsl_blas_drotmg
 
 
 # These functions apply a modified Givens transformation.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_float}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_srotm(x::Ptr{Void}, y::Ptr{Void}, P::Cfloat)
-    gsl_errno = ccall( (:gsl_blas_srotm, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}, Cfloat), x, y, P )
+function gsl_blas_srotm(P::Real)
+    x = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
+    y = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
+    gsl_errno = ccall( (:gsl_blas_srotm, :libgsl), Cint,
+        (Ptr{gsl_vector_float}, Ptr{gsl_vector_float}, Cfloat), x, y, P )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
+@vectorize_1arg Number gsl_blas_srotm
 
 
 # These functions apply a modified Givens transformation.
 # 
 #   Returns: Cint
-function gsl_blas_drotm(P::Cdouble)
+function gsl_blas_drotm(P::Real)
     x = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     y = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     gsl_errno = ccall( (:gsl_blas_drotm, :libgsl), Cint, (Ptr{gsl_vector},
         Ptr{gsl_vector}, Cdouble), x, y, P )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x) ,unsafe_ref(y)
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
+@vectorize_1arg Number gsl_blas_drotm

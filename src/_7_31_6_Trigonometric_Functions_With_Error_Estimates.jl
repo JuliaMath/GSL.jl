@@ -12,13 +12,14 @@ export gsl_sf_sin_err_e, gsl_sf_cos_err_e
 # handling form only since its purpose is to compute the propagated error.
 # 
 #   Returns: Cint
-function gsl_sf_sin_err_e(x::Cdouble, dx::Cdouble)
+function gsl_sf_sin_err_e(x::Real, dx::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_sin_err_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), x, dx, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_sin_err_e
 
 
 # This routine computes the cosine of an angle x with an associated absolute
@@ -26,10 +27,11 @@ end
 # handling form only since its purpose is to compute the propagated error.
 # 
 #   Returns: Cint
-function gsl_sf_cos_err_e(x::Cdouble, dx::Cdouble)
+function gsl_sf_cos_err_e(x::Real, dx::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_cos_err_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), x, dx, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_cos_err_e

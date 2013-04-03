@@ -33,10 +33,10 @@ export gsl_multifit_covar
 # covariance matrices see Fitting Overview.
 # 
 #   Returns: Cint
-function gsl_multifit_covar(J::Ptr{gsl_matrix}, epsrel::Cdouble)
+function gsl_multifit_covar(J::Ptr{gsl_matrix}, epsrel::Real)
     covar = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     gsl_errno = ccall( (:gsl_multifit_covar, :libgsl), Cint,
         (Ptr{gsl_matrix}, Cdouble, Ptr{gsl_matrix}), J, epsrel, covar )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(covar)
+    return unsafe_ref(covar)[1]
 end

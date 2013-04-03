@@ -14,18 +14,20 @@ export gsl_vector_alloc, gsl_vector_calloc, gsl_vector_free
 # deallocated.
 # 
 #   Returns: Ptr{gsl_vector}
-function gsl_vector_alloc{gsl_int<:Integer}(n::gsl_int)
+function gsl_vector_alloc(n::Integer)
     ccall( (:gsl_vector_alloc, :libgsl), Ptr{gsl_vector}, (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_vector_alloc
 
 
 # This function allocates memory for a vector of length n and initializes all
 # the elements of the vector to zero.
 # 
 #   Returns: Ptr{gsl_vector}
-function gsl_vector_calloc{gsl_int<:Integer}(n::gsl_int)
+function gsl_vector_calloc(n::Integer)
     ccall( (:gsl_vector_calloc, :libgsl), Ptr{gsl_vector}, (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_vector_calloc
 
 
 # This function frees a previously allocated vector v.  If the vector was

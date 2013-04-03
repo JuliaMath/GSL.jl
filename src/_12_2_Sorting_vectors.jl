@@ -11,12 +11,13 @@ export gsl_sort, gsl_sort_vector, gsl_sort_index, gsl_sort_vector_index
 # ascending numerical order.
 # 
 #   Returns: Void
-function gsl_sort{gsl_int<:Integer}(stride::gsl_int, n::gsl_int)
+function gsl_sort(stride::Integer, n::Integer)
     data = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     ccall( (:gsl_sort, :libgsl), Void, (Ptr{Cdouble}, Csize_t, Csize_t),
         data, stride, n )
-    return unsafe_ref(data)
+    return unsafe_ref(data)[1]
 end
+@vectorize_2arg Number gsl_sort
 
 
 # This function sorts the elements of the vector v into ascending numerical
@@ -26,7 +27,7 @@ end
 function gsl_sort_vector()
     v = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     ccall( (:gsl_sort_vector, :libgsl), Void, (Ptr{gsl_vector}, ), v )
-    return unsafe_ref(v)
+    return unsafe_ref(v)[1]
 end
 
 
@@ -38,11 +39,11 @@ end
 # place.  The array data is not changed.
 # 
 #   Returns: Void
-function gsl_sort_index{gsl_int<:Integer}(data::Ptr{Cdouble}, stride::gsl_int, n::gsl_int)
+function gsl_sort_index{tA<:Real}(data::Ptr{tA}, stride::Integer, n::Integer)
     p = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     ccall( (:gsl_sort_index, :libgsl), Void, (Ptr{Csize_t}, Ptr{Cdouble},
         Csize_t, Csize_t), p, data, stride, n )
-    return unsafe_ref(p)
+    return unsafe_ref(p)[1]
 end
 
 
@@ -59,5 +60,5 @@ function gsl_sort_vector_index(v::Ptr{gsl_vector})
     gsl_errno = ccall( (:gsl_sort_vector_index, :libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_vector}), p, v )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(p)
+    return unsafe_ref(p)[1]
 end

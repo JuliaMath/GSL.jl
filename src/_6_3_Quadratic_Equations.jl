@@ -27,15 +27,17 @@ export gsl_poly_solve_quadratic, gsl_poly_complex_solve_quadratic
 # computed exactly.
 # 
 #   Returns: Cint
-function gsl_poly_solve_quadratic(a::Cdouble, b::Cdouble, c::Cdouble)
+function gsl_poly_solve_quadratic(a::Real, b::Real, c::Real)
     x0 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     x1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_poly_solve_quadratic, :libgsl), Cint,
         (Cdouble, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), a, b, c, x0,
         x1 )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x0) ,unsafe_ref(x1)
+    return unsafe_ref(x0)[1] ,unsafe_ref(x1)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_poly_solve_quadratic
 
 
 # This function finds the complex roots of the quadratic equation,
@@ -46,12 +48,14 @@ end
 # then it is stored in z0.
 # 
 #   Returns: Cint
-function gsl_poly_complex_solve_quadratic(a::Cdouble, b::Cdouble, c::Cdouble)
+function gsl_poly_complex_solve_quadratic(a::Real, b::Real, c::Real)
     z0 = convert(Ptr{gsl_complex}, Array(gsl_complex, 1))
     z1 = convert(Ptr{gsl_complex}, Array(gsl_complex, 1))
     gsl_errno = ccall( (:gsl_poly_complex_solve_quadratic, :libgsl), Cint,
         (Cdouble, Cdouble, Cdouble, Ptr{gsl_complex}, Ptr{gsl_complex}), a, b,
         c, z0, z1 )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(z0) ,unsafe_ref(z1)
+    return unsafe_ref(z0)[1] ,unsafe_ref(z1)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_poly_complex_solve_quadratic

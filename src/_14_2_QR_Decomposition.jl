@@ -32,7 +32,7 @@ function gsl_linalg_QR_decomp()
     gsl_errno = ccall( (:gsl_linalg_QR_decomp, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}), A, tau )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A) ,unsafe_ref(tau)
+    return unsafe_ref(A)[1] ,unsafe_ref(tau)[1]
 end
 
 
@@ -48,7 +48,7 @@ function gsl_linalg_QR_solve(QR::Ptr{gsl_matrix}, tau::Ptr{gsl_vector}, b::Ptr{g
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector}),
         QR, tau, b, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x)
+    return unsafe_ref(x)[1]
 end
 
 
@@ -63,7 +63,7 @@ function gsl_linalg_QR_svx(QR::Ptr{gsl_matrix}, tau::Ptr{gsl_vector})
     gsl_errno = ccall( (:gsl_linalg_QR_svx, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), QR, tau, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x)
+    return unsafe_ref(x)[1]
 end
 
 
@@ -82,7 +82,7 @@ function gsl_linalg_QR_lssolve(QR::Ptr{gsl_matrix}, tau::Ptr{gsl_vector}, b::Ptr
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector},
         Ptr{gsl_vector}), QR, tau, b, x, residual )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x) ,unsafe_ref(residual)
+    return unsafe_ref(x)[1] ,unsafe_ref(residual)[1]
 end
 
 
@@ -97,7 +97,7 @@ function gsl_linalg_QR_QTvec(QR::Ptr{gsl_matrix}, tau::Ptr{gsl_vector})
     gsl_errno = ccall( (:gsl_linalg_QR_QTvec, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), QR, tau, v )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(v)
+    return unsafe_ref(v)[1]
 end
 
 
@@ -112,7 +112,7 @@ function gsl_linalg_QR_Qvec(QR::Ptr{gsl_matrix}, tau::Ptr{gsl_vector})
     gsl_errno = ccall( (:gsl_linalg_QR_Qvec, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), QR, tau, v )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(v)
+    return unsafe_ref(v)[1]
 end
 
 
@@ -127,7 +127,7 @@ function gsl_linalg_QR_QTmat(QR::Ptr{gsl_matrix}, tau::Ptr{gsl_vector})
     gsl_errno = ccall( (:gsl_linalg_QR_QTmat, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_matrix}), QR, tau, A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A)
+    return unsafe_ref(A)[1]
 end
 
 
@@ -140,7 +140,7 @@ function gsl_linalg_QR_Rsolve(QR::Ptr{gsl_matrix}, b::Ptr{gsl_vector})
     gsl_errno = ccall( (:gsl_linalg_QR_Rsolve, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), QR, b, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x)
+    return unsafe_ref(x)[1]
 end
 
 
@@ -155,7 +155,7 @@ function gsl_linalg_QR_Rsvx(QR::Ptr{gsl_matrix})
     gsl_errno = ccall( (:gsl_linalg_QR_Rsvx, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}), QR, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x)
+    return unsafe_ref(x)[1]
 end
 
 
@@ -170,7 +170,7 @@ function gsl_linalg_QR_unpack(QR::Ptr{gsl_matrix}, tau::Ptr{gsl_vector})
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{gsl_matrix}),
         QR, tau, Q, R )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(Q) ,unsafe_ref(R)
+    return unsafe_ref(Q)[1] ,unsafe_ref(R)[1]
 end
 
 
@@ -186,7 +186,7 @@ function gsl_linalg_QR_QRsolve(b::Ptr{gsl_vector})
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}),
         Q, R, b, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(Q) ,unsafe_ref(R) ,unsafe_ref(x)
+    return unsafe_ref(Q)[1] ,unsafe_ref(R)[1] ,unsafe_ref(x)[1]
 end
 
 
@@ -204,7 +204,7 @@ function gsl_linalg_QR_update(v::Ptr{gsl_vector})
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}),
         Q, R, w, v )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(Q) ,unsafe_ref(R) ,unsafe_ref(w)
+    return unsafe_ref(Q)[1] ,unsafe_ref(R)[1] ,unsafe_ref(w)[1]
 end
 
 
@@ -216,7 +216,7 @@ function gsl_linalg_R_solve(R::Ptr{gsl_matrix}, b::Ptr{gsl_vector})
     gsl_errno = ccall( (:gsl_linalg_R_solve, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), R, b, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x)
+    return unsafe_ref(x)[1]
 end
 
 
@@ -230,5 +230,5 @@ function gsl_linalg_R_svx(R::Ptr{gsl_matrix})
     gsl_errno = ccall( (:gsl_linalg_R_svx, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}), R, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x)
+    return unsafe_ref(x)[1]
 end

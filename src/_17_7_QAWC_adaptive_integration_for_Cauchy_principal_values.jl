@@ -19,16 +19,17 @@ export gsl_integration_qawc
 # Gauss-Kronrod integration rule.
 # 
 #   Returns: Cint
-#XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
-#XXX Coerced type for workspace::Ptr{Void}
-function gsl_integration_qawc{gsl_int<:Integer}(a::Cdouble, b::Cdouble, c::Cdouble, epsabs::Cdouble, epsrel::Cdouble, limit::gsl_int, workspace::Ptr{Void})
+function gsl_integration_qawc(a::Real, b::Real, c::Real, epsabs::Real, epsrel::Real, limit::Integer)
     f = convert(Ptr{gsl_function}, Array(gsl_function, 1))
+    workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_integration_qawc, :libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Cdouble,
-        Csize_t, Ptr{Void}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, b, c, epsabs,
-        epsrel, limit, workspace, result, abserr )
+        Csize_t, Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}),
+        f, a, b, c, epsabs, epsrel, limit, workspace, result, abserr )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(f) ,unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(f)[1] ,unsafe_ref(workspace)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_6arg Number gsl_integration_qawc

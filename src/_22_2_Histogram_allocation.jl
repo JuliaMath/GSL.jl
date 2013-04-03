@@ -18,10 +18,11 @@ export gsl_histogram_alloc, gsl_histogram_set_ranges,
 # the histogram ready for use.
 # 
 #   Returns: Ptr{gsl_histogram}
-function gsl_histogram_alloc{gsl_int<:Integer}(n::gsl_int)
+function gsl_histogram_alloc(n::Integer)
     ccall( (:gsl_histogram_alloc, :libgsl), Ptr{gsl_histogram}, (Csize_t,
         ), n )
 end
+@vectorize_1arg Number gsl_histogram_alloc
 
 
 # This function sets the ranges of the existing histogram h using the array
@@ -39,13 +40,14 @@ end
 # The additional element is required for the upper value of the final bin.
 # 
 #   Returns: Cint
-function gsl_histogram_set_ranges(range::Cdouble)
+function gsl_histogram_set_ranges(range::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
     gsl_errno = ccall( (:gsl_histogram_set_ranges, :libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble), h, range )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(h)
+    return unsafe_ref(h)[1]
 end
+@vectorize_1arg Number gsl_histogram_set_ranges
 
 
 # This function sets the ranges of the existing histogram h to cover the range
@@ -56,13 +58,14 @@ end
 # (n-1)d <= x < xmax  where d is the bin spacing, d = (xmax-xmin)/n.
 # 
 #   Returns: Cint
-function gsl_histogram_set_ranges_uniform(xmin::Cdouble, xmax::Cdouble)
+function gsl_histogram_set_ranges_uniform(xmin::Real, xmax::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
     gsl_errno = ccall( (:gsl_histogram_set_ranges_uniform, :libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble, Cdouble), h, xmin, xmax )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(h)
+    return unsafe_ref(h)[1]
 end
+@vectorize_2arg Number gsl_histogram_set_ranges_uniform
 
 
 # This function frees the histogram h and all of the memory associated with it.

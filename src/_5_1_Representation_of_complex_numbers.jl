@@ -19,17 +19,19 @@ end
 # HAVE_INLINE is defined.
 # 
 #   Returns: gsl_complex
-function gsl_complex_rect(x::Cdouble, y::Cdouble)
+function gsl_complex_rect(x::Real, y::Real)
     ccall( (:gsl_complex_rect, :libgsl), gsl_complex, (Cdouble, Cdouble),
         x, y )
 end
+@vectorize_2arg Number gsl_complex_rect
 
 
 # This function returns the complex number z = r \exp(i \theta) = r
 # (\cos(\theta) + i \sin(\theta)) from the polar representation (r,theta).
 # 
 #   Returns: gsl_complex
-function gsl_complex_polar(r::Cdouble, theta::Cdouble)
+function gsl_complex_polar(r::Real, theta::Real)
     ccall( (:gsl_complex_polar, :libgsl), gsl_complex, (Cdouble, Cdouble),
         r, theta )
 end
+@vectorize_2arg Number gsl_complex_polar

@@ -16,10 +16,11 @@ export gsl_histogram2d_alloc, gsl_histogram2d_set_ranges,
 # the functions below before the histogram is ready for use.
 # 
 #   Returns: Ptr{gsl_histogram2d}
-function gsl_histogram2d_alloc{gsl_int<:Integer}(nx::gsl_int, ny::gsl_int)
+function gsl_histogram2d_alloc(nx::Integer, ny::Integer)
     ccall( (:gsl_histogram2d_alloc, :libgsl), Ptr{gsl_histogram2d},
         (Csize_t, Csize_t), nx, ny )
 end
+@vectorize_2arg Number gsl_histogram2d_alloc
 
 
 # This function sets the ranges of the existing histogram h using the arrays
@@ -27,13 +28,14 @@ end
 # histogram bins are reset to zero.
 # 
 #   Returns: Cint
-function gsl_histogram2d_set_ranges(xrange::Cdouble)
+function gsl_histogram2d_set_ranges(xrange::Real)
     h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
     gsl_errno = ccall( (:gsl_histogram2d_set_ranges, :libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble), h, xrange )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(h)
+    return unsafe_ref(h)[1]
 end
+@vectorize_1arg Number gsl_histogram2d_set_ranges
 
 
 # This function sets the ranges of the existing histogram h to cover the ranges
@@ -41,14 +43,16 @@ end
 # are reset to zero.
 # 
 #   Returns: Cint
-function gsl_histogram2d_set_ranges_uniform(xmin::Cdouble, xmax::Cdouble, ymin::Cdouble, ymax::Cdouble)
+function gsl_histogram2d_set_ranges_uniform(xmin::Real, xmax::Real, ymin::Real, ymax::Real)
     h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
     gsl_errno = ccall( (:gsl_histogram2d_set_ranges_uniform, :libgsl),
         Cint, (Ptr{gsl_histogram2d}, Cdouble, Cdouble, Cdouble, Cdouble), h,
         xmin, xmax, ymin, ymax )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(h)
+    return unsafe_ref(h)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_4arg Number gsl_histogram2d_set_ranges_uniform
 
 
 # This function frees the 2D histogram h and all of the memory associated with

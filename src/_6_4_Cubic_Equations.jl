@@ -23,7 +23,7 @@ export gsl_poly_solve_cubic, gsl_poly_complex_solve_cubic
 # discrete change in the number of real roots.
 # 
 #   Returns: Cint
-function gsl_poly_solve_cubic(a::Cdouble, b::Cdouble, c::Cdouble)
+function gsl_poly_solve_cubic(a::Real, b::Real, c::Real)
     x0 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     x1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     x2 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
@@ -31,8 +31,10 @@ function gsl_poly_solve_cubic(a::Cdouble, b::Cdouble, c::Cdouble)
         Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}), a, b, c,
         x0, x1, x2 )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x0) ,unsafe_ref(x1) ,unsafe_ref(x2)
+    return unsafe_ref(x0)[1] ,unsafe_ref(x1)[1] ,unsafe_ref(x2)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_poly_solve_cubic
 
 
 # This function finds the complex roots of the cubic equation,
@@ -42,7 +44,7 @@ end
 # then by their imaginary components.
 # 
 #   Returns: Cint
-function gsl_poly_complex_solve_cubic(a::Cdouble, b::Cdouble, c::Cdouble)
+function gsl_poly_complex_solve_cubic(a::Real, b::Real, c::Real)
     z0 = convert(Ptr{gsl_complex}, Array(gsl_complex, 1))
     z1 = convert(Ptr{gsl_complex}, Array(gsl_complex, 1))
     z2 = convert(Ptr{gsl_complex}, Array(gsl_complex, 1))
@@ -50,5 +52,7 @@ function gsl_poly_complex_solve_cubic(a::Cdouble, b::Cdouble, c::Cdouble)
         (Cdouble, Cdouble, Cdouble, Ptr{gsl_complex}, Ptr{gsl_complex},
         Ptr{gsl_complex}), a, b, c, z0, z1, z2 )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(z0) ,unsafe_ref(z1) ,unsafe_ref(z2)
+    return unsafe_ref(z0)[1] ,unsafe_ref(z1)[1] ,unsafe_ref(z2)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_poly_complex_solve_cubic

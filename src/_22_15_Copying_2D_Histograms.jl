@@ -17,7 +17,7 @@ function gsl_histogram2d_memcpy(src::Ptr{gsl_histogram2d})
     gsl_errno = ccall( (:gsl_histogram2d_memcpy, :libgsl), Cint,
         (Ptr{gsl_histogram2d}, Ptr{gsl_histogram2d}), dest, src )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(dest)
+    return unsafe_ref(dest)[1]
 end
 
 

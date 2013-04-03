@@ -19,7 +19,7 @@ export gsl_multifit_test_delta, gsl_multifit_test_gradient,
 # component of x and returns GSL_CONTINUE otherwise.
 # 
 #   Returns: Cint
-function gsl_multifit_test_delta(dx::Ptr{gsl_vector}, x::Ptr{gsl_vector}, epsabs::Cdouble, epsrel::Cdouble)
+function gsl_multifit_test_delta(dx::Ptr{gsl_vector}, x::Ptr{gsl_vector}, epsabs::Real, epsrel::Real)
     gsl_errno = ccall( (:gsl_multifit_test_delta, :libgsl), Cint,
         (Ptr{gsl_vector}, Ptr{gsl_vector}, Cdouble, Cdouble), dx, x, epsabs,
         epsrel )
@@ -35,7 +35,7 @@ end
 # unimportant provided a value can be found where the gradient is small enough.
 # 
 #   Returns: Cint
-function gsl_multifit_test_gradient(g::Ptr{gsl_vector}, epsabs::Cdouble)
+function gsl_multifit_test_gradient(g::Ptr{gsl_vector}, epsabs::Real)
     gsl_errno = ccall( (:gsl_multifit_test_gradient, :libgsl), Cint,
         (Ptr{gsl_vector}, Cdouble), g, epsabs )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
@@ -51,5 +51,5 @@ function gsl_multifit_gradient(J::Ptr{gsl_matrix}, f::Ptr{gsl_vector})
     gsl_errno = ccall( (:gsl_multifit_gradient, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), J, f, g )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(g)
+    return unsafe_ref(g)[1]
 end

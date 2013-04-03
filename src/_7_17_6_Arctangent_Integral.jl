@@ -11,19 +11,21 @@ export gsl_sf_atanint, gsl_sf_atanint_e
 # AtanInt(x) = \int_0^x dt \arctan(t)/t.
 # 
 #   Returns: Cdouble
-function gsl_sf_atanint(x::Cdouble)
+function gsl_sf_atanint(x::Real)
     ccall( (:gsl_sf_atanint, :libgsl), Cdouble, (Cdouble, ), x )
 end
+@vectorize_1arg Number gsl_sf_atanint
 
 
 # These routines compute the Arctangent integral, which is defined as
 # AtanInt(x) = \int_0^x dt \arctan(t)/t.
 # 
 #   Returns: Cint
-function gsl_sf_atanint_e(x::Cdouble)
+function gsl_sf_atanint_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_atanint_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_1arg Number gsl_sf_atanint_e

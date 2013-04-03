@@ -12,12 +12,12 @@ export gsl_permute, gsl_permute_inverse, gsl_permute_vector,
 # stride stride.
 # 
 #   Returns: Cint
-function gsl_permute{gsl_int<:Integer}(p::Ptr{Csize_t}, stride::gsl_int, n::gsl_int)
+function gsl_permute{tA<:Integer}(p::Ptr{tA}, stride::Integer, n::Integer)
     data = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_permute, :libgsl), Cint, (Ptr{Csize_t},
         Ptr{Cdouble}, Csize_t, Csize_t), p, data, stride, n )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(data)
+    return unsafe_ref(data)[1]
 end
 
 
@@ -25,12 +25,12 @@ end
 # size n with stride stride.
 # 
 #   Returns: Cint
-function gsl_permute_inverse{gsl_int<:Integer}(p::Ptr{Csize_t}, stride::gsl_int, n::gsl_int)
+function gsl_permute_inverse{tA<:Integer}(p::Ptr{tA}, stride::Integer, n::Integer)
     data = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_permute_inverse, :libgsl), Cint,
         (Ptr{Csize_t}, Ptr{Cdouble}, Csize_t, Csize_t), p, data, stride, n )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(data)
+    return unsafe_ref(data)[1]
 end
 
 
@@ -46,7 +46,7 @@ function gsl_permute_vector(p::Ptr{gsl_permutation})
     gsl_errno = ccall( (:gsl_permute_vector, :libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_vector}), p, v )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(v)
+    return unsafe_ref(v)[1]
 end
 
 
@@ -63,7 +63,7 @@ function gsl_permute_vector_inverse(p::Ptr{gsl_permutation})
     gsl_errno = ccall( (:gsl_permute_vector_inverse, :libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_vector}), p, v )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(v)
+    return unsafe_ref(v)[1]
 end
 
 
@@ -78,5 +78,5 @@ function gsl_permutation_mul(pa::Ptr{gsl_permutation}, pb::Ptr{gsl_permutation})
         (Ptr{gsl_permutation}, Ptr{gsl_permutation}, Ptr{gsl_permutation}), p,
         pa, pb )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(p)
+    return unsafe_ref(p)[1]
 end

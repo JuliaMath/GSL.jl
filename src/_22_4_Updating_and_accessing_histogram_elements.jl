@@ -20,13 +20,14 @@ export gsl_histogram_increment, gsl_histogram_accumulate, gsl_histogram_get,
 # larger dataset, ignoring the values outside the range of interest.
 # 
 #   Returns: Cint
-function gsl_histogram_increment(x::Cdouble)
+function gsl_histogram_increment(x::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
     gsl_errno = ccall( (:gsl_histogram_increment, :libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble), h, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(h)
+    return unsafe_ref(h)[1]
 end
+@vectorize_1arg Number gsl_histogram_increment
 
 
 # This function is similar to gsl_histogram_increment but increases the value
@@ -34,13 +35,14 @@ end
 # weight.
 # 
 #   Returns: Cint
-function gsl_histogram_accumulate(x::Cdouble, weight::Cdouble)
+function gsl_histogram_accumulate(x::Real, weight::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
     gsl_errno = ccall( (:gsl_histogram_accumulate, :libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble, Cdouble), h, x, weight )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(h)
+    return unsafe_ref(h)[1]
 end
+@vectorize_2arg Number gsl_histogram_accumulate
 
 
 # This function returns the contents of the i-th bin of the histogram h.  If i
@@ -48,7 +50,7 @@ end
 # handler is called with an error code of GSL_EDOM and the function returns 0.
 # 
 #   Returns: Cdouble
-function gsl_histogram_get{gsl_int<:Integer}(h::Ptr{gsl_histogram}, i::gsl_int)
+function gsl_histogram_get(h::Ptr{gsl_histogram}, i::Integer)
     ccall( (:gsl_histogram_get, :libgsl), Cdouble, (Ptr{gsl_histogram},
         Csize_t), h, i )
 end
@@ -65,14 +67,14 @@ end
 # code of GSL_EDOM.
 # 
 #   Returns: Cint
-function gsl_histogram_get_range{gsl_int<:Integer}(h::Ptr{gsl_histogram}, i::gsl_int)
+function gsl_histogram_get_range(h::Ptr{gsl_histogram}, i::Integer)
     lower = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     upper = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_histogram_get_range, :libgsl), Cint,
         (Ptr{gsl_histogram}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, i, lower,
         upper )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(lower) ,unsafe_ref(upper)
+    return unsafe_ref(lower)[1] ,unsafe_ref(upper)[1]
 end
 
 
@@ -116,5 +118,5 @@ function gsl_histogram_reset()
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
     ccall( (:gsl_histogram_reset, :libgsl), Void, (Ptr{gsl_histogram}, ), h
         )
-    return unsafe_ref(h)
+    return unsafe_ref(h)[1]
 end

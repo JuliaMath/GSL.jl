@@ -30,14 +30,11 @@ export gsl_integration_qawo_table_alloc, gsl_integration_qawo_table_set,
 # integration routine gsl_integration_qawo returns the error GSL_ETABLE if the
 # number of levels is insufficient for the requested accuracy.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown input type sine::enumgsl_integration_qawo_enum
-#XXX Coerced type for sine::Void
-#XXX Unknown output type Ptr{gsl_integration_qawo_table}
-#XXX Coerced type for output Ptr{Void}
-function gsl_integration_qawo_table_alloc{gsl_int<:Integer}(omega::Cdouble, L::Cdouble, sine::Void, n::gsl_int)
-    ccall( (:gsl_integration_qawo_table_alloc, :libgsl), Ptr{Void},
-        (Cdouble, Cdouble, Void, Csize_t), omega, L, sine, n )
+#   Returns: Ptr{gsl_integration_qawo_table}
+function gsl_integration_qawo_table_alloc(omega::Real, L::Real, sine::enumgsl_integration_qawo_enum, n::Integer)
+    ccall( (:gsl_integration_qawo_table_alloc, :libgsl),
+        Ptr{gsl_integration_qawo_table}, (Cdouble, Cdouble,
+        enumgsl_integration_qawo_enum, Csize_t), omega, L, sine, n )
 end
 
 
@@ -45,13 +42,10 @@ end
 # workspace t.
 # 
 #   Returns: Cint
-#XXX Unknown input type t::Ptr{gsl_integration_qawo_table}
-#XXX Coerced type for t::Ptr{Void}
-#XXX Unknown input type sine::enumgsl_integration_qawo_enum
-#XXX Coerced type for sine::Void
-function gsl_integration_qawo_table_set(t::Ptr{Void}, omega::Cdouble, L::Cdouble, sine::Void)
+function gsl_integration_qawo_table_set(t::Ptr{gsl_integration_qawo_table}, omega::Real, L::Real, sine::enumgsl_integration_qawo_enum)
     gsl_errno = ccall( (:gsl_integration_qawo_table_set, :libgsl), Cint,
-        (Ptr{Void}, Cdouble, Cdouble, Void), t, omega, L, sine )
+        (Ptr{gsl_integration_qawo_table}, Cdouble, Cdouble,
+        enumgsl_integration_qawo_enum), t, omega, L, sine )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
 
@@ -59,23 +53,22 @@ end
 # This function allows the length parameter L of the workspace t to be changed.
 # 
 #   Returns: Cint
-#XXX Unknown input type t::Ptr{gsl_integration_qawo_table}
-#XXX Coerced type for t::Ptr{Void}
-function gsl_integration_qawo_table_set_length(t::Ptr{Void}, L::Cdouble)
+function gsl_integration_qawo_table_set_length(L::Real)
+    t = convert(Ptr{gsl_integration_qawo_table}, Array(gsl_integration_qawo_table, 1))
     gsl_errno = ccall( (:gsl_integration_qawo_table_set_length, :libgsl),
-        Cint, (Ptr{Void}, Cdouble), t, L )
+        Cint, (Ptr{gsl_integration_qawo_table}, Cdouble), t, L )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(t)[1]
 end
+@vectorize_1arg Number gsl_integration_qawo_table_set_length
 
 
 # This function frees all the memory associated with the workspace t.
 # 
 #   Returns: Void
-#XXX Unknown input type t::Ptr{gsl_integration_qawo_table}
-#XXX Coerced type for t::Ptr{Void}
-function gsl_integration_qawo_table_free(t::Ptr{Void})
-    ccall( (:gsl_integration_qawo_table_free, :libgsl), Void, (Ptr{Void},
-        ), t )
+function gsl_integration_qawo_table_free(t::Ptr{gsl_integration_qawo_table})
+    ccall( (:gsl_integration_qawo_table_free, :libgsl), Void,
+        (Ptr{gsl_integration_qawo_table}, ), t )
 end
 
 
@@ -94,18 +87,19 @@ end
 # where d\omega < 4 are computed using a 15-point Gauss-Kronrod integration.
 # 
 #   Returns: Cint
-#XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
-#XXX Coerced type for workspace::Ptr{Void}
-#XXX Unknown input type wf::Ptr{gsl_integration_qawo_table}
-#XXX Coerced type for wf::Ptr{Void}
-function gsl_integration_qawo{gsl_int<:Integer}(a::Cdouble, epsabs::Cdouble, epsrel::Cdouble, limit::gsl_int, workspace::Ptr{Void}, wf::Ptr{Void})
+function gsl_integration_qawo(a::Real, epsabs::Real, epsrel::Real, limit::Integer)
     f = convert(Ptr{gsl_function}, Array(gsl_function, 1))
+    workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
+    wf = convert(Ptr{gsl_integration_qawo_table}, Array(gsl_integration_qawo_table, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_integration_qawo, :libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Csize_t, Ptr{Void},
-        Ptr{Void}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, epsabs, epsrel, limit,
-        workspace, wf, result, abserr )
+        (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Csize_t,
+        Ptr{gsl_integration_workspace}, Ptr{gsl_integration_qawo_table},
+        Ptr{Cdouble}, Ptr{Cdouble}), f, a, epsabs, epsrel, limit, workspace,
+        wf, result, abserr )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(f) ,unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(f)[1] ,unsafe_ref(workspace)[1] ,unsafe_ref(wf)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_4arg Number gsl_integration_qawo

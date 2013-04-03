@@ -22,11 +22,9 @@ export gsl_ran_gaussian, gsl_ran_gaussian_pdf, gsl_ran_gaussian_ziggurat,
 # which requires two calls to the random number generator r.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_gaussian(r::Ptr{Void}, sigma::Cdouble)
-    ccall( (:gsl_ran_gaussian, :libgsl), Cdouble, (Ptr{Void}, Cdouble), r,
-        sigma )
+function gsl_ran_gaussian(r::Ptr{gsl_rng}, sigma::Real)
+    ccall( (:gsl_ran_gaussian, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
+        r, sigma )
 end
 
 
@@ -34,10 +32,11 @@ end
 # distribution with standard deviation sigma, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_gaussian_pdf(x::Cdouble, sigma::Cdouble)
+function gsl_ran_gaussian_pdf(x::Real, sigma::Real)
     ccall( (:gsl_ran_gaussian_pdf, :libgsl), Cdouble, (Cdouble, Cdouble),
         x, sigma )
 end
+@vectorize_2arg Number gsl_ran_gaussian_pdf
 
 
 # This function computes a Gaussian random variate using the alternative
@@ -45,10 +44,8 @@ end
 # Ziggurat algorithm is the fastest available algorithm in most cases.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_gaussian_ziggurat(r::Ptr{Void}, sigma::Cdouble)
-    ccall( (:gsl_ran_gaussian_ziggurat, :libgsl), Cdouble, (Ptr{Void},
+function gsl_ran_gaussian_ziggurat(r::Ptr{gsl_rng}, sigma::Real)
+    ccall( (:gsl_ran_gaussian_ziggurat, :libgsl), Cdouble, (Ptr{gsl_rng},
         Cdouble), r, sigma )
 end
 
@@ -58,11 +55,9 @@ end
 # Ziggurat algorithm is the fastest available algorithm in most cases.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_gaussian_ratio_method(r::Ptr{Void}, sigma::Cdouble)
-    ccall( (:gsl_ran_gaussian_ratio_method, :libgsl), Cdouble, (Ptr{Void},
-        Cdouble), r, sigma )
+function gsl_ran_gaussian_ratio_method(r::Ptr{gsl_rng}, sigma::Real)
+    ccall( (:gsl_ran_gaussian_ratio_method, :libgsl), Cdouble,
+        (Ptr{gsl_rng}, Cdouble), r, sigma )
 end
 
 
@@ -71,10 +66,8 @@ end
 # 1.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_ugaussian(r::Ptr{Void})
-    ccall( (:gsl_ran_ugaussian, :libgsl), Cdouble, (Ptr{Void}, ), r )
+function gsl_ran_ugaussian(r::Ptr{gsl_rng})
+    ccall( (:gsl_ran_ugaussian, :libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -83,9 +76,10 @@ end
 # 1.
 # 
 #   Returns: Cdouble
-function gsl_ran_ugaussian_pdf(x::Cdouble)
+function gsl_ran_ugaussian_pdf(x::Real)
     ccall( (:gsl_ran_ugaussian_pdf, :libgsl), Cdouble, (Cdouble, ), x )
 end
+@vectorize_1arg Number gsl_ran_ugaussian_pdf
 
 
 # These functions compute results for the unit Gaussian distribution.  They are
@@ -93,11 +87,9 @@ end
 # 1.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_ugaussian_ratio_method(r::Ptr{Void})
-    ccall( (:gsl_ran_ugaussian_ratio_method, :libgsl), Cdouble, (Ptr{Void},
-        ), r )
+function gsl_ran_ugaussian_ratio_method(r::Ptr{gsl_rng})
+    ccall( (:gsl_ran_ugaussian_ratio_method, :libgsl), Cdouble,
+        (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -105,73 +97,81 @@ end
 # their inverses for the Gaussian distribution with standard deviation sigma.
 # 
 #   Returns: Cdouble
-function gsl_cdf_gaussian_P(x::Cdouble, sigma::Cdouble)
+function gsl_cdf_gaussian_P(x::Real, sigma::Real)
     ccall( (:gsl_cdf_gaussian_P, :libgsl), Cdouble, (Cdouble, Cdouble), x,
         sigma )
 end
+@vectorize_2arg Number gsl_cdf_gaussian_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Gaussian distribution with standard deviation sigma.
 # 
 #   Returns: Cdouble
-function gsl_cdf_gaussian_Q(x::Cdouble, sigma::Cdouble)
+function gsl_cdf_gaussian_Q(x::Real, sigma::Real)
     ccall( (:gsl_cdf_gaussian_Q, :libgsl), Cdouble, (Cdouble, Cdouble), x,
         sigma )
 end
+@vectorize_2arg Number gsl_cdf_gaussian_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Gaussian distribution with standard deviation sigma.
 # 
 #   Returns: Cdouble
-function gsl_cdf_gaussian_Pinv(P::Cdouble, sigma::Cdouble)
+function gsl_cdf_gaussian_Pinv(P::Real, sigma::Real)
     ccall( (:gsl_cdf_gaussian_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble),
         P, sigma )
 end
+@vectorize_2arg Number gsl_cdf_gaussian_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Gaussian distribution with standard deviation sigma.
 # 
 #   Returns: Cdouble
-function gsl_cdf_gaussian_Qinv(Q::Cdouble, sigma::Cdouble)
+function gsl_cdf_gaussian_Qinv(Q::Real, sigma::Real)
     ccall( (:gsl_cdf_gaussian_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble),
         Q, sigma )
 end
+@vectorize_2arg Number gsl_cdf_gaussian_Qinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the unit Gaussian distribution.
 # 
 #   Returns: Cdouble
-function gsl_cdf_ugaussian_P(x::Cdouble)
+function gsl_cdf_ugaussian_P(x::Real)
     ccall( (:gsl_cdf_ugaussian_P, :libgsl), Cdouble, (Cdouble, ), x )
 end
+@vectorize_1arg Number gsl_cdf_ugaussian_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the unit Gaussian distribution.
 # 
 #   Returns: Cdouble
-function gsl_cdf_ugaussian_Q(x::Cdouble)
+function gsl_cdf_ugaussian_Q(x::Real)
     ccall( (:gsl_cdf_ugaussian_Q, :libgsl), Cdouble, (Cdouble, ), x )
 end
+@vectorize_1arg Number gsl_cdf_ugaussian_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the unit Gaussian distribution.
 # 
 #   Returns: Cdouble
-function gsl_cdf_ugaussian_Pinv(P::Cdouble)
+function gsl_cdf_ugaussian_Pinv(P::Real)
     ccall( (:gsl_cdf_ugaussian_Pinv, :libgsl), Cdouble, (Cdouble, ), P )
 end
+@vectorize_1arg Number gsl_cdf_ugaussian_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the unit Gaussian distribution.
 # 
 #   Returns: Cdouble
-function gsl_cdf_ugaussian_Qinv(Q::Cdouble)
+function gsl_cdf_ugaussian_Qinv(Q::Real)
     ccall( (:gsl_cdf_ugaussian_Qinv, :libgsl), Cdouble, (Cdouble, ), Q )
 end
+@vectorize_1arg Number gsl_cdf_ugaussian_Qinv

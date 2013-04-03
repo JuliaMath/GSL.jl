@@ -1,106 +1,112 @@
-#XXX Unknown data type was encountered: CBLAS_DIAG_t
-#XXX Unknown data type was encountered: CBLAS_INDEX
-#XXX Unknown data type was encountered: CBLAS_INDEX_t
-#XXX Unknown data type was encountered: CBLAS_SIDE_t
-#XXX Unknown data type was encountered: CBLAS_TRANSPOSE_t
-#XXX Unknown data type was encountered: CBLAS_UPLO_t
-#XXX Unknown data type was encountered: enum CBLAS_DIAG
-#XXX Unknown data type was encountered: enum CBLAS_ORDER
-#XXX Unknown data type was encountered: enum CBLAS_SIDE
-#XXX Unknown data type was encountered: enum CBLAS_TRANSPOSE
-#XXX Unknown data type was encountered: enum CBLAS_UPLO
-#XXX Unknown data type was encountered: enum gsl_integration_qawo_enum
-#XXX Unknown data type was encountered: gsl_bspline_deriv_workspace
-#XXX Unknown data type was encountered: gsl_bspline_workspace
-#XXX Unknown data type was encountered: gsl_comparison_fn_t
-#XXX Unknown data type was encountered: gsl_complex_float
-#XXX Unknown data type was encountered: gsl_complex_packed_array
-#XXX Unknown data type was encountered: gsl_complex_packed_ptr
-#XXX Unknown data type was encountered: gsl_dht
-#XXX Unknown data type was encountered: gsl_eigen_gen_workspace
-#XXX Unknown data type was encountered: gsl_eigen_genherm_workspace
-#XXX Unknown data type was encountered: gsl_eigen_genhermv_workspace
-#XXX Unknown data type was encountered: gsl_eigen_gensymm_workspace
-#XXX Unknown data type was encountered: gsl_eigen_gensymmv_workspace
-#XXX Unknown data type was encountered: gsl_eigen_genv_workspace
-#XXX Unknown data type was encountered: gsl_eigen_herm_workspace
-#XXX Unknown data type was encountered: gsl_eigen_hermv_workspace
-#XXX Unknown data type was encountered: gsl_eigen_nonsymm_workspace
-#XXX Unknown data type was encountered: gsl_eigen_nonsymmv_workspace
-#XXX Unknown data type was encountered: gsl_eigen_sort_t
-#XXX Unknown data type was encountered: gsl_eigen_symm_workspace
-#XXX Unknown data type was encountered: gsl_eigen_symmv_workspace
-#XXX Unknown data type was encountered: gsl_fft_complex_workspace
-#XXX Unknown data type was encountered: gsl_fft_direction
-#XXX Unknown data type was encountered: gsl_fft_halfcomplex_wavetable
-#XXX Unknown data type was encountered: gsl_fft_real_wavetable
-#XXX Unknown data type was encountered: gsl_fft_real_workspace
-#XXX Unknown data type was encountered: gsl_integration_cquad_workspace
-#XXX Unknown data type was encountered: gsl_integration_glfixed_table
-#XXX Unknown data type was encountered: gsl_integration_qawo_table
-#XXX Unknown data type was encountered: gsl_integration_qaws_table
-#XXX Unknown data type was encountered: gsl_integration_workspace
-#XXX Unknown data type was encountered: gsl_interp
-#XXX Unknown data type was encountered: gsl_interp_accel
-#XXX Unknown data type was encountered: gsl_interp_type
-#XXX Unknown data type was encountered: gsl_matrix__view
-#XXX Unknown data type was encountered: gsl_matrix_complex
-#XXX Unknown data type was encountered: gsl_matrix_complex_float
-#XXX Unknown data type was encountered: gsl_matrix_float
-#XXX Unknown data type was encountered: gsl_matrix_view
-#XXX Unknown data type was encountered: gsl_min_fminimizer
-#XXX Unknown data type was encountered: gsl_min_fminimizer_type
-#XXX Unknown data type was encountered: gsl_mode_t
-#XXX Unknown data type was encountered: gsl_monte_miser_params
-#XXX Unknown data type was encountered: gsl_monte_miser_state
-#XXX Unknown data type was encountered: gsl_monte_plain_state
-#XXX Unknown data type was encountered: gsl_monte_vegas_params
-#XXX Unknown data type was encountered: gsl_monte_vegas_state
-#XXX Unknown data type was encountered: gsl_multifit_fdfsolver
-#XXX Unknown data type was encountered: gsl_multifit_fdfsolver_type
-#XXX Unknown data type was encountered: gsl_multifit_fsolver
-#XXX Unknown data type was encountered: gsl_multifit_fsolver_type
-#XXX Unknown data type was encountered: gsl_multifit_linear_workspace
-#XXX Unknown data type was encountered: gsl_multimin_fdfminimizer
-#XXX Unknown data type was encountered: gsl_multimin_fdfminimizer_type
-#XXX Unknown data type was encountered: gsl_multimin_fminimizer
-#XXX Unknown data type was encountered: gsl_multimin_fminimizer_type
-#XXX Unknown data type was encountered: gsl_multiroot_fdfsolver
-#XXX Unknown data type was encountered: gsl_multiroot_fdfsolver_type
-#XXX Unknown data type was encountered: gsl_multiroot_fsolver
-#XXX Unknown data type was encountered: gsl_multiroot_fsolver_type
-#XXX Unknown data type was encountered: gsl_ntuple_select_fn
-#XXX Unknown data type was encountered: gsl_ntuple_value_fn
-#XXX Unknown data type was encountered: gsl_odeiv2_control
-#XXX Unknown data type was encountered: gsl_odeiv2_control_type
-#XXX Unknown data type was encountered: gsl_odeiv2_driver
-#XXX Unknown data type was encountered: gsl_odeiv2_evolve
-#XXX Unknown data type was encountered: gsl_odeiv2_step
-#XXX Unknown data type was encountered: gsl_odeiv2_step_type
-#XXX Unknown data type was encountered: gsl_poly_complex_workspace
-#XXX Unknown data type was encountered: gsl_qrng
-#XXX Unknown data type was encountered: gsl_qrng_type
-#XXX Unknown data type was encountered: gsl_ran_discrete_t
-#XXX Unknown data type was encountered: gsl_rng
-#XXX Unknown data type was encountered: gsl_rng_type
-#XXX Unknown data type was encountered: gsl_root_fdfsolver
-#XXX Unknown data type was encountered: gsl_root_fdfsolver_type
-#XXX Unknown data type was encountered: gsl_root_fsolver
-#XXX Unknown data type was encountered: gsl_root_fsolver_type
-#XXX Unknown data type was encountered: gsl_sf_mathieu_workspace
-#XXX Unknown data type was encountered: gsl_siman_copy_ruct_t
-#XXX Unknown data type was encountered: gsl_spline
-#XXX Unknown data type was encountered: gsl_sum_levin_u_workspace
-#XXX Unknown data type was encountered: gsl_sum_levin_utrunc_workspace
-#XXX Unknown data type was encountered: gsl_vector__view
-#XXX Unknown data type was encountered: gsl_vector_complex
-#XXX Unknown data type was encountered: gsl_vector_complex_float
-#XXX Unknown data type was encountered: gsl_vector_float
-#XXX Unknown data type was encountered: gsl_vector_view
-#XXX Unknown data type was encountered: gsl_wavelet
-#XXX Unknown data type was encountered: gsl_wavelet_direction
-#XXX Unknown data type was encountered: gsl_wavelet_type
-#XXX Unknown data type was encountered: gsl_wavelet_workspace
+
+
+#Automatically generated list of dummy opaque pointer types
+type CBLAS_DIAG_t; end
+type CBLAS_INDEX; end
+type CBLAS_INDEX_t; end
+type CBLAS_SIDE_t; end
+type CBLAS_TRANSPOSE_t; end
+type CBLAS_UPLO_t; end
+type enumCBLAS_DIAG; end
+type enumCBLAS_ORDER; end
+type enumCBLAS_SIDE; end
+type enumCBLAS_TRANSPOSE; end
+type enumCBLAS_UPLO; end
+type enumgsl_integration_qawo_enum; end
+type gsl_bspline_deriv_workspace; end
+type gsl_bspline_workspace; end
+type gsl_comparison_fn_t; end
+type gsl_complex_float; end
+type gsl_complex_packed_array; end
+type gsl_complex_packed_ptr; end
+type gsl_dht; end
+type gsl_eigen_gen_workspace; end
+type gsl_eigen_genherm_workspace; end
+type gsl_eigen_genhermv_workspace; end
+type gsl_eigen_gensymm_workspace; end
+type gsl_eigen_gensymmv_workspace; end
+type gsl_eigen_genv_workspace; end
+type gsl_eigen_herm_workspace; end
+type gsl_eigen_hermv_workspace; end
+type gsl_eigen_nonsymm_workspace; end
+type gsl_eigen_nonsymmv_workspace; end
+type gsl_eigen_sort_t; end
+type gsl_eigen_symm_workspace; end
+type gsl_eigen_symmv_workspace; end
+type gsl_fft_complex_workspace; end
+type gsl_fft_direction; end
+type gsl_fft_halfcomplex_wavetable; end
+type gsl_fft_real_wavetable; end
+type gsl_fft_real_workspace; end
+type gsl_integration_cquad_workspace; end
+type gsl_integration_glfixed_table; end
+type gsl_integration_qawo_table; end
+type gsl_integration_qaws_table; end
+type gsl_integration_workspace; end
+type gsl_interp; end
+type gsl_interp_accel; end
+type gsl_interp_type; end
+type gsl_matrix__view; end
+type gsl_matrix_complex; end
+type gsl_matrix_complex_float; end
+type gsl_matrix_float; end
+type gsl_matrix_view; end
+type gsl_min_fminimizer; end
+type gsl_min_fminimizer_type; end
+type gsl_mode_t; end
+type gsl_monte_miser_params; end
+type gsl_monte_miser_state; end
+type gsl_monte_plain_state; end
+type gsl_monte_vegas_params; end
+type gsl_monte_vegas_state; end
+type gsl_multifit_fdfsolver; end
+type gsl_multifit_fdfsolver_type; end
+type gsl_multifit_fsolver; end
+type gsl_multifit_fsolver_type; end
+type gsl_multifit_linear_workspace; end
+type gsl_multimin_fdfminimizer; end
+type gsl_multimin_fdfminimizer_type; end
+type gsl_multimin_fminimizer; end
+type gsl_multimin_fminimizer_type; end
+type gsl_multiroot_fdfsolver; end
+type gsl_multiroot_fdfsolver_type; end
+type gsl_multiroot_fsolver; end
+type gsl_multiroot_fsolver_type; end
+type gsl_ntuple_select_fn; end
+type gsl_ntuple_value_fn; end
+type gsl_odeiv2_control; end
+type gsl_odeiv2_control_type; end
+type gsl_odeiv2_driver; end
+type gsl_odeiv2_evolve; end
+type gsl_odeiv2_step; end
+type gsl_odeiv2_step_type; end
+type gsl_poly_complex_workspace; end
+type gsl_qrng; end
+type gsl_qrng_type; end
+type gsl_ran_discrete_t; end
+type gsl_rng; end
+type gsl_rng_type; end
+type gsl_root_fdfsolver; end
+type gsl_root_fdfsolver_type; end
+type gsl_root_fsolver; end
+type gsl_root_fsolver_type; end
+type gsl_sf_mathieu_workspace; end
+type gsl_siman_copy_ruct_t; end
+type gsl_spline; end
+type gsl_sum_levin_u_workspace; end
+type gsl_sum_levin_utrunc_workspace; end
+type gsl_vector__view; end
+type gsl_vector_complex; end
+type gsl_vector_complex_float; end
+type gsl_vector_float; end
+type gsl_vector_view; end
+type gsl_wavelet; end
+type gsl_wavelet_direction; end
+type gsl_wavelet_type; end
+type gsl_wavelet_workspace; end
+
+
+#Automatically generated include list
 include("../src/_22_1_The_histogram_struct.jl")
 include("../src/_5_1_Representation_of_complex_numbers.jl")
 include("../src/_22_13_The_2D_histogram_struct.jl")

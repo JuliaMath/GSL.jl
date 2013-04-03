@@ -19,15 +19,13 @@ export gsl_ran_bivariate_gaussian, gsl_ran_bivariate_gaussian_pdf
 # -1.
 # 
 #   Returns: Void
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_bivariate_gaussian(r::Ptr{Void}, sigma_x::Cdouble, sigma_y::Cdouble, rho::Cdouble)
+function gsl_ran_bivariate_gaussian(r::Ptr{gsl_rng}, sigma_x::Real, sigma_y::Real, rho::Real)
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    ccall( (:gsl_ran_bivariate_gaussian, :libgsl), Void, (Ptr{Void},
+    ccall( (:gsl_ran_bivariate_gaussian, :libgsl), Void, (Ptr{gsl_rng},
         Cdouble, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), r, sigma_x,
         sigma_y, rho, x, y )
-    return unsafe_ref(x) ,unsafe_ref(y)
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
 
 
@@ -36,7 +34,9 @@ end
 # correlation coefficient rho, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_bivariate_gaussian_pdf(x::Cdouble, y::Cdouble, sigma_x::Cdouble, sigma_y::Cdouble, rho::Cdouble)
+function gsl_ran_bivariate_gaussian_pdf(x::Real, y::Real, sigma_x::Real, sigma_y::Real, rho::Real)
     ccall( (:gsl_ran_bivariate_gaussian_pdf, :libgsl), Cdouble, (Cdouble,
         Cdouble, Cdouble, Cdouble, Cdouble), x, y, sigma_x, sigma_y, rho )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_5arg Number gsl_ran_bivariate_gaussian_pdf

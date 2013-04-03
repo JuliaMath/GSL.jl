@@ -34,7 +34,7 @@ function gsl_matrix_fread(stream::Ptr{Void})
     gsl_errno = ccall( (:gsl_matrix_fread, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_matrix}), stream, m )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(m)
+    return unsafe_ref(m)[1]
 end
 
 
@@ -50,7 +50,7 @@ function gsl_matrix_fprintf(stream::Ptr{Void}, m::Ptr{gsl_matrix})
     gsl_errno = ccall( (:gsl_matrix_fprintf, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_matrix}, Ptr{Cchar}), stream, m, format )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(format)
+    return unsafe_ref(format)[1]
 end
 
 
@@ -66,5 +66,5 @@ function gsl_matrix_fscanf(stream::Ptr{Void})
     gsl_errno = ccall( (:gsl_matrix_fscanf, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_matrix}), stream, m )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(m)
+    return unsafe_ref(m)[1]
 end

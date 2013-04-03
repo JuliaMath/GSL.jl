@@ -15,9 +15,10 @@ export gsl_sf_fact, gsl_sf_fact_e, gsl_sf_doublefact, gsl_sf_doublefact_e,
 # not considered an overflow is given by the macro GSL_SF_FACT_NMAX and is 170.
 # 
 #   Returns: Cdouble
-function gsl_sf_fact(n::Cuint)
+function gsl_sf_fact(n::Integer)
     ccall( (:gsl_sf_fact, :libgsl), Cdouble, (Cuint, ), n )
 end
+@vectorize_1arg Number gsl_sf_fact
 
 
 # These routines compute the factorial n!.  The factorial is related to the
@@ -25,13 +26,14 @@ end
 # not considered an overflow is given by the macro GSL_SF_FACT_NMAX and is 170.
 # 
 #   Returns: Cint
-function gsl_sf_fact_e(n::Cuint)
+function gsl_sf_fact_e(n::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_fact_e, :libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), n, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_1arg Number gsl_sf_fact_e
 
 
 # These routines compute the double factorial n!! = n(n-2)(n-4) \dots.  The
@@ -39,9 +41,10 @@ end
 # the macro GSL_SF_DOUBLEFACT_NMAX and is 297.
 # 
 #   Returns: Cdouble
-function gsl_sf_doublefact(n::Cuint)
+function gsl_sf_doublefact(n::Integer)
     ccall( (:gsl_sf_doublefact, :libgsl), Cdouble, (Cuint, ), n )
 end
+@vectorize_1arg Number gsl_sf_doublefact
 
 
 # These routines compute the double factorial n!! = n(n-2)(n-4) \dots.  The
@@ -49,13 +52,14 @@ end
 # the macro GSL_SF_DOUBLEFACT_NMAX and is 297.
 # 
 #   Returns: Cint
-function gsl_sf_doublefact_e(n::Cuint)
+function gsl_sf_doublefact_e(n::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_doublefact_e, :libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), n, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_1arg Number gsl_sf_doublefact_e
 
 
 # These routines compute the logarithm of the factorial of n, \log(n!).  The
@@ -63,9 +67,10 @@ end
 # < 170, but defers for larger n.
 # 
 #   Returns: Cdouble
-function gsl_sf_lnfact(n::Cuint)
+function gsl_sf_lnfact(n::Integer)
     ccall( (:gsl_sf_lnfact, :libgsl), Cdouble, (Cuint, ), n )
 end
+@vectorize_1arg Number gsl_sf_lnfact
 
 
 # These routines compute the logarithm of the factorial of n, \log(n!).  The
@@ -73,92 +78,101 @@ end
 # < 170, but defers for larger n.
 # 
 #   Returns: Cint
-function gsl_sf_lnfact_e(n::Cuint)
+function gsl_sf_lnfact_e(n::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_lnfact_e, :libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), n, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_1arg Number gsl_sf_lnfact_e
 
 
 # These routines compute the logarithm of the double factorial of n, \log(n!!).
 # 
 #   Returns: Cdouble
-function gsl_sf_lndoublefact(n::Cuint)
+function gsl_sf_lndoublefact(n::Integer)
     ccall( (:gsl_sf_lndoublefact, :libgsl), Cdouble, (Cuint, ), n )
 end
+@vectorize_1arg Number gsl_sf_lndoublefact
 
 
 # These routines compute the logarithm of the double factorial of n, \log(n!!).
 # 
 #   Returns: Cint
-function gsl_sf_lndoublefact_e(n::Cuint)
+function gsl_sf_lndoublefact_e(n::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_lndoublefact_e, :libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), n, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_1arg Number gsl_sf_lndoublefact_e
 
 
 # These routines compute the combinatorial factor n choose m = n!/(m!(n-m)!)
 # 
 #   Returns: Cdouble
-function gsl_sf_choose(n::Cuint, m::Cuint)
+function gsl_sf_choose(n::Integer, m::Integer)
     ccall( (:gsl_sf_choose, :libgsl), Cdouble, (Cuint, Cuint), n, m )
 end
+@vectorize_2arg Number gsl_sf_choose
 
 
 # These routines compute the combinatorial factor n choose m = n!/(m!(n-m)!)
 # 
 #   Returns: Cint
-function gsl_sf_choose_e(n::Cuint, m::Cuint)
+function gsl_sf_choose_e(n::Integer, m::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_choose_e, :libgsl), Cint, (Cuint, Cuint,
         Ptr{gsl_sf_result}), n, m, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_choose_e
 
 
 # These routines compute the logarithm of n choose m.  This is equivalent to
 # the sum \log(n!) - \log(m!) - \log((n-m)!).
 # 
 #   Returns: Cdouble
-function gsl_sf_lnchoose(n::Cuint, m::Cuint)
+function gsl_sf_lnchoose(n::Integer, m::Integer)
     ccall( (:gsl_sf_lnchoose, :libgsl), Cdouble, (Cuint, Cuint), n, m )
 end
+@vectorize_2arg Number gsl_sf_lnchoose
 
 
 # These routines compute the logarithm of n choose m.  This is equivalent to
 # the sum \log(n!) - \log(m!) - \log((n-m)!).
 # 
 #   Returns: Cint
-function gsl_sf_lnchoose_e(n::Cuint, m::Cuint)
+function gsl_sf_lnchoose_e(n::Integer, m::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_lnchoose_e, :libgsl), Cint, (Cuint, Cuint,
         Ptr{gsl_sf_result}), n, m, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_lnchoose_e
 
 
 # These routines compute the Taylor coefficient x^n / n! for  x >= 0,  n >= 0.
 # 
 #   Returns: Cdouble
-function gsl_sf_taylorcoeff{gsl_int<:Integer}(n::gsl_int, x::Cdouble)
+function gsl_sf_taylorcoeff(n::Integer, x::Real)
     ccall( (:gsl_sf_taylorcoeff, :libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
+@vectorize_2arg Number gsl_sf_taylorcoeff
 
 
 # These routines compute the Taylor coefficient x^n / n! for  x >= 0,  n >= 0.
 # 
 #   Returns: Cint
-function gsl_sf_taylorcoeff_e{gsl_int<:Integer}(n::gsl_int, x::Cdouble)
+function gsl_sf_taylorcoeff_e(n::Integer, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_taylorcoeff_e, :libgsl), Cint, (Cint,
         Cdouble, Ptr{gsl_sf_result}), n, x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_taylorcoeff_e

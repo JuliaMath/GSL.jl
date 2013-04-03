@@ -19,21 +19,20 @@ export gsl_eigen_nonsymm_alloc, gsl_eigen_nonsymm_free,
 # This function allocates a workspace for computing eigenvalues of n-by-n real
 # nonsymmetric matrices. The size of the workspace is O(2n).
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_eigen_nonsymm_workspace}
-#XXX Coerced type for output Ptr{Void}
-function gsl_eigen_nonsymm_alloc{gsl_int<:Integer}(n::gsl_int)
-    ccall( (:gsl_eigen_nonsymm_alloc, :libgsl), Ptr{Void}, (Csize_t, ), n )
+#   Returns: Ptr{gsl_eigen_nonsymm_workspace}
+function gsl_eigen_nonsymm_alloc(n::Integer)
+    ccall( (:gsl_eigen_nonsymm_alloc, :libgsl),
+        Ptr{gsl_eigen_nonsymm_workspace}, (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_eigen_nonsymm_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-#XXX Unknown input type w::Ptr{gsl_eigen_nonsymm_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_nonsymm_free(w::Ptr{Void})
-    ccall( (:gsl_eigen_nonsymm_free, :libgsl), Void, (Ptr{Void}, ), w )
+function gsl_eigen_nonsymm_free(w::Ptr{gsl_eigen_nonsymm_workspace})
+    ccall( (:gsl_eigen_nonsymm_free, :libgsl), Void,
+        (Ptr{gsl_eigen_nonsymm_workspace}, ), w )
 end
 
 
@@ -57,12 +56,13 @@ end
 # be orthogonal. For this reason, balancing is not performed by default.
 # 
 #   Returns: Void
-#XXX Unknown input type w::Ptr{gsl_eigen_nonsymm_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_nonsymm_params{gsl_int<:Integer}(compute_t::gsl_int, balance::gsl_int, w::Ptr{Void})
+function gsl_eigen_nonsymm_params(compute_t::Integer, balance::Integer)
+    w = convert(Ptr{gsl_eigen_nonsymm_workspace}, Array(gsl_eigen_nonsymm_workspace, 1))
     ccall( (:gsl_eigen_nonsymm_params, :libgsl), Void, (Cint, Cint,
-        Ptr{Void}), compute_t, balance, w )
+        Ptr{gsl_eigen_nonsymm_workspace}), compute_t, balance, w )
+    return unsafe_ref(w)[1]
 end
+@vectorize_2arg Number gsl_eigen_nonsymm_params
 
 
 # This function computes the eigenvalues of the real nonsymmetric matrix A and
@@ -75,16 +75,15 @@ end
 # stored in the beginning of eval.
 # 
 #   Returns: Cint
-#XXX Unknown input type eval::Ptr{gsl_vector_complex}
-#XXX Coerced type for eval::Ptr{Void}
-#XXX Unknown input type w::Ptr{gsl_eigen_nonsymm_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_nonsymm(eval::Ptr{Void}, w::Ptr{Void})
+function gsl_eigen_nonsymm()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    eval = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
+    w = convert(Ptr{gsl_eigen_nonsymm_workspace}, Array(gsl_eigen_nonsymm_workspace, 1))
     gsl_errno = ccall( (:gsl_eigen_nonsymm, :libgsl), Cint,
-        (Ptr{gsl_matrix}, Ptr{Void}, Ptr{Void}), A, eval, w )
+        (Ptr{gsl_matrix}, Ptr{gsl_vector_complex},
+        Ptr{gsl_eigen_nonsymm_workspace}), A, eval, w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A)
+    return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(w)[1]
 end
 
 
@@ -92,18 +91,16 @@ end
 # the Schur vectors and stores them into Z.
 # 
 #   Returns: Cint
-#XXX Unknown input type eval::Ptr{gsl_vector_complex}
-#XXX Coerced type for eval::Ptr{Void}
-#XXX Unknown input type w::Ptr{gsl_eigen_nonsymm_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_nonsymm_Z(eval::Ptr{Void}, w::Ptr{Void})
+function gsl_eigen_nonsymm_Z()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    eval = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     Z = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    w = convert(Ptr{gsl_eigen_nonsymm_workspace}, Array(gsl_eigen_nonsymm_workspace, 1))
     gsl_errno = ccall( (:gsl_eigen_nonsymm_Z, :libgsl), Cint,
-        (Ptr{gsl_matrix}, Ptr{Void}, Ptr{gsl_matrix}, Ptr{Void}), A, eval, Z, w
-        )
+        (Ptr{gsl_matrix}, Ptr{gsl_vector_complex}, Ptr{gsl_matrix},
+        Ptr{gsl_eigen_nonsymm_workspace}), A, eval, Z, w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A) ,unsafe_ref(Z)
+    return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(Z)[1] ,unsafe_ref(w)[1]
 end
 
 
@@ -111,22 +108,20 @@ end
 # eigenvectors of n-by-n real nonsymmetric matrices. The size of the workspace
 # is O(5n).
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_eigen_nonsymmv_workspace}
-#XXX Coerced type for output Ptr{Void}
-function gsl_eigen_nonsymmv_alloc{gsl_int<:Integer}(n::gsl_int)
-    ccall( (:gsl_eigen_nonsymmv_alloc, :libgsl), Ptr{Void}, (Csize_t, ), n
-        )
+#   Returns: Ptr{gsl_eigen_nonsymmv_workspace}
+function gsl_eigen_nonsymmv_alloc(n::Integer)
+    ccall( (:gsl_eigen_nonsymmv_alloc, :libgsl),
+        Ptr{gsl_eigen_nonsymmv_workspace}, (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_eigen_nonsymmv_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-#XXX Unknown input type w::Ptr{gsl_eigen_nonsymmv_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_nonsymmv_free(w::Ptr{Void})
-    ccall( (:gsl_eigen_nonsymmv_free, :libgsl), Void, (Ptr{Void}, ), w )
+function gsl_eigen_nonsymmv_free(w::Ptr{gsl_eigen_nonsymmv_workspace})
+    ccall( (:gsl_eigen_nonsymmv_free, :libgsl), Void,
+        (Ptr{gsl_eigen_nonsymmv_workspace}, ), w )
 end
 
 
@@ -137,12 +132,13 @@ end
 # default since it does not preserve the orthogonality of the Schur vectors.
 # 
 #   Returns: Void
-#XXX Unknown input type w::Ptr{gsl_eigen_nonsymm_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_nonsymmv_params{gsl_int<:Integer}(balance::gsl_int, w::Ptr{Void})
-    ccall( (:gsl_eigen_nonsymmv_params, :libgsl), Void, (Cint, Ptr{Void}),
-        balance, w )
+function gsl_eigen_nonsymmv_params(balance::Integer)
+    w = convert(Ptr{gsl_eigen_nonsymm_workspace}, Array(gsl_eigen_nonsymm_workspace, 1))
+    ccall( (:gsl_eigen_nonsymmv_params, :libgsl), Void, (Cint,
+        Ptr{gsl_eigen_nonsymm_workspace}), balance, w )
+    return unsafe_ref(w)[1]
 end
+@vectorize_1arg Number gsl_eigen_nonsymmv_params
 
 
 # This function computes eigenvalues and right eigenvectors of the n-by-n real
@@ -155,18 +151,16 @@ end
 # eigenvectors are computed, and an error code is returned.
 # 
 #   Returns: Cint
-#XXX Unknown input type eval::Ptr{gsl_vector_complex}
-#XXX Coerced type for eval::Ptr{Void}
-#XXX Unknown input type evec::Ptr{gsl_matrix_complex}
-#XXX Coerced type for evec::Ptr{Void}
-#XXX Unknown input type w::Ptr{gsl_eigen_nonsymmv_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_nonsymmv(eval::Ptr{Void}, evec::Ptr{Void}, w::Ptr{Void})
+function gsl_eigen_nonsymmv()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    eval = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
+    evec = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
+    w = convert(Ptr{gsl_eigen_nonsymmv_workspace}, Array(gsl_eigen_nonsymmv_workspace, 1))
     gsl_errno = ccall( (:gsl_eigen_nonsymmv, :libgsl), Cint,
-        (Ptr{gsl_matrix}, Ptr{Void}, Ptr{Void}, Ptr{Void}), A, eval, evec, w )
+        (Ptr{gsl_matrix}, Ptr{gsl_vector_complex}, Ptr{gsl_matrix_complex},
+        Ptr{gsl_eigen_nonsymmv_workspace}), A, eval, evec, w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A)
+    return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(evec)[1] ,unsafe_ref(w)[1]
 end
 
 
@@ -174,18 +168,16 @@ end
 # the Schur vectors into Z.
 # 
 #   Returns: Cint
-#XXX Unknown input type eval::Ptr{gsl_vector_complex}
-#XXX Coerced type for eval::Ptr{Void}
-#XXX Unknown input type evec::Ptr{gsl_matrix_complex}
-#XXX Coerced type for evec::Ptr{Void}
-#XXX Unknown input type w::Ptr{gsl_eigen_nonsymmv_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_eigen_nonsymmv_Z(eval::Ptr{Void}, evec::Ptr{Void}, w::Ptr{Void})
+function gsl_eigen_nonsymmv_Z()
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    eval = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
+    evec = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
     Z = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    w = convert(Ptr{gsl_eigen_nonsymmv_workspace}, Array(gsl_eigen_nonsymmv_workspace, 1))
     gsl_errno = ccall( (:gsl_eigen_nonsymmv_Z, :libgsl), Cint,
-        (Ptr{gsl_matrix}, Ptr{Void}, Ptr{Void}, Ptr{gsl_matrix}, Ptr{Void}), A,
-        eval, evec, Z, w )
+        (Ptr{gsl_matrix}, Ptr{gsl_vector_complex}, Ptr{gsl_matrix_complex},
+        Ptr{gsl_matrix}, Ptr{gsl_eigen_nonsymmv_workspace}), A, eval, evec, Z,
+        w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A) ,unsafe_ref(Z)
+    return unsafe_ref(A)[1] ,unsafe_ref(eval)[1] ,unsafe_ref(evec)[1] ,unsafe_ref(Z)[1] ,unsafe_ref(w)[1]
 end

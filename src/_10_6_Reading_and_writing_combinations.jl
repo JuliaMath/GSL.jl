@@ -37,7 +37,7 @@ function gsl_combination_fread(stream::Ptr{Void})
     gsl_errno = ccall( (:gsl_combination_fread, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_combination}), stream, c )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(c)
+    return unsafe_ref(c)[1]
 end
 
 
@@ -53,7 +53,7 @@ function gsl_combination_fprintf(stream::Ptr{Void}, c::Ptr{gsl_combination})
     gsl_errno = ccall( (:gsl_combination_fprintf, :libgsl), Cint,
         (Ptr{Void}, Ptr{gsl_combination}, Ptr{Cchar}), stream, c, format )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(format)
+    return unsafe_ref(format)[1]
 end
 
 
@@ -69,5 +69,5 @@ function gsl_combination_fscanf(stream::Ptr{Void})
     gsl_errno = ccall( (:gsl_combination_fscanf, :libgsl), Cint,
         (Ptr{Void}, Ptr{gsl_combination}), stream, c )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(c)
+    return unsafe_ref(c)[1]
 end

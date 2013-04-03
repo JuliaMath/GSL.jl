@@ -22,23 +22,21 @@ export gsl_monte_miser_alloc, gsl_monte_miser_init, gsl_monte_miser_integrate,
 # integration in dim dimensions.  The workspace is used to maintain the state
 # of the integration.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_monte_miser_state}
-#XXX Coerced type for output Ptr{Void}
-function gsl_monte_miser_alloc{gsl_int<:Integer}(dim::gsl_int)
-    ccall( (:gsl_monte_miser_alloc, :libgsl), Ptr{Void}, (Csize_t, ), dim )
+#   Returns: Ptr{gsl_monte_miser_state}
+function gsl_monte_miser_alloc(dim::Integer)
+    ccall( (:gsl_monte_miser_alloc, :libgsl), Ptr{gsl_monte_miser_state},
+        (Csize_t, ), dim )
 end
+@vectorize_1arg Number gsl_monte_miser_alloc
 
 
 # This function initializes a previously allocated integration state.  This
 # allows an existing workspace to be reused for different integrations.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_monte_miser_state}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_monte_miser_init(s::Ptr{Void})
-    gsl_errno = ccall( (:gsl_monte_miser_init, :libgsl), Cint, (Ptr{Void},
-        ), s )
+function gsl_monte_miser_init(s::Ptr{gsl_monte_miser_state})
+    gsl_errno = ccall( (:gsl_monte_miser_init, :libgsl), Cint,
+        (Ptr{gsl_monte_miser_state}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
 
@@ -52,22 +50,22 @@ end
 # estimated absolute error abserr.
 # 
 #   Returns: Cint
-function gsl_monte_miser_integrate(xl::Cdouble)
+function gsl_monte_miser_integrate(xl::Real)
     f = convert(Ptr{gsl_monte_function}, Array(gsl_monte_function, 1))
     gsl_errno = ccall( (:gsl_monte_miser_integrate, :libgsl), Cint,
         (Ptr{gsl_monte_function}, Cdouble), f, xl )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(f)
+    return unsafe_ref(f)[1]
 end
+@vectorize_1arg Number gsl_monte_miser_integrate
 
 
 # This function frees the memory associated with the integrator state s.
 # 
 #   Returns: Void
-#XXX Unknown input type s::Ptr{gsl_monte_miser_state}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_monte_miser_free(s::Ptr{Void})
-    ccall( (:gsl_monte_miser_free, :libgsl), Void, (Ptr{Void}, ), s )
+function gsl_monte_miser_free(s::Ptr{gsl_monte_miser_state})
+    ccall( (:gsl_monte_miser_free, :libgsl), Void,
+        (Ptr{gsl_monte_miser_state}, ), s )
 end
 
 
@@ -75,13 +73,11 @@ end
 # supplied params structure.
 # 
 #   Returns: Void
-#XXX Unknown input type s::Ptr{gsl_monte_miser_state}
-#XXX Coerced type for s::Ptr{Void}
-#XXX Unknown input type params::Ptr{gsl_monte_miser_params}
-#XXX Coerced type for params::Ptr{Void}
-function gsl_monte_miser_params_get(s::Ptr{Void}, params::Ptr{Void})
-    ccall( (:gsl_monte_miser_params_get, :libgsl), Void, (Ptr{Void},
-        Ptr{Void}), s, params )
+function gsl_monte_miser_params_get(s::Ptr{gsl_monte_miser_state})
+    params = convert(Ptr{gsl_monte_miser_params}, Array(gsl_monte_miser_params, 1))
+    ccall( (:gsl_monte_miser_params_get, :libgsl), Void,
+        (Ptr{gsl_monte_miser_state}, Ptr{gsl_monte_miser_params}), s, params )
+    return unsafe_ref(params)[1]
 end
 
 
@@ -89,11 +85,7 @@ end
 # params structure.
 # 
 #   Returns: Void
-#XXX Unknown input type s::Ptr{gsl_monte_miser_state}
-#XXX Coerced type for s::Ptr{Void}
-#XXX Unknown input type params::Ptr{gsl_monte_miser_params}
-#XXX Coerced type for params::Ptr{Void}
-function gsl_monte_miser_params_set(s::Ptr{Void}, params::Ptr{Void})
-    ccall( (:gsl_monte_miser_params_set, :libgsl), Void, (Ptr{Void},
-        Ptr{Void}), s, params )
+function gsl_monte_miser_params_set(s::Ptr{gsl_monte_miser_state}, params::Ptr{gsl_monte_miser_params})
+    ccall( (:gsl_monte_miser_params_set, :libgsl), Void,
+        (Ptr{gsl_monte_miser_state}, Ptr{gsl_monte_miser_params}), s, params )
 end

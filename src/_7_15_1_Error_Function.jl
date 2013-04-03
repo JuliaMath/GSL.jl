@@ -11,19 +11,21 @@ export gsl_sf_erf, gsl_sf_erf_e
 # (2/\sqrt(\pi)) \int_0^x dt \exp(-t^2).
 # 
 #   Returns: Cdouble
-function gsl_sf_erf(x::Cdouble)
+function gsl_sf_erf(x::Real)
     ccall( (:gsl_sf_erf, :libgsl), Cdouble, (Cdouble, ), x )
 end
+@vectorize_1arg Number gsl_sf_erf
 
 
 # These routines compute the error function  erf(x), where  erf(x) =
 # (2/\sqrt(\pi)) \int_0^x dt \exp(-t^2).
 # 
 #   Returns: Cint
-function gsl_sf_erf_e(x::Cdouble)
+function gsl_sf_erf_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_erf_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_1arg Number gsl_sf_erf_e

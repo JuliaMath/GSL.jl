@@ -11,20 +11,22 @@ export gsl_sf_bessel_Ynu, gsl_sf_bessel_Ynu_e
 # fractional order \nu, Y_\nu(x).
 # 
 #   Returns: Cdouble
-function gsl_sf_bessel_Ynu(nu::Cdouble, x::Cdouble)
+function gsl_sf_bessel_Ynu(nu::Real, x::Real)
     ccall( (:gsl_sf_bessel_Ynu, :libgsl), Cdouble, (Cdouble, Cdouble), nu,
         x )
 end
+@vectorize_2arg Number gsl_sf_bessel_Ynu
 
 
 # These routines compute the irregular cylindrical Bessel function of
 # fractional order \nu, Y_\nu(x).
 # 
 #   Returns: Cint
-function gsl_sf_bessel_Ynu_e(nu::Cdouble, x::Cdouble)
+function gsl_sf_bessel_Ynu_e(nu::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_bessel_Ynu_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), nu, x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_bessel_Ynu_e

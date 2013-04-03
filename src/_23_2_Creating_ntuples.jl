@@ -14,7 +14,7 @@ export gsl_ntuple_create
 # supplied—this is used to copy ntuples in and out of the file.
 # 
 #   Returns: Ptr{gsl_ntuple}
-function gsl_ntuple_create{gsl_int<:Integer}(filename::Ptr{Cchar}, ntuple_data::Ptr{Void}, size::gsl_int)
+function gsl_ntuple_create{tA<:Char}(filename::Ptr{tA}, ntuple_data::Ptr{Void}, size::Integer)
     ccall( (:gsl_ntuple_create, :libgsl), Ptr{gsl_ntuple}, (Ptr{Cchar},
         Ptr{Void}, Csize_t), filename, ntuple_data, size )
 end

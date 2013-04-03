@@ -13,24 +13,22 @@ export gsl_integration_glfixed_table_alloc, gsl_integration_glfixed,
 # precomputed coefficients are used.  If precomputed weights are not available,
 # lower precision coefficients are computed on the fly.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_integration_glfixed_table}
-#XXX Coerced type for output Ptr{Void}
-function gsl_integration_glfixed_table_alloc{gsl_int<:Integer}(n::gsl_int)
-    ccall( (:gsl_integration_glfixed_table_alloc, :libgsl), Ptr{Void},
-        (Csize_t, ), n )
+#   Returns: Ptr{gsl_integration_glfixed_table}
+function gsl_integration_glfixed_table_alloc(n::Integer)
+    ccall( (:gsl_integration_glfixed_table_alloc, :libgsl),
+        Ptr{gsl_integration_glfixed_table}, (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_integration_glfixed_table_alloc
 
 
 # This function applies the Gauss-Legendre integration rule contained in table
 # t and returns the result.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type t::Ptr{gsl_integration_glfixed_table}
-#XXX Coerced type for t::Ptr{Void}
-function gsl_integration_glfixed(f::Ptr{gsl_function}, a::Cdouble, b::Cdouble, t::Ptr{Void})
+function gsl_integration_glfixed(f::Ptr{gsl_function}, a::Real, b::Real, t::Ptr{gsl_integration_glfixed_table})
     ccall( (:gsl_integration_glfixed, :libgsl), Cdouble,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Ptr{Void}), f, a, b, t )
+        (Ptr{gsl_function}, Cdouble, Cdouble,
+        Ptr{gsl_integration_glfixed_table}), f, a, b, t )
 end
 
 
@@ -40,25 +38,21 @@ end
 # by summing wi * f(xi) over i.
 # 
 #   Returns: Cint
-#XXX Unknown input type t::Ptr{gsl_integration_glfixed_table}
-#XXX Coerced type for t::Ptr{Void}
-function gsl_integration_glfixed_point{gsl_int<:Integer}(a::Cdouble, b::Cdouble, i::gsl_int, t::Ptr{Void})
+function gsl_integration_glfixed_point(a::Real, b::Real, i::Integer, t::Ptr{gsl_integration_glfixed_table})
     xi = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     wi = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_integration_glfixed_point, :libgsl), Cint,
-        (Cdouble, Cdouble, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Void}), a,
-        b, i, xi, wi, t )
+        (Cdouble, Cdouble, Csize_t, Ptr{Cdouble}, Ptr{Cdouble},
+        Ptr{gsl_integration_glfixed_table}), a, b, i, xi, wi, t )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(xi) ,unsafe_ref(wi)
+    return unsafe_ref(xi)[1] ,unsafe_ref(wi)[1]
 end
 
 
 # This function frees the memory associated with the table t.
 # 
 #   Returns: Void
-#XXX Unknown input type t::Ptr{gsl_integration_glfixed_table}
-#XXX Coerced type for t::Ptr{Void}
-function gsl_integration_glfixed_table_free(t::Ptr{Void})
+function gsl_integration_glfixed_table_free(t::Ptr{gsl_integration_glfixed_table})
     ccall( (:gsl_integration_glfixed_table_free, :libgsl), Void,
-        (Ptr{Void}, ), t )
+        (Ptr{gsl_integration_glfixed_table}, ), t )
 end

@@ -27,10 +27,11 @@ end
 # GSL_ENOMEM.
 # 
 #   Returns: Ptr{gsl_histogram2d_pdf}
-function gsl_histogram2d_pdf_alloc{gsl_int<:Integer}(nx::gsl_int, ny::gsl_int)
+function gsl_histogram2d_pdf_alloc(nx::Integer, ny::Integer)
     ccall( (:gsl_histogram2d_pdf_alloc, :libgsl), Ptr{gsl_histogram2d_pdf},
         (Csize_t, Csize_t), nx, ny )
 end
+@vectorize_2arg Number gsl_histogram2d_pdf_alloc
 
 
 # This function initializes the two-dimensional probability distribution
@@ -61,12 +62,12 @@ end
 # distribution p.
 # 
 #   Returns: Cint
-function gsl_histogram2d_pdf_sample(p::Ptr{gsl_histogram2d_pdf}, r1::Cdouble, r2::Cdouble)
+function gsl_histogram2d_pdf_sample(p::Ptr{gsl_histogram2d_pdf}, r1::Real, r2::Real)
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_histogram2d_pdf_sample, :libgsl), Cint,
         (Ptr{gsl_histogram2d_pdf}, Cdouble, Cdouble, Ptr{Cdouble},
         Ptr{Cdouble}), p, r1, r2, x, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x) ,unsafe_ref(y)
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end

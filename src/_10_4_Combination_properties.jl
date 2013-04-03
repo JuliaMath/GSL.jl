@@ -46,5 +46,5 @@ function gsl_combination_valid()
     gsl_errno = ccall( (:gsl_combination_valid, :libgsl), Cint,
         (Ptr{gsl_combination}, ), c )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(c)
+    return unsafe_ref(c)[1]
 end

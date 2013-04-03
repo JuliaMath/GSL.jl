@@ -34,11 +34,9 @@ export gsl_heapsort, gsl_heapsort_index
 # rearrangement of the data which destroys its initial ordering.
 # 
 #   Returns: Void
-#XXX Unknown input type compare::gsl_comparison_fn_t
-#XXX Coerced type for compare::Void
-function gsl_heapsort{gsl_int<:Integer}(array::Ptr{Void}, count::gsl_int, size::gsl_int, compare::Void)
+function gsl_heapsort(array::Ptr{Void}, count::Integer, size::Integer, compare::gsl_comparison_fn_t)
     ccall( (:gsl_heapsort, :libgsl), Void, (Ptr{Void}, Csize_t, Csize_t,
-        Void), array, count, size, compare )
+        gsl_comparison_fn_t), array, count, size, compare )
 end
 
 
@@ -51,12 +49,11 @@ end
 # index of the greatest element in array.  The array itself is not changed.
 # 
 #   Returns: Cint
-#XXX Unknown input type compare::gsl_comparison_fn_t
-#XXX Coerced type for compare::Void
-function gsl_heapsort_index{gsl_int<:Integer}(array::Ptr{Void}, count::gsl_int, size::gsl_int, compare::Void)
+function gsl_heapsort_index(array::Ptr{Void}, count::Integer, size::Integer, compare::gsl_comparison_fn_t)
     p = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     gsl_errno = ccall( (:gsl_heapsort_index, :libgsl), Cint, (Ptr{Csize_t},
-        Ptr{Void}, Csize_t, Csize_t, Void), p, array, count, size, compare )
+        Ptr{Void}, Csize_t, Csize_t, gsl_comparison_fn_t), p, array, count,
+        size, compare )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(p)
+    return unsafe_ref(p)[1]
 end

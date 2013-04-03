@@ -17,14 +17,10 @@ export gsl_odeiv2_step_alloc, gsl_odeiv2_step_reset, gsl_odeiv2_step_free,
 # to use a driver allocation method, which automatically allocates a stepper,
 # too.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown input type T::Ptr{gsl_odeiv2_step_type}
-#XXX Coerced type for T::Ptr{Void}
-#XXX Unknown output type Ptr{gsl_odeiv2_step}
-#XXX Coerced type for output Ptr{Void}
-function gsl_odeiv2_step_alloc{gsl_int<:Integer}(T::Ptr{Void}, dim::gsl_int)
-    ccall( (:gsl_odeiv2_step_alloc, :libgsl), Ptr{Void}, (Ptr{Void},
-        Csize_t), T, dim )
+#   Returns: Ptr{gsl_odeiv2_step}
+function gsl_odeiv2_step_alloc(T::Ptr{gsl_odeiv2_step_type}, dim::Integer)
+    ccall( (:gsl_odeiv2_step_alloc, :libgsl), Ptr{gsl_odeiv2_step},
+        (Ptr{gsl_odeiv2_step_type}, Csize_t), T, dim )
 end
 
 
@@ -32,22 +28,21 @@ end
 # next use of s will not be a continuation of a previous step.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_odeiv2_step}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_odeiv2_step_reset(s::Ptr{Void})
-    gsl_errno = ccall( (:gsl_odeiv2_step_reset, :libgsl), Cint, (Ptr{Void},
-        ), s )
+function gsl_odeiv2_step_reset()
+    s = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
+    gsl_errno = ccall( (:gsl_odeiv2_step_reset, :libgsl), Cint,
+        (Ptr{gsl_odeiv2_step}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end
 
 
 # This function frees all the memory associated with the stepping function s.
 # 
 #   Returns: Void
-#XXX Unknown input type s::Ptr{gsl_odeiv2_step}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_odeiv2_step_free(s::Ptr{Void})
-    ccall( (:gsl_odeiv2_step_free, :libgsl), Void, (Ptr{Void}, ), s )
+function gsl_odeiv2_step_free(s::Ptr{gsl_odeiv2_step})
+    ccall( (:gsl_odeiv2_step_free, :libgsl), Void, (Ptr{gsl_odeiv2_step},
+        ), s )
 end
 
 
@@ -57,11 +52,9 @@ end
 # 'rkf45'.
 # 
 #   Returns: Ptr{Cchar}
-#XXX Unknown input type s::Ptr{gsl_odeiv2_step}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_odeiv2_step_name(s::Ptr{Void})
+function gsl_odeiv2_step_name(s::Ptr{gsl_odeiv2_step})
     output_string = ccall( (:gsl_odeiv2_step_name, :libgsl), Ptr{Cchar},
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_odeiv2_step}, ), s )
     bytestring(convert(Ptr{Uint8}, output_string))
 end
 
@@ -70,10 +63,9 @@ end
 # step. The order can vary if the stepping function itself is adaptive.
 # 
 #   Returns: Cuint
-#XXX Unknown input type s::Ptr{gsl_odeiv2_step}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_odeiv2_step_order(s::Ptr{Void})
-    ccall( (:gsl_odeiv2_step_order, :libgsl), Cuint, (Ptr{Void}, ), s )
+function gsl_odeiv2_step_order(s::Ptr{gsl_odeiv2_step})
+    ccall( (:gsl_odeiv2_step_order, :libgsl), Cuint, (Ptr{gsl_odeiv2_step},
+        ), s )
 end
 
 
@@ -84,14 +76,12 @@ end
 # function automatically.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_odeiv2_step}
-#XXX Coerced type for s::Ptr{Void}
-#XXX Unknown input type d::Ptr{gsl_odeiv2_driver}
-#XXX Coerced type for d::Ptr{Void}
-function gsl_odeiv2_step_set_driver(s::Ptr{Void}, d::Ptr{Void})
+function gsl_odeiv2_step_set_driver(d::Ptr{gsl_odeiv2_driver})
+    s = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
     gsl_errno = ccall( (:gsl_odeiv2_step_set_driver, :libgsl), Cint,
-        (Ptr{Void}, Ptr{Void}), s, d )
+        (Ptr{gsl_odeiv2_step}, Ptr{gsl_odeiv2_driver}), s, d )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end
 
 
@@ -118,10 +108,12 @@ end
 # user must call gsl_odeiv2_step_reset before calling this function again.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_odeiv2_step}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_odeiv2_step_apply(s::Ptr{Void}, t::Cdouble, h::Cdouble, y::Cdouble)
-    gsl_errno = ccall( (:gsl_odeiv2_step_apply, :libgsl), Cint, (Ptr{Void},
-        Cdouble, Cdouble, Cdouble), s, t, h, y )
+function gsl_odeiv2_step_apply(t::Real, h::Real, y::Real)
+    s = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
+    gsl_errno = ccall( (:gsl_odeiv2_step_apply, :libgsl), Cint,
+        (Ptr{gsl_odeiv2_step}, Cdouble, Cdouble, Cdouble), s, t, h, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_odeiv2_step_apply

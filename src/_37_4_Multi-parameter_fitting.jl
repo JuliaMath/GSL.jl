@@ -20,23 +20,20 @@ export gsl_multifit_linear_alloc, gsl_multifit_linear_free,
 # This function allocates a workspace for fitting a model to n observations
 # using p parameters.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_multifit_linear_workspace}
-#XXX Coerced type for output Ptr{Void}
-function gsl_multifit_linear_alloc{gsl_int<:Integer}(n::gsl_int, p::gsl_int)
-    ccall( (:gsl_multifit_linear_alloc, :libgsl), Ptr{Void}, (Csize_t,
-        Csize_t), n, p )
+#   Returns: Ptr{gsl_multifit_linear_workspace}
+function gsl_multifit_linear_alloc(n::Integer, p::Integer)
+    ccall( (:gsl_multifit_linear_alloc, :libgsl),
+        Ptr{gsl_multifit_linear_workspace}, (Csize_t, Csize_t), n, p )
 end
+@vectorize_2arg Number gsl_multifit_linear_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-#XXX Unknown input type work::Ptr{gsl_multifit_linear_workspace}
-#XXX Coerced type for work::Ptr{Void}
-function gsl_multifit_linear_free(work::Ptr{Void})
-    ccall( (:gsl_multifit_linear_free, :libgsl), Void, (Ptr{Void}, ), work
-        )
+function gsl_multifit_linear_free(work::Ptr{gsl_multifit_linear_workspace})
+    ccall( (:gsl_multifit_linear_free, :libgsl), Void,
+        (Ptr{gsl_multifit_linear_workspace}, ), work )
 end
 
 
@@ -54,17 +51,17 @@ end
 # have zero singular value (to machine precision) are discarded from the fit.
 # 
 #   Returns: Cint
-#XXX Unknown input type work::Ptr{gsl_multifit_linear_workspace}
-#XXX Coerced type for work::Ptr{Void}
-function gsl_multifit_linear(X::Ptr{gsl_matrix}, y::Ptr{gsl_vector}, work::Ptr{Void})
+function gsl_multifit_linear(X::Ptr{gsl_matrix}, y::Ptr{gsl_vector})
     c = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     cov = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     chisq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    work = convert(Ptr{gsl_multifit_linear_workspace}, Array(gsl_multifit_linear_workspace, 1))
     gsl_errno = ccall( (:gsl_multifit_linear, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_matrix},
-        Ptr{Cdouble}, Ptr{Void}), X, y, c, cov, chisq, work )
+        Ptr{Cdouble}, Ptr{gsl_multifit_linear_workspace}), X, y, c, cov, chisq,
+        work )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(c) ,unsafe_ref(cov) ,unsafe_ref(chisq)
+    return unsafe_ref(c)[1] ,unsafe_ref(cov)[1] ,unsafe_ref(chisq)[1] ,unsafe_ref(work)[1]
 end
 
 
@@ -78,18 +75,17 @@ end
 # squares (WTSS) of the observations y may be computed from gsl_stats_wtss.
 # 
 #   Returns: Cint
-#XXX Unknown input type work::Ptr{gsl_multifit_linear_workspace}
-#XXX Coerced type for work::Ptr{Void}
-function gsl_multifit_wlinear(X::Ptr{gsl_matrix}, w::Ptr{gsl_vector}, y::Ptr{gsl_vector}, work::Ptr{Void})
+function gsl_multifit_wlinear(X::Ptr{gsl_matrix}, w::Ptr{gsl_vector}, y::Ptr{gsl_vector})
     c = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     cov = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     chisq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    work = convert(Ptr{gsl_multifit_linear_workspace}, Array(gsl_multifit_linear_workspace, 1))
     gsl_errno = ccall( (:gsl_multifit_wlinear, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector},
-        Ptr{gsl_matrix}, Ptr{Cdouble}, Ptr{Void}), X, w, y, c, cov, chisq, work
-        )
+        Ptr{gsl_matrix}, Ptr{Cdouble}, Ptr{gsl_multifit_linear_workspace}), X,
+        w, y, c, cov, chisq, work )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(c) ,unsafe_ref(cov) ,unsafe_ref(chisq)
+    return unsafe_ref(c)[1] ,unsafe_ref(cov)[1] ,unsafe_ref(chisq)[1] ,unsafe_ref(work)[1]
 end
 
 
@@ -98,19 +94,19 @@ end
 # effective rank is returned in rank.
 # 
 #   Returns: Cint
-#XXX Unknown input type work::Ptr{gsl_multifit_linear_workspace}
-#XXX Coerced type for work::Ptr{Void}
-function gsl_multifit_linear_svd(X::Ptr{gsl_matrix}, y::Ptr{gsl_vector}, tol::Cdouble, work::Ptr{Void})
+function gsl_multifit_linear_svd(X::Ptr{gsl_matrix}, y::Ptr{gsl_vector}, tol::Real)
     rank = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     c = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     cov = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     chisq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    work = convert(Ptr{gsl_multifit_linear_workspace}, Array(gsl_multifit_linear_workspace, 1))
     gsl_errno = ccall( (:gsl_multifit_linear_svd, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Cdouble, Ptr{Csize_t},
-        Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Cdouble}, Ptr{Void}), X, y, tol,
-        rank, c, cov, chisq, work )
+        Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Cdouble},
+        Ptr{gsl_multifit_linear_workspace}), X, y, tol, rank, c, cov, chisq,
+        work )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(rank) ,unsafe_ref(c) ,unsafe_ref(cov) ,unsafe_ref(chisq)
+    return unsafe_ref(rank)[1] ,unsafe_ref(c)[1] ,unsafe_ref(cov)[1] ,unsafe_ref(chisq)[1] ,unsafe_ref(work)[1]
 end
 
 
@@ -119,57 +115,57 @@ end
 # effective rank is returned in rank.
 # 
 #   Returns: Cint
-#XXX Unknown input type work::Ptr{gsl_multifit_linear_workspace}
-#XXX Coerced type for work::Ptr{Void}
-function gsl_multifit_wlinear_svd(X::Ptr{gsl_matrix}, w::Ptr{gsl_vector}, y::Ptr{gsl_vector}, tol::Cdouble, work::Ptr{Void})
+function gsl_multifit_wlinear_svd(X::Ptr{gsl_matrix}, w::Ptr{gsl_vector}, y::Ptr{gsl_vector}, tol::Real)
     rank = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     c = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     cov = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     chisq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    work = convert(Ptr{gsl_multifit_linear_workspace}, Array(gsl_multifit_linear_workspace, 1))
     gsl_errno = ccall( (:gsl_multifit_wlinear_svd, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}, Cdouble,
         Ptr{Csize_t}, Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Cdouble},
-        Ptr{Void}), X, w, y, tol, rank, c, cov, chisq, work )
+        Ptr{gsl_multifit_linear_workspace}), X, w, y, tol, rank, c, cov, chisq,
+        work )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(rank) ,unsafe_ref(c) ,unsafe_ref(cov) ,unsafe_ref(chisq)
+    return unsafe_ref(rank)[1] ,unsafe_ref(c)[1] ,unsafe_ref(cov)[1] ,unsafe_ref(chisq)[1] ,unsafe_ref(work)[1]
 end
 
 
 # These functions compute the fit using an SVD without column scaling.
 # 
 #   Returns: Cint
-#XXX Unknown input type work::Ptr{gsl_multifit_linear_workspace}
-#XXX Coerced type for work::Ptr{Void}
-function gsl_multifit_linear_usvd(X::Ptr{gsl_matrix}, y::Ptr{gsl_vector}, tol::Cdouble, work::Ptr{Void})
+function gsl_multifit_linear_usvd(X::Ptr{gsl_matrix}, y::Ptr{gsl_vector}, tol::Real)
     rank = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     c = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     cov = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     chisq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    work = convert(Ptr{gsl_multifit_linear_workspace}, Array(gsl_multifit_linear_workspace, 1))
     gsl_errno = ccall( (:gsl_multifit_linear_usvd, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Cdouble, Ptr{Csize_t},
-        Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Cdouble}, Ptr{Void}), X, y, tol,
-        rank, c, cov, chisq, work )
+        Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Cdouble},
+        Ptr{gsl_multifit_linear_workspace}), X, y, tol, rank, c, cov, chisq,
+        work )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(rank) ,unsafe_ref(c) ,unsafe_ref(cov) ,unsafe_ref(chisq)
+    return unsafe_ref(rank)[1] ,unsafe_ref(c)[1] ,unsafe_ref(cov)[1] ,unsafe_ref(chisq)[1] ,unsafe_ref(work)[1]
 end
 
 
 # These functions compute the fit using an SVD without column scaling.
 # 
 #   Returns: Cint
-#XXX Unknown input type work::Ptr{gsl_multifit_linear_workspace}
-#XXX Coerced type for work::Ptr{Void}
-function gsl_multifit_wlinear_usvd(X::Ptr{gsl_matrix}, w::Ptr{gsl_vector}, y::Ptr{gsl_vector}, tol::Cdouble, work::Ptr{Void})
+function gsl_multifit_wlinear_usvd(X::Ptr{gsl_matrix}, w::Ptr{gsl_vector}, y::Ptr{gsl_vector}, tol::Real)
     rank = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     c = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     cov = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     chisq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    work = convert(Ptr{gsl_multifit_linear_workspace}, Array(gsl_multifit_linear_workspace, 1))
     gsl_errno = ccall( (:gsl_multifit_wlinear_usvd, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}, Cdouble,
         Ptr{Csize_t}, Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Cdouble},
-        Ptr{Void}), X, w, y, tol, rank, c, cov, chisq, work )
+        Ptr{gsl_multifit_linear_workspace}), X, w, y, tol, rank, c, cov, chisq,
+        work )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(rank) ,unsafe_ref(c) ,unsafe_ref(cov) ,unsafe_ref(chisq)
+    return unsafe_ref(rank)[1] ,unsafe_ref(c)[1] ,unsafe_ref(cov)[1] ,unsafe_ref(chisq)[1] ,unsafe_ref(work)[1]
 end
 
 
@@ -185,7 +181,7 @@ function gsl_multifit_linear_est(x::Ptr{gsl_vector}, c::Ptr{gsl_vector}, cov::Pt
         (Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Cdouble},
         Ptr{Cdouble}), x, c, cov, y, y_err )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(y) ,unsafe_ref(y_err)
+    return unsafe_ref(y)[1] ,unsafe_ref(y_err)[1]
 end
 
 
@@ -199,5 +195,5 @@ function gsl_multifit_linear_residuals(X::Ptr{gsl_matrix}, y::Ptr{gsl_vector}, c
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector}),
         X, y, c, r )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(r)
+    return unsafe_ref(r)[1]
 end

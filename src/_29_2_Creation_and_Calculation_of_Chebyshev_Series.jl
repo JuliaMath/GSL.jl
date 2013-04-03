@@ -11,10 +11,11 @@ export gsl_cheb_alloc, gsl_cheb_free, gsl_cheb_init
 # pointer to a new gsl_cheb_series struct.
 # 
 #   Returns: Ptr{gsl_cheb_series}
-function gsl_cheb_alloc{gsl_int<:Integer}(n::gsl_int)
+function gsl_cheb_alloc(n::Integer)
     ccall( (:gsl_cheb_alloc, :libgsl), Ptr{gsl_cheb_series}, (Csize_t, ), n
         )
 end
+@vectorize_1arg Number gsl_cheb_alloc
 
 
 # This function frees a previously allocated Chebyshev series cs.
@@ -31,7 +32,7 @@ end
 # evaluations.
 # 
 #   Returns: Cint
-function gsl_cheb_init(cs::Ptr{gsl_cheb_series}, f::Ptr{gsl_function}, a::Cdouble, b::Cdouble)
+function gsl_cheb_init(cs::Ptr{gsl_cheb_series}, f::Ptr{gsl_function}, a::Real, b::Real)
     gsl_errno = ccall( (:gsl_cheb_init, :libgsl), Cint,
         (Ptr{gsl_cheb_series}, Ptr{gsl_function}, Cdouble, Cdouble), cs, f, a,
         b )

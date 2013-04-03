@@ -15,11 +15,9 @@ export gsl_ran_laplace, gsl_ran_laplace_pdf, gsl_cdf_laplace_P,
 # \exp(-|x/a|) dx  for -\infty < x < \infty.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_laplace(r::Ptr{Void}, a::Cdouble)
-    ccall( (:gsl_ran_laplace, :libgsl), Cdouble, (Ptr{Void}, Cdouble), r, a
-        )
+function gsl_ran_laplace(r::Ptr{gsl_rng}, a::Real)
+    ccall( (:gsl_ran_laplace, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
+        r, a )
 end
 
 
@@ -27,47 +25,52 @@ end
 # distribution with width a, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_laplace_pdf(x::Cdouble, a::Cdouble)
+function gsl_ran_laplace_pdf(x::Real, a::Real)
     ccall( (:gsl_ran_laplace_pdf, :libgsl), Cdouble, (Cdouble, Cdouble), x,
         a )
 end
+@vectorize_2arg Number gsl_ran_laplace_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Laplace distribution with width a.
 # 
 #   Returns: Cdouble
-function gsl_cdf_laplace_P(x::Cdouble, a::Cdouble)
+function gsl_cdf_laplace_P(x::Real, a::Real)
     ccall( (:gsl_cdf_laplace_P, :libgsl), Cdouble, (Cdouble, Cdouble), x, a
         )
 end
+@vectorize_2arg Number gsl_cdf_laplace_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Laplace distribution with width a.
 # 
 #   Returns: Cdouble
-function gsl_cdf_laplace_Q(x::Cdouble, a::Cdouble)
+function gsl_cdf_laplace_Q(x::Real, a::Real)
     ccall( (:gsl_cdf_laplace_Q, :libgsl), Cdouble, (Cdouble, Cdouble), x, a
         )
 end
+@vectorize_2arg Number gsl_cdf_laplace_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Laplace distribution with width a.
 # 
 #   Returns: Cdouble
-function gsl_cdf_laplace_Pinv(P::Cdouble, a::Cdouble)
+function gsl_cdf_laplace_Pinv(P::Real, a::Real)
     ccall( (:gsl_cdf_laplace_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble),
         P, a )
 end
+@vectorize_2arg Number gsl_cdf_laplace_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the Laplace distribution with width a.
 # 
 #   Returns: Cdouble
-function gsl_cdf_laplace_Qinv(Q::Cdouble, a::Cdouble)
+function gsl_cdf_laplace_Qinv(Q::Real, a::Real)
     ccall( (:gsl_cdf_laplace_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble),
         Q, a )
 end
+@vectorize_2arg Number gsl_cdf_laplace_Qinv

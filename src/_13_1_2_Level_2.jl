@@ -19,19 +19,14 @@ export gsl_blas_sgemv, gsl_blas_dgemv, gsl_blas_cgemv, gsl_blas_zgemv,
 # CblasConjTrans.
 # 
 #   Returns: Cint
-#XXX Unknown input type TransA::CBLAS_TRANSPOSE_t
-#XXX Coerced type for TransA::Void
-#XXX Unknown input type A::Ptr{gsl_matrix_float}
-#XXX Coerced type for A::Ptr{Void}
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_float}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_sgemv(TransA::Void, alpha::Cfloat, A::Ptr{Void}, x::Ptr{Void}, beta::Cfloat, y::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_sgemv, :libgsl), Cint, (Void, Cfloat,
-        Ptr{Void}, Ptr{Void}, Cfloat, Ptr{Void}), TransA, alpha, A, x, beta, y
-        )
+function gsl_blas_sgemv(TransA::CBLAS_TRANSPOSE_t, alpha::Real, A::Ptr{gsl_matrix_float}, x::Ptr{gsl_vector_float}, beta::Real)
+    y = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
+    gsl_errno = ccall( (:gsl_blas_sgemv, :libgsl), Cint,
+        (CBLAS_TRANSPOSE_t, Cfloat, Ptr{gsl_matrix_float},
+        Ptr{gsl_vector_float}, Cfloat, Ptr{gsl_vector_float}), TransA, alpha,
+        A, x, beta, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(y)[1]
 end
 
 
@@ -40,15 +35,13 @@ end
 # CblasConjTrans.
 # 
 #   Returns: Cint
-#XXX Unknown input type TransA::CBLAS_TRANSPOSE_t
-#XXX Coerced type for TransA::Void
-function gsl_blas_dgemv(TransA::Void, alpha::Cdouble, A::Ptr{gsl_matrix}, x::Ptr{gsl_vector}, beta::Cdouble)
+function gsl_blas_dgemv(TransA::CBLAS_TRANSPOSE_t, alpha::Real, A::Ptr{gsl_matrix}, x::Ptr{gsl_vector}, beta::Real)
     y = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_blas_dgemv, :libgsl), Cint, (Void, Cdouble,
-        Ptr{gsl_matrix}, Ptr{gsl_vector}, Cdouble, Ptr{gsl_vector}), TransA,
-        alpha, A, x, beta, y )
+    gsl_errno = ccall( (:gsl_blas_dgemv, :libgsl), Cint,
+        (CBLAS_TRANSPOSE_t, Cdouble, Ptr{gsl_matrix}, Ptr{gsl_vector}, Cdouble,
+        Ptr{gsl_vector}), TransA, alpha, A, x, beta, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(y)
+    return unsafe_ref(y)[1]
 end
 
 
@@ -57,22 +50,14 @@ end
 # CblasConjTrans.
 # 
 #   Returns: Cint
-#XXX Unknown input type TransA::CBLAS_TRANSPOSE_t
-#XXX Coerced type for TransA::Void
-#XXX Unknown input type alpha::gsl_complex_float
-#XXX Coerced type for alpha::Void
-#XXX Unknown input type A::Ptr{gsl_matrix_complex_float}
-#XXX Coerced type for A::Ptr{Void}
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type beta::gsl_complex_float
-#XXX Coerced type for beta::Void
-#XXX Unknown input type y::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_cgemv(TransA::Void, alpha::Void, A::Ptr{Void}, x::Ptr{Void}, beta::Void, y::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_cgemv, :libgsl), Cint, (Void, Void,
-        Ptr{Void}, Ptr{Void}, Void, Ptr{Void}), TransA, alpha, A, x, beta, y )
+function gsl_blas_cgemv(TransA::CBLAS_TRANSPOSE_t, alpha::gsl_complex_float, A::Ptr{gsl_matrix_complex_float}, x::Ptr{gsl_vector_complex_float}, beta::gsl_complex_float)
+    y = convert(Ptr{gsl_vector_complex_float}, Array(gsl_vector_complex_float, 1))
+    gsl_errno = ccall( (:gsl_blas_cgemv, :libgsl), Cint,
+        (CBLAS_TRANSPOSE_t, gsl_complex_float, Ptr{gsl_matrix_complex_float},
+        Ptr{gsl_vector_complex_float}, gsl_complex_float,
+        Ptr{gsl_vector_complex_float}), TransA, alpha, A, x, beta, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(y)[1]
 end
 
 
@@ -81,19 +66,14 @@ end
 # CblasConjTrans.
 # 
 #   Returns: Cint
-#XXX Unknown input type TransA::CBLAS_TRANSPOSE_t
-#XXX Coerced type for TransA::Void
-#XXX Unknown input type A::Ptr{gsl_matrix_complex}
-#XXX Coerced type for A::Ptr{Void}
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_zgemv(TransA::Void, alpha::gsl_complex, A::Ptr{Void}, x::Ptr{Void}, beta::gsl_complex, y::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_zgemv, :libgsl), Cint, (Void,
-        gsl_complex, Ptr{Void}, Ptr{Void}, gsl_complex, Ptr{Void}), TransA,
+function gsl_blas_zgemv(TransA::CBLAS_TRANSPOSE_t, alpha::gsl_complex, A::Ptr{gsl_matrix_complex}, x::Ptr{gsl_vector_complex}, beta::gsl_complex)
+    y = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
+    gsl_errno = ccall( (:gsl_blas_zgemv, :libgsl), Cint,
+        (CBLAS_TRANSPOSE_t, gsl_complex, Ptr{gsl_matrix_complex},
+        Ptr{gsl_vector_complex}, gsl_complex, Ptr{gsl_vector_complex}), TransA,
         alpha, A, x, beta, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(y)[1]
 end
 
 
@@ -106,20 +86,13 @@ end
 # unity and are not referenced.
 # 
 #   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type TransA::CBLAS_TRANSPOSE_t
-#XXX Coerced type for TransA::Void
-#XXX Unknown input type Diag::CBLAS_DIAG_t
-#XXX Coerced type for Diag::Void
-#XXX Unknown input type A::Ptr{gsl_matrix_float}
-#XXX Coerced type for A::Ptr{Void}
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_strmv(Uplo::Void, TransA::Void, Diag::Void, A::Ptr{Void}, x::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_strmv, :libgsl), Cint, (Void, Void, Void,
-        Ptr{Void}, Ptr{Void}), Uplo, TransA, Diag, A, x )
+function gsl_blas_strmv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_float})
+    x = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
+    gsl_errno = ccall( (:gsl_blas_strmv, :libgsl), Cint, (CBLAS_UPLO_t,
+        CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix_float},
+        Ptr{gsl_vector_float}), Uplo, TransA, Diag, A, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(x)[1]
 end
 
 
@@ -132,18 +105,13 @@ end
 # unity and are not referenced.
 # 
 #   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type TransA::CBLAS_TRANSPOSE_t
-#XXX Coerced type for TransA::Void
-#XXX Unknown input type Diag::CBLAS_DIAG_t
-#XXX Coerced type for Diag::Void
-function gsl_blas_dtrmv(Uplo::Void, TransA::Void, Diag::Void, A::Ptr{gsl_matrix})
+function gsl_blas_dtrmv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix})
     x = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_blas_dtrmv, :libgsl), Cint, (Void, Void, Void,
-        Ptr{gsl_matrix}, Ptr{gsl_vector}), Uplo, TransA, Diag, A, x )
+    gsl_errno = ccall( (:gsl_blas_dtrmv, :libgsl), Cint, (CBLAS_UPLO_t,
+        CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix}, Ptr{gsl_vector}),
+        Uplo, TransA, Diag, A, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x)
+    return unsafe_ref(x)[1]
 end
 
 
@@ -156,20 +124,13 @@ end
 # unity and are not referenced.
 # 
 #   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type TransA::CBLAS_TRANSPOSE_t
-#XXX Coerced type for TransA::Void
-#XXX Unknown input type Diag::CBLAS_DIAG_t
-#XXX Coerced type for Diag::Void
-#XXX Unknown input type A::Ptr{gsl_matrix_complex_float}
-#XXX Coerced type for A::Ptr{Void}
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_ctrmv(Uplo::Void, TransA::Void, Diag::Void, A::Ptr{Void}, x::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_ctrmv, :libgsl), Cint, (Void, Void, Void,
-        Ptr{Void}, Ptr{Void}), Uplo, TransA, Diag, A, x )
+function gsl_blas_ctrmv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_complex_float})
+    x = convert(Ptr{gsl_vector_complex_float}, Array(gsl_vector_complex_float, 1))
+    gsl_errno = ccall( (:gsl_blas_ctrmv, :libgsl), Cint, (CBLAS_UPLO_t,
+        CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix_complex_float},
+        Ptr{gsl_vector_complex_float}), Uplo, TransA, Diag, A, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(x)[1]
 end
 
 
@@ -182,20 +143,13 @@ end
 # unity and are not referenced.
 # 
 #   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type TransA::CBLAS_TRANSPOSE_t
-#XXX Coerced type for TransA::Void
-#XXX Unknown input type Diag::CBLAS_DIAG_t
-#XXX Coerced type for Diag::Void
-#XXX Unknown input type A::Ptr{gsl_matrix_complex}
-#XXX Coerced type for A::Ptr{Void}
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_ztrmv(Uplo::Void, TransA::Void, Diag::Void, A::Ptr{Void}, x::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_ztrmv, :libgsl), Cint, (Void, Void, Void,
-        Ptr{Void}, Ptr{Void}), Uplo, TransA, Diag, A, x )
+function gsl_blas_ztrmv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_complex})
+    x = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
+    gsl_errno = ccall( (:gsl_blas_ztrmv, :libgsl), Cint, (CBLAS_UPLO_t,
+        CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix_complex},
+        Ptr{gsl_vector_complex}), Uplo, TransA, Diag, A, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(x)[1]
 end
 
 
@@ -207,20 +161,13 @@ end
 # the matrix A are taken as unity and are not referenced.
 # 
 #   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type TransA::CBLAS_TRANSPOSE_t
-#XXX Coerced type for TransA::Void
-#XXX Unknown input type Diag::CBLAS_DIAG_t
-#XXX Coerced type for Diag::Void
-#XXX Unknown input type A::Ptr{gsl_matrix_float}
-#XXX Coerced type for A::Ptr{Void}
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_strsv(Uplo::Void, TransA::Void, Diag::Void, A::Ptr{Void}, x::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_strsv, :libgsl), Cint, (Void, Void, Void,
-        Ptr{Void}, Ptr{Void}), Uplo, TransA, Diag, A, x )
+function gsl_blas_strsv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_float})
+    x = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
+    gsl_errno = ccall( (:gsl_blas_strsv, :libgsl), Cint, (CBLAS_UPLO_t,
+        CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix_float},
+        Ptr{gsl_vector_float}), Uplo, TransA, Diag, A, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(x)[1]
 end
 
 
@@ -232,18 +179,13 @@ end
 # the matrix A are taken as unity and are not referenced.
 # 
 #   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type TransA::CBLAS_TRANSPOSE_t
-#XXX Coerced type for TransA::Void
-#XXX Unknown input type Diag::CBLAS_DIAG_t
-#XXX Coerced type for Diag::Void
-function gsl_blas_dtrsv(Uplo::Void, TransA::Void, Diag::Void, A::Ptr{gsl_matrix})
+function gsl_blas_dtrsv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix})
     x = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_blas_dtrsv, :libgsl), Cint, (Void, Void, Void,
-        Ptr{gsl_matrix}, Ptr{gsl_vector}), Uplo, TransA, Diag, A, x )
+    gsl_errno = ccall( (:gsl_blas_dtrsv, :libgsl), Cint, (CBLAS_UPLO_t,
+        CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix}, Ptr{gsl_vector}),
+        Uplo, TransA, Diag, A, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x)
+    return unsafe_ref(x)[1]
 end
 
 
@@ -255,20 +197,13 @@ end
 # the matrix A are taken as unity and are not referenced.
 # 
 #   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type TransA::CBLAS_TRANSPOSE_t
-#XXX Coerced type for TransA::Void
-#XXX Unknown input type Diag::CBLAS_DIAG_t
-#XXX Coerced type for Diag::Void
-#XXX Unknown input type A::Ptr{gsl_matrix_complex_float}
-#XXX Coerced type for A::Ptr{Void}
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_ctrsv(Uplo::Void, TransA::Void, Diag::Void, A::Ptr{Void}, x::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_ctrsv, :libgsl), Cint, (Void, Void, Void,
-        Ptr{Void}, Ptr{Void}), Uplo, TransA, Diag, A, x )
+function gsl_blas_ctrsv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_complex_float})
+    x = convert(Ptr{gsl_vector_complex_float}, Array(gsl_vector_complex_float, 1))
+    gsl_errno = ccall( (:gsl_blas_ctrsv, :libgsl), Cint, (CBLAS_UPLO_t,
+        CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix_complex_float},
+        Ptr{gsl_vector_complex_float}), Uplo, TransA, Diag, A, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(x)[1]
 end
 
 
@@ -280,20 +215,13 @@ end
 # the matrix A are taken as unity and are not referenced.
 # 
 #   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type TransA::CBLAS_TRANSPOSE_t
-#XXX Coerced type for TransA::Void
-#XXX Unknown input type Diag::CBLAS_DIAG_t
-#XXX Coerced type for Diag::Void
-#XXX Unknown input type A::Ptr{gsl_matrix_complex}
-#XXX Coerced type for A::Ptr{Void}
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_blas_ztrsv(Uplo::Void, TransA::Void, Diag::Void, A::Ptr{Void}, x::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_ztrsv, :libgsl), Cint, (Void, Void, Void,
-        Ptr{Void}, Ptr{Void}), Uplo, TransA, Diag, A, x )
+function gsl_blas_ztrsv(Uplo::CBLAS_UPLO_t, TransA::CBLAS_TRANSPOSE_t, Diag::CBLAS_DIAG_t, A::Ptr{gsl_matrix_complex})
+    x = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
+    gsl_errno = ccall( (:gsl_blas_ztrsv, :libgsl), Cint, (CBLAS_UPLO_t,
+        CBLAS_TRANSPOSE_t, CBLAS_DIAG_t, Ptr{gsl_matrix_complex},
+        Ptr{gsl_vector_complex}), Uplo, TransA, Diag, A, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(x)[1]
 end
 
 
@@ -304,18 +232,13 @@ end
 # the lower triangle and diagonal of A are used.
 # 
 #   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type A::Ptr{gsl_matrix_float}
-#XXX Coerced type for A::Ptr{Void}
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_float}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_ssymv(Uplo::Void, alpha::Cfloat, A::Ptr{Void}, x::Ptr{Void}, beta::Cfloat, y::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_ssymv, :libgsl), Cint, (Void, Cfloat,
-        Ptr{Void}, Ptr{Void}, Cfloat, Ptr{Void}), Uplo, alpha, A, x, beta, y )
+function gsl_blas_ssymv(Uplo::CBLAS_UPLO_t, alpha::Real, A::Ptr{gsl_matrix_float}, x::Ptr{gsl_vector_float}, beta::Real)
+    y = convert(Ptr{gsl_vector_float}, Array(gsl_vector_float, 1))
+    gsl_errno = ccall( (:gsl_blas_ssymv, :libgsl), Cint, (CBLAS_UPLO_t,
+        Cfloat, Ptr{gsl_matrix_float}, Ptr{gsl_vector_float}, Cfloat,
+        Ptr{gsl_vector_float}), Uplo, alpha, A, x, beta, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(y)[1]
 end
 
 
@@ -326,15 +249,13 @@ end
 # the lower triangle and diagonal of A are used.
 # 
 #   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-function gsl_blas_dsymv(Uplo::Void, alpha::Cdouble, A::Ptr{gsl_matrix}, x::Ptr{gsl_vector}, beta::Cdouble)
+function gsl_blas_dsymv(Uplo::CBLAS_UPLO_t, alpha::Real, A::Ptr{gsl_matrix}, x::Ptr{gsl_vector}, beta::Real)
     y = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    gsl_errno = ccall( (:gsl_blas_dsymv, :libgsl), Cint, (Void, Cdouble,
-        Ptr{gsl_matrix}, Ptr{gsl_vector}, Cdouble, Ptr{gsl_vector}), Uplo,
-        alpha, A, x, beta, y )
+    gsl_errno = ccall( (:gsl_blas_dsymv, :libgsl), Cint, (CBLAS_UPLO_t,
+        Cdouble, Ptr{gsl_matrix}, Ptr{gsl_vector}, Cdouble, Ptr{gsl_vector}),
+        Uplo, alpha, A, x, beta, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(y)
+    return unsafe_ref(y)[1]
 end
 
 
@@ -346,22 +267,14 @@ end
 # diagonal are automatically assumed to be zero and are not referenced.
 # 
 #   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type alpha::gsl_complex_float
-#XXX Coerced type for alpha::Void
-#XXX Unknown input type A::Ptr{gsl_matrix_complex_float}
-#XXX Coerced type for A::Ptr{Void}
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type beta::gsl_complex_float
-#XXX Coerced type for beta::Void
-#XXX Unknown input type y::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_chemv(Uplo::Void, alpha::Void, A::Ptr{Void}, x::Ptr{Void}, beta::Void, y::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_chemv, :libgsl), Cint, (Void, Void,
-        Ptr{Void}, Ptr{Void}, Void, Ptr{Void}), Uplo, alpha, A, x, beta, y )
+function gsl_blas_chemv(Uplo::CBLAS_UPLO_t, alpha::gsl_complex_float, A::Ptr{gsl_matrix_complex_float}, x::Ptr{gsl_vector_complex_float}, beta::gsl_complex_float)
+    y = convert(Ptr{gsl_vector_complex_float}, Array(gsl_vector_complex_float, 1))
+    gsl_errno = ccall( (:gsl_blas_chemv, :libgsl), Cint, (CBLAS_UPLO_t,
+        gsl_complex_float, Ptr{gsl_matrix_complex_float},
+        Ptr{gsl_vector_complex_float}, gsl_complex_float,
+        Ptr{gsl_vector_complex_float}), Uplo, alpha, A, x, beta, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(y)[1]
 end
 
 
@@ -373,19 +286,13 @@ end
 # diagonal are automatically assumed to be zero and are not referenced.
 # 
 #   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type A::Ptr{gsl_matrix_complex}
-#XXX Coerced type for A::Ptr{Void}
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex}
-#XXX Coerced type for y::Ptr{Void}
-function gsl_blas_zhemv(Uplo::Void, alpha::gsl_complex, A::Ptr{Void}, x::Ptr{Void}, beta::gsl_complex, y::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_zhemv, :libgsl), Cint, (Void,
-        gsl_complex, Ptr{Void}, Ptr{Void}, gsl_complex, Ptr{Void}), Uplo,
-        alpha, A, x, beta, y )
+function gsl_blas_zhemv(Uplo::CBLAS_UPLO_t, alpha::gsl_complex, A::Ptr{gsl_matrix_complex}, x::Ptr{gsl_vector_complex}, beta::gsl_complex)
+    y = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
+    gsl_errno = ccall( (:gsl_blas_zhemv, :libgsl), Cint, (CBLAS_UPLO_t,
+        gsl_complex, Ptr{gsl_matrix_complex}, Ptr{gsl_vector_complex},
+        gsl_complex, Ptr{gsl_vector_complex}), Uplo, alpha, A, x, beta, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(y)[1]
 end
 
 
@@ -393,16 +300,13 @@ end
 # A.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_float}
-#XXX Coerced type for y::Ptr{Void}
-#XXX Unknown input type A::Ptr{gsl_matrix_float}
-#XXX Coerced type for A::Ptr{Void}
-function gsl_blas_sger(alpha::Cfloat, x::Ptr{Void}, y::Ptr{Void}, A::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_sger, :libgsl), Cint, (Cfloat, Ptr{Void},
-        Ptr{Void}, Ptr{Void}), alpha, x, y, A )
+function gsl_blas_sger(alpha::Real, x::Ptr{gsl_vector_float}, y::Ptr{gsl_vector_float})
+    A = convert(Ptr{gsl_matrix_float}, Array(gsl_matrix_float, 1))
+    gsl_errno = ccall( (:gsl_blas_sger, :libgsl), Cint, (Cfloat,
+        Ptr{gsl_vector_float}, Ptr{gsl_vector_float}, Ptr{gsl_matrix_float}),
+        alpha, x, y, A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1]
 end
 
 
@@ -410,12 +314,12 @@ end
 # A.
 # 
 #   Returns: Cint
-function gsl_blas_dger(alpha::Cdouble, x::Ptr{gsl_vector}, y::Ptr{gsl_vector})
+function gsl_blas_dger(alpha::Real, x::Ptr{gsl_vector}, y::Ptr{gsl_vector})
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     gsl_errno = ccall( (:gsl_blas_dger, :libgsl), Cint, (Cdouble,
         Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_matrix}), alpha, x, y, A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A)
+    return unsafe_ref(A)[1]
 end
 
 
@@ -423,18 +327,14 @@ end
 # A.
 # 
 #   Returns: Cint
-#XXX Unknown input type alpha::gsl_complex_float
-#XXX Coerced type for alpha::Void
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for y::Ptr{Void}
-#XXX Unknown input type A::Ptr{gsl_matrix_complex_float}
-#XXX Coerced type for A::Ptr{Void}
-function gsl_blas_cgeru(alpha::Void, x::Ptr{Void}, y::Ptr{Void}, A::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_cgeru, :libgsl), Cint, (Void, Ptr{Void},
-        Ptr{Void}, Ptr{Void}), alpha, x, y, A )
+function gsl_blas_cgeru(alpha::gsl_complex_float, x::Ptr{gsl_vector_complex_float}, y::Ptr{gsl_vector_complex_float})
+    A = convert(Ptr{gsl_matrix_complex_float}, Array(gsl_matrix_complex_float, 1))
+    gsl_errno = ccall( (:gsl_blas_cgeru, :libgsl), Cint,
+        (gsl_complex_float, Ptr{gsl_vector_complex_float},
+        Ptr{gsl_vector_complex_float}, Ptr{gsl_matrix_complex_float}), alpha,
+        x, y, A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1]
 end
 
 
@@ -442,16 +342,13 @@ end
 # A.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex}
-#XXX Coerced type for y::Ptr{Void}
-#XXX Unknown input type A::Ptr{gsl_matrix_complex}
-#XXX Coerced type for A::Ptr{Void}
-function gsl_blas_zgeru(alpha::gsl_complex, x::Ptr{Void}, y::Ptr{Void}, A::Ptr{Void})
+function gsl_blas_zgeru(alpha::gsl_complex, x::Ptr{gsl_vector_complex}, y::Ptr{gsl_vector_complex})
+    A = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
     gsl_errno = ccall( (:gsl_blas_zgeru, :libgsl), Cint, (gsl_complex,
-        Ptr{Void}, Ptr{Void}, Ptr{Void}), alpha, x, y, A )
+        Ptr{gsl_vector_complex}, Ptr{gsl_vector_complex},
+        Ptr{gsl_matrix_complex}), alpha, x, y, A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1]
 end
 
 
@@ -459,18 +356,14 @@ end
 # the matrix A.
 # 
 #   Returns: Cint
-#XXX Unknown input type alpha::gsl_complex_float
-#XXX Coerced type for alpha::Void
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for y::Ptr{Void}
-#XXX Unknown input type A::Ptr{gsl_matrix_complex_float}
-#XXX Coerced type for A::Ptr{Void}
-function gsl_blas_cgerc(alpha::Void, x::Ptr{Void}, y::Ptr{Void}, A::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_cgerc, :libgsl), Cint, (Void, Ptr{Void},
-        Ptr{Void}, Ptr{Void}), alpha, x, y, A )
+function gsl_blas_cgerc(alpha::gsl_complex_float, x::Ptr{gsl_vector_complex_float}, y::Ptr{gsl_vector_complex_float})
+    A = convert(Ptr{gsl_matrix_complex_float}, Array(gsl_matrix_complex_float, 1))
+    gsl_errno = ccall( (:gsl_blas_cgerc, :libgsl), Cint,
+        (gsl_complex_float, Ptr{gsl_vector_complex_float},
+        Ptr{gsl_vector_complex_float}, Ptr{gsl_matrix_complex_float}), alpha,
+        x, y, A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1]
 end
 
 
@@ -478,16 +371,13 @@ end
 # the matrix A.
 # 
 #   Returns: Cint
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex}
-#XXX Coerced type for y::Ptr{Void}
-#XXX Unknown input type A::Ptr{gsl_matrix_complex}
-#XXX Coerced type for A::Ptr{Void}
-function gsl_blas_zgerc(alpha::gsl_complex, x::Ptr{Void}, y::Ptr{Void}, A::Ptr{Void})
+function gsl_blas_zgerc(alpha::gsl_complex, x::Ptr{gsl_vector_complex}, y::Ptr{gsl_vector_complex})
+    A = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
     gsl_errno = ccall( (:gsl_blas_zgerc, :libgsl), Cint, (gsl_complex,
-        Ptr{Void}, Ptr{Void}, Ptr{Void}), alpha, x, y, A )
+        Ptr{gsl_vector_complex}, Ptr{gsl_vector_complex},
+        Ptr{gsl_matrix_complex}), alpha, x, y, A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1]
 end
 
 
@@ -498,117 +388,99 @@ end
 # lower triangle and diagonal of A are used.
 # 
 #   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type A::Ptr{gsl_matrix_float}
-#XXX Coerced type for A::Ptr{Void}
-function gsl_blas_ssyr(Uplo::Void, alpha::Cfloat, x::Ptr{Void}, A::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_ssyr, :libgsl), Cint, (Void, Cfloat,
-        Ptr{Void}, Ptr{Void}), Uplo, alpha, x, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-end
-
-
-# These functions compute the symmetric rank-1 update A = \alpha x x^T + A of
-# the symmetric matrix A.  Since the matrix A is symmetric only its upper half
-# or lower half need to be stored.  When Uplo is CblasUpper then the upper
-# triangle and diagonal of A are used, and when Uplo is CblasLower then the
-# lower triangle and diagonal of A are used.
-# 
-#   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-function gsl_blas_dsyr(Uplo::Void, alpha::Cdouble, x::Ptr{gsl_vector})
-    A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    gsl_errno = ccall( (:gsl_blas_dsyr, :libgsl), Cint, (Void, Cdouble,
-        Ptr{gsl_vector}, Ptr{gsl_matrix}), Uplo, alpha, x, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A)
-end
-
-
-# These functions compute the hermitian rank-1 update A = \alpha x x^H + A of
-# the hermitian matrix A.  Since the matrix A is hermitian only its upper half
-# or lower half need to be stored.  When Uplo is CblasUpper then the upper
-# triangle and diagonal of A are used, and when Uplo is CblasLower then the
-# lower triangle and diagonal of A are used.  The imaginary elements of the
-# diagonal are automatically set to zero.
-# 
-#   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type A::Ptr{gsl_matrix_complex_float}
-#XXX Coerced type for A::Ptr{Void}
-function gsl_blas_cher(Uplo::Void, alpha::Cfloat, x::Ptr{Void}, A::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_cher, :libgsl), Cint, (Void, Cfloat,
-        Ptr{Void}, Ptr{Void}), Uplo, alpha, x, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-end
-
-
-# These functions compute the hermitian rank-1 update A = \alpha x x^H + A of
-# the hermitian matrix A.  Since the matrix A is hermitian only its upper half
-# or lower half need to be stored.  When Uplo is CblasUpper then the upper
-# triangle and diagonal of A are used, and when Uplo is CblasLower then the
-# lower triangle and diagonal of A are used.  The imaginary elements of the
-# diagonal are automatically set to zero.
-# 
-#   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type A::Ptr{gsl_matrix_complex}
-#XXX Coerced type for A::Ptr{Void}
-function gsl_blas_zher(Uplo::Void, alpha::Cdouble, x::Ptr{Void}, A::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_zher, :libgsl), Cint, (Void, Cdouble,
-        Ptr{Void}, Ptr{Void}), Uplo, alpha, x, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-end
-
-
-# These functions compute the symmetric rank-2 update A = \alpha x y^T + \alpha
-# y x^T + A of the symmetric matrix A.  Since the matrix A is symmetric only
-# its upper half or lower half need to be stored.  When Uplo is CblasUpper then
-# the upper triangle and diagonal of A are used, and when Uplo is CblasLower
-# then the lower triangle and diagonal of A are used.
-# 
-#   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type x::Ptr{gsl_vector_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_float}
-#XXX Coerced type for y::Ptr{Void}
-#XXX Unknown input type A::Ptr{gsl_matrix_float}
-#XXX Coerced type for A::Ptr{Void}
-function gsl_blas_ssyr2(Uplo::Void, alpha::Cfloat, x::Ptr{Void}, y::Ptr{Void}, A::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_ssyr2, :libgsl), Cint, (Void, Cfloat,
-        Ptr{Void}, Ptr{Void}, Ptr{Void}), Uplo, alpha, x, y, A )
-    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-end
-
-
-# These functions compute the symmetric rank-2 update A = \alpha x y^T + \alpha
-# y x^T + A of the symmetric matrix A.  Since the matrix A is symmetric only
-# its upper half or lower half need to be stored.  When Uplo is CblasUpper then
-# the upper triangle and diagonal of A are used, and when Uplo is CblasLower
-# then the lower triangle and diagonal of A are used.
-# 
-#   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-function gsl_blas_dsyr2(Uplo::Void, alpha::Cdouble, x::Ptr{gsl_vector}, y::Ptr{gsl_vector})
-    A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    gsl_errno = ccall( (:gsl_blas_dsyr2, :libgsl), Cint, (Void, Cdouble,
-        Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_matrix}), Uplo, alpha, x, y,
+function gsl_blas_ssyr(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector_float})
+    A = convert(Ptr{gsl_matrix_float}, Array(gsl_matrix_float, 1))
+    gsl_errno = ccall( (:gsl_blas_ssyr, :libgsl), Cint, (CBLAS_UPLO_t,
+        Cfloat, Ptr{gsl_vector_float}, Ptr{gsl_matrix_float}), Uplo, alpha, x,
         A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A)
+    return unsafe_ref(A)[1]
+end
+
+
+# These functions compute the symmetric rank-1 update A = \alpha x x^T + A of
+# the symmetric matrix A.  Since the matrix A is symmetric only its upper half
+# or lower half need to be stored.  When Uplo is CblasUpper then the upper
+# triangle and diagonal of A are used, and when Uplo is CblasLower then the
+# lower triangle and diagonal of A are used.
+# 
+#   Returns: Cint
+function gsl_blas_dsyr(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector})
+    A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    gsl_errno = ccall( (:gsl_blas_dsyr, :libgsl), Cint, (CBLAS_UPLO_t,
+        Cdouble, Ptr{gsl_vector}, Ptr{gsl_matrix}), Uplo, alpha, x, A )
+    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1]
+end
+
+
+# These functions compute the hermitian rank-1 update A = \alpha x x^H + A of
+# the hermitian matrix A.  Since the matrix A is hermitian only its upper half
+# or lower half need to be stored.  When Uplo is CblasUpper then the upper
+# triangle and diagonal of A are used, and when Uplo is CblasLower then the
+# lower triangle and diagonal of A are used.  The imaginary elements of the
+# diagonal are automatically set to zero.
+# 
+#   Returns: Cint
+function gsl_blas_cher(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector_complex_float})
+    A = convert(Ptr{gsl_matrix_complex_float}, Array(gsl_matrix_complex_float, 1))
+    gsl_errno = ccall( (:gsl_blas_cher, :libgsl), Cint, (CBLAS_UPLO_t,
+        Cfloat, Ptr{gsl_vector_complex_float}, Ptr{gsl_matrix_complex_float}),
+        Uplo, alpha, x, A )
+    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1]
+end
+
+
+# These functions compute the hermitian rank-1 update A = \alpha x x^H + A of
+# the hermitian matrix A.  Since the matrix A is hermitian only its upper half
+# or lower half need to be stored.  When Uplo is CblasUpper then the upper
+# triangle and diagonal of A are used, and when Uplo is CblasLower then the
+# lower triangle and diagonal of A are used.  The imaginary elements of the
+# diagonal are automatically set to zero.
+# 
+#   Returns: Cint
+function gsl_blas_zher(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector_complex})
+    A = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
+    gsl_errno = ccall( (:gsl_blas_zher, :libgsl), Cint, (CBLAS_UPLO_t,
+        Cdouble, Ptr{gsl_vector_complex}, Ptr{gsl_matrix_complex}), Uplo,
+        alpha, x, A )
+    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1]
+end
+
+
+# These functions compute the symmetric rank-2 update A = \alpha x y^T + \alpha
+# y x^T + A of the symmetric matrix A.  Since the matrix A is symmetric only
+# its upper half or lower half need to be stored.  When Uplo is CblasUpper then
+# the upper triangle and diagonal of A are used, and when Uplo is CblasLower
+# then the lower triangle and diagonal of A are used.
+# 
+#   Returns: Cint
+function gsl_blas_ssyr2(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector_float}, y::Ptr{gsl_vector_float})
+    A = convert(Ptr{gsl_matrix_float}, Array(gsl_matrix_float, 1))
+    gsl_errno = ccall( (:gsl_blas_ssyr2, :libgsl), Cint, (CBLAS_UPLO_t,
+        Cfloat, Ptr{gsl_vector_float}, Ptr{gsl_vector_float},
+        Ptr{gsl_matrix_float}), Uplo, alpha, x, y, A )
+    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1]
+end
+
+
+# These functions compute the symmetric rank-2 update A = \alpha x y^T + \alpha
+# y x^T + A of the symmetric matrix A.  Since the matrix A is symmetric only
+# its upper half or lower half need to be stored.  When Uplo is CblasUpper then
+# the upper triangle and diagonal of A are used, and when Uplo is CblasLower
+# then the lower triangle and diagonal of A are used.
+# 
+#   Returns: Cint
+function gsl_blas_dsyr2(Uplo::CBLAS_UPLO_t, alpha::Real, x::Ptr{gsl_vector}, y::Ptr{gsl_vector})
+    A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    gsl_errno = ccall( (:gsl_blas_dsyr2, :libgsl), Cint, (CBLAS_UPLO_t,
+        Cdouble, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_matrix}), Uplo,
+        alpha, x, y, A )
+    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1]
 end
 
 
@@ -620,20 +492,14 @@ end
 # imaginary elements of the diagonal are automatically set to zero.
 # 
 #   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type alpha::gsl_complex_float
-#XXX Coerced type for alpha::Void
-#XXX Unknown input type x::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex_float}
-#XXX Coerced type for y::Ptr{Void}
-#XXX Unknown input type A::Ptr{gsl_matrix_complex_float}
-#XXX Coerced type for A::Ptr{Void}
-function gsl_blas_cher2(Uplo::Void, alpha::Void, x::Ptr{Void}, y::Ptr{Void}, A::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_cher2, :libgsl), Cint, (Void, Void,
-        Ptr{Void}, Ptr{Void}, Ptr{Void}), Uplo, alpha, x, y, A )
+function gsl_blas_cher2(Uplo::CBLAS_UPLO_t, alpha::gsl_complex_float, x::Ptr{gsl_vector_complex_float}, y::Ptr{gsl_vector_complex_float})
+    A = convert(Ptr{gsl_matrix_complex_float}, Array(gsl_matrix_complex_float, 1))
+    gsl_errno = ccall( (:gsl_blas_cher2, :libgsl), Cint, (CBLAS_UPLO_t,
+        gsl_complex_float, Ptr{gsl_vector_complex_float},
+        Ptr{gsl_vector_complex_float}, Ptr{gsl_matrix_complex_float}), Uplo,
+        alpha, x, y, A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1]
 end
 
 
@@ -645,16 +511,11 @@ end
 # imaginary elements of the diagonal are automatically set to zero.
 # 
 #   Returns: Cint
-#XXX Unknown input type Uplo::CBLAS_UPLO_t
-#XXX Coerced type for Uplo::Void
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-#XXX Unknown input type y::Ptr{gsl_vector_complex}
-#XXX Coerced type for y::Ptr{Void}
-#XXX Unknown input type A::Ptr{gsl_matrix_complex}
-#XXX Coerced type for A::Ptr{Void}
-function gsl_blas_zher2(Uplo::Void, alpha::gsl_complex, x::Ptr{Void}, y::Ptr{Void}, A::Ptr{Void})
-    gsl_errno = ccall( (:gsl_blas_zher2, :libgsl), Cint, (Void,
-        gsl_complex, Ptr{Void}, Ptr{Void}, Ptr{Void}), Uplo, alpha, x, y, A )
+function gsl_blas_zher2(Uplo::CBLAS_UPLO_t, alpha::gsl_complex, x::Ptr{gsl_vector_complex}, y::Ptr{gsl_vector_complex})
+    A = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
+    gsl_errno = ccall( (:gsl_blas_zher2, :libgsl), Cint, (CBLAS_UPLO_t,
+        gsl_complex, Ptr{gsl_vector_complex}, Ptr{gsl_vector_complex},
+        Ptr{gsl_matrix_complex}), Uplo, alpha, x, y, A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1]
 end

@@ -14,11 +14,9 @@ export gsl_rng_fwrite, gsl_rng_fread
 # architectures.
 # 
 #   Returns: Cint
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_rng_fwrite(stream::Ptr{Void}, r::Ptr{Void})
+function gsl_rng_fwrite(stream::Ptr{Void}, r::Ptr{gsl_rng})
     gsl_errno = ccall( (:gsl_rng_fwrite, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}), stream, r )
+        Ptr{gsl_rng}), stream, r )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
 
@@ -32,10 +30,10 @@ end
 # architecture.
 # 
 #   Returns: Cint
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_rng_fread(stream::Ptr{Void}, r::Ptr{Void})
+function gsl_rng_fread(stream::Ptr{Void})
+    r = convert(Ptr{gsl_rng}, Array(gsl_rng, 1))
     gsl_errno = ccall( (:gsl_rng_fread, :libgsl), Cint, (Ptr{Void},
-        Ptr{Void}), stream, r )
+        Ptr{gsl_rng}), stream, r )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(r)[1]
 end

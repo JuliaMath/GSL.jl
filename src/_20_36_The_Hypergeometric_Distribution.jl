@@ -20,10 +20,8 @@ export gsl_ran_hypergeometric, gsl_ran_hypergeometric_pdf,
 # population without replacement.
 # 
 #   Returns: Cuint
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_hypergeometric(r::Ptr{Void}, n1::Cuint, n2::Cuint, t::Cuint)
-    ccall( (:gsl_ran_hypergeometric, :libgsl), Cuint, (Ptr{Void}, Cuint,
+function gsl_ran_hypergeometric(r::Ptr{gsl_rng}, n1::Integer, n2::Integer, t::Integer)
+    ccall( (:gsl_ran_hypergeometric, :libgsl), Cuint, (Ptr{gsl_rng}, Cuint,
         Cuint, Cuint), r, n1, n2, t )
 end
 
@@ -33,27 +31,33 @@ end
 # given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_hypergeometric_pdf(k::Cuint, n1::Cuint, n2::Cuint, t::Cuint)
+function gsl_ran_hypergeometric_pdf(k::Integer, n1::Integer, n2::Integer, t::Integer)
     ccall( (:gsl_ran_hypergeometric_pdf, :libgsl), Cdouble, (Cuint, Cuint,
         Cuint, Cuint), k, n1, n2, t )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_4arg Number gsl_ran_hypergeometric_pdf
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
 # the hypergeometric distribution with parameters n1, n2 and t.
 # 
 #   Returns: Cdouble
-function gsl_cdf_hypergeometric_P(k::Cuint, n1::Cuint, n2::Cuint, t::Cuint)
+function gsl_cdf_hypergeometric_P(k::Integer, n1::Integer, n2::Integer, t::Integer)
     ccall( (:gsl_cdf_hypergeometric_P, :libgsl), Cdouble, (Cuint, Cuint,
         Cuint, Cuint), k, n1, n2, t )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_4arg Number gsl_cdf_hypergeometric_P
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
 # the hypergeometric distribution with parameters n1, n2 and t.
 # 
 #   Returns: Cdouble
-function gsl_cdf_hypergeometric_Q(k::Cuint, n1::Cuint, n2::Cuint, t::Cuint)
+function gsl_cdf_hypergeometric_Q(k::Integer, n1::Integer, n2::Integer, t::Integer)
     ccall( (:gsl_cdf_hypergeometric_Q, :libgsl), Cdouble, (Cuint, Cuint,
         Cuint, Cuint), k, n1, n2, t )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_4arg Number gsl_cdf_hypergeometric_Q

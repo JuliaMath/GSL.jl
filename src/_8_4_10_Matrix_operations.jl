@@ -18,7 +18,7 @@ function gsl_matrix_add(b::Ptr{gsl_matrix})
     gsl_errno = ccall( (:gsl_matrix_add, :libgsl), Cint, (Ptr{gsl_matrix},
         Ptr{gsl_matrix}), a, b )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(a)
+    return unsafe_ref(a)[1]
 end
 
 
@@ -32,7 +32,7 @@ function gsl_matrix_sub(b::Ptr{gsl_matrix})
     gsl_errno = ccall( (:gsl_matrix_sub, :libgsl), Cint, (Ptr{gsl_matrix},
         Ptr{gsl_matrix}), a, b )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(a)
+    return unsafe_ref(a)[1]
 end
 
 
@@ -46,7 +46,7 @@ function gsl_matrix_mul_elements(b::Ptr{gsl_matrix})
     gsl_errno = ccall( (:gsl_matrix_mul_elements, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}), a, b )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(a)
+    return unsafe_ref(a)[1]
 end
 
 
@@ -60,7 +60,7 @@ function gsl_matrix_div_elements(b::Ptr{gsl_matrix})
     gsl_errno = ccall( (:gsl_matrix_div_elements, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_matrix}), a, b )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(a)
+    return unsafe_ref(a)[1]
 end
 
 
@@ -68,23 +68,25 @@ end
 # The result a(i,j) \leftarrow x a(i,j) is stored in a.
 # 
 #   Returns: Cint
-function gsl_matrix_scale(x::Cdouble)
+function gsl_matrix_scale(x::Real)
     a = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     gsl_errno = ccall( (:gsl_matrix_scale, :libgsl), Cint,
         (Ptr{gsl_matrix}, Cdouble), a, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(a)
+    return unsafe_ref(a)[1]
 end
+@vectorize_1arg Number gsl_matrix_scale
 
 
 # This function adds the constant value x to the elements of the matrix a.  The
 # result a(i,j) \leftarrow a(i,j) + x is stored in a.
 # 
 #   Returns: Cint
-function gsl_matrix_add_constant(x::Cdouble)
+function gsl_matrix_add_constant(x::Real)
     a = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     gsl_errno = ccall( (:gsl_matrix_add_constant, :libgsl), Cint,
         (Ptr{gsl_matrix}, Cdouble), a, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(a)
+    return unsafe_ref(a)[1]
 end
+@vectorize_1arg Number gsl_matrix_add_constant

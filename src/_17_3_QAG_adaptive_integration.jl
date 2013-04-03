@@ -13,23 +13,20 @@ export gsl_integration_workspace_alloc, gsl_integration_workspace_free,
 # This function allocates a workspace sufficient to hold n double precision
 # intervals, their integration results and error estimates.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_integration_workspace}
-#XXX Coerced type for output Ptr{Void}
-function gsl_integration_workspace_alloc{gsl_int<:Integer}(n::gsl_int)
-    ccall( (:gsl_integration_workspace_alloc, :libgsl), Ptr{Void},
-        (Csize_t, ), n )
+#   Returns: Ptr{gsl_integration_workspace}
+function gsl_integration_workspace_alloc(n::Integer)
+    ccall( (:gsl_integration_workspace_alloc, :libgsl),
+        Ptr{gsl_integration_workspace}, (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_integration_workspace_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-#XXX Unknown input type w::Ptr{gsl_integration_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_integration_workspace_free(w::Ptr{Void})
-    ccall( (:gsl_integration_workspace_free, :libgsl), Void, (Ptr{Void}, ),
-        w )
+function gsl_integration_workspace_free(w::Ptr{gsl_integration_workspace})
+    ccall( (:gsl_integration_workspace_free, :libgsl), Void,
+        (Ptr{gsl_integration_workspace}, ), w )
 end
 
 
@@ -51,15 +48,14 @@ end
 # given by limit, which may not exceed the allocated size of the workspace.
 # 
 #   Returns: Cint
-#XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
-#XXX Coerced type for workspace::Ptr{Void}
-function gsl_integration_qag{gsl_int<:Integer}(f::Ptr{gsl_function}, a::Cdouble, b::Cdouble, epsabs::Cdouble, epsrel::Cdouble, limit::gsl_int, key::gsl_int, workspace::Ptr{Void})
+function gsl_integration_qag(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real, limit::Integer, key::Integer)
+    workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_integration_qag, :libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Csize_t, Cint,
-        Ptr{Void}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, b, epsabs, epsrel, limit,
-        key, workspace, result, abserr )
+        Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, b,
+        epsabs, epsrel, limit, key, workspace, result, abserr )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(workspace)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end

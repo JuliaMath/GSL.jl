@@ -15,18 +15,20 @@ export gsl_block_alloc, gsl_block_calloc, gsl_block_free
 # block.
 # 
 #   Returns: Ptr{gsl_block}
-function gsl_block_alloc{gsl_int<:Integer}(n::gsl_int)
+function gsl_block_alloc(n::Integer)
     ccall( (:gsl_block_alloc, :libgsl), Ptr{gsl_block}, (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_block_alloc
 
 
 # This function allocates memory for a block and initializes all the elements
 # of the block to zero.
 # 
 #   Returns: Ptr{gsl_block}
-function gsl_block_calloc{gsl_int<:Integer}(n::gsl_int)
+function gsl_block_calloc(n::Integer)
     ccall( (:gsl_block_calloc, :libgsl), Ptr{gsl_block}, (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_block_calloc
 
 
 # This function frees the memory used by a block b previously allocated with

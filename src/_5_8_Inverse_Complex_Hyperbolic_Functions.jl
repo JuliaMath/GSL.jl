@@ -36,10 +36,11 @@ end
 # \arccosh(z).
 # 
 #   Returns: gsl_complex
-function gsl_complex_arccosh_real(z::Cdouble)
+function gsl_complex_arccosh_real(z::Real)
     ccall( (:gsl_complex_arccosh_real, :libgsl), gsl_complex, (Cdouble, ),
         z )
 end
+@vectorize_1arg Number gsl_complex_arccosh_real
 
 
 # This function returns the complex hyperbolic arctangent of the complex number
@@ -57,10 +58,11 @@ end
 # \arctanh(z).
 # 
 #   Returns: gsl_complex
-function gsl_complex_arctanh_real(z::Cdouble)
+function gsl_complex_arctanh_real(z::Real)
     ccall( (:gsl_complex_arctanh_real, :libgsl), gsl_complex, (Cdouble, ),
         z )
 end
+@vectorize_1arg Number gsl_complex_arctanh_real
 
 
 # This function returns the complex hyperbolic arcsecant of the complex number

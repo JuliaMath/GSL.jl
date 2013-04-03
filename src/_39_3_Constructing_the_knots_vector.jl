@@ -11,12 +11,12 @@ export gsl_bspline_knots, gsl_bspline_knots_uniform
 # stores them internally in w->knots.
 # 
 #   Returns: Cint
-#XXX Unknown input type w::Ptr{gsl_bspline_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_bspline_knots(breakpts::Ptr{gsl_vector}, w::Ptr{Void})
+function gsl_bspline_knots(breakpts::Ptr{gsl_vector})
+    w = convert(Ptr{gsl_bspline_workspace}, Array(gsl_bspline_workspace, 1))
     gsl_errno = ccall( (:gsl_bspline_knots, :libgsl), Cint,
-        (Ptr{gsl_vector}, Ptr{Void}), breakpts, w )
+        (Ptr{gsl_vector}, Ptr{gsl_bspline_workspace}), breakpts, w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(w)[1]
 end
 
 
@@ -25,10 +25,11 @@ end
 # parameter. The knots are stored in w->knots.
 # 
 #   Returns: Cint
-#XXX Unknown input type w::Ptr{gsl_bspline_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_bspline_knots_uniform(a::Cdouble, b::Cdouble, w::Ptr{Void})
+function gsl_bspline_knots_uniform(a::Real, b::Real)
+    w = convert(Ptr{gsl_bspline_workspace}, Array(gsl_bspline_workspace, 1))
     gsl_errno = ccall( (:gsl_bspline_knots_uniform, :libgsl), Cint,
-        (Cdouble, Cdouble, Ptr{Void}), a, b, w )
+        (Cdouble, Cdouble, Ptr{gsl_bspline_workspace}), a, b, w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(w)[1]
 end
+@vectorize_2arg Number gsl_bspline_knots_uniform

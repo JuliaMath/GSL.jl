@@ -15,10 +15,8 @@ export gsl_ran_beta, gsl_ran_beta_pdf, gsl_cdf_beta_P, gsl_cdf_beta_Q,
 # \Gamma(a) \Gamma(b)} x^{a-1} (1-x)^{b-1} dx  for  0 <= x <= 1.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_beta(r::Ptr{Void}, a::Cdouble, b::Cdouble)
-    ccall( (:gsl_ran_beta, :libgsl), Cdouble, (Ptr{Void}, Cdouble,
+function gsl_ran_beta(r::Ptr{gsl_rng}, a::Real, b::Real)
+    ccall( (:gsl_ran_beta, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
         Cdouble), r, a, b )
 end
 
@@ -27,47 +25,57 @@ end
 # distribution with parameters a and b, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_beta_pdf(x::Cdouble, a::Cdouble, b::Cdouble)
+function gsl_ran_beta_pdf(x::Real, a::Real, b::Real)
     ccall( (:gsl_ran_beta_pdf, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_ran_beta_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the beta distribution with parameters a and b.
 # 
 #   Returns: Cdouble
-function gsl_cdf_beta_P(x::Cdouble, a::Cdouble, b::Cdouble)
+function gsl_cdf_beta_P(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_beta_P, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_cdf_beta_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the beta distribution with parameters a and b.
 # 
 #   Returns: Cdouble
-function gsl_cdf_beta_Q(x::Cdouble, a::Cdouble, b::Cdouble)
+function gsl_cdf_beta_Q(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_beta_Q, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_cdf_beta_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the beta distribution with parameters a and b.
 # 
 #   Returns: Cdouble
-function gsl_cdf_beta_Pinv(P::Cdouble, a::Cdouble, b::Cdouble)
+function gsl_cdf_beta_Pinv(P::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_beta_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), P, a, b )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_cdf_beta_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
 # their inverses for the beta distribution with parameters a and b.
 # 
 #   Returns: Cdouble
-function gsl_cdf_beta_Qinv(Q::Cdouble, a::Cdouble, b::Cdouble)
+function gsl_cdf_beta_Qinv(Q::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_beta_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), Q, a, b )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_cdf_beta_Qinv

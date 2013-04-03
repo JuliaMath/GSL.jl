@@ -23,18 +23,20 @@ export gsl_integration_qagi, gsl_integration_qagiu, gsl_integration_qagil
 # origin.  In this case a lower-order rule is more efficient.
 # 
 #   Returns: Cint
-#XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
-#XXX Coerced type for workspace::Ptr{Void}
-function gsl_integration_qagi{gsl_int<:Integer}(epsabs::Cdouble, epsrel::Cdouble, limit::gsl_int, workspace::Ptr{Void})
+function gsl_integration_qagi(epsabs::Real, epsrel::Real, limit::Integer)
     f = convert(Ptr{gsl_function}, Array(gsl_function, 1))
+    workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_integration_qagi, :libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Csize_t, Ptr{Void}, Ptr{Cdouble},
-        Ptr{Cdouble}), f, epsabs, epsrel, limit, workspace, result, abserr )
+        (Ptr{gsl_function}, Cdouble, Cdouble, Csize_t,
+        Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, epsabs,
+        epsrel, limit, workspace, result, abserr )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(f) ,unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(f)[1] ,unsafe_ref(workspace)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_integration_qagi
 
 
 # This function computes the integral of the function f over the semi-infinite
@@ -44,19 +46,20 @@ end
 # and then integrated using the QAGS algorithm.
 # 
 #   Returns: Cint
-#XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
-#XXX Coerced type for workspace::Ptr{Void}
-function gsl_integration_qagiu{gsl_int<:Integer}(a::Cdouble, epsabs::Cdouble, epsrel::Cdouble, limit::gsl_int, workspace::Ptr{Void})
+function gsl_integration_qagiu(a::Real, epsabs::Real, epsrel::Real, limit::Integer)
     f = convert(Ptr{gsl_function}, Array(gsl_function, 1))
+    workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_integration_qagiu, :libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Csize_t, Ptr{Void},
-        Ptr{Cdouble}, Ptr{Cdouble}), f, a, epsabs, epsrel, limit, workspace,
-        result, abserr )
+        (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Csize_t,
+        Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, a,
+        epsabs, epsrel, limit, workspace, result, abserr )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(f) ,unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(f)[1] ,unsafe_ref(workspace)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_4arg Number gsl_integration_qagiu
 
 
 # This function computes the integral of the function f over the semi-infinite
@@ -66,16 +69,17 @@ end
 # and then integrated using the QAGS algorithm.
 # 
 #   Returns: Cint
-#XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
-#XXX Coerced type for workspace::Ptr{Void}
-function gsl_integration_qagil{gsl_int<:Integer}(b::Cdouble, epsabs::Cdouble, epsrel::Cdouble, limit::gsl_int, workspace::Ptr{Void})
+function gsl_integration_qagil(b::Real, epsabs::Real, epsrel::Real, limit::Integer)
     f = convert(Ptr{gsl_function}, Array(gsl_function, 1))
+    workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_integration_qagil, :libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Csize_t, Ptr{Void},
-        Ptr{Cdouble}, Ptr{Cdouble}), f, b, epsabs, epsrel, limit, workspace,
-        result, abserr )
+        (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Csize_t,
+        Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, b,
+        epsabs, epsrel, limit, workspace, result, abserr )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(f) ,unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(f)[1] ,unsafe_ref(workspace)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_4arg Number gsl_integration_qagil

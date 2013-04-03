@@ -12,13 +12,12 @@ export gsl_odeiv2_evolve_alloc, gsl_odeiv2_evolve_apply,
 # This function returns a pointer to a newly allocated instance of an evolution
 # function for a system of dim dimensions.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_odeiv2_evolve}
-#XXX Coerced type for output Ptr{Void}
-function gsl_odeiv2_evolve_alloc{gsl_int<:Integer}(dim::gsl_int)
-    ccall( (:gsl_odeiv2_evolve_alloc, :libgsl), Ptr{Void}, (Csize_t, ), dim
-        )
+#   Returns: Ptr{gsl_odeiv2_evolve}
+function gsl_odeiv2_evolve_alloc(dim::Integer)
+    ccall( (:gsl_odeiv2_evolve_alloc, :libgsl), Ptr{gsl_odeiv2_evolve},
+        (Csize_t, ), dim )
 end
+@vectorize_1arg Number gsl_odeiv2_evolve_alloc
 
 
 # This function advances the system (e, sys) from time t and position y using
@@ -45,20 +44,18 @@ end
 # final time-step the value of t will be set to t1 exactly.
 # 
 #   Returns: Cint
-#XXX Unknown input type e::Ptr{gsl_odeiv2_evolve}
-#XXX Coerced type for e::Ptr{Void}
-#XXX Unknown input type con::Ptr{gsl_odeiv2_control}
-#XXX Coerced type for con::Ptr{Void}
-#XXX Unknown input type step::Ptr{gsl_odeiv2_step}
-#XXX Coerced type for step::Ptr{Void}
-function gsl_odeiv2_evolve_apply(e::Ptr{Void}, con::Ptr{Void}, step::Ptr{Void}, sys::Ptr{gsl_odeiv2_system}, t1::Cdouble, y::Cdouble)
+function gsl_odeiv2_evolve_apply(sys::Ptr{gsl_odeiv2_system}, t1::Real, y::Real)
+    e = convert(Ptr{gsl_odeiv2_evolve}, Array(gsl_odeiv2_evolve, 1))
+    con = convert(Ptr{gsl_odeiv2_control}, Array(gsl_odeiv2_control, 1))
+    step = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
     t = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     h = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_odeiv2_evolve_apply, :libgsl), Cint,
-        (Ptr{Void}, Ptr{Void}, Ptr{Void}, Ptr{gsl_odeiv2_system}, Ptr{Cdouble},
-        Cdouble, Ptr{Cdouble}, Cdouble), e, con, step, sys, t, t1, h, y )
+        (Ptr{gsl_odeiv2_evolve}, Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_step},
+        Ptr{gsl_odeiv2_system}, Ptr{Cdouble}, Cdouble, Ptr{Cdouble}, Cdouble),
+        e, con, step, sys, t, t1, h, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(t) ,unsafe_ref(h)
+    return unsafe_ref(e)[1] ,unsafe_ref(con)[1] ,unsafe_ref(step)[1] ,unsafe_ref(t)[1] ,unsafe_ref(h)[1]
 end
 
 
@@ -69,19 +66,17 @@ end
 # returned by user function is returned.
 # 
 #   Returns: Cint
-#XXX Unknown input type e::Ptr{gsl_odeiv2_evolve}
-#XXX Coerced type for e::Ptr{Void}
-#XXX Unknown input type con::Ptr{gsl_odeiv2_control}
-#XXX Coerced type for con::Ptr{Void}
-#XXX Unknown input type step::Ptr{gsl_odeiv2_step}
-#XXX Coerced type for step::Ptr{Void}
-function gsl_odeiv2_evolve_apply_fixed_step(e::Ptr{Void}, con::Ptr{Void}, step::Ptr{Void}, sys::Ptr{gsl_odeiv2_system}, h::Cdouble, y::Cdouble)
+function gsl_odeiv2_evolve_apply_fixed_step(sys::Ptr{gsl_odeiv2_system}, h::Real, y::Real)
+    e = convert(Ptr{gsl_odeiv2_evolve}, Array(gsl_odeiv2_evolve, 1))
+    con = convert(Ptr{gsl_odeiv2_control}, Array(gsl_odeiv2_control, 1))
+    step = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
     t = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_odeiv2_evolve_apply_fixed_step, :libgsl),
-        Cint, (Ptr{Void}, Ptr{Void}, Ptr{Void}, Ptr{gsl_odeiv2_system},
-        Ptr{Cdouble}, Cdouble, Cdouble), e, con, step, sys, t, h, y )
+        Cint, (Ptr{gsl_odeiv2_evolve}, Ptr{gsl_odeiv2_control},
+        Ptr{gsl_odeiv2_step}, Ptr{gsl_odeiv2_system}, Ptr{Cdouble}, Cdouble,
+        Cdouble), e, con, step, sys, t, h, y )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(t)
+    return unsafe_ref(e)[1] ,unsafe_ref(con)[1] ,unsafe_ref(step)[1] ,unsafe_ref(t)[1]
 end
 
 
@@ -89,34 +84,31 @@ end
 # the next use of e will not be a continuation of a previous step.
 # 
 #   Returns: Cint
-#XXX Unknown input type e::Ptr{gsl_odeiv2_evolve}
-#XXX Coerced type for e::Ptr{Void}
-function gsl_odeiv2_evolve_reset(e::Ptr{Void})
+function gsl_odeiv2_evolve_reset()
+    e = convert(Ptr{gsl_odeiv2_evolve}, Array(gsl_odeiv2_evolve, 1))
     gsl_errno = ccall( (:gsl_odeiv2_evolve_reset, :libgsl), Cint,
-        (Ptr{Void}, ), e )
+        (Ptr{gsl_odeiv2_evolve}, ), e )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(e)[1]
 end
 
 
 # This function frees all the memory associated with the evolution function e.
 # 
 #   Returns: Void
-#XXX Unknown input type e::Ptr{gsl_odeiv2_evolve}
-#XXX Coerced type for e::Ptr{Void}
-function gsl_odeiv2_evolve_free(e::Ptr{Void})
-    ccall( (:gsl_odeiv2_evolve_free, :libgsl), Void, (Ptr{Void}, ), e )
+function gsl_odeiv2_evolve_free(e::Ptr{gsl_odeiv2_evolve})
+    ccall( (:gsl_odeiv2_evolve_free, :libgsl), Void,
+        (Ptr{gsl_odeiv2_evolve}, ), e )
 end
 
 
 # This function sets a pointer of the driver object d for evolve object e.
 # 
 #   Returns: Cint
-#XXX Unknown input type e::Ptr{gsl_odeiv2_evolve}
-#XXX Coerced type for e::Ptr{Void}
-#XXX Unknown input type d::Ptr{gsl_odeiv2_driver}
-#XXX Coerced type for d::Ptr{Void}
-function gsl_odeiv2_evolve_set_driver(e::Ptr{Void}, d::Ptr{Void})
+function gsl_odeiv2_evolve_set_driver(d::Ptr{gsl_odeiv2_driver})
+    e = convert(Ptr{gsl_odeiv2_evolve}, Array(gsl_odeiv2_evolve, 1))
     gsl_errno = ccall( (:gsl_odeiv2_evolve_set_driver, :libgsl), Cint,
-        (Ptr{Void}, Ptr{Void}), e, d )
+        (Ptr{gsl_odeiv2_evolve}, Ptr{gsl_odeiv2_driver}), e, d )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(e)[1]
 end

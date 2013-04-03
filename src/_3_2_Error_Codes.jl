@@ -15,8 +15,9 @@ export gsl_strerror
 # status value of GSL_ERANGE.
 # 
 #   Returns: Ptr{Cchar}
-function gsl_strerror{gsl_int<:Integer}(gsl_errno::gsl_int)
+function gsl_strerror(gsl_errno::Integer)
     output_string = ccall( (:gsl_strerror, :libgsl), Ptr{Cchar}, (Cint, ),
         gsl_errno )
     bytestring(convert(Ptr{Uint8}, output_string))
 end
+@vectorize_1arg Number gsl_strerror

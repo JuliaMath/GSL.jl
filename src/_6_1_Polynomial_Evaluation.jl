@@ -12,18 +12,20 @@ export gsl_poly_eval, gsl_poly_complex_eval, gsl_complex_poly_complex_eval,
 # variable x.
 # 
 #   Returns: Cdouble
-function gsl_poly_eval(c::Cdouble)
+function gsl_poly_eval(c::Real)
     ccall( (:gsl_poly_eval, :libgsl), Cdouble, (Cdouble, ), c )
 end
+@vectorize_1arg Number gsl_poly_eval
 
 
 # This function evaluates a polynomial with real coefficients for the complex
 # variable z.
 # 
 #   Returns: gsl_complex
-function gsl_poly_complex_eval(c::Cdouble)
+function gsl_poly_complex_eval(c::Real)
     ccall( (:gsl_poly_complex_eval, :libgsl), gsl_complex, (Cdouble, ), c )
 end
+@vectorize_1arg Number gsl_poly_complex_eval
 
 
 # This function evaluates a polynomial with complex coefficients for the
@@ -41,8 +43,9 @@ end
 # P/d x^k for the specified value of x starting with k = 0.
 # 
 #   Returns: Cint
-function gsl_poly_eval_derivs(c::Cdouble)
+function gsl_poly_eval_derivs(c::Real)
     gsl_errno = ccall( (:gsl_poly_eval_derivs, :libgsl), Cint, (Cdouble, ),
         c )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+@vectorize_1arg Number gsl_poly_eval_derivs

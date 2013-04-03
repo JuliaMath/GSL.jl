@@ -12,22 +12,24 @@ export gsl_sf_exp, gsl_sf_exp_e, gsl_sf_exp_e10_e, gsl_sf_exp_mult,
 # and error checking.
 # 
 #   Returns: Cdouble
-function gsl_sf_exp(x::Cdouble)
+function gsl_sf_exp(x::Real)
     ccall( (:gsl_sf_exp, :libgsl), Cdouble, (Cdouble, ), x )
 end
+@vectorize_1arg Number gsl_sf_exp
 
 
 # These routines provide an exponential function \exp(x) using GSL semantics
 # and error checking.
 # 
 #   Returns: Cint
-function gsl_sf_exp_e(x::Cdouble)
+function gsl_sf_exp_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_exp_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_1arg Number gsl_sf_exp_e
 
 
 # This function computes the exponential \exp(x) using the gsl_sf_result_e10
@@ -35,45 +37,49 @@ end
 # the value of \exp(x) would overflow the  numeric range of double.
 # 
 #   Returns: Cint
-function gsl_sf_exp_e10_e(x::Cdouble)
+function gsl_sf_exp_e10_e(x::Real)
     result = convert(Ptr{gsl_sf_result_e10}, Array(gsl_sf_result_e10, 1))
     gsl_errno = ccall( (:gsl_sf_exp_e10_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result_e10}), x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_1arg Number gsl_sf_exp_e10_e
 
 
 # These routines exponentiate x and multiply by the factor y to return the
 # product y \exp(x).
 # 
 #   Returns: Cdouble
-function gsl_sf_exp_mult(x::Cdouble, y::Cdouble)
+function gsl_sf_exp_mult(x::Real, y::Real)
     ccall( (:gsl_sf_exp_mult, :libgsl), Cdouble, (Cdouble, Cdouble), x, y )
 end
+@vectorize_2arg Number gsl_sf_exp_mult
 
 
 # These routines exponentiate x and multiply by the factor y to return the
 # product y \exp(x).
 # 
 #   Returns: Cint
-function gsl_sf_exp_mult_e(x::Cdouble, y::Cdouble)
+function gsl_sf_exp_mult_e(x::Real, y::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_exp_mult_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), x, y, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_exp_mult_e
 
 
 # This function computes the product y \exp(x) using the gsl_sf_result_e10 type
 # to return a result with extended numeric range.
 # 
 #   Returns: Cint
-function gsl_sf_exp_mult_e10_e(x::Cdouble, y::Cdouble)
+function gsl_sf_exp_mult_e10_e(x::Real, y::Real)
     result = convert(Ptr{gsl_sf_result_e10}, Array(gsl_sf_result_e10, 1))
     gsl_errno = ccall( (:gsl_sf_exp_mult_e10_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result_e10}), x, y, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_exp_mult_e10_e

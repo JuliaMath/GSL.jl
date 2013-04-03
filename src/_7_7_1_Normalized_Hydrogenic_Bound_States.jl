@@ -14,23 +14,25 @@ export gsl_sf_hydrogenicR_1, gsl_sf_hydrogenicR_1_e, gsl_sf_hydrogenicR,
 # radial wavefunction  R_1 := 2Z \sqrt{Z} \exp(-Z r).
 # 
 #   Returns: Cdouble
-function gsl_sf_hydrogenicR_1(Z::Cdouble, r::Cdouble)
+function gsl_sf_hydrogenicR_1(Z::Real, r::Real)
     ccall( (:gsl_sf_hydrogenicR_1, :libgsl), Cdouble, (Cdouble, Cdouble),
         Z, r )
 end
+@vectorize_2arg Number gsl_sf_hydrogenicR_1
 
 
 # These routines compute the lowest-order normalized hydrogenic bound state
 # radial wavefunction  R_1 := 2Z \sqrt{Z} \exp(-Z r).
 # 
 #   Returns: Cint
-function gsl_sf_hydrogenicR_1_e(Z::Cdouble, r::Cdouble)
+function gsl_sf_hydrogenicR_1_e(Z::Real, r::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_hydrogenicR_1_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), Z, r, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_hydrogenicR_1_e
 
 
 # These routines compute the n-th normalized hydrogenic bound state radial
@@ -41,10 +43,12 @@ end
 # \psi(n,l,r) = R_n Y_{lm}.
 # 
 #   Returns: Cdouble
-function gsl_sf_hydrogenicR{gsl_int<:Integer}(n::gsl_int, l::gsl_int, Z::Cdouble, r::Cdouble)
+function gsl_sf_hydrogenicR(n::Integer, l::Integer, Z::Real, r::Real)
     ccall( (:gsl_sf_hydrogenicR, :libgsl), Cdouble, (Cint, Cint, Cdouble,
         Cdouble), n, l, Z, r )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_4arg Number gsl_sf_hydrogenicR
 
 
 # These routines compute the n-th normalized hydrogenic bound state radial
@@ -55,10 +59,12 @@ end
 # \psi(n,l,r) = R_n Y_{lm}.
 # 
 #   Returns: Cint
-function gsl_sf_hydrogenicR_e{gsl_int<:Integer}(n::gsl_int, l::gsl_int, Z::Cdouble, r::Cdouble)
+function gsl_sf_hydrogenicR_e(n::Integer, l::Integer, Z::Real, r::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_hydrogenicR_e, :libgsl), Cint, (Cint, Cint,
         Cdouble, Cdouble, Ptr{gsl_sf_result}), n, l, Z, r, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_4arg Number gsl_sf_hydrogenicR_e

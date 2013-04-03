@@ -14,23 +14,20 @@ export gsl_poly_complex_workspace_alloc, gsl_poly_complex_workspace_free,
 # the newly allocated gsl_poly_complex_workspace if no errors were detected,
 # and a null pointer in the case of error.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_poly_complex_workspace}
-#XXX Coerced type for output Ptr{Void}
-function gsl_poly_complex_workspace_alloc{gsl_int<:Integer}(n::gsl_int)
-    ccall( (:gsl_poly_complex_workspace_alloc, :libgsl), Ptr{Void},
-        (Csize_t, ), n )
+#   Returns: Ptr{gsl_poly_complex_workspace}
+function gsl_poly_complex_workspace_alloc(n::Integer)
+    ccall( (:gsl_poly_complex_workspace_alloc, :libgsl),
+        Ptr{gsl_poly_complex_workspace}, (Csize_t, ), n )
 end
+@vectorize_1arg Number gsl_poly_complex_workspace_alloc
 
 
 # This function frees all the memory associated with the workspace w.
 # 
 #   Returns: Void
-#XXX Unknown input type w::Ptr{gsl_poly_complex_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_poly_complex_workspace_free(w::Ptr{Void})
-    ccall( (:gsl_poly_complex_workspace_free, :libgsl), Void, (Ptr{Void},
-        ), w )
+function gsl_poly_complex_workspace_free(w::Ptr{gsl_poly_complex_workspace})
+    ccall( (:gsl_poly_complex_workspace_free, :libgsl), Void,
+        (Ptr{gsl_poly_complex_workspace}, ), w )
 end
 
 
@@ -50,12 +47,11 @@ end
 # Mathematical Software, Volume 30, Issue 2 (2004), pp 218–236).
 # 
 #   Returns: Cint
-#XXX Unknown input type w::Ptr{gsl_poly_complex_workspace}
-#XXX Coerced type for w::Ptr{Void}
-#XXX Unknown input type z::gsl_complex_packed_ptr
-#XXX Coerced type for z::Void
-function gsl_poly_complex_solve{gsl_int<:Integer}(a::Ptr{Cdouble}, n::gsl_int, w::Ptr{Void}, z::Void)
+function gsl_poly_complex_solve{tA<:Real}(a::Ptr{tA}, n::Integer, z::gsl_complex_packed_ptr)
+    w = convert(Ptr{gsl_poly_complex_workspace}, Array(gsl_poly_complex_workspace, 1))
     gsl_errno = ccall( (:gsl_poly_complex_solve, :libgsl), Cint,
-        (Ptr{Cdouble}, Csize_t, Ptr{Void}, Void), a, n, w, z )
+        (Ptr{Cdouble}, Csize_t, Ptr{gsl_poly_complex_workspace},
+        gsl_complex_packed_ptr), a, n, w, z )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(w)[1]
 end

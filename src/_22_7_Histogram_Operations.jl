@@ -30,7 +30,7 @@ function gsl_histogram_add(h2::Ptr{gsl_histogram})
     gsl_errno = ccall( (:gsl_histogram_add, :libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(h1)
+    return unsafe_ref(h1)[1]
 end
 
 
@@ -44,7 +44,7 @@ function gsl_histogram_sub(h2::Ptr{gsl_histogram})
     gsl_errno = ccall( (:gsl_histogram_sub, :libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(h1)
+    return unsafe_ref(h1)[1]
 end
 
 
@@ -58,7 +58,7 @@ function gsl_histogram_mul(h2::Ptr{gsl_histogram})
     gsl_errno = ccall( (:gsl_histogram_mul, :libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(h1)
+    return unsafe_ref(h1)[1]
 end
 
 
@@ -72,7 +72,7 @@ function gsl_histogram_div(h2::Ptr{gsl_histogram})
     gsl_errno = ccall( (:gsl_histogram_div, :libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(h1)
+    return unsafe_ref(h1)[1]
 end
 
 
@@ -80,23 +80,25 @@ end
 # constant scale, i.e.  h'_1(i) = h_1(i) * scale.
 # 
 #   Returns: Cint
-function gsl_histogram_scale(scale::Cdouble)
+function gsl_histogram_scale(scale::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
     gsl_errno = ccall( (:gsl_histogram_scale, :libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble), h, scale )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(h)
+    return unsafe_ref(h)[1]
 end
+@vectorize_1arg Number gsl_histogram_scale
 
 
 # This function shifts the contents of the bins of histogram h by the constant
 # offset, i.e.  h'_1(i) = h_1(i) + offset.
 # 
 #   Returns: Cint
-function gsl_histogram_shift(offset::Cdouble)
+function gsl_histogram_shift(offset::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
     gsl_errno = ccall( (:gsl_histogram_shift, :libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble), h, offset )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(h)
+    return unsafe_ref(h)[1]
 end
+@vectorize_1arg Number gsl_histogram_shift

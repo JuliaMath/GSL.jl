@@ -20,7 +20,7 @@ export gsl_sf_coulomb_wave_FG_e, gsl_sf_coulomb_wave_F_array,
 # and scaling exponents are stored in the modifiable parameters exp_F, exp_G.
 # 
 #   Returns: Cint
-function gsl_sf_coulomb_wave_FG_e{gsl_int<:Integer}(eta::Cdouble, x::Cdouble, L_F::Cdouble, k::gsl_int)
+function gsl_sf_coulomb_wave_FG_e(eta::Real, x::Real, L_F::Real, k::Integer)
     F = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     Fp = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     G = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
@@ -33,8 +33,10 @@ function gsl_sf_coulomb_wave_FG_e{gsl_int<:Integer}(eta::Cdouble, x::Cdouble, L_
         Ptr{Cdouble}, Ptr{Cdouble}), eta, x, L_F, k, F, Fp, G, Gp, exp_F, exp_G
         )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(F) ,unsafe_ref(Fp) ,unsafe_ref(G) ,unsafe_ref(Gp) ,unsafe_ref(exp_F) ,unsafe_ref(exp_G)
+    return unsafe_ref(F)[1] ,unsafe_ref(Fp)[1] ,unsafe_ref(G)[1] ,unsafe_ref(Gp)[1] ,unsafe_ref(exp_F)[1] ,unsafe_ref(exp_G)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_4arg Number gsl_sf_coulomb_wave_FG_e
 
 
 # This function computes the Coulomb wave function F_L(\eta,x) for L = Lmin
@@ -42,12 +44,14 @@ end
 # the exponent is stored in F_exponent.
 # 
 #   Returns: Cint
-function gsl_sf_coulomb_wave_F_array{gsl_int<:Integer}(L_min::Cdouble, kmax::gsl_int, eta::Cdouble, x::Cdouble, fc_array::Cdouble)
+function gsl_sf_coulomb_wave_F_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
     gsl_errno = ccall( (:gsl_sf_coulomb_wave_F_array, :libgsl), Cint,
         (Cdouble, Cint, Cdouble, Cdouble, Cdouble), L_min, kmax, eta, x,
         fc_array )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_5arg Number gsl_sf_coulomb_wave_F_array
 
 
 # This function computes the functions F_L(\eta,x), G_L(\eta,x) for L = Lmin
@@ -55,12 +59,14 @@ end
 # of overflow the exponents are stored in F_exponent and G_exponent.
 # 
 #   Returns: Cint
-function gsl_sf_coulomb_wave_FG_array{gsl_int<:Integer}(L_min::Cdouble, kmax::gsl_int, eta::Cdouble, x::Cdouble, fc_array::Cdouble)
+function gsl_sf_coulomb_wave_FG_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
     gsl_errno = ccall( (:gsl_sf_coulomb_wave_FG_array, :libgsl), Cint,
         (Cdouble, Cint, Cdouble, Cdouble, Cdouble), L_min, kmax, eta, x,
         fc_array )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_5arg Number gsl_sf_coulomb_wave_FG_array
 
 
 # This function computes the functions F_L(\eta,x), G_L(\eta,x) and their
@@ -69,12 +75,14 @@ end
 # overflow the exponents are stored in F_exponent and G_exponent.
 # 
 #   Returns: Cint
-function gsl_sf_coulomb_wave_FGp_array{gsl_int<:Integer}(L_min::Cdouble, kmax::gsl_int, eta::Cdouble, x::Cdouble, fc_array::Cdouble)
+function gsl_sf_coulomb_wave_FGp_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
     gsl_errno = ccall( (:gsl_sf_coulomb_wave_FGp_array, :libgsl), Cint,
         (Cdouble, Cint, Cdouble, Cdouble, Cdouble), L_min, kmax, eta, x,
         fc_array )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_5arg Number gsl_sf_coulomb_wave_FGp_array
 
 
 # This function computes the Coulomb wave function divided by the argument
@@ -83,9 +91,11 @@ end
 # function reduces to spherical Bessel functions in the limit \eta \to 0.
 # 
 #   Returns: Cint
-function gsl_sf_coulomb_wave_sphF_array{gsl_int<:Integer}(L_min::Cdouble, kmax::gsl_int, eta::Cdouble, x::Cdouble, fc_array::Cdouble)
+function gsl_sf_coulomb_wave_sphF_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
     gsl_errno = ccall( (:gsl_sf_coulomb_wave_sphF_array, :libgsl), Cint,
         (Cdouble, Cint, Cdouble, Cdouble, Cdouble), L_min, kmax, eta, x,
         fc_array )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_5arg Number gsl_sf_coulomb_wave_sphF_array

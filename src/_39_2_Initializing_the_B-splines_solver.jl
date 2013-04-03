@@ -13,41 +13,38 @@ export gsl_bspline_alloc, gsl_bspline_free, gsl_bspline_deriv_alloc,
 # basis functions. Cubic B-splines are specified by k = 4. The size of the
 # workspace is O(5k + nbreak).
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_bspline_workspace}
-#XXX Coerced type for output Ptr{Void}
-function gsl_bspline_alloc{gsl_int<:Integer}(k::gsl_int, nbreak::gsl_int)
-    ccall( (:gsl_bspline_alloc, :libgsl), Ptr{Void}, (Csize_t, Csize_t), k,
-        nbreak )
+#   Returns: Ptr{gsl_bspline_workspace}
+function gsl_bspline_alloc(k::Integer, nbreak::Integer)
+    ccall( (:gsl_bspline_alloc, :libgsl), Ptr{gsl_bspline_workspace},
+        (Csize_t, Csize_t), k, nbreak )
 end
+@vectorize_2arg Number gsl_bspline_alloc
 
 
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-#XXX Unknown input type w::Ptr{gsl_bspline_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_bspline_free(w::Ptr{Void})
-    ccall( (:gsl_bspline_free, :libgsl), Void, (Ptr{Void}, ), w )
+function gsl_bspline_free(w::Ptr{gsl_bspline_workspace})
+    ccall( (:gsl_bspline_free, :libgsl), Void, (Ptr{gsl_bspline_workspace},
+        ), w )
 end
 
 
 # This function allocates a workspace for computing the derivatives of a
 # B-spline basis function of order k.  The size of the workspace is O(2k^2).
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_bspline_deriv_workspace}
-#XXX Coerced type for output Ptr{Void}
-function gsl_bspline_deriv_alloc{gsl_int<:Integer}(k::gsl_int)
-    ccall( (:gsl_bspline_deriv_alloc, :libgsl), Ptr{Void}, (Csize_t, ), k )
+#   Returns: Ptr{gsl_bspline_deriv_workspace}
+function gsl_bspline_deriv_alloc(k::Integer)
+    ccall( (:gsl_bspline_deriv_alloc, :libgsl),
+        Ptr{gsl_bspline_deriv_workspace}, (Csize_t, ), k )
 end
+@vectorize_1arg Number gsl_bspline_deriv_alloc
 
 
 # This function frees the memory associated with the derivative workspace w.
 # 
 #   Returns: Void
-#XXX Unknown input type w::Ptr{gsl_bspline_deriv_workspace}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_bspline_deriv_free(w::Ptr{Void})
-    ccall( (:gsl_bspline_deriv_free, :libgsl), Void, (Ptr{Void}, ), w )
+function gsl_bspline_deriv_free(w::Ptr{gsl_bspline_deriv_workspace})
+    ccall( (:gsl_bspline_deriv_free, :libgsl), Void,
+        (Ptr{gsl_bspline_deriv_workspace}, ), w )
 end

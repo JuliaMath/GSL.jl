@@ -31,11 +31,9 @@ end
 # returned.
 # 
 #   Returns: gsl_complex
-#XXX Unknown input type v::Ptr{gsl_vector_complex}
-#XXX Coerced type for v::Ptr{Void}
-function gsl_linalg_complex_householder_transform(v::Ptr{Void})
+function gsl_linalg_complex_householder_transform(v::Ptr{gsl_vector_complex})
     ccall( (:gsl_linalg_complex_householder_transform, :libgsl),
-        gsl_complex, (Ptr{Void}, ), v )
+        gsl_complex, (Ptr{gsl_vector_complex}, ), v )
 end
 
 
@@ -44,12 +42,12 @@ end
 # is stored in A.
 # 
 #   Returns: Cint
-function gsl_linalg_householder_hm(tau::Cdouble, v::Ptr{gsl_vector})
+function gsl_linalg_householder_hm(tau::Real, v::Ptr{gsl_vector})
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     gsl_errno = ccall( (:gsl_linalg_householder_hm, :libgsl), Cint,
         (Cdouble, Ptr{gsl_vector}, Ptr{gsl_matrix}), tau, v, A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A)
+    return unsafe_ref(A)[1]
 end
 
 
@@ -58,14 +56,13 @@ end
 # is stored in A.
 # 
 #   Returns: Cint
-#XXX Unknown input type v::Ptr{gsl_vector_complex}
-#XXX Coerced type for v::Ptr{Void}
-#XXX Unknown input type A::Ptr{gsl_matrix_complex}
-#XXX Coerced type for A::Ptr{Void}
-function gsl_linalg_complex_householder_hm(tau::gsl_complex, v::Ptr{Void}, A::Ptr{Void})
+function gsl_linalg_complex_householder_hm(tau::gsl_complex, v::Ptr{gsl_vector_complex})
+    A = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
     gsl_errno = ccall( (:gsl_linalg_complex_householder_hm, :libgsl), Cint,
-        (gsl_complex, Ptr{Void}, Ptr{Void}), tau, v, A )
+        (gsl_complex, Ptr{gsl_vector_complex}, Ptr{gsl_matrix_complex}), tau,
+        v, A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1]
 end
 
 
@@ -74,12 +71,12 @@ end
 # is stored in A.
 # 
 #   Returns: Cint
-function gsl_linalg_householder_mh(tau::Cdouble, v::Ptr{gsl_vector})
+function gsl_linalg_householder_mh(tau::Real, v::Ptr{gsl_vector})
     A = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
     gsl_errno = ccall( (:gsl_linalg_householder_mh, :libgsl), Cint,
         (Cdouble, Ptr{gsl_vector}, Ptr{gsl_matrix}), tau, v, A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A)
+    return unsafe_ref(A)[1]
 end
 
 
@@ -88,14 +85,13 @@ end
 # is stored in A.
 # 
 #   Returns: Cint
-#XXX Unknown input type v::Ptr{gsl_vector_complex}
-#XXX Coerced type for v::Ptr{Void}
-#XXX Unknown input type A::Ptr{gsl_matrix_complex}
-#XXX Coerced type for A::Ptr{Void}
-function gsl_linalg_complex_householder_mh(tau::gsl_complex, v::Ptr{Void}, A::Ptr{Void})
+function gsl_linalg_complex_householder_mh(tau::gsl_complex, v::Ptr{gsl_vector_complex})
+    A = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
     gsl_errno = ccall( (:gsl_linalg_complex_householder_mh, :libgsl), Cint,
-        (gsl_complex, Ptr{Void}, Ptr{Void}), tau, v, A )
+        (gsl_complex, Ptr{gsl_vector_complex}, Ptr{gsl_matrix_complex}), tau,
+        v, A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1]
 end
 
 
@@ -104,12 +100,12 @@ end
 # w.
 # 
 #   Returns: Cint
-function gsl_linalg_householder_hv(tau::Cdouble, v::Ptr{gsl_vector})
+function gsl_linalg_householder_hv(tau::Real, v::Ptr{gsl_vector})
     w = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     gsl_errno = ccall( (:gsl_linalg_householder_hv, :libgsl), Cint,
         (Cdouble, Ptr{gsl_vector}, Ptr{gsl_vector}), tau, v, w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(w)
+    return unsafe_ref(w)[1]
 end
 
 
@@ -118,12 +114,11 @@ end
 # w.
 # 
 #   Returns: Cint
-#XXX Unknown input type v::Ptr{gsl_vector_complex}
-#XXX Coerced type for v::Ptr{Void}
-#XXX Unknown input type w::Ptr{gsl_vector_complex}
-#XXX Coerced type for w::Ptr{Void}
-function gsl_linalg_complex_householder_hv(tau::gsl_complex, v::Ptr{Void}, w::Ptr{Void})
+function gsl_linalg_complex_householder_hv(tau::gsl_complex, v::Ptr{gsl_vector_complex})
+    w = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     gsl_errno = ccall( (:gsl_linalg_complex_householder_hv, :libgsl), Cint,
-        (gsl_complex, Ptr{Void}, Ptr{Void}), tau, v, w )
+        (gsl_complex, Ptr{gsl_vector_complex}, Ptr{gsl_vector_complex}), tau,
+        v, w )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(w)[1]
 end

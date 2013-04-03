@@ -13,66 +13,72 @@ export gsl_sf_bessel_J0, gsl_sf_bessel_J0_e, gsl_sf_bessel_J1,
 # order, J_0(x).
 # 
 #   Returns: Cdouble
-function gsl_sf_bessel_J0(x::Cdouble)
+function gsl_sf_bessel_J0(x::Real)
     ccall( (:gsl_sf_bessel_J0, :libgsl), Cdouble, (Cdouble, ), x )
 end
+@vectorize_1arg Number gsl_sf_bessel_J0
 
 
 # These routines compute the regular cylindrical Bessel function of zeroth
 # order, J_0(x).
 # 
 #   Returns: Cint
-function gsl_sf_bessel_J0_e(x::Cdouble)
+function gsl_sf_bessel_J0_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_bessel_J0_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_1arg Number gsl_sf_bessel_J0_e
 
 
 # These routines compute the regular cylindrical Bessel function of first
 # order, J_1(x).
 # 
 #   Returns: Cdouble
-function gsl_sf_bessel_J1(x::Cdouble)
+function gsl_sf_bessel_J1(x::Real)
     ccall( (:gsl_sf_bessel_J1, :libgsl), Cdouble, (Cdouble, ), x )
 end
+@vectorize_1arg Number gsl_sf_bessel_J1
 
 
 # These routines compute the regular cylindrical Bessel function of first
 # order, J_1(x).
 # 
 #   Returns: Cint
-function gsl_sf_bessel_J1_e(x::Cdouble)
+function gsl_sf_bessel_J1_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_bessel_J1_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_1arg Number gsl_sf_bessel_J1_e
 
 
 # These routines compute the regular cylindrical Bessel function of order n,
 # J_n(x).
 # 
 #   Returns: Cdouble
-function gsl_sf_bessel_Jn{gsl_int<:Integer}(n::gsl_int, x::Cdouble)
+function gsl_sf_bessel_Jn(n::Integer, x::Real)
     ccall( (:gsl_sf_bessel_Jn, :libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
+@vectorize_2arg Number gsl_sf_bessel_Jn
 
 
 # These routines compute the regular cylindrical Bessel function of order n,
 # J_n(x).
 # 
 #   Returns: Cint
-function gsl_sf_bessel_Jn_e{gsl_int<:Integer}(n::gsl_int, x::Cdouble)
+function gsl_sf_bessel_Jn_e(n::Integer, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_bessel_Jn_e, :libgsl), Cint, (Cint,
         Cdouble, Ptr{gsl_sf_result}), n, x, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_bessel_Jn_e
 
 
 # This routine computes the values of the regular cylindrical Bessel functions
@@ -81,10 +87,12 @@ end
 # efficiency, and therefore may differ slightly from the exact values.
 # 
 #   Returns: Cint
-function gsl_sf_bessel_Jn_array{gsl_int<:Integer}(nmin::gsl_int, nmax::gsl_int, x::Cdouble)
+function gsl_sf_bessel_Jn_array(nmin::Integer, nmax::Integer, x::Real)
     result_array = convert(Cdouble, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_sf_bessel_Jn_array, :libgsl), Cint, (Cint,
         Cint, Cdouble, Cdouble), nmin, nmax, x, result_array )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result_array)
+    return unsafe_ref(result_array)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_sf_bessel_Jn_array

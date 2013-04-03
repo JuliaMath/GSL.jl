@@ -15,10 +15,11 @@ export gsl_sf_legendre_H3d_0, gsl_sf_legendre_H3d_0_e, gsl_sf_legendre_H3d_1,
 # this takes the form  L^{H3d}_0(\lambda,\eta) = j_0(\lambda\eta).
 # 
 #   Returns: Cdouble
-function gsl_sf_legendre_H3d_0(lambda::Cdouble, eta::Cdouble)
+function gsl_sf_legendre_H3d_0(lambda::Real, eta::Real)
     ccall( (:gsl_sf_legendre_H3d_0, :libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, eta )
 end
+@vectorize_2arg Number gsl_sf_legendre_H3d_0
 
 
 # These routines compute the zeroth radial eigenfunction of the Laplacian on
@@ -27,13 +28,14 @@ end
 # this takes the form  L^{H3d}_0(\lambda,\eta) = j_0(\lambda\eta).
 # 
 #   Returns: Cint
-function gsl_sf_legendre_H3d_0_e(lambda::Cdouble, eta::Cdouble)
+function gsl_sf_legendre_H3d_0_e(lambda::Real, eta::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_legendre_H3d_0_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, eta, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_legendre_H3d_0_e
 
 
 # These routines compute the first radial eigenfunction of the Laplacian on the
@@ -43,10 +45,11 @@ end
 # L^{H3d}_1(\lambda,\eta) = j_1(\lambda\eta).
 # 
 #   Returns: Cdouble
-function gsl_sf_legendre_H3d_1(lambda::Cdouble, eta::Cdouble)
+function gsl_sf_legendre_H3d_1(lambda::Real, eta::Real)
     ccall( (:gsl_sf_legendre_H3d_1, :libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, eta )
 end
+@vectorize_2arg Number gsl_sf_legendre_H3d_1
 
 
 # These routines compute the first radial eigenfunction of the Laplacian on the
@@ -56,13 +59,14 @@ end
 # L^{H3d}_1(\lambda,\eta) = j_1(\lambda\eta).
 # 
 #   Returns: Cint
-function gsl_sf_legendre_H3d_1_e(lambda::Cdouble, eta::Cdouble)
+function gsl_sf_legendre_H3d_1_e(lambda::Real, eta::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_legendre_H3d_1_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, eta, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+@vectorize_2arg Number gsl_sf_legendre_H3d_1_e
 
 
 # These routines compute the l-th radial eigenfunction of the Laplacian on the
@@ -70,10 +74,12 @@ end
 # takes the form  L^{H3d}_l(\lambda,\eta) = j_l(\lambda\eta).
 # 
 #   Returns: Cdouble
-function gsl_sf_legendre_H3d{gsl_int<:Integer}(l::gsl_int, lambda::Cdouble, eta::Cdouble)
+function gsl_sf_legendre_H3d(l::Integer, lambda::Real, eta::Real)
     ccall( (:gsl_sf_legendre_H3d, :libgsl), Cdouble, (Cint, Cdouble,
         Cdouble), l, lambda, eta )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_sf_legendre_H3d
 
 
 # These routines compute the l-th radial eigenfunction of the Laplacian on the
@@ -81,23 +87,27 @@ end
 # takes the form  L^{H3d}_l(\lambda,\eta) = j_l(\lambda\eta).
 # 
 #   Returns: Cint
-function gsl_sf_legendre_H3d_e{gsl_int<:Integer}(l::gsl_int, lambda::Cdouble, eta::Cdouble)
+function gsl_sf_legendre_H3d_e(l::Integer, lambda::Real, eta::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     gsl_errno = ccall( (:gsl_sf_legendre_H3d_e, :libgsl), Cint, (Cint,
         Cdouble, Cdouble, Ptr{gsl_sf_result}), l, lambda, eta, result )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result)
+    return unsafe_ref(result)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_sf_legendre_H3d_e
 
 
 # This function computes an array of radial eigenfunctions  L^{H3d}_l(\lambda,
 # \eta) for  0 <= l <= lmax.
 # 
 #   Returns: Cint
-function gsl_sf_legendre_H3d_array{gsl_int<:Integer}(lmax::gsl_int, lambda::Cdouble, eta::Cdouble)
+function gsl_sf_legendre_H3d_array(lmax::Integer, lambda::Real, eta::Real)
     result_array = convert(Cdouble, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_sf_legendre_H3d_array, :libgsl), Cint, (Cint,
         Cdouble, Cdouble, Cdouble), lmax, lambda, eta, result_array )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result_array)
+    return unsafe_ref(result_array)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_sf_legendre_H3d_array

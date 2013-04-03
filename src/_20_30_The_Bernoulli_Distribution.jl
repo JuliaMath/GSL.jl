@@ -14,11 +14,9 @@ export gsl_ran_bernoulli, gsl_ran_bernoulli_pdf
 # p(0) = 1 - p           p(1) = p
 # 
 #   Returns: Cuint
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_bernoulli(r::Ptr{Void}, p::Cdouble)
-    ccall( (:gsl_ran_bernoulli, :libgsl), Cuint, (Ptr{Void}, Cdouble), r, p
-        )
+function gsl_ran_bernoulli(r::Ptr{gsl_rng}, p::Real)
+    ccall( (:gsl_ran_bernoulli, :libgsl), Cuint, (Ptr{gsl_rng}, Cdouble),
+        r, p )
 end
 
 
@@ -26,7 +24,8 @@ end
 # distribution with probability parameter p, using the formula given above.
 # 
 #   Returns: Cdouble
-function gsl_ran_bernoulli_pdf(k::Cuint, p::Cdouble)
+function gsl_ran_bernoulli_pdf(k::Integer, p::Real)
     ccall( (:gsl_ran_bernoulli_pdf, :libgsl), Cdouble, (Cuint, Cdouble), k,
         p )
 end
+@vectorize_2arg Number gsl_ran_bernoulli_pdf

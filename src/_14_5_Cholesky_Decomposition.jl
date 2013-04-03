@@ -29,7 +29,7 @@ function gsl_linalg_cholesky_decomp()
     gsl_errno = ccall( (:gsl_linalg_cholesky_decomp, :libgsl), Cint,
         (Ptr{gsl_matrix}, ), A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(A)
+    return unsafe_ref(A)[1]
 end
 
 
@@ -45,12 +45,12 @@ end
 # definite, disable the error handler first to avoid triggering an error.
 # 
 #   Returns: Cint
-#XXX Unknown input type A::Ptr{gsl_matrix_complex}
-#XXX Coerced type for A::Ptr{Void}
-function gsl_linalg_complex_cholesky_decomp(A::Ptr{Void})
+function gsl_linalg_complex_cholesky_decomp()
+    A = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
     gsl_errno = ccall( (:gsl_linalg_complex_cholesky_decomp, :libgsl),
-        Cint, (Ptr{Void}, ), A )
+        Cint, (Ptr{gsl_matrix_complex}, ), A )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(A)[1]
 end
 
 
@@ -64,7 +64,7 @@ function gsl_linalg_cholesky_solve(cholesky::Ptr{gsl_matrix}, b::Ptr{gsl_vector}
     gsl_errno = ccall( (:gsl_linalg_cholesky_solve, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), cholesky, b, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x)
+    return unsafe_ref(x)[1]
 end
 
 
@@ -73,16 +73,13 @@ end
 # gsl_linalg_cholesky_decomp or gsl_linalg_complex_cholesky_decomp.
 # 
 #   Returns: Cint
-#XXX Unknown input type cholesky::Ptr{gsl_matrix_complex}
-#XXX Coerced type for cholesky::Ptr{Void}
-#XXX Unknown input type b::Ptr{gsl_vector_complex}
-#XXX Coerced type for b::Ptr{Void}
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_linalg_complex_cholesky_solve(cholesky::Ptr{Void}, b::Ptr{Void}, x::Ptr{Void})
+function gsl_linalg_complex_cholesky_solve(cholesky::Ptr{gsl_matrix_complex}, b::Ptr{gsl_vector_complex})
+    x = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     gsl_errno = ccall( (:gsl_linalg_complex_cholesky_solve, :libgsl), Cint,
-        (Ptr{Void}, Ptr{Void}, Ptr{Void}), cholesky, b, x )
+        (Ptr{gsl_matrix_complex}, Ptr{gsl_vector_complex},
+        Ptr{gsl_vector_complex}), cholesky, b, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(x)[1]
 end
 
 
@@ -98,7 +95,7 @@ function gsl_linalg_cholesky_svx(cholesky::Ptr{gsl_matrix})
     gsl_errno = ccall( (:gsl_linalg_cholesky_svx, :libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}), cholesky, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(x)
+    return unsafe_ref(x)[1]
 end
 
 
@@ -109,14 +106,12 @@ end
 # side b, which is replaced by the solution on output.
 # 
 #   Returns: Cint
-#XXX Unknown input type cholesky::Ptr{gsl_matrix_complex}
-#XXX Coerced type for cholesky::Ptr{Void}
-#XXX Unknown input type x::Ptr{gsl_vector_complex}
-#XXX Coerced type for x::Ptr{Void}
-function gsl_linalg_complex_cholesky_svx(cholesky::Ptr{Void}, x::Ptr{Void})
+function gsl_linalg_complex_cholesky_svx(cholesky::Ptr{gsl_matrix_complex})
+    x = convert(Ptr{gsl_vector_complex}, Array(gsl_vector_complex, 1))
     gsl_errno = ccall( (:gsl_linalg_complex_cholesky_svx, :libgsl), Cint,
-        (Ptr{Void}, Ptr{Void}), cholesky, x )
+        (Ptr{gsl_matrix_complex}, Ptr{gsl_vector_complex}), cholesky, x )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(x)[1]
 end
 
 
@@ -131,7 +126,7 @@ function gsl_linalg_cholesky_invert()
     gsl_errno = ccall( (:gsl_linalg_cholesky_invert, :libgsl), Cint,
         (Ptr{gsl_matrix}, ), cholesky )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(cholesky)
+    return unsafe_ref(cholesky)[1]
 end
 
 
@@ -141,10 +136,10 @@ end
 # the inverse is stored in-place in cholesky.
 # 
 #   Returns: Cint
-#XXX Unknown input type cholesky::Ptr{gsl_matrix_complex}
-#XXX Coerced type for cholesky::Ptr{Void}
-function gsl_linalg_complex_cholesky_invert(cholesky::Ptr{Void})
+function gsl_linalg_complex_cholesky_invert()
+    cholesky = convert(Ptr{gsl_matrix_complex}, Array(gsl_matrix_complex, 1))
     gsl_errno = ccall( (:gsl_linalg_complex_cholesky_invert, :libgsl),
-        Cint, (Ptr{Void}, ), cholesky )
+        Cint, (Ptr{gsl_matrix_complex}, ), cholesky )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(cholesky)[1]
 end

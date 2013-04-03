@@ -14,20 +14,19 @@ export gsl_interp_bsearch, gsl_interp_accel_alloc, gsl_interp_accel_find,
 # HAVE_INLINE is defined.
 # 
 #   Returns: Csize_t
-function gsl_interp_bsearch(x_array::Cdouble)
+function gsl_interp_bsearch(x_array::Real)
     ccall( (:gsl_interp_bsearch, :libgsl), Csize_t, (Cdouble, ), x_array )
 end
+@vectorize_1arg Number gsl_interp_bsearch
 
 
 # This function returns a pointer to an accelerator object, which is a kind of
 # iterator for interpolation lookups.  It tracks the state of lookups, thus
 # allowing for application of various acceleration strategies.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_interp_accel}
-#XXX Coerced type for output Ptr{Void}
+#   Returns: Ptr{gsl_interp_accel}
 function gsl_interp_accel_alloc()
-    ccall( (:gsl_interp_accel_alloc, :libgsl), Ptr{Void}, () )
+    ccall( (:gsl_interp_accel_alloc, :libgsl), Ptr{gsl_interp_accel}, () )
 end
 
 
@@ -38,11 +37,9 @@ end
 # used when HAVE_INLINE is defined.
 # 
 #   Returns: Csize_t
-#XXX Unknown input type a::Ptr{gsl_interp_accel}
-#XXX Coerced type for a::Ptr{Void}
-function gsl_interp_accel_find(a::Ptr{Void}, x_array::Cdouble)
-    ccall( (:gsl_interp_accel_find, :libgsl), Csize_t, (Ptr{Void},
-        Cdouble), a, x_array )
+function gsl_interp_accel_find(a::Ptr{gsl_interp_accel}, x_array::Real)
+    ccall( (:gsl_interp_accel_find, :libgsl), Csize_t,
+        (Ptr{gsl_interp_accel}, Cdouble), a, x_array )
 end
 
 
@@ -51,20 +48,19 @@ end
 # switching to a new dataset.
 # 
 #   Returns: Cint
-#XXX Unknown input type acc::Ptr{gsl_interp_accel}
-#XXX Coerced type for acc::Ptr{Void}
-function gsl_interp_accel_reset(acc::Ptr{Void})
+function gsl_interp_accel_reset()
+    acc = convert(Ptr{gsl_interp_accel}, Array(gsl_interp_accel, 1))
     gsl_errno = ccall( (:gsl_interp_accel_reset, :libgsl), Cint,
-        (Ptr{Void}, ), acc )
+        (Ptr{gsl_interp_accel}, ), acc )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(acc)[1]
 end
 
 
 # This function frees the accelerator object acc.
 # 
 #   Returns: Void
-#XXX Unknown input type acc::Ptr{gsl_interp_accel}
-#XXX Coerced type for acc::Ptr{Void}
-function gsl_interp_accel_free(acc::Ptr{Void})
-    ccall( (:gsl_interp_accel_free, :libgsl), Void, (Ptr{Void}, ), acc )
+function gsl_interp_accel_free(acc::Ptr{gsl_interp_accel})
+    ccall( (:gsl_interp_accel_free, :libgsl), Void, (Ptr{gsl_interp_accel},
+        ), acc )
 end

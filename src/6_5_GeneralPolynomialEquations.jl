@@ -53,11 +53,7 @@ roots{T<:Real}(c::Vector{T}) = roots(c, false) #By default, all complex roots
 # Mathematical Software, Volume 30, Issue 2 (2004), pp 218–236).
 # 
 #   Returns: Cint
-#XXX Unknown input type w::Ptr{gsl_poly_complex_workspace}
-#XXX Coerced type for w::Ptr{Void}
-#XXX Unknown input type z::gsl_complex_packed_ptr
-#XXX Coerced type for z::Void
-function gsl_poly_complex_solve{tA<:Real}(a::Ptr{tA}, n::Integer, w::Ptr{Void}, z::Void)
+function gsl_poly_complex_solve{tA<:Real, tB<:Real}(a::Ptr{tA}, n::Integer, w::Ptr{gsl_poly_complex_workspace}, z::Vector{tB})
     gsl_errno = ccall( (:gsl_poly_complex_solve, :libgsl), Cint,
         (Ptr{Cdouble}, Csize_t, Ptr{Void}, Void), a, n, w, z )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end

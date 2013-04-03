@@ -17,7 +17,7 @@ export gsl_integration_qng
 # the total number of function evaluations.
 # 
 #   Returns: Cint
-function gsl_integration_qng(f::Ptr{gsl_function}, a::Cdouble, b::Cdouble, epsabs::Cdouble, epsrel::Cdouble)
+function gsl_integration_qng(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real)
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     neval = convert(Ptr{Csize_t}, Array(Csize_t, 1))
@@ -26,5 +26,5 @@ function gsl_integration_qng(f::Ptr{gsl_function}, a::Cdouble, b::Cdouble, epsab
         Ptr{Cdouble}, Ptr{Csize_t}), f, a, b, epsabs, epsrel, result, abserr,
         neval )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(result) ,unsafe_ref(abserr) ,unsafe_ref(neval)
+    return unsafe_ref(result)[1] ,unsafe_ref(abserr)[1] ,unsafe_ref(neval)[1]
 end

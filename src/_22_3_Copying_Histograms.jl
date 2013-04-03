@@ -17,7 +17,7 @@ function gsl_histogram_memcpy(src::Ptr{gsl_histogram})
     gsl_errno = ccall( (:gsl_histogram_memcpy, :libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), dest, src )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(dest)
+    return unsafe_ref(dest)[1]
 end
 
 

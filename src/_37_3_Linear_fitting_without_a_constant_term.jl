@@ -15,7 +15,7 @@ export gsl_fit_mul, gsl_fit_wmul, gsl_fit_mul_est
 # residuals from the best-fit line is returned in sumsq.
 # 
 #   Returns: Cint
-function gsl_fit_mul{gsl_int<:Integer}(x::Ptr{Cdouble}, xstride::gsl_int, y::Ptr{Cdouble}, ystride::gsl_int, n::gsl_int)
+function gsl_fit_mul{tB<:Real ,tA<:Real}(x::Ptr{tA}, xstride::Integer, y::Ptr{tB}, ystride::Integer, n::Integer)
     c1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     cov11 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     sumsq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
@@ -23,7 +23,7 @@ function gsl_fit_mul{gsl_int<:Integer}(x::Ptr{Cdouble}, xstride::gsl_int, y::Ptr
         Csize_t, Ptr{Cdouble}, Csize_t, Csize_t, Ptr{Cdouble}, Ptr{Cdouble},
         Ptr{Cdouble}), x, xstride, y, ystride, n, c1, cov11, sumsq )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(c1) ,unsafe_ref(cov11) ,unsafe_ref(sumsq)
+    return unsafe_ref(c1)[1] ,unsafe_ref(cov11)[1] ,unsafe_ref(sumsq)[1]
 end
 
 
@@ -37,7 +37,7 @@ end
 # \chi^2, is returned in chisq.
 # 
 #   Returns: Cint
-function gsl_fit_wmul{gsl_int<:Integer}(x::Ptr{Cdouble}, xstride::gsl_int, w::Ptr{Cdouble}, wstride::gsl_int, y::Ptr{Cdouble}, ystride::gsl_int, n::gsl_int)
+function gsl_fit_wmul{tB<:Real ,tC<:Real ,tA<:Real}(x::Ptr{tA}, xstride::Integer, w::Ptr{tB}, wstride::Integer, y::Ptr{tC}, ystride::Integer, n::Integer)
     c1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     cov11 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     sumsq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
@@ -46,7 +46,7 @@ function gsl_fit_wmul{gsl_int<:Integer}(x::Ptr{Cdouble}, xstride::gsl_int, w::Pt
         Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}), x, xstride, w, wstride, y,
         ystride, n, c1, cov11, sumsq )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(c1) ,unsafe_ref(cov11) ,unsafe_ref(sumsq)
+    return unsafe_ref(c1)[1] ,unsafe_ref(cov11)[1] ,unsafe_ref(sumsq)[1]
 end
 
 
@@ -55,11 +55,13 @@ end
 # y_err for the model Y = c_1 X at the point x.
 # 
 #   Returns: Cint
-function gsl_fit_mul_est(x::Cdouble, c1::Cdouble, cov11::Cdouble)
+function gsl_fit_mul_est(x::Real, c1::Real, cov11::Real)
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y_err = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_fit_mul_est, :libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), x, c1, cov11, y, y_err )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(y) ,unsafe_ref(y_err)
+    return unsafe_ref(y)[1] ,unsafe_ref(y_err)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_fit_mul_est

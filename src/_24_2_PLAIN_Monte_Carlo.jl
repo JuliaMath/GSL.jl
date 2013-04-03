@@ -15,23 +15,21 @@ export gsl_monte_plain_alloc, gsl_monte_plain_init, gsl_monte_plain_integrate,
 # This function allocates and initializes a workspace for Monte Carlo
 # integration in dim dimensions.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_monte_plain_state}
-#XXX Coerced type for output Ptr{Void}
-function gsl_monte_plain_alloc{gsl_int<:Integer}(dim::gsl_int)
-    ccall( (:gsl_monte_plain_alloc, :libgsl), Ptr{Void}, (Csize_t, ), dim )
+#   Returns: Ptr{gsl_monte_plain_state}
+function gsl_monte_plain_alloc(dim::Integer)
+    ccall( (:gsl_monte_plain_alloc, :libgsl), Ptr{gsl_monte_plain_state},
+        (Csize_t, ), dim )
 end
+@vectorize_1arg Number gsl_monte_plain_alloc
 
 
 # This function initializes a previously allocated integration state.  This
 # allows an existing workspace to be reused for different integrations.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_monte_plain_state}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_monte_plain_init(s::Ptr{Void})
-    gsl_errno = ccall( (:gsl_monte_plain_init, :libgsl), Cint, (Ptr{Void},
-        ), s )
+function gsl_monte_plain_init(s::Ptr{gsl_monte_plain_state})
+    gsl_errno = ccall( (:gsl_monte_plain_init, :libgsl), Cint,
+        (Ptr{gsl_monte_plain_state}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
 
@@ -45,20 +43,20 @@ end
 # estimated absolute error abserr.
 # 
 #   Returns: Cint
-function gsl_monte_plain_integrate(xl::Cdouble)
+function gsl_monte_plain_integrate(xl::Real)
     f = convert(Ptr{gsl_monte_function}, Array(gsl_monte_function, 1))
     gsl_errno = ccall( (:gsl_monte_plain_integrate, :libgsl), Cint,
         (Ptr{gsl_monte_function}, Cdouble), f, xl )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(f)
+    return unsafe_ref(f)[1]
 end
+@vectorize_1arg Number gsl_monte_plain_integrate
 
 
 # This function frees the memory associated with the integrator state s.
 # 
 #   Returns: Void
-#XXX Unknown input type s::Ptr{gsl_monte_plain_state}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_monte_plain_free(s::Ptr{Void})
-    ccall( (:gsl_monte_plain_free, :libgsl), Void, (Ptr{Void}, ), s )
+function gsl_monte_plain_free(s::Ptr{gsl_monte_plain_state})
+    ccall( (:gsl_monte_plain_free, :libgsl), Void,
+        (Ptr{gsl_monte_plain_state}, ), s )
 end

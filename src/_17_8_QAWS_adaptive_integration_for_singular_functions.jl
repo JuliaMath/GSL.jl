@@ -29,24 +29,24 @@ export gsl_integration_qaws_table_alloc, gsl_integration_qaws_table_set,
 # gsl_integration_qaws_table if no errors were detected, and 0 in the case of
 # error.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_integration_qaws_table}
-#XXX Coerced type for output Ptr{Void}
-function gsl_integration_qaws_table_alloc{gsl_int<:Integer}(alpha::Cdouble, beta::Cdouble, mu::gsl_int, nu::gsl_int)
-    ccall( (:gsl_integration_qaws_table_alloc, :libgsl), Ptr{Void},
-        (Cdouble, Cdouble, Cint, Cint), alpha, beta, mu, nu )
+#   Returns: Ptr{gsl_integration_qaws_table}
+function gsl_integration_qaws_table_alloc(alpha::Real, beta::Real, mu::Integer, nu::Integer)
+    ccall( (:gsl_integration_qaws_table_alloc, :libgsl),
+        Ptr{gsl_integration_qaws_table}, (Cdouble, Cdouble, Cint, Cint), alpha,
+        beta, mu, nu )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_4arg Number gsl_integration_qaws_table_alloc
 
 
 # This function modifies the parameters (\alpha, \beta, \mu, \nu) of an
 # existing gsl_integration_qaws_table struct t.
 # 
 #   Returns: Cint
-#XXX Unknown input type t::Ptr{gsl_integration_qaws_table}
-#XXX Coerced type for t::Ptr{Void}
-function gsl_integration_qaws_table_set{gsl_int<:Integer}(t::Ptr{Void}, alpha::Cdouble, beta::Cdouble, mu::gsl_int, nu::gsl_int)
+function gsl_integration_qaws_table_set(t::Ptr{gsl_integration_qaws_table}, alpha::Real, beta::Real, mu::Integer, nu::Integer)
     gsl_errno = ccall( (:gsl_integration_qaws_table_set, :libgsl), Cint,
-        (Ptr{Void}, Cdouble, Cdouble, Cint, Cint), t, alpha, beta, mu, nu )
+        (Ptr{gsl_integration_qaws_table}, Cdouble, Cdouble, Cint, Cint), t,
+        alpha, beta, mu, nu )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
 
@@ -55,11 +55,9 @@ end
 # gsl_integration_qaws_table struct t.
 # 
 #   Returns: Void
-#XXX Unknown input type t::Ptr{gsl_integration_qaws_table}
-#XXX Coerced type for t::Ptr{Void}
-function gsl_integration_qaws_table_free(t::Ptr{Void})
-    ccall( (:gsl_integration_qaws_table_free, :libgsl), Void, (Ptr{Void},
-        ), t )
+function gsl_integration_qaws_table_free(t::Ptr{gsl_integration_qaws_table})
+    ccall( (:gsl_integration_qaws_table_free, :libgsl), Void,
+        (Ptr{gsl_integration_qaws_table}, ), t )
 end
 
 
@@ -74,18 +72,19 @@ end
 # endpoints an ordinary 15-point Gauss-Kronrod integration rule is used.
 # 
 #   Returns: Cint
-#XXX Unknown input type t::Ptr{gsl_integration_qaws_table}
-#XXX Coerced type for t::Ptr{Void}
-#XXX Unknown input type workspace::Ptr{gsl_integration_workspace}
-#XXX Coerced type for workspace::Ptr{Void}
-function gsl_integration_qaws{gsl_int<:Integer}(a::Cdouble, b::Cdouble, t::Ptr{Void}, epsabs::Cdouble, epsrel::Cdouble, limit::gsl_int, workspace::Ptr{Void})
+function gsl_integration_qaws(a::Real, b::Real, epsabs::Real, epsrel::Real, limit::Integer)
     f = convert(Ptr{gsl_function}, Array(gsl_function, 1))
+    t = convert(Ptr{gsl_integration_qaws_table}, Array(gsl_integration_qaws_table, 1))
+    workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     gsl_errno = ccall( (:gsl_integration_qaws, :libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Ptr{Void}, Cdouble, Cdouble,
-        Csize_t, Ptr{Void}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, b, t, epsabs,
-        epsrel, limit, workspace, result, abserr )
+        (Ptr{gsl_function}, Cdouble, Cdouble, Ptr{gsl_integration_qaws_table},
+        Cdouble, Cdouble, Csize_t, Ptr{gsl_integration_workspace},
+        Ptr{Cdouble}, Ptr{Cdouble}), f, a, b, t, epsabs, epsrel, limit,
+        workspace, result, abserr )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(f) ,unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(f)[1] ,unsafe_ref(t)[1] ,unsafe_ref(workspace)[1] ,unsafe_ref(result)[1] ,unsafe_ref(abserr)[1]
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_5arg Number gsl_integration_qaws

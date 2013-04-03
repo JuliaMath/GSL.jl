@@ -24,14 +24,12 @@ export gsl_ran_dir_2d, gsl_ran_dir_2d_trig_method, gsl_ran_dir_3d,
 # x=(u^2-v^2)/(u^2+v^2) and y=2uv/(u^2+v^2).
 # 
 #   Returns: Void
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_dir_2d(r::Ptr{Void})
+function gsl_ran_dir_2d(r::Ptr{gsl_rng})
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    ccall( (:gsl_ran_dir_2d, :libgsl), Void, (Ptr{Void}, Ptr{Cdouble},
+    ccall( (:gsl_ran_dir_2d, :libgsl), Void, (Ptr{gsl_rng}, Ptr{Cdouble},
         Ptr{Cdouble}), r, x, y )
-    return unsafe_ref(x) ,unsafe_ref(y)
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
 
 
@@ -51,14 +49,12 @@ end
 # x=(u^2-v^2)/(u^2+v^2) and y=2uv/(u^2+v^2).
 # 
 #   Returns: Void
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_dir_2d_trig_method(r::Ptr{Void})
+function gsl_ran_dir_2d_trig_method(r::Ptr{gsl_rng})
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    ccall( (:gsl_ran_dir_2d_trig_method, :libgsl), Void, (Ptr{Void},
+    ccall( (:gsl_ran_dir_2d_trig_method, :libgsl), Void, (Ptr{gsl_rng},
         Ptr{Cdouble}, Ptr{Cdouble}), r, x, y )
-    return unsafe_ref(x) ,unsafe_ref(y)
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1]
 end
 
 
@@ -70,15 +66,13 @@ end
 # for 3 dimensions).
 # 
 #   Returns: Void
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_dir_3d(r::Ptr{Void})
+function gsl_ran_dir_3d(r::Ptr{gsl_rng})
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     z = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    ccall( (:gsl_ran_dir_3d, :libgsl), Void, (Ptr{Void}, Ptr{Cdouble},
+    ccall( (:gsl_ran_dir_3d, :libgsl), Void, (Ptr{gsl_rng}, Ptr{Cdouble},
         Ptr{Cdouble}, Ptr{Cdouble}), r, x, y, z )
-    return unsafe_ref(x) ,unsafe_ref(y) ,unsafe_ref(z)
+    return unsafe_ref(x)[1] ,unsafe_ref(y)[1] ,unsafe_ref(z)[1]
 end
 
 
@@ -91,11 +85,9 @@ end
 # Modern Mathematics for the Engineer (1956).
 # 
 #   Returns: Void
-#XXX Unknown input type r::Ptr{gsl_rng}
-#XXX Coerced type for r::Ptr{Void}
-function gsl_ran_dir_nd{gsl_int<:Integer}(r::Ptr{Void}, n::gsl_int)
+function gsl_ran_dir_nd(r::Ptr{gsl_rng}, n::Integer)
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    ccall( (:gsl_ran_dir_nd, :libgsl), Void, (Ptr{Void}, Csize_t,
+    ccall( (:gsl_ran_dir_nd, :libgsl), Void, (Ptr{gsl_rng}, Csize_t,
         Ptr{Cdouble}), r, n, x )
-    return unsafe_ref(x)
+    return unsafe_ref(x)[1]
 end

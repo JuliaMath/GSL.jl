@@ -18,12 +18,12 @@ export gsl_multiroot_fsolver_iterate, gsl_multiroot_fdfsolver_iterate,
 # is not making any progress, preventing the algorithm from continuing.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_multiroot_fsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multiroot_fsolver_iterate(s::Ptr{Void})
+function gsl_multiroot_fsolver_iterate()
+    s = convert(Ptr{gsl_multiroot_fsolver}, Array(gsl_multiroot_fsolver, 1))
     gsl_errno = ccall( (:gsl_multiroot_fsolver_iterate, :libgsl), Cint,
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multiroot_fsolver}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end
 
 
@@ -34,12 +34,12 @@ end
 # is not making any progress, preventing the algorithm from continuing.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_multiroot_fdfsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multiroot_fdfsolver_iterate(s::Ptr{Void})
+function gsl_multiroot_fdfsolver_iterate()
+    s = convert(Ptr{gsl_multiroot_fdfsolver}, Array(gsl_multiroot_fdfsolver, 1))
     gsl_errno = ccall( (:gsl_multiroot_fdfsolver_iterate, :libgsl), Cint,
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multiroot_fdfsolver}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end
 
 
@@ -47,12 +47,12 @@ end
 # given by s->x.
 # 
 #   Returns: Cint
-#XXX Unknown input type s::Ptr{gsl_multiroot_fdfsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multiroot_fdfsolver_iterate(s::Ptr{Void})
+function gsl_multiroot_fdfsolver_iterate()
+    s = convert(Ptr{gsl_multiroot_fdfsolver}, Array(gsl_multiroot_fdfsolver, 1))
     gsl_errno = ccall( (:gsl_multiroot_fdfsolver_iterate, :libgsl), Cint,
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multiroot_fdfsolver}, ), s )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return unsafe_ref(s)[1]
 end
 
 
@@ -60,11 +60,9 @@ end
 # given by s->x.
 # 
 #   Returns: Ptr{gsl_vector}
-#XXX Unknown input type s::Ptr{gsl_multiroot_fsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multiroot_fsolver_root(s::Ptr{Void})
+function gsl_multiroot_fsolver_root(s::Ptr{gsl_multiroot_fsolver})
     ccall( (:gsl_multiroot_fsolver_root, :libgsl), Ptr{gsl_vector},
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multiroot_fsolver}, ), s )
 end
 
 
@@ -72,11 +70,9 @@ end
 # given by s->x.
 # 
 #   Returns: Ptr{gsl_vector}
-#XXX Unknown input type s::Ptr{gsl_multiroot_fdfsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multiroot_fdfsolver_root(s::Ptr{Void})
+function gsl_multiroot_fdfsolver_root(s::Ptr{gsl_multiroot_fdfsolver})
     ccall( (:gsl_multiroot_fdfsolver_root, :libgsl), Ptr{gsl_vector},
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multiroot_fdfsolver}, ), s )
 end
 
 
@@ -84,11 +80,9 @@ end
 # root for the solver s, given by s->f.
 # 
 #   Returns: Ptr{gsl_vector}
-#XXX Unknown input type s::Ptr{gsl_multiroot_fsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multiroot_fsolver_f(s::Ptr{Void})
+function gsl_multiroot_fsolver_f(s::Ptr{gsl_multiroot_fsolver})
     ccall( (:gsl_multiroot_fsolver_f, :libgsl), Ptr{gsl_vector},
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multiroot_fsolver}, ), s )
 end
 
 
@@ -96,11 +90,9 @@ end
 # root for the solver s, given by s->f.
 # 
 #   Returns: Ptr{gsl_vector}
-#XXX Unknown input type s::Ptr{gsl_multiroot_fdfsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multiroot_fdfsolver_f(s::Ptr{Void})
+function gsl_multiroot_fdfsolver_f(s::Ptr{gsl_multiroot_fdfsolver})
     ccall( (:gsl_multiroot_fdfsolver_f, :libgsl), Ptr{gsl_vector},
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multiroot_fdfsolver}, ), s )
 end
 
 
@@ -108,11 +100,9 @@ end
 # s->dx.
 # 
 #   Returns: Ptr{gsl_vector}
-#XXX Unknown input type s::Ptr{gsl_multiroot_fsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multiroot_fsolver_dx(s::Ptr{Void})
+function gsl_multiroot_fsolver_dx(s::Ptr{gsl_multiroot_fsolver})
     ccall( (:gsl_multiroot_fsolver_dx, :libgsl), Ptr{gsl_vector},
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multiroot_fsolver}, ), s )
 end
 
 
@@ -120,9 +110,7 @@ end
 # s->dx.
 # 
 #   Returns: Ptr{gsl_vector}
-#XXX Unknown input type s::Ptr{gsl_multiroot_fdfsolver}
-#XXX Coerced type for s::Ptr{Void}
-function gsl_multiroot_fdfsolver_dx(s::Ptr{Void})
+function gsl_multiroot_fdfsolver_dx(s::Ptr{gsl_multiroot_fdfsolver})
     ccall( (:gsl_multiroot_fdfsolver_dx, :libgsl), Ptr{gsl_vector},
-        (Ptr{Void}, ), s )
+        (Ptr{gsl_multiroot_fdfsolver}, ), s )
 end

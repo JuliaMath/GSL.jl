@@ -13,7 +13,7 @@ export gsl_vector_get, gsl_vector_set, gsl_vector_ptr, gsl_vector_const_ptr
 # defined.
 # 
 #   Returns: Cdouble
-function gsl_vector_get{gsl_int<:Integer}(v::Ptr{gsl_vector}, i::gsl_int)
+function gsl_vector_get(v::Ptr{gsl_vector}, i::Integer)
     ccall( (:gsl_vector_get, :libgsl), Cdouble, (Ptr{gsl_vector}, Csize_t),
         v, i )
 end
@@ -24,7 +24,7 @@ end
 # An inline version of this function is used when HAVE_INLINE is defined.
 # 
 #   Returns: Void
-function gsl_vector_set{gsl_int<:Integer}(v::Ptr{gsl_vector}, i::gsl_int, x::Cdouble)
+function gsl_vector_set(v::Ptr{gsl_vector}, i::Integer, x::Real)
     ccall( (:gsl_vector_set, :libgsl), Void, (Ptr{gsl_vector}, Csize_t,
         Cdouble), v, i, x )
 end
@@ -36,7 +36,7 @@ end
 # when HAVE_INLINE is defined.
 # 
 #   Returns: Ptr{Cdouble}
-function gsl_vector_ptr{gsl_int<:Integer}(v::Ptr{gsl_vector}, i::gsl_int)
+function gsl_vector_ptr(v::Ptr{gsl_vector}, i::Integer)
     ccall( (:gsl_vector_ptr, :libgsl), Ptr{Cdouble}, (Ptr{gsl_vector},
         Csize_t), v, i )
 end
@@ -48,7 +48,7 @@ end
 # when HAVE_INLINE is defined.
 # 
 #   Returns: Ptr{Cdouble}
-function gsl_vector_const_ptr{gsl_int<:Integer}(v::Ptr{gsl_vector}, i::gsl_int)
+function gsl_vector_const_ptr(v::Ptr{gsl_vector}, i::Integer)
     ccall( (:gsl_vector_const_ptr, :libgsl), Ptr{Cdouble},
         (Ptr{gsl_vector}, Csize_t), v, i )
 end

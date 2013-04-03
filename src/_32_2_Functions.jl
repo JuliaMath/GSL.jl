@@ -10,23 +10,20 @@ export gsl_dht_alloc, gsl_dht_init, gsl_dht_new, gsl_dht_free, gsl_dht_apply,
 
 # This function allocates a Discrete Hankel transform object of size size.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_dht}
-#XXX Coerced type for output Ptr{Void}
-function gsl_dht_alloc{gsl_int<:Integer}(size::gsl_int)
-    ccall( (:gsl_dht_alloc, :libgsl), Ptr{Void}, (Csize_t, ), size )
+#   Returns: Ptr{gsl_dht}
+function gsl_dht_alloc(size::Integer)
+    ccall( (:gsl_dht_alloc, :libgsl), Ptr{gsl_dht}, (Csize_t, ), size )
 end
+@vectorize_1arg Number gsl_dht_alloc
 
 
 # This function initializes the transform t for the given values of nu and
 # xmax.
 # 
 #   Returns: Cint
-#XXX Unknown input type t::Ptr{gsl_dht}
-#XXX Coerced type for t::Ptr{Void}
-function gsl_dht_init(t::Ptr{Void}, nu::Cdouble, xmax::Cdouble)
-    gsl_errno = ccall( (:gsl_dht_init, :libgsl), Cint, (Ptr{Void}, Cdouble,
-        Cdouble), t, nu, xmax )
+function gsl_dht_init(t::Ptr{gsl_dht}, nu::Real, xmax::Real)
+    gsl_errno = ccall( (:gsl_dht_init, :libgsl), Cint, (Ptr{gsl_dht},
+        Cdouble, Cdouble), t, nu, xmax )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
 end
 
@@ -34,22 +31,20 @@ end
 # This function allocates a Discrete Hankel transform object of size size and
 # initializes it for the given values of nu and xmax.
 # 
-#   Returns: Ptr{Void}
-#XXX Unknown output type Ptr{gsl_dht}
-#XXX Coerced type for output Ptr{Void}
-function gsl_dht_new{gsl_int<:Integer}(size::gsl_int, nu::Cdouble, xmax::Cdouble)
-    ccall( (:gsl_dht_new, :libgsl), Ptr{Void}, (Csize_t, Cdouble, Cdouble),
-        size, nu, xmax )
+#   Returns: Ptr{gsl_dht}
+function gsl_dht_new(size::Integer, nu::Real, xmax::Real)
+    ccall( (:gsl_dht_new, :libgsl), Ptr{gsl_dht}, (Csize_t, Cdouble,
+        Cdouble), size, nu, xmax )
 end
+#TODO This vectorization macro is not implemented
+#@vectorize_3arg Number gsl_dht_new
 
 
 # This function frees the transform t.
 # 
 #   Returns: Void
-#XXX Unknown input type t::Ptr{gsl_dht}
-#XXX Coerced type for t::Ptr{Void}
-function gsl_dht_free(t::Ptr{Void})
-    ccall( (:gsl_dht_free, :libgsl), Void, (Ptr{Void}, ), t )
+function gsl_dht_free(t::Ptr{gsl_dht})
+    ccall( (:gsl_dht_free, :libgsl), Void, (Ptr{gsl_dht}, ), t )
 end
 
 
@@ -60,15 +55,13 @@ end
 # errors.
 # 
 #   Returns: Cint
-#XXX Unknown input type t::Ptr{gsl_dht}
-#XXX Coerced type for t::Ptr{Void}
-function gsl_dht_apply(t::Ptr{Void})
+function gsl_dht_apply(t::Ptr{gsl_dht})
     f_in = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     f_out = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    gsl_errno = ccall( (:gsl_dht_apply, :libgsl), Cint, (Ptr{Void},
+    gsl_errno = ccall( (:gsl_dht_apply, :libgsl), Cint, (Ptr{gsl_dht},
         Ptr{Cdouble}, Ptr{Cdouble}), t, f_in, f_out )
     if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
-    return unsafe_ref(f_in) ,unsafe_ref(f_out)
+    return unsafe_ref(f_in)[1] ,unsafe_ref(f_out)[1]
 end
 
 
@@ -77,10 +70,9 @@ end
 # f(t) is assumed to be sampled.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type t::Ptr{gsl_dht}
-#XXX Coerced type for t::Ptr{Void}
-function gsl_dht_x_sample{gsl_int<:Integer}(t::Ptr{Void}, n::gsl_int)
-    ccall( (:gsl_dht_x_sample, :libgsl), Cdouble, (Ptr{Void}, Cint), t, n )
+function gsl_dht_x_sample(t::Ptr{gsl_dht}, n::Integer)
+    ccall( (:gsl_dht_x_sample, :libgsl), Cdouble, (Ptr{gsl_dht}, Cint), t,
+        n )
 end
 
 
@@ -88,8 +80,7 @@ end
 # j_{\nu,n+1}/X.
 # 
 #   Returns: Cdouble
-#XXX Unknown input type t::Ptr{gsl_dht}
-#XXX Coerced type for t::Ptr{Void}
-function gsl_dht_k_sample{gsl_int<:Integer}(t::Ptr{Void}, n::gsl_int)
-    ccall( (:gsl_dht_k_sample, :libgsl), Cdouble, (Ptr{Void}, Cint), t, n )
+function gsl_dht_k_sample(t::Ptr{gsl_dht}, n::Integer)
+    ccall( (:gsl_dht_k_sample, :libgsl), Cdouble, (Ptr{gsl_dht}, Cint), t,
+        n )
 end
