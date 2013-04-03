@@ -26,6 +26,7 @@ function gsl_poly_solve_cubic (a::Cdouble, b::Cdouble, c::Cdouble)
     num_roots = ccall( (:gsl_poly_solve_cubic, :libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}), a, b, c,
         x0, x1, x2 )
+    x0, x1, x2 = x0[1], x1[1], x2[2]
     if num_roots==1
         x0
     elseif num_roots==3
@@ -51,7 +52,7 @@ function gsl_poly_complex_solve_cubic (a::Cdouble, b::Cdouble, c::Cdouble)
         (Cdouble, Cdouble, Cdouble, Ptr{Void}, Ptr{Void},
         Ptr{Void}), a, b, c, &z0, &z1, &z2 )
     if num_roots==3
-       return z0 ,z1 ,z2
+        return z0[1], z1[1], z2[1]
     else #Not supposed to happen
         throw(GSL_ERROR, num_roots)
     end

@@ -37,32 +37,6 @@ end
 roots{T<:Real}(c::Vector{T}) = roots(c, false) #By default, all complex roots
 
 
-export gsl_poly_complex_workspace_alloc, gsl_poly_complex_workspace_free,
-       gsl_poly_complex_solve
-
-
-# This function allocates space for a gsl_poly_complex_workspace struct and a
-# workspace suitable for solving a polynomial with n coefficients using the
-# routine gsl_poly_complex_solve.          The function returns a pointer to
-# the newly allocated gsl_poly_complex_workspace if no errors were detected,
-# and a null pointer in the case of error.
-# 
-#   Returns: Ptr{Void}
-function gsl_poly_complex_workspace_alloc(n::Integer)
-    ccall( (:gsl_poly_complex_workspace_alloc, "libgsl"), Ptr{Void},
-        (Csize_t, ), n )
-end
-
-
-# This function frees all the memory associated with the workspace w.
-# 
-#   Returns: Void
-function gsl_poly_complex_workspace_free (w::Ptr{Void})
-    ccall( (:gsl_poly_complex_workspace_free, "libgsl"), Void, (Ptr{Void},
-        ), w )
-end
-
-
 # This function computes the roots of the general polynomial  P(x) = a_0 + a_1
 # x + a_2 x^2 + ... + a_{n-1} x^{n-1} using balanced-QR reduction of the
 # companion matrix.  The parameter n specifies the length of the coefficient
@@ -79,10 +53,14 @@ end
 # Mathematical Software, Volume 30, Issue 2 (2004), pp 218–236).
 # 
 #   Returns: Cint
-function gsl_poly_complex_solve{T<:Real}(a::Vector{T}, n::Integer, w::Ptr{Void})
-    z=zeros(2n-2)
-    a=convert(Array{Cdouble}, a)
-    ccall( (:gsl_poly_complex_solve, "libgsl"), Cint, (Ptr{Cdouble},
-        Csize_t, Ptr{Void}, Ptr{Void}), a, n, w, z )
-    return z    
+#XXX Unknown input type w::Ptr{gsl_poly_complex_workspace}
+#XXX Coerced type for w::Ptr{Void}
+#XXX Unknown input type z::gsl_complex_packed_ptr
+#XXX Coerced type for z::Void
+function gsl_poly_complex_solve{tA<:Real}(a::Ptr{tA}, n::Integer, w::Ptr{Void}, z::Void)
+    gsl_errno = ccall( (:gsl_poly_complex_solve, :libgsl), Cint,
+        (Ptr{Cdouble}, Csize_t, Ptr{Void}, Void), a, n, w, z )
+    if gsl_errno!= 0 throw(GSL_ERROR(gsl_errno)) end
+    return z
 end
+

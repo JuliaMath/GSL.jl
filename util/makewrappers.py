@@ -471,7 +471,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                     if dims==0: dims=1
                     ty_decl='convert('+ty+', Array('*dims+ty_decl+', 1)'*dims+')'
                     new_vars.append('    '+x+' = '+ty_decl)
-                    return_me.append('unsafe_ref('*dims+x+')'*dims)
+                    return_me.append('unsafe_ref('*dims+x+')[1]'*dims)
 
             ccall_line = 'ccall( '+', '.join(ccall_args)+' )'
             #If return type is Cint, assume this is an error code
