@@ -29,13 +29,12 @@ function poly_solve_quadratic (a::Cdouble, b::Cdouble, c::Cdouble)
     num_roots = ccall( (:gsl_poly_solve_quadratic, :libgsl), Cint,
         (Cdouble, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), a, b, c, x0,
         x1 )
-    x0, x1 = x0[1], x1[1]
     if num_roots==0
         nothing
     elseif num_roots==1
-        x0
+        x0[1]
     elseif num_roots==2
-        x0, x1
+        x0[1], x1[1]
     else #Not supposed to happen
         throw(GSL_ERROR, num_roots)
     end
@@ -56,13 +55,12 @@ function poly_complex_solve_quadratic (a::Cdouble, b::Cdouble, c::Cdouble)
     num_roots = ccall( (:gsl_poly_complex_solve_quadratic, :libgsl), Cint,
         (Cdouble, Cdouble, Cdouble, Ptr{Void}, Ptr{Void}), a, b,
         c, z0, z1 )
-    z0, z1 = z0[1], z1[1]
     if num_roots==0
         nothing
     elseif num_roots==1
-        z0
+        z0[1]
     elseif num_roots==2
-        z0, z1
+        z0[1], z1[1]
     else #Not supposed to happen
         throw(GSL_ERROR, num_roots)
     end
