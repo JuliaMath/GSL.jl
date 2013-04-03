@@ -27,7 +27,7 @@ function permutation_inverse(p::Ptr{gsl_permutation})
     inv = permutation_alloc(unsafe_ref(p).size)
     errno = ccall( (:gsl_permutation_inverse, :libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_permutation}), inv, p )
-    if errno!= 0 throw(gsl_ERROR(errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return inv
 end
 
@@ -42,7 +42,7 @@ end
 function permutation_next(p::Ptr{gsl_permutation})
     errno = ccall( (:gsl_permutation_next, :libgsl), Cint,
         (Ptr{gsl_permutation}, ), p )
-    if errno!= 0 throw(gsl_ERROR(errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return p
 end
 
@@ -56,6 +56,6 @@ function permutation_prev()
     p = convert(Ptr{gsl_permutation}, Array(permutation, 1))
     errno = ccall( (:gsl_permutation_prev, :libgsl), Cint,
         (Ptr{gsl_permutation}, ), p )
-    if errno!= 0 throw(gsl_ERROR(errno)) end
+    if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_ref(p)
 end

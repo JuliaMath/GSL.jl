@@ -9,8 +9,8 @@ using GSL
 x = 5.0
 expected = -0.17759677131433830434739701
 
-result = gsl_sf_bessel_J0_e(x)
-println("status  = ", gsl_strerror(0))
+result = sf_bessel_J0_e(x)
+println("status  = ", strerror(0))
 @printf("J0(5.0) = %.18f\n      +/- % .18f\n", result.val, result.err)
 @printf("exact   = %.18f\n", expected)
 
@@ -26,7 +26,7 @@ println("status  = ", gsl_strerror(0))
 x = 5.0
 expected = -0.17759677131433830434739701
        
-y = gsl_sf_bessel_J0 (x)
+y = sf_bessel_J0 (x)
      
 @printf("J0(5.0) = %.18f\n", y)
 @printf("exact   = %.18f\n", expected)

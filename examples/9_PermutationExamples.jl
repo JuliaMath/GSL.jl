@@ -8,38 +8,38 @@ using GSL
 
 N = 10
      
-p = gsl_permutation_alloc(N)
+p = permutation_alloc(N)
      
-T = gsl_rng_env_setup()
-r = gsl_rng_alloc(T)
+T = rng_env_setup()
+r = rng_alloc(T)
      
 print("initial permutation:")  
-gsl_permutation_init(p)
-#gsl_permutation_fprintf(stdout, p, " %u")
+permutation_init(p)
+#permutation_fprintf(stdout, p, " %u")
 for x in pointer_to_array(unsafe_ref(p).data, (int(unsafe_ref(p).size),))
     print(int(x), " ")
 end
 println()
      
 print(" random permutation:")  
-gsl_ran_shuffle(r, convert(Ptr{None}, unsafe_ref(p).data), N, sizeof(Uint64))
-#gsl_permutation_fprintf(stdout, p, " %u")
+ran_shuffle(r, convert(Ptr{None}, unsafe_ref(p).data), N, sizeof(Uint64))
+#permutation_fprintf(stdout, p, " %u")
 for x in pointer_to_array(unsafe_ref(p).data, (int(unsafe_ref(p).size),))
     print(int(x), " ")
 end
 println()
      
 print("inverse permutation:")  
-q = gsl_permutation_inverse(p)
-#gsl_permutation_fprintf(stdout, q, " %u")
+q = permutation_inverse(p)
+#permutation_fprintf(stdout, q, " %u")
 for x in pointer_to_array(unsafe_ref(q).data, (int(unsafe_ref(q).size),))
     print(int(x), " ")
 end
 println()
      
-gsl_permutation_free(p)
-gsl_permutation_free(q)
-gsl_rng_free(r)
+permutation_free(p)
+permutation_free(q)
+rng_free(r)
      
 #Here is the output from the program,
 #
@@ -51,23 +51,23 @@ gsl_rng_free(r)
 #
 #The next example program steps forwards through all possible third order permutations, starting from the identity,
 
-p = gsl_permutation_alloc(3)
-gsl_permutation_init(p)
+p = permutation_alloc(3)
+permutation_init(p)
 
 while true
     try
-        #gsl_permutation_fprintf(stdout, p, " %u")
+        #permutation_fprintf(stdout, p, " %u")
         for x in pointer_to_array(unsafe_ref(p).data, (int(unsafe_ref(p).size),))
             print(int(x), " ")
         end 
         println()
-        p=gsl_permutation_next(p)
+        p=permutation_next(p)
     catch Ex
-        if typeof(Ex)==GSL_ERROR && Ex.gsl_errno==-1 break end
+        if typeof(Ex)==GSL_ERROR && Ex.errno==-1 break end
         throw(Ex)
     end
 end
-gsl_permutation_free(p)
+permutation_free(p)
     
 #Here is the output from the program,
 #
@@ -78,5 +78,5 @@ gsl_permutation_free(p)
 #      1 2 0
 #      2 0 1
 #      2 1 0
-#The permutations are generated in lexicographic order. To reverse the sequence, begin with the final permutation (which is the reverse of the identity) and replace gsl_permutation_next with gsl_permutation_prev.
+#The permutations are generated in lexicographic order. To reverse the sequence, begin with the final permutation (which is the reverse of the identity) and replace permutation_next with gsl_permutation_prev.
 

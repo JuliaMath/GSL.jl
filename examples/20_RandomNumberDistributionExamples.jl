@@ -6,14 +6,14 @@
 
 using GSL
 n, mu = 10, 3.0
-T = gsl_rng_env_setup()
-r = gsl_rng_alloc(T)
+T = rng_env_setup()
+r = rng_alloc(T)
 for i=1:n
-    k=int64(gsl_ran_poisson(r, mu))
+    k=int64(ran_poisson(r, mu))
     @printf(" %u", k)
 end
 println()
-gsl_rng_free(r)
+rng_free(r)
 
 #Output
 # 2 5 5 2 1 0 3 4 1 1
@@ -24,19 +24,19 @@ gsl_rng_free(r)
 
 x=y=0
 
-T = gsl_rng_env_setup()
-r = gsl_rng_alloc(T)
+T = rng_env_setup()
+r = rng_alloc(T)
 
 @printf("%f %f\n", x, y)
 for i=1:10
     dx=dy=0.0
-    dx, dy=gsl_ran_dir_2d(r)
+    dx, dy=ran_dir_2d(r)
     x += dx
     y += dy 
     @printf("%f %f\n", x, y)
 end
 
-gsl_rng_free(r)
+rng_free(r)
 
 ###
 
@@ -44,16 +44,16 @@ gsl_rng_free(r)
 
 x=2.0
 
-P = gsl_cdf_ugaussian_P(x)
+P = cdf_ugaussian_P(x)
 @printf("prob(x < %f) = %f\n", x, P)
 
-Q = gsl_cdf_ugaussian_Q(x)
+Q = cdf_ugaussian_Q(x)
 @printf("prob(x > %f) = %f\n", x, Q)
 
-x = gsl_cdf_ugaussian_Pinv(P)
+x = cdf_ugaussian_Pinv(P)
 @printf("Pinv(%f) = %f\n", P, x)
 
-x = gsl_cdf_ugaussian_Qinv(Q)
+x = cdf_ugaussian_Qinv(Q)
 @printf("Qinv(%f) = %f\n", Q, x)
 
 #Output
