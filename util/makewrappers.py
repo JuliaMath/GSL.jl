@@ -61,6 +61,26 @@ known_types = {
     'longdouble':'Cdouble',
 }
 
+GeneralType={
+    #System independent types
+    'Cshort':'Integer',
+    'Cushort':'Integer',
+    'Cint':'Integer',
+    'Cuint':'Integer',
+    'Clong':'Integer',
+    'Clonglong':'Integer',
+    'Culong':'Integer',
+    'Culonglong':'Integer',
+    'Cfloat':'Real',
+    'Cdouble':'Real',
+    'Cchar':'Char',
+    'Int8':'Char',
+    'UInt8':'Char',
+    'Csize_t':'Integer',
+    'Ccomplex_float':'Complex',
+    'Ccomplex_double':'Complex',
+}
+
 
 def forcevoid(v):
     """Forces the unknown type v to become a Void, while preserving Ptr{} wraps"""
@@ -399,12 +419,23 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             julia_decl = []
             functemplatevars={}
             ccall_input_names = []
+            template='tA'
             for i, var in enumerate(new_julia_input_names):
                 intype = new_julia_inputs[i]
-                #Special handling for integers: rely on coercion in ccall
-                if intype == 'Cint' or intype == 'Csize_t':
-                    functemplatevars['gsl_int'] = 'Integer'
-                    intype = 'gsl_int'
+                #Generalize types in function declaration
+                
+                if '{' in intype:
+                    #Template vectors
+                    basetype=intype[intype.rfind('{')+1:intype.find('}')]
+                    if basetype in GeneralType:
+                        gentype = GeneralType[basetype]
+                        functemplatevars[template] = gentype
+                        intype = intype[:intype.rfind('{')+1]+template+intype[intype.find('}')-1+1:]
+                        template=template[:-1]+chr(ord(template[-1])+1)
+                else: #Not a vector
+                    if intype in GeneralType:
+                        intype=GeneralType[intype]
+
                 julia_decl.append(var+'::'+intype)
                 #When to put ampersands?
                 #if ('Ptr{gsl_' in intype):
@@ -588,6 +619,7 @@ if __name__ == '__main__':
 
     #Step 2: Search HTML docs again for functions and structs
     all_unknowns = []
+    #for filename in ["../html_node/Acceleration-functions-without-error-estimation.html"]:
     for filename in glob('../html_node/*.html'):
         jfilename, exports, unknowns = write_wrapper(filename, ["function", "struct"], ["coerce", "list", "report"])
         if jfilename is None: continue
