@@ -635,7 +635,8 @@ if __name__ == '__main__':
     all_unknowns = []
     #for filename in ["../html_node/Acceleration-functions-without-error-estimation.html"]:
     for filename in glob('../html_node/*.html'):
-        jfilename, exports, unknowns = write_wrapper(filename, ["function", "struct"], ["coerce", "list", "report"])
+        jfilename, exports, unknowns = write_wrapper(filename, ["function", "struct"], ["list"])
+        #jfilename, exports, unknowns = write_wrapper(filename, ["function", "struct"], ["coerce", "list", "report"])
         if jfilename is None: continue
         if exports != [] and jfilename not in filenames:
             filenames.append(jfilename)
@@ -643,9 +644,15 @@ if __name__ == '__main__':
 
     #Write list of files
     f = open('../src/__FILELIST.jl', 'w')
-    #Write also list of unknowns
+    #Declare dummy opaque pointer types (Issue #5)
+    f.write('\n\n#Automatically generated list of dummy opaque pointer types\n')
     for unknown in sorted(list(set(all_unknowns))):
-        f.write('#XXX Unknown data type was encountered: '+unknown+'\n')
+        f.write('type '+unknown.replace(' ','')+'; end\n')
+        #Generate pointer types if needed
+        #f.write('typealias '+'p'+unknown+' Ptr{'+unknown+'}\n')
+
+    f.write('\n\n#Automatically generated include list\n')
     f.write('\n'.join(['include("'+x+'")' for x in filenames]))
+    f.write('\n')
     f.close()
 
