@@ -7,13 +7,24 @@
 
 export roots, poly_complex_solve
 
-function roots{T<:Real}(c::Vector{T}, realOnly::Bool)
+# roots(c) returns the roots of the (real-coefficient) polynomial
+#    c[1] * z^(n-1) + ... + c[n]
+# roots(c, true) only returns real roots
+function roots{T<:Real}(c::AbstractVector{T}, realOnly::Bool)
     n = length(c)
-    a = convert(Vector{Cdouble}, c)
+    a = Array(Cdouble, n)
+    # follow Matlab convention: c[1] is the highest-degree coefficient,
+    # while in GSL a[1] is the lowest-degree coefficient.
+    for i = 1:n
+        a[i] = c[n+1-i]
+    end
+    while n > 0 && a[n] == 0
+        n -= 1 # leading coefficient should be non-zero
+    end
     if n<2
-        return nothing #No solution
+        return Cdouble[] # No solution
     elseif n==2
-        [poly_solve_quadratic(0.0, a[2], a[1])...]
+        [ -a[1]/a[2] ]
     elseif n==3
         if realOnly
             [poly_solve_quadratic(a[3], a[2], a[1])...]
@@ -27,14 +38,21 @@ function roots{T<:Real}(c::Vector{T}, realOnly::Bool)
             [poly_complex_solve_cubic(a[3]/a[4], a[2]/a[4], a[1]/a[4])...]
         end
     else #Use general solver
+        if realOnly throw(ArgumentError("real-only roots not implemented for degree > 3")); end
         w = poly_complex_workspace_alloc(n)
-        z = poly_complex_solve(a, n, w)
-        poly_complex_workspace_free(w)
-        z
+        if (w == C_NULL)
+            throw(MemoryError())
+        end
+        try
+            return poly_complex_solve(a, n, w)
+        finally
+            poly_complex_workspace_free(w)
+        end
     end
 end
 
-roots{T<:Real}(c::Vector{T}) = roots(c, false) #By default, all complex roots
+# By default, all complex roots
+roots{T<:Real}(c::AbstractVector{T}) = roots(c, false)
 
 
 # This function computes the roots of the general polynomial  P(x) = a_0 + a_1
@@ -54,7 +72,7 @@ roots{T<:Real}(c::Vector{T}) = roots(c, false) #By default, all complex roots
 # 
 #   Returns: Cint
 
-function poly_complex_solve{tA<:Real}(a_in::Vector{tA}, n::Integer, w::Ptr{gsl_poly_complex_workspace})
+function poly_complex_solve{tA<:Real}(a_in::AbstractVector{tA}, n::Integer, w::Ptr{gsl_poly_complex_workspace})
     a = convert(Vector{Cdouble}, a_in)
     z = Array(Complex{Cdouble}, n-1)
     errno = ccall( (:gsl_poly_complex_solve, :libgsl), Cint,
