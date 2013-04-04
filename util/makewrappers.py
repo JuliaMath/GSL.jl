@@ -474,6 +474,27 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                 #if ('Ptr{gsl_' in intype):
                 #    ccall_input_names.append('&'+var)
 
+            #Fancy heuristic
+            #If there is at least one AbstractVector and one Integer in the
+            #function's inputs, assume that the LAST Integer actually declares
+            #the length of the FIRST AbstractVector
+            do_this_heuristic={'Vec':None, 'Int':None}
+            for decl_var in julia_decl:
+                if "AbstractVector" in decl_var.split('::')[1]:
+                    do_this_heuristic['Vec']=decl_var.split('::')[0]
+                    break
+            if do_this_heuristic['Vec'] is not None:
+                for decl_var in julia_decl[::-1]:
+                    if "Integer" in decl_var.split('::')[1]:
+                        do_this_heuristic['Int']=decl_var.split('::')[0]
+                        break
+            if  do_this_heuristic['Vec'] is not None and \
+                    do_this_heuristic['Int'] is not None:
+                #Remove the integer from the decl
+                julia_decl = [x for x in julia_decl if x!=do_this_heuristic['Int']+'::Integer']
+                #Insert integer before convert_lines
+                convert_lines.insert(0, '    '+do_this_heuristic['Int']+' = length('+do_this_heuristic['Vec']+')')
+
             if len(functemplatevars) > 0:
                 functemplate='{'+', '.join([k+'<:'+v for k,v in sorted(functemplatevars.items())])+'}'
             else:
