@@ -441,9 +441,11 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                         if gentype in ['Complex', 'Integer', 'Real']:
                             intype=intype.replace('Ptr', 'Vector')
                         var_in = var+'_in'
-                        convert_lines.append('    convert('+intype+', '+var_in+')')
+                        convert_lines.append('    ', var, ' = convert('+intype+', '+var_in+')')
                         functemplatevars[template] = gentype
                         intype = intype[:intype.rfind('{')+1]+template+intype[intype.find('}')-1+1:]
+                        #In decl line, change Vector to AbstractVector
+                        intype=intype.replace('Vector', 'AbstractVector')
                         template=template[:-1]+chr(ord(template[-1])+1)
                     do_vectorize=-1
                 else: #Not a vector
@@ -503,7 +505,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             if julia_output == 'Ptr{Cchar}':
                 ccall_line.append('    bytestring(convert(Ptr{Uint8}, output_string))')
             #Dump out any new outputs
-            if len(return_me)>0: ccall_line.append('    return '+' ,'.join(return_me))
+            if len(return_me)>0: ccall_line.append('    return '+', '.join(return_me))
             #Dump it all out
             parsed_out += [docstring]
             parsed_out += ['#  '+comment for comment in comments]
