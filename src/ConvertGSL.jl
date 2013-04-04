@@ -6,11 +6,6 @@
 
 export GSL_ERROR, custom_gsl_error_handler, complex_packed_ptr, complex_packed_array
 
-#Steals GSL_ERROR to become an exception in Julia
-type GSL_ERROR{T<:Integer} <: Exception
-    errno :: T
-end
-
 #Convert gsl_complex_packed_ptr to Vector{Complex128}
 complex_packed_array(c::Vector{Cdouble}) = Complex128[c[2i-1]+im*c[2i] for i=1:int(length(c)/2)]
 
@@ -44,6 +39,8 @@ function custom_error_handler(reason::Ptr{Uint8}, file::Ptr{Uint8}, line, errno)
     end
     return
 end
+
+GSL_ERROR{T<:Integer}(errno::T)=custom_error_handler("", "None", 0, errno)
 
 custom_gsl_error_handler = convert(Ptr{gsl_error_handler_t}, cfunction(custom_error_handler, Void, (Ptr{Uint8}, Ptr{Uint8}, Cint, Cint)))
 
