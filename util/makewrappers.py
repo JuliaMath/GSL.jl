@@ -515,7 +515,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             ccall_line = ['    '+ccall_line[0]] + [' '*8 + l for l in ccall_line[1:]]
             
             #If function allocates something, check that it was allocated properly
-            if 'Ptr{' in julia_output:
+            if 'Ptr{' in julia_output and '_off' not in funcname:
                 ccall_line.append('    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr')
             #Trap error code
             if julia_output == 'Cint':

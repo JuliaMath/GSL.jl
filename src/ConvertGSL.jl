@@ -7,8 +7,8 @@
 export GSL_ERROR, complex_packed_ptr, complex_packed_array
 
 #Steals GSL_ERROR to become an exception in Julia
-type GSL_ERROR <: Exception
-    errno :: Cint
+type GSL_ERROR{T<:Integer} <: Exception
+    errno :: T
 end
 
 #Convert gsl_complex_packed_ptr to Vector{Complex128}
