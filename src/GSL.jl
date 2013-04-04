@@ -1,6 +1,6 @@
 module GSL
-    include("ConvertGSL.jl")
     include("__FILELIST.jl")
+    include("ConvertGSL.jl")
     include("6_3_QuadraticEquations.jl")
     include("6_4_CubicEquations.jl")
     include("6_5_GeneralPolynomialEquations.jl")
@@ -20,3 +20,4 @@ catch
     error("The GNU Scientific Library does not appear to be installed.")
 end
 
+set_error_handler(custom_gsl_error_handler)
