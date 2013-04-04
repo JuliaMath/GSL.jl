@@ -90,6 +90,18 @@ def forcevoid(v):
     return v[:begidx+1] + 'Void' + v[endidx:]
 
 
+def should_ignore(funcname):
+    #Don't bother with entire classes of routines
+    return 'gsl_eigen_' in funcname or \
+           'gsl_complex' in funcname or \
+           'gsl_sort' in funcname or \
+           'gsl_vector_' in funcname or \
+           'gsl_matrix_' in funcname or \
+           'blas_' in funcname or \
+           'gsl_fft_' in funcname or \
+           'gsl_linalg_' in funcname
+
+
 def juliatype(ctype):
     """
     Tries to convert a given ctype to its corresponding Julia type
@@ -250,6 +262,7 @@ def parsestructs2(soup, unknown_handler = 'report'):
             isDisabled = False #Will be disabled if the parse fails
             outputs = fn.find_previous('b').previous
             funcname = fn.find_previous('b').string
+            if should_ignore(funcname): continue
             inputs = fn.find_previous('b').find_next('var').get_text()
             try:
                 comments = fn.find_next('blockquote').findAll(text=lambda text:isinstance(text, Comment))
@@ -321,7 +334,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             isDisabled = False #Will be disabled if the parse fails
             outputs = fn.find_previous('b').previous
             funcname = fn.find_previous('b').string
-            if 'blas_' in funcname: continue #Don't bother with BLAS wrappers
+            if should_ignore(funcname): continue
             inputs = fn.find_previous('b').find_next('var').get_text()
             try:
                 comments = fn.find_next('blockquote').findAll(text=lambda text:isinstance(text, Comment))
@@ -441,7 +454,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                         if gentype in ['Complex', 'Integer', 'Real']:
                             intype=intype.replace('Ptr', 'Vector')
                         var_in = var+'_in'
-                        convert_lines.append('    ', var, ' = convert('+intype+', '+var_in+')')
+                        convert_lines.append('    '+var+' = convert('+intype+', '+var_in+')')
                         functemplatevars[template] = gentype
                         intype = intype[:intype.rfind('{')+1]+template+intype[intype.find('}')-1+1:]
                         #In decl line, change Vector to AbstractVector
@@ -491,6 +504,8 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                     new_vars.append('    '+x+' = '+ty_decl)
 
             ccall_line = 'ccall( '+', '.join(ccall_args)+' )'
+            if funcname[-6:] == '_alloc':
+                ccall_line = "output_ptr = "+ccall_line
             #If return type is Cint, assume this is an error code
             if julia_output == 'Cint':
                 ccall_line = "errno = "+ccall_line
@@ -499,6 +514,9 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             ccall_line = wrap(ccall_line, maxwidth-8)
             ccall_line = ['    '+ccall_line[0]] + [' '*8 + l for l in ccall_line[1:]]
             
+            #If function allocates something, check that it was allocated properly
+            if funcname[-6:] == '_alloc':
+                ccall_line.append('    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr')
             #Trap error code
             if julia_output == 'Cint':
                 ccall_line.append('    if errno!= 0 throw(GSL_ERROR(errno)) end')
