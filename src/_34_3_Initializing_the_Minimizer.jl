@@ -22,8 +22,9 @@ export min_fminimizer_alloc, min_fminimizer_set,
 # 
 #   Returns: Ptr{gsl_min_fminimizer}
 function min_fminimizer_alloc(T::Ptr{gsl_min_fminimizer_type})
-    ccall( (:gsl_min_fminimizer_alloc, :libgsl), Ptr{gsl_min_fminimizer},
-        (Ptr{gsl_min_fminimizer_type}, ), T )
+    output_ptr = ccall( (:gsl_min_fminimizer_alloc, :libgsl),
+        Ptr{gsl_min_fminimizer}, (Ptr{gsl_min_fminimizer_type}, ), T )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 
@@ -54,7 +55,7 @@ function min_fminimizer_set_with_values(x_minimum::Real, f_minimum::Real, x_lowe
         Cdouble, Cdouble, Cdouble), s, f, x_minimum, f_minimum, x_lower,
         f_lower, x_upper, f_upper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(s) ,unsafe_ref(f)
+    return unsafe_ref(s), unsafe_ref(f)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_6arg Number min_fminimizer_set_with_values
@@ -75,7 +76,8 @@ end
 # 
 #   Returns: Ptr{Cchar}
 function min_fminimizer_name(s::Ptr{gsl_min_fminimizer})
-    output_string = ccall( (:gsl_min_fminimizer_name, :libgsl), Ptr{Cchar},
-        (Ptr{gsl_min_fminimizer}, ), s )
+    output_string = output_ptr = ccall( (:gsl_min_fminimizer_name,
+        :libgsl), Ptr{Cchar}, (Ptr{gsl_min_fminimizer}, ), s )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
 end

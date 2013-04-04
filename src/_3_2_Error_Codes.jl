@@ -16,8 +16,9 @@ export strerror
 # 
 #   Returns: Ptr{Cchar}
 function strerror(gsl_errno::Integer)
-    output_string = ccall( (:gsl_strerror, :libgsl), Ptr{Cchar}, (Cint, ),
-        gsl_errno )
+    output_string = output_ptr = ccall( (:gsl_strerror, :libgsl),
+        Ptr{Cchar}, (Cint, ), gsl_errno )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
 end
 @vectorize_1arg Number strerror

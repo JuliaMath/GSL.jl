@@ -19,8 +19,9 @@ export odeiv2_step_alloc, odeiv2_step_reset, odeiv2_step_free,
 # 
 #   Returns: Ptr{gsl_odeiv2_step}
 function odeiv2_step_alloc(T::Ptr{gsl_odeiv2_step_type}, dim::Integer)
-    ccall( (:gsl_odeiv2_step_alloc, :libgsl), Ptr{gsl_odeiv2_step},
-        (Ptr{gsl_odeiv2_step_type}, Csize_t), T, dim )
+    output_ptr = ccall( (:gsl_odeiv2_step_alloc, :libgsl),
+        Ptr{gsl_odeiv2_step}, (Ptr{gsl_odeiv2_step_type}, Csize_t), T, dim )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 
@@ -53,8 +54,9 @@ end
 # 
 #   Returns: Ptr{Cchar}
 function odeiv2_step_name(s::Ptr{gsl_odeiv2_step})
-    output_string = ccall( (:gsl_odeiv2_step_name, :libgsl), Ptr{Cchar},
-        (Ptr{gsl_odeiv2_step}, ), s )
+    output_string = output_ptr = ccall( (:gsl_odeiv2_step_name, :libgsl),
+        Ptr{Cchar}, (Ptr{gsl_odeiv2_step}, ), s )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
 end
 

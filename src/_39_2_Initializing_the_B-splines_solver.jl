@@ -14,8 +14,9 @@ export bspline_alloc, bspline_free, bspline_deriv_alloc, bspline_deriv_free
 # 
 #   Returns: Ptr{gsl_bspline_workspace}
 function bspline_alloc(k::Integer, nbreak::Integer)
-    ccall( (:gsl_bspline_alloc, :libgsl), Ptr{gsl_bspline_workspace},
-        (Csize_t, Csize_t), k, nbreak )
+    output_ptr = ccall( (:gsl_bspline_alloc, :libgsl),
+        Ptr{gsl_bspline_workspace}, (Csize_t, Csize_t), k, nbreak )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number bspline_alloc
 
@@ -34,8 +35,9 @@ end
 # 
 #   Returns: Ptr{gsl_bspline_deriv_workspace}
 function bspline_deriv_alloc(k::Integer)
-    ccall( (:gsl_bspline_deriv_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_bspline_deriv_alloc, :libgsl),
         Ptr{gsl_bspline_deriv_workspace}, (Csize_t, ), k )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number bspline_deriv_alloc
 

@@ -14,8 +14,9 @@ export spline_alloc, spline_init, spline_free, spline_name, spline_min_size,
 # 
 #   Returns: Ptr{gsl_spline}
 function spline_alloc(T::Ptr{gsl_interp_type}, size::Integer)
-    ccall( (:gsl_spline_alloc, :libgsl), Ptr{gsl_spline},
+    output_ptr = ccall( (:gsl_spline_alloc, :libgsl), Ptr{gsl_spline},
         (Ptr{gsl_interp_type}, Csize_t), T, size )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 
@@ -41,8 +42,9 @@ end
 # 
 #   Returns: Ptr{Cchar}
 function spline_name(spline::Ptr{gsl_spline})
-    output_string = ccall( (:gsl_spline_name, :libgsl), Ptr{Cchar},
-        (Ptr{gsl_spline}, ), spline )
+    output_string = output_ptr = ccall( (:gsl_spline_name, :libgsl),
+        Ptr{Cchar}, (Ptr{gsl_spline}, ), spline )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
 end
 
@@ -74,7 +76,7 @@ function spline_eval_e(spline::Ptr{gsl_spline}, x::Real)
     errno = ccall( (:gsl_spline_eval_e, :libgsl), Cint, (Ptr{gsl_spline},
         Cdouble, Ptr{gsl_interp_accel}, Ptr{Cdouble}), spline, x, acc, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(acc) ,unsafe_ref(y)
+    return unsafe_ref(acc), unsafe_ref(y)
 end
 
 
@@ -97,7 +99,7 @@ function spline_eval_deriv_e(spline::Ptr{gsl_spline}, x::Real)
         (Ptr{gsl_spline}, Cdouble, Ptr{gsl_interp_accel}, Ptr{Cdouble}),
         spline, x, acc, d )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(acc) ,unsafe_ref(d)
+    return unsafe_ref(acc), unsafe_ref(d)
 end
 
 
@@ -120,7 +122,7 @@ function spline_eval_deriv2_e(spline::Ptr{gsl_spline}, x::Real)
         (Ptr{gsl_spline}, Cdouble, Ptr{gsl_interp_accel}, Ptr{Cdouble}),
         spline, x, acc, d2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(acc) ,unsafe_ref(d2)
+    return unsafe_ref(acc), unsafe_ref(d2)
 end
 
 
@@ -143,5 +145,5 @@ function spline_eval_integ_e(spline::Ptr{gsl_spline}, a::Real, b::Real)
         (Ptr{gsl_spline}, Cdouble, Cdouble, Ptr{gsl_interp_accel},
         Ptr{Cdouble}), spline, a, b, acc, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(acc) ,unsafe_ref(result)
+    return unsafe_ref(acc), unsafe_ref(result)
 end

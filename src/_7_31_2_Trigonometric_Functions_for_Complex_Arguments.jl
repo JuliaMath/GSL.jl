@@ -17,7 +17,7 @@ function sf_complex_sin_e(zr::Real, zi::Real)
     errno = ccall( (:gsl_sf_complex_sin_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, szr, szi )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(szr) ,unsafe_ref(szi)
+    return unsafe_ref(szr), unsafe_ref(szi)
 end
 @vectorize_2arg Number sf_complex_sin_e
 
@@ -32,7 +32,7 @@ function sf_complex_cos_e(zr::Real, zi::Real)
     errno = ccall( (:gsl_sf_complex_cos_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, czr, czi )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(czr) ,unsafe_ref(czi)
+    return unsafe_ref(czr), unsafe_ref(czi)
 end
 @vectorize_2arg Number sf_complex_cos_e
 
@@ -47,6 +47,6 @@ function sf_complex_logsin_e(zr::Real, zi::Real)
     errno = ccall( (:gsl_sf_complex_logsin_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, lszr, lszi )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(lszr) ,unsafe_ref(lszi)
+    return unsafe_ref(lszr), unsafe_ref(lszi)
 end
 @vectorize_2arg Number sf_complex_logsin_e

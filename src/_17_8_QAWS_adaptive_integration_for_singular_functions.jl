@@ -31,9 +31,10 @@ export integration_qaws_table_alloc, integration_qaws_table_set,
 # 
 #   Returns: Ptr{gsl_integration_qaws_table}
 function integration_qaws_table_alloc(alpha::Real, beta::Real, mu::Integer, nu::Integer)
-    ccall( (:gsl_integration_qaws_table_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_integration_qaws_table_alloc, :libgsl),
         Ptr{gsl_integration_qaws_table}, (Cdouble, Cdouble, Cint, Cint), alpha,
         beta, mu, nu )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number integration_qaws_table_alloc
@@ -84,7 +85,7 @@ function integration_qaws(a::Real, b::Real, epsabs::Real, epsrel::Real, limit::I
         Ptr{Cdouble}, Ptr{Cdouble}), f, a, b, t, epsabs, epsrel, limit,
         workspace, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(f) ,unsafe_ref(t) ,unsafe_ref(workspace) ,unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(f), unsafe_ref(t), unsafe_ref(workspace), unsafe_ref(result), unsafe_ref(abserr)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_5arg Number integration_qaws

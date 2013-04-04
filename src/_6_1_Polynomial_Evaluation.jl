@@ -4,8 +4,7 @@
 #############################
 # 6.1 Polynomial Evaluation #
 #############################
-export poly_eval, poly_complex_eval, complex_poly_complex_eval,
-       poly_eval_derivs
+export poly_eval, poly_complex_eval, poly_eval_derivs
 
 
 # This function evaluates a polynomial with real coefficients for the real
@@ -26,16 +25,6 @@ function poly_complex_eval(c::Real)
     ccall( (:gsl_poly_complex_eval, :libgsl), gsl_complex, (Cdouble, ), c )
 end
 @vectorize_1arg Number poly_complex_eval
-
-
-# This function evaluates a polynomial with complex coefficients for the
-# complex variable z.
-# 
-#   Returns: gsl_complex
-function complex_poly_complex_eval(c::gsl_complex)
-    ccall( (:gsl_complex_poly_complex_eval, :libgsl), gsl_complex,
-        (gsl_complex, ), c )
-end
 
 
 # This function evaluates a polynomial and its derivatives storing the results

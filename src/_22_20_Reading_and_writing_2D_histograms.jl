@@ -68,7 +68,7 @@ function histogram2d_fprintf(stream::Ptr{Void}, h::Ptr{gsl_histogram2d})
         Ptr{gsl_histogram2d}, Ptr{Cchar}, Ptr{Cchar}), stream, h, range_format,
         bin_format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(range_format) ,unsafe_ref(bin_format)
+    return unsafe_ref(range_format), unsafe_ref(bin_format)
 end
 
 

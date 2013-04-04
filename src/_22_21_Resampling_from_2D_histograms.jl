@@ -27,8 +27,9 @@ end
 # 
 #   Returns: Ptr{gsl_histogram2d_pdf}
 function histogram2d_pdf_alloc(nx::Integer, ny::Integer)
-    ccall( (:gsl_histogram2d_pdf_alloc, :libgsl), Ptr{gsl_histogram2d_pdf},
-        (Csize_t, Csize_t), nx, ny )
+    output_ptr = ccall( (:gsl_histogram2d_pdf_alloc, :libgsl),
+        Ptr{gsl_histogram2d_pdf}, (Csize_t, Csize_t), nx, ny )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number histogram2d_pdf_alloc
 
@@ -68,5 +69,5 @@ function histogram2d_pdf_sample(p::Ptr{gsl_histogram2d_pdf}, r1::Real, r2::Real)
         (Ptr{gsl_histogram2d_pdf}, Cdouble, Cdouble, Ptr{Cdouble},
         Ptr{Cdouble}), p, r1, r2, x, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x) ,unsafe_ref(y)
+    return unsafe_ref(x), unsafe_ref(y)
 end

@@ -16,8 +16,9 @@ export integration_cquad_workspace_alloc, integration_cquad_workspace_free,
 # 
 #   Returns: Ptr{gsl_integration_cquad_workspace}
 function integration_cquad_workspace_alloc(n::Integer)
-    ccall( (:gsl_integration_cquad_workspace_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_integration_cquad_workspace_alloc, :libgsl),
         Ptr{gsl_integration_cquad_workspace}, (Csize_t, ), n )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number integration_cquad_workspace_alloc
 
@@ -61,5 +62,5 @@ function integration_cquad(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real,
         Ptr{Csize_t}), f, a, b, epsabs, epsrel, workspace, result, abserr,
         nevals )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(workspace) ,unsafe_ref(result) ,unsafe_ref(abserr) ,unsafe_ref(nevals)
+    return unsafe_ref(workspace), unsafe_ref(result), unsafe_ref(abserr), unsafe_ref(nevals)
 end

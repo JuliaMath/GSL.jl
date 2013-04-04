@@ -23,8 +23,9 @@ export monte_miser_alloc, monte_miser_init, monte_miser_integrate,
 # 
 #   Returns: Ptr{gsl_monte_miser_state}
 function monte_miser_alloc(dim::Integer)
-    ccall( (:gsl_monte_miser_alloc, :libgsl), Ptr{gsl_monte_miser_state},
-        (Csize_t, ), dim )
+    output_ptr = ccall( (:gsl_monte_miser_alloc, :libgsl),
+        Ptr{gsl_monte_miser_state}, (Csize_t, ), dim )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number monte_miser_alloc
 

@@ -12,8 +12,9 @@ export sum_levin_utrunc_alloc, sum_levin_utrunc_free, sum_levin_utrunc_accel
 # 
 #   Returns: Ptr{gsl_sum_levin_utrunc_workspace}
 function sum_levin_utrunc_alloc(n::Integer)
-    ccall( (:gsl_sum_levin_utrunc_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_sum_levin_utrunc_alloc, :libgsl),
         Ptr{gsl_sum_levin_utrunc_workspace}, (Csize_t, ), n )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number sum_levin_utrunc_alloc
 
@@ -39,8 +40,9 @@ end
 # truncation error, smoothing out any fluctuations.
 # 
 #   Returns: Cint
-function sum_levin_utrunc_accel{tA<:Real}(array_in::Vector{tA}, array_size::Integer)
-    convert(Vector{Cdouble}, array_in)
+function sum_levin_utrunc_accel{tA<:Real}(array_in::AbstractVector{tA})
+    array_size = length(array_in)
+    array = convert(Vector{Cdouble}, array_in)
     w = convert(Ptr{gsl_sum_levin_utrunc_workspace}, Array(gsl_sum_levin_utrunc_workspace, 1))
     sum_accel = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr_trunc = convert(Ptr{Cdouble}, Array(Cdouble, 1))
@@ -49,5 +51,5 @@ function sum_levin_utrunc_accel{tA<:Real}(array_in::Vector{tA}, array_size::Inte
         Ptr{Cdouble}, Ptr{Cdouble}), array, array_size, w, sum_accel,
         abserr_trunc )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(w) ,unsafe_ref(sum_accel) ,unsafe_ref(abserr_trunc)
+    return unsafe_ref(w), unsafe_ref(sum_accel), unsafe_ref(abserr_trunc)
 end

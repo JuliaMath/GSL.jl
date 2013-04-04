@@ -21,9 +21,10 @@ export multifit_fsolver_alloc, multifit_fdfsolver_alloc, multifit_fsolver_set,
 # 
 #   Returns: Ptr{gsl_multifit_fsolver}
 function multifit_fsolver_alloc(T::Ptr{gsl_multifit_fsolver_type}, n::Integer, p::Integer)
-    ccall( (:gsl_multifit_fsolver_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_multifit_fsolver_alloc, :libgsl),
         Ptr{gsl_multifit_fsolver}, (Ptr{gsl_multifit_fsolver_type}, Csize_t,
         Csize_t), T, n, p )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 
@@ -40,9 +41,10 @@ end
 # 
 #   Returns: Ptr{gsl_multifit_fdfsolver}
 function multifit_fdfsolver_alloc(T::Ptr{gsl_multifit_fdfsolver_type}, n::Integer, p::Integer)
-    ccall( (:gsl_multifit_fdfsolver_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_multifit_fdfsolver_alloc, :libgsl),
         Ptr{gsl_multifit_fdfsolver}, (Ptr{gsl_multifit_fdfsolver_type},
         Csize_t, Csize_t), T, n, p )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 
@@ -94,8 +96,9 @@ end
 # 
 #   Returns: Ptr{Cchar}
 function multifit_fsolver_name(s::Ptr{gsl_multifit_fsolver})
-    output_string = ccall( (:gsl_multifit_fsolver_name, :libgsl),
-        Ptr{Cchar}, (Ptr{gsl_multifit_fsolver}, ), s )
+    output_string = output_ptr = ccall( (:gsl_multifit_fsolver_name,
+        :libgsl), Ptr{Cchar}, (Ptr{gsl_multifit_fsolver}, ), s )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
 end
 
@@ -106,7 +109,8 @@ end
 # 
 #   Returns: Ptr{Cchar}
 function multifit_fdfsolver_name(s::Ptr{gsl_multifit_fdfsolver})
-    output_string = ccall( (:gsl_multifit_fdfsolver_name, :libgsl),
-        Ptr{Cchar}, (Ptr{gsl_multifit_fdfsolver}, ), s )
+    output_string = output_ptr = ccall( (:gsl_multifit_fdfsolver_name,
+        :libgsl), Ptr{Cchar}, (Ptr{gsl_multifit_fdfsolver}, ), s )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
 end

@@ -27,9 +27,10 @@ export multiroot_fsolver_alloc, multiroot_fdfsolver_alloc,
 # 
 #   Returns: Ptr{gsl_multiroot_fsolver}
 function multiroot_fsolver_alloc(T::Ptr{gsl_multiroot_fsolver_type}, n::Integer)
-    ccall( (:gsl_multiroot_fsolver_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_multiroot_fsolver_alloc, :libgsl),
         Ptr{gsl_multiroot_fsolver}, (Ptr{gsl_multiroot_fsolver_type}, Csize_t),
         T, n )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 
@@ -44,9 +45,10 @@ end
 # 
 #   Returns: Ptr{gsl_multiroot_fdfsolver}
 function multiroot_fdfsolver_alloc(T::Ptr{gsl_multiroot_fdfsolver_type}, n::Integer)
-    ccall( (:gsl_multiroot_fdfsolver_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_multiroot_fdfsolver_alloc, :libgsl),
         Ptr{gsl_multiroot_fdfsolver}, (Ptr{gsl_multiroot_fdfsolver_type},
         Csize_t), T, n )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 
@@ -103,8 +105,9 @@ end
 # 
 #   Returns: Ptr{Cchar}
 function multiroot_fsolver_name(s::Ptr{gsl_multiroot_fsolver})
-    output_string = ccall( (:gsl_multiroot_fsolver_name, :libgsl),
-        Ptr{Cchar}, (Ptr{gsl_multiroot_fsolver}, ), s )
+    output_string = output_ptr = ccall( (:gsl_multiroot_fsolver_name,
+        :libgsl), Ptr{Cchar}, (Ptr{gsl_multiroot_fsolver}, ), s )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
 end
 
@@ -116,7 +119,8 @@ end
 # 
 #   Returns: Ptr{Cchar}
 function multiroot_fdfsolver_name(s::Ptr{gsl_multiroot_fdfsolver})
-    output_string = ccall( (:gsl_multiroot_fdfsolver_name, :libgsl),
-        Ptr{Cchar}, (Ptr{gsl_multiroot_fdfsolver}, ), s )
+    output_string = output_ptr = ccall( (:gsl_multiroot_fdfsolver_name,
+        :libgsl), Ptr{Cchar}, (Ptr{gsl_multiroot_fdfsolver}, ), s )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
 end

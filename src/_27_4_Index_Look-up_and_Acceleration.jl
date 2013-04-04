@@ -26,7 +26,9 @@ end
 # 
 #   Returns: Ptr{gsl_interp_accel}
 function interp_accel_alloc()
-    ccall( (:gsl_interp_accel_alloc, :libgsl), Ptr{gsl_interp_accel}, () )
+    output_ptr = ccall( (:gsl_interp_accel_alloc, :libgsl),
+        Ptr{gsl_interp_accel}, () )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 

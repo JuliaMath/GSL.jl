@@ -36,7 +36,7 @@ function wavelet_transform(w::Ptr{gsl_wavelet}, stride::Integer, n::Integer, dir
         gsl_wavelet_direction, Ptr{gsl_wavelet_workspace}), w, data, stride, n,
         dir, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(data) ,unsafe_ref(work)
+    return unsafe_ref(data), unsafe_ref(work)
 end
 
 
@@ -66,7 +66,7 @@ function wavelet_transform_forward(w::Ptr{gsl_wavelet}, stride::Integer, n::Inte
         (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t,
         Ptr{gsl_wavelet_workspace}), w, data, stride, n, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(data) ,unsafe_ref(work)
+    return unsafe_ref(data), unsafe_ref(work)
 end
 
 
@@ -96,5 +96,5 @@ function wavelet_transform_inverse(w::Ptr{gsl_wavelet}, stride::Integer, n::Inte
         (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t,
         Ptr{gsl_wavelet_workspace}), w, data, stride, n, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(data) ,unsafe_ref(work)
+    return unsafe_ref(data), unsafe_ref(work)
 end

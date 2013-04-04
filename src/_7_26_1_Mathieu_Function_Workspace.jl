@@ -13,8 +13,9 @@ export sf_mathieu_alloc, sf_mathieu_free
 # 
 #   Returns: Ptr{gsl_sf_mathieu_workspace}
 function sf_mathieu_alloc(n::Integer, qmax::Real)
-    ccall( (:gsl_sf_mathieu_alloc, :libgsl), Ptr{gsl_sf_mathieu_workspace},
-        (Csize_t, Cdouble), n, qmax )
+    output_ptr = ccall( (:gsl_sf_mathieu_alloc, :libgsl),
+        Ptr{gsl_sf_mathieu_workspace}, (Csize_t, Cdouble), n, qmax )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number sf_mathieu_alloc
 

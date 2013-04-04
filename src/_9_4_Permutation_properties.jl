@@ -21,8 +21,9 @@ end
 # 
 #   Returns: Ptr{Csize_t}
 function permutation_data(p::Ptr{gsl_permutation})
-    ccall( (:gsl_permutation_data, :libgsl), Ptr{Csize_t},
+    output_ptr = ccall( (:gsl_permutation_data, :libgsl), Ptr{Csize_t},
         (Ptr{gsl_permutation}, ), p )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 

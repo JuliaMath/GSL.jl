@@ -41,9 +41,10 @@ export odeiv2_control_standard_new, odeiv2_control_y_new,
 # 
 #   Returns: Ptr{gsl_odeiv2_control}
 function odeiv2_control_standard_new(eps_abs::Real, eps_rel::Real, a_y::Real, a_dydt::Real)
-    ccall( (:gsl_odeiv2_control_standard_new, :libgsl),
+    output_ptr = ccall( (:gsl_odeiv2_control_standard_new, :libgsl),
         Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble, Cdouble, Cdouble), eps_abs,
         eps_rel, a_y, a_dydt )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number odeiv2_control_standard_new
@@ -56,8 +57,9 @@ end
 # 
 #   Returns: Ptr{gsl_odeiv2_control}
 function odeiv2_control_y_new(eps_abs::Real, eps_rel::Real)
-    ccall( (:gsl_odeiv2_control_y_new, :libgsl), Ptr{gsl_odeiv2_control},
-        (Cdouble, Cdouble), eps_abs, eps_rel )
+    output_ptr = ccall( (:gsl_odeiv2_control_y_new, :libgsl),
+        Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble), eps_abs, eps_rel )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number odeiv2_control_y_new
 
@@ -69,8 +71,9 @@ end
 # 
 #   Returns: Ptr{gsl_odeiv2_control}
 function odeiv2_control_yp_new(eps_abs::Real, eps_rel::Real)
-    ccall( (:gsl_odeiv2_control_yp_new, :libgsl), Ptr{gsl_odeiv2_control},
-        (Cdouble, Cdouble), eps_abs, eps_rel )
+    output_ptr = ccall( (:gsl_odeiv2_control_yp_new, :libgsl),
+        Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble), eps_abs, eps_rel )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number odeiv2_control_yp_new
 
@@ -84,9 +87,10 @@ end
 # 
 #   Returns: Ptr{gsl_odeiv2_control}
 function odeiv2_control_scaled_new(eps_abs::Real, eps_rel::Real, a_y::Real, a_dydt::Real, scale_abs::Real)
-    ccall( (:gsl_odeiv2_control_scaled_new, :libgsl),
+    output_ptr = ccall( (:gsl_odeiv2_control_scaled_new, :libgsl),
         Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble, Cdouble, Cdouble, Cdouble),
         eps_abs, eps_rel, a_y, a_dydt, scale_abs )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_5arg Number odeiv2_control_scaled_new
@@ -99,8 +103,9 @@ end
 # 
 #   Returns: Ptr{gsl_odeiv2_control}
 function odeiv2_control_alloc(T::Ptr{gsl_odeiv2_control_type})
-    ccall( (:gsl_odeiv2_control_alloc, :libgsl), Ptr{gsl_odeiv2_control},
-        (Ptr{gsl_odeiv2_control_type}, ), T )
+    output_ptr = ccall( (:gsl_odeiv2_control_alloc, :libgsl),
+        Ptr{gsl_odeiv2_control}, (Ptr{gsl_odeiv2_control_type}, ), T )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 
@@ -143,7 +148,7 @@ function odeiv2_control_hadjust(y::Real)
     errno = ccall( (:gsl_odeiv2_control_hadjust, :libgsl), Cint,
         (Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_step}, Cdouble), c, s, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(c) ,unsafe_ref(s)
+    return unsafe_ref(c), unsafe_ref(s)
 end
 @vectorize_1arg Number odeiv2_control_hadjust
 
@@ -155,8 +160,9 @@ end
 # 
 #   Returns: Ptr{Cchar}
 function odeiv2_control_name(c::Ptr{gsl_odeiv2_control})
-    output_string = ccall( (:gsl_odeiv2_control_name, :libgsl), Ptr{Cchar},
-        (Ptr{gsl_odeiv2_control}, ), c )
+    output_string = output_ptr = ccall( (:gsl_odeiv2_control_name,
+        :libgsl), Ptr{Cchar}, (Ptr{gsl_odeiv2_control}, ), c )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
 end
 
@@ -173,7 +179,7 @@ function odeiv2_control_errlevel(y::Real, dydt::Real, h::Real, ind::Integer)
         (Ptr{gsl_odeiv2_control}, Cdouble, Cdouble, Cdouble, Csize_t,
         Ptr{Cdouble}), c, y, dydt, h, ind, errlev )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(c) ,unsafe_ref(errlev)
+    return unsafe_ref(c), unsafe_ref(errlev)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number odeiv2_control_errlevel

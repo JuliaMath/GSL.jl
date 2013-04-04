@@ -17,8 +17,9 @@ export histogram2d_alloc, histogram2d_set_ranges,
 # 
 #   Returns: Ptr{gsl_histogram2d}
 function histogram2d_alloc(nx::Integer, ny::Integer)
-    ccall( (:gsl_histogram2d_alloc, :libgsl), Ptr{gsl_histogram2d},
-        (Csize_t, Csize_t), nx, ny )
+    output_ptr = ccall( (:gsl_histogram2d_alloc, :libgsl),
+        Ptr{gsl_histogram2d}, (Csize_t, Csize_t), nx, ny )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number histogram2d_alloc
 

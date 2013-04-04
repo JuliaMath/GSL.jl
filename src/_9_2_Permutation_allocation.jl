@@ -16,8 +16,9 @@ export permutation_alloc, permutation_calloc, permutation_init,
 # 
 #   Returns: Ptr{gsl_permutation}
 function permutation_alloc(n::Integer)
-    ccall( (:gsl_permutation_alloc, :libgsl), Ptr{gsl_permutation},
-        (Csize_t, ), n )
+    output_ptr = ccall( (:gsl_permutation_alloc, :libgsl),
+        Ptr{gsl_permutation}, (Csize_t, ), n )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number permutation_alloc
 
@@ -28,8 +29,9 @@ end
 # 
 #   Returns: Ptr{gsl_permutation}
 function permutation_calloc(n::Integer)
-    ccall( (:gsl_permutation_calloc, :libgsl), Ptr{gsl_permutation},
-        (Csize_t, ), n )
+    output_ptr = ccall( (:gsl_permutation_calloc, :libgsl),
+        Ptr{gsl_permutation}, (Csize_t, ), n )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number permutation_calloc
 

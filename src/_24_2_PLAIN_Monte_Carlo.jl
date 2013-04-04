@@ -17,8 +17,9 @@ export monte_plain_alloc, monte_plain_init, monte_plain_integrate,
 # 
 #   Returns: Ptr{gsl_monte_plain_state}
 function monte_plain_alloc(dim::Integer)
-    ccall( (:gsl_monte_plain_alloc, :libgsl), Ptr{gsl_monte_plain_state},
-        (Csize_t, ), dim )
+    output_ptr = ccall( (:gsl_monte_plain_alloc, :libgsl),
+        Ptr{gsl_monte_plain_state}, (Csize_t, ), dim )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number monte_plain_alloc
 

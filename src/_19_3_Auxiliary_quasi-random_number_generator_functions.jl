@@ -13,8 +13,9 @@ export qrng_name, qrng_size, qrng_state
 # 
 #   Returns: Ptr{Cchar}
 function qrng_name(q::Ptr{gsl_qrng})
-    output_string = ccall( (:gsl_qrng_name, :libgsl), Ptr{Cchar},
-        (Ptr{gsl_qrng}, ), q )
+    output_string = output_ptr = ccall( (:gsl_qrng_name, :libgsl),
+        Ptr{Cchar}, (Ptr{gsl_qrng}, ), q )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
 end
 
@@ -39,5 +40,7 @@ end
 # 
 #   Returns: Ptr{Void}
 function qrng_state(q::Ptr{gsl_qrng})
-    ccall( (:gsl_qrng_state, :libgsl), Ptr{Void}, (Ptr{gsl_qrng}, ), q )
+    output_ptr = ccall( (:gsl_qrng_state, :libgsl), Ptr{Void},
+        (Ptr{gsl_qrng}, ), q )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

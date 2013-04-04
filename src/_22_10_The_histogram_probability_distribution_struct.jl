@@ -24,8 +24,9 @@ end
 # 
 #   Returns: Ptr{gsl_histogram_pdf}
 function histogram_pdf_alloc(n::Integer)
-    ccall( (:gsl_histogram_pdf_alloc, :libgsl), Ptr{gsl_histogram_pdf},
-        (Csize_t, ), n )
+    output_ptr = ccall( (:gsl_histogram_pdf_alloc, :libgsl),
+        Ptr{gsl_histogram_pdf}, (Csize_t, ), n )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number histogram_pdf_alloc
 

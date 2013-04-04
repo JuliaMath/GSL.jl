@@ -14,8 +14,9 @@ export integration_workspace_alloc, integration_workspace_free, integration_qag
 # 
 #   Returns: Ptr{gsl_integration_workspace}
 function integration_workspace_alloc(n::Integer)
-    ccall( (:gsl_integration_workspace_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_integration_workspace_alloc, :libgsl),
         Ptr{gsl_integration_workspace}, (Csize_t, ), n )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number integration_workspace_alloc
 
@@ -56,5 +57,5 @@ function integration_qag(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, e
         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, b,
         epsabs, epsrel, limit, key, workspace, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(workspace) ,unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(workspace), unsafe_ref(result), unsafe_ref(abserr)
 end

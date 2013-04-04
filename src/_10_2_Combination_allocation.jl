@@ -16,8 +16,9 @@ export combination_alloc, combination_calloc, combination_init_first,
 # 
 #   Returns: Ptr{gsl_combination}
 function combination_alloc(n::Integer, k::Integer)
-    ccall( (:gsl_combination_alloc, :libgsl), Ptr{gsl_combination},
-        (Csize_t, Csize_t), n, k )
+    output_ptr = ccall( (:gsl_combination_alloc, :libgsl),
+        Ptr{gsl_combination}, (Csize_t, Csize_t), n, k )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number combination_alloc
 
@@ -28,8 +29,9 @@ end
 # 
 #   Returns: Ptr{gsl_combination}
 function combination_calloc(n::Integer, k::Integer)
-    ccall( (:gsl_combination_calloc, :libgsl), Ptr{gsl_combination},
-        (Csize_t, Csize_t), n, k )
+    output_ptr = ccall( (:gsl_combination_calloc, :libgsl),
+        Ptr{gsl_combination}, (Csize_t, Csize_t), n, k )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number combination_calloc
 

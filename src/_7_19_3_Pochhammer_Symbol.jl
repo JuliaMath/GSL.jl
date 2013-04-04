@@ -72,7 +72,7 @@ function sf_lnpoch_sgn_e(a::Real, x::Real)
     errno = ccall( (:gsl_sf_lnpoch_sgn_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{Cdouble}), a, x, result, sgn )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result) ,unsafe_ref(sgn)
+    return unsafe_ref(result), unsafe_ref(sgn)
 end
 @vectorize_2arg Number sf_lnpoch_sgn_e
 

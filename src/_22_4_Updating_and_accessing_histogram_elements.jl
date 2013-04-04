@@ -74,7 +74,7 @@ function histogram_get_range(h::Ptr{gsl_histogram}, i::Integer)
         (Ptr{gsl_histogram}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, i, lower,
         upper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(lower) ,unsafe_ref(upper)
+    return unsafe_ref(lower), unsafe_ref(upper)
 end
 
 

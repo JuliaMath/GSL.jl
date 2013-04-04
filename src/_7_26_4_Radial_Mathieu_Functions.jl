@@ -55,7 +55,7 @@ function sf_mathieu_Mc_array(j::Integer, nmin::Integer, nmax::Integer, q::Real, 
         Cint, Cdouble, Cdouble, Ptr{gsl_sf_mathieu_workspace}, Cdouble), j,
         nmin, nmax, q, x, work, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(work) ,unsafe_ref(result_array)[1]
+    return unsafe_ref(work), unsafe_ref(result_array)[1]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_5arg Number sf_mathieu_Mc_array
@@ -73,7 +73,7 @@ function sf_mathieu_Ms_array(j::Integer, nmin::Integer, nmax::Integer, q::Real, 
         Cint, Cdouble, Cdouble, Ptr{gsl_sf_mathieu_workspace}, Cdouble), j,
         nmin, nmax, q, x, work, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(work) ,unsafe_ref(result_array)[1]
+    return unsafe_ref(work), unsafe_ref(result_array)[1]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_5arg Number sf_mathieu_Ms_array

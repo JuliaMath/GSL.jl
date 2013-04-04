@@ -14,8 +14,9 @@ export odeiv2_evolve_alloc, odeiv2_evolve_apply,
 # 
 #   Returns: Ptr{gsl_odeiv2_evolve}
 function odeiv2_evolve_alloc(dim::Integer)
-    ccall( (:gsl_odeiv2_evolve_alloc, :libgsl), Ptr{gsl_odeiv2_evolve},
-        (Csize_t, ), dim )
+    output_ptr = ccall( (:gsl_odeiv2_evolve_alloc, :libgsl),
+        Ptr{gsl_odeiv2_evolve}, (Csize_t, ), dim )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number odeiv2_evolve_alloc
 
@@ -55,7 +56,7 @@ function odeiv2_evolve_apply(sys::Ptr{gsl_odeiv2_system}, t1::Real, y::Real)
         Ptr{gsl_odeiv2_system}, Ptr{Cdouble}, Cdouble, Ptr{Cdouble}, Cdouble),
         e, con, step, sys, t, t1, h, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(e) ,unsafe_ref(con) ,unsafe_ref(step) ,unsafe_ref(t) ,unsafe_ref(h)
+    return unsafe_ref(e), unsafe_ref(con), unsafe_ref(step), unsafe_ref(t), unsafe_ref(h)
 end
 
 
@@ -76,7 +77,7 @@ function odeiv2_evolve_apply_fixed_step(sys::Ptr{gsl_odeiv2_system}, h::Real, y:
         Ptr{gsl_odeiv2_system}, Ptr{Cdouble}, Cdouble, Cdouble), e, con, step,
         sys, t, h, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(e) ,unsafe_ref(con) ,unsafe_ref(step) ,unsafe_ref(t)
+    return unsafe_ref(e), unsafe_ref(con), unsafe_ref(step), unsafe_ref(t)
 end
 
 

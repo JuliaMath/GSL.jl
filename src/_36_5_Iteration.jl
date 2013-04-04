@@ -49,8 +49,9 @@ end
 # 
 #   Returns: Ptr{gsl_vector}
 function multimin_fdfminimizer_x(s::Ptr{gsl_multimin_fdfminimizer})
-    ccall( (:gsl_multimin_fdfminimizer_x, :libgsl), Ptr{gsl_vector},
-        (Ptr{gsl_multimin_fdfminimizer}, ), s )
+    output_ptr = ccall( (:gsl_multimin_fdfminimizer_x, :libgsl),
+        Ptr{gsl_vector}, (Ptr{gsl_multimin_fdfminimizer}, ), s )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 
@@ -60,8 +61,9 @@ end
 # 
 #   Returns: Ptr{gsl_vector}
 function multimin_fminimizer_x(s::Ptr{gsl_multimin_fminimizer})
-    ccall( (:gsl_multimin_fminimizer_x, :libgsl), Ptr{gsl_vector},
-        (Ptr{gsl_multimin_fminimizer}, ), s )
+    output_ptr = ccall( (:gsl_multimin_fminimizer_x, :libgsl),
+        Ptr{gsl_vector}, (Ptr{gsl_multimin_fminimizer}, ), s )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 
@@ -93,8 +95,9 @@ end
 # 
 #   Returns: Ptr{gsl_vector}
 function multimin_fdfminimizer_gradient(s::Ptr{gsl_multimin_fdfminimizer})
-    ccall( (:gsl_multimin_fdfminimizer_gradient, :libgsl), Ptr{gsl_vector},
-        (Ptr{gsl_multimin_fdfminimizer}, ), s )
+    output_ptr = ccall( (:gsl_multimin_fdfminimizer_gradient, :libgsl),
+        Ptr{gsl_vector}, (Ptr{gsl_multimin_fdfminimizer}, ), s )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 

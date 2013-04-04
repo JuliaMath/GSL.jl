@@ -19,8 +19,9 @@ export monte_vegas_alloc, monte_vegas_init, monte_vegas_integrate,
 # 
 #   Returns: Ptr{gsl_monte_vegas_state}
 function monte_vegas_alloc(dim::Integer)
-    ccall( (:gsl_monte_vegas_alloc, :libgsl), Ptr{gsl_monte_vegas_state},
-        (Csize_t, ), dim )
+    output_ptr = ccall( (:gsl_monte_vegas_alloc, :libgsl),
+        Ptr{gsl_monte_vegas_state}, (Csize_t, ), dim )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number monte_vegas_alloc
 
@@ -92,7 +93,7 @@ function monte_vegas_runval(s::Ptr{gsl_monte_vegas_state})
     ccall( (:gsl_monte_vegas_runval, :libgsl), Void,
         (Ptr{gsl_monte_vegas_state}, Ptr{Cdouble}, Ptr{Cdouble}), s, result,
         sigma )
-    return unsafe_ref(result) ,unsafe_ref(sigma)
+    return unsafe_ref(result), unsafe_ref(sigma)
 end
 
 

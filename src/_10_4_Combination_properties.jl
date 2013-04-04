@@ -30,8 +30,9 @@ end
 # 
 #   Returns: Ptr{Csize_t}
 function combination_data(c::Ptr{gsl_combination})
-    ccall( (:gsl_combination_data, :libgsl), Ptr{Csize_t},
+    output_ptr = ccall( (:gsl_combination_data, :libgsl), Ptr{Csize_t},
         (Ptr{gsl_combination}, ), c )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 

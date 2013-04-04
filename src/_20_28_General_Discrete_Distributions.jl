@@ -17,10 +17,12 @@ export ran_discrete_preproc, ran_discrete, ran_discrete_pdf, ran_discrete_free
 # return value is used as an argument for the gsl_ran_discrete function below.
 # 
 #   Returns: Ptr{gsl_ran_discrete_t}
-function ran_discrete_preproc{tA<:Real}(K::Integer, P_in::Vector{tA})
-    convert(Vector{Cdouble}, P_in)
-    ccall( (:gsl_ran_discrete_preproc, :libgsl), Ptr{gsl_ran_discrete_t},
-        (Csize_t, Ptr{Cdouble}), K, P )
+function ran_discrete_preproc{tA<:Real}(P_in::AbstractVector{tA})
+    K = length(P_in)
+    P = convert(Vector{Cdouble}, P_in)
+    output_ptr = ccall( (:gsl_ran_discrete_preproc, :libgsl),
+        Ptr{gsl_ran_discrete_t}, (Csize_t, Ptr{Cdouble}), K, P )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 

@@ -56,7 +56,7 @@ function integration_qawf(a::Real, epsabs::Real, limit::Integer)
         Ptr{gsl_integration_qawo_table}, Ptr{Cdouble}, Ptr{Cdouble}), f, a,
         epsabs, limit, workspace, cycle_workspace, wf, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(f) ,unsafe_ref(workspace) ,unsafe_ref(cycle_workspace) ,unsafe_ref(wf) ,unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(f), unsafe_ref(workspace), unsafe_ref(cycle_workspace), unsafe_ref(wf), unsafe_ref(result), unsafe_ref(abserr)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number integration_qawf

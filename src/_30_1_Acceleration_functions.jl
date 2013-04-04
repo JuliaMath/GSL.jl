@@ -12,8 +12,9 @@ export sum_levin_u_alloc, sum_levin_u_free, sum_levin_u_accel
 # 
 #   Returns: Ptr{gsl_sum_levin_u_workspace}
 function sum_levin_u_alloc(n::Integer)
-    ccall( (:gsl_sum_levin_u_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_sum_levin_u_alloc, :libgsl),
         Ptr{gsl_sum_levin_u_workspace}, (Csize_t, ), n )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number sum_levin_u_alloc
 
@@ -38,8 +39,9 @@ end
 # the series passed in through array should be non-zero.
 # 
 #   Returns: Cint
-function sum_levin_u_accel{tA<:Real}(array_in::Vector{tA}, array_size::Integer)
-    convert(Vector{Cdouble}, array_in)
+function sum_levin_u_accel{tA<:Real}(array_in::AbstractVector{tA})
+    array_size = length(array_in)
+    array = convert(Vector{Cdouble}, array_in)
     w = convert(Ptr{gsl_sum_levin_u_workspace}, Array(gsl_sum_levin_u_workspace, 1))
     sum_accel = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
@@ -47,5 +49,5 @@ function sum_levin_u_accel{tA<:Real}(array_in::Vector{tA}, array_size::Integer)
         Csize_t, Ptr{gsl_sum_levin_u_workspace}, Ptr{Cdouble}, Ptr{Cdouble}),
         array, array_size, w, sum_accel, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(w) ,unsafe_ref(sum_accel) ,unsafe_ref(abserr)
+    return unsafe_ref(w), unsafe_ref(sum_accel), unsafe_ref(abserr)
 end

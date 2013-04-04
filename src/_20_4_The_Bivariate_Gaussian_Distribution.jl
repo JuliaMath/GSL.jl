@@ -25,7 +25,7 @@ function ran_bivariate_gaussian(r::Ptr{gsl_rng}, sigma_x::Real, sigma_y::Real, r
     ccall( (:gsl_ran_bivariate_gaussian, :libgsl), Void, (Ptr{gsl_rng},
         Cdouble, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), r, sigma_x,
         sigma_y, rho, x, y )
-    return unsafe_ref(x) ,unsafe_ref(y)
+    return unsafe_ref(x), unsafe_ref(y)
 end
 
 

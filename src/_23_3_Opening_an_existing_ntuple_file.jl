@@ -14,7 +14,8 @@ export ntuple_open
 # 
 #   Returns: Ptr{gsl_ntuple}
 function ntuple_open{tA<:Char}(filename_in::Ptr{tA}, ntuple_data::Ptr{Void}, size::Integer)
-    convert(Ptr{Cchar}, filename_in)
-    ccall( (:gsl_ntuple_open, :libgsl), Ptr{gsl_ntuple}, (Ptr{Cchar},
-        Ptr{Void}, Csize_t), filename, ntuple_data, size )
+    filename = convert(Ptr{Cchar}, filename_in)
+    output_ptr = ccall( (:gsl_ntuple_open, :libgsl), Ptr{gsl_ntuple},
+        (Ptr{Cchar}, Ptr{Void}, Csize_t), filename, ntuple_data, size )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

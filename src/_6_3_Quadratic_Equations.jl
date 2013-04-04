@@ -33,7 +33,7 @@ function poly_solve_quadratic(a::Real, b::Real, c::Real)
     errno = ccall( (:gsl_poly_solve_quadratic, :libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), a, b, c, x0, x1 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x0) ,unsafe_ref(x1)
+    return unsafe_ref(x0), unsafe_ref(x1)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number poly_solve_quadratic
@@ -54,7 +54,7 @@ function poly_complex_solve_quadratic(a::Real, b::Real, c::Real)
         (Cdouble, Cdouble, Cdouble, Ptr{gsl_complex}, Ptr{gsl_complex}), a, b,
         c, z0, z1 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(z0) ,unsafe_ref(z1)
+    return unsafe_ref(z0), unsafe_ref(z1)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number poly_complex_solve_quadratic

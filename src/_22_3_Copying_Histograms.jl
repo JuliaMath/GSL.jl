@@ -26,6 +26,7 @@ end
 # 
 #   Returns: Ptr{gsl_histogram}
 function histogram_clone(src::Ptr{gsl_histogram})
-    ccall( (:gsl_histogram_clone, :libgsl), Ptr{gsl_histogram},
-        (Ptr{gsl_histogram}, ), src )
+    output_ptr = ccall( (:gsl_histogram_clone, :libgsl),
+        Ptr{gsl_histogram}, (Ptr{gsl_histogram}, ), src )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

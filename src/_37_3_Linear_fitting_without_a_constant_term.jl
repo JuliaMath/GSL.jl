@@ -15,9 +15,10 @@ export fit_mul, fit_wmul, fit_mul_est
 # residuals from the best-fit line is returned in sumsq.
 # 
 #   Returns: Cint
-function fit_mul{tA<:Real, tB<:Real}(x_in::Vector{tA}, xstride::Integer, y_in::Vector{tB}, ystride::Integer, n::Integer)
-    convert(Vector{Cdouble}, x_in)
-    convert(Vector{Cdouble}, y_in)
+function fit_mul{tA<:Real, tB<:Real}(x_in::AbstractVector{tA}, xstride::Integer, y_in::AbstractVector{tB}, ystride::Integer)
+    n = length(x_in)
+    x = convert(Vector{Cdouble}, x_in)
+    y = convert(Vector{Cdouble}, y_in)
     c1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     cov11 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     sumsq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
@@ -25,7 +26,7 @@ function fit_mul{tA<:Real, tB<:Real}(x_in::Vector{tA}, xstride::Integer, y_in::V
         Ptr{Cdouble}, Csize_t, Csize_t, Ptr{Cdouble}, Ptr{Cdouble},
         Ptr{Cdouble}), x, xstride, y, ystride, n, c1, cov11, sumsq )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(c1) ,unsafe_ref(cov11) ,unsafe_ref(sumsq)
+    return unsafe_ref(c1), unsafe_ref(cov11), unsafe_ref(sumsq)
 end
 
 
@@ -39,10 +40,11 @@ end
 # \chi^2, is returned in chisq.
 # 
 #   Returns: Cint
-function fit_wmul{tA<:Real, tB<:Real, tC<:Real}(x_in::Vector{tA}, xstride::Integer, w_in::Vector{tB}, wstride::Integer, y_in::Vector{tC}, ystride::Integer, n::Integer)
-    convert(Vector{Cdouble}, x_in)
-    convert(Vector{Cdouble}, w_in)
-    convert(Vector{Cdouble}, y_in)
+function fit_wmul{tA<:Real, tB<:Real, tC<:Real}(x_in::AbstractVector{tA}, xstride::Integer, w_in::AbstractVector{tB}, wstride::Integer, y_in::AbstractVector{tC}, ystride::Integer)
+    n = length(x_in)
+    x = convert(Vector{Cdouble}, x_in)
+    w = convert(Vector{Cdouble}, w_in)
+    y = convert(Vector{Cdouble}, y_in)
     c1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     cov11 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     sumsq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
@@ -51,7 +53,7 @@ function fit_wmul{tA<:Real, tB<:Real, tC<:Real}(x_in::Vector{tA}, xstride::Integ
         Ptr{Cdouble}, Ptr{Cdouble}), x, xstride, w, wstride, y, ystride, n, c1,
         cov11, sumsq )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(c1) ,unsafe_ref(cov11) ,unsafe_ref(sumsq)
+    return unsafe_ref(c1), unsafe_ref(cov11), unsafe_ref(sumsq)
 end
 
 
@@ -66,7 +68,7 @@ function fit_mul_est(x::Real, c1::Real, cov11::Real)
     errno = ccall( (:gsl_fit_mul_est, :libgsl), Cint, (Cdouble, Cdouble,
         Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), x, c1, cov11, y, y_err )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(y) ,unsafe_ref(y_err)
+    return unsafe_ref(y), unsafe_ref(y_err)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number fit_mul_est

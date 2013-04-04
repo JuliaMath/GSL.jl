@@ -76,7 +76,7 @@ function histogram2d_get_xrange(h::Ptr{gsl_histogram2d}, i::Integer)
         (Ptr{gsl_histogram2d}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, i,
         xlower, xupper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(xlower) ,unsafe_ref(xupper)
+    return unsafe_ref(xlower), unsafe_ref(xupper)
 end
 
 
@@ -98,7 +98,7 @@ function histogram2d_get_yrange(h::Ptr{gsl_histogram2d}, j::Integer)
         (Ptr{gsl_histogram2d}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, j,
         ylower, yupper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(ylower) ,unsafe_ref(yupper)
+    return unsafe_ref(ylower), unsafe_ref(yupper)
 end
 
 

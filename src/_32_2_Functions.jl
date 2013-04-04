@@ -12,7 +12,9 @@ export dht_alloc, dht_init, dht_new, dht_free, dht_apply, dht_x_sample,
 # 
 #   Returns: Ptr{gsl_dht}
 function dht_alloc(size::Integer)
-    ccall( (:gsl_dht_alloc, :libgsl), Ptr{gsl_dht}, (Csize_t, ), size )
+    output_ptr = ccall( (:gsl_dht_alloc, :libgsl), Ptr{gsl_dht}, (Csize_t,
+        ), size )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number dht_alloc
 
@@ -33,8 +35,9 @@ end
 # 
 #   Returns: Ptr{gsl_dht}
 function dht_new(size::Integer, nu::Real, xmax::Real)
-    ccall( (:gsl_dht_new, :libgsl), Ptr{gsl_dht}, (Csize_t, Cdouble,
-        Cdouble), size, nu, xmax )
+    output_ptr = ccall( (:gsl_dht_new, :libgsl), Ptr{gsl_dht}, (Csize_t,
+        Cdouble, Cdouble), size, nu, xmax )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number dht_new
@@ -61,7 +64,7 @@ function dht_apply(t::Ptr{gsl_dht})
     errno = ccall( (:gsl_dht_apply, :libgsl), Cint, (Ptr{gsl_dht},
         Ptr{Cdouble}, Ptr{Cdouble}), t, f_in, f_out )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(f_in) ,unsafe_ref(f_out)
+    return unsafe_ref(f_in), unsafe_ref(f_out)
 end
 
 

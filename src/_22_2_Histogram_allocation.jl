@@ -19,8 +19,9 @@ export histogram_alloc, histogram_set_ranges, histogram_set_ranges_uniform,
 # 
 #   Returns: Ptr{gsl_histogram}
 function histogram_alloc(n::Integer)
-    ccall( (:gsl_histogram_alloc, :libgsl), Ptr{gsl_histogram}, (Csize_t,
-        ), n )
+    output_ptr = ccall( (:gsl_histogram_alloc, :libgsl),
+        Ptr{gsl_histogram}, (Csize_t, ), n )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number histogram_alloc
 

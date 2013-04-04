@@ -65,7 +65,7 @@ function sf_complex_log_e(zr::Real, zi::Real)
     errno = ccall( (:gsl_sf_complex_log_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, lnr, theta )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(lnr) ,unsafe_ref(theta)
+    return unsafe_ref(lnr), unsafe_ref(theta)
 end
 @vectorize_2arg Number sf_complex_log_e
 

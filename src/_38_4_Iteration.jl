@@ -41,8 +41,9 @@ end
 # 
 #   Returns: Ptr{gsl_vector}
 function multifit_fsolver_position(s::Ptr{gsl_multifit_fsolver})
-    ccall( (:gsl_multifit_fsolver_position, :libgsl), Ptr{gsl_vector},
-        (Ptr{gsl_multifit_fsolver}, ), s )
+    output_ptr = ccall( (:gsl_multifit_fsolver_position, :libgsl),
+        Ptr{gsl_vector}, (Ptr{gsl_multifit_fsolver}, ), s )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 
@@ -51,6 +52,7 @@ end
 # 
 #   Returns: Ptr{gsl_vector}
 function multifit_fdfsolver_position(s::Ptr{gsl_multifit_fdfsolver})
-    ccall( (:gsl_multifit_fdfsolver_position, :libgsl), Ptr{gsl_vector},
-        (Ptr{gsl_multifit_fdfsolver}, ), s )
+    output_ptr = ccall( (:gsl_multifit_fdfsolver_position, :libgsl),
+        Ptr{gsl_vector}, (Ptr{gsl_multifit_fdfsolver}, ), s )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

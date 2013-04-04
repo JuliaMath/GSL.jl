@@ -12,8 +12,9 @@ export permute, permute_inverse, permute_vector, permute_vector_inverse,
 # stride stride.
 # 
 #   Returns: Cint
-function permute{tA<:Integer}(p_in::Vector{tA}, stride::Integer, n::Integer)
-    convert(Vector{Csize_t}, p_in)
+function permute{tA<:Integer}(p_in::AbstractVector{tA}, stride::Integer)
+    n = length(p_in)
+    p = convert(Vector{Csize_t}, p_in)
     data = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     errno = ccall( (:gsl_permute, :libgsl), Cint, (Ptr{Csize_t},
         Ptr{Cdouble}, Csize_t, Csize_t), p, data, stride, n )
@@ -26,8 +27,9 @@ end
 # size n with stride stride.
 # 
 #   Returns: Cint
-function permute_inverse{tA<:Integer}(p_in::Vector{tA}, stride::Integer, n::Integer)
-    convert(Vector{Csize_t}, p_in)
+function permute_inverse{tA<:Integer}(p_in::AbstractVector{tA}, stride::Integer)
+    n = length(p_in)
+    p = convert(Vector{Csize_t}, p_in)
     data = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     errno = ccall( (:gsl_permute_inverse, :libgsl), Cint, (Ptr{Csize_t},
         Ptr{Cdouble}, Csize_t, Csize_t), p, data, stride, n )

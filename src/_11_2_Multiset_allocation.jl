@@ -16,8 +16,9 @@ export multiset_alloc, multiset_calloc, multiset_init_first,
 # 
 #   Returns: Ptr{gsl_multiset}
 function multiset_alloc(n::Integer, k::Integer)
-    ccall( (:gsl_multiset_alloc, :libgsl), Ptr{gsl_multiset}, (Csize_t,
-        Csize_t), n, k )
+    output_ptr = ccall( (:gsl_multiset_alloc, :libgsl), Ptr{gsl_multiset},
+        (Csize_t, Csize_t), n, k )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number multiset_alloc
 
@@ -29,8 +30,9 @@ end
 # 
 #   Returns: Ptr{gsl_multiset}
 function multiset_calloc(n::Integer, k::Integer)
-    ccall( (:gsl_multiset_calloc, :libgsl), Ptr{gsl_multiset}, (Csize_t,
-        Csize_t), n, k )
+    output_ptr = ccall( (:gsl_multiset_calloc, :libgsl), Ptr{gsl_multiset},
+        (Csize_t, Csize_t), n, k )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number multiset_calloc
 

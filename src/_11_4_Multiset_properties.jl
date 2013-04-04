@@ -27,8 +27,9 @@ end
 # 
 #   Returns: Ptr{Csize_t}
 function multiset_data(c::Ptr{gsl_multiset})
-    ccall( (:gsl_multiset_data, :libgsl), Ptr{Csize_t}, (Ptr{gsl_multiset},
-        ), c )
+    output_ptr = ccall( (:gsl_multiset_data, :libgsl), Ptr{Csize_t},
+        (Ptr{gsl_multiset}, ), c )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 

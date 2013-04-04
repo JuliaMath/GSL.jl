@@ -16,8 +16,9 @@ export poly_complex_workspace_alloc, poly_complex_workspace_free,
 # 
 #   Returns: Ptr{gsl_poly_complex_workspace}
 function poly_complex_workspace_alloc(n::Integer)
-    ccall( (:gsl_poly_complex_workspace_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_poly_complex_workspace_alloc, :libgsl),
         Ptr{gsl_poly_complex_workspace}, (Csize_t, ), n )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number poly_complex_workspace_alloc
 
@@ -47,8 +48,9 @@ end
 # Mathematical Software, Volume 30, Issue 2 (2004), pp 218–236).
 # 
 #   Returns: Cint
-function poly_complex_solve{tA<:Real}(a_in::Vector{tA}, n::Integer, z::gsl_complex_packed_ptr)
-    convert(Vector{Cdouble}, a_in)
+function poly_complex_solve{tA<:Real}(a_in::AbstractVector{tA}, z::gsl_complex_packed_ptr)
+    n = length(a_in)
+    a = convert(Vector{Cdouble}, a_in)
     w = convert(Ptr{gsl_poly_complex_workspace}, Array(gsl_poly_complex_workspace, 1))
     errno = ccall( (:gsl_poly_complex_solve, :libgsl), Cint, (Ptr{Cdouble},
         Csize_t, Ptr{gsl_poly_complex_workspace}, gsl_complex_packed_ptr), a,

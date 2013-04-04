@@ -26,5 +26,7 @@ end
 # 
 #   Returns: Ptr{gsl_rng}
 function rng_clone(r::Ptr{gsl_rng})
-    ccall( (:gsl_rng_clone, :libgsl), Ptr{gsl_rng}, (Ptr{gsl_rng}, ), r )
+    output_ptr = ccall( (:gsl_rng_clone, :libgsl), Ptr{gsl_rng},
+        (Ptr{gsl_rng}, ), r )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

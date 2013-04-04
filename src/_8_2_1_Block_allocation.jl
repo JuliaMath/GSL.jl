@@ -16,7 +16,9 @@ export block_alloc, block_calloc, block_free
 # 
 #   Returns: Ptr{gsl_block}
 function block_alloc(n::Integer)
-    ccall( (:gsl_block_alloc, :libgsl), Ptr{gsl_block}, (Csize_t, ), n )
+    output_ptr = ccall( (:gsl_block_alloc, :libgsl), Ptr{gsl_block},
+        (Csize_t, ), n )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number block_alloc
 
@@ -26,7 +28,9 @@ end
 # 
 #   Returns: Ptr{gsl_block}
 function block_calloc(n::Integer)
-    ccall( (:gsl_block_calloc, :libgsl), Ptr{gsl_block}, (Csize_t, ), n )
+    output_ptr = ccall( (:gsl_block_calloc, :libgsl), Ptr{gsl_block},
+        (Csize_t, ), n )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number block_calloc
 

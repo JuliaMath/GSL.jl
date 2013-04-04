@@ -31,6 +31,7 @@ end
 # 
 #   Returns: Ptr{Cdouble}
 function cheb_coeffs(cs::Ptr{gsl_cheb_series})
-    ccall( (:gsl_cheb_coeffs, :libgsl), Ptr{Cdouble},
+    output_ptr = ccall( (:gsl_cheb_coeffs, :libgsl), Ptr{Cdouble},
         (Ptr{gsl_cheb_series}, ), cs )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

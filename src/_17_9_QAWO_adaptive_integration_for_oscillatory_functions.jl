@@ -32,9 +32,10 @@ export integration_qawo_table_alloc, integration_qawo_table_set,
 # 
 #   Returns: Ptr{gsl_integration_qawo_table}
 function integration_qawo_table_alloc(omega::Real, L::Real, sine::enumgsl_integration_qawo_enum, n::Integer)
-    ccall( (:gsl_integration_qawo_table_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_integration_qawo_table_alloc, :libgsl),
         Ptr{gsl_integration_qawo_table}, (Cdouble, Cdouble,
         enumgsl_integration_qawo_enum, Csize_t), omega, L, sine, n )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 
@@ -99,7 +100,7 @@ function integration_qawo(a::Real, epsabs::Real, epsrel::Real, limit::Integer)
         Ptr{Cdouble}, Ptr{Cdouble}), f, a, epsabs, epsrel, limit, workspace,
         wf, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(f) ,unsafe_ref(workspace) ,unsafe_ref(wf) ,unsafe_ref(result) ,unsafe_ref(abserr)
+    return unsafe_ref(f), unsafe_ref(workspace), unsafe_ref(wf), unsafe_ref(result), unsafe_ref(abserr)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number integration_qawo

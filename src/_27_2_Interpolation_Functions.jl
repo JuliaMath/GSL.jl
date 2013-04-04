@@ -12,8 +12,9 @@ export interp_alloc, interp_init, interp_free
 # 
 #   Returns: Ptr{gsl_interp}
 function interp_alloc(T::Ptr{gsl_interp_type}, size::Integer)
-    ccall( (:gsl_interp_alloc, :libgsl), Ptr{gsl_interp},
+    output_ptr = ccall( (:gsl_interp_alloc, :libgsl), Ptr{gsl_interp},
         (Ptr{gsl_interp_type}, Csize_t), T, size )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 

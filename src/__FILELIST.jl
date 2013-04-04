@@ -5,27 +5,8 @@ type enumgsl_integration_qawo_enum; end
 type gsl_bspline_deriv_workspace; end
 type gsl_bspline_workspace; end
 type gsl_comparison_fn_t; end
-type gsl_complex_packed_array; end
 type gsl_complex_packed_ptr; end
 type gsl_dht; end
-type gsl_eigen_gen_workspace; end
-type gsl_eigen_genherm_workspace; end
-type gsl_eigen_genhermv_workspace; end
-type gsl_eigen_gensymm_workspace; end
-type gsl_eigen_gensymmv_workspace; end
-type gsl_eigen_genv_workspace; end
-type gsl_eigen_herm_workspace; end
-type gsl_eigen_hermv_workspace; end
-type gsl_eigen_nonsymm_workspace; end
-type gsl_eigen_nonsymmv_workspace; end
-type gsl_eigen_sort_t; end
-type gsl_eigen_symm_workspace; end
-type gsl_eigen_symmv_workspace; end
-type gsl_fft_complex_workspace; end
-type gsl_fft_direction; end
-type gsl_fft_halfcomplex_wavetable; end
-type gsl_fft_real_wavetable; end
-type gsl_fft_real_workspace; end
 type gsl_integration_cquad_workspace; end
 type gsl_integration_glfixed_table; end
 type gsl_integration_qawo_table; end
@@ -34,9 +15,6 @@ type gsl_integration_workspace; end
 type gsl_interp; end
 type gsl_interp_accel; end
 type gsl_interp_type; end
-type gsl_matrix__view; end
-type gsl_matrix_complex; end
-type gsl_matrix_view; end
 type gsl_min_fminimizer; end
 type gsl_min_fminimizer_type; end
 type gsl_mode_t; end
@@ -81,9 +59,6 @@ type gsl_siman_copy_ruct_t; end
 type gsl_spline; end
 type gsl_sum_levin_u_workspace; end
 type gsl_sum_levin_utrunc_workspace; end
-type gsl_vector__view; end
-type gsl_vector_complex; end
-type gsl_vector_view; end
 type gsl_wavelet; end
 type gsl_wavelet_direction; end
 type gsl_wavelet_type; end
@@ -158,9 +133,6 @@ include("../src/_23_1_The_ntuple_struct.jl")
 include("../src/_22_10_The_histogram_probability_distribution_struct.jl")
 
 
-include("../src/_16_4_Mixed-radix_FFT_routines_for_complex_data.jl")
-
-
 include("../src/_22_14_2D_Histogram_allocation.jl")
 
 
@@ -191,16 +163,10 @@ include("../src/_30_1_Acceleration_functions.jl")
 include("../src/_10_3_Accessing_combination_elements.jl")
 
 
-include("../src/_8_4_2_Accessing_matrix_elements.jl")
-
-
 include("../src/_11_3_Accessing_multiset_elements.jl")
 
 
 include("../src/_9_3_Accessing_permutation_elements.jl")
-
-
-include("../src/_8_3_2_Accessing_vector_elements.jl")
 
 
 include("../src/_26_3_Adaptive_Step-size_Control.jl")
@@ -236,13 +202,7 @@ include("../src/_19_3_Auxiliary_quasi-random_number_generator_functions.jl")
 include("../src/_18_5_Auxiliary_random_number_generator_functions.jl")
 
 
-include("../src/_14_14_Balancing.jl")
-
-
 include("../src/_7_19_5_Beta_Functions.jl")
-
-
-include("../src/_14_10_Bidiagonalization.jl")
 
 
 include("../src/_8_2_1_Block_allocation.jl")
@@ -252,9 +212,6 @@ include("../src/_7_13_5_Carlson_Forms.jl")
 
 
 include("../src/_29_4_Chebyshev_Series_Evaluation.jl")
-
-
-include("../src/_14_5_Cholesky_Decomposition.jl")
 
 
 include("../src/_7_31_1_Circular_Trigonometric_Functions.jl")
@@ -284,21 +241,6 @@ include("../src/_7_18_1_Complete_Fermi-Dirac_Integrals.jl")
 include("../src/_7_11_2_Complex_Argument.jl")
 
 
-include("../src/_5_3_Complex_arithmetic_operators.jl")
-
-
-include("../src/_15_5_Complex_Generalized_Hermitian-Definite_Eigensystems.jl")
-
-
-include("../src/_15_2_Complex_Hermitian_Matrices.jl")
-
-
-include("../src/_5_7_Complex_Hyperbolic_Functions.jl")
-
-
-include("../src/_5_5_Complex_Trigonometric_Functions.jl")
-
-
 include("../src/_38_8_Computing_the_covariance_matrix_of_best_fit_parameters.jl")
 
 
@@ -317,16 +259,7 @@ include("../src/_22_15_Copying_2D_Histograms.jl")
 include("../src/_22_3_Copying_Histograms.jl")
 
 
-include("../src/_8_4_7_Copying_matrices.jl")
-
-
 include("../src/_18_7_Copying_random_number_generator_state.jl")
-
-
-include("../src/_8_4_8_Copying_rows_and_columns.jl")
-
-
-include("../src/_8_3_6_Copying_vectors.jl")
 
 
 include("../src/_21_6_Correlation.jl")
@@ -345,9 +278,6 @@ include("../src/_17_11_CQUAD_doubly-adaptive_integration.jl")
 
 
 include("../src/_23_2_Creating_ntuples.jl")
-
-
-include("../src/_8_4_6_Creating_row_and_column_views.jl")
 
 
 include("../src/_29_2_Creation_and_Calculation_of_Chebyshev_Series.jl")
@@ -395,9 +325,6 @@ include("../src/_7_17_2_Ei(x).jl")
 include("../src/_7_17_4_Ei_3(x).jl")
 
 
-include("../src/_5_4_Elementary_Complex_Functions.jl")
-
-
 include("../src/_4_3_Elementary_Functions.jl")
 
 
@@ -428,12 +355,6 @@ include("../src/_27_5_Evaluation_of_Interpolating_Functions.jl")
 include("../src/_26_4_Evolution.jl")
 
 
-include("../src/_8_3_7_Exchanging_elements.jl")
-
-
-include("../src/_8_4_9_Exchanging_rows_and_columns.jl")
-
-
 include("../src/_7_16_1_Exponential_Function.jl")
 
 
@@ -444,12 +365,6 @@ include("../src/_7_16_3_Exponentiation_With_Error_Estimate.jl")
 
 
 include("../src/_7_19_2_Factorials.jl")
-
-
-include("../src/_8_4_11_Finding_maximum_and_minimum_elements_of_matrices.jl")
-
-
-include("../src/_8_3_9_Finding_maximum_and_minimum_elements_of_vectors.jl")
 
 
 include("../src/_17_12_Gauss-Legendre_integration.jl")
@@ -465,12 +380,6 @@ include("../src/_20_28_General_Discrete_Distributions.jl")
 
 
 include("../src/_6_5_General_Polynomial_Equations.jl")
-
-
-include("../src/_14_8_Hessenberg_Decomposition_of_Real_Matrices.jl")
-
-
-include("../src/_14_9_Hessenberg-Triangular_Decomposition_of_Real_Matrices.jl")
 
 
 include("../src/_21_3_Higher_moments_(skewness_and_kurtosis).jl")
@@ -489,12 +398,6 @@ include("../src/_22_6_Histogram_Statistics.jl")
 
 
 include("../src/_23_7_Histogramming_ntuple_values.jl")
-
-
-include("../src/_14_12_Householder_solver_for_linear_systems.jl")
-
-
-include("../src/_14_11_Householder_Transformations.jl")
 
 
 include("../src/_7_32_3_Hurwitz_Zeta_Function.jl")
@@ -524,9 +427,6 @@ include("../src/_27_4_Index_Look-up_and_Acceleration.jl")
 include("../src/_4_2_Infinities_and_Not-a-number.jl")
 
 
-include("../src/_8_4_3_Initializing_matrix_elements.jl")
-
-
 include("../src/_39_2_Initializing_the_B-splines_solver.jl")
 
 
@@ -545,19 +445,10 @@ include("../src/_38_2_Initializing_the_Solver.jl")
 include("../src/_33_3_Initializing_the_Solver.jl")
 
 
-include("../src/_8_3_3_Initializing_vector_elements.jl")
-
-
 include("../src/_27_2_Interpolation_Functions.jl")
 
 
 include("../src/_27_3_Interpolation_Types.jl")
-
-
-include("../src/_5_8_Inverse_Complex_Hyperbolic_Functions.jl")
-
-
-include("../src/_5_6_Inverse_Complex_Trigonometric_Functions.jl")
 
 
 include("../src/_7_5_10_Irregular_Bessel_FunctionsFractional_Order.jl")
@@ -611,25 +502,10 @@ include("../src/_7_15_3_Log_Complementary_Error_Function.jl")
 include("../src/_7_25_Logarithm_and_Related_Functions.jl")
 
 
-include("../src/_14_1_LU_Decomposition.jl")
-
-
 include("../src/_7_26_2_Mathieu_Function_Characteristic_Values.jl")
 
 
 include("../src/_7_26_1_Mathieu_Function_Workspace.jl")
-
-
-include("../src/_8_4_1_Matrix_allocation.jl")
-
-
-include("../src/_8_4_10_Matrix_operations.jl")
-
-
-include("../src/_8_4_12_Matrix_properties.jl")
-
-
-include("../src/_8_4_5_Matrix_views.jl")
 
 
 include("../src/_4_7_Maximum_and_Minimum_functions.jl")
@@ -651,9 +527,6 @@ include("../src/_34_6_Stopping_Parameters.jl")
 
 
 include("../src/_24_3_MISER.jl")
-
-
-include("../src/_16_7_Mixed-radix_FFT_routines_for_real_data.jl")
 
 
 include("../src/_37_4_Multi-parameter_fitting.jl")
@@ -716,9 +589,6 @@ include("../src/_7_27_Power_Function.jl")
 include("../src/_7_15_4_Probability_functions.jl")
 
 
-include("../src/_5_2_Properties_of_complex_numbers.jl")
-
-
 include("../src/_17_3_QAG_adaptive_integration.jl")
 
 
@@ -746,12 +616,6 @@ include("../src/_17_8_QAWS_adaptive_integration_for_singular_functions.jl")
 include("../src/_17_2_QNG_non-adaptive_Gauss-Kronrod_integration.jl")
 
 
-include("../src/_14_3_QR_Decomposition_with_Column_Pivoting.jl")
-
-
-include("../src/_14_2_QR_Decomposition.jl")
-
-
 include("../src/_6_3_Quadratic_Equations.jl")
 
 
@@ -762,12 +626,6 @@ include("../src/_7_24_4_Radial_Functions_for_Hyperbolic_Space.jl")
 
 
 include("../src/_7_26_4_Radial_Mathieu_Functions.jl")
-
-
-include("../src/_16_3_Radix-2_FFT_routines_for_complex_data.jl")
-
-
-include("../src/_16_6_Radix-2_FFT_routines_for_real_data.jl")
 
 
 include("../src/_18_6_Random_number_environment_variables.jl")
@@ -788,9 +646,6 @@ include("../src/_10_6_Reading_and_writing_combinations.jl")
 include("../src/_22_8_Reading_and_writing_histograms.jl")
 
 
-include("../src/_8_4_4_Reading_and_writing_matrices.jl")
-
-
 include("../src/_11_6_Reading_and_writing_multisets.jl")
 
 
@@ -800,25 +655,10 @@ include("../src/_9_7_Reading_and_writing_permutations.jl")
 include("../src/_18_8_Reading_and_writing_random_number_generator_state.jl")
 
 
-include("../src/_8_3_4_Reading_and_writing_vectors.jl")
-
-
 include("../src/_23_5_Reading_ntuples.jl")
 
 
 include("../src/_7_11_1_Real_Argument.jl")
-
-
-include("../src/_15_6_Real_Generalized_Nonsymmetric_Eigensystems.jl")
-
-
-include("../src/_15_4_Real_Generalized_Symmetric-Definite_Eigensystems.jl")
-
-
-include("../src/_15_3_Real_Nonsymmetric_Matrices.jl")
-
-
-include("../src/_15_1_Real_Symmetric_Matrices.jl")
 
 
 include("../src/_7_5_9_Regular_Bessel_FunctionFractional_Order.jl")
@@ -881,28 +721,16 @@ include("../src/_22_17_Searching_2D_histogram_ranges.jl")
 include("../src/_22_5_Searching_histogram_ranges.jl")
 
 
-include("../src/_12_3_Selecting_the_k_smallest_or_largest_elements.jl")
-
-
 include("../src/_41_2_Setting_up_your_IEEE_environment.jl")
 
 
 include("../src/_20_38_Shuffling_and_Sampling.jl")
 
 
-include("../src/_14_4_Singular_Value_Decomposition.jl")
-
-
 include("../src/_4_4_Small_integer_powers.jl")
 
 
-include("../src/_15_7_Sorting_Eigenvalues_and_Eigenvectors.jl")
-
-
 include("../src/_12_1_Sorting_objects.jl")
-
-
-include("../src/_12_2_Sorting_vectors.jl")
 
 
 include("../src/_20_23_Spherical_Vector_Distributions.jl")
@@ -1019,15 +847,6 @@ include("../src/_20_24_The_Weibull_Distribution.jl")
 include("../src/_7_30_Transport_Functions.jl")
 
 
-include("../src/_14_7_Tridiagonal_Decomposition_of_Hermitian_Matrices.jl")
-
-
-include("../src/_14_6_Tridiagonal_Decomposition_of_Real_Symmetric_Matrices.jl")
-
-
-include("../src/_14_13_Tridiagonal_Systems.jl")
-
-
 include("../src/_7_28_2_Trigamma_Function.jl")
 
 
@@ -1044,18 +863,6 @@ include("../src/_22_16_Updating_and_accessing_2D_histogram_elements.jl")
 
 
 include("../src/_22_4_Updating_and_accessing_histogram_elements.jl")
-
-
-include("../src/_8_3_1_Vector_allocation.jl")
-
-
-include("../src/_8_3_8_Vector_operations.jl")
-
-
-include("../src/_8_3_10_Vector_properties.jl")
-
-
-include("../src/_8_3_5_Vector_views.jl")
 
 
 include("../src/_24_4_VEGAS.jl")

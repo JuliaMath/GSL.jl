@@ -26,6 +26,7 @@ end
 # 
 #   Returns: Ptr{gsl_qrng}
 function qrng_clone(q::Ptr{gsl_qrng})
-    ccall( (:gsl_qrng_clone, :libgsl), Ptr{gsl_qrng}, (Ptr{gsl_qrng}, ), q
-        )
+    output_ptr = ccall( (:gsl_qrng_clone, :libgsl), Ptr{gsl_qrng},
+        (Ptr{gsl_qrng}, ), q )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
