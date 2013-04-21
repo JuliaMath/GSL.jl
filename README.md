@@ -35,11 +35,6 @@ Translated examples from the GSL documentation are available in `examples/`.
 
 # Convenience methods provided
 
-<script type="text/javascript"
-   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js">
-
-</script>
-
 ## Roots of polynomials
 ```julia
     roots{T<:Real}(c::Vector{T}, realOnly::Bool) -> Vector{Complex128}
@@ -82,16 +77,15 @@ Translated examples from the GSL documentation are available in `examples/`.
 # Current status
 
 ## What is available
-* All functions except the ones described below
-* All documented `gsl_*` structs
-* Most special functions: All except for the following categories:
-  * Some array-valued functions `sf_*_array`
-    * Available:  `sf_bessel_*_array`, `sf_gegenpoly_array`.
-    * Not available: all others. The wrappers do not currently work.
-  * Not available: `sf_*_e10_e` that return the `sf_result_e10` struct. (Currently returns bus error.)
-
-* Some `GSL_*` constants
-  * Precision mode constants `PREC_SINGLE`, `PREC_DOUBLE`, `PREC_APPROX`
+* Functions: all except the ones described below. Functions have the `gsl_` prefix stripped.
+  * Most special functions: All except for the following categories:
+    * Some array-valued functions `sf_*_array`
+      * Available:  `sf_bessel_*_array`, `sf_gegenpoly_array`.
+      * Not available: all others. The wrappers do not currently work.
+    * Not available: `sf_*_e10_e` that return the `sf_result_e10` struct. (Currently returns bus error.)
+* All documented `gsl_*` structs - These do NOT have the `gsl_` prefix stripped.
+* `GSL_*` constants: strip `GSL_` and `GSL_CONST_` prefixes
+* `GSL_*` macros: Most available but untested.
 
 ## What is not available
 * GSL's BLAS and CBLAS wrappers `blas_*`, `cblas_*`. Use Julia's interface instead.
@@ -99,7 +93,10 @@ Translated examples from the GSL documentation are available in `examples/`.
   Work in progress.
   Wrappers to these functions exist but most likely won't work
 * Row and column views of matrices, `matrix_row*` and `matrix_column*` (Sec. 8.4.6)
-* All `GSL_*` macros
+* `GSL_*` macros:
+  * `COMPLEX_AT`, `COMPLEX_FLOAT_AT`, `COMPLEX_LONG_DOUBLE_AT`
+  * `SF_RESULT_SET` and others in `gsl_sf_result.h`
+  * `SET_COMPLEX`, `SET_REAL`, `SET_IMAG`, `SET_COMPLEX_PACKED`
 
 ## Current tests
 * Special functions
@@ -115,12 +112,12 @@ Translated examples from the GSL documentation are available in `examples/`.
     * Restriction Functions (Section 7.31.5)
     * Trigonometric Functions With Error Estimates (Section 7.31.6)
 * All other functions are untested
+* All macros are untested
 
 ## How you can help
 
 The wrappers are automatically generated using `util/makewrapper.py`.
 
 1. Test function wrappers for correctness.
-2. Expose `GSL_*` constants and macros to Julia.
-3. Write convenience methods to further wrap the function calls with a Julia-
+2. Write convenience methods to further wrap the function calls with a Julia-
    friendly syntax.
