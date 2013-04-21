@@ -11,11 +11,9 @@ export permutation_reverse, permutation_inverse, permutation_next,
 # This function reverses the elements of the permutation p.
 # 
 #   Returns: Void
-function permutation_reverse()
-    p = convert(Ptr{gsl_permutation}, Array(permutation, 1))
+function permutation_reverse(p::Ptr{gsl_permutation})
     ccall( (:gsl_permutation_reverse, :libgsl), Void,
         (Ptr{gsl_permutation}, ), p )
-    return unsafe_ref(p)
 end
 
 
@@ -52,10 +50,8 @@ end
 # permutation is available it returns gsl_FAILURE and leaves p unmodified.
 # 
 #   Returns: Cint
-function permutation_prev()
-    p = convert(Ptr{gsl_permutation}, Array(permutation, 1))
+function permutation_prev(p::Ptr{gsl_permutation})
     errno = ccall( (:gsl_permutation_prev, :libgsl), Cint,
         (Ptr{gsl_permutation}, ), p )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(p)
 end

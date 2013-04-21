@@ -63,7 +63,7 @@ while true
         println()
         p=permutation_next(p)
     catch Ex
-        if typeof(Ex)==GSL_ERROR && Ex.errno==-1 break end
+        if typeof(Ex)==ErrorException break end
         throw(Ex)
     end
 end

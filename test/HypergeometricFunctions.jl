@@ -1,5 +1,5 @@
 using GSL
-using Test
+using Base.Test
 
 a = 3*randn()
 b = 3*randn()
