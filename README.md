@@ -67,20 +67,54 @@ Translated examples from the GSL documentation are available in `examples/`.
 > This only calls the floating-point versions of the GSL functions
 > `gsl_sf_hyperg_?F?` [(GSL manual, Section 7.24)](http://www.gnu.org/software/gsl/manual/html_node/Hypergeometric-Functions.html)
 
+## Test functions
+```julia
+    @sf_test(sf, args...)
+```
+> Macro to help test equality of a function and its error-propagating variant. Requires `Base.Test`.
+> Example:
+
+```julia
+    x = randn()
+    @eval @sf_test sf_dawson $x
+```
+
 # Current status
 
 ## What is available
 * All functions except the ones described below
 * All documented `gsl_*` structs
+* Most special functions: All except for the following categories:
+  * Some array-valued functions `sf_*_array`
+    * Available:  `sf_bessel_*_array`, `sf_gegenpoly_array`.
+    * Not available: all others. The wrappers do not currently work.
+  * Not available: `sf_*_e10_e` that return the `sf_result_e10` struct. (Currently returns bus error.)
+
+* Some `GSL_*` constants
+  * Precision mode constants `PREC_SINGLE`, `PREC_DOUBLE`, `PREC_APPROX`
 
 ## What is not available
 * GSL's BLAS and CBLAS wrappers `blas_*`, `cblas_*`. Use Julia's interface instead.
-* Data I/O functions, such as `*_fprintf` and `*_fscanf`
+* Data I/O functions, such as `*_fprintf` and `*_fscanf`.
   Work in progress.
   Wrappers to these functions exist but most likely won't work
 * Row and column views of matrices, `matrix_row*` and `matrix_column*` (Sec. 8.4.6)
-* All `GSL_*` constants
 * All `GSL_*` macros
+
+## Current tests
+* Special functions
+  * Basic tests comparing equality of basic and error-propagating special functions
+  * Some identity tests for hypergeometric functions
+  * Available but untested:
+    * `sf_bessel_sequence_Jnu_e`, `sf_bessel_Jnu`
+    * `sf_coulomb_CL_e`, `sf_coulomb_CL_e`
+    * `sf_coupling_6j`, `sf_elljac_e`
+    * Mathieu Functions (Section 7.26). (Needs convenience function)
+    * Trigonometric Functions for Complex Arguments (Section 7.31)
+    * Conversion Functions (Section 7.31.4)
+    * Restriction Functions (Section 7.31.5)
+    * Trigonometric Functions With Error Estimates (Section 7.31.6)
+* All other functions are untested
 
 ## How you can help
 
