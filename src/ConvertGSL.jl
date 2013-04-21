@@ -14,7 +14,7 @@ complex_packed_ptr(c::Vector{Cdouble}) = Complex128[c[2i-1]+im*c[2i] for i=1:int
 
 #Register this error handler as GSL's default
 #where possible, maps errors to Julia's own exceptions
-function custom_error_handler(reason::Ptr{Uint8}, file::Ptr{Uint8}, line, errno)
+function custom_error_handler(reason, file, line, errno)
     if errno == 0; return; end # GSL_SUCCESS
     if errno == 1 # GSL_EDOM: input domain error, e.g sqrt(-1)
         throw(DomainError())
