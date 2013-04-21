@@ -1,5 +1,6 @@
 GSL.jl
 ======
+[![Build Status](https://api.travis-ci.org/jiahao/GSL.jl.png?branch=master)](https://travis-ci.org/jiahao/GSL.jl)
 
 Julia interface to the [GNU Scientific Library (GSL)](http://www.gnu.org/software/gsl)
 

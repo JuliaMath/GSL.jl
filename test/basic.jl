@@ -224,18 +224,22 @@ begin
             :sf_ellint_Kcomp, :sf_ellint_Ecomp, #7.13.3 Legendre Form of Complete Elliptic Integrals
         )
         for mode in (PREC_DOUBLE, PREC_SINGLE, PREC_APPROX)
-            @eval @sf_test $x $mode
+            @eval @sf_test $sf $x $mode
         end
     end
 
     local y=2rand()-1
     for sf in (:sf_ellint_Pcomp,
             :sf_ellint_F, :sf_ellint_E, #7.13.4 Legendre Form of Incomplete Elliptic Integrals
-            :sf_ellint_RC, #7.13.5 Carlson Forms
             ) 
         for mode in (PREC_DOUBLE, PREC_SINGLE, PREC_APPROX)
-            @eval @sf_test $x $y $mode
+            @eval @sf_test $sf $x $y $mode
         end
+    end
+
+    #7.13.5 Carlson Forms
+    for mode in (PREC_DOUBLE, PREC_SINGLE, PREC_APPROX)
+        @eval @sf_test sf_ellint_RC $xabs $(abs(y)) $mode
     end
 
     z=rand()
@@ -244,14 +248,14 @@ begin
             :sf_ellint_RD, :sf_ellint_RF, #7.13.5 Carlson Forms
             )
         for mode in (PREC_DOUBLE, PREC_SINGLE, PREC_APPROX)
-            @eval @sf_test $x $y $z $mode
+            @eval @sf_test $sf $xabs $(abs(y)) $(abs(z)) $mode
         end
     end
 
     w=abs(randn())
     for sf in (:sf_ellint_RJ,) #7.13.5 Carlson Forms
         for mode in (PREC_DOUBLE, PREC_SINGLE, PREC_APPROX)
-            @eval @sf_test $sf $(abs(x)) $(abs(y)) $(abs(z)) w
+            @eval @sf_test $sf $(abs(x)) $(abs(y)) $(abs(z)) $w $mode
         end
     end
 end
@@ -552,7 +556,7 @@ end
 
 #7.29 Synchrotron Functions
 for sf in (:sf_synchrotron_1, :sf_synchrotron_2)
-    @eval @sf_test $sf $x
+    @eval @sf_test $sf $xabs
 end
 
 #7.30 Transport Functions
