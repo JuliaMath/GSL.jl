@@ -9,6 +9,7 @@ module GSL
     include("7_20_Gegenbauer_Functions.jl")
     include("7_21_HypergeometricFunctions.jl")
     include("9_5_Permutation_functions.jl")
+    include("9_8_Permutations_in_cyclic_form.jl")
     include("20_23_SphericalVectorDistributions.jl")
     include("28_1_NumericalDifferentiationfunctions.jl")
 end #module
