@@ -49,7 +49,7 @@ function monte_plain_integrate(xl::Real)
     errno = ccall( (:gsl_monte_plain_integrate, :libgsl), Cint,
         (Ptr{gsl_monte_function}, Cdouble), f, xl )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(f)
+    return unsafe_load(f)
 end
 @vectorize_1arg Number monte_plain_integrate
 

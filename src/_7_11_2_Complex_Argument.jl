@@ -19,6 +19,6 @@ function sf_complex_dilog_e(r::Real, theta::Real)
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), r, theta, result_re,
         result_im )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result_re), unsafe_ref(result_im)
+    return unsafe_load(result_re), unsafe_load(result_im)
 end
 @vectorize_2arg Number sf_complex_dilog_e

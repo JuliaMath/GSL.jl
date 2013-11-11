@@ -28,7 +28,7 @@ function sf_gamma_inc_e(a::Real, x::Real)
     errno = ccall( (:gsl_sf_gamma_inc_e, :libgsl), Cint, (Cdouble, Cdouble,
         Ptr{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_2arg Number sf_gamma_inc_e
 
@@ -53,7 +53,7 @@ function sf_gamma_inc_Q_e(a::Real, x::Real)
     errno = ccall( (:gsl_sf_gamma_inc_Q_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_2arg Number sf_gamma_inc_Q_e
 
@@ -82,6 +82,6 @@ function sf_gamma_inc_P_e(a::Real, x::Real)
     errno = ccall( (:gsl_sf_gamma_inc_P_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_2arg Number sf_gamma_inc_P_e

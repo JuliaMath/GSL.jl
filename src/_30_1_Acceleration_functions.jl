@@ -49,5 +49,5 @@ function sum_levin_u_accel{tA<:Real}(array_in::AbstractVector{tA})
         Csize_t, Ptr{gsl_sum_levin_u_workspace}, Ptr{Cdouble}, Ptr{Cdouble}),
         array, array_size, w, sum_accel, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(w), unsafe_ref(sum_accel), unsafe_ref(abserr)
+    return unsafe_load(w), unsafe_load(sum_accel), unsafe_load(abserr)
 end

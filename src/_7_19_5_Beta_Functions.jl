@@ -28,7 +28,7 @@ function sf_beta_e(a::Real, b::Real)
     errno = ccall( (:gsl_sf_beta_e, :libgsl), Cint, (Cdouble, Cdouble,
         Ptr{gsl_sf_result}), a, b, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_2arg Number sf_beta_e
 
@@ -52,6 +52,6 @@ function sf_lnbeta_e(a::Real, b::Real)
     errno = ccall( (:gsl_sf_lnbeta_e, :libgsl), Cint, (Cdouble, Cdouble,
         Ptr{gsl_sf_result}), a, b, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_2arg Number sf_lnbeta_e

@@ -25,7 +25,7 @@ function sf_transport_2_e(x::Real)
     errno = ccall( (:gsl_sf_transport_2_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_1arg Number sf_transport_2_e
 
@@ -47,7 +47,7 @@ function sf_transport_3_e(x::Real)
     errno = ccall( (:gsl_sf_transport_3_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_1arg Number sf_transport_3_e
 
@@ -69,7 +69,7 @@ function sf_transport_4_e(x::Real)
     errno = ccall( (:gsl_sf_transport_4_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_1arg Number sf_transport_4_e
 
@@ -91,6 +91,6 @@ function sf_transport_5_e(x::Real)
     errno = ccall( (:gsl_sf_transport_5_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_1arg Number sf_transport_5_e

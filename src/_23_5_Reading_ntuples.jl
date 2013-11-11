@@ -16,5 +16,5 @@ function ntuple_read()
     errno = ccall( (:gsl_ntuple_read, :libgsl), Cint, (Ptr{gsl_ntuple}, ),
         ntuple )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(ntuple)
+    return unsafe_load(ntuple)
 end

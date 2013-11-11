@@ -85,7 +85,7 @@ function integration_qaws(a::Real, b::Real, epsabs::Real, epsrel::Real, limit::I
         Ptr{Cdouble}, Ptr{Cdouble}), f, a, b, t, epsabs, epsrel, limit,
         workspace, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(f), unsafe_ref(t), unsafe_ref(workspace), unsafe_ref(result), unsafe_ref(abserr)
+    return unsafe_load(f), unsafe_load(t), unsafe_load(workspace), unsafe_load(result), unsafe_load(abserr)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_5arg Number integration_qaws

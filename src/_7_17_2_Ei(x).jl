@@ -30,6 +30,6 @@ function sf_expint_Ei_e(x::Real)
     errno = ccall( (:gsl_sf_expint_Ei_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_1arg Number sf_expint_Ei_e

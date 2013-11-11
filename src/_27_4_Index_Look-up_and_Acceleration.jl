@@ -55,7 +55,7 @@ function interp_accel_reset()
     errno = ccall( (:gsl_interp_accel_reset, :libgsl), Cint,
         (Ptr{gsl_interp_accel}, ), acc )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(acc)
+    return unsafe_load(acc)
 end
 
 

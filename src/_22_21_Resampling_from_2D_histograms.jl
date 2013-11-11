@@ -69,5 +69,5 @@ function histogram2d_pdf_sample(p::Ptr{gsl_histogram2d_pdf}, r1::Real, r2::Real)
         (Ptr{gsl_histogram2d_pdf}, Cdouble, Cdouble, Ptr{Cdouble},
         Ptr{Cdouble}), p, r1, r2, x, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(x), unsafe_ref(y)
+    return unsafe_load(x), unsafe_load(y)
 end

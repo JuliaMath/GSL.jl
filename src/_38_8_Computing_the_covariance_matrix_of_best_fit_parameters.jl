@@ -38,5 +38,5 @@ function multifit_covar(J::Ptr{gsl_matrix}, epsrel::Real)
     errno = ccall( (:gsl_multifit_covar, :libgsl), Cint, (Ptr{gsl_matrix},
         Cdouble, Ptr{gsl_matrix}), J, epsrel, covar )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(covar)
+    return unsafe_load(covar)
 end

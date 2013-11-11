@@ -36,7 +36,7 @@ function sf_gamma_e(x::Real)
     errno = ccall( (:gsl_sf_gamma_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_1arg Number sf_gamma_e
 
@@ -64,7 +64,7 @@ function sf_lngamma_e(x::Real)
     errno = ccall( (:gsl_sf_lngamma_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_1arg Number sf_lngamma_e
 
@@ -82,7 +82,7 @@ function sf_lngamma_sgn_e(x::Real)
     errno = ccall( (:gsl_sf_lngamma_sgn_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}, Ptr{Cdouble}), x, result_lg, sgn )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result_lg), unsafe_ref(sgn)
+    return unsafe_load(result_lg), unsafe_load(sgn)
 end
 @vectorize_1arg Number sf_lngamma_sgn_e
 
@@ -110,7 +110,7 @@ function sf_gammastar_e(x::Real)
     errno = ccall( (:gsl_sf_gammastar_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_1arg Number sf_gammastar_e
 
@@ -134,7 +134,7 @@ function sf_gammainv_e(x::Real)
     errno = ccall( (:gsl_sf_gammainv_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_1arg Number sf_gammainv_e
 
@@ -154,6 +154,6 @@ function sf_lngamma_complex_e(zr::Real, zi::Real)
     errno = ccall( (:gsl_sf_lngamma_complex_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, lnr, arg )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(lnr), unsafe_ref(arg)
+    return unsafe_load(lnr), unsafe_load(arg)
 end
 @vectorize_2arg Number sf_lngamma_complex_e

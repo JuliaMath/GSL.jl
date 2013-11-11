@@ -26,7 +26,7 @@ function sf_zeta_int_e(n::Integer)
     errno = ccall( (:gsl_sf_zeta_int_e, :libgsl), Cint, (Cint,
         Ptr{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_1arg Number sf_zeta_int_e
 
@@ -50,6 +50,6 @@ function sf_zeta_e(s::Real)
     errno = ccall( (:gsl_sf_zeta_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), s, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_1arg Number sf_zeta_e

@@ -46,7 +46,7 @@ function integration_glfixed_point(a::Real, b::Real, i::Integer, t::Ptr{gsl_inte
         (Cdouble, Cdouble, Csize_t, Ptr{Cdouble}, Ptr{Cdouble},
         Ptr{gsl_integration_glfixed_table}), a, b, i, xi, wi, t )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(xi), unsafe_ref(wi)
+    return unsafe_load(xi), unsafe_load(wi)
 end
 
 

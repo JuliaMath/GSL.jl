@@ -25,7 +25,7 @@ function bspline_deriv_eval(x::Real, nderiv::Integer)
         Csize_t, Ptr{gsl_matrix}, Ptr{gsl_bspline_workspace},
         Ptr{gsl_bspline_deriv_workspace}), x, nderiv, dB, w, dw )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(dB), unsafe_ref(w), unsafe_ref(dw)
+    return unsafe_load(dB), unsafe_load(w), unsafe_load(dw)
 end
 @vectorize_2arg Number bspline_deriv_eval
 
@@ -52,6 +52,6 @@ function bspline_deriv_eval_nonzero(x::Real, nderiv::Integer)
         Ptr{gsl_bspline_workspace}, Ptr{gsl_bspline_deriv_workspace}), x,
         nderiv, dB, istart, iend, w, dw )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(dB), unsafe_ref(istart), unsafe_ref(iend), unsafe_ref(w), unsafe_ref(dw)
+    return unsafe_load(dB), unsafe_load(istart), unsafe_load(iend), unsafe_load(w), unsafe_load(dw)
 end
 @vectorize_2arg Number bspline_deriv_eval_nonzero

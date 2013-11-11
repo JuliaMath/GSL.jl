@@ -64,7 +64,7 @@ function dht_apply(t::Ptr{gsl_dht})
     errno = ccall( (:gsl_dht_apply, :libgsl), Cint, (Ptr{gsl_dht},
         Ptr{Cdouble}, Ptr{Cdouble}), t, f_in, f_out )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(f_in), unsafe_ref(f_out)
+    return unsafe_load(f_in), unsafe_load(f_out)
 end
 
 

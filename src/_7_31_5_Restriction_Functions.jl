@@ -30,7 +30,7 @@ function sf_angle_restrict_symm_e()
     errno = ccall( (:gsl_sf_angle_restrict_symm_e, :libgsl), Cint,
         (Ptr{Cdouble}, ), theta )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(theta)
+    return unsafe_load(theta)
 end
 
 
@@ -56,5 +56,5 @@ function sf_angle_restrict_pos_e()
     errno = ccall( (:gsl_sf_angle_restrict_pos_e, :libgsl), Cint,
         (Ptr{Cdouble}, ), theta )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(theta)
+    return unsafe_load(theta)
 end

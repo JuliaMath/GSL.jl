@@ -29,6 +29,6 @@ function sf_fermi_dirac_inc_0_e(x::Real, b::Real)
     errno = ccall( (:gsl_sf_fermi_dirac_inc_0_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), x, b, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_2arg Number sf_fermi_dirac_inc_0_e

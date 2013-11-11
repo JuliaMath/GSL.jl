@@ -35,7 +35,7 @@ function histogram_fread(stream::Ptr{Void})
     errno = ccall( (:gsl_histogram_fread, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_histogram}), stream, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(h)
+    return unsafe_load(h)
 end
 
 
@@ -62,7 +62,7 @@ function histogram_fprintf(stream::Ptr{Void}, h::Ptr{gsl_histogram})
         Ptr{gsl_histogram}, Ptr{Cchar}, Ptr{Cchar}), stream, h, range_format,
         bin_format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(range_format), unsafe_ref(bin_format)
+    return unsafe_load(range_format), unsafe_load(bin_format)
 end
 
 
@@ -79,5 +79,5 @@ function histogram_fscanf(stream::Ptr{Void})
     errno = ccall( (:gsl_histogram_fscanf, :libgsl), Cint, (Ptr{Void},
         Ptr{gsl_histogram}), stream, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(h)
+    return unsafe_load(h)
 end

@@ -62,5 +62,5 @@ function integration_cquad(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real,
         Ptr{Csize_t}), f, a, b, epsabs, epsrel, workspace, result, abserr,
         nevals )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(workspace), unsafe_ref(result), unsafe_ref(abserr), unsafe_ref(nevals)
+    return unsafe_load(workspace), unsafe_load(result), unsafe_load(abserr), unsafe_load(nevals)
 end

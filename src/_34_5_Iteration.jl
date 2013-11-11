@@ -23,7 +23,7 @@ function min_fminimizer_iterate()
     errno = ccall( (:gsl_min_fminimizer_iterate, :libgsl), Cint,
         (Ptr{gsl_min_fminimizer}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(s)
+    return unsafe_load(s)
 end
 
 
@@ -36,7 +36,7 @@ function min_fminimizer_iterate()
     errno = ccall( (:gsl_min_fminimizer_iterate, :libgsl), Cint,
         (Ptr{gsl_min_fminimizer}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(s)
+    return unsafe_load(s)
 end
 
 

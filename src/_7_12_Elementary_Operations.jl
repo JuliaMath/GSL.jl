@@ -16,7 +16,7 @@ function sf_multiply_e(x::Real, y::Real)
     errno = ccall( (:gsl_sf_multiply_e, :libgsl), Cint, (Cdouble, Cdouble,
         Ptr{gsl_sf_result}), x, y, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_2arg Number sf_multiply_e
 
@@ -30,7 +30,7 @@ function sf_multiply_err_e(x::Real, dx::Real, y::Real, dy::Real)
     errno = ccall( (:gsl_sf_multiply_err_e, :libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Cdouble, Ptr{gsl_sf_result}), x, dx, y, dy, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number sf_multiply_err_e

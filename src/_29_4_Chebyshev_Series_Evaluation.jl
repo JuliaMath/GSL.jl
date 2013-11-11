@@ -28,7 +28,7 @@ function cheb_eval_err(cs::Ptr{gsl_cheb_series}, x::Real)
         (Ptr{gsl_cheb_series}, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), cs, x,
         result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result), unsafe_ref(abserr)
+    return unsafe_load(result), unsafe_load(abserr)
 end
 
 
@@ -55,5 +55,5 @@ function cheb_eval_n_err(cs::Ptr{gsl_cheb_series}, order::Integer, x::Real)
         (Ptr{gsl_cheb_series}, Csize_t, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}),
         cs, order, x, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result), unsafe_ref(abserr)
+    return unsafe_load(result), unsafe_load(abserr)
 end

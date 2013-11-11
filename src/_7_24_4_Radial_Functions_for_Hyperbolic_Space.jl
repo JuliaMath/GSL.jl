@@ -33,7 +33,7 @@ function sf_legendre_H3d_0_e(lambda::Real, eta::Real)
     errno = ccall( (:gsl_sf_legendre_H3d_0_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, eta, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_2arg Number sf_legendre_H3d_0_e
 
@@ -64,7 +64,7 @@ function sf_legendre_H3d_1_e(lambda::Real, eta::Real)
     errno = ccall( (:gsl_sf_legendre_H3d_1_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, eta, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_2arg Number sf_legendre_H3d_1_e
 
@@ -92,7 +92,7 @@ function sf_legendre_H3d_e(l::Integer, lambda::Real, eta::Real)
     errno = ccall( (:gsl_sf_legendre_H3d_e, :libgsl), Cint, (Cint, Cdouble,
         Cdouble, Ptr{gsl_sf_result}), l, lambda, eta, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_legendre_H3d_e
@@ -107,7 +107,7 @@ function sf_legendre_H3d_array(lmax::Integer, lambda::Real, eta::Real)
     errno = ccall( (:gsl_sf_legendre_H3d_array, :libgsl), Cint, (Cint,
         Cdouble, Cdouble, Cdouble), lmax, lambda, eta, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result_array)[1]
+    return unsafe_load(result_array)[1]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_legendre_H3d_array

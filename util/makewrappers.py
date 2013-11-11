@@ -12,6 +12,7 @@ with each documented C function.
 Things the parser does not understand are demarcated in comments beginning with
 #XXX, which probably represent things the user should work up manually.
 """
+
 from bs4 import BeautifulSoup, Comment
 from textwrap import wrap
 
@@ -518,10 +519,10 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                     ty_decl=ty.replace('}','').replace('Ptr{','')
                     if dims==0:
                         ty_decl='Array('+ty_decl+', 1)'
-                        return_me.append('unsafe_ref('+x+')[1]')
+                        return_me.append('unsafe_load('+x+')[1]')
                     else:
                         ty_decl='convert('+ty+', Array('*dims+ty_decl+', 1)'*dims+')'
-                        return_me.append('unsafe_ref('*dims+x+')'*dims)
+                        return_me.append('unsafe_load('*dims+x+')'*dims)
                     new_vars.append('    '+x+' = '+ty_decl)
 
             ccall_line = 'ccall( '+', '.join(ccall_args)+' )'

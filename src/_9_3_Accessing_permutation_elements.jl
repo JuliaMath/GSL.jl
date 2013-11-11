@@ -27,6 +27,6 @@ function permutation_swap(i::Integer, j::Integer)
     errno = ccall( (:gsl_permutation_swap, :libgsl), Cint,
         (Ptr{gsl_permutation}, Csize_t, Csize_t), p, i, j )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(p)
+    return unsafe_load(p)
 end
 @vectorize_2arg Number permutation_swap

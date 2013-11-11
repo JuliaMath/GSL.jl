@@ -27,7 +27,7 @@ function sf_bessel_J0_e(x::Real)
     errno = ccall( (:gsl_sf_bessel_J0_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_1arg Number sf_bessel_J0_e
 
@@ -51,7 +51,7 @@ function sf_bessel_J1_e(x::Real)
     errno = ccall( (:gsl_sf_bessel_J1_e, :libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_1arg Number sf_bessel_J1_e
 
@@ -75,7 +75,7 @@ function sf_bessel_Jn_e(n::Integer, x::Real)
     errno = ccall( (:gsl_sf_bessel_Jn_e, :libgsl), Cint, (Cint, Cdouble,
         Ptr{gsl_sf_result}), n, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_2arg Number sf_bessel_Jn_e
 
@@ -91,7 +91,7 @@ function sf_bessel_Jn_array(nmin::Integer, nmax::Integer, x::Real)
     errno = ccall( (:gsl_sf_bessel_Jn_array, :libgsl), Cint, (Cint, Cint,
         Cdouble, Cdouble), nmin, nmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result_array)[1]
+    return unsafe_load(result_array)[1]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_bessel_Jn_array

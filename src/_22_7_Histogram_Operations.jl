@@ -29,7 +29,7 @@ function histogram_add(h2::Ptr{gsl_histogram})
     errno = ccall( (:gsl_histogram_add, :libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(h1)
+    return unsafe_load(h1)
 end
 
 
@@ -43,7 +43,7 @@ function histogram_sub(h2::Ptr{gsl_histogram})
     errno = ccall( (:gsl_histogram_sub, :libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(h1)
+    return unsafe_load(h1)
 end
 
 
@@ -57,7 +57,7 @@ function histogram_mul(h2::Ptr{gsl_histogram})
     errno = ccall( (:gsl_histogram_mul, :libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(h1)
+    return unsafe_load(h1)
 end
 
 
@@ -71,7 +71,7 @@ function histogram_div(h2::Ptr{gsl_histogram})
     errno = ccall( (:gsl_histogram_div, :libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(h1)
+    return unsafe_load(h1)
 end
 
 
@@ -84,7 +84,7 @@ function histogram_scale(scale::Real)
     errno = ccall( (:gsl_histogram_scale, :libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble), h, scale )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(h)
+    return unsafe_load(h)
 end
 @vectorize_1arg Number histogram_scale
 
@@ -98,6 +98,6 @@ function histogram_shift(offset::Real)
     errno = ccall( (:gsl_histogram_shift, :libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble), h, offset )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(h)
+    return unsafe_load(h)
 end
 @vectorize_1arg Number histogram_shift

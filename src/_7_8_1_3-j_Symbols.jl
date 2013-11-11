@@ -33,7 +33,7 @@ function sf_coupling_3j_e(two_ja::Integer, two_jb::Integer, two_jc::Integer, two
         Cint, Cint, Cint, Cint, Ptr{gsl_sf_result}), two_ja, two_jb, two_jc,
         two_ma, two_mb, two_mc, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_6arg Number sf_coupling_3j_e

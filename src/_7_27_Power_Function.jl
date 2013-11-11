@@ -32,6 +32,6 @@ function sf_pow_int_e(x::Real, n::Integer)
     errno = ccall( (:gsl_sf_pow_int_e, :libgsl), Cint, (Cdouble, Cint,
         Ptr{gsl_sf_result}), x, n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_2arg Number sf_pow_int_e

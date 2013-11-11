@@ -22,7 +22,7 @@ end
 # 
 #   Returns: Cint
 function permutation_inverse(p::Ptr{gsl_permutation})
-    inv = permutation_alloc(unsafe_ref(p).size)
+    inv = permutation_alloc(unsafe_load(p).size)
     errno = ccall( (:gsl_permutation_inverse, :libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_permutation}), inv, p )
     if errno!= 0 throw(GSL_ERROR(errno)) end

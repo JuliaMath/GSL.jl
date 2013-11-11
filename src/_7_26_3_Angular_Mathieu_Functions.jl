@@ -16,7 +16,7 @@ function sf_mathieu_ce(n::Integer, q::Real, x::Real)
     errno = ccall( (:gsl_sf_mathieu_ce, :libgsl), Cint, (Cint, Cdouble,
         Cdouble, Ptr{gsl_sf_result}), n, q, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_mathieu_ce
@@ -31,7 +31,7 @@ function sf_mathieu_se(n::Integer, q::Real, x::Real)
     errno = ccall( (:gsl_sf_mathieu_se, :libgsl), Cint, (Cint, Cdouble,
         Cdouble, Ptr{gsl_sf_result}), n, q, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_mathieu_se
@@ -49,7 +49,7 @@ function sf_mathieu_ce_array(nmin::Integer, nmax::Integer, q::Real, x::Real)
         Cdouble, Cdouble, Ptr{gsl_sf_mathieu_workspace}, Cdouble), nmin, nmax,
         q, x, work, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(work), unsafe_ref(result_array)[1]
+    return unsafe_load(work), unsafe_load(result_array)[1]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number sf_mathieu_ce_array
@@ -67,7 +67,7 @@ function sf_mathieu_se_array(nmin::Integer, nmax::Integer, q::Real, x::Real)
         Cdouble, Cdouble, Ptr{gsl_sf_mathieu_workspace}, Cdouble), nmin, nmax,
         q, x, work, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(work), unsafe_ref(result_array)[1]
+    return unsafe_load(work), unsafe_load(result_array)[1]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number sf_mathieu_se_array

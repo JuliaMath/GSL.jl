@@ -64,5 +64,5 @@ function permutation_memcpy(src::Ptr{gsl_permutation})
     errno = ccall( (:gsl_permutation_memcpy, :libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_permutation}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(dest)
+    return unsafe_load(dest)
 end

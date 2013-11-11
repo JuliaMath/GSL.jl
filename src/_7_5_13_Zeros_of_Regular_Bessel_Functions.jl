@@ -27,7 +27,7 @@ function sf_bessel_zero_J0_e(s::Integer)
     errno = ccall( (:gsl_sf_bessel_zero_J0_e, :libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), s, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_1arg Number sf_bessel_zero_J0_e
 
@@ -51,7 +51,7 @@ function sf_bessel_zero_J1_e(s::Integer)
     errno = ccall( (:gsl_sf_bessel_zero_J1_e, :libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), s, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_1arg Number sf_bessel_zero_J1_e
 
@@ -78,6 +78,6 @@ function sf_bessel_zero_Jnu_e(nu::Real, s::Integer)
     errno = ccall( (:gsl_sf_bessel_zero_Jnu_e, :libgsl), Cint, (Cdouble,
         Cuint, Ptr{gsl_sf_result}), nu, s, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_2arg Number sf_bessel_zero_Jnu_e

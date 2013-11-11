@@ -33,7 +33,7 @@ function integration_qagi(epsabs::Real, epsrel::Real, limit::Integer)
         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, epsabs,
         epsrel, limit, workspace, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(f), unsafe_ref(workspace), unsafe_ref(result), unsafe_ref(abserr)
+    return unsafe_load(f), unsafe_load(workspace), unsafe_load(result), unsafe_load(abserr)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number integration_qagi
@@ -56,7 +56,7 @@ function integration_qagiu(a::Real, epsabs::Real, epsrel::Real, limit::Integer)
         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, a,
         epsabs, epsrel, limit, workspace, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(f), unsafe_ref(workspace), unsafe_ref(result), unsafe_ref(abserr)
+    return unsafe_load(f), unsafe_load(workspace), unsafe_load(result), unsafe_load(abserr)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number integration_qagiu
@@ -79,7 +79,7 @@ function integration_qagil(b::Real, epsabs::Real, epsrel::Real, limit::Integer)
         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, b,
         epsabs, epsrel, limit, workspace, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(f), unsafe_ref(workspace), unsafe_ref(result), unsafe_ref(abserr)
+    return unsafe_load(f), unsafe_load(workspace), unsafe_load(result), unsafe_load(abserr)
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number integration_qagil

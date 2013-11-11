@@ -16,7 +16,7 @@ function sf_coulomb_CL_e(L::Real, eta::Real)
     errno = ccall( (:gsl_sf_coulomb_CL_e, :libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), L, eta, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_ref(result)
+    return unsafe_load(result)
 end
 @vectorize_2arg Number sf_coulomb_CL_e
 
