@@ -1,6 +1,3 @@
-using GSL
-using Base.Test
-
 a = 3*randn()
 b = 3*randn()
 c = 3*randn()

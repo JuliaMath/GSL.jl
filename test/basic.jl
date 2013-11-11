@@ -1,10 +1,7 @@
 # Very basic tests
-
-using GSL
-using Base.Test
-
-include("testfunctions.jl")
 #Check that the two forms of the special functions agree
+include("testfunctions.jl")
+
 x=randn()
 nu=abs(randn())
 xabs=abs(x)
@@ -103,7 +100,7 @@ for (sf, scalar_sf) in (
     (:sf_bessel_jl_steed_array, :sf_bessel_jl), #7.5.5 Regular Spherical Bessel Functions
     (:sf_bessel_yl_array, :sf_bessel_yl), #7.5.6 Irregular Spherical Bessel Functions
     (:sf_bessel_il_scaled_array, :sf_bessel_il_scaled), #7.5.7 Regular Modified Spherical Bessel Functions
-    (:sf_bessel_kl_scaled_array, :sf_bessel_kl_scaled), #7.5.8 Iregular Modified Spherical Bessel Functions
+    (:sf_bessel_kl_scaled_array, :sf_bessel_kl_scaled), #7.5.8 Irregular Modified Spherical Bessel Functions
     )
     @eval begin
          u=$sf(t, xabs)

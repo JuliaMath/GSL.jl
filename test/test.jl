@@ -1,5 +1,7 @@
-include("9_Permutations.jl")
+using Base.Test
+include("../src/GSL.jl")
+
 include("basic.jl")
+include("9_Permutations.jl")
 include("HypergeometricFunctions.jl")
-include("testfunctions.jl")
 
