@@ -31,3 +31,6 @@ catch
     error("The GNU Scientific Library does not appear to be installed.")
 end
 
+#If no problems were found during the initialization, say it's ok
+_HAVE_GSL = true
+export _HAVE_GSL
