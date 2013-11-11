@@ -5,7 +5,7 @@ using BinDeps
 libgsl = library_dependency("libgsl")
 
 # package managers
-provides(AptGet, "libgsl0-dev", libgsl)
+provides(AptGet, {"libgsl0-dev" =>libgsl, "gsl-bin"=>libgsl})
 provides(Yum, "gsl-devel", libgsl)
 
 @osx_only begin
