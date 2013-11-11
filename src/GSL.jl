@@ -1,3 +1,6 @@
+using BinDeps
+@BinDeps.load_dependencies
+
 module GSL
     include("__FILELIST.jl")
     include("ConvertGSL.jl")
