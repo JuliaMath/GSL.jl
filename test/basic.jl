@@ -558,7 +558,7 @@ end
 
 #7.30 Transport Functions
 for sf in (:sf_transport_2, :sf_transport_3, :sf_transport_4, :sf_transport_5)
-    @eval @sf_test $sf $x
+    @eval @sf_test $sf $xabs
 end
 
 #7.31 Trigonometric Functions

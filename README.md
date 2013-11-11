@@ -52,7 +52,7 @@ Translated examples from the GSL documentation are available in `examples/`.
 
 ### Hypergeometric functions
 ```julia
-    hypergeom(a::Vector{Float64}, b::Vector{Float64}, x::Float64) -> Float64
+    hypergeom(a, b, x::Float64) -> Float64
 ```
 > Computes the appropriate hypergeometric *<sub>p</sub>F<sub>q</sub>* function,
 > where *p* and *q* are the lengths of the input vectors *a* and *b*
@@ -62,6 +62,10 @@ Translated examples from the GSL documentation are available in `examples/`.
 > Supported values of (p, q) are (0, 0), (0, 1), (1, 1), (2, 0) and (2, 1).
 > This only calls the floating-point versions of the GSL functions
 > `gsl_sf_hyperg_?F?` [(GSL manual, Section 7.24)](http://www.gnu.org/software/gsl/manual/html_node/Hypergeometric-Functions.html)
+```julia
+    hypergeom_e(a, b, x::Float64) -> (Float64, Float64)
+```
+> An error-estimating version of `hypergeom`.
 
 ## Test functions
 ```julia

@@ -22,6 +22,6 @@ c = a+b+3*rand()
 @test_approx_eq hypergeom([a, b], c, 1.0) (gamma(c)*gamma(c-a-b)/(gamma(c-a)*gamma(c-b)))
 
 #Kummer's theorem
-@test_approx_eq hypergeom([a, b], 1+a-b, -1.0) (gamma(1+a-b)*gamma(1+a/2)/(gamma(1+a)*gamma(1+a/2-b)))
-
+y,e=hypergeom_e([a, b], 1+a-b, -1.0)
+@test_approx_eq_eps y (gamma(1+a-b)*gamma(1+a/2)/(gamma(1+a)*gamma(1+a/2-b))) e
 
