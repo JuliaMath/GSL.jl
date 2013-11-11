@@ -32,5 +32,4 @@ catch
 end
 
 #If no problems were found during the initialization, say it's ok
-_HAVE_GSL = true
-export _HAVE_GSL
+
