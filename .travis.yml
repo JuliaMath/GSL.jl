@@ -7,12 +7,11 @@ before_install:
     - sudo add-apt-repository ppa:staticfloat/julia-deps -y
     - sudo add-apt-repository ppa:staticfloat/julianightlies -y
     - sudo apt-get update -qq -y
-    - sudo apt-get install julia gsl-bin -y
+    - sudo apt-get install libpcre3-dev julia -y
     - git config --global user.name "Dummy Travis User"
     - git config --global user.email "travis@example.net"
 script:
-    - julia -e 'versioninfo(); Pkg.init();'
-    - mkdir -p ~/.julia/GSL
-    - cp -R ./* ~/.julia/GSL/
+    - julia -e 'Pkg.init(); run(`ln -s $(pwd()) $(Pkg.dir("GSL"))`); Pkg.pin("GSL"); Pkg.resolve()'
+    - julia -e 'using GSL; @assert isdefined(:GSL); @assert typeof(GSL) === Module'
     - cd ~/.julia/GSL/test; julia test.jl
 
