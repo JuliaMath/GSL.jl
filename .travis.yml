@@ -1,6 +1,6 @@
 language: cpp
 compiler: 
-    - gcc
+    - clang
 notifications:
     email: false
 before_install:
@@ -15,5 +15,5 @@ script:
     - julia -e 'versioninfo(); Pkg.init();'
     - mkdir -p ~/.julia/GSL
     - cp -R ./* ~/.julia/GSL/
-    - for a in ~/.julia/GSL/test/*.jl; do julia $a; errcode=$?; if test $errcode -ne 0; then exit $errcode; fi; done
-    
+    - cd ~/.julia/GSL/test; julia test.jl
+
