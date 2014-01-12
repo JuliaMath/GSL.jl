@@ -8,11 +8,11 @@ Julia interface to the [GNU Scientific Library (GSL)](http://www.gnu.org/softwar
 
 Licensed under [GPLv3](http://www.gnu.org/copyleft/gpl.html)
 
-Tested with [libgsl](http://www.gnu.org/software/gsl) 1.15
+Tested with [libgsl](http://www.gnu.org/software/gsl) 1.16
 
 # How to install
 
-Ensure that [GSL](http://www.gnu.org/software/gsl) is installed on your system, then in Julia:
+In Julia:
 ```julia
 Pkg.add("GSL")
 ```
