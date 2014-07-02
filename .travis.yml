@@ -3,15 +3,19 @@ compiler:
     - clang
 notifications:
     email: false
+env:
+  matrix: 
+    - JULIAVERSION="juliareleases" 
+    - JULIAVERSION="julianightlies" 
 before_install:
-    - sudo add-apt-repository ppa:staticfloat/julia-deps -y
-    - sudo add-apt-repository ppa:staticfloat/julianightlies -y
-    - sudo apt-get update -qq -y
-    - sudo apt-get install libpcre3-dev julia -y
-    - git config --global user.name "Dummy Travis User"
-    - git config --global user.email "travis@example.net"
+  - sudo add-apt-repository ppa:staticfloat/julia-deps -y
+  - sudo add-apt-repository ppa:staticfloat/${JULIAVERSION} -y
+  - sudo apt-get update -qq -y
+  - sudo apt-get install libpcre3-dev julia -y
 script:
-    - julia -e 'Pkg.init(); run(`ln -s $(pwd()) $(Pkg.dir("GSL"))`); Pkg.pin("GSL"); Pkg.resolve()'
-    - julia -e 'Pkg.build(); using GSL; @assert isdefined(:GSL); @assert typeof(GSL) === Module'
-    - cd ~/.julia/GSL/test; julia test.jl
+  - julia -e 'Pkg.init(); run(`ln -s $(pwd()) $(Pkg.dir("GSL"))`); Pkg.pin("GSL"); Pkg.resolve()'
+  - if [ $JULIAVERSION = "julianightlies" ]; then julia --code-coverage test/runtests.jl; fi
+  - if [ $JULIAVERSION = "juliareleases" ]; then julia test/runtests.jl; fi
+after_success:
+  - if [ $JULIAVERSION = "julianightlies" ]; then julia -e 'cd(Pkg.dir("GSL")); Pkg.add("Coverage"); using Coverage; Coveralls.submit(Coveralls.process_folder())'; fi
 
