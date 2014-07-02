@@ -1,7 +1,7 @@
 using Base.Test
-include("../src/GSL.jl")
+using GSL
 
+const VERBOSE=false #change to show test output
 include("basic.jl")
 include("9_Permutations.jl")
 include("HypergeometricFunctions.jl")
-

@@ -50,10 +50,10 @@ for sf in (
 )
     @eval begin
         u=$sf(s, t, x)
-        println($sf)
+        VERBOSE && println($sf)
         for n=s:t
             y = $(symbol(string(sf)[1:end-6]))(n, x)
-            println(n, '\t', y, '\t', u[n-s+1])
+            VERBOSE && println(n, '\t', y, '\t', u[n-s+1])
             @test_approx_eq y u[n-s+1]
         end
     end
@@ -86,10 +86,10 @@ for sf in (
 )
     @eval begin
         u=$sf(s, t, xabs)
-        println($sf)
+        VERBOSE && println($sf)
         for n=s:t
             y = $(symbol(string(sf)[1:end-6]))(n, xabs)
-            println(n, '\t', y, '\t', u[n-s+1])
+            VERBOSE && println(n, '\t', y, '\t', u[n-s+1])
             @test_approx_eq y u[n-s+1]
         end
     end
@@ -104,10 +104,10 @@ for (sf, scalar_sf) in (
     )
     @eval begin
          u=$sf(t, xabs)
-         println($sf)
+         VERBOSE && println($sf)
          for n=0:t
              y = $scalar_sf(n, xabs)
-             println(n, '\t', y, '\t', u[n+1])
+             VERBOSE && println(n, '\t', y, '\t', u[n+1])
              @test_approx_eq y u[n+1]
          end
     end
@@ -165,7 +165,7 @@ for sf in (
     @eval begin
         u=$sf(l, l, 0, m, -m, 0)
         v=(-1)^((l-m)/2)/sqrt(l+1)
-        println($sf, '\t', u, '\t', v)
+        VERBOSE && println($sf, '\t', u, '\t', v)
         @test_approx_eq u v
     end
 end
@@ -179,7 +179,7 @@ c=int((a+b)/4)*2
 #    @eval begin
 #        u=$sf(a, b, c, 0, c, b)
 #        v=(-1)^((a+b+c)/2)/sqrt((b+1)*(c+1))
-#        println($sf, '\t', u, '\t', v)
+#        VERBOSE && println($sf, '\t', u, '\t', v)
 #        @test_approx_eq u v
 #    end
 #end
@@ -193,7 +193,7 @@ for sf in (
         u=$sf(a, b, J, c, d, J, K, K, 0)
         v=(-1)^((b+c+J+K)/2)/sqrt((J+1)*(K+1))
         v*=sf_coupling_6j(a, b, J, d, c, K)
-        println($sf, '\t', u, '\t', v)
+        VERBOSE && println($sf, '\t', u, '\t', v)
         @test_approx_eq u v
     end
 end
@@ -201,7 +201,7 @@ end
 #7.11.2 Dilogarithm of Complex Argument
 y=sf_dilog_e(xabs)
 z=sf_complex_dilog_e(xabs,0.0)
-println(y, z)
+VERBOSE && println(y, z)
 @test z[1].val == y.val
 @test z[1].err == y.err
 
@@ -353,7 +353,7 @@ for sf in (
         u = $sf(x) 
         v = $(symbol(string(sf, "_e")))(x)
         w = $(symbol(string(sf, "_sgn_e")))(x)
-        println($sf, "\t", u, "\t", v)
+        VERBOSE && println($sf, "\t", u, "\t", v)
         @test_approx_eq_eps u v.val v.err
         @test_approx_eq_eps u w[1].val w[1].err
     end
@@ -393,7 +393,7 @@ for sf in (:sf_lnpoch,) #7.19.1 Gamma Functions
         u = $sf(abs(x), abs(y)) 
         v = $(symbol(string(sf, "_e")))(abs(x), abs(y))
         w = $(symbol(string(sf, "_sgn_e")))(abs(x), abs(y))
-        println($sf, "\t", u, "\t", v)
+        VERBOSE && println($sf, "\t", u, "\t", v)
         @test_approx_eq_eps u v.val v.err
         @test_approx_eq_eps u w[1].val w[1].err
     end
@@ -421,12 +421,12 @@ end
 
 for sf in (:sf_gegenpoly_array,)
     @eval begin
-        println($sf)
+        VERBOSE && println($sf)
         u=$sf(s, xabs, y)
         for n=0:s
             yy = $(symbol(string(string(sf)[1:end-6],"_n")))(n, xabs, y)
             @test_approx_eq yy u[n+1]
-            println(n,"\t",yy,"\t",u[n+1])
+            VERBOSE && println(n,"\t",yy,"\t",u[n+1])
         end
     end
 end
