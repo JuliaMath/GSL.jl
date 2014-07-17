@@ -26,7 +26,7 @@ try
     #Turn off GSL's default error handler so that Julia doesn't segfault on error
     set_error_handler_off() 
     set_error_handler(custom_gsl_error_handler)
-    sf_hyperg_U(-1.0, -1.0, randn())
+    sf_hyperg_U(-1.0, -1.0, rand())
 catch
     error("The GNU Scientific Library does not appear to be installed.")
 end

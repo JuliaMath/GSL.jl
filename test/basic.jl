@@ -436,7 +436,7 @@ end
 @eval @sf_test sf_hyperg_1F1_int $s $t $x
 @eval @sf_test sf_hyperg_1F1 $x $y $z
 @eval @sf_test sf_hyperg_U_int $s $(min(t,2)) $xabs #TODO test e10
-@eval @sf_test sf_hyperg_U $x $y $(abs(z)) #TODO test e10
+@eval @sf_test sf_hyperg_U $xabs $y $(abs(z)) #TODO test e10
 for sf in (
     :sf_hyperg_2F1, :sf_hyperg_2F1_conj, :sf_hyperg_2F1_renorm,
     :sf_hyperg_2F1_conj_renorm
