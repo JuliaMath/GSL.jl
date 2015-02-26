@@ -1,3 +1,5 @@
+VERBOSE && info("Hypergeometric functions")
+
 a = 3*randn()
 b = 3*randn()
 c = 3*randn()
@@ -16,7 +18,7 @@ x = 2*rand()-1
 @test_approx_eq 1+x sf_hyperg_U(-1.0, -1.0, x)
 
 #"Cancellation theorem" that reduces order of hypergeometric function
-@test_approx_eq hypergeom([a], [a], x) hypergeom([], [], x)
+@test_approx_eq hypergeom([a], [a], x) hypergeom(Float64[], Float64[], x)
 
 c = a+b+3*rand()
 @test_approx_eq hypergeom([a, b], c, 1.0) (gamma(c)*gamma(c-a-b)/(gamma(c-a)*gamma(c-b)))

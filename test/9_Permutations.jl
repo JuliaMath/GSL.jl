@@ -1,10 +1,11 @@
-==(P::gsl_permutation, Q::gsl_permutation) = P.size == Q.size && 
+==(P::gsl_permutation, Q::gsl_permutation) = P.size == Q.size &&
     pointer_to_array(P.data, (int(P.size),)) == pointer_to_array(Q.data, (int(Q.size),))
 ==(P::Ptr{gsl_permutation}, Q::Ptr{gsl_permutation}) = unsafe_load(P) == unsafe_load(Q)
 
 n = int(rand()*20)+1
 
-#9.2 Permutation allocation
+
+VERBOSE && info("9.2 Permutation allocation")
 
 P = permutation_alloc(n)
 permutation_init(P)
@@ -16,7 +17,8 @@ permutation_memcpy(R, Q)
 @test P==Q==R
 permutation_free(R)
 
-#9.3 Accessing permutation elements
+
+VERBOSE && info("9.3 Accessing permutation elements")
 
 for i=0:n-1
     @test i == permutation_get(P, i)
@@ -30,17 +32,21 @@ for i=0:n-1
    end
 end
 
-#9.4 Permutation properties
+
+VERBOSE && info("9.4 Permutation properties")
+
 @test permutation_size(P) == n
 @test permutation_data(P) == unsafe_load(P).data
 
 @test permutation_valid(P)
-pointer_to_array(unsafe_load(P).data, (int(unsafe_load(P).size),))[1]=-1
+pointer_to_array(unsafe_load(P).data, (int(unsafe_load(P).size),))[1]=1000
 @test !permutation_valid(P)
 pointer_to_array(unsafe_load(P).data, (int(unsafe_load(P).size),))[1]=0
 @test permutation_valid(P)
 
-#9.5 Permutation functions
+
+VERBOSE && info("9.5 Permutation functions")
+
 permutation_reverse(P)
 Q=permutation_inverse(P)
 @test P==Q
