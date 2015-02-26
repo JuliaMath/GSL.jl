@@ -1,11 +1,12 @@
 using BinDeps
+using Compat
 
 @BinDeps.setup
 
 libgsl = library_dependency("libgsl")
 
 # package managers
-provides(AptGet, {"libgsl0ldbl"=>libgsl, "libgsl0-dev" =>libgsl, "gsl-bin"=>libgsl})
+provides(AptGet, @compat Dict("libgsl0ldbl"=>libgsl, "libgsl0-dev" =>libgsl, "gsl-bin"=>libgsl))
 provides(Yum, "gsl-devel", libgsl)
 
 @osx_only begin
