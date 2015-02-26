@@ -1,9 +1,10 @@
 GSL.jl
 ======
-[![Build Status](https://api.travis-ci.org/jiahao/GSL.jl.png?branch=master)](https://travis-ci.org/jiahao/GSL.jl)
-[![GSL](http://pkg.julialang.org/badges/GSL_0.2.svg)](http://pkg.julialang.org/?pkg=GSL&ver=0.2)
-[![GSL](http://pkg.julialang.org/badges/GSL_0.3.svg)](http://pkg.julialang.org/?pkg=GSL&ver=0.3)
-[![Coverage Status](https://img.shields.io/coveralls/jiahao/GSL.jl.svg)](https://coveralls.io/r/jiahao/GSL.jl)
+
+[![GSL on julia release](http://pkg.julialang.org/badges/GSL_release.svg)](http://pkg.julialang.org/?pkg=GSL&ver=release)
+[![GSL on julia nightly](http://pkg.julialang.org/badges/GSL_nightly.svg)](http://pkg.julialang.org/?pkg=GSL&ver=nightly)
+[![Build Status](https://travis-ci.org/jiahao/GSL.jl.svg?branch=master)](https://travis-ci.org/jiahao/GSL.jl)
+[![Coverage Status](https://coveralls.io/repos/jiahao/GSL.jl/badge.svg?branch=master)](https://coveralls.io/r/jiahao/GSL.jl?branch=master)
 
 Julia interface to the [GNU Scientific Library (GSL)](http://www.gnu.org/software/gsl)
 
