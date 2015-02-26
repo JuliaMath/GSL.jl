@@ -14,14 +14,14 @@ Licensed under [GPLv3](http://www.gnu.org/copyleft/gpl.html)
 
 Tested with [libgsl](http://www.gnu.org/software/gsl) 1.16
 
-# How to install
+## How to install
 
 In Julia:
 ```julia
 Pkg.add("GSL")
 ```
 
-# How to use
+## How to use
 
 This package provides wrappers to all documented functions and structs in the
 [GSL manual](http://www.gnu.org/software/gsl/manual/html_node).
