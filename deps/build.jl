@@ -3,7 +3,7 @@ using Compat
 
 @BinDeps.setup
 
-libgsl = library_dependency("libgsl")
+libgsl = library_dependency("libgsl", aliases="libgsl-0")
 
 # package managers
 provides(AptGet, @compat Dict("libgsl0ldbl"=>libgsl, "libgsl0-dev" =>libgsl, "gsl-bin"=>libgsl))
