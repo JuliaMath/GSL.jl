@@ -8,6 +8,7 @@ libgsl = library_dependency("libgsl")
 # package managers
 provides(AptGet, @compat Dict("libgsl0ldbl"=>libgsl, "libgsl0-dev" =>libgsl, "gsl-bin"=>libgsl))
 provides(Yum, "gsl-devel", libgsl)
+provides(Pacman, "gsl", libgsl)
 
 @osx_only begin
     if Pkg.installed("Homebrew") === nothing
