@@ -19,7 +19,7 @@ from textwrap import wrap
 maxwidth = 79 #Maximum text column width to output
 
 #Things that members of types should not be named
-sensitive_names = ['function'] 
+sensitive_names = ['function']
 
 #Start off with known C types
 #http://docs.julialang.org/en/latest/manual/calling-c-and-fortran-code/#type-correspondences
@@ -305,7 +305,7 @@ def parsestructs2(soup, unknown_handler = 'report'):
                         if 'list' in unknown_handler:
                             unknowns.append(var_type.replace('*',''))
                     for var_name in var_line[1:]:
-                        while '[' in var_name: 
+                        while '[' in var_name:
                             var_name = var_name[:var_name.rfind('[')]
                             var_jtype, _ = juliatype(var_jtype+'*')
                         while len(var_name)>1 and var_name[-1] == '*':
@@ -315,7 +315,7 @@ def parsestructs2(soup, unknown_handler = 'report'):
                             var_name = var_name[:-1]
                         all_parsed_out += ['    '+var_name+'::'+var_jtype]
             all_parsed_out += ['end']
-    
+
     return exports, all_parsed_out, unknowns
 
 
@@ -375,7 +375,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
 
                 var_type = var[:var.rfind(varname)].strip()
                 julia_input_names.append(varname)
-                julia_var_type, isUnknown = juliatype(var_type) 
+                julia_var_type, isUnknown = juliatype(var_type)
                 if isUnknown:
                     if 'report' in unknown_handler:
                         warnings.append('#XXX Unknown input type '+varname+'::'+julia_var_type)
@@ -387,7 +387,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                         unknowns.append(var_type.replace('const','').replace('*','').strip())
                 julia_inputs.append(julia_var_type)
             docstring = u'# ' + u'\n# '.join(wrap(docstring, maxwidth-2)) + u'\n# '
-            
+
             var_type = outputs.replace('inline','').replace('extern','').strip().strip()
             julia_output, isUnknown = juliatype(var_type)
             if isUnknown:
@@ -399,7 +399,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                     warnings.append('#XXX Coerced type for output '+julia_output)
                 if 'list' in unknown_handler:
                     unknowns.append(var_type.replace('*','').replace('const','').strip())
-            
+
 
             #Heuristic for detecting outputs that should be initialized within the wrapper
             NewOutputs=[]
@@ -446,7 +446,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                 var_in = var
                 intype = new_julia_inputs[i]
                 #Generalize types in function declaration
-                
+
                 if '{' in intype:
                     #Template vectors
                     basetype=intype[intype.rfind('{')+1:intype.find('}')]
@@ -500,15 +500,15 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                 functemplate='{'+', '.join([k+'<:'+v for k,v in sorted(functemplatevars.items())])+'}'
             else:
                 functemplate=''
-                
+
             if len(julia_inputs) == 1: julia_inputs.append('') #Generate comma for tuple
 
 
-            ccall_args = ['(:%s, :libgsl)' % ccall_funcname,
+            ccall_args = ['(:%s, libgsl)' % ccall_funcname,
                     julia_output,
                     '(' + ', '.join(julia_inputs) + ')']
             ccall_args += julia_input_names
-            
+
             #Dump out any new outputs
             new_vars = []
             return_me = []
@@ -535,7 +535,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                 ccall_line = "output_string = "+ccall_line
             ccall_line = wrap(ccall_line, maxwidth-8)
             ccall_line = ['    '+ccall_line[0]] + [' '*8 + l for l in ccall_line[1:]]
-            
+
             #If function allocates something, check that it was allocated properly
             if 'Ptr{' in julia_output and 'error_handler' not in funcname:
                 ccall_line.append('    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr')
@@ -556,7 +556,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             parsed_out += new_vars
             parsed_out += ccall_line
             parsed_out += ['end']
-            
+
             #add vectorization macro call if applicable
             if do_vectorize > 0:
                 if do_vectorize <= 2:
@@ -640,7 +640,7 @@ def write_wrapper(filename, WhatToParse, unknown_handler="report", dowrite=True)
 if __name__ == '__main__':
     from glob import glob
     from os.path import basename, join
-    
+
     structs = {}
     dependencies = {}
     #Step 1: Search HTML docs first for structs and dependencies in structs and functions
@@ -681,7 +681,7 @@ if __name__ == '__main__':
         for j, filename2 in enumerate(filenames):
             if filename2 in dependencies.keys() and filename1 in structs.keys():
                 if any([dep in structs[filename1] for dep in dependencies[filename2]]):
-                    filenames[i], filenames[j] = filenames[j], filenames[i] 
+                    filenames[i], filenames[j] = filenames[j], filenames[i]
 
     # Now populate known types into known_types
     for f, structset in structs.items():
