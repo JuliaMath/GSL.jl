@@ -2,6 +2,12 @@ using BinDeps
 @BinDeps.load_dependencies
 
 module GSL
+    if isfile(joinpath(dirname(@__FILE__),"..","deps","deps.jl"))
+        include("../deps/deps.jl")
+    else
+        error("GSL not properly installed. Please run Pkg.build(\"GSL\")")
+    end
+
     include("__FILELIST.jl")
     include("ConvertGSL.jl")
     include("Constants.jl")
@@ -24,12 +30,10 @@ end #module
 using GSL
 try
     #Turn off GSL's default error handler so that Julia doesn't segfault on error
-    set_error_handler_off() 
+    set_error_handler_off()
     set_error_handler(custom_gsl_error_handler)
     sf_hyperg_U(-1.0, -1.0, rand())
 catch
     error("The GNU Scientific Library does not appear to be installed.")
 end
-
-#If no problems were found during the initialization, say it's ok
 
