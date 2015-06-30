@@ -21,7 +21,7 @@ function integration_qng(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, e
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     neval = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    errno = ccall( (:gsl_integration_qng, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_qng, libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Ptr{Cdouble},
         Ptr{Cdouble}, Ptr{Csize_t}), f, a, b, epsabs, epsrel, result, abserr,
         neval )

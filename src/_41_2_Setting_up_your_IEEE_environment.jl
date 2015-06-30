@@ -55,5 +55,5 @@ export ieee_env_setup
 # 
 #   Returns: Void
 function ieee_env_setup()
-    ccall( (:gsl_ieee_env_setup, :libgsl), Void, () )
+    ccall( (:gsl_ieee_env_setup, libgsl), Void, () )
 end

@@ -20,7 +20,7 @@ export fcmp
 # 
 #   Returns: Cint
 function fcmp(x::Real, y::Real, epsilon::Real)
-    errno = ccall( (:gsl_fcmp, :libgsl), Cint, (Cdouble, Cdouble, Cdouble),
+    errno = ccall( (:gsl_fcmp, libgsl), Cint, (Cdouble, Cdouble, Cdouble),
         x, y, epsilon )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end

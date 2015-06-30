@@ -13,7 +13,7 @@ export sf_gamma_inc, sf_gamma_inc_e, sf_gamma_inc_Q, sf_gamma_inc_Q_e,
 # 
 #   Returns: Cdouble
 function sf_gamma_inc(a::Real, x::Real)
-    ccall( (:gsl_sf_gamma_inc, :libgsl), Cdouble, (Cdouble, Cdouble), a, x
+    ccall( (:gsl_sf_gamma_inc, libgsl), Cdouble, (Cdouble, Cdouble), a, x
         )
 end
 @vectorize_2arg Number sf_gamma_inc
@@ -25,7 +25,7 @@ end
 #   Returns: Cint
 function sf_gamma_inc_e(a::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_gamma_inc_e, :libgsl), Cint, (Cdouble, Cdouble,
+    errno = ccall( (:gsl_sf_gamma_inc_e, libgsl), Cint, (Cdouble, Cdouble,
         Ptr{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -38,7 +38,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_gamma_inc_Q(a::Real, x::Real)
-    ccall( (:gsl_sf_gamma_inc_Q, :libgsl), Cdouble, (Cdouble, Cdouble), a,
+    ccall( (:gsl_sf_gamma_inc_Q, libgsl), Cdouble, (Cdouble, Cdouble), a,
         x )
 end
 @vectorize_2arg Number sf_gamma_inc_Q
@@ -50,7 +50,7 @@ end
 #   Returns: Cint
 function sf_gamma_inc_Q_e(a::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_gamma_inc_Q_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_gamma_inc_Q_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -65,7 +65,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_gamma_inc_P(a::Real, x::Real)
-    ccall( (:gsl_sf_gamma_inc_P, :libgsl), Cdouble, (Cdouble, Cdouble), a,
+    ccall( (:gsl_sf_gamma_inc_P, libgsl), Cdouble, (Cdouble, Cdouble), a,
         x )
 end
 @vectorize_2arg Number sf_gamma_inc_P
@@ -79,7 +79,7 @@ end
 #   Returns: Cint
 function sf_gamma_inc_P_e(a::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_gamma_inc_P_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_gamma_inc_P_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

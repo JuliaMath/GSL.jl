@@ -21,7 +21,7 @@ export ran_hypergeometric, ran_hypergeometric_pdf, cdf_hypergeometric_P,
 # 
 #   Returns: Cuint
 function ran_hypergeometric(r::Ptr{gsl_rng}, n1::Integer, n2::Integer, t::Integer)
-    ccall( (:gsl_ran_hypergeometric, :libgsl), Cuint, (Ptr{gsl_rng}, Cuint,
+    ccall( (:gsl_ran_hypergeometric, libgsl), Cuint, (Ptr{gsl_rng}, Cuint,
         Cuint, Cuint), r, n1, n2, t )
 end
 
@@ -32,7 +32,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_hypergeometric_pdf(k::Integer, n1::Integer, n2::Integer, t::Integer)
-    ccall( (:gsl_ran_hypergeometric_pdf, :libgsl), Cdouble, (Cuint, Cuint,
+    ccall( (:gsl_ran_hypergeometric_pdf, libgsl), Cdouble, (Cuint, Cuint,
         Cuint, Cuint), k, n1, n2, t )
 end
 #TODO This vectorization macro is not implemented
@@ -44,7 +44,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_hypergeometric_P(k::Integer, n1::Integer, n2::Integer, t::Integer)
-    ccall( (:gsl_cdf_hypergeometric_P, :libgsl), Cdouble, (Cuint, Cuint,
+    ccall( (:gsl_cdf_hypergeometric_P, libgsl), Cdouble, (Cuint, Cuint,
         Cuint, Cuint), k, n1, n2, t )
 end
 #TODO This vectorization macro is not implemented
@@ -56,7 +56,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_hypergeometric_Q(k::Integer, n1::Integer, n2::Integer, t::Integer)
-    ccall( (:gsl_cdf_hypergeometric_Q, :libgsl), Cdouble, (Cuint, Cuint,
+    ccall( (:gsl_cdf_hypergeometric_Q, libgsl), Cdouble, (Cuint, Cuint,
         Cuint, Cuint), k, n1, n2, t )
 end
 #TODO This vectorization macro is not implemented

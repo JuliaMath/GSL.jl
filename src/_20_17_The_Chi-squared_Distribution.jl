@@ -18,7 +18,7 @@ export ran_chisq, ran_chisq_pdf, cdf_chisq_P, cdf_chisq_Q, cdf_chisq_Pinv,
 # 
 #   Returns: Cdouble
 function ran_chisq(r::Ptr{gsl_rng}, nu::Real)
-    ccall( (:gsl_ran_chisq, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble), r,
+    ccall( (:gsl_ran_chisq, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble), r,
         nu )
 end
 
@@ -28,7 +28,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_chisq_pdf(x::Real, nu::Real)
-    ccall( (:gsl_ran_chisq_pdf, :libgsl), Cdouble, (Cdouble, Cdouble), x,
+    ccall( (:gsl_ran_chisq_pdf, libgsl), Cdouble, (Cdouble, Cdouble), x,
         nu )
 end
 @vectorize_2arg Number ran_chisq_pdf
@@ -39,7 +39,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_chisq_P(x::Real, nu::Real)
-    ccall( (:gsl_cdf_chisq_P, :libgsl), Cdouble, (Cdouble, Cdouble), x, nu
+    ccall( (:gsl_cdf_chisq_P, libgsl), Cdouble, (Cdouble, Cdouble), x, nu
         )
 end
 @vectorize_2arg Number cdf_chisq_P
@@ -50,7 +50,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_chisq_Q(x::Real, nu::Real)
-    ccall( (:gsl_cdf_chisq_Q, :libgsl), Cdouble, (Cdouble, Cdouble), x, nu
+    ccall( (:gsl_cdf_chisq_Q, libgsl), Cdouble, (Cdouble, Cdouble), x, nu
         )
 end
 @vectorize_2arg Number cdf_chisq_Q
@@ -61,7 +61,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_chisq_Pinv(P::Real, nu::Real)
-    ccall( (:gsl_cdf_chisq_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble), P,
+    ccall( (:gsl_cdf_chisq_Pinv, libgsl), Cdouble, (Cdouble, Cdouble), P,
         nu )
 end
 @vectorize_2arg Number cdf_chisq_Pinv
@@ -72,7 +72,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_chisq_Qinv(Q::Real, nu::Real)
-    ccall( (:gsl_cdf_chisq_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble), Q,
+    ccall( (:gsl_cdf_chisq_Qinv, libgsl), Cdouble, (Cdouble, Cdouble), Q,
         nu )
 end
 @vectorize_2arg Number cdf_chisq_Qinv

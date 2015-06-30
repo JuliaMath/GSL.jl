@@ -12,7 +12,7 @@ export cheb_alloc, cheb_free, cheb_init
 # 
 #   Returns: Ptr{gsl_cheb_series}
 function cheb_alloc(n::Integer)
-    output_ptr = ccall( (:gsl_cheb_alloc, :libgsl), Ptr{gsl_cheb_series},
+    output_ptr = ccall( (:gsl_cheb_alloc, libgsl), Ptr{gsl_cheb_series},
         (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -23,7 +23,7 @@ end
 # 
 #   Returns: Void
 function cheb_free(cs::Ptr{gsl_cheb_series})
-    ccall( (:gsl_cheb_free, :libgsl), Void, (Ptr{gsl_cheb_series}, ), cs )
+    ccall( (:gsl_cheb_free, libgsl), Void, (Ptr{gsl_cheb_series}, ), cs )
 end
 
 
@@ -34,7 +34,7 @@ end
 # 
 #   Returns: Cint
 function cheb_init(cs::Ptr{gsl_cheb_series}, f::Ptr{gsl_function}, a::Real, b::Real)
-    errno = ccall( (:gsl_cheb_init, :libgsl), Cint, (Ptr{gsl_cheb_series},
+    errno = ccall( (:gsl_cheb_init, libgsl), Cint, (Ptr{gsl_cheb_series},
         Ptr{gsl_function}, Cdouble, Cdouble), cs, f, a, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end

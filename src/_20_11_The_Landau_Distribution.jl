@@ -20,7 +20,7 @@ export ran_landau, ran_landau_pdf
 # 
 #   Returns: Cdouble
 function ran_landau(r::Ptr{gsl_rng})
-    ccall( (:gsl_ran_landau, :libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
+    ccall( (:gsl_ran_landau, libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -29,6 +29,6 @@ end
 # 
 #   Returns: Cdouble
 function ran_landau_pdf(x::Real)
-    ccall( (:gsl_ran_landau_pdf, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_ran_landau_pdf, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number ran_landau_pdf

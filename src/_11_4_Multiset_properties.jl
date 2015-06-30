@@ -11,7 +11,7 @@ export multiset_n, multiset_k, multiset_data, multiset_valid
 # 
 #   Returns: Csize_t
 function multiset_n(c::Ptr{gsl_multiset})
-    ccall( (:gsl_multiset_n, :libgsl), Csize_t, (Ptr{gsl_multiset}, ), c )
+    ccall( (:gsl_multiset_n, libgsl), Csize_t, (Ptr{gsl_multiset}, ), c )
 end
 
 
@@ -19,7 +19,7 @@ end
 # 
 #   Returns: Csize_t
 function multiset_k(c::Ptr{gsl_multiset})
-    ccall( (:gsl_multiset_k, :libgsl), Csize_t, (Ptr{gsl_multiset}, ), c )
+    ccall( (:gsl_multiset_k, libgsl), Csize_t, (Ptr{gsl_multiset}, ), c )
 end
 
 
@@ -27,7 +27,7 @@ end
 # 
 #   Returns: Ptr{Csize_t}
 function multiset_data(c::Ptr{gsl_multiset})
-    output_ptr = ccall( (:gsl_multiset_data, :libgsl), Ptr{Csize_t},
+    output_ptr = ccall( (:gsl_multiset_data, libgsl), Ptr{Csize_t},
         (Ptr{gsl_multiset}, ), c )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -39,7 +39,7 @@ end
 #   Returns: Cint
 function multiset_valid()
     c = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
-    errno = ccall( (:gsl_multiset_valid, :libgsl), Cint,
+    errno = ccall( (:gsl_multiset_valid, libgsl), Cint,
         (Ptr{gsl_multiset}, ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(c)

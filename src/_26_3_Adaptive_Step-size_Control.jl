@@ -41,7 +41,7 @@ export odeiv2_control_standard_new, odeiv2_control_y_new,
 # 
 #   Returns: Ptr{gsl_odeiv2_control}
 function odeiv2_control_standard_new(eps_abs::Real, eps_rel::Real, a_y::Real, a_dydt::Real)
-    output_ptr = ccall( (:gsl_odeiv2_control_standard_new, :libgsl),
+    output_ptr = ccall( (:gsl_odeiv2_control_standard_new, libgsl),
         Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble, Cdouble, Cdouble), eps_abs,
         eps_rel, a_y, a_dydt )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
@@ -57,7 +57,7 @@ end
 # 
 #   Returns: Ptr{gsl_odeiv2_control}
 function odeiv2_control_y_new(eps_abs::Real, eps_rel::Real)
-    output_ptr = ccall( (:gsl_odeiv2_control_y_new, :libgsl),
+    output_ptr = ccall( (:gsl_odeiv2_control_y_new, libgsl),
         Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble), eps_abs, eps_rel )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -71,7 +71,7 @@ end
 # 
 #   Returns: Ptr{gsl_odeiv2_control}
 function odeiv2_control_yp_new(eps_abs::Real, eps_rel::Real)
-    output_ptr = ccall( (:gsl_odeiv2_control_yp_new, :libgsl),
+    output_ptr = ccall( (:gsl_odeiv2_control_yp_new, libgsl),
         Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble), eps_abs, eps_rel )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -87,7 +87,7 @@ end
 # 
 #   Returns: Ptr{gsl_odeiv2_control}
 function odeiv2_control_scaled_new(eps_abs::Real, eps_rel::Real, a_y::Real, a_dydt::Real, scale_abs::Real)
-    output_ptr = ccall( (:gsl_odeiv2_control_scaled_new, :libgsl),
+    output_ptr = ccall( (:gsl_odeiv2_control_scaled_new, libgsl),
         Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble, Cdouble, Cdouble, Cdouble),
         eps_abs, eps_rel, a_y, a_dydt, scale_abs )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
@@ -103,7 +103,7 @@ end
 # 
 #   Returns: Ptr{gsl_odeiv2_control}
 function odeiv2_control_alloc(T::Ptr{gsl_odeiv2_control_type})
-    output_ptr = ccall( (:gsl_odeiv2_control_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_odeiv2_control_alloc, libgsl),
         Ptr{gsl_odeiv2_control}, (Ptr{gsl_odeiv2_control_type}, ), T )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -115,7 +115,7 @@ end
 # 
 #   Returns: Cint
 function odeiv2_control_init(c::Ptr{gsl_odeiv2_control}, eps_abs::Real, eps_rel::Real, a_y::Real, a_dydt::Real)
-    errno = ccall( (:gsl_odeiv2_control_init, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_control_init, libgsl), Cint,
         (Ptr{gsl_odeiv2_control}, Cdouble, Cdouble, Cdouble, Cdouble), c,
         eps_abs, eps_rel, a_y, a_dydt )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -126,7 +126,7 @@ end
 # 
 #   Returns: Void
 function odeiv2_control_free(c::Ptr{gsl_odeiv2_control})
-    ccall( (:gsl_odeiv2_control_free, :libgsl), Void,
+    ccall( (:gsl_odeiv2_control_free, libgsl), Void,
         (Ptr{gsl_odeiv2_control}, ), c )
 end
 
@@ -145,7 +145,7 @@ end
 function odeiv2_control_hadjust(y::Real)
     c = convert(Ptr{gsl_odeiv2_control}, Array(gsl_odeiv2_control, 1))
     s = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
-    errno = ccall( (:gsl_odeiv2_control_hadjust, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_control_hadjust, libgsl), Cint,
         (Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_step}, Cdouble), c, s, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(c), unsafe_load(s)
@@ -161,7 +161,7 @@ end
 #   Returns: Ptr{Cchar}
 function odeiv2_control_name(c::Ptr{gsl_odeiv2_control})
     output_string = output_ptr = ccall( (:gsl_odeiv2_control_name,
-        :libgsl), Ptr{Cchar}, (Ptr{gsl_odeiv2_control}, ), c )
+        libgsl), Ptr{Cchar}, (Ptr{gsl_odeiv2_control}, ), c )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
 end
@@ -175,7 +175,7 @@ end
 function odeiv2_control_errlevel(y::Real, dydt::Real, h::Real, ind::Integer)
     c = convert(Ptr{gsl_odeiv2_control}, Array(gsl_odeiv2_control, 1))
     errlev = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_odeiv2_control_errlevel, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_control_errlevel, libgsl), Cint,
         (Ptr{gsl_odeiv2_control}, Cdouble, Cdouble, Cdouble, Csize_t,
         Ptr{Cdouble}), c, y, dydt, h, ind, errlev )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -190,7 +190,7 @@ end
 #   Returns: Cint
 function odeiv2_control_set_driver(d::Ptr{gsl_odeiv2_driver})
     c = convert(Ptr{gsl_odeiv2_control}, Array(gsl_odeiv2_control, 1))
-    errno = ccall( (:gsl_odeiv2_control_set_driver, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_control_set_driver, libgsl), Cint,
         (Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_driver}), c, d )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(c)

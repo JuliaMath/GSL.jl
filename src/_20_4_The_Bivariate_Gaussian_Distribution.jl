@@ -22,7 +22,7 @@ export ran_bivariate_gaussian, ran_bivariate_gaussian_pdf
 function ran_bivariate_gaussian(r::Ptr{gsl_rng}, sigma_x::Real, sigma_y::Real, rho::Real)
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    ccall( (:gsl_ran_bivariate_gaussian, :libgsl), Void, (Ptr{gsl_rng},
+    ccall( (:gsl_ran_bivariate_gaussian, libgsl), Void, (Ptr{gsl_rng},
         Cdouble, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), r, sigma_x,
         sigma_y, rho, x, y )
     return unsafe_load(x), unsafe_load(y)
@@ -35,7 +35,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_bivariate_gaussian_pdf(x::Real, y::Real, sigma_x::Real, sigma_y::Real, rho::Real)
-    ccall( (:gsl_ran_bivariate_gaussian_pdf, :libgsl), Cdouble, (Cdouble,
+    ccall( (:gsl_ran_bivariate_gaussian_pdf, libgsl), Cdouble, (Cdouble,
         Cdouble, Cdouble, Cdouble, Cdouble), x, y, sigma_x, sigma_y, rho )
 end
 #TODO This vectorization macro is not implemented

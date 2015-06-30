@@ -11,7 +11,7 @@ export sf_Shi, sf_Shi_e, sf_Chi, sf_Chi_e
 # 
 #   Returns: Cdouble
 function sf_Shi(x::Real)
-    ccall( (:gsl_sf_Shi, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_Shi, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_Shi
 
@@ -21,7 +21,7 @@ end
 #   Returns: Cint
 function sf_Shi_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_Shi_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_Shi_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -35,7 +35,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_Chi(x::Real)
-    ccall( (:gsl_sf_Chi, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_Chi, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_Chi
 
@@ -47,7 +47,7 @@ end
 #   Returns: Cint
 function sf_Chi_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_Chi_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_Chi_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

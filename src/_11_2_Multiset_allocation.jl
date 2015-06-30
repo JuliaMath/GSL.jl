@@ -16,7 +16,7 @@ export multiset_alloc, multiset_calloc, multiset_init_first,
 # 
 #   Returns: Ptr{gsl_multiset}
 function multiset_alloc(n::Integer, k::Integer)
-    output_ptr = ccall( (:gsl_multiset_alloc, :libgsl), Ptr{gsl_multiset},
+    output_ptr = ccall( (:gsl_multiset_alloc, libgsl), Ptr{gsl_multiset},
         (Csize_t, Csize_t), n, k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -30,7 +30,7 @@ end
 # 
 #   Returns: Ptr{gsl_multiset}
 function multiset_calloc(n::Integer, k::Integer)
-    output_ptr = ccall( (:gsl_multiset_calloc, :libgsl), Ptr{gsl_multiset},
+    output_ptr = ccall( (:gsl_multiset_calloc, libgsl), Ptr{gsl_multiset},
         (Csize_t, Csize_t), n, k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -43,7 +43,7 @@ end
 #   Returns: Void
 function multiset_init_first()
     c = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
-    ccall( (:gsl_multiset_init_first, :libgsl), Void, (Ptr{gsl_multiset},
+    ccall( (:gsl_multiset_init_first, libgsl), Void, (Ptr{gsl_multiset},
         ), c )
     return unsafe_load(c)
 end
@@ -55,7 +55,7 @@ end
 #   Returns: Void
 function multiset_init_last()
     c = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
-    ccall( (:gsl_multiset_init_last, :libgsl), Void, (Ptr{gsl_multiset}, ),
+    ccall( (:gsl_multiset_init_last, libgsl), Void, (Ptr{gsl_multiset}, ),
         c )
     return unsafe_load(c)
 end
@@ -65,7 +65,7 @@ end
 # 
 #   Returns: Void
 function multiset_free(c::Ptr{gsl_multiset})
-    ccall( (:gsl_multiset_free, :libgsl), Void, (Ptr{gsl_multiset}, ), c )
+    ccall( (:gsl_multiset_free, libgsl), Void, (Ptr{gsl_multiset}, ), c )
 end
 
 
@@ -75,7 +75,7 @@ end
 #   Returns: Cint
 function multiset_memcpy(src::Ptr{gsl_multiset})
     dest = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
-    errno = ccall( (:gsl_multiset_memcpy, :libgsl), Cint,
+    errno = ccall( (:gsl_multiset_memcpy, libgsl), Cint,
         (Ptr{gsl_multiset}, Ptr{gsl_multiset}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(dest)

@@ -11,7 +11,7 @@ export permutation_size, permutation_data, permutation_valid
 # 
 #   Returns: Csize_t
 function permutation_size(p::Ptr{gsl_permutation})
-    ccall( (:gsl_permutation_size, :libgsl), Csize_t,
+    ccall( (:gsl_permutation_size, libgsl), Csize_t,
         (Ptr{gsl_permutation}, ), p )
 end
 
@@ -21,7 +21,7 @@ end
 # 
 #   Returns: Ptr{Csize_t}
 function permutation_data(p::Ptr{gsl_permutation})
-    output_ptr = ccall( (:gsl_permutation_data, :libgsl), Ptr{Csize_t},
+    output_ptr = ccall( (:gsl_permutation_data, libgsl), Ptr{Csize_t},
         (Ptr{gsl_permutation}, ), p )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -33,7 +33,7 @@ end
 #   Returns: Cint
 function permutation_valid(p::Ptr{gsl_permutation})
     try
-        errno = ccall( (:gsl_permutation_valid, :libgsl), Cint,
+        errno = ccall( (:gsl_permutation_valid, libgsl), Cint,
         (Ptr{gsl_permutation}, ), p )
         return true
     catch

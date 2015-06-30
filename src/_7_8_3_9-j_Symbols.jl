@@ -15,7 +15,7 @@ export sf_coupling_9j, sf_coupling_9j_e
 # 
 #   Returns: Cdouble
 function sf_coupling_9j(two_ja::Integer, two_jb::Integer, two_jc::Integer, two_jd::Integer, two_je::Integer, two_jf::Integer, two_jg::Integer, two_jh::Integer, two_ji::Integer)
-    ccall( (:gsl_sf_coupling_9j, :libgsl), Cdouble, (Cint, Cint, Cint,
+    ccall( (:gsl_sf_coupling_9j, libgsl), Cdouble, (Cint, Cint, Cint,
         Cint, Cint, Cint, Cint, Cint, Cint), two_ja, two_jb, two_jc, two_jd,
         two_je, two_jf, two_jg, two_jh, two_ji )
 end
@@ -30,7 +30,7 @@ end
 #   Returns: Cint
 function sf_coupling_9j_e(two_ja::Integer, two_jb::Integer, two_jc::Integer, two_jd::Integer, two_je::Integer, two_jf::Integer, two_jg::Integer, two_jh::Integer, two_ji::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_coupling_9j_e, :libgsl), Cint, (Cint, Cint,
+    errno = ccall( (:gsl_sf_coupling_9j_e, libgsl), Cint, (Cint, Cint,
         Cint, Cint, Cint, Cint, Cint, Cint, Cint, Ptr{gsl_sf_result}), two_ja,
         two_jb, two_jc, two_jd, two_je, two_jf, two_jg, two_jh, two_ji, result
         )

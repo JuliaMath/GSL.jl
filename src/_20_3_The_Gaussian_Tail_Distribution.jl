@@ -25,7 +25,7 @@ export ran_gaussian_tail, ran_gaussian_tail_pdf, ran_ugaussian_tail,
 # 
 #   Returns: Cdouble
 function ran_gaussian_tail(r::Ptr{gsl_rng}, a::Real, sigma::Real)
-    ccall( (:gsl_ran_gaussian_tail, :libgsl), Cdouble, (Ptr{gsl_rng},
+    ccall( (:gsl_ran_gaussian_tail, libgsl), Cdouble, (Ptr{gsl_rng},
         Cdouble, Cdouble), r, a, sigma )
 end
 
@@ -36,7 +36,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_gaussian_tail_pdf(x::Real, a::Real, sigma::Real)
-    ccall( (:gsl_ran_gaussian_tail_pdf, :libgsl), Cdouble, (Cdouble,
+    ccall( (:gsl_ran_gaussian_tail_pdf, libgsl), Cdouble, (Cdouble,
         Cdouble, Cdouble), x, a, sigma )
 end
 #TODO This vectorization macro is not implemented
@@ -49,7 +49,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_ugaussian_tail(r::Ptr{gsl_rng}, a::Real)
-    ccall( (:gsl_ran_ugaussian_tail, :libgsl), Cdouble, (Ptr{gsl_rng},
+    ccall( (:gsl_ran_ugaussian_tail, libgsl), Cdouble, (Ptr{gsl_rng},
         Cdouble), r, a )
 end
 
@@ -60,7 +60,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_ugaussian_tail_pdf(x::Real, a::Real)
-    ccall( (:gsl_ran_ugaussian_tail_pdf, :libgsl), Cdouble, (Cdouble,
+    ccall( (:gsl_ran_ugaussian_tail_pdf, libgsl), Cdouble, (Cdouble,
         Cdouble), x, a )
 end
 @vectorize_2arg Number ran_ugaussian_tail_pdf

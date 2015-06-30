@@ -14,7 +14,7 @@ export bspline_alloc, bspline_free, bspline_deriv_alloc, bspline_deriv_free
 # 
 #   Returns: Ptr{gsl_bspline_workspace}
 function bspline_alloc(k::Integer, nbreak::Integer)
-    output_ptr = ccall( (:gsl_bspline_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_bspline_alloc, libgsl),
         Ptr{gsl_bspline_workspace}, (Csize_t, Csize_t), k, nbreak )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -25,7 +25,7 @@ end
 # 
 #   Returns: Void
 function bspline_free(w::Ptr{gsl_bspline_workspace})
-    ccall( (:gsl_bspline_free, :libgsl), Void, (Ptr{gsl_bspline_workspace},
+    ccall( (:gsl_bspline_free, libgsl), Void, (Ptr{gsl_bspline_workspace},
         ), w )
 end
 
@@ -35,7 +35,7 @@ end
 # 
 #   Returns: Ptr{gsl_bspline_deriv_workspace}
 function bspline_deriv_alloc(k::Integer)
-    output_ptr = ccall( (:gsl_bspline_deriv_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_bspline_deriv_alloc, libgsl),
         Ptr{gsl_bspline_deriv_workspace}, (Csize_t, ), k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -46,6 +46,6 @@ end
 # 
 #   Returns: Void
 function bspline_deriv_free(w::Ptr{gsl_bspline_deriv_workspace})
-    ccall( (:gsl_bspline_deriv_free, :libgsl), Void,
+    ccall( (:gsl_bspline_deriv_free, libgsl), Void,
         (Ptr{gsl_bspline_deriv_workspace}, ), w )
 end

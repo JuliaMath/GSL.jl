@@ -15,7 +15,7 @@ export integration_glfixed_table_alloc, integration_glfixed,
 # 
 #   Returns: Ptr{gsl_integration_glfixed_table}
 function integration_glfixed_table_alloc(n::Integer)
-    output_ptr = ccall( (:gsl_integration_glfixed_table_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_integration_glfixed_table_alloc, libgsl),
         Ptr{gsl_integration_glfixed_table}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -27,7 +27,7 @@ end
 # 
 #   Returns: Cdouble
 function integration_glfixed(f::Ptr{gsl_function}, a::Real, b::Real, t::Ptr{gsl_integration_glfixed_table})
-    ccall( (:gsl_integration_glfixed, :libgsl), Cdouble,
+    ccall( (:gsl_integration_glfixed, libgsl), Cdouble,
         (Ptr{gsl_function}, Cdouble, Cdouble,
         Ptr{gsl_integration_glfixed_table}), f, a, b, t )
 end
@@ -42,7 +42,7 @@ end
 function integration_glfixed_point(a::Real, b::Real, i::Integer, t::Ptr{gsl_integration_glfixed_table})
     xi = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     wi = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_integration_glfixed_point, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_glfixed_point, libgsl), Cint,
         (Cdouble, Cdouble, Csize_t, Ptr{Cdouble}, Ptr{Cdouble},
         Ptr{gsl_integration_glfixed_table}), a, b, i, xi, wi, t )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -54,6 +54,6 @@ end
 # 
 #   Returns: Void
 function integration_glfixed_table_free(t::Ptr{gsl_integration_glfixed_table})
-    ccall( (:gsl_integration_glfixed_table_free, :libgsl), Void,
+    ccall( (:gsl_integration_glfixed_table_free, libgsl), Void,
         (Ptr{gsl_integration_glfixed_table}, ), t )
 end

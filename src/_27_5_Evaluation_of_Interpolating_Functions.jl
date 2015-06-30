@@ -16,7 +16,7 @@ export interp_eval, interp_eval_e, interp_eval_deriv, interp_eval_deriv_e,
 # 
 #   Returns: Cdouble
 function interp_eval(interp::Ptr{gsl_interp}, xa::Real)
-    ccall( (:gsl_interp_eval, :libgsl), Cdouble, (Ptr{gsl_interp},
+    ccall( (:gsl_interp_eval, libgsl), Cdouble, (Ptr{gsl_interp},
         Cdouble), interp, xa )
 end
 
@@ -28,7 +28,7 @@ end
 # 
 #   Returns: Cint
 function interp_eval_e(interp::Ptr{gsl_interp}, xa::Real)
-    errno = ccall( (:gsl_interp_eval_e, :libgsl), Cint, (Ptr{gsl_interp},
+    errno = ccall( (:gsl_interp_eval_e, libgsl), Cint, (Ptr{gsl_interp},
         Cdouble), interp, xa )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -40,7 +40,7 @@ end
 # 
 #   Returns: Cdouble
 function interp_eval_deriv(interp::Ptr{gsl_interp}, xa::Real)
-    ccall( (:gsl_interp_eval_deriv, :libgsl), Cdouble, (Ptr{gsl_interp},
+    ccall( (:gsl_interp_eval_deriv, libgsl), Cdouble, (Ptr{gsl_interp},
         Cdouble), interp, xa )
 end
 
@@ -51,7 +51,7 @@ end
 # 
 #   Returns: Cint
 function interp_eval_deriv_e(interp::Ptr{gsl_interp}, xa::Real)
-    errno = ccall( (:gsl_interp_eval_deriv_e, :libgsl), Cint,
+    errno = ccall( (:gsl_interp_eval_deriv_e, libgsl), Cint,
         (Ptr{gsl_interp}, Cdouble), interp, xa )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -63,7 +63,7 @@ end
 # 
 #   Returns: Cdouble
 function interp_eval_deriv2(interp::Ptr{gsl_interp}, xa::Real)
-    ccall( (:gsl_interp_eval_deriv2, :libgsl), Cdouble, (Ptr{gsl_interp},
+    ccall( (:gsl_interp_eval_deriv2, libgsl), Cdouble, (Ptr{gsl_interp},
         Cdouble), interp, xa )
 end
 
@@ -74,7 +74,7 @@ end
 # 
 #   Returns: Cint
 function interp_eval_deriv2_e(interp::Ptr{gsl_interp}, xa::Real)
-    errno = ccall( (:gsl_interp_eval_deriv2_e, :libgsl), Cint,
+    errno = ccall( (:gsl_interp_eval_deriv2_e, libgsl), Cint,
         (Ptr{gsl_interp}, Cdouble), interp, xa )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -86,7 +86,7 @@ end
 # 
 #   Returns: Cdouble
 function interp_eval_integ(interp::Ptr{gsl_interp}, xa::Real)
-    ccall( (:gsl_interp_eval_integ, :libgsl), Cdouble, (Ptr{gsl_interp},
+    ccall( (:gsl_interp_eval_integ, libgsl), Cdouble, (Ptr{gsl_interp},
         Cdouble), interp, xa )
 end
 
@@ -97,7 +97,7 @@ end
 # 
 #   Returns: Cint
 function interp_eval_integ_e(interp::Ptr{gsl_interp}, xa::Real)
-    errno = ccall( (:gsl_interp_eval_integ_e, :libgsl), Cint,
+    errno = ccall( (:gsl_interp_eval_integ_e, libgsl), Cint,
         (Ptr{gsl_interp}, Cdouble), interp, xa )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end

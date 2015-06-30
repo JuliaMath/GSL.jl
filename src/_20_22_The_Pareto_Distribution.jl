@@ -16,7 +16,7 @@ export ran_pareto, ran_pareto_pdf, cdf_pareto_P, cdf_pareto_Q, cdf_pareto_Pinv,
 # 
 #   Returns: Cdouble
 function ran_pareto(r::Ptr{gsl_rng}, a::Real, b::Real)
-    ccall( (:gsl_ran_pareto, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+    ccall( (:gsl_ran_pareto, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
         Cdouble), r, a, b )
 end
 
@@ -26,7 +26,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_pareto_pdf(x::Real, a::Real, b::Real)
-    ccall( (:gsl_ran_pareto_pdf, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_ran_pareto_pdf, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
@@ -38,7 +38,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_pareto_P(x::Real, a::Real, b::Real)
-    ccall( (:gsl_cdf_pareto_P, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_cdf_pareto_P, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
@@ -50,7 +50,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_pareto_Q(x::Real, a::Real, b::Real)
-    ccall( (:gsl_cdf_pareto_Q, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_cdf_pareto_Q, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
@@ -62,7 +62,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_pareto_Pinv(P::Real, a::Real, b::Real)
-    ccall( (:gsl_cdf_pareto_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_cdf_pareto_Pinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), P, a, b )
 end
 #TODO This vectorization macro is not implemented
@@ -74,7 +74,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_pareto_Qinv(Q::Real, a::Real, b::Real)
-    ccall( (:gsl_cdf_pareto_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_cdf_pareto_Qinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), Q, a, b )
 end
 #TODO This vectorization macro is not implemented

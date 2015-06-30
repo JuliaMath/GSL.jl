@@ -23,7 +23,7 @@ export rng_alloc, rng_set, rng_free
 # 
 #   Returns: Ptr{gsl_rng}
 function rng_alloc(T::Ptr{gsl_rng_type})
-    output_ptr = ccall( (:gsl_rng_alloc, :libgsl), Ptr{gsl_rng},
+    output_ptr = ccall( (:gsl_rng_alloc, libgsl), Ptr{gsl_rng},
         (Ptr{gsl_rng_type}, ), T )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -46,7 +46,7 @@ end
 # 
 #   Returns: Void
 function rng_set(r::Ptr{gsl_rng}, s::Integer)
-    ccall( (:gsl_rng_set, :libgsl), Void, (Ptr{gsl_rng}, Culong), r, s )
+    ccall( (:gsl_rng_set, libgsl), Void, (Ptr{gsl_rng}, Culong), r, s )
 end
 
 
@@ -54,5 +54,5 @@ end
 # 
 #   Returns: Void
 function rng_free(r::Ptr{gsl_rng})
-    ccall( (:gsl_rng_free, :libgsl), Void, (Ptr{gsl_rng}, ), r )
+    ccall( (:gsl_rng_free, libgsl), Void, (Ptr{gsl_rng}, ), r )
 end

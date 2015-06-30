@@ -15,7 +15,7 @@ export rng_fwrite, rng_fread
 # 
 #   Returns: Cint
 function rng_fwrite(stream::Ptr{Void}, r::Ptr{gsl_rng})
-    errno = ccall( (:gsl_rng_fwrite, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_rng_fwrite, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_rng}), stream, r )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -32,7 +32,7 @@ end
 #   Returns: Cint
 function rng_fread(stream::Ptr{Void})
     r = convert(Ptr{gsl_rng}, Array(gsl_rng, 1))
-    errno = ccall( (:gsl_rng_fread, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_rng_fread, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_rng}), stream, r )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(r)

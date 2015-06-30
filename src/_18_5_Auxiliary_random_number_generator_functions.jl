@@ -19,7 +19,7 @@ export rng_name, rng_max, rng_min, rng_state, rng_size, rng_types_setup
 # 
 #   Returns: Ptr{Cchar}
 function rng_name(r::Ptr{gsl_rng})
-    output_string = output_ptr = ccall( (:gsl_rng_name, :libgsl),
+    output_string = output_ptr = ccall( (:gsl_rng_name, libgsl),
         Ptr{Cchar}, (Ptr{gsl_rng}, ), r )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
@@ -30,7 +30,7 @@ end
 # 
 #   Returns: Culong
 function rng_max(r::Ptr{gsl_rng})
-    ccall( (:gsl_rng_max, :libgsl), Culong, (Ptr{gsl_rng}, ), r )
+    ccall( (:gsl_rng_max, libgsl), Culong, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -40,7 +40,7 @@ end
 # 
 #   Returns: Culong
 function rng_min(r::Ptr{gsl_rng})
-    ccall( (:gsl_rng_min, :libgsl), Culong, (Ptr{gsl_rng}, ), r )
+    ccall( (:gsl_rng_min, libgsl), Culong, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -52,7 +52,7 @@ end
 # 
 #   Returns: Ptr{Void}
 function rng_state(r::Ptr{gsl_rng})
-    output_ptr = ccall( (:gsl_rng_state, :libgsl), Ptr{Void},
+    output_ptr = ccall( (:gsl_rng_state, libgsl), Ptr{Void},
         (Ptr{gsl_rng}, ), r )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -66,7 +66,7 @@ end
 # 
 #   Returns: Csize_t
 function rng_size(r::Ptr{gsl_rng})
-    ccall( (:gsl_rng_size, :libgsl), Csize_t, (Ptr{gsl_rng}, ), r )
+    ccall( (:gsl_rng_size, libgsl), Csize_t, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -81,7 +81,7 @@ end
 # 
 #   Returns: Ptr{Ptr{gsl_rng_type}}
 function rng_types_setup()
-    output_ptr = ccall( (:gsl_rng_types_setup, :libgsl),
+    output_ptr = ccall( (:gsl_rng_types_setup, libgsl),
         Ptr{Ptr{gsl_rng_type}}, () )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

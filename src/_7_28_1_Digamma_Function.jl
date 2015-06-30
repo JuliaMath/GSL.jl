@@ -12,7 +12,7 @@ export sf_psi_int, sf_psi_int_e, sf_psi, sf_psi_e, sf_psi_1piy, sf_psi_1piy_e
 # 
 #   Returns: Cdouble
 function sf_psi_int(n::Integer)
-    ccall( (:gsl_sf_psi_int, :libgsl), Cdouble, (Cint, ), n )
+    ccall( (:gsl_sf_psi_int, libgsl), Cdouble, (Cint, ), n )
 end
 @vectorize_1arg Number sf_psi_int
 
@@ -23,7 +23,7 @@ end
 #   Returns: Cint
 function sf_psi_int_e(n::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_psi_int_e, :libgsl), Cint, (Cint,
+    errno = ccall( (:gsl_sf_psi_int_e, libgsl), Cint, (Cint,
         Ptr{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -35,7 +35,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_psi(x::Real)
-    ccall( (:gsl_sf_psi, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_psi, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_psi
 
@@ -45,7 +45,7 @@ end
 #   Returns: Cint
 function sf_psi_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_psi_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_psi_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -58,7 +58,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_psi_1piy(y::Real)
-    ccall( (:gsl_sf_psi_1piy, :libgsl), Cdouble, (Cdouble, ), y )
+    ccall( (:gsl_sf_psi_1piy, libgsl), Cdouble, (Cdouble, ), y )
 end
 @vectorize_1arg Number sf_psi_1piy
 
@@ -69,7 +69,7 @@ end
 #   Returns: Cint
 function sf_psi_1piy_e(y::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_psi_1piy_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_psi_1piy_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), y, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

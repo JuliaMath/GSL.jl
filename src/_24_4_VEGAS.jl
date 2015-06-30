@@ -19,7 +19,7 @@ export monte_vegas_alloc, monte_vegas_init, monte_vegas_integrate,
 # 
 #   Returns: Ptr{gsl_monte_vegas_state}
 function monte_vegas_alloc(dim::Integer)
-    output_ptr = ccall( (:gsl_monte_vegas_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_monte_vegas_alloc, libgsl),
         Ptr{gsl_monte_vegas_state}, (Csize_t, ), dim )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -31,7 +31,7 @@ end
 # 
 #   Returns: Cint
 function monte_vegas_init(s::Ptr{gsl_monte_vegas_state})
-    errno = ccall( (:gsl_monte_vegas_init, :libgsl), Cint,
+    errno = ccall( (:gsl_monte_vegas_init, libgsl), Cint,
         (Ptr{gsl_monte_vegas_state}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -52,7 +52,7 @@ end
 #   Returns: Cint
 function monte_vegas_integrate(xl::Real)
     f = convert(Ptr{gsl_monte_function}, Array(gsl_monte_function, 1))
-    errno = ccall( (:gsl_monte_vegas_integrate, :libgsl), Cint,
+    errno = ccall( (:gsl_monte_vegas_integrate, libgsl), Cint,
         (Ptr{gsl_monte_function}, Cdouble), f, xl )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(f)
@@ -64,7 +64,7 @@ end
 # 
 #   Returns: Void
 function monte_vegas_free(s::Ptr{gsl_monte_vegas_state})
-    ccall( (:gsl_monte_vegas_free, :libgsl), Void,
+    ccall( (:gsl_monte_vegas_free, libgsl), Void,
         (Ptr{gsl_monte_vegas_state}, ), s )
 end
 
@@ -78,7 +78,7 @@ end
 # 
 #   Returns: Cdouble
 function monte_vegas_chisq(s::Ptr{gsl_monte_vegas_state})
-    ccall( (:gsl_monte_vegas_chisq, :libgsl), Cdouble,
+    ccall( (:gsl_monte_vegas_chisq, libgsl), Cdouble,
         (Ptr{gsl_monte_vegas_state}, ), s )
 end
 
@@ -90,7 +90,7 @@ end
 function monte_vegas_runval(s::Ptr{gsl_monte_vegas_state})
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     sigma = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    ccall( (:gsl_monte_vegas_runval, :libgsl), Void,
+    ccall( (:gsl_monte_vegas_runval, libgsl), Void,
         (Ptr{gsl_monte_vegas_state}, Ptr{Cdouble}, Ptr{Cdouble}), s, result,
         sigma )
     return unsafe_load(result), unsafe_load(sigma)
@@ -103,7 +103,7 @@ end
 #   Returns: Void
 function monte_vegas_params_get(s::Ptr{gsl_monte_vegas_state})
     params = convert(Ptr{gsl_monte_vegas_params}, Array(gsl_monte_vegas_params, 1))
-    ccall( (:gsl_monte_vegas_params_get, :libgsl), Void,
+    ccall( (:gsl_monte_vegas_params_get, libgsl), Void,
         (Ptr{gsl_monte_vegas_state}, Ptr{gsl_monte_vegas_params}), s, params )
     return unsafe_load(params)
 end
@@ -114,6 +114,6 @@ end
 # 
 #   Returns: Void
 function monte_vegas_params_set(s::Ptr{gsl_monte_vegas_state}, params::Ptr{gsl_monte_vegas_params})
-    ccall( (:gsl_monte_vegas_params_set, :libgsl), Void,
+    ccall( (:gsl_monte_vegas_params_set, libgsl), Void,
         (Ptr{gsl_monte_vegas_state}, Ptr{gsl_monte_vegas_params}), s, params )
 end

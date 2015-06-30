@@ -20,7 +20,7 @@ export ran_discrete_preproc, ran_discrete, ran_discrete_pdf, ran_discrete_free
 function ran_discrete_preproc{tA<:Real}(P_in::AbstractVector{tA})
     K = length(P_in)
     P = convert(Vector{Cdouble}, P_in)
-    output_ptr = ccall( (:gsl_ran_discrete_preproc, :libgsl),
+    output_ptr = ccall( (:gsl_ran_discrete_preproc, libgsl),
         Ptr{gsl_ran_discrete_t}, (Csize_t, Ptr{Cdouble}), K, P )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -31,7 +31,7 @@ end
 # 
 #   Returns: Csize_t
 function ran_discrete(r::Ptr{gsl_rng}, g::Ptr{gsl_ran_discrete_t})
-    ccall( (:gsl_ran_discrete, :libgsl), Csize_t, (Ptr{gsl_rng},
+    ccall( (:gsl_ran_discrete, libgsl), Csize_t, (Ptr{gsl_rng},
         Ptr{gsl_ran_discrete_t}), r, g )
 end
 
@@ -44,7 +44,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_discrete_pdf(k::Integer, g::Ptr{gsl_ran_discrete_t})
-    ccall( (:gsl_ran_discrete_pdf, :libgsl), Cdouble, (Csize_t,
+    ccall( (:gsl_ran_discrete_pdf, libgsl), Cdouble, (Csize_t,
         Ptr{gsl_ran_discrete_t}), k, g )
 end
 
@@ -53,6 +53,6 @@ end
 # 
 #   Returns: Void
 function ran_discrete_free(g::Ptr{gsl_ran_discrete_t})
-    ccall( (:gsl_ran_discrete_free, :libgsl), Void,
+    ccall( (:gsl_ran_discrete_free, libgsl), Void,
         (Ptr{gsl_ran_discrete_t}, ), g )
 end

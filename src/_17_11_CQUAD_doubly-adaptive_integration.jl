@@ -16,7 +16,7 @@ export integration_cquad_workspace_alloc, integration_cquad_workspace_free,
 # 
 #   Returns: Ptr{gsl_integration_cquad_workspace}
 function integration_cquad_workspace_alloc(n::Integer)
-    output_ptr = ccall( (:gsl_integration_cquad_workspace_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_integration_cquad_workspace_alloc, libgsl),
         Ptr{gsl_integration_cquad_workspace}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -27,7 +27,7 @@ end
 # 
 #   Returns: Void
 function integration_cquad_workspace_free(w::Ptr{gsl_integration_cquad_workspace})
-    ccall( (:gsl_integration_cquad_workspace_free, :libgsl), Void,
+    ccall( (:gsl_integration_cquad_workspace_free, libgsl), Void,
         (Ptr{gsl_integration_cquad_workspace}, ), w )
 end
 
@@ -56,7 +56,7 @@ function integration_cquad(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real,
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     nevals = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    errno = ccall( (:gsl_integration_cquad, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_cquad, libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble,
         Ptr{gsl_integration_cquad_workspace}, Ptr{Cdouble}, Ptr{Cdouble},
         Ptr{Csize_t}), f, a, b, epsabs, epsrel, workspace, result, abserr,

@@ -17,7 +17,7 @@ export monte_plain_alloc, monte_plain_init, monte_plain_integrate,
 # 
 #   Returns: Ptr{gsl_monte_plain_state}
 function monte_plain_alloc(dim::Integer)
-    output_ptr = ccall( (:gsl_monte_plain_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_monte_plain_alloc, libgsl),
         Ptr{gsl_monte_plain_state}, (Csize_t, ), dim )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -29,7 +29,7 @@ end
 # 
 #   Returns: Cint
 function monte_plain_init(s::Ptr{gsl_monte_plain_state})
-    errno = ccall( (:gsl_monte_plain_init, :libgsl), Cint,
+    errno = ccall( (:gsl_monte_plain_init, libgsl), Cint,
         (Ptr{gsl_monte_plain_state}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -46,7 +46,7 @@ end
 #   Returns: Cint
 function monte_plain_integrate(xl::Real)
     f = convert(Ptr{gsl_monte_function}, Array(gsl_monte_function, 1))
-    errno = ccall( (:gsl_monte_plain_integrate, :libgsl), Cint,
+    errno = ccall( (:gsl_monte_plain_integrate, libgsl), Cint,
         (Ptr{gsl_monte_function}, Cdouble), f, xl )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(f)
@@ -58,6 +58,6 @@ end
 # 
 #   Returns: Void
 function monte_plain_free(s::Ptr{gsl_monte_plain_state})
-    ccall( (:gsl_monte_plain_free, :libgsl), Void,
+    ccall( (:gsl_monte_plain_free, libgsl), Void,
         (Ptr{gsl_monte_plain_state}, ), s )
 end

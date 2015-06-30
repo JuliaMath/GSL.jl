@@ -13,7 +13,7 @@ export histogram_equal_bins_p, histogram_add, histogram_sub, histogram_mul,
 # 
 #   Returns: Cint
 function histogram_equal_bins_p(h1::Ptr{gsl_histogram}, h2::Ptr{gsl_histogram})
-    errno = ccall( (:gsl_histogram_equal_bins_p, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_equal_bins_p, libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -26,7 +26,7 @@ end
 #   Returns: Cint
 function histogram_add(h2::Ptr{gsl_histogram})
     h1 = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    errno = ccall( (:gsl_histogram_add, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_add, libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(h1)
@@ -40,7 +40,7 @@ end
 #   Returns: Cint
 function histogram_sub(h2::Ptr{gsl_histogram})
     h1 = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    errno = ccall( (:gsl_histogram_sub, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_sub, libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(h1)
@@ -54,7 +54,7 @@ end
 #   Returns: Cint
 function histogram_mul(h2::Ptr{gsl_histogram})
     h1 = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    errno = ccall( (:gsl_histogram_mul, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_mul, libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(h1)
@@ -68,7 +68,7 @@ end
 #   Returns: Cint
 function histogram_div(h2::Ptr{gsl_histogram})
     h1 = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    errno = ccall( (:gsl_histogram_div, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_div, libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(h1)
@@ -81,7 +81,7 @@ end
 #   Returns: Cint
 function histogram_scale(scale::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    errno = ccall( (:gsl_histogram_scale, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_scale, libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble), h, scale )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(h)
@@ -95,7 +95,7 @@ end
 #   Returns: Cint
 function histogram_shift(offset::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    errno = ccall( (:gsl_histogram_shift, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_shift, libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble), h, offset )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(h)

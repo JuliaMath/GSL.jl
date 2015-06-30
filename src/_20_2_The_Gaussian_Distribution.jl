@@ -23,7 +23,7 @@ export ran_gaussian, ran_gaussian_pdf, ran_gaussian_ziggurat,
 # 
 #   Returns: Cdouble
 function ran_gaussian(r::Ptr{gsl_rng}, sigma::Real)
-    ccall( (:gsl_ran_gaussian, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
+    ccall( (:gsl_ran_gaussian, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
         r, sigma )
 end
 
@@ -33,7 +33,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_gaussian_pdf(x::Real, sigma::Real)
-    ccall( (:gsl_ran_gaussian_pdf, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_ran_gaussian_pdf, libgsl), Cdouble, (Cdouble, Cdouble),
         x, sigma )
 end
 @vectorize_2arg Number ran_gaussian_pdf
@@ -45,7 +45,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_gaussian_ziggurat(r::Ptr{gsl_rng}, sigma::Real)
-    ccall( (:gsl_ran_gaussian_ziggurat, :libgsl), Cdouble, (Ptr{gsl_rng},
+    ccall( (:gsl_ran_gaussian_ziggurat, libgsl), Cdouble, (Ptr{gsl_rng},
         Cdouble), r, sigma )
 end
 
@@ -56,7 +56,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_gaussian_ratio_method(r::Ptr{gsl_rng}, sigma::Real)
-    ccall( (:gsl_ran_gaussian_ratio_method, :libgsl), Cdouble,
+    ccall( (:gsl_ran_gaussian_ratio_method, libgsl), Cdouble,
         (Ptr{gsl_rng}, Cdouble), r, sigma )
 end
 
@@ -67,7 +67,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_ugaussian(r::Ptr{gsl_rng})
-    ccall( (:gsl_ran_ugaussian, :libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
+    ccall( (:gsl_ran_ugaussian, libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -77,7 +77,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_ugaussian_pdf(x::Real)
-    ccall( (:gsl_ran_ugaussian_pdf, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_ran_ugaussian_pdf, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number ran_ugaussian_pdf
 
@@ -88,7 +88,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_ugaussian_ratio_method(r::Ptr{gsl_rng})
-    ccall( (:gsl_ran_ugaussian_ratio_method, :libgsl), Cdouble,
+    ccall( (:gsl_ran_ugaussian_ratio_method, libgsl), Cdouble,
         (Ptr{gsl_rng}, ), r )
 end
 
@@ -98,7 +98,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_gaussian_P(x::Real, sigma::Real)
-    ccall( (:gsl_cdf_gaussian_P, :libgsl), Cdouble, (Cdouble, Cdouble), x,
+    ccall( (:gsl_cdf_gaussian_P, libgsl), Cdouble, (Cdouble, Cdouble), x,
         sigma )
 end
 @vectorize_2arg Number cdf_gaussian_P
@@ -109,7 +109,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_gaussian_Q(x::Real, sigma::Real)
-    ccall( (:gsl_cdf_gaussian_Q, :libgsl), Cdouble, (Cdouble, Cdouble), x,
+    ccall( (:gsl_cdf_gaussian_Q, libgsl), Cdouble, (Cdouble, Cdouble), x,
         sigma )
 end
 @vectorize_2arg Number cdf_gaussian_Q
@@ -120,7 +120,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_gaussian_Pinv(P::Real, sigma::Real)
-    ccall( (:gsl_cdf_gaussian_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_cdf_gaussian_Pinv, libgsl), Cdouble, (Cdouble, Cdouble),
         P, sigma )
 end
 @vectorize_2arg Number cdf_gaussian_Pinv
@@ -131,7 +131,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_gaussian_Qinv(Q::Real, sigma::Real)
-    ccall( (:gsl_cdf_gaussian_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_cdf_gaussian_Qinv, libgsl), Cdouble, (Cdouble, Cdouble),
         Q, sigma )
 end
 @vectorize_2arg Number cdf_gaussian_Qinv
@@ -142,7 +142,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_ugaussian_P(x::Real)
-    ccall( (:gsl_cdf_ugaussian_P, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_cdf_ugaussian_P, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number cdf_ugaussian_P
 
@@ -152,7 +152,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_ugaussian_Q(x::Real)
-    ccall( (:gsl_cdf_ugaussian_Q, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_cdf_ugaussian_Q, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number cdf_ugaussian_Q
 
@@ -162,7 +162,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_ugaussian_Pinv(P::Real)
-    ccall( (:gsl_cdf_ugaussian_Pinv, :libgsl), Cdouble, (Cdouble, ), P )
+    ccall( (:gsl_cdf_ugaussian_Pinv, libgsl), Cdouble, (Cdouble, ), P )
 end
 @vectorize_1arg Number cdf_ugaussian_Pinv
 
@@ -172,6 +172,6 @@ end
 # 
 #   Returns: Cdouble
 function cdf_ugaussian_Qinv(Q::Real)
-    ccall( (:gsl_cdf_ugaussian_Qinv, :libgsl), Cdouble, (Cdouble, ), Q )
+    ccall( (:gsl_cdf_ugaussian_Qinv, libgsl), Cdouble, (Cdouble, ), Q )
 end
 @vectorize_1arg Number cdf_ugaussian_Qinv

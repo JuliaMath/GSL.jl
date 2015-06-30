@@ -26,7 +26,7 @@ export min_test_interval
 # 
 #   Returns: Cint
 function min_test_interval(x_lower::Real, x_upper::Real, epsabs::Real, epsrel::Real)
-    errno = ccall( (:gsl_min_test_interval, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_min_test_interval, libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Cdouble), x_lower, x_upper, epsabs, epsrel )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end

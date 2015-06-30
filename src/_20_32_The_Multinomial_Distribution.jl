@@ -23,7 +23,7 @@ export ran_multinomial, ran_multinomial_pdf, ran_multinomial_lnpdf
 # 
 #   Returns: Void
 function ran_multinomial(r::Ptr{gsl_rng}, K::Integer, N::Integer, p::Real)
-    ccall( (:gsl_ran_multinomial, :libgsl), Void, (Ptr{gsl_rng}, Csize_t,
+    ccall( (:gsl_ran_multinomial, libgsl), Void, (Ptr{gsl_rng}, Csize_t,
         Cuint, Cdouble), r, K, N, p )
 end
 
@@ -34,7 +34,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_multinomial_pdf(K::Integer, p::Real)
-    ccall( (:gsl_ran_multinomial_pdf, :libgsl), Cdouble, (Csize_t,
+    ccall( (:gsl_ran_multinomial_pdf, libgsl), Cdouble, (Csize_t,
         Cdouble), K, p )
 end
 @vectorize_2arg Number ran_multinomial_pdf
@@ -45,7 +45,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_multinomial_lnpdf(K::Integer, p::Real)
-    ccall( (:gsl_ran_multinomial_lnpdf, :libgsl), Cdouble, (Csize_t,
+    ccall( (:gsl_ran_multinomial_lnpdf, libgsl), Cdouble, (Csize_t,
         Cdouble), K, p )
 end
 @vectorize_2arg Number ran_multinomial_lnpdf

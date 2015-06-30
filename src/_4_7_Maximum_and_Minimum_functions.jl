@@ -15,7 +15,7 @@ export GSL_MAX_DBL, GSL_MIN_DBL, GSL_MAX_INT, GSL_MIN_INT, GSL_MAX_LDBL,
 # 
 #   Returns: Cdouble
 function GSL_MAX_DBL(a::Real, b::Real)
-    ccall( (:GSL_MAX_DBL, :libgsl), Cdouble, (Cdouble, Cdouble), a, b )
+    ccall( (:GSL_MAX_DBL, libgsl), Cdouble, (Cdouble, Cdouble), a, b )
 end
 @vectorize_2arg Number GSL_MAX_DBL
 
@@ -27,7 +27,7 @@ end
 # 
 #   Returns: Cdouble
 function GSL_MIN_DBL(a::Real, b::Real)
-    ccall( (:GSL_MIN_DBL, :libgsl), Cdouble, (Cdouble, Cdouble), a, b )
+    ccall( (:GSL_MIN_DBL, libgsl), Cdouble, (Cdouble, Cdouble), a, b )
 end
 @vectorize_2arg Number GSL_MIN_DBL
 
@@ -38,7 +38,7 @@ end
 # 
 #   Returns: Cint
 function GSL_MAX_INT(a::Integer, b::Integer)
-    errno = ccall( (:GSL_MAX_INT, :libgsl), Cint, (Cint, Cint), a, b )
+    errno = ccall( (:GSL_MAX_INT, libgsl), Cint, (Cint, Cint), a, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 @vectorize_2arg Number GSL_MAX_INT
@@ -50,7 +50,7 @@ end
 # 
 #   Returns: Cint
 function GSL_MIN_INT(a::Integer, b::Integer)
-    errno = ccall( (:GSL_MIN_INT, :libgsl), Cint, (Cint, Cint), a, b )
+    errno = ccall( (:GSL_MIN_INT, libgsl), Cint, (Cint, Cint), a, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 @vectorize_2arg Number GSL_MIN_INT
@@ -62,7 +62,7 @@ end
 # 
 #   Returns: Cdouble
 function GSL_MAX_LDBL(a::Real, b::Real)
-    ccall( (:GSL_MAX_LDBL, :libgsl), Cdouble, (Cdouble, Cdouble), a, b )
+    ccall( (:GSL_MAX_LDBL, libgsl), Cdouble, (Cdouble, Cdouble), a, b )
 end
 @vectorize_2arg Number GSL_MAX_LDBL
 
@@ -73,6 +73,6 @@ end
 # 
 #   Returns: Cdouble
 function GSL_MIN_LDBL(a::Real, b::Real)
-    ccall( (:GSL_MIN_LDBL, :libgsl), Cdouble, (Cdouble, Cdouble), a, b )
+    ccall( (:GSL_MIN_LDBL, libgsl), Cdouble, (Cdouble, Cdouble), a, b )
 end
 @vectorize_2arg Number GSL_MIN_LDBL

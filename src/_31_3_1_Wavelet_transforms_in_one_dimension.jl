@@ -31,7 +31,7 @@ export wavelet_transform, wavelet_transform_forward, wavelet_transform_inverse
 function wavelet_transform(w::Ptr{gsl_wavelet}, stride::Integer, n::Integer, dir::gsl_wavelet_direction)
     data = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     work = convert(Ptr{gsl_wavelet_workspace}, Array(gsl_wavelet_workspace, 1))
-    errno = ccall( (:gsl_wavelet_transform, :libgsl), Cint,
+    errno = ccall( (:gsl_wavelet_transform, libgsl), Cint,
         (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t,
         gsl_wavelet_direction, Ptr{gsl_wavelet_workspace}), w, data, stride, n,
         dir, work )
@@ -62,7 +62,7 @@ end
 function wavelet_transform_forward(w::Ptr{gsl_wavelet}, stride::Integer, n::Integer)
     data = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     work = convert(Ptr{gsl_wavelet_workspace}, Array(gsl_wavelet_workspace, 1))
-    errno = ccall( (:gsl_wavelet_transform_forward, :libgsl), Cint,
+    errno = ccall( (:gsl_wavelet_transform_forward, libgsl), Cint,
         (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t,
         Ptr{gsl_wavelet_workspace}), w, data, stride, n, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -92,7 +92,7 @@ end
 function wavelet_transform_inverse(w::Ptr{gsl_wavelet}, stride::Integer, n::Integer)
     data = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     work = convert(Ptr{gsl_wavelet_workspace}, Array(gsl_wavelet_workspace, 1))
-    errno = ccall( (:gsl_wavelet_transform_inverse, :libgsl), Cint,
+    errno = ccall( (:gsl_wavelet_transform_inverse, libgsl), Cint,
         (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t,
         Ptr{gsl_wavelet_workspace}), w, data, stride, n, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end

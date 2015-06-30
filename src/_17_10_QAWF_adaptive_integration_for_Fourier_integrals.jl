@@ -50,7 +50,7 @@ function integration_qawf(a::Real, epsabs::Real, limit::Integer)
     wf = convert(Ptr{gsl_integration_qawo_table}, Array(gsl_integration_qawo_table, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_integration_qawf, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_qawf, libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Csize_t,
         Ptr{gsl_integration_workspace}, Ptr{gsl_integration_workspace},
         Ptr{gsl_integration_qawo_table}, Ptr{Cdouble}, Ptr{Cdouble}), f, a,

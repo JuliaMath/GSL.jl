@@ -31,7 +31,7 @@ export stats_wmean, stats_wvariance, stats_wvariance_m, stats_wsd, stats_wsd_m,
 # 
 #   Returns: Cdouble
 function stats_wmean(w::Real)
-    ccall( (:gsl_stats_wmean, :libgsl), Cdouble, (Cdouble, ), w )
+    ccall( (:gsl_stats_wmean, libgsl), Cdouble, (Cdouble, ), w )
 end
 @vectorize_1arg Number stats_wmean
 
@@ -46,7 +46,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_wvariance(w::Real)
-    ccall( (:gsl_stats_wvariance, :libgsl), Cdouble, (Cdouble, ), w )
+    ccall( (:gsl_stats_wvariance, libgsl), Cdouble, (Cdouble, ), w )
 end
 @vectorize_1arg Number stats_wvariance
 
@@ -56,7 +56,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_wvariance_m(w::Real)
-    ccall( (:gsl_stats_wvariance_m, :libgsl), Cdouble, (Cdouble, ), w )
+    ccall( (:gsl_stats_wvariance_m, libgsl), Cdouble, (Cdouble, ), w )
 end
 @vectorize_1arg Number stats_wvariance_m
 
@@ -67,7 +67,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_wsd(w::Real)
-    ccall( (:gsl_stats_wsd, :libgsl), Cdouble, (Cdouble, ), w )
+    ccall( (:gsl_stats_wsd, libgsl), Cdouble, (Cdouble, ), w )
 end
 @vectorize_1arg Number stats_wsd
 
@@ -77,7 +77,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_wsd_m(w::Real)
-    ccall( (:gsl_stats_wsd_m, :libgsl), Cdouble, (Cdouble, ), w )
+    ccall( (:gsl_stats_wsd_m, libgsl), Cdouble, (Cdouble, ), w )
 end
 @vectorize_1arg Number stats_wsd_m
 
@@ -90,7 +90,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_wvariance_with_fixed_mean(w::Real)
-    ccall( (:gsl_stats_wvariance_with_fixed_mean, :libgsl), Cdouble,
+    ccall( (:gsl_stats_wvariance_with_fixed_mean, libgsl), Cdouble,
         (Cdouble, ), w )
 end
 @vectorize_1arg Number stats_wvariance_with_fixed_mean
@@ -102,7 +102,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_wsd_with_fixed_mean(w::Real)
-    ccall( (:gsl_stats_wsd_with_fixed_mean, :libgsl), Cdouble, (Cdouble, ),
+    ccall( (:gsl_stats_wsd_with_fixed_mean, libgsl), Cdouble, (Cdouble, ),
         w )
 end
 @vectorize_1arg Number stats_wsd_with_fixed_mean
@@ -115,7 +115,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_wtss(w::Real)
-    ccall( (:gsl_stats_wtss, :libgsl), Cdouble, (Cdouble, ), w )
+    ccall( (:gsl_stats_wtss, libgsl), Cdouble, (Cdouble, ), w )
 end
 @vectorize_1arg Number stats_wtss
 
@@ -127,7 +127,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_wtss_m(w::Real)
-    ccall( (:gsl_stats_wtss_m, :libgsl), Cdouble, (Cdouble, ), w )
+    ccall( (:gsl_stats_wtss_m, libgsl), Cdouble, (Cdouble, ), w )
 end
 @vectorize_1arg Number stats_wtss_m
 
@@ -138,7 +138,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_wabsdev(w::Real)
-    ccall( (:gsl_stats_wabsdev, :libgsl), Cdouble, (Cdouble, ), w )
+    ccall( (:gsl_stats_wabsdev, libgsl), Cdouble, (Cdouble, ), w )
 end
 @vectorize_1arg Number stats_wabsdev
 
@@ -148,7 +148,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_wabsdev_m(w::Real)
-    ccall( (:gsl_stats_wabsdev_m, :libgsl), Cdouble, (Cdouble, ), w )
+    ccall( (:gsl_stats_wabsdev_m, libgsl), Cdouble, (Cdouble, ), w )
 end
 @vectorize_1arg Number stats_wabsdev_m
 
@@ -158,7 +158,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_wskew(w::Real)
-    ccall( (:gsl_stats_wskew, :libgsl), Cdouble, (Cdouble, ), w )
+    ccall( (:gsl_stats_wskew, libgsl), Cdouble, (Cdouble, ), w )
 end
 @vectorize_1arg Number stats_wskew
 
@@ -169,7 +169,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_wskew_m_sd(w::Real)
-    ccall( (:gsl_stats_wskew_m_sd, :libgsl), Cdouble, (Cdouble, ), w )
+    ccall( (:gsl_stats_wskew_m_sd, libgsl), Cdouble, (Cdouble, ), w )
 end
 @vectorize_1arg Number stats_wskew_m_sd
 
@@ -179,7 +179,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_wkurtosis(w::Real)
-    ccall( (:gsl_stats_wkurtosis, :libgsl), Cdouble, (Cdouble, ), w )
+    ccall( (:gsl_stats_wkurtosis, libgsl), Cdouble, (Cdouble, ), w )
 end
 @vectorize_1arg Number stats_wkurtosis
 
@@ -190,6 +190,6 @@ end
 # 
 #   Returns: Cdouble
 function stats_wkurtosis_m_sd(w::Real)
-    ccall( (:gsl_stats_wkurtosis_m_sd, :libgsl), Cdouble, (Cdouble, ), w )
+    ccall( (:gsl_stats_wkurtosis_m_sd, libgsl), Cdouble, (Cdouble, ), w )
 end
 @vectorize_1arg Number stats_wkurtosis_m_sd

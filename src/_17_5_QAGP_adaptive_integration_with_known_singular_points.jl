@@ -26,7 +26,7 @@ function integration_qagp(f::Ptr{gsl_function}, npts::Integer, epsabs::Real, eps
     workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_integration_qagp, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_qagp, libgsl), Cint,
         (Ptr{gsl_function}, Ptr{Cdouble}, Csize_t, Cdouble, Cdouble, Csize_t,
         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, pts,
         npts, epsabs, epsrel, limit, workspace, result, abserr )

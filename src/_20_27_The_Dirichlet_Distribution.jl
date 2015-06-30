@@ -24,7 +24,7 @@ export ran_dirichlet, ran_dirichlet_pdf, ran_dirichlet_lnpdf
 # 
 #   Returns: Void
 function ran_dirichlet(r::Ptr{gsl_rng}, K::Integer, alpha::Real)
-    ccall( (:gsl_ran_dirichlet, :libgsl), Void, (Ptr{gsl_rng}, Csize_t,
+    ccall( (:gsl_ran_dirichlet, libgsl), Void, (Ptr{gsl_rng}, Csize_t,
         Cdouble), r, K, alpha )
 end
 
@@ -35,7 +35,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_dirichlet_pdf(K::Integer, alpha::Real)
-    ccall( (:gsl_ran_dirichlet_pdf, :libgsl), Cdouble, (Csize_t, Cdouble),
+    ccall( (:gsl_ran_dirichlet_pdf, libgsl), Cdouble, (Csize_t, Cdouble),
         K, alpha )
 end
 @vectorize_2arg Number ran_dirichlet_pdf
@@ -46,7 +46,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_dirichlet_lnpdf(K::Integer, alpha::Real)
-    ccall( (:gsl_ran_dirichlet_lnpdf, :libgsl), Cdouble, (Csize_t,
+    ccall( (:gsl_ran_dirichlet_lnpdf, libgsl), Cdouble, (Csize_t,
         Cdouble), K, alpha )
 end
 @vectorize_2arg Number ran_dirichlet_lnpdf

@@ -14,7 +14,7 @@ export isnan, isinf, finite
 # 
 #   Returns: Cint
 function isnan(x::Real)
-    errno = ccall( (:gsl_isnan, :libgsl), Cint, (Cdouble, ), x )
+    errno = ccall( (:gsl_isnan, libgsl), Cint, (Cdouble, ), x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 @vectorize_1arg Number isnan
@@ -25,7 +25,7 @@ end
 # 
 #   Returns: Cint
 function isinf(x::Real)
-    errno = ccall( (:gsl_isinf, :libgsl), Cint, (Cdouble, ), x )
+    errno = ccall( (:gsl_isinf, libgsl), Cint, (Cdouble, ), x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 @vectorize_1arg Number isinf
@@ -36,7 +36,7 @@ end
 # 
 #   Returns: Cint
 function finite(x::Real)
-    errno = ccall( (:gsl_finite, :libgsl), Cint, (Cdouble, ), x )
+    errno = ccall( (:gsl_finite, libgsl), Cint, (Cdouble, ), x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 @vectorize_1arg Number finite

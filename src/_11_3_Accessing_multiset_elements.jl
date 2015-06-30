@@ -14,6 +14,6 @@ export multiset_get
 # 
 #   Returns: Csize_t
 function multiset_get(c::Ptr{gsl_multiset}, i::Integer)
-    ccall( (:gsl_multiset_get, :libgsl), Csize_t, (Ptr{gsl_multiset},
+    ccall( (:gsl_multiset_get, libgsl), Csize_t, (Ptr{gsl_multiset},
         Csize_t), c, i )
 end

@@ -19,7 +19,7 @@ export root_fsolver_iterate, root_fdfsolver_iterate, root_fdfsolver_iterate,
 #   Returns: Cint
 function root_fsolver_iterate()
     s = convert(Ptr{gsl_root_fsolver}, Array(gsl_root_fsolver, 1))
-    errno = ccall( (:gsl_root_fsolver_iterate, :libgsl), Cint,
+    errno = ccall( (:gsl_root_fsolver_iterate, libgsl), Cint,
         (Ptr{gsl_root_fsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(s)
@@ -36,7 +36,7 @@ end
 #   Returns: Cint
 function root_fdfsolver_iterate()
     s = convert(Ptr{gsl_root_fdfsolver}, Array(gsl_root_fdfsolver, 1))
-    errno = ccall( (:gsl_root_fdfsolver_iterate, :libgsl), Cint,
+    errno = ccall( (:gsl_root_fdfsolver_iterate, libgsl), Cint,
         (Ptr{gsl_root_fdfsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(s)
@@ -48,7 +48,7 @@ end
 #   Returns: Cint
 function root_fdfsolver_iterate()
     s = convert(Ptr{gsl_root_fdfsolver}, Array(gsl_root_fdfsolver, 1))
-    errno = ccall( (:gsl_root_fdfsolver_iterate, :libgsl), Cint,
+    errno = ccall( (:gsl_root_fdfsolver_iterate, libgsl), Cint,
         (Ptr{gsl_root_fdfsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(s)
@@ -59,7 +59,7 @@ end
 # 
 #   Returns: Cdouble
 function root_fsolver_root(s::Ptr{gsl_root_fsolver})
-    ccall( (:gsl_root_fsolver_root, :libgsl), Cdouble,
+    ccall( (:gsl_root_fsolver_root, libgsl), Cdouble,
         (Ptr{gsl_root_fsolver}, ), s )
 end
 
@@ -68,7 +68,7 @@ end
 # 
 #   Returns: Cdouble
 function root_fdfsolver_root(s::Ptr{gsl_root_fdfsolver})
-    ccall( (:gsl_root_fdfsolver_root, :libgsl), Cdouble,
+    ccall( (:gsl_root_fdfsolver_root, libgsl), Cdouble,
         (Ptr{gsl_root_fdfsolver}, ), s )
 end
 
@@ -77,7 +77,7 @@ end
 # 
 #   Returns: Cdouble
 function root_fsolver_x_lower(s::Ptr{gsl_root_fsolver})
-    ccall( (:gsl_root_fsolver_x_lower, :libgsl), Cdouble,
+    ccall( (:gsl_root_fsolver_x_lower, libgsl), Cdouble,
         (Ptr{gsl_root_fsolver}, ), s )
 end
 
@@ -86,6 +86,6 @@ end
 # 
 #   Returns: Cdouble
 function root_fsolver_x_upper(s::Ptr{gsl_root_fsolver})
-    ccall( (:gsl_root_fsolver_x_upper, :libgsl), Cdouble,
+    ccall( (:gsl_root_fsolver_x_upper, libgsl), Cdouble,
         (Ptr{gsl_root_fsolver}, ), s )
 end

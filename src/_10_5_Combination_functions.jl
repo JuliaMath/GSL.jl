@@ -15,7 +15,7 @@ export combination_next, combination_prev
 # 
 #   Returns: Cint
 function combination_next(c::Ptr{gsl_combination})
-    errno = ccall( (:gsl_combination_next, :libgsl), Cint,
+    errno = ccall( (:gsl_combination_next, libgsl), Cint,
         (Ptr{gsl_combination}, ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -28,7 +28,7 @@ end
 #   Returns: Cint
 function combination_prev()
     c = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
-    errno = ccall( (:gsl_combination_prev, :libgsl), Cint,
+    errno = ccall( (:gsl_combination_prev, libgsl), Cint,
         (Ptr{gsl_combination}, ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(c)

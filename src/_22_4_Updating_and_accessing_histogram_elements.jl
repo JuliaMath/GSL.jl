@@ -22,7 +22,7 @@ export histogram_increment, histogram_accumulate, histogram_get,
 #   Returns: Cint
 function histogram_increment(x::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    errno = ccall( (:gsl_histogram_increment, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_increment, libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble), h, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(h)
@@ -37,7 +37,7 @@ end
 #   Returns: Cint
 function histogram_accumulate(x::Real, weight::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    errno = ccall( (:gsl_histogram_accumulate, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_accumulate, libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble, Cdouble), h, x, weight )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(h)
@@ -51,7 +51,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram_get(h::Ptr{gsl_histogram}, i::Integer)
-    ccall( (:gsl_histogram_get, :libgsl), Cdouble, (Ptr{gsl_histogram},
+    ccall( (:gsl_histogram_get, libgsl), Cdouble, (Ptr{gsl_histogram},
         Csize_t), h, i )
 end
 
@@ -70,7 +70,7 @@ end
 function histogram_get_range(h::Ptr{gsl_histogram}, i::Integer)
     lower = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     upper = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_histogram_get_range, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_get_range, libgsl), Cint,
         (Ptr{gsl_histogram}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, i, lower,
         upper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -84,7 +84,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram_max(h::Ptr{gsl_histogram})
-    ccall( (:gsl_histogram_max, :libgsl), Cdouble, (Ptr{gsl_histogram}, ),
+    ccall( (:gsl_histogram_max, libgsl), Cdouble, (Ptr{gsl_histogram}, ),
         h )
 end
 
@@ -95,7 +95,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram_min(h::Ptr{gsl_histogram})
-    ccall( (:gsl_histogram_min, :libgsl), Cdouble, (Ptr{gsl_histogram}, ),
+    ccall( (:gsl_histogram_min, libgsl), Cdouble, (Ptr{gsl_histogram}, ),
         h )
 end
 
@@ -106,7 +106,7 @@ end
 # 
 #   Returns: Csize_t
 function histogram_bins(h::Ptr{gsl_histogram})
-    ccall( (:gsl_histogram_bins, :libgsl), Csize_t, (Ptr{gsl_histogram}, ),
+    ccall( (:gsl_histogram_bins, libgsl), Csize_t, (Ptr{gsl_histogram}, ),
         h )
 end
 
@@ -116,7 +116,7 @@ end
 #   Returns: Void
 function histogram_reset()
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    ccall( (:gsl_histogram_reset, :libgsl), Void, (Ptr{gsl_histogram}, ), h
+    ccall( (:gsl_histogram_reset, libgsl), Void, (Ptr{gsl_histogram}, ), h
         )
     return unsafe_load(h)
 end

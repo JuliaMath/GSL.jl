@@ -22,7 +22,7 @@ export histogram2d_increment, histogram2d_accumulate, histogram2d_get,
 #   Returns: Cint
 function histogram2d_increment(x::Real, y::Real)
     h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
-    errno = ccall( (:gsl_histogram2d_increment, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram2d_increment, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble, Cdouble), h, x, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(h)
@@ -37,7 +37,7 @@ end
 #   Returns: Cint
 function histogram2d_accumulate(x::Real, y::Real, weight::Real)
     h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
-    errno = ccall( (:gsl_histogram2d_accumulate, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram2d_accumulate, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble, Cdouble, Cdouble), h, x, y, weight )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(h)
@@ -53,7 +53,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram2d_get(h::Ptr{gsl_histogram2d}, i::Integer, j::Integer)
-    ccall( (:gsl_histogram2d_get, :libgsl), Cdouble, (Ptr{gsl_histogram2d},
+    ccall( (:gsl_histogram2d_get, libgsl), Cdouble, (Ptr{gsl_histogram2d},
         Csize_t, Csize_t), h, i, j )
 end
 
@@ -72,7 +72,7 @@ end
 function histogram2d_get_xrange(h::Ptr{gsl_histogram2d}, i::Integer)
     xlower = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     xupper = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_histogram2d_get_xrange, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram2d_get_xrange, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, i,
         xlower, xupper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -94,7 +94,7 @@ end
 function histogram2d_get_yrange(h::Ptr{gsl_histogram2d}, j::Integer)
     ylower = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     yupper = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_histogram2d_get_yrange, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram2d_get_yrange, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, j,
         ylower, yupper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -109,7 +109,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram2d_xmax(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_xmax, :libgsl), Cdouble,
+    ccall( (:gsl_histogram2d_xmax, libgsl), Cdouble,
         (Ptr{gsl_histogram2d}, ), h )
 end
 
@@ -121,7 +121,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram2d_xmin(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_xmin, :libgsl), Cdouble,
+    ccall( (:gsl_histogram2d_xmin, libgsl), Cdouble,
         (Ptr{gsl_histogram2d}, ), h )
 end
 
@@ -133,7 +133,7 @@ end
 # 
 #   Returns: Csize_t
 function histogram2d_nx(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_nx, :libgsl), Csize_t, (Ptr{gsl_histogram2d},
+    ccall( (:gsl_histogram2d_nx, libgsl), Csize_t, (Ptr{gsl_histogram2d},
         ), h )
 end
 
@@ -145,7 +145,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram2d_ymax(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_ymax, :libgsl), Cdouble,
+    ccall( (:gsl_histogram2d_ymax, libgsl), Cdouble,
         (Ptr{gsl_histogram2d}, ), h )
 end
 
@@ -157,7 +157,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram2d_ymin(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_ymin, :libgsl), Cdouble,
+    ccall( (:gsl_histogram2d_ymin, libgsl), Cdouble,
         (Ptr{gsl_histogram2d}, ), h )
 end
 
@@ -169,7 +169,7 @@ end
 # 
 #   Returns: Csize_t
 function histogram2d_ny(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_ny, :libgsl), Csize_t, (Ptr{gsl_histogram2d},
+    ccall( (:gsl_histogram2d_ny, libgsl), Csize_t, (Ptr{gsl_histogram2d},
         ), h )
 end
 
@@ -179,7 +179,7 @@ end
 #   Returns: Void
 function histogram2d_reset()
     h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
-    ccall( (:gsl_histogram2d_reset, :libgsl), Void, (Ptr{gsl_histogram2d},
+    ccall( (:gsl_histogram2d_reset, libgsl), Void, (Ptr{gsl_histogram2d},
         ), h )
     return unsafe_load(h)
 end

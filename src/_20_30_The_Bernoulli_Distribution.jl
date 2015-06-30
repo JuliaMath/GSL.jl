@@ -15,7 +15,7 @@ export ran_bernoulli, ran_bernoulli_pdf
 # 
 #   Returns: Cuint
 function ran_bernoulli(r::Ptr{gsl_rng}, p::Real)
-    ccall( (:gsl_ran_bernoulli, :libgsl), Cuint, (Ptr{gsl_rng}, Cdouble),
+    ccall( (:gsl_ran_bernoulli, libgsl), Cuint, (Ptr{gsl_rng}, Cdouble),
         r, p )
 end
 
@@ -25,7 +25,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_bernoulli_pdf(k::Integer, p::Real)
-    ccall( (:gsl_ran_bernoulli_pdf, :libgsl), Cdouble, (Cuint, Cdouble), k,
+    ccall( (:gsl_ran_bernoulli_pdf, libgsl), Cdouble, (Cuint, Cdouble), k,
         p )
 end
 @vectorize_2arg Number ran_bernoulli_pdf

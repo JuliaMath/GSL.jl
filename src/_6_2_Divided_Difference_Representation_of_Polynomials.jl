@@ -14,7 +14,7 @@ export poly_dd_init, poly_dd_eval, poly_dd_taylor
 # 
 #   Returns: Cint
 function poly_dd_init(dd::Real)
-    errno = ccall( (:gsl_poly_dd_init, :libgsl), Cint, (Cdouble, ), dd )
+    errno = ccall( (:gsl_poly_dd_init, libgsl), Cint, (Cdouble, ), dd )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 @vectorize_1arg Number poly_dd_init
@@ -26,7 +26,7 @@ end
 # 
 #   Returns: Cdouble
 function poly_dd_eval(dd::Real)
-    ccall( (:gsl_poly_dd_eval, :libgsl), Cdouble, (Cdouble, ), dd )
+    ccall( (:gsl_poly_dd_eval, libgsl), Cdouble, (Cdouble, ), dd )
 end
 @vectorize_1arg Number poly_dd_eval
 
@@ -39,7 +39,7 @@ end
 # 
 #   Returns: Cint
 function poly_dd_taylor(c::Real)
-    errno = ccall( (:gsl_poly_dd_taylor, :libgsl), Cint, (Cdouble, ), c )
+    errno = ccall( (:gsl_poly_dd_taylor, libgsl), Cint, (Cdouble, ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 @vectorize_1arg Number poly_dd_taylor

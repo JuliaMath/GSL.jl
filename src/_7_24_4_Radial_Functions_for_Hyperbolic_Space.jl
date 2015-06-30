@@ -16,7 +16,7 @@ export sf_legendre_H3d_0, sf_legendre_H3d_0_e, sf_legendre_H3d_1,
 # 
 #   Returns: Cdouble
 function sf_legendre_H3d_0(lambda::Real, eta::Real)
-    ccall( (:gsl_sf_legendre_H3d_0, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_sf_legendre_H3d_0, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, eta )
 end
 @vectorize_2arg Number sf_legendre_H3d_0
@@ -30,7 +30,7 @@ end
 #   Returns: Cint
 function sf_legendre_H3d_0_e(lambda::Real, eta::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_legendre_H3d_0_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_legendre_H3d_0_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, eta, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -46,7 +46,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_legendre_H3d_1(lambda::Real, eta::Real)
-    ccall( (:gsl_sf_legendre_H3d_1, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_sf_legendre_H3d_1, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, eta )
 end
 @vectorize_2arg Number sf_legendre_H3d_1
@@ -61,7 +61,7 @@ end
 #   Returns: Cint
 function sf_legendre_H3d_1_e(lambda::Real, eta::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_legendre_H3d_1_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_legendre_H3d_1_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, eta, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -75,7 +75,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_legendre_H3d(l::Integer, lambda::Real, eta::Real)
-    ccall( (:gsl_sf_legendre_H3d, :libgsl), Cdouble, (Cint, Cdouble,
+    ccall( (:gsl_sf_legendre_H3d, libgsl), Cdouble, (Cint, Cdouble,
         Cdouble), l, lambda, eta )
 end
 #TODO This vectorization macro is not implemented
@@ -89,7 +89,7 @@ end
 #   Returns: Cint
 function sf_legendre_H3d_e(l::Integer, lambda::Real, eta::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_legendre_H3d_e, :libgsl), Cint, (Cint, Cdouble,
+    errno = ccall( (:gsl_sf_legendre_H3d_e, libgsl), Cint, (Cint, Cdouble,
         Cdouble, Ptr{gsl_sf_result}), l, lambda, eta, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -104,7 +104,7 @@ end
 #   Returns: Cint
 function sf_legendre_H3d_array(lmax::Integer, lambda::Real, eta::Real)
     result_array = Array(Cdouble, 1)
-    errno = ccall( (:gsl_sf_legendre_H3d_array, :libgsl), Cint, (Cint,
+    errno = ccall( (:gsl_sf_legendre_H3d_array, libgsl), Cint, (Cint,
         Cdouble, Cdouble, Cdouble), lmax, lambda, eta, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result_array)[1]

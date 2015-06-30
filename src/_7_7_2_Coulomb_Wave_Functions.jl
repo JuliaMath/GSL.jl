@@ -26,7 +26,7 @@ function sf_coulomb_wave_FG_e(eta::Real, x::Real, L_F::Real, k::Integer)
     Gp = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     exp_F = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     exp_G = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_sf_coulomb_wave_FG_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_coulomb_wave_FG_e, libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Cint, Ptr{gsl_sf_result}, Ptr{gsl_sf_result},
         Ptr{gsl_sf_result}, Ptr{gsl_sf_result}, Ptr{Cdouble}, Ptr{Cdouble}),
         eta, x, L_F, k, F, Fp, G, Gp, exp_F, exp_G )
@@ -43,7 +43,7 @@ end
 # 
 #   Returns: Cint
 function sf_coulomb_wave_F_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
-    errno = ccall( (:gsl_sf_coulomb_wave_F_array, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_coulomb_wave_F_array, libgsl), Cint, (Cdouble,
         Cint, Cdouble, Cdouble, Cdouble), L_min, kmax, eta, x, fc_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -57,7 +57,7 @@ end
 # 
 #   Returns: Cint
 function sf_coulomb_wave_FG_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
-    errno = ccall( (:gsl_sf_coulomb_wave_FG_array, :libgsl), Cint,
+    errno = ccall( (:gsl_sf_coulomb_wave_FG_array, libgsl), Cint,
         (Cdouble, Cint, Cdouble, Cdouble, Cdouble), L_min, kmax, eta, x,
         fc_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -73,7 +73,7 @@ end
 # 
 #   Returns: Cint
 function sf_coulomb_wave_FGp_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
-    errno = ccall( (:gsl_sf_coulomb_wave_FGp_array, :libgsl), Cint,
+    errno = ccall( (:gsl_sf_coulomb_wave_FGp_array, libgsl), Cint,
         (Cdouble, Cint, Cdouble, Cdouble, Cdouble), L_min, kmax, eta, x,
         fc_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -89,7 +89,7 @@ end
 # 
 #   Returns: Cint
 function sf_coulomb_wave_sphF_array(L_min::Real, kmax::Integer, eta::Real, x::Real, fc_array::Real)
-    errno = ccall( (:gsl_sf_coulomb_wave_sphF_array, :libgsl), Cint,
+    errno = ccall( (:gsl_sf_coulomb_wave_sphF_array, libgsl), Cint,
         (Cdouble, Cint, Cdouble, Cdouble, Cdouble), L_min, kmax, eta, x,
         fc_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end

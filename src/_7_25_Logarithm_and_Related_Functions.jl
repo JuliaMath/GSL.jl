@@ -12,7 +12,7 @@ export sf_log, sf_log_e, sf_log_abs, sf_log_abs_e, sf_complex_log_e,
 # 
 #   Returns: Cdouble
 function sf_log(x::Real)
-    ccall( (:gsl_sf_log, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_log, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_log
 
@@ -22,7 +22,7 @@ end
 #   Returns: Cint
 function sf_log_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_log_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_log_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -35,7 +35,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_log_abs(x::Real)
-    ccall( (:gsl_sf_log_abs, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_log_abs, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_log_abs
 
@@ -46,7 +46,7 @@ end
 #   Returns: Cint
 function sf_log_abs_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_log_abs_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_log_abs_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -62,7 +62,7 @@ end
 function sf_complex_log_e(zr::Real, zi::Real)
     lnr = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     theta = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_complex_log_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_complex_log_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, lnr, theta )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(lnr), unsafe_load(theta)
@@ -75,7 +75,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_log_1plusx(x::Real)
-    ccall( (:gsl_sf_log_1plusx, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_log_1plusx, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_log_1plusx
 
@@ -86,7 +86,7 @@ end
 #   Returns: Cint
 function sf_log_1plusx_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_log_1plusx_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_log_1plusx_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -99,7 +99,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_log_1plusx_mx(x::Real)
-    ccall( (:gsl_sf_log_1plusx_mx, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_log_1plusx_mx, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_log_1plusx_mx
 
@@ -110,7 +110,7 @@ end
 #   Returns: Cint
 function sf_log_1plusx_mx_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_log_1plusx_mx_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_log_1plusx_mx_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

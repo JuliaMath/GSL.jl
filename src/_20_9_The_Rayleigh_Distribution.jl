@@ -16,7 +16,7 @@ export ran_rayleigh, ran_rayleigh_pdf, cdf_rayleigh_P, cdf_rayleigh_Q,
 # 
 #   Returns: Cdouble
 function ran_rayleigh(r::Ptr{gsl_rng}, sigma::Real)
-    ccall( (:gsl_ran_rayleigh, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
+    ccall( (:gsl_ran_rayleigh, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
         r, sigma )
 end
 
@@ -26,7 +26,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_rayleigh_pdf(x::Real, sigma::Real)
-    ccall( (:gsl_ran_rayleigh_pdf, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_ran_rayleigh_pdf, libgsl), Cdouble, (Cdouble, Cdouble),
         x, sigma )
 end
 @vectorize_2arg Number ran_rayleigh_pdf
@@ -37,7 +37,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_rayleigh_P(x::Real, sigma::Real)
-    ccall( (:gsl_cdf_rayleigh_P, :libgsl), Cdouble, (Cdouble, Cdouble), x,
+    ccall( (:gsl_cdf_rayleigh_P, libgsl), Cdouble, (Cdouble, Cdouble), x,
         sigma )
 end
 @vectorize_2arg Number cdf_rayleigh_P
@@ -48,7 +48,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_rayleigh_Q(x::Real, sigma::Real)
-    ccall( (:gsl_cdf_rayleigh_Q, :libgsl), Cdouble, (Cdouble, Cdouble), x,
+    ccall( (:gsl_cdf_rayleigh_Q, libgsl), Cdouble, (Cdouble, Cdouble), x,
         sigma )
 end
 @vectorize_2arg Number cdf_rayleigh_Q
@@ -59,7 +59,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_rayleigh_Pinv(P::Real, sigma::Real)
-    ccall( (:gsl_cdf_rayleigh_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_cdf_rayleigh_Pinv, libgsl), Cdouble, (Cdouble, Cdouble),
         P, sigma )
 end
 @vectorize_2arg Number cdf_rayleigh_Pinv
@@ -70,7 +70,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_rayleigh_Qinv(Q::Real, sigma::Real)
-    ccall( (:gsl_cdf_rayleigh_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_cdf_rayleigh_Qinv, libgsl), Cdouble, (Cdouble, Cdouble),
         Q, sigma )
 end
 @vectorize_2arg Number cdf_rayleigh_Qinv

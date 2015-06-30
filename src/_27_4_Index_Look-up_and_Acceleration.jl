@@ -15,7 +15,7 @@ export interp_bsearch, interp_accel_alloc, interp_accel_find,
 # 
 #   Returns: Csize_t
 function interp_bsearch(x_array::Real)
-    ccall( (:gsl_interp_bsearch, :libgsl), Csize_t, (Cdouble, ), x_array )
+    ccall( (:gsl_interp_bsearch, libgsl), Csize_t, (Cdouble, ), x_array )
 end
 @vectorize_1arg Number interp_bsearch
 
@@ -26,7 +26,7 @@ end
 # 
 #   Returns: Ptr{gsl_interp_accel}
 function interp_accel_alloc()
-    output_ptr = ccall( (:gsl_interp_accel_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_interp_accel_alloc, libgsl),
         Ptr{gsl_interp_accel}, () )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -40,7 +40,7 @@ end
 # 
 #   Returns: Csize_t
 function interp_accel_find(a::Ptr{gsl_interp_accel}, x_array::Real)
-    ccall( (:gsl_interp_accel_find, :libgsl), Csize_t,
+    ccall( (:gsl_interp_accel_find, libgsl), Csize_t,
         (Ptr{gsl_interp_accel}, Cdouble), a, x_array )
 end
 
@@ -52,7 +52,7 @@ end
 #   Returns: Cint
 function interp_accel_reset()
     acc = convert(Ptr{gsl_interp_accel}, Array(gsl_interp_accel, 1))
-    errno = ccall( (:gsl_interp_accel_reset, :libgsl), Cint,
+    errno = ccall( (:gsl_interp_accel_reset, libgsl), Cint,
         (Ptr{gsl_interp_accel}, ), acc )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(acc)
@@ -63,6 +63,6 @@ end
 # 
 #   Returns: Void
 function interp_accel_free(acc::Ptr{gsl_interp_accel})
-    ccall( (:gsl_interp_accel_free, :libgsl), Void, (Ptr{gsl_interp_accel},
+    ccall( (:gsl_interp_accel_free, libgsl), Void, (Ptr{gsl_interp_accel},
         ), acc )
 end

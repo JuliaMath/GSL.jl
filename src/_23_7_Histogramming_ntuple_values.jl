@@ -21,7 +21,7 @@ function ntuple_project()
     ntuple = convert(Ptr{gsl_ntuple}, Array(gsl_ntuple, 1))
     value_func = convert(Ptr{gsl_ntuple_value_fn}, Array(gsl_ntuple_value_fn, 1))
     select_func = convert(Ptr{gsl_ntuple_select_fn}, Array(gsl_ntuple_select_fn, 1))
-    errno = ccall( (:gsl_ntuple_project, :libgsl), Cint,
+    errno = ccall( (:gsl_ntuple_project, libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_ntuple}, Ptr{gsl_ntuple_value_fn},
         Ptr{gsl_ntuple_select_fn}), h, ntuple, value_func, select_func )
     if errno!= 0 throw(GSL_ERROR(errno)) end

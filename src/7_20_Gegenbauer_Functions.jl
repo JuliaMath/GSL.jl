@@ -14,7 +14,7 @@ export sf_gegenpoly_1, sf_gegenpoly_2, sf_gegenpoly_3, sf_gegenpoly_1_e,
 # 
 #   Returns: Cdouble
 function sf_gegenpoly_1(lambda::Real, x::Real)
-    ccall( (:gsl_sf_gegenpoly_1, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_sf_gegenpoly_1, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, x )
 end
 @vectorize_2arg Number sf_gegenpoly_1
@@ -25,7 +25,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_gegenpoly_2(lambda::Real, x::Real)
-    ccall( (:gsl_sf_gegenpoly_2, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_sf_gegenpoly_2, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, x )
 end
 @vectorize_2arg Number sf_gegenpoly_2
@@ -36,7 +36,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_gegenpoly_3(lambda::Real, x::Real)
-    ccall( (:gsl_sf_gegenpoly_3, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_sf_gegenpoly_3, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, x )
 end
 @vectorize_2arg Number sf_gegenpoly_3
@@ -48,7 +48,7 @@ end
 #   Returns: Cint
 function sf_gegenpoly_1_e(lambda::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_gegenpoly_1_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_gegenpoly_1_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -62,7 +62,7 @@ end
 #   Returns: Cint
 function sf_gegenpoly_2_e(lambda::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_gegenpoly_2_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_gegenpoly_2_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -76,7 +76,7 @@ end
 #   Returns: Cint
 function sf_gegenpoly_3_e(lambda::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_gegenpoly_3_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_gegenpoly_3_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -89,7 +89,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_gegenpoly_n(n::Integer, lambda::Real, x::Real)
-    ccall( (:gsl_sf_gegenpoly_n, :libgsl), Cdouble, (Cint, Cdouble,
+    ccall( (:gsl_sf_gegenpoly_n, libgsl), Cdouble, (Cint, Cdouble,
         Cdouble), n, lambda, x )
 end
 #TODO This vectorization macro is not implemented
@@ -102,7 +102,7 @@ end
 #   Returns: Cint
 function sf_gegenpoly_n_e(n::Integer, lambda::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_gegenpoly_n_e, :libgsl), Cint, (Cint, Cdouble,
+    errno = ccall( (:gsl_sf_gegenpoly_n_e, libgsl), Cint, (Cint, Cdouble,
         Cdouble, Ptr{gsl_sf_result}), n, lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -117,7 +117,7 @@ end
 #   Returns: Cint
 function sf_gegenpoly_array(nmax::Integer, lambda::Real, x::Real)
     result_array = Array(Cdouble, nmax+1)
-    errno = ccall( (:gsl_sf_gegenpoly_array, :libgsl), Cint, (Cint,
+    errno = ccall( (:gsl_sf_gegenpoly_array, libgsl), Cint, (Cint,
         Cdouble, Cdouble, Ptr{Cdouble}), nmax, lambda, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result_array

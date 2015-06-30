@@ -13,7 +13,7 @@ export sf_mathieu_alloc, sf_mathieu_free
 # 
 #   Returns: Ptr{gsl_sf_mathieu_workspace}
 function sf_mathieu_alloc(n::Integer, qmax::Real)
-    output_ptr = ccall( (:gsl_sf_mathieu_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_sf_mathieu_alloc, libgsl),
         Ptr{gsl_sf_mathieu_workspace}, (Csize_t, Cdouble), n, qmax )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -24,6 +24,6 @@ end
 # 
 #   Returns: Void
 function sf_mathieu_free(work::Ptr{gsl_sf_mathieu_workspace})
-    ccall( (:gsl_sf_mathieu_free, :libgsl), Void,
+    ccall( (:gsl_sf_mathieu_free, libgsl), Void,
         (Ptr{gsl_sf_mathieu_workspace}, ), work )
 end

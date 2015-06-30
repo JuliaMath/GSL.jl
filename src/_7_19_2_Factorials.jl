@@ -15,7 +15,7 @@ export sf_fact, sf_fact_e, sf_doublefact, sf_doublefact_e, sf_lnfact,
 # 
 #   Returns: Cdouble
 function sf_fact(n::Integer)
-    ccall( (:gsl_sf_fact, :libgsl), Cdouble, (Cuint, ), n )
+    ccall( (:gsl_sf_fact, libgsl), Cdouble, (Cuint, ), n )
 end
 @vectorize_1arg Number sf_fact
 
@@ -27,7 +27,7 @@ end
 #   Returns: Cint
 function sf_fact_e(n::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_fact_e, :libgsl), Cint, (Cuint,
+    errno = ccall( (:gsl_sf_fact_e, libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -41,7 +41,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_doublefact(n::Integer)
-    ccall( (:gsl_sf_doublefact, :libgsl), Cdouble, (Cuint, ), n )
+    ccall( (:gsl_sf_doublefact, libgsl), Cdouble, (Cuint, ), n )
 end
 @vectorize_1arg Number sf_doublefact
 
@@ -53,7 +53,7 @@ end
 #   Returns: Cint
 function sf_doublefact_e(n::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_doublefact_e, :libgsl), Cint, (Cuint,
+    errno = ccall( (:gsl_sf_doublefact_e, libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -67,7 +67,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_lnfact(n::Integer)
-    ccall( (:gsl_sf_lnfact, :libgsl), Cdouble, (Cuint, ), n )
+    ccall( (:gsl_sf_lnfact, libgsl), Cdouble, (Cuint, ), n )
 end
 @vectorize_1arg Number sf_lnfact
 
@@ -79,7 +79,7 @@ end
 #   Returns: Cint
 function sf_lnfact_e(n::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_lnfact_e, :libgsl), Cint, (Cuint,
+    errno = ccall( (:gsl_sf_lnfact_e, libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -91,7 +91,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_lndoublefact(n::Integer)
-    ccall( (:gsl_sf_lndoublefact, :libgsl), Cdouble, (Cuint, ), n )
+    ccall( (:gsl_sf_lndoublefact, libgsl), Cdouble, (Cuint, ), n )
 end
 @vectorize_1arg Number sf_lndoublefact
 
@@ -101,7 +101,7 @@ end
 #   Returns: Cint
 function sf_lndoublefact_e(n::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_lndoublefact_e, :libgsl), Cint, (Cuint,
+    errno = ccall( (:gsl_sf_lndoublefact_e, libgsl), Cint, (Cuint,
         Ptr{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -113,7 +113,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_choose(n::Integer, m::Integer)
-    ccall( (:gsl_sf_choose, :libgsl), Cdouble, (Cuint, Cuint), n, m )
+    ccall( (:gsl_sf_choose, libgsl), Cdouble, (Cuint, Cuint), n, m )
 end
 @vectorize_2arg Number sf_choose
 
@@ -123,7 +123,7 @@ end
 #   Returns: Cint
 function sf_choose_e(n::Integer, m::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_choose_e, :libgsl), Cint, (Cuint, Cuint,
+    errno = ccall( (:gsl_sf_choose_e, libgsl), Cint, (Cuint, Cuint,
         Ptr{gsl_sf_result}), n, m, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -136,7 +136,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_lnchoose(n::Integer, m::Integer)
-    ccall( (:gsl_sf_lnchoose, :libgsl), Cdouble, (Cuint, Cuint), n, m )
+    ccall( (:gsl_sf_lnchoose, libgsl), Cdouble, (Cuint, Cuint), n, m )
 end
 @vectorize_2arg Number sf_lnchoose
 
@@ -147,7 +147,7 @@ end
 #   Returns: Cint
 function sf_lnchoose_e(n::Integer, m::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_lnchoose_e, :libgsl), Cint, (Cuint, Cuint,
+    errno = ccall( (:gsl_sf_lnchoose_e, libgsl), Cint, (Cuint, Cuint,
         Ptr{gsl_sf_result}), n, m, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -159,7 +159,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_taylorcoeff(n::Integer, x::Real)
-    ccall( (:gsl_sf_taylorcoeff, :libgsl), Cdouble, (Cint, Cdouble), n, x )
+    ccall( (:gsl_sf_taylorcoeff, libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
 @vectorize_2arg Number sf_taylorcoeff
 
@@ -169,7 +169,7 @@ end
 #   Returns: Cint
 function sf_taylorcoeff_e(n::Integer, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_taylorcoeff_e, :libgsl), Cint, (Cint, Cdouble,
+    errno = ccall( (:gsl_sf_taylorcoeff_e, libgsl), Cint, (Cint, Cdouble,
         Ptr{gsl_sf_result}), n, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

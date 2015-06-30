@@ -24,7 +24,7 @@ export stats_skew, stats_skew_m_sd, stats_kurtosis, stats_kurtosis_m_sd
 # 
 #   Returns: Cdouble
 function stats_skew(data::Real)
-    ccall( (:gsl_stats_skew, :libgsl), Cdouble, (Cdouble, ), data )
+    ccall( (:gsl_stats_skew, libgsl), Cdouble, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_skew
 
@@ -37,7 +37,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_skew_m_sd(data::Real)
-    ccall( (:gsl_stats_skew_m_sd, :libgsl), Cdouble, (Cdouble, ), data )
+    ccall( (:gsl_stats_skew_m_sd, libgsl), Cdouble, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_skew_m_sd
 
@@ -50,7 +50,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_kurtosis(data::Real)
-    ccall( (:gsl_stats_kurtosis, :libgsl), Cdouble, (Cdouble, ), data )
+    ccall( (:gsl_stats_kurtosis, libgsl), Cdouble, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_kurtosis
 
@@ -63,7 +63,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_kurtosis_m_sd(data::Real)
-    ccall( (:gsl_stats_kurtosis_m_sd, :libgsl), Cdouble, (Cdouble, ), data
+    ccall( (:gsl_stats_kurtosis_m_sd, libgsl), Cdouble, (Cdouble, ), data
         )
 end
 @vectorize_1arg Number stats_kurtosis_m_sd

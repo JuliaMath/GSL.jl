@@ -16,7 +16,7 @@ export sf_debye_1, sf_debye_1_e, sf_debye_2, sf_debye_2_e, sf_debye_3,
 # 
 #   Returns: Cdouble
 function sf_debye_1(x::Real)
-    ccall( (:gsl_sf_debye_1, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_debye_1, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_debye_1
 
@@ -27,7 +27,7 @@ end
 #   Returns: Cint
 function sf_debye_1_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_debye_1_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_debye_1_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -40,7 +40,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_debye_2(x::Real)
-    ccall( (:gsl_sf_debye_2, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_debye_2, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_debye_2
 
@@ -51,7 +51,7 @@ end
 #   Returns: Cint
 function sf_debye_2_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_debye_2_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_debye_2_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -64,7 +64,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_debye_3(x::Real)
-    ccall( (:gsl_sf_debye_3, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_debye_3, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_debye_3
 
@@ -75,7 +75,7 @@ end
 #   Returns: Cint
 function sf_debye_3_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_debye_3_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_debye_3_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -88,7 +88,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_debye_4(x::Real)
-    ccall( (:gsl_sf_debye_4, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_debye_4, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_debye_4
 
@@ -99,7 +99,7 @@ end
 #   Returns: Cint
 function sf_debye_4_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_debye_4_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_debye_4_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -112,7 +112,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_debye_5(x::Real)
-    ccall( (:gsl_sf_debye_5, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_debye_5, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_debye_5
 
@@ -123,7 +123,7 @@ end
 #   Returns: Cint
 function sf_debye_5_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_debye_5_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_debye_5_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -136,7 +136,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_debye_6(x::Real)
-    ccall( (:gsl_sf_debye_6, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_debye_6, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_debye_6
 
@@ -147,7 +147,7 @@ end
 #   Returns: Cint
 function sf_debye_6_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_debye_6_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_debye_6_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

@@ -11,7 +11,7 @@ export cheb_eval, cheb_eval_err, cheb_eval_n, cheb_eval_n_err
 # 
 #   Returns: Cdouble
 function cheb_eval(cs::Ptr{gsl_cheb_series}, x::Real)
-    ccall( (:gsl_cheb_eval, :libgsl), Cdouble, (Ptr{gsl_cheb_series},
+    ccall( (:gsl_cheb_eval, libgsl), Cdouble, (Ptr{gsl_cheb_series},
         Cdouble), cs, x )
 end
 
@@ -24,7 +24,7 @@ end
 function cheb_eval_err(cs::Ptr{gsl_cheb_series}, x::Real)
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_cheb_eval_err, :libgsl), Cint,
+    errno = ccall( (:gsl_cheb_eval_err, libgsl), Cint,
         (Ptr{gsl_cheb_series}, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), cs, x,
         result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -37,7 +37,7 @@ end
 # 
 #   Returns: Cdouble
 function cheb_eval_n(cs::Ptr{gsl_cheb_series}, order::Integer, x::Real)
-    ccall( (:gsl_cheb_eval_n, :libgsl), Cdouble, (Ptr{gsl_cheb_series},
+    ccall( (:gsl_cheb_eval_n, libgsl), Cdouble, (Ptr{gsl_cheb_series},
         Csize_t, Cdouble), cs, order, x )
 end
 
@@ -51,7 +51,7 @@ end
 function cheb_eval_n_err(cs::Ptr{gsl_cheb_series}, order::Integer, x::Real)
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_cheb_eval_n_err, :libgsl), Cint,
+    errno = ccall( (:gsl_cheb_eval_n_err, libgsl), Cint,
         (Ptr{gsl_cheb_series}, Csize_t, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}),
         cs, order, x, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end

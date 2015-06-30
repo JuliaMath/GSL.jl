@@ -14,7 +14,7 @@ export integration_workspace_alloc, integration_workspace_free, integration_qag
 # 
 #   Returns: Ptr{gsl_integration_workspace}
 function integration_workspace_alloc(n::Integer)
-    output_ptr = ccall( (:gsl_integration_workspace_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_integration_workspace_alloc, libgsl),
         Ptr{gsl_integration_workspace}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -25,7 +25,7 @@ end
 # 
 #   Returns: Void
 function integration_workspace_free(w::Ptr{gsl_integration_workspace})
-    ccall( (:gsl_integration_workspace_free, :libgsl), Void,
+    ccall( (:gsl_integration_workspace_free, libgsl), Void,
         (Ptr{gsl_integration_workspace}, ), w )
 end
 
@@ -52,7 +52,7 @@ function integration_qag(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, e
     workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_integration_qag, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_qag, libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Csize_t, Cint,
         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, b,
         epsabs, epsrel, limit, key, workspace, result, abserr )

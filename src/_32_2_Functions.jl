@@ -12,7 +12,7 @@ export dht_alloc, dht_init, dht_new, dht_free, dht_apply, dht_x_sample,
 # 
 #   Returns: Ptr{gsl_dht}
 function dht_alloc(size::Integer)
-    output_ptr = ccall( (:gsl_dht_alloc, :libgsl), Ptr{gsl_dht}, (Csize_t,
+    output_ptr = ccall( (:gsl_dht_alloc, libgsl), Ptr{gsl_dht}, (Csize_t,
         ), size )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -24,7 +24,7 @@ end
 # 
 #   Returns: Cint
 function dht_init(t::Ptr{gsl_dht}, nu::Real, xmax::Real)
-    errno = ccall( (:gsl_dht_init, :libgsl), Cint, (Ptr{gsl_dht}, Cdouble,
+    errno = ccall( (:gsl_dht_init, libgsl), Cint, (Ptr{gsl_dht}, Cdouble,
         Cdouble), t, nu, xmax )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -35,7 +35,7 @@ end
 # 
 #   Returns: Ptr{gsl_dht}
 function dht_new(size::Integer, nu::Real, xmax::Real)
-    output_ptr = ccall( (:gsl_dht_new, :libgsl), Ptr{gsl_dht}, (Csize_t,
+    output_ptr = ccall( (:gsl_dht_new, libgsl), Ptr{gsl_dht}, (Csize_t,
         Cdouble, Cdouble), size, nu, xmax )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -47,7 +47,7 @@ end
 # 
 #   Returns: Void
 function dht_free(t::Ptr{gsl_dht})
-    ccall( (:gsl_dht_free, :libgsl), Void, (Ptr{gsl_dht}, ), t )
+    ccall( (:gsl_dht_free, libgsl), Void, (Ptr{gsl_dht}, ), t )
 end
 
 
@@ -61,7 +61,7 @@ end
 function dht_apply(t::Ptr{gsl_dht})
     f_in = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     f_out = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_dht_apply, :libgsl), Cint, (Ptr{gsl_dht},
+    errno = ccall( (:gsl_dht_apply, libgsl), Cint, (Ptr{gsl_dht},
         Ptr{Cdouble}, Ptr{Cdouble}), t, f_in, f_out )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(f_in), unsafe_load(f_out)
@@ -74,7 +74,7 @@ end
 # 
 #   Returns: Cdouble
 function dht_x_sample(t::Ptr{gsl_dht}, n::Integer)
-    ccall( (:gsl_dht_x_sample, :libgsl), Cdouble, (Ptr{gsl_dht}, Cint), t,
+    ccall( (:gsl_dht_x_sample, libgsl), Cdouble, (Ptr{gsl_dht}, Cint), t,
         n )
 end
 
@@ -84,6 +84,6 @@ end
 # 
 #   Returns: Cdouble
 function dht_k_sample(t::Ptr{gsl_dht}, n::Integer)
-    ccall( (:gsl_dht_k_sample, :libgsl), Cdouble, (Ptr{gsl_dht}, Cint), t,
+    ccall( (:gsl_dht_k_sample, libgsl), Cdouble, (Ptr{gsl_dht}, Cint), t,
         n )
 end

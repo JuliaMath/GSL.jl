@@ -15,7 +15,7 @@ export stats_covariance, stats_covariance_m
 # 
 #   Returns: Cdouble
 function stats_covariance(data1::Real)
-    ccall( (:gsl_stats_covariance, :libgsl), Cdouble, (Cdouble, ), data1 )
+    ccall( (:gsl_stats_covariance, libgsl), Cdouble, (Cdouble, ), data1 )
 end
 @vectorize_1arg Number stats_covariance
 
@@ -27,7 +27,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_covariance_m(data1::Real)
-    ccall( (:gsl_stats_covariance_m, :libgsl), Cdouble, (Cdouble, ), data1
+    ccall( (:gsl_stats_covariance_m, libgsl), Cdouble, (Cdouble, ), data1
         )
 end
 @vectorize_1arg Number stats_covariance_m

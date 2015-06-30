@@ -11,7 +11,7 @@ export sf_lambert_W0, sf_lambert_W0_e, sf_lambert_Wm1, sf_lambert_Wm1_e
 # 
 #   Returns: Cdouble
 function sf_lambert_W0(x::Real)
-    ccall( (:gsl_sf_lambert_W0, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_lambert_W0, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_lambert_W0
 
@@ -21,7 +21,7 @@ end
 #   Returns: Cint
 function sf_lambert_W0_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_lambert_W0_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_lambert_W0_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -34,7 +34,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_lambert_Wm1(x::Real)
-    ccall( (:gsl_sf_lambert_Wm1, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_lambert_Wm1, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_lambert_Wm1
 
@@ -45,7 +45,7 @@ end
 #   Returns: Cint
 function sf_lambert_Wm1_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_lambert_Wm1_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_lambert_Wm1_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

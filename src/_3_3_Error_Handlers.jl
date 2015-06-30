@@ -33,7 +33,7 @@ end
 # 
 #   Returns: Ptr{gsl_error_handler_t}
 function set_error_handler(new_handler::Ptr{gsl_error_handler_t})
-    output_ptr = ccall( (:gsl_set_error_handler, :libgsl),
+    output_ptr = ccall( (:gsl_set_error_handler, libgsl),
         Ptr{gsl_error_handler_t}, (Ptr{gsl_error_handler_t}, ), new_handler )
 end
 
@@ -46,6 +46,6 @@ end
 # 
 #   Returns: Ptr{gsl_error_handler_t}
 function set_error_handler_off()
-    output_ptr = ccall( (:gsl_set_error_handler_off, :libgsl),
+    output_ptr = ccall( (:gsl_set_error_handler_off, libgsl),
         Ptr{gsl_error_handler_t}, () )
 end

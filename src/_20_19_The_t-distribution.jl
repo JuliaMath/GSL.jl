@@ -19,7 +19,7 @@ export ran_tdist, ran_tdist_pdf, cdf_tdist_P, cdf_tdist_Q, cdf_tdist_Pinv,
 # 
 #   Returns: Cdouble
 function ran_tdist(r::Ptr{gsl_rng}, nu::Real)
-    ccall( (:gsl_ran_tdist, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble), r,
+    ccall( (:gsl_ran_tdist, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble), r,
         nu )
 end
 
@@ -29,7 +29,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_tdist_pdf(x::Real, nu::Real)
-    ccall( (:gsl_ran_tdist_pdf, :libgsl), Cdouble, (Cdouble, Cdouble), x,
+    ccall( (:gsl_ran_tdist_pdf, libgsl), Cdouble, (Cdouble, Cdouble), x,
         nu )
 end
 @vectorize_2arg Number ran_tdist_pdf
@@ -40,7 +40,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_tdist_P(x::Real, nu::Real)
-    ccall( (:gsl_cdf_tdist_P, :libgsl), Cdouble, (Cdouble, Cdouble), x, nu
+    ccall( (:gsl_cdf_tdist_P, libgsl), Cdouble, (Cdouble, Cdouble), x, nu
         )
 end
 @vectorize_2arg Number cdf_tdist_P
@@ -51,7 +51,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_tdist_Q(x::Real, nu::Real)
-    ccall( (:gsl_cdf_tdist_Q, :libgsl), Cdouble, (Cdouble, Cdouble), x, nu
+    ccall( (:gsl_cdf_tdist_Q, libgsl), Cdouble, (Cdouble, Cdouble), x, nu
         )
 end
 @vectorize_2arg Number cdf_tdist_Q
@@ -62,7 +62,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_tdist_Pinv(P::Real, nu::Real)
-    ccall( (:gsl_cdf_tdist_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble), P,
+    ccall( (:gsl_cdf_tdist_Pinv, libgsl), Cdouble, (Cdouble, Cdouble), P,
         nu )
 end
 @vectorize_2arg Number cdf_tdist_Pinv
@@ -73,7 +73,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_tdist_Qinv(Q::Real, nu::Real)
-    ccall( (:gsl_cdf_tdist_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble), Q,
+    ccall( (:gsl_cdf_tdist_Qinv, libgsl), Cdouble, (Cdouble, Cdouble), Q,
         nu )
 end
 @vectorize_2arg Number cdf_tdist_Qinv

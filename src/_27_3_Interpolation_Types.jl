@@ -18,7 +18,7 @@ export interp_name, interp_min_size, interp_type_min_size
 # 
 #   Returns: Ptr{Cchar}
 function interp_name(interp::Ptr{gsl_interp})
-    output_string = output_ptr = ccall( (:gsl_interp_name, :libgsl),
+    output_string = output_ptr = ccall( (:gsl_interp_name, libgsl),
         Ptr{Cchar}, (Ptr{gsl_interp}, ), interp )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
@@ -31,7 +31,7 @@ end
 # 
 #   Returns: Cuint
 function interp_min_size(interp::Ptr{gsl_interp})
-    ccall( (:gsl_interp_min_size, :libgsl), Cuint, (Ptr{gsl_interp}, ),
+    ccall( (:gsl_interp_min_size, libgsl), Cuint, (Ptr{gsl_interp}, ),
         interp )
 end
 
@@ -42,6 +42,6 @@ end
 # 
 #   Returns: Cuint
 function interp_type_min_size(T::Ptr{gsl_interp_type})
-    ccall( (:gsl_interp_type_min_size, :libgsl), Cuint,
+    ccall( (:gsl_interp_type_min_size, libgsl), Cuint,
         (Ptr{gsl_interp_type}, ), T )
 end

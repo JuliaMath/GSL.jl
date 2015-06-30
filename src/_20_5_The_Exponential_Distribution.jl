@@ -16,7 +16,7 @@ export ran_exponential, ran_exponential_pdf, cdf_exponential_P,
 # 
 #   Returns: Cdouble
 function ran_exponential(r::Ptr{gsl_rng}, mu::Real)
-    ccall( (:gsl_ran_exponential, :libgsl), Cdouble, (Ptr{gsl_rng},
+    ccall( (:gsl_ran_exponential, libgsl), Cdouble, (Ptr{gsl_rng},
         Cdouble), r, mu )
 end
 
@@ -26,7 +26,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_exponential_pdf(x::Real, mu::Real)
-    ccall( (:gsl_ran_exponential_pdf, :libgsl), Cdouble, (Cdouble,
+    ccall( (:gsl_ran_exponential_pdf, libgsl), Cdouble, (Cdouble,
         Cdouble), x, mu )
 end
 @vectorize_2arg Number ran_exponential_pdf
@@ -37,7 +37,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_exponential_P(x::Real, mu::Real)
-    ccall( (:gsl_cdf_exponential_P, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_cdf_exponential_P, libgsl), Cdouble, (Cdouble, Cdouble),
         x, mu )
 end
 @vectorize_2arg Number cdf_exponential_P
@@ -48,7 +48,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_exponential_Q(x::Real, mu::Real)
-    ccall( (:gsl_cdf_exponential_Q, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_cdf_exponential_Q, libgsl), Cdouble, (Cdouble, Cdouble),
         x, mu )
 end
 @vectorize_2arg Number cdf_exponential_Q
@@ -59,7 +59,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_exponential_Pinv(P::Real, mu::Real)
-    ccall( (:gsl_cdf_exponential_Pinv, :libgsl), Cdouble, (Cdouble,
+    ccall( (:gsl_cdf_exponential_Pinv, libgsl), Cdouble, (Cdouble,
         Cdouble), P, mu )
 end
 @vectorize_2arg Number cdf_exponential_Pinv
@@ -70,7 +70,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_exponential_Qinv(Q::Real, mu::Real)
-    ccall( (:gsl_cdf_exponential_Qinv, :libgsl), Cdouble, (Cdouble,
+    ccall( (:gsl_cdf_exponential_Qinv, libgsl), Cdouble, (Cdouble,
         Cdouble), Q, mu )
 end
 @vectorize_2arg Number cdf_exponential_Qinv

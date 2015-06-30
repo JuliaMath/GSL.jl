@@ -16,7 +16,7 @@ export ran_lognormal, ran_lognormal_pdf, cdf_lognormal_P, cdf_lognormal_Q,
 # 
 #   Returns: Cdouble
 function ran_lognormal(r::Ptr{gsl_rng}, zeta::Real, sigma::Real)
-    ccall( (:gsl_ran_lognormal, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+    ccall( (:gsl_ran_lognormal, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
         Cdouble), r, zeta, sigma )
 end
 
@@ -26,7 +26,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_lognormal_pdf(x::Real, zeta::Real, sigma::Real)
-    ccall( (:gsl_ran_lognormal_pdf, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_ran_lognormal_pdf, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, zeta, sigma )
 end
 #TODO This vectorization macro is not implemented
@@ -38,7 +38,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_lognormal_P(x::Real, zeta::Real, sigma::Real)
-    ccall( (:gsl_cdf_lognormal_P, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_cdf_lognormal_P, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, zeta, sigma )
 end
 #TODO This vectorization macro is not implemented
@@ -50,7 +50,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_lognormal_Q(x::Real, zeta::Real, sigma::Real)
-    ccall( (:gsl_cdf_lognormal_Q, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_cdf_lognormal_Q, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, zeta, sigma )
 end
 #TODO This vectorization macro is not implemented
@@ -62,7 +62,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_lognormal_Pinv(P::Real, zeta::Real, sigma::Real)
-    ccall( (:gsl_cdf_lognormal_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_cdf_lognormal_Pinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), P, zeta, sigma )
 end
 #TODO This vectorization macro is not implemented
@@ -74,7 +74,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_lognormal_Qinv(Q::Real, zeta::Real, sigma::Real)
-    ccall( (:gsl_cdf_lognormal_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_cdf_lognormal_Qinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), Q, zeta, sigma )
 end
 #TODO This vectorization macro is not implemented

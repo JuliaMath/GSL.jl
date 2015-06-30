@@ -15,7 +15,7 @@ export sf_conicalP_half, sf_conicalP_half_e, sf_conicalP_mhalf,
 # 
 #   Returns: Cdouble
 function sf_conicalP_half(lambda::Real, x::Real)
-    ccall( (:gsl_sf_conicalP_half, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_sf_conicalP_half, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, x )
 end
 @vectorize_2arg Number sf_conicalP_half
@@ -27,7 +27,7 @@ end
 #   Returns: Cint
 function sf_conicalP_half_e(lambda::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_conicalP_half_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_conicalP_half_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -40,7 +40,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_conicalP_mhalf(lambda::Real, x::Real)
-    ccall( (:gsl_sf_conicalP_mhalf, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_sf_conicalP_mhalf, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, x )
 end
 @vectorize_2arg Number sf_conicalP_mhalf
@@ -52,7 +52,7 @@ end
 #   Returns: Cint
 function sf_conicalP_mhalf_e(lambda::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_conicalP_mhalf_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_conicalP_mhalf_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -65,7 +65,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_conicalP_0(lambda::Real, x::Real)
-    ccall( (:gsl_sf_conicalP_0, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_sf_conicalP_0, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, x )
 end
 @vectorize_2arg Number sf_conicalP_0
@@ -77,7 +77,7 @@ end
 #   Returns: Cint
 function sf_conicalP_0_e(lambda::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_conicalP_0_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_conicalP_0_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -90,7 +90,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_conicalP_1(lambda::Real, x::Real)
-    ccall( (:gsl_sf_conicalP_1, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_sf_conicalP_1, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, x )
 end
 @vectorize_2arg Number sf_conicalP_1
@@ -102,7 +102,7 @@ end
 #   Returns: Cint
 function sf_conicalP_1_e(lambda::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_conicalP_1_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_conicalP_1_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -115,7 +115,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_conicalP_sph_reg(l::Integer, lambda::Real, x::Real)
-    ccall( (:gsl_sf_conicalP_sph_reg, :libgsl), Cdouble, (Cint, Cdouble,
+    ccall( (:gsl_sf_conicalP_sph_reg, libgsl), Cdouble, (Cint, Cdouble,
         Cdouble), l, lambda, x )
 end
 #TODO This vectorization macro is not implemented
@@ -128,7 +128,7 @@ end
 #   Returns: Cint
 function sf_conicalP_sph_reg_e(l::Integer, lambda::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_conicalP_sph_reg_e, :libgsl), Cint, (Cint,
+    errno = ccall( (:gsl_sf_conicalP_sph_reg_e, libgsl), Cint, (Cint,
         Cdouble, Cdouble, Ptr{gsl_sf_result}), l, lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -142,7 +142,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_conicalP_cyl_reg(m::Integer, lambda::Real, x::Real)
-    ccall( (:gsl_sf_conicalP_cyl_reg, :libgsl), Cdouble, (Cint, Cdouble,
+    ccall( (:gsl_sf_conicalP_cyl_reg, libgsl), Cdouble, (Cint, Cdouble,
         Cdouble), m, lambda, x )
 end
 #TODO This vectorization macro is not implemented
@@ -155,7 +155,7 @@ end
 #   Returns: Cint
 function sf_conicalP_cyl_reg_e(m::Integer, lambda::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_conicalP_cyl_reg_e, :libgsl), Cint, (Cint,
+    errno = ccall( (:gsl_sf_conicalP_cyl_reg_e, libgsl), Cint, (Cint,
         Cdouble, Cdouble, Ptr{gsl_sf_result}), m, lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

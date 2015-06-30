@@ -11,7 +11,7 @@ export cheb_order, cheb_size, cheb_coeffs
 # 
 #   Returns: Csize_t
 function cheb_order(cs::Ptr{gsl_cheb_series})
-    ccall( (:gsl_cheb_order, :libgsl), Csize_t, (Ptr{gsl_cheb_series}, ),
+    ccall( (:gsl_cheb_order, libgsl), Csize_t, (Ptr{gsl_cheb_series}, ),
         cs )
 end
 
@@ -21,7 +21,7 @@ end
 # 
 #   Returns: Csize_t
 function cheb_size(cs::Ptr{gsl_cheb_series})
-    ccall( (:gsl_cheb_size, :libgsl), Csize_t, (Ptr{gsl_cheb_series}, ), cs
+    ccall( (:gsl_cheb_size, libgsl), Csize_t, (Ptr{gsl_cheb_series}, ), cs
         )
 end
 
@@ -31,7 +31,7 @@ end
 # 
 #   Returns: Ptr{Cdouble}
 function cheb_coeffs(cs::Ptr{gsl_cheb_series})
-    output_ptr = ccall( (:gsl_cheb_coeffs, :libgsl), Ptr{Cdouble},
+    output_ptr = ccall( (:gsl_cheb_coeffs, libgsl), Ptr{Cdouble},
         (Ptr{gsl_cheb_series}, ), cs )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

@@ -12,6 +12,6 @@ export bspline_greville_abscissa
 # 
 #   Returns: Cdouble
 function bspline_greville_abscissa(i::Integer, w::Ptr{gsl_bspline_workspace})
-    ccall( (:gsl_bspline_greville_abscissa, :libgsl), Cdouble, (Csize_t,
+    ccall( (:gsl_bspline_greville_abscissa, libgsl), Cdouble, (Csize_t,
         Ptr{gsl_bspline_workspace}), i, w )
 end

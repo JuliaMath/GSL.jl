@@ -16,7 +16,7 @@ export block_alloc, block_calloc, block_free
 # 
 #   Returns: Ptr{gsl_block}
 function block_alloc(n::Integer)
-    output_ptr = ccall( (:gsl_block_alloc, :libgsl), Ptr{gsl_block},
+    output_ptr = ccall( (:gsl_block_alloc, libgsl), Ptr{gsl_block},
         (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -28,7 +28,7 @@ end
 # 
 #   Returns: Ptr{gsl_block}
 function block_calloc(n::Integer)
-    output_ptr = ccall( (:gsl_block_calloc, :libgsl), Ptr{gsl_block},
+    output_ptr = ccall( (:gsl_block_calloc, libgsl), Ptr{gsl_block},
         (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -41,5 +41,5 @@ end
 # 
 #   Returns: Void
 function block_free(b::Ptr{gsl_block})
-    ccall( (:gsl_block_free, :libgsl), Void, (Ptr{gsl_block}, ), b )
+    ccall( (:gsl_block_free, libgsl), Void, (Ptr{gsl_block}, ), b )
 end

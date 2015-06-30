@@ -19,7 +19,7 @@ export multimin_test_gradient, multimin_test_size
 # 
 #   Returns: Cint
 function multimin_test_gradient(g::Ptr{gsl_vector}, epsabs::Real)
-    errno = ccall( (:gsl_multimin_test_gradient, :libgsl), Cint,
+    errno = ccall( (:gsl_multimin_test_gradient, libgsl), Cint,
         (Ptr{gsl_vector}, Cdouble), g, epsabs )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -32,7 +32,7 @@ end
 # 
 #   Returns: Cint
 function multimin_test_size(size::Real, epsabs::Real)
-    errno = ccall( (:gsl_multimin_test_size, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_multimin_test_size, libgsl), Cint, (Cdouble,
         Cdouble), size, epsabs )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end

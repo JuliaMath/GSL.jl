@@ -14,7 +14,7 @@ export sf_erf_Z, sf_erf_Z_e, sf_erf_Q, sf_erf_Q_e, sf_hazard, sf_hazard_e
 # 
 #   Returns: Cdouble
 function sf_erf_Z(x::Real)
-    ccall( (:gsl_sf_erf_Z, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_erf_Z, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_erf_Z
 
@@ -25,7 +25,7 @@ end
 #   Returns: Cint
 function sf_erf_Z_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_erf_Z_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_erf_Z_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -38,7 +38,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_erf_Q(x::Real)
-    ccall( (:gsl_sf_erf_Q, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_erf_Q, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_erf_Q
 
@@ -49,7 +49,7 @@ end
 #   Returns: Cint
 function sf_erf_Q_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_erf_Q_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_erf_Q_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -61,7 +61,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_hazard(x::Real)
-    ccall( (:gsl_sf_hazard, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_hazard, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_hazard
 
@@ -71,7 +71,7 @@ end
 #   Returns: Cint
 function sf_hazard_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_hazard_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_hazard_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

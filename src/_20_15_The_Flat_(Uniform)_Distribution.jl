@@ -16,7 +16,7 @@ export ran_flat, ran_flat_pdf, cdf_flat_P, cdf_flat_Q, cdf_flat_Pinv,
 # 
 #   Returns: Cdouble
 function ran_flat(r::Ptr{gsl_rng}, a::Real, b::Real)
-    ccall( (:gsl_ran_flat, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+    ccall( (:gsl_ran_flat, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
         Cdouble), r, a, b )
 end
 
@@ -26,7 +26,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_flat_pdf(x::Real, a::Real, b::Real)
-    ccall( (:gsl_ran_flat_pdf, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_ran_flat_pdf, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
@@ -38,7 +38,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_flat_P(x::Real, a::Real, b::Real)
-    ccall( (:gsl_cdf_flat_P, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_cdf_flat_P, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
@@ -50,7 +50,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_flat_Q(x::Real, a::Real, b::Real)
-    ccall( (:gsl_cdf_flat_Q, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_cdf_flat_Q, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
@@ -62,7 +62,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_flat_Pinv(P::Real, a::Real, b::Real)
-    ccall( (:gsl_cdf_flat_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_cdf_flat_Pinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), P, a, b )
 end
 #TODO This vectorization macro is not implemented
@@ -74,7 +74,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_flat_Qinv(Q::Real, a::Real, b::Real)
-    ccall( (:gsl_cdf_flat_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_cdf_flat_Qinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), Q, a, b )
 end
 #TODO This vectorization macro is not implemented

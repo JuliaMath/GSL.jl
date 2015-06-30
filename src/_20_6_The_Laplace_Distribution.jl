@@ -16,7 +16,7 @@ export ran_laplace, ran_laplace_pdf, cdf_laplace_P, cdf_laplace_Q,
 # 
 #   Returns: Cdouble
 function ran_laplace(r::Ptr{gsl_rng}, a::Real)
-    ccall( (:gsl_ran_laplace, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
+    ccall( (:gsl_ran_laplace, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
         r, a )
 end
 
@@ -26,7 +26,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_laplace_pdf(x::Real, a::Real)
-    ccall( (:gsl_ran_laplace_pdf, :libgsl), Cdouble, (Cdouble, Cdouble), x,
+    ccall( (:gsl_ran_laplace_pdf, libgsl), Cdouble, (Cdouble, Cdouble), x,
         a )
 end
 @vectorize_2arg Number ran_laplace_pdf
@@ -37,7 +37,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_laplace_P(x::Real, a::Real)
-    ccall( (:gsl_cdf_laplace_P, :libgsl), Cdouble, (Cdouble, Cdouble), x, a
+    ccall( (:gsl_cdf_laplace_P, libgsl), Cdouble, (Cdouble, Cdouble), x, a
         )
 end
 @vectorize_2arg Number cdf_laplace_P
@@ -48,7 +48,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_laplace_Q(x::Real, a::Real)
-    ccall( (:gsl_cdf_laplace_Q, :libgsl), Cdouble, (Cdouble, Cdouble), x, a
+    ccall( (:gsl_cdf_laplace_Q, libgsl), Cdouble, (Cdouble, Cdouble), x, a
         )
 end
 @vectorize_2arg Number cdf_laplace_Q
@@ -59,7 +59,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_laplace_Pinv(P::Real, a::Real)
-    ccall( (:gsl_cdf_laplace_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_cdf_laplace_Pinv, libgsl), Cdouble, (Cdouble, Cdouble),
         P, a )
 end
 @vectorize_2arg Number cdf_laplace_Pinv
@@ -70,7 +70,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_laplace_Qinv(Q::Real, a::Real)
-    ccall( (:gsl_cdf_laplace_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_cdf_laplace_Qinv, libgsl), Cdouble, (Cdouble, Cdouble),
         Q, a )
 end
 @vectorize_2arg Number cdf_laplace_Qinv

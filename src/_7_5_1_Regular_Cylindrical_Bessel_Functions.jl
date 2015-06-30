@@ -13,7 +13,7 @@ export sf_bessel_J0, sf_bessel_J0_e, sf_bessel_J1, sf_bessel_J1_e,
 # 
 #   Returns: Cdouble
 function sf_bessel_J0(x::Real)
-    ccall( (:gsl_sf_bessel_J0, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_bessel_J0, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_bessel_J0
 
@@ -24,7 +24,7 @@ end
 #   Returns: Cint
 function sf_bessel_J0_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_bessel_J0_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_bessel_J0_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -37,7 +37,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_bessel_J1(x::Real)
-    ccall( (:gsl_sf_bessel_J1, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_bessel_J1, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_bessel_J1
 
@@ -48,7 +48,7 @@ end
 #   Returns: Cint
 function sf_bessel_J1_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_bessel_J1_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_bessel_J1_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -61,7 +61,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_bessel_Jn(n::Integer, x::Real)
-    ccall( (:gsl_sf_bessel_Jn, :libgsl), Cdouble, (Cint, Cdouble), n, x )
+    ccall( (:gsl_sf_bessel_Jn, libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
 @vectorize_2arg Number sf_bessel_Jn
 
@@ -72,7 +72,7 @@ end
 #   Returns: Cint
 function sf_bessel_Jn_e(n::Integer, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_bessel_Jn_e, :libgsl), Cint, (Cint, Cdouble,
+    errno = ccall( (:gsl_sf_bessel_Jn_e, libgsl), Cint, (Cint, Cdouble,
         Ptr{gsl_sf_result}), n, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -88,7 +88,7 @@ end
 #   Returns: Cint
 function sf_bessel_Jn_array(nmin::Integer, nmax::Integer, x::Real)
     result_array = Array(Cdouble, 1)
-    errno = ccall( (:gsl_sf_bessel_Jn_array, :libgsl), Cint, (Cint, Cint,
+    errno = ccall( (:gsl_sf_bessel_Jn_array, libgsl), Cint, (Cint, Cint,
         Cdouble, Cdouble), nmin, nmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result_array)[1]

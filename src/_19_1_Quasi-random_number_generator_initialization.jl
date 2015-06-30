@@ -14,7 +14,7 @@ export qrng_alloc, qrng_free, qrng_init
 # 
 #   Returns: Ptr{gsl_qrng}
 function qrng_alloc(T::Ptr{gsl_qrng_type}, d::Integer)
-    output_ptr = ccall( (:gsl_qrng_alloc, :libgsl), Ptr{gsl_qrng},
+    output_ptr = ccall( (:gsl_qrng_alloc, libgsl), Ptr{gsl_qrng},
         (Ptr{gsl_qrng_type}, Cuint), T, d )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -24,7 +24,7 @@ end
 # 
 #   Returns: Void
 function qrng_free(q::Ptr{gsl_qrng})
-    ccall( (:gsl_qrng_free, :libgsl), Void, (Ptr{gsl_qrng}, ), q )
+    ccall( (:gsl_qrng_free, libgsl), Void, (Ptr{gsl_qrng}, ), q )
 end
 
 
@@ -34,5 +34,5 @@ end
 # 
 #   Returns: Void
 function qrng_init(q::Ptr{gsl_qrng})
-    ccall( (:gsl_qrng_init, :libgsl), Void, (Ptr{gsl_qrng}, ), q )
+    ccall( (:gsl_qrng_init, libgsl), Void, (Ptr{gsl_qrng}, ), q )
 end

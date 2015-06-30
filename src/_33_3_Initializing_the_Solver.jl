@@ -25,7 +25,7 @@ export root_fsolver_alloc, root_fdfsolver_alloc, root_fsolver_set,
 # 
 #   Returns: Ptr{gsl_root_fsolver}
 function root_fsolver_alloc(T::Ptr{gsl_root_fsolver_type})
-    output_ptr = ccall( (:gsl_root_fsolver_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_root_fsolver_alloc, libgsl),
         Ptr{gsl_root_fsolver}, (Ptr{gsl_root_fsolver_type}, ), T )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -41,7 +41,7 @@ end
 # 
 #   Returns: Ptr{gsl_root_fdfsolver}
 function root_fdfsolver_alloc(T::Ptr{gsl_root_fdfsolver_type})
-    output_ptr = ccall( (:gsl_root_fdfsolver_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_root_fdfsolver_alloc, libgsl),
         Ptr{gsl_root_fdfsolver}, (Ptr{gsl_root_fdfsolver_type}, ), T )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -52,7 +52,7 @@ end
 # 
 #   Returns: Cint
 function root_fsolver_set(s::Ptr{gsl_root_fsolver}, f::Ptr{gsl_function}, x_lower::Real, x_upper::Real)
-    errno = ccall( (:gsl_root_fsolver_set, :libgsl), Cint,
+    errno = ccall( (:gsl_root_fsolver_set, libgsl), Cint,
         (Ptr{gsl_root_fsolver}, Ptr{gsl_function}, Cdouble, Cdouble), s, f,
         x_lower, x_upper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -64,7 +64,7 @@ end
 # 
 #   Returns: Cint
 function root_fdfsolver_set(s::Ptr{gsl_root_fdfsolver}, fdf::Ptr{gsl_function_fdf}, root::Real)
-    errno = ccall( (:gsl_root_fdfsolver_set, :libgsl), Cint,
+    errno = ccall( (:gsl_root_fdfsolver_set, libgsl), Cint,
         (Ptr{gsl_root_fdfsolver}, Ptr{gsl_function_fdf}, Cdouble), s, fdf, root
         )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -75,7 +75,7 @@ end
 # 
 #   Returns: Void
 function root_fsolver_free(s::Ptr{gsl_root_fsolver})
-    ccall( (:gsl_root_fsolver_free, :libgsl), Void, (Ptr{gsl_root_fsolver},
+    ccall( (:gsl_root_fsolver_free, libgsl), Void, (Ptr{gsl_root_fsolver},
         ), s )
 end
 
@@ -84,7 +84,7 @@ end
 # 
 #   Returns: Void
 function root_fdfsolver_free(s::Ptr{gsl_root_fdfsolver})
-    ccall( (:gsl_root_fdfsolver_free, :libgsl), Void,
+    ccall( (:gsl_root_fdfsolver_free, libgsl), Void,
         (Ptr{gsl_root_fdfsolver}, ), s )
 end
 
@@ -95,7 +95,7 @@ end
 # 
 #   Returns: Ptr{Cchar}
 function root_fsolver_name(s::Ptr{gsl_root_fsolver})
-    output_string = output_ptr = ccall( (:gsl_root_fsolver_name, :libgsl),
+    output_string = output_ptr = ccall( (:gsl_root_fsolver_name, libgsl),
         Ptr{Cchar}, (Ptr{gsl_root_fsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
@@ -109,7 +109,7 @@ end
 #   Returns: Ptr{Cchar}
 function root_fdfsolver_name(s::Ptr{gsl_root_fdfsolver})
     output_string = output_ptr = ccall( (:gsl_root_fdfsolver_name,
-        :libgsl), Ptr{Cchar}, (Ptr{gsl_root_fdfsolver}, ), s )
+        libgsl), Ptr{Cchar}, (Ptr{gsl_root_fdfsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
 end

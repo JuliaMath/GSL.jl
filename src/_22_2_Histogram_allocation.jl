@@ -19,7 +19,7 @@ export histogram_alloc, histogram_set_ranges, histogram_set_ranges_uniform,
 # 
 #   Returns: Ptr{gsl_histogram}
 function histogram_alloc(n::Integer)
-    output_ptr = ccall( (:gsl_histogram_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_histogram_alloc, libgsl),
         Ptr{gsl_histogram}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -43,7 +43,7 @@ end
 #   Returns: Cint
 function histogram_set_ranges(range::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    errno = ccall( (:gsl_histogram_set_ranges, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_set_ranges, libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble), h, range )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(h)
@@ -61,7 +61,7 @@ end
 #   Returns: Cint
 function histogram_set_ranges_uniform(xmin::Real, xmax::Real)
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    errno = ccall( (:gsl_histogram_set_ranges_uniform, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_set_ranges_uniform, libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble, Cdouble), h, xmin, xmax )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(h)
@@ -73,6 +73,6 @@ end
 # 
 #   Returns: Void
 function histogram_free(h::Ptr{gsl_histogram})
-    ccall( (:gsl_histogram_free, :libgsl), Void, (Ptr{gsl_histogram}, ), h
+    ccall( (:gsl_histogram_free, libgsl), Void, (Ptr{gsl_histogram}, ), h
         )
 end

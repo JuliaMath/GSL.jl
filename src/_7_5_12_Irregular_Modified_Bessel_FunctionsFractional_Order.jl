@@ -13,7 +13,7 @@ export sf_bessel_Knu, sf_bessel_Knu_e, sf_bessel_lnKnu, sf_bessel_lnKnu_e,
 # 
 #   Returns: Cdouble
 function sf_bessel_Knu(nu::Real, x::Real)
-    ccall( (:gsl_sf_bessel_Knu, :libgsl), Cdouble, (Cdouble, Cdouble), nu,
+    ccall( (:gsl_sf_bessel_Knu, libgsl), Cdouble, (Cdouble, Cdouble), nu,
         x )
 end
 @vectorize_2arg Number sf_bessel_Knu
@@ -25,7 +25,7 @@ end
 #   Returns: Cint
 function sf_bessel_Knu_e(nu::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_bessel_Knu_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_bessel_Knu_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), nu, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -38,7 +38,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_bessel_lnKnu(nu::Real, x::Real)
-    ccall( (:gsl_sf_bessel_lnKnu, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_sf_bessel_lnKnu, libgsl), Cdouble, (Cdouble, Cdouble),
         nu, x )
 end
 @vectorize_2arg Number sf_bessel_lnKnu
@@ -50,7 +50,7 @@ end
 #   Returns: Cint
 function sf_bessel_lnKnu_e(nu::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_bessel_lnKnu_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_bessel_lnKnu_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), nu, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -63,7 +63,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_bessel_Knu_scaled(nu::Real, x::Real)
-    ccall( (:gsl_sf_bessel_Knu_scaled, :libgsl), Cdouble, (Cdouble,
+    ccall( (:gsl_sf_bessel_Knu_scaled, libgsl), Cdouble, (Cdouble,
         Cdouble), nu, x )
 end
 @vectorize_2arg Number sf_bessel_Knu_scaled
@@ -75,7 +75,7 @@ end
 #   Returns: Cint
 function sf_bessel_Knu_scaled_e(nu::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_bessel_Knu_scaled_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_bessel_Knu_scaled_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), nu, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

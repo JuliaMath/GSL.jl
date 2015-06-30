@@ -27,7 +27,7 @@ export stats_mean, stats_variance, stats_variance_m, stats_sd, stats_sd_m,
 # 
 #   Returns: Cdouble
 function stats_mean(data::Real)
-    ccall( (:gsl_stats_mean, :libgsl), Cdouble, (Cdouble, ), data )
+    ccall( (:gsl_stats_mean, libgsl), Cdouble, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_mean
 
@@ -45,7 +45,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_variance(data::Real)
-    ccall( (:gsl_stats_variance, :libgsl), Cdouble, (Cdouble, ), data )
+    ccall( (:gsl_stats_variance, libgsl), Cdouble, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_variance
 
@@ -56,7 +56,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_variance_m(data::Real)
-    ccall( (:gsl_stats_variance_m, :libgsl), Cdouble, (Cdouble, ), data )
+    ccall( (:gsl_stats_variance_m, libgsl), Cdouble, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_variance_m
 
@@ -67,7 +67,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_sd(data::Real)
-    ccall( (:gsl_stats_sd, :libgsl), Cdouble, (Cdouble, ), data )
+    ccall( (:gsl_stats_sd, libgsl), Cdouble, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_sd
 
@@ -78,7 +78,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_sd_m(data::Real)
-    ccall( (:gsl_stats_sd_m, :libgsl), Cdouble, (Cdouble, ), data )
+    ccall( (:gsl_stats_sd_m, libgsl), Cdouble, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_sd_m
 
@@ -90,7 +90,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_tss(data::Real)
-    ccall( (:gsl_stats_tss, :libgsl), Cdouble, (Cdouble, ), data )
+    ccall( (:gsl_stats_tss, libgsl), Cdouble, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_tss
 
@@ -102,7 +102,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_tss_m(data::Real)
-    ccall( (:gsl_stats_tss_m, :libgsl), Cdouble, (Cdouble, ), data )
+    ccall( (:gsl_stats_tss_m, libgsl), Cdouble, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_tss_m
 
@@ -115,7 +115,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_variance_with_fixed_mean(data::Real)
-    ccall( (:gsl_stats_variance_with_fixed_mean, :libgsl), Cdouble,
+    ccall( (:gsl_stats_variance_with_fixed_mean, libgsl), Cdouble,
         (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_variance_with_fixed_mean
@@ -127,7 +127,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_sd_with_fixed_mean(data::Real)
-    ccall( (:gsl_stats_sd_with_fixed_mean, :libgsl), Cdouble, (Cdouble, ),
+    ccall( (:gsl_stats_sd_with_fixed_mean, libgsl), Cdouble, (Cdouble, ),
         data )
 end
 @vectorize_1arg Number stats_sd_with_fixed_mean

@@ -28,7 +28,7 @@ export ieee_fprintf_float, ieee_fprintf_double, ieee_fprintf_double,
 #   Returns: Void
 function ieee_fprintf_float{tA<:Real}(stream::Ptr{Void}, x_in::AbstractVector{tA})
     x = convert(Vector{Cfloat}, x_in)
-    ccall( (:gsl_ieee_fprintf_float, :libgsl), Void, (Ptr{Void},
+    ccall( (:gsl_ieee_fprintf_float, libgsl), Void, (Ptr{Void},
         Ptr{Cfloat}), stream, x )
 end
 
@@ -46,7 +46,7 @@ end
 #   Returns: Void
 function ieee_fprintf_double{tA<:Real}(stream::Ptr{Void}, x_in::AbstractVector{tA})
     x = convert(Vector{Cdouble}, x_in)
-    ccall( (:gsl_ieee_fprintf_double, :libgsl), Void, (Ptr{Void},
+    ccall( (:gsl_ieee_fprintf_double, libgsl), Void, (Ptr{Void},
         Ptr{Cdouble}), stream, x )
 end
 
@@ -57,7 +57,7 @@ end
 #   Returns: Void
 function ieee_fprintf_double{tA<:Real}(stream::Ptr{Void}, x_in::AbstractVector{tA})
     x = convert(Vector{Cdouble}, x_in)
-    ccall( (:gsl_ieee_fprintf_double, :libgsl), Void, (Ptr{Void},
+    ccall( (:gsl_ieee_fprintf_double, libgsl), Void, (Ptr{Void},
         Ptr{Cdouble}), stream, x )
 end
 
@@ -68,7 +68,7 @@ end
 #   Returns: Void
 function ieee_fprintf_double{tA<:Real}(stream::Ptr{Void}, x_in::AbstractVector{tA})
     x = convert(Vector{Cdouble}, x_in)
-    ccall( (:gsl_ieee_fprintf_double, :libgsl), Void, (Ptr{Void},
+    ccall( (:gsl_ieee_fprintf_double, libgsl), Void, (Ptr{Void},
         Ptr{Cdouble}), stream, x )
 end
 
@@ -79,7 +79,7 @@ end
 #   Returns: Void
 function ieee_fprintf_double{tA<:Real}(stream::Ptr{Void}, x_in::AbstractVector{tA})
     x = convert(Vector{Cdouble}, x_in)
-    ccall( (:gsl_ieee_fprintf_double, :libgsl), Void, (Ptr{Void},
+    ccall( (:gsl_ieee_fprintf_double, libgsl), Void, (Ptr{Void},
         Ptr{Cdouble}), stream, x )
 end
 
@@ -90,7 +90,7 @@ end
 #   Returns: Void
 function ieee_fprintf_double{tA<:Real}(stream::Ptr{Void}, x_in::AbstractVector{tA})
     x = convert(Vector{Cdouble}, x_in)
-    ccall( (:gsl_ieee_fprintf_double, :libgsl), Void, (Ptr{Void},
+    ccall( (:gsl_ieee_fprintf_double, libgsl), Void, (Ptr{Void},
         Ptr{Cdouble}), stream, x )
 end
 
@@ -101,7 +101,7 @@ end
 #   Returns: Void
 function ieee_printf_float{tA<:Real}(x_in::AbstractVector{tA})
     x = convert(Vector{Cfloat}, x_in)
-    ccall( (:gsl_ieee_printf_float, :libgsl), Void, (Ptr{Cfloat}, ), x )
+    ccall( (:gsl_ieee_printf_float, libgsl), Void, (Ptr{Cfloat}, ), x )
 end
 
 
@@ -111,5 +111,5 @@ end
 #   Returns: Void
 function ieee_printf_double{tA<:Real}(x_in::AbstractVector{tA})
     x = convert(Vector{Cdouble}, x_in)
-    ccall( (:gsl_ieee_printf_double, :libgsl), Void, (Ptr{Cdouble}, ), x )
+    ccall( (:gsl_ieee_printf_double, libgsl), Void, (Ptr{Cdouble}, ), x )
 end

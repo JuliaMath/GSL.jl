@@ -11,7 +11,7 @@ export sf_zetam1_int, sf_zetam1_int_e, sf_zetam1, sf_zetam1_e
 # 
 #   Returns: Cdouble
 function sf_zetam1_int(n::Integer)
-    ccall( (:gsl_sf_zetam1_int, :libgsl), Cdouble, (Cint, ), n )
+    ccall( (:gsl_sf_zetam1_int, libgsl), Cdouble, (Cint, ), n )
 end
 @vectorize_1arg Number sf_zetam1_int
 
@@ -21,7 +21,7 @@ end
 #   Returns: Cint
 function sf_zetam1_int_e(n::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_zetam1_int_e, :libgsl), Cint, (Cint,
+    errno = ccall( (:gsl_sf_zetam1_int_e, libgsl), Cint, (Cint,
         Ptr{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -33,7 +33,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_zetam1(s::Real)
-    ccall( (:gsl_sf_zetam1, :libgsl), Cdouble, (Cdouble, ), s )
+    ccall( (:gsl_sf_zetam1, libgsl), Cdouble, (Cdouble, ), s )
 end
 @vectorize_1arg Number sf_zetam1
 
@@ -43,7 +43,7 @@ end
 #   Returns: Cint
 function sf_zetam1_e(s::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_zetam1_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_zetam1_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), s, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

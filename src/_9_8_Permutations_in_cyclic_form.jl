@@ -15,7 +15,7 @@ export permutation_linear_to_canonical, permutation_canonical_to_linear,
 #   Returns: Cint
 function permutation_linear_to_canonical(p::Ptr{gsl_permutation})
     q = convert(Ptr{gsl_permutation}, Array(gsl_permutation, 1))
-    errno = ccall( (:gsl_permutation_linear_to_canonical, :libgsl), Cint,
+    errno = ccall( (:gsl_permutation_linear_to_canonical, libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_permutation}), q, p )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(q)
@@ -28,7 +28,7 @@ end
 #   Returns: Cint
 function permutation_canonical_to_linear(q::Ptr{gsl_permutation})
     p = convert(Ptr{gsl_permutation}, Array(gsl_permutation, 1))
-    errno = ccall( (:gsl_permutation_canonical_to_linear, :libgsl), Cint,
+    errno = ccall( (:gsl_permutation_canonical_to_linear, libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_permutation}), p, q )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(p)
@@ -42,7 +42,7 @@ end
 # 
 #   Returns: Csize_t
 function permutation_inversions(p::Ptr{gsl_permutation})
-    ccall( (:gsl_permutation_inversions, :libgsl), Csize_t,
+    ccall( (:gsl_permutation_inversions, libgsl), Csize_t,
         (Ptr{gsl_permutation}, ), p )
 end
 
@@ -52,7 +52,7 @@ end
 # 
 #   Returns: Csize_t
 function permutation_linear_cycles(p::Ptr{gsl_permutation})
-    ccall( (:gsl_permutation_linear_cycles, :libgsl), Csize_t,
+    ccall( (:gsl_permutation_linear_cycles, libgsl), Csize_t,
         (Ptr{gsl_permutation}, ), p )
 end
 
@@ -62,6 +62,6 @@ end
 # 
 #   Returns: Csize_t
 function permutation_canonical_cycles(q::Ptr{gsl_permutation})
-    ccall( (:gsl_permutation_canonical_cycles, :libgsl), Csize_t,
+    ccall( (:gsl_permutation_canonical_cycles, libgsl), Csize_t,
         (Ptr{gsl_permutation}, ), q )
 end

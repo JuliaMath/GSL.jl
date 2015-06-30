@@ -17,7 +17,7 @@ export pow_int, pow_uint, pow_2, pow_3, pow_4, pow_5, pow_6, pow_7, pow_8,
 # 
 #   Returns: Cdouble
 function pow_int(x::Real, n::Integer)
-    ccall( (:gsl_pow_int, :libgsl), Cdouble, (Cdouble, Cint), x, n )
+    ccall( (:gsl_pow_int, libgsl), Cdouble, (Cdouble, Cint), x, n )
 end
 @vectorize_2arg Number pow_int
 
@@ -29,7 +29,7 @@ end
 # 
 #   Returns: Cdouble
 function pow_uint(x::Real, n::Integer)
-    ccall( (:gsl_pow_uint, :libgsl), Cdouble, (Cdouble, Cuint), x, n )
+    ccall( (:gsl_pow_uint, libgsl), Cdouble, (Cdouble, Cuint), x, n )
 end
 @vectorize_2arg Number pow_uint
 
@@ -41,7 +41,7 @@ end
 # 
 #   Returns: Cdouble
 function pow_2(x::Real)
-    ccall( (:gsl_pow_2, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_pow_2, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number pow_2
 
@@ -53,7 +53,7 @@ end
 # 
 #   Returns: Cdouble
 function pow_3(x::Real)
-    ccall( (:gsl_pow_3, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_pow_3, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number pow_3
 
@@ -65,7 +65,7 @@ end
 # 
 #   Returns: Cdouble
 function pow_4(x::Real)
-    ccall( (:gsl_pow_4, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_pow_4, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number pow_4
 
@@ -77,7 +77,7 @@ end
 # 
 #   Returns: Cdouble
 function pow_5(x::Real)
-    ccall( (:gsl_pow_5, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_pow_5, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number pow_5
 
@@ -89,7 +89,7 @@ end
 # 
 #   Returns: Cdouble
 function pow_6(x::Real)
-    ccall( (:gsl_pow_6, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_pow_6, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number pow_6
 
@@ -101,7 +101,7 @@ end
 # 
 #   Returns: Cdouble
 function pow_7(x::Real)
-    ccall( (:gsl_pow_7, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_pow_7, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number pow_7
 
@@ -113,7 +113,7 @@ end
 # 
 #   Returns: Cdouble
 function pow_8(x::Real)
-    ccall( (:gsl_pow_8, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_pow_8, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number pow_8
 
@@ -125,6 +125,6 @@ end
 # 
 #   Returns: Cdouble
 function pow_9(x::Real)
-    ccall( (:gsl_pow_9, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_pow_9, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number pow_9

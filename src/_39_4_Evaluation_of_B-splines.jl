@@ -18,7 +18,7 @@ export bspline_eval, bspline_eval_nonzero, bspline_ncoeffs
 function bspline_eval(x::Real)
     B = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
     w = convert(Ptr{gsl_bspline_workspace}, Array(gsl_bspline_workspace, 1))
-    errno = ccall( (:gsl_bspline_eval, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_bspline_eval, libgsl), Cint, (Cdouble,
         Ptr{gsl_vector}, Ptr{gsl_bspline_workspace}), x, B, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(B), unsafe_load(w)
@@ -40,7 +40,7 @@ function bspline_eval_nonzero(x::Real)
     istart = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     iend = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     w = convert(Ptr{gsl_bspline_workspace}, Array(gsl_bspline_workspace, 1))
-    errno = ccall( (:gsl_bspline_eval_nonzero, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_bspline_eval_nonzero, libgsl), Cint, (Cdouble,
         Ptr{gsl_vector}, Ptr{Csize_t}, Ptr{Csize_t},
         Ptr{gsl_bspline_workspace}), x, Bk, istart, iend, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -54,6 +54,6 @@ end
 # 
 #   Returns: Csize_t
 function bspline_ncoeffs(w::Ptr{gsl_bspline_workspace})
-    ccall( (:gsl_bspline_ncoeffs, :libgsl), Csize_t,
+    ccall( (:gsl_bspline_ncoeffs, libgsl), Csize_t,
         (Ptr{gsl_bspline_workspace}, ), w )
 end

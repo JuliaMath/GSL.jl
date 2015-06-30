@@ -12,7 +12,7 @@ export sum_levin_utrunc_alloc, sum_levin_utrunc_free, sum_levin_utrunc_accel
 # 
 #   Returns: Ptr{gsl_sum_levin_utrunc_workspace}
 function sum_levin_utrunc_alloc(n::Integer)
-    output_ptr = ccall( (:gsl_sum_levin_utrunc_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_sum_levin_utrunc_alloc, libgsl),
         Ptr{gsl_sum_levin_utrunc_workspace}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -23,7 +23,7 @@ end
 # 
 #   Returns: Void
 function sum_levin_utrunc_free(w::Ptr{gsl_sum_levin_utrunc_workspace})
-    ccall( (:gsl_sum_levin_utrunc_free, :libgsl), Void,
+    ccall( (:gsl_sum_levin_utrunc_free, libgsl), Void,
         (Ptr{gsl_sum_levin_utrunc_workspace}, ), w )
 end
 
@@ -46,7 +46,7 @@ function sum_levin_utrunc_accel{tA<:Real}(array_in::AbstractVector{tA})
     w = convert(Ptr{gsl_sum_levin_utrunc_workspace}, Array(gsl_sum_levin_utrunc_workspace, 1))
     sum_accel = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr_trunc = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_sum_levin_utrunc_accel, :libgsl), Cint,
+    errno = ccall( (:gsl_sum_levin_utrunc_accel, libgsl), Cint,
         (Ptr{Cdouble}, Csize_t, Ptr{gsl_sum_levin_utrunc_workspace},
         Ptr{Cdouble}, Ptr{Cdouble}), array, array_size, w, sum_accel,
         abserr_trunc )

@@ -17,6 +17,6 @@ export stats_correlation
 # 
 #   Returns: Cdouble
 function stats_correlation(data1::Real)
-    ccall( (:gsl_stats_correlation, :libgsl), Cdouble, (Cdouble, ), data1 )
+    ccall( (:gsl_stats_correlation, libgsl), Cdouble, (Cdouble, ), data1 )
 end
 @vectorize_1arg Number stats_correlation

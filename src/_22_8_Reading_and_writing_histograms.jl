@@ -16,7 +16,7 @@ export histogram_fwrite, histogram_fread, histogram_fprintf, histogram_fscanf
 # 
 #   Returns: Cint
 function histogram_fwrite(stream::Ptr{Void}, h::Ptr{gsl_histogram})
-    errno = ccall( (:gsl_histogram_fwrite, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_histogram_fwrite, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_histogram}), stream, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -32,7 +32,7 @@ end
 #   Returns: Cint
 function histogram_fread(stream::Ptr{Void})
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    errno = ccall( (:gsl_histogram_fread, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_histogram_fread, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_histogram}), stream, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(h)
@@ -58,7 +58,7 @@ end
 function histogram_fprintf(stream::Ptr{Void}, h::Ptr{gsl_histogram})
     range_format = convert(Ptr{Cchar}, Array(Cchar, 1))
     bin_format = convert(Ptr{Cchar}, Array(Cchar, 1))
-    errno = ccall( (:gsl_histogram_fprintf, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_histogram_fprintf, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_histogram}, Ptr{Cchar}, Ptr{Cchar}), stream, h, range_format,
         bin_format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -76,7 +76,7 @@ end
 #   Returns: Cint
 function histogram_fscanf(stream::Ptr{Void})
     h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    errno = ccall( (:gsl_histogram_fscanf, :libgsl), Cint, (Ptr{Void},
+    errno = ccall( (:gsl_histogram_fscanf, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_histogram}), stream, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(h)

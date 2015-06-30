@@ -15,7 +15,7 @@ export wavelet_alloc, wavelet_name, wavelet_free, wavelet_workspace_alloc,
 # 
 #   Returns: Ptr{gsl_wavelet}
 function wavelet_alloc(T::Ptr{gsl_wavelet_type}, k::Integer)
-    output_ptr = ccall( (:gsl_wavelet_alloc, :libgsl), Ptr{gsl_wavelet},
+    output_ptr = ccall( (:gsl_wavelet_alloc, libgsl), Ptr{gsl_wavelet},
         (Ptr{gsl_wavelet_type}, Csize_t), T, k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -25,7 +25,7 @@ end
 # 
 #   Returns: Ptr{Cchar}
 function wavelet_name(w::Ptr{gsl_wavelet})
-    output_string = output_ptr = ccall( (:gsl_wavelet_name, :libgsl),
+    output_string = output_ptr = ccall( (:gsl_wavelet_name, libgsl),
         Ptr{Cchar}, (Ptr{gsl_wavelet}, ), w )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
@@ -36,7 +36,7 @@ end
 # 
 #   Returns: Void
 function wavelet_free(w::Ptr{gsl_wavelet})
-    ccall( (:gsl_wavelet_free, :libgsl), Void, (Ptr{gsl_wavelet}, ), w )
+    ccall( (:gsl_wavelet_free, libgsl), Void, (Ptr{gsl_wavelet}, ), w )
 end
 
 
@@ -49,7 +49,7 @@ end
 # 
 #   Returns: Ptr{gsl_wavelet_workspace}
 function wavelet_workspace_alloc(n::Integer)
-    output_ptr = ccall( (:gsl_wavelet_workspace_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_wavelet_workspace_alloc, libgsl),
         Ptr{gsl_wavelet_workspace}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -60,6 +60,6 @@ end
 # 
 #   Returns: Void
 function wavelet_workspace_free(work::Ptr{gsl_wavelet_workspace})
-    ccall( (:gsl_wavelet_workspace_free, :libgsl), Void,
+    ccall( (:gsl_wavelet_workspace_free, libgsl), Void,
         (Ptr{gsl_wavelet_workspace}, ), work )
 end

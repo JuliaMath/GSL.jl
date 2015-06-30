@@ -28,7 +28,7 @@ function integration_qagi(epsabs::Real, epsrel::Real, limit::Integer)
     workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_integration_qagi, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_qagi, libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Csize_t,
         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, epsabs,
         epsrel, limit, workspace, result, abserr )
@@ -51,7 +51,7 @@ function integration_qagiu(a::Real, epsabs::Real, epsrel::Real, limit::Integer)
     workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_integration_qagiu, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_qagiu, libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Csize_t,
         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, a,
         epsabs, epsrel, limit, workspace, result, abserr )
@@ -74,7 +74,7 @@ function integration_qagil(b::Real, epsabs::Real, epsrel::Real, limit::Integer)
     workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_integration_qagil, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_qagil, libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Csize_t,
         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, b,
         epsabs, epsrel, limit, workspace, result, abserr )

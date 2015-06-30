@@ -17,7 +17,7 @@ export histogram2d_alloc, histogram2d_set_ranges,
 # 
 #   Returns: Ptr{gsl_histogram2d}
 function histogram2d_alloc(nx::Integer, ny::Integer)
-    output_ptr = ccall( (:gsl_histogram2d_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_histogram2d_alloc, libgsl),
         Ptr{gsl_histogram2d}, (Csize_t, Csize_t), nx, ny )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -31,7 +31,7 @@ end
 #   Returns: Cint
 function histogram2d_set_ranges(xrange::Real)
     h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
-    errno = ccall( (:gsl_histogram2d_set_ranges, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram2d_set_ranges, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble), h, xrange )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(h)
@@ -46,7 +46,7 @@ end
 #   Returns: Cint
 function histogram2d_set_ranges_uniform(xmin::Real, xmax::Real, ymin::Real, ymax::Real)
     h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
-    errno = ccall( (:gsl_histogram2d_set_ranges_uniform, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram2d_set_ranges_uniform, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble, Cdouble, Cdouble, Cdouble), h, xmin,
         xmax, ymin, ymax )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -61,6 +61,6 @@ end
 # 
 #   Returns: Void
 function histogram2d_free(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_free, :libgsl), Void, (Ptr{gsl_histogram2d},
+    ccall( (:gsl_histogram2d_free, libgsl), Void, (Ptr{gsl_histogram2d},
         ), h )
 end

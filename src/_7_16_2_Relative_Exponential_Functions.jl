@@ -15,7 +15,7 @@ export sf_expm1, sf_expm1_e, sf_exprel, sf_exprel_e, sf_exprel_2,
 # 
 #   Returns: Cdouble
 function sf_expm1(x::Real)
-    ccall( (:gsl_sf_expm1, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_expm1, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_expm1
 
@@ -26,7 +26,7 @@ end
 #   Returns: Cint
 function sf_expm1_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_expm1_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_expm1_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -40,7 +40,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_exprel(x::Real)
-    ccall( (:gsl_sf_exprel, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_exprel, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_exprel
 
@@ -52,7 +52,7 @@ end
 #   Returns: Cint
 function sf_exprel_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_exprel_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_exprel_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -66,7 +66,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_exprel_2(x::Real)
-    ccall( (:gsl_sf_exprel_2, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_exprel_2, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_exprel_2
 
@@ -78,7 +78,7 @@ end
 #   Returns: Cint
 function sf_exprel_2_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_exprel_2_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_exprel_2_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -94,7 +94,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_exprel_n(n::Integer, x::Real)
-    ccall( (:gsl_sf_exprel_n, :libgsl), Cdouble, (Cint, Cdouble), n, x )
+    ccall( (:gsl_sf_exprel_n, libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
 @vectorize_2arg Number sf_exprel_n
 
@@ -108,7 +108,7 @@ end
 #   Returns: Cint
 function sf_exprel_n_e(n::Integer, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_exprel_n_e, :libgsl), Cint, (Cint, Cdouble,
+    errno = ccall( (:gsl_sf_exprel_n_e, libgsl), Cint, (Cint, Cdouble,
         Ptr{gsl_sf_result}), n, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

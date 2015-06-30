@@ -16,7 +16,7 @@ export combination_alloc, combination_calloc, combination_init_first,
 # 
 #   Returns: Ptr{gsl_combination}
 function combination_alloc(n::Integer, k::Integer)
-    output_ptr = ccall( (:gsl_combination_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_combination_alloc, libgsl),
         Ptr{gsl_combination}, (Csize_t, Csize_t), n, k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -29,7 +29,7 @@ end
 # 
 #   Returns: Ptr{gsl_combination}
 function combination_calloc(n::Integer, k::Integer)
-    output_ptr = ccall( (:gsl_combination_calloc, :libgsl),
+    output_ptr = ccall( (:gsl_combination_calloc, libgsl),
         Ptr{gsl_combination}, (Csize_t, Csize_t), n, k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -42,7 +42,7 @@ end
 #   Returns: Void
 function combination_init_first()
     c = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
-    ccall( (:gsl_combination_init_first, :libgsl), Void,
+    ccall( (:gsl_combination_init_first, libgsl), Void,
         (Ptr{gsl_combination}, ), c )
     return unsafe_load(c)
 end
@@ -54,7 +54,7 @@ end
 #   Returns: Void
 function combination_init_last()
     c = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
-    ccall( (:gsl_combination_init_last, :libgsl), Void,
+    ccall( (:gsl_combination_init_last, libgsl), Void,
         (Ptr{gsl_combination}, ), c )
     return unsafe_load(c)
 end
@@ -64,7 +64,7 @@ end
 # 
 #   Returns: Void
 function combination_free(c::Ptr{gsl_combination})
-    ccall( (:gsl_combination_free, :libgsl), Void, (Ptr{gsl_combination},
+    ccall( (:gsl_combination_free, libgsl), Void, (Ptr{gsl_combination},
         ), c )
 end
 
@@ -75,7 +75,7 @@ end
 #   Returns: Cint
 function combination_memcpy(src::Ptr{gsl_combination})
     dest = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
-    errno = ccall( (:gsl_combination_memcpy, :libgsl), Cint,
+    errno = ccall( (:gsl_combination_memcpy, libgsl), Cint,
         (Ptr{gsl_combination}, Ptr{gsl_combination}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(dest)

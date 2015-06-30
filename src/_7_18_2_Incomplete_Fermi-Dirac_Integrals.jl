@@ -14,7 +14,7 @@ export sf_fermi_dirac_inc_0, sf_fermi_dirac_inc_0_e
 # 
 #   Returns: Cdouble
 function sf_fermi_dirac_inc_0(x::Real, b::Real)
-    ccall( (:gsl_sf_fermi_dirac_inc_0, :libgsl), Cdouble, (Cdouble,
+    ccall( (:gsl_sf_fermi_dirac_inc_0, libgsl), Cdouble, (Cdouble,
         Cdouble), x, b )
 end
 @vectorize_2arg Number sf_fermi_dirac_inc_0
@@ -26,7 +26,7 @@ end
 #   Returns: Cint
 function sf_fermi_dirac_inc_0_e(x::Real, b::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_fermi_dirac_inc_0_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_fermi_dirac_inc_0_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), x, b, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

@@ -16,7 +16,7 @@ export stats_max, stats_min, stats_minmax, stats_max_index, stats_min_index,
 # 
 #   Returns: Cdouble
 function stats_max(data::Real)
-    ccall( (:gsl_stats_max, :libgsl), Cdouble, (Cdouble, ), data )
+    ccall( (:gsl_stats_max, libgsl), Cdouble, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_max
 
@@ -29,7 +29,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_min(data::Real)
-    ccall( (:gsl_stats_min, :libgsl), Cdouble, (Cdouble, ), data )
+    ccall( (:gsl_stats_min, libgsl), Cdouble, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_min
 
@@ -41,7 +41,7 @@ end
 function stats_minmax(data::Real)
     min = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     max = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    ccall( (:gsl_stats_minmax, :libgsl), Void, (Ptr{Cdouble}, Ptr{Cdouble},
+    ccall( (:gsl_stats_minmax, libgsl), Void, (Ptr{Cdouble}, Ptr{Cdouble},
         Cdouble), min, max, data )
     return unsafe_load(min), unsafe_load(max)
 end
@@ -55,7 +55,7 @@ end
 # 
 #   Returns: Csize_t
 function stats_max_index(data::Real)
-    ccall( (:gsl_stats_max_index, :libgsl), Csize_t, (Cdouble, ), data )
+    ccall( (:gsl_stats_max_index, libgsl), Csize_t, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_max_index
 
@@ -67,7 +67,7 @@ end
 # 
 #   Returns: Csize_t
 function stats_min_index(data::Real)
-    ccall( (:gsl_stats_min_index, :libgsl), Csize_t, (Cdouble, ), data )
+    ccall( (:gsl_stats_min_index, libgsl), Csize_t, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_min_index
 
@@ -79,7 +79,7 @@ end
 function stats_minmax_index(data::Real)
     min_index = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     max_index = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    ccall( (:gsl_stats_minmax_index, :libgsl), Void, (Ptr{Csize_t},
+    ccall( (:gsl_stats_minmax_index, libgsl), Void, (Ptr{Csize_t},
         Ptr{Csize_t}, Cdouble), min_index, max_index, data )
     return unsafe_load(min_index), unsafe_load(max_index)
 end

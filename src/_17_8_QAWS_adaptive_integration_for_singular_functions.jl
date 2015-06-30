@@ -31,7 +31,7 @@ export integration_qaws_table_alloc, integration_qaws_table_set,
 # 
 #   Returns: Ptr{gsl_integration_qaws_table}
 function integration_qaws_table_alloc(alpha::Real, beta::Real, mu::Integer, nu::Integer)
-    output_ptr = ccall( (:gsl_integration_qaws_table_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_integration_qaws_table_alloc, libgsl),
         Ptr{gsl_integration_qaws_table}, (Cdouble, Cdouble, Cint, Cint), alpha,
         beta, mu, nu )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
@@ -45,7 +45,7 @@ end
 # 
 #   Returns: Cint
 function integration_qaws_table_set(t::Ptr{gsl_integration_qaws_table}, alpha::Real, beta::Real, mu::Integer, nu::Integer)
-    errno = ccall( (:gsl_integration_qaws_table_set, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_qaws_table_set, libgsl), Cint,
         (Ptr{gsl_integration_qaws_table}, Cdouble, Cdouble, Cint, Cint), t,
         alpha, beta, mu, nu )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -57,7 +57,7 @@ end
 # 
 #   Returns: Void
 function integration_qaws_table_free(t::Ptr{gsl_integration_qaws_table})
-    ccall( (:gsl_integration_qaws_table_free, :libgsl), Void,
+    ccall( (:gsl_integration_qaws_table_free, libgsl), Void,
         (Ptr{gsl_integration_qaws_table}, ), t )
 end
 
@@ -79,7 +79,7 @@ function integration_qaws(a::Real, b::Real, epsabs::Real, epsrel::Real, limit::I
     workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_integration_qaws, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_qaws, libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Ptr{gsl_integration_qaws_table},
         Cdouble, Cdouble, Csize_t, Ptr{gsl_integration_workspace},
         Ptr{Cdouble}, Ptr{Cdouble}), f, a, b, t, epsabs, epsrel, limit,

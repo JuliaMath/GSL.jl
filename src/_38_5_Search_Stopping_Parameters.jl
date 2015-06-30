@@ -19,7 +19,7 @@ export multifit_test_delta, multifit_test_gradient, multifit_gradient
 # 
 #   Returns: Cint
 function multifit_test_delta(dx::Ptr{gsl_vector}, x::Ptr{gsl_vector}, epsabs::Real, epsrel::Real)
-    errno = ccall( (:gsl_multifit_test_delta, :libgsl), Cint,
+    errno = ccall( (:gsl_multifit_test_delta, libgsl), Cint,
         (Ptr{gsl_vector}, Ptr{gsl_vector}, Cdouble, Cdouble), dx, x, epsabs,
         epsrel )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -35,7 +35,7 @@ end
 # 
 #   Returns: Cint
 function multifit_test_gradient(g::Ptr{gsl_vector}, epsabs::Real)
-    errno = ccall( (:gsl_multifit_test_gradient, :libgsl), Cint,
+    errno = ccall( (:gsl_multifit_test_gradient, libgsl), Cint,
         (Ptr{gsl_vector}, Cdouble), g, epsabs )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -47,7 +47,7 @@ end
 #   Returns: Cint
 function multifit_gradient(J::Ptr{gsl_matrix}, f::Ptr{gsl_vector})
     g = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    errno = ccall( (:gsl_multifit_gradient, :libgsl), Cint,
+    errno = ccall( (:gsl_multifit_gradient, libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), J, f, g )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(g)

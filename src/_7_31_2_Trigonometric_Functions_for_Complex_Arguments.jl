@@ -14,7 +14,7 @@ export sf_complex_sin_e, sf_complex_cos_e, sf_complex_logsin_e
 function sf_complex_sin_e(zr::Real, zi::Real)
     szr = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     szi = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_complex_sin_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_complex_sin_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, szr, szi )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(szr), unsafe_load(szi)
@@ -29,7 +29,7 @@ end
 function sf_complex_cos_e(zr::Real, zi::Real)
     czr = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     czi = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_complex_cos_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_complex_cos_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, czr, czi )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(czr), unsafe_load(czi)
@@ -44,7 +44,7 @@ end
 function sf_complex_logsin_e(zr::Real, zi::Real)
     lszr = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     lszi = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_complex_logsin_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_complex_logsin_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, lszr, lszi )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(lszr), unsafe_load(lszi)

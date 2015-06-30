@@ -19,7 +19,7 @@ export multiroot_test_delta, multiroot_test_residual
 # 
 #   Returns: Cint
 function multiroot_test_delta(dx::Ptr{gsl_vector}, x::Ptr{gsl_vector}, epsabs::Real, epsrel::Real)
-    errno = ccall( (:gsl_multiroot_test_delta, :libgsl), Cint,
+    errno = ccall( (:gsl_multiroot_test_delta, libgsl), Cint,
         (Ptr{gsl_vector}, Ptr{gsl_vector}, Cdouble, Cdouble), dx, x, epsabs,
         epsrel )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -34,7 +34,7 @@ end
 # 
 #   Returns: Cint
 function multiroot_test_residual(f::Ptr{gsl_vector}, epsabs::Real)
-    errno = ccall( (:gsl_multiroot_test_residual, :libgsl), Cint,
+    errno = ccall( (:gsl_multiroot_test_residual, libgsl), Cint,
         (Ptr{gsl_vector}, Cdouble), f, epsabs )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end

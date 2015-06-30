@@ -13,7 +13,7 @@ export histogram2d_max_val, histogram2d_max_bin, histogram2d_min_val,
 # 
 #   Returns: Cdouble
 function histogram2d_max_val(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_max_val, :libgsl), Cdouble,
+    ccall( (:gsl_histogram2d_max_val, libgsl), Cdouble,
         (Ptr{gsl_histogram2d}, ), h )
 end
 
@@ -26,7 +26,7 @@ end
 function histogram2d_max_bin(h::Ptr{gsl_histogram2d})
     i = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     j = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    ccall( (:gsl_histogram2d_max_bin, :libgsl), Void,
+    ccall( (:gsl_histogram2d_max_bin, libgsl), Void,
         (Ptr{gsl_histogram2d}, Ptr{Csize_t}, Ptr{Csize_t}), h, i, j )
     return unsafe_load(i), unsafe_load(j)
 end
@@ -36,7 +36,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram2d_min_val(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_min_val, :libgsl), Cdouble,
+    ccall( (:gsl_histogram2d_min_val, libgsl), Cdouble,
         (Ptr{gsl_histogram2d}, ), h )
 end
 
@@ -49,7 +49,7 @@ end
 function histogram2d_min_bin(h::Ptr{gsl_histogram2d})
     i = convert(Ptr{Csize_t}, Array(Csize_t, 1))
     j = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    ccall( (:gsl_histogram2d_min_bin, :libgsl), Void,
+    ccall( (:gsl_histogram2d_min_bin, libgsl), Void,
         (Ptr{gsl_histogram2d}, Ptr{Csize_t}, Ptr{Csize_t}), h, i, j )
     return unsafe_load(i), unsafe_load(j)
 end
@@ -61,7 +61,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram2d_xmean(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_xmean, :libgsl), Cdouble,
+    ccall( (:gsl_histogram2d_xmean, libgsl), Cdouble,
         (Ptr{gsl_histogram2d}, ), h )
 end
 
@@ -72,7 +72,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram2d_ymean(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_ymean, :libgsl), Cdouble,
+    ccall( (:gsl_histogram2d_ymean, libgsl), Cdouble,
         (Ptr{gsl_histogram2d}, ), h )
 end
 
@@ -83,7 +83,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram2d_xsigma(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_xsigma, :libgsl), Cdouble,
+    ccall( (:gsl_histogram2d_xsigma, libgsl), Cdouble,
         (Ptr{gsl_histogram2d}, ), h )
 end
 
@@ -94,7 +94,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram2d_ysigma(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_ysigma, :libgsl), Cdouble,
+    ccall( (:gsl_histogram2d_ysigma, libgsl), Cdouble,
         (Ptr{gsl_histogram2d}, ), h )
 end
 
@@ -105,7 +105,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram2d_cov(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_cov, :libgsl), Cdouble, (Ptr{gsl_histogram2d},
+    ccall( (:gsl_histogram2d_cov, libgsl), Cdouble, (Ptr{gsl_histogram2d},
         ), h )
 end
 
@@ -115,6 +115,6 @@ end
 # 
 #   Returns: Cdouble
 function histogram2d_sum(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_sum, :libgsl), Cdouble, (Ptr{gsl_histogram2d},
+    ccall( (:gsl_histogram2d_sum, libgsl), Cdouble, (Ptr{gsl_histogram2d},
         ), h )
 end

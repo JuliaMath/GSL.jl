@@ -23,7 +23,7 @@ function poly_solve_cubic (a::Cdouble, b::Cdouble, c::Cdouble)
     x0 = Array(Float64, 1)
     x1 = Array(Float64, 1)
     x2 = Array(Float64, 1)
-    num_roots = ccall( (:gsl_poly_solve_cubic, :libgsl), Cint, (Cdouble,
+    num_roots = ccall( (:gsl_poly_solve_cubic, libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}), a, b, c,
         x0, x1, x2 )
     if num_roots==1
@@ -47,7 +47,7 @@ function poly_complex_solve_cubic (a::Cdouble, b::Cdouble, c::Cdouble)
     z0 = Array(Complex128, 1)
     z1 = Array(Complex128, 1)
     z2 = Array(Complex128, 1)
-    num_roots = ccall( (:gsl_poly_complex_solve_cubic, :libgsl), Cint,
+    num_roots = ccall( (:gsl_poly_complex_solve_cubic, libgsl), Cint,
         (Cdouble, Cdouble, Cdouble, Ptr{Void}, Ptr{Void},
         Ptr{Void}), a, b, c, &z0, &z1, &z2 )
     if num_roots==3

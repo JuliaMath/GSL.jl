@@ -14,7 +14,7 @@ export rng_memcpy, rng_clone
 #   Returns: Cint
 function rng_memcpy(src::Ptr{gsl_rng})
     dest = convert(Ptr{gsl_rng}, Array(gsl_rng, 1))
-    errno = ccall( (:gsl_rng_memcpy, :libgsl), Cint, (Ptr{gsl_rng},
+    errno = ccall( (:gsl_rng_memcpy, libgsl), Cint, (Ptr{gsl_rng},
         Ptr{gsl_rng}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(dest)
@@ -26,7 +26,7 @@ end
 # 
 #   Returns: Ptr{gsl_rng}
 function rng_clone(r::Ptr{gsl_rng})
-    output_ptr = ccall( (:gsl_rng_clone, :libgsl), Ptr{gsl_rng},
+    output_ptr = ccall( (:gsl_rng_clone, libgsl), Ptr{gsl_rng},
         (Ptr{gsl_rng}, ), r )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

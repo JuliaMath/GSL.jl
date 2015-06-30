@@ -14,7 +14,7 @@ export sf_angle_restrict_symm, sf_angle_restrict_symm_e, sf_angle_restrict_pos,
 # 
 #   Returns: Cdouble
 function sf_angle_restrict_symm(theta::Real)
-    ccall( (:gsl_sf_angle_restrict_symm, :libgsl), Cdouble, (Cdouble, ),
+    ccall( (:gsl_sf_angle_restrict_symm, libgsl), Cdouble, (Cdouble, ),
         theta )
 end
 @vectorize_1arg Number sf_angle_restrict_symm
@@ -27,7 +27,7 @@ end
 #   Returns: Cint
 function sf_angle_restrict_symm_e()
     theta = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_sf_angle_restrict_symm_e, :libgsl), Cint,
+    errno = ccall( (:gsl_sf_angle_restrict_symm_e, libgsl), Cint,
         (Ptr{Cdouble}, ), theta )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(theta)
@@ -40,7 +40,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_angle_restrict_pos(theta::Real)
-    ccall( (:gsl_sf_angle_restrict_pos, :libgsl), Cdouble, (Cdouble, ),
+    ccall( (:gsl_sf_angle_restrict_pos, libgsl), Cdouble, (Cdouble, ),
         theta )
 end
 @vectorize_1arg Number sf_angle_restrict_pos
@@ -53,7 +53,7 @@ end
 #   Returns: Cint
 function sf_angle_restrict_pos_e()
     theta = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_sf_angle_restrict_pos_e, :libgsl), Cint,
+    errno = ccall( (:gsl_sf_angle_restrict_pos_e, libgsl), Cint,
         (Ptr{Cdouble}, ), theta )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(theta)

@@ -21,7 +21,7 @@ export stats_median_from_sorted_data, stats_quantile_from_sorted_data
 # 
 #   Returns: Cdouble
 function stats_median_from_sorted_data(sorted_data::Real)
-    ccall( (:gsl_stats_median_from_sorted_data, :libgsl), Cdouble,
+    ccall( (:gsl_stats_median_from_sorted_data, libgsl), Cdouble,
         (Cdouble, ), sorted_data )
 end
 @vectorize_1arg Number stats_median_from_sorted_data
@@ -44,7 +44,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_quantile_from_sorted_data(sorted_data::Real)
-    ccall( (:gsl_stats_quantile_from_sorted_data, :libgsl), Cdouble,
+    ccall( (:gsl_stats_quantile_from_sorted_data, libgsl), Cdouble,
         (Cdouble, ), sorted_data )
 end
 @vectorize_1arg Number stats_quantile_from_sorted_data

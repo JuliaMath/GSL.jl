@@ -16,7 +16,7 @@ export ran_rayleigh_tail, ran_rayleigh_tail_pdf
 # 
 #   Returns: Cdouble
 function ran_rayleigh_tail(r::Ptr{gsl_rng}, a::Real, sigma::Real)
-    ccall( (:gsl_ran_rayleigh_tail, :libgsl), Cdouble, (Ptr{gsl_rng},
+    ccall( (:gsl_ran_rayleigh_tail, libgsl), Cdouble, (Ptr{gsl_rng},
         Cdouble, Cdouble), r, a, sigma )
 end
 
@@ -27,7 +27,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_rayleigh_tail_pdf(x::Real, a::Real, sigma::Real)
-    ccall( (:gsl_ran_rayleigh_tail_pdf, :libgsl), Cdouble, (Cdouble,
+    ccall( (:gsl_ran_rayleigh_tail_pdf, libgsl), Cdouble, (Cdouble,
         Cdouble, Cdouble), x, a, sigma )
 end
 #TODO This vectorization macro is not implemented

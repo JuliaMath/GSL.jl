@@ -19,7 +19,7 @@ export odeiv2_step_alloc, odeiv2_step_reset, odeiv2_step_free,
 # 
 #   Returns: Ptr{gsl_odeiv2_step}
 function odeiv2_step_alloc(T::Ptr{gsl_odeiv2_step_type}, dim::Integer)
-    output_ptr = ccall( (:gsl_odeiv2_step_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_odeiv2_step_alloc, libgsl),
         Ptr{gsl_odeiv2_step}, (Ptr{gsl_odeiv2_step_type}, Csize_t), T, dim )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -31,7 +31,7 @@ end
 #   Returns: Cint
 function odeiv2_step_reset()
     s = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
-    errno = ccall( (:gsl_odeiv2_step_reset, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_step_reset, libgsl), Cint,
         (Ptr{gsl_odeiv2_step}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(s)
@@ -42,7 +42,7 @@ end
 # 
 #   Returns: Void
 function odeiv2_step_free(s::Ptr{gsl_odeiv2_step})
-    ccall( (:gsl_odeiv2_step_free, :libgsl), Void, (Ptr{gsl_odeiv2_step},
+    ccall( (:gsl_odeiv2_step_free, libgsl), Void, (Ptr{gsl_odeiv2_step},
         ), s )
 end
 
@@ -54,7 +54,7 @@ end
 # 
 #   Returns: Ptr{Cchar}
 function odeiv2_step_name(s::Ptr{gsl_odeiv2_step})
-    output_string = output_ptr = ccall( (:gsl_odeiv2_step_name, :libgsl),
+    output_string = output_ptr = ccall( (:gsl_odeiv2_step_name, libgsl),
         Ptr{Cchar}, (Ptr{gsl_odeiv2_step}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
@@ -66,7 +66,7 @@ end
 # 
 #   Returns: Cuint
 function odeiv2_step_order(s::Ptr{gsl_odeiv2_step})
-    ccall( (:gsl_odeiv2_step_order, :libgsl), Cuint, (Ptr{gsl_odeiv2_step},
+    ccall( (:gsl_odeiv2_step_order, libgsl), Cuint, (Ptr{gsl_odeiv2_step},
         ), s )
 end
 
@@ -80,7 +80,7 @@ end
 #   Returns: Cint
 function odeiv2_step_set_driver(d::Ptr{gsl_odeiv2_driver})
     s = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
-    errno = ccall( (:gsl_odeiv2_step_set_driver, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_step_set_driver, libgsl), Cint,
         (Ptr{gsl_odeiv2_step}, Ptr{gsl_odeiv2_driver}), s, d )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(s)
@@ -112,7 +112,7 @@ end
 #   Returns: Cint
 function odeiv2_step_apply(t::Real, h::Real, y::Real)
     s = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
-    errno = ccall( (:gsl_odeiv2_step_apply, :libgsl), Cint,
+    errno = ccall( (:gsl_odeiv2_step_apply, libgsl), Cint,
         (Ptr{gsl_odeiv2_step}, Cdouble, Cdouble, Cdouble), s, t, h, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(s)

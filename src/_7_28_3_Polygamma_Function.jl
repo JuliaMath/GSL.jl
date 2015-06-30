@@ -12,7 +12,7 @@ export sf_psi_n, sf_psi_n_e
 # 
 #   Returns: Cdouble
 function sf_psi_n(n::Integer, x::Real)
-    ccall( (:gsl_sf_psi_n, :libgsl), Cdouble, (Cint, Cdouble), n, x )
+    ccall( (:gsl_sf_psi_n, libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
 @vectorize_2arg Number sf_psi_n
 
@@ -23,7 +23,7 @@ end
 #   Returns: Cint
 function sf_psi_n_e(n::Integer, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_psi_n_e, :libgsl), Cint, (Cint, Cdouble,
+    errno = ccall( (:gsl_sf_psi_n_e, libgsl), Cint, (Cint, Cdouble,
         Ptr{gsl_sf_result}), n, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

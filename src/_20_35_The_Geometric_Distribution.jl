@@ -18,7 +18,7 @@ export ran_geometric, ran_geometric_pdf, cdf_geometric_P, cdf_geometric_Q
 # 
 #   Returns: Cuint
 function ran_geometric(r::Ptr{gsl_rng}, p::Real)
-    ccall( (:gsl_ran_geometric, :libgsl), Cuint, (Ptr{gsl_rng}, Cdouble),
+    ccall( (:gsl_ran_geometric, libgsl), Cuint, (Ptr{gsl_rng}, Cdouble),
         r, p )
 end
 
@@ -28,7 +28,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_geometric_pdf(k::Integer, p::Real)
-    ccall( (:gsl_ran_geometric_pdf, :libgsl), Cdouble, (Cuint, Cdouble), k,
+    ccall( (:gsl_ran_geometric_pdf, libgsl), Cdouble, (Cuint, Cdouble), k,
         p )
 end
 @vectorize_2arg Number ran_geometric_pdf
@@ -39,7 +39,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_geometric_P(k::Integer, p::Real)
-    ccall( (:gsl_cdf_geometric_P, :libgsl), Cdouble, (Cuint, Cdouble), k, p
+    ccall( (:gsl_cdf_geometric_P, libgsl), Cdouble, (Cuint, Cdouble), k, p
         )
 end
 @vectorize_2arg Number cdf_geometric_P
@@ -50,7 +50,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_geometric_Q(k::Integer, p::Real)
-    ccall( (:gsl_cdf_geometric_Q, :libgsl), Cdouble, (Cuint, Cdouble), k, p
+    ccall( (:gsl_cdf_geometric_Q, libgsl), Cdouble, (Cuint, Cdouble), k, p
         )
 end
 @vectorize_2arg Number cdf_geometric_Q

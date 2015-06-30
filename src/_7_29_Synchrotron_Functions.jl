@@ -13,7 +13,7 @@ export sf_synchrotron_1, sf_synchrotron_1_e, sf_synchrotron_2,
 # 
 #   Returns: Cdouble
 function sf_synchrotron_1(x::Real)
-    ccall( (:gsl_sf_synchrotron_1, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_synchrotron_1, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_synchrotron_1
 
@@ -24,7 +24,7 @@ end
 #   Returns: Cint
 function sf_synchrotron_1_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_synchrotron_1_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_synchrotron_1_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -37,7 +37,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_synchrotron_2(x::Real)
-    ccall( (:gsl_sf_synchrotron_2, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_synchrotron_2, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_synchrotron_2
 
@@ -48,7 +48,7 @@ end
 #   Returns: Cint
 function sf_synchrotron_2_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_synchrotron_2_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_synchrotron_2_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

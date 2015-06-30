@@ -15,7 +15,7 @@ export sf_beta_inc, sf_beta_inc_e
 # 
 #   Returns: Cdouble
 function sf_beta_inc(a::Real, b::Real, x::Real)
-    ccall( (:gsl_sf_beta_inc, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_sf_beta_inc, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), a, b, x )
 end
 #TODO This vectorization macro is not implemented
@@ -31,7 +31,7 @@ end
 #   Returns: Cint
 function sf_beta_inc_e(a::Real, b::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_beta_inc_e, :libgsl), Cint, (Cdouble, Cdouble,
+    errno = ccall( (:gsl_sf_beta_inc_e, libgsl), Cint, (Cdouble, Cdouble,
         Cdouble, Ptr{gsl_sf_result}), a, b, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

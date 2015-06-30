@@ -27,7 +27,7 @@ end
 # 
 #   Returns: Ptr{gsl_histogram2d_pdf}
 function histogram2d_pdf_alloc(nx::Integer, ny::Integer)
-    output_ptr = ccall( (:gsl_histogram2d_pdf_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_histogram2d_pdf_alloc, libgsl),
         Ptr{gsl_histogram2d_pdf}, (Csize_t, Csize_t), nx, ny )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -41,7 +41,7 @@ end
 # 
 #   Returns: Cint
 function histogram2d_pdf_init(p::Ptr{gsl_histogram2d_pdf}, h::Ptr{gsl_histogram2d})
-    errno = ccall( (:gsl_histogram2d_pdf_init, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram2d_pdf_init, libgsl), Cint,
         (Ptr{gsl_histogram2d_pdf}, Ptr{gsl_histogram2d}), p, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -52,7 +52,7 @@ end
 # 
 #   Returns: Void
 function histogram2d_pdf_free(p::Ptr{gsl_histogram2d_pdf})
-    ccall( (:gsl_histogram2d_pdf_free, :libgsl), Void,
+    ccall( (:gsl_histogram2d_pdf_free, libgsl), Void,
         (Ptr{gsl_histogram2d_pdf}, ), p )
 end
 
@@ -65,7 +65,7 @@ end
 function histogram2d_pdf_sample(p::Ptr{gsl_histogram2d_pdf}, r1::Real, r2::Real)
     x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_histogram2d_pdf_sample, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram2d_pdf_sample, libgsl), Cint,
         (Ptr{gsl_histogram2d_pdf}, Cdouble, Cdouble, Ptr{Cdouble},
         Ptr{Cdouble}), p, r1, r2, x, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end

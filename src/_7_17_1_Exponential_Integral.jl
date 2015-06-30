@@ -19,7 +19,7 @@ export sf_expint_E1, sf_expint_E1_e, sf_expint_E2, sf_expint_E2_e,
 # 
 #   Returns: Cdouble
 function sf_expint_E1(x::Real)
-    ccall( (:gsl_sf_expint_E1, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_expint_E1, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_expint_E1
 
@@ -30,7 +30,7 @@ end
 #   Returns: Cint
 function sf_expint_E1_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_expint_E1_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_expint_E1_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -43,7 +43,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_expint_E2(x::Real)
-    ccall( (:gsl_sf_expint_E2, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_sf_expint_E2, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number sf_expint_E2
 
@@ -54,7 +54,7 @@ end
 #   Returns: Cint
 function sf_expint_E2_e(x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_expint_E2_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_expint_E2_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -67,7 +67,7 @@ end
 # 
 #   Returns: Cdouble
 function sf_expint_En(n::Integer, x::Real)
-    ccall( (:gsl_sf_expint_En, :libgsl), Cdouble, (Cint, Cdouble), n, x )
+    ccall( (:gsl_sf_expint_En, libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
 @vectorize_2arg Number sf_expint_En
 
@@ -78,7 +78,7 @@ end
 #   Returns: Cint
 function sf_expint_En_e(n::Integer, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_expint_En_e, :libgsl), Cint, (Cint, Cdouble,
+    errno = ccall( (:gsl_sf_expint_En_e, libgsl), Cint, (Cint, Cdouble,
         Ptr{gsl_sf_result}), n, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)

@@ -24,7 +24,7 @@ end
 # 
 #   Returns: Ptr{gsl_histogram_pdf}
 function histogram_pdf_alloc(n::Integer)
-    output_ptr = ccall( (:gsl_histogram_pdf_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_histogram_pdf_alloc, libgsl),
         Ptr{gsl_histogram_pdf}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -38,7 +38,7 @@ end
 # 
 #   Returns: Cint
 function histogram_pdf_init(p::Ptr{gsl_histogram_pdf}, h::Ptr{gsl_histogram})
-    errno = ccall( (:gsl_histogram_pdf_init, :libgsl), Cint,
+    errno = ccall( (:gsl_histogram_pdf_init, libgsl), Cint,
         (Ptr{gsl_histogram_pdf}, Ptr{gsl_histogram}), p, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -49,7 +49,7 @@ end
 # 
 #   Returns: Void
 function histogram_pdf_free(p::Ptr{gsl_histogram_pdf})
-    ccall( (:gsl_histogram_pdf_free, :libgsl), Void,
+    ccall( (:gsl_histogram_pdf_free, libgsl), Void,
         (Ptr{gsl_histogram_pdf}, ), p )
 end
 
@@ -63,6 +63,6 @@ end
 # 
 #   Returns: Cdouble
 function histogram_pdf_sample(p::Ptr{gsl_histogram_pdf}, r::Real)
-    ccall( (:gsl_histogram_pdf_sample, :libgsl), Cdouble,
+    ccall( (:gsl_histogram_pdf_sample, libgsl), Cdouble,
         (Ptr{gsl_histogram_pdf}, Cdouble), p, r )
 end

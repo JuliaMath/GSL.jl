@@ -12,7 +12,7 @@ export log1p, expm1, hypot, hypot3, acosh, asinh, atanh, ldexp, frexp
 # 
 #   Returns: Cdouble
 function log1p(x::Real)
-    ccall( (:gsl_log1p, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_log1p, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number log1p
 
@@ -22,7 +22,7 @@ end
 # 
 #   Returns: Cdouble
 function expm1(x::Real)
-    ccall( (:gsl_expm1, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_expm1, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number expm1
 
@@ -32,7 +32,7 @@ end
 # 
 #   Returns: Cdouble
 function hypot(x::Real, y::Real)
-    ccall( (:gsl_hypot, :libgsl), Cdouble, (Cdouble, Cdouble), x, y )
+    ccall( (:gsl_hypot, libgsl), Cdouble, (Cdouble, Cdouble), x, y )
 end
 @vectorize_2arg Number hypot
 
@@ -42,7 +42,7 @@ end
 # 
 #   Returns: Cdouble
 function hypot3(x::Real, y::Real, z::Real)
-    ccall( (:gsl_hypot3, :libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x,
+    ccall( (:gsl_hypot3, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x,
         y, z )
 end
 #TODO This vectorization macro is not implemented
@@ -54,7 +54,7 @@ end
 # 
 #   Returns: Cdouble
 function acosh(x::Real)
-    ccall( (:gsl_acosh, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_acosh, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number acosh
 
@@ -64,7 +64,7 @@ end
 # 
 #   Returns: Cdouble
 function asinh(x::Real)
-    ccall( (:gsl_asinh, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_asinh, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number asinh
 
@@ -74,7 +74,7 @@ end
 # 
 #   Returns: Cdouble
 function atanh(x::Real)
-    ccall( (:gsl_atanh, :libgsl), Cdouble, (Cdouble, ), x )
+    ccall( (:gsl_atanh, libgsl), Cdouble, (Cdouble, ), x )
 end
 @vectorize_1arg Number atanh
 
@@ -84,7 +84,7 @@ end
 # 
 #   Returns: Cdouble
 function ldexp(x::Real, e::Integer)
-    ccall( (:gsl_ldexp, :libgsl), Cdouble, (Cdouble, Cint), x, e )
+    ccall( (:gsl_ldexp, libgsl), Cdouble, (Cdouble, Cint), x, e )
 end
 @vectorize_2arg Number ldexp
 
@@ -97,5 +97,5 @@ end
 #   Returns: Cdouble
 function frexp{tA<:Integer}(x::Real, e_in::AbstractVector{tA})
     e = convert(Vector{Cint}, e_in)
-    ccall( (:gsl_frexp, :libgsl), Cdouble, (Cdouble, Ptr{Cint}), x, e )
+    ccall( (:gsl_frexp, libgsl), Cdouble, (Cdouble, Ptr{Cint}), x, e )
 end

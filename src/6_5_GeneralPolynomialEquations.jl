@@ -75,7 +75,7 @@ roots{T<:Real}(c::AbstractVector{T}) = roots(c, false)
 function poly_complex_solve{tA<:Real}(a_in::AbstractVector{tA}, n::Integer, w::Ptr{gsl_poly_complex_workspace})
     a = convert(Vector{Cdouble}, a_in)
     z = Array(Complex{Cdouble}, n-1)
-    errno = ccall( (:gsl_poly_complex_solve, :libgsl), Cint,
+    errno = ccall( (:gsl_poly_complex_solve, libgsl), Cint,
         (Ptr{Cdouble}, Csize_t, Ptr{Void}, Ptr{Complex{Cdouble}}), a, n, w, z )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     z#complex_packed_ptr(z)

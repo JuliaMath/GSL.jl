@@ -16,7 +16,7 @@ export poly_complex_workspace_alloc, poly_complex_workspace_free,
 # 
 #   Returns: Ptr{gsl_poly_complex_workspace}
 function poly_complex_workspace_alloc(n::Integer)
-    output_ptr = ccall( (:gsl_poly_complex_workspace_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_poly_complex_workspace_alloc, libgsl),
         Ptr{gsl_poly_complex_workspace}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -27,7 +27,7 @@ end
 # 
 #   Returns: Void
 function poly_complex_workspace_free(w::Ptr{gsl_poly_complex_workspace})
-    ccall( (:gsl_poly_complex_workspace_free, :libgsl), Void,
+    ccall( (:gsl_poly_complex_workspace_free, libgsl), Void,
         (Ptr{gsl_poly_complex_workspace}, ), w )
 end
 
@@ -52,7 +52,7 @@ function poly_complex_solve{tA<:Real}(a_in::AbstractVector{tA}, z::gsl_complex_p
     n = length(a_in)
     a = convert(Vector{Cdouble}, a_in)
     w = convert(Ptr{gsl_poly_complex_workspace}, Array(gsl_poly_complex_workspace, 1))
-    errno = ccall( (:gsl_poly_complex_solve, :libgsl), Cint, (Ptr{Cdouble},
+    errno = ccall( (:gsl_poly_complex_solve, libgsl), Cint, (Ptr{Cdouble},
         Csize_t, Ptr{gsl_poly_complex_workspace}, gsl_complex_packed_ptr), a,
         n, w, z )
     if errno!= 0 throw(GSL_ERROR(errno)) end

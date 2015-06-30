@@ -12,7 +12,7 @@ export sf_bessel_Jnu, sf_bessel_Jnu_e, sf_bessel_sequence_Jnu_e
 # 
 #   Returns: Cdouble
 function sf_bessel_Jnu(nu::Real, x::Real)
-    ccall( (:gsl_sf_bessel_Jnu, :libgsl), Cdouble, (Cdouble, Cdouble), nu,
+    ccall( (:gsl_sf_bessel_Jnu, libgsl), Cdouble, (Cdouble, Cdouble), nu,
         x )
 end
 @vectorize_2arg Number sf_bessel_Jnu
@@ -24,7 +24,7 @@ end
 #   Returns: Cint
 function sf_bessel_Jnu_e(nu::Real, x::Real)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    errno = ccall( (:gsl_sf_bessel_Jnu_e, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_sf_bessel_Jnu_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), nu, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(result)
@@ -39,7 +39,7 @@ end
 # 
 #   Returns: Cint
 function sf_bessel_sequence_Jnu_e(nu::Real, mode::gsl_mode_t, size::Integer, v::Real)
-    errno = ccall( (:gsl_sf_bessel_sequence_Jnu_e, :libgsl), Cint,
+    errno = ccall( (:gsl_sf_bessel_sequence_Jnu_e, libgsl), Cint,
         (Cdouble, gsl_mode_t, Csize_t, Cdouble), nu, mode, size, v )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end

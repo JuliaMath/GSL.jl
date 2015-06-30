@@ -14,7 +14,7 @@ export rng_get, rng_uniform, rng_uniform_pos, rng_uniform_int
 # 
 #   Returns: Culong
 function rng_get(r::Ptr{gsl_rng})
-    ccall( (:gsl_rng_get, :libgsl), Culong, (Ptr{gsl_rng}, ), r )
+    ccall( (:gsl_rng_get, libgsl), Culong, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -28,7 +28,7 @@ end
 # 
 #   Returns: Cdouble
 function rng_uniform(r::Ptr{gsl_rng})
-    ccall( (:gsl_rng_uniform, :libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
+    ccall( (:gsl_rng_uniform, libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -40,7 +40,7 @@ end
 # 
 #   Returns: Cdouble
 function rng_uniform_pos(r::Ptr{gsl_rng})
-    ccall( (:gsl_rng_uniform_pos, :libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
+    ccall( (:gsl_rng_uniform_pos, libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
 end
 
 
@@ -62,6 +62,6 @@ end
 # 
 #   Returns: Culong
 function rng_uniform_int(r::Ptr{gsl_rng}, n::Integer)
-    ccall( (:gsl_rng_uniform_int, :libgsl), Culong, (Ptr{gsl_rng}, Culong),
+    ccall( (:gsl_rng_uniform_int, libgsl), Culong, (Ptr{gsl_rng}, Culong),
         r, n )
 end

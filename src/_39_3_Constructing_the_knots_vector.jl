@@ -13,7 +13,7 @@ export bspline_knots, bspline_knots_uniform
 #   Returns: Cint
 function bspline_knots(breakpts::Ptr{gsl_vector})
     w = convert(Ptr{gsl_bspline_workspace}, Array(gsl_bspline_workspace, 1))
-    errno = ccall( (:gsl_bspline_knots, :libgsl), Cint, (Ptr{gsl_vector},
+    errno = ccall( (:gsl_bspline_knots, libgsl), Cint, (Ptr{gsl_vector},
         Ptr{gsl_bspline_workspace}), breakpts, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(w)
@@ -27,7 +27,7 @@ end
 #   Returns: Cint
 function bspline_knots_uniform(a::Real, b::Real)
     w = convert(Ptr{gsl_bspline_workspace}, Array(gsl_bspline_workspace, 1))
-    errno = ccall( (:gsl_bspline_knots_uniform, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_bspline_knots_uniform, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_bspline_workspace}), a, b, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(w)

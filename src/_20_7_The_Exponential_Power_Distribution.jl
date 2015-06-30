@@ -17,7 +17,7 @@ export ran_exppow, ran_exppow_pdf, cdf_exppow_P, cdf_exppow_Q
 # 
 #   Returns: Cdouble
 function ran_exppow(r::Ptr{gsl_rng}, a::Real, b::Real)
-    ccall( (:gsl_ran_exppow, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+    ccall( (:gsl_ran_exppow, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
         Cdouble), r, a, b )
 end
 
@@ -28,7 +28,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_exppow_pdf(x::Real, a::Real, b::Real)
-    ccall( (:gsl_ran_exppow_pdf, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_ran_exppow_pdf, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
@@ -40,7 +40,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_exppow_P(x::Real, a::Real, b::Real)
-    ccall( (:gsl_cdf_exppow_P, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_cdf_exppow_P, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented
@@ -52,7 +52,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_exppow_Q(x::Real, a::Real, b::Real)
-    ccall( (:gsl_cdf_exppow_Q, :libgsl), Cdouble, (Cdouble, Cdouble,
+    ccall( (:gsl_cdf_exppow_Q, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
 #TODO This vectorization macro is not implemented

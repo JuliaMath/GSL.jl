@@ -22,7 +22,7 @@ export min_fminimizer_alloc, min_fminimizer_set,
 # 
 #   Returns: Ptr{gsl_min_fminimizer}
 function min_fminimizer_alloc(T::Ptr{gsl_min_fminimizer_type})
-    output_ptr = ccall( (:gsl_min_fminimizer_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_min_fminimizer_alloc, libgsl),
         Ptr{gsl_min_fminimizer}, (Ptr{gsl_min_fminimizer_type}, ), T )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -35,7 +35,7 @@ end
 # 
 #   Returns: Cint
 function min_fminimizer_set(s::Ptr{gsl_min_fminimizer}, f::Ptr{gsl_function}, x_minimum::Real, x_lower::Real, x_upper::Real)
-    errno = ccall( (:gsl_min_fminimizer_set, :libgsl), Cint,
+    errno = ccall( (:gsl_min_fminimizer_set, libgsl), Cint,
         (Ptr{gsl_min_fminimizer}, Ptr{gsl_function}, Cdouble, Cdouble,
         Cdouble), s, f, x_minimum, x_lower, x_upper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -50,7 +50,7 @@ end
 function min_fminimizer_set_with_values(x_minimum::Real, f_minimum::Real, x_lower::Real, f_lower::Real, x_upper::Real, f_upper::Real)
     s = convert(Ptr{gsl_min_fminimizer}, Array(gsl_min_fminimizer, 1))
     f = convert(Ptr{gsl_function}, Array(gsl_function, 1))
-    errno = ccall( (:gsl_min_fminimizer_set_with_values, :libgsl), Cint,
+    errno = ccall( (:gsl_min_fminimizer_set_with_values, libgsl), Cint,
         (Ptr{gsl_min_fminimizer}, Ptr{gsl_function}, Cdouble, Cdouble, Cdouble,
         Cdouble, Cdouble, Cdouble), s, f, x_minimum, f_minimum, x_lower,
         f_lower, x_upper, f_upper )
@@ -65,7 +65,7 @@ end
 # 
 #   Returns: Void
 function min_fminimizer_free(s::Ptr{gsl_min_fminimizer})
-    ccall( (:gsl_min_fminimizer_free, :libgsl), Void,
+    ccall( (:gsl_min_fminimizer_free, libgsl), Void,
         (Ptr{gsl_min_fminimizer}, ), s )
 end
 
@@ -77,7 +77,7 @@ end
 #   Returns: Ptr{Cchar}
 function min_fminimizer_name(s::Ptr{gsl_min_fminimizer})
     output_string = output_ptr = ccall( (:gsl_min_fminimizer_name,
-        :libgsl), Ptr{Cchar}, (Ptr{gsl_min_fminimizer}, ), s )
+        libgsl), Ptr{Cchar}, (Ptr{gsl_min_fminimizer}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(convert(Ptr{Uint8}, output_string))
 end

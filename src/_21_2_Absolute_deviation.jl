@@ -21,7 +21,7 @@ export stats_absdev, stats_absdev_m
 # 
 #   Returns: Cdouble
 function stats_absdev(data::Real)
-    ccall( (:gsl_stats_absdev, :libgsl), Cdouble, (Cdouble, ), data )
+    ccall( (:gsl_stats_absdev, libgsl), Cdouble, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_absdev
 
@@ -34,6 +34,6 @@ end
 # 
 #   Returns: Cdouble
 function stats_absdev_m(data::Real)
-    ccall( (:gsl_stats_absdev_m, :libgsl), Cdouble, (Cdouble, ), data )
+    ccall( (:gsl_stats_absdev_m, libgsl), Cdouble, (Cdouble, ), data )
 end
 @vectorize_1arg Number stats_absdev_m

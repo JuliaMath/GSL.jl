@@ -30,7 +30,7 @@ export poly_solve_quadratic, poly_complex_solve_quadratic
 function poly_solve_quadratic(a::Real, b::Real, c::Real)
     x0 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     x1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_poly_solve_quadratic, :libgsl), Cint, (Cdouble,
+    errno = ccall( (:gsl_poly_solve_quadratic, libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), a, b, c, x0, x1 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(x0), unsafe_load(x1)
@@ -50,7 +50,7 @@ end
 function poly_complex_solve_quadratic(a::Real, b::Real, c::Real)
     z0 = convert(Ptr{gsl_complex}, Array(gsl_complex, 1))
     z1 = convert(Ptr{gsl_complex}, Array(gsl_complex, 1))
-    errno = ccall( (:gsl_poly_complex_solve_quadratic, :libgsl), Cint,
+    errno = ccall( (:gsl_poly_complex_solve_quadratic, libgsl), Cint,
         (Cdouble, Cdouble, Cdouble, Ptr{gsl_complex}, Ptr{gsl_complex}), a, b,
         c, z0, z1 )
     if errno!= 0 throw(GSL_ERROR(errno)) end

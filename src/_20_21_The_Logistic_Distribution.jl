@@ -16,7 +16,7 @@ export ran_logistic, ran_logistic_pdf, cdf_logistic_P, cdf_logistic_Q,
 # 
 #   Returns: Cdouble
 function ran_logistic(r::Ptr{gsl_rng}, a::Real)
-    ccall( (:gsl_ran_logistic, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
+    ccall( (:gsl_ran_logistic, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
         r, a )
 end
 
@@ -26,7 +26,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_logistic_pdf(x::Real, a::Real)
-    ccall( (:gsl_ran_logistic_pdf, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_ran_logistic_pdf, libgsl), Cdouble, (Cdouble, Cdouble),
         x, a )
 end
 @vectorize_2arg Number ran_logistic_pdf
@@ -37,7 +37,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_logistic_P(x::Real, a::Real)
-    ccall( (:gsl_cdf_logistic_P, :libgsl), Cdouble, (Cdouble, Cdouble), x,
+    ccall( (:gsl_cdf_logistic_P, libgsl), Cdouble, (Cdouble, Cdouble), x,
         a )
 end
 @vectorize_2arg Number cdf_logistic_P
@@ -48,7 +48,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_logistic_Q(x::Real, a::Real)
-    ccall( (:gsl_cdf_logistic_Q, :libgsl), Cdouble, (Cdouble, Cdouble), x,
+    ccall( (:gsl_cdf_logistic_Q, libgsl), Cdouble, (Cdouble, Cdouble), x,
         a )
 end
 @vectorize_2arg Number cdf_logistic_Q
@@ -59,7 +59,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_logistic_Pinv(P::Real, a::Real)
-    ccall( (:gsl_cdf_logistic_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_cdf_logistic_Pinv, libgsl), Cdouble, (Cdouble, Cdouble),
         P, a )
 end
 @vectorize_2arg Number cdf_logistic_Pinv
@@ -70,7 +70,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_logistic_Qinv(Q::Real, a::Real)
-    ccall( (:gsl_cdf_logistic_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble),
+    ccall( (:gsl_cdf_logistic_Qinv, libgsl), Cdouble, (Cdouble, Cdouble),
         Q, a )
 end
 @vectorize_2arg Number cdf_logistic_Qinv

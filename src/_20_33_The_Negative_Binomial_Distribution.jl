@@ -19,7 +19,7 @@ export ran_negative_binomial, ran_negative_binomial_pdf,
 # 
 #   Returns: Cuint
 function ran_negative_binomial(r::Ptr{gsl_rng}, p::Real, n::Real)
-    ccall( (:gsl_ran_negative_binomial, :libgsl), Cuint, (Ptr{gsl_rng},
+    ccall( (:gsl_ran_negative_binomial, libgsl), Cuint, (Ptr{gsl_rng},
         Cdouble, Cdouble), r, p, n )
 end
 
@@ -29,7 +29,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_negative_binomial_pdf(k::Integer, p::Real, n::Real)
-    ccall( (:gsl_ran_negative_binomial_pdf, :libgsl), Cdouble, (Cuint,
+    ccall( (:gsl_ran_negative_binomial_pdf, libgsl), Cdouble, (Cuint,
         Cdouble, Cdouble), k, p, n )
 end
 #TODO This vectorization macro is not implemented
@@ -41,7 +41,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_negative_binomial_P(k::Integer, p::Real, n::Real)
-    ccall( (:gsl_cdf_negative_binomial_P, :libgsl), Cdouble, (Cuint,
+    ccall( (:gsl_cdf_negative_binomial_P, libgsl), Cdouble, (Cuint,
         Cdouble, Cdouble), k, p, n )
 end
 #TODO This vectorization macro is not implemented
@@ -53,7 +53,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_negative_binomial_Q(k::Integer, p::Real, n::Real)
-    ccall( (:gsl_cdf_negative_binomial_Q, :libgsl), Cdouble, (Cuint,
+    ccall( (:gsl_cdf_negative_binomial_Q, libgsl), Cdouble, (Cuint,
         Cdouble, Cdouble), k, p, n )
 end
 #TODO This vectorization macro is not implemented

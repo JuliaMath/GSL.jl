@@ -15,7 +15,7 @@ export multiset_next, multiset_prev
 # 
 #   Returns: Cint
 function multiset_next(c::Ptr{gsl_multiset})
-    errno = ccall( (:gsl_multiset_next, :libgsl), Cint, (Ptr{gsl_multiset},
+    errno = ccall( (:gsl_multiset_next, libgsl), Cint, (Ptr{gsl_multiset},
         ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -28,7 +28,7 @@ end
 #   Returns: Cint
 function multiset_prev()
     c = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
-    errno = ccall( (:gsl_multiset_prev, :libgsl), Cint, (Ptr{gsl_multiset},
+    errno = ccall( (:gsl_multiset_prev, libgsl), Cint, (Ptr{gsl_multiset},
         ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return unsafe_load(c)

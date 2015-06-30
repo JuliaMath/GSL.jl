@@ -15,7 +15,7 @@ export stats_lag1_autocorrelation, stats_lag1_autocorrelation_m
 # 
 #   Returns: Cdouble
 function stats_lag1_autocorrelation(data::Real)
-    ccall( (:gsl_stats_lag1_autocorrelation, :libgsl), Cdouble, (Cdouble,
+    ccall( (:gsl_stats_lag1_autocorrelation, libgsl), Cdouble, (Cdouble,
         ), data )
 end
 @vectorize_1arg Number stats_lag1_autocorrelation
@@ -26,7 +26,7 @@ end
 # 
 #   Returns: Cdouble
 function stats_lag1_autocorrelation_m(data::Real)
-    ccall( (:gsl_stats_lag1_autocorrelation_m, :libgsl), Cdouble, (Cdouble,
+    ccall( (:gsl_stats_lag1_autocorrelation_m, libgsl), Cdouble, (Cdouble,
         ), data )
 end
 @vectorize_1arg Number stats_lag1_autocorrelation_m

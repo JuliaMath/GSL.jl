@@ -24,7 +24,7 @@ function integration_qawc(a::Real, b::Real, c::Real, epsabs::Real, epsrel::Real,
     workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
     result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
     abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    errno = ccall( (:gsl_integration_qawc, :libgsl), Cint,
+    errno = ccall( (:gsl_integration_qawc, libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Cdouble,
         Csize_t, Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}),
         f, a, b, c, epsabs, epsrel, limit, workspace, result, abserr )

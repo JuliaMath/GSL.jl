@@ -16,7 +16,7 @@ export permutation_alloc, permutation_calloc, permutation_init,
 # 
 #   Returns: Ptr{gsl_permutation}
 function permutation_alloc(n::Integer)
-    output_ptr = ccall( (:gsl_permutation_alloc, :libgsl),
+    output_ptr = ccall( (:gsl_permutation_alloc, libgsl),
         Ptr{gsl_permutation}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -29,7 +29,7 @@ end
 # 
 #   Returns: Ptr{gsl_permutation}
 function permutation_calloc(n::Integer)
-    output_ptr = ccall( (:gsl_permutation_calloc, :libgsl),
+    output_ptr = ccall( (:gsl_permutation_calloc, libgsl),
         Ptr{gsl_permutation}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -41,7 +41,7 @@ end
 # 
 #   Returns: Void
 function permutation_init(p::Ptr{gsl_permutation})
-    ccall( (:gsl_permutation_init, :libgsl), Void, (Ptr{gsl_permutation},
+    ccall( (:gsl_permutation_init, libgsl), Void, (Ptr{gsl_permutation},
         ), p)
 end
 
@@ -50,7 +50,7 @@ end
 # 
 #   Returns: Void
 function permutation_free(p::Ptr{gsl_permutation})
-    ccall( (:gsl_permutation_free, :libgsl), Void, (Ptr{gsl_permutation},
+    ccall( (:gsl_permutation_free, libgsl), Void, (Ptr{gsl_permutation},
         ), p)
 end
 
@@ -60,7 +60,7 @@ end
 # 
 #   Returns: Cint
 function permutation_memcpy(dest::Ptr{gsl_permutation}, src::Ptr{gsl_permutation})
-    errno = ccall( (:gsl_permutation_memcpy, :libgsl), Cint,
+    errno = ccall( (:gsl_permutation_memcpy, libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_permutation}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end

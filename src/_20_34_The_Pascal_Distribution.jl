@@ -16,7 +16,7 @@ export ran_pascal, ran_pascal_pdf, cdf_pascal_P, cdf_pascal_Q
 # 
 #   Returns: Cuint
 function ran_pascal(r::Ptr{gsl_rng}, p::Real, n::Integer)
-    ccall( (:gsl_ran_pascal, :libgsl), Cuint, (Ptr{gsl_rng}, Cdouble,
+    ccall( (:gsl_ran_pascal, libgsl), Cuint, (Ptr{gsl_rng}, Cdouble,
         Cuint), r, p, n )
 end
 
@@ -26,7 +26,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_pascal_pdf(k::Integer, p::Real, n::Integer)
-    ccall( (:gsl_ran_pascal_pdf, :libgsl), Cdouble, (Cuint, Cdouble,
+    ccall( (:gsl_ran_pascal_pdf, libgsl), Cdouble, (Cuint, Cdouble,
         Cuint), k, p, n )
 end
 #TODO This vectorization macro is not implemented
@@ -38,7 +38,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_pascal_P(k::Integer, p::Real, n::Integer)
-    ccall( (:gsl_cdf_pascal_P, :libgsl), Cdouble, (Cuint, Cdouble, Cuint),
+    ccall( (:gsl_cdf_pascal_P, libgsl), Cdouble, (Cuint, Cdouble, Cuint),
         k, p, n )
 end
 #TODO This vectorization macro is not implemented
@@ -50,7 +50,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_pascal_Q(k::Integer, p::Real, n::Integer)
-    ccall( (:gsl_cdf_pascal_Q, :libgsl), Cdouble, (Cuint, Cdouble, Cuint),
+    ccall( (:gsl_cdf_pascal_Q, libgsl), Cdouble, (Cuint, Cdouble, Cuint),
         k, p, n )
 end
 #TODO This vectorization macro is not implemented

@@ -12,7 +12,7 @@ export histogram_max_val, histogram_max_bin, histogram_min_val,
 # 
 #   Returns: Cdouble
 function histogram_max_val(h::Ptr{gsl_histogram})
-    ccall( (:gsl_histogram_max_val, :libgsl), Cdouble, (Ptr{gsl_histogram},
+    ccall( (:gsl_histogram_max_val, libgsl), Cdouble, (Ptr{gsl_histogram},
         ), h )
 end
 
@@ -23,7 +23,7 @@ end
 # 
 #   Returns: Csize_t
 function histogram_max_bin(h::Ptr{gsl_histogram})
-    ccall( (:gsl_histogram_max_bin, :libgsl), Csize_t, (Ptr{gsl_histogram},
+    ccall( (:gsl_histogram_max_bin, libgsl), Csize_t, (Ptr{gsl_histogram},
         ), h )
 end
 
@@ -32,7 +32,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram_min_val(h::Ptr{gsl_histogram})
-    ccall( (:gsl_histogram_min_val, :libgsl), Cdouble, (Ptr{gsl_histogram},
+    ccall( (:gsl_histogram_min_val, libgsl), Cdouble, (Ptr{gsl_histogram},
         ), h )
 end
 
@@ -43,7 +43,7 @@ end
 # 
 #   Returns: Csize_t
 function histogram_min_bin(h::Ptr{gsl_histogram})
-    ccall( (:gsl_histogram_min_bin, :libgsl), Csize_t, (Ptr{gsl_histogram},
+    ccall( (:gsl_histogram_min_bin, libgsl), Csize_t, (Ptr{gsl_histogram},
         ), h )
 end
 
@@ -55,7 +55,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram_mean(h::Ptr{gsl_histogram})
-    ccall( (:gsl_histogram_mean, :libgsl), Cdouble, (Ptr{gsl_histogram}, ),
+    ccall( (:gsl_histogram_mean, libgsl), Cdouble, (Ptr{gsl_histogram}, ),
         h )
 end
 
@@ -67,7 +67,7 @@ end
 # 
 #   Returns: Cdouble
 function histogram_sigma(h::Ptr{gsl_histogram})
-    ccall( (:gsl_histogram_sigma, :libgsl), Cdouble, (Ptr{gsl_histogram},
+    ccall( (:gsl_histogram_sigma, libgsl), Cdouble, (Ptr{gsl_histogram},
         ), h )
 end
 
@@ -77,6 +77,6 @@ end
 # 
 #   Returns: Cdouble
 function histogram_sum(h::Ptr{gsl_histogram})
-    ccall( (:gsl_histogram_sum, :libgsl), Cdouble, (Ptr{gsl_histogram}, ),
+    ccall( (:gsl_histogram_sum, libgsl), Cdouble, (Ptr{gsl_histogram}, ),
         h )
 end

@@ -18,7 +18,7 @@ export ran_cauchy, ran_cauchy_pdf, cdf_cauchy_P, cdf_cauchy_Q, cdf_cauchy_Pinv,
 # 
 #   Returns: Cdouble
 function ran_cauchy(r::Ptr{gsl_rng}, a::Real)
-    ccall( (:gsl_ran_cauchy, :libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble), r,
+    ccall( (:gsl_ran_cauchy, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble), r,
         a )
 end
 
@@ -28,7 +28,7 @@ end
 # 
 #   Returns: Cdouble
 function ran_cauchy_pdf(x::Real, a::Real)
-    ccall( (:gsl_ran_cauchy_pdf, :libgsl), Cdouble, (Cdouble, Cdouble), x,
+    ccall( (:gsl_ran_cauchy_pdf, libgsl), Cdouble, (Cdouble, Cdouble), x,
         a )
 end
 @vectorize_2arg Number ran_cauchy_pdf
@@ -39,7 +39,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_cauchy_P(x::Real, a::Real)
-    ccall( (:gsl_cdf_cauchy_P, :libgsl), Cdouble, (Cdouble, Cdouble), x, a
+    ccall( (:gsl_cdf_cauchy_P, libgsl), Cdouble, (Cdouble, Cdouble), x, a
         )
 end
 @vectorize_2arg Number cdf_cauchy_P
@@ -50,7 +50,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_cauchy_Q(x::Real, a::Real)
-    ccall( (:gsl_cdf_cauchy_Q, :libgsl), Cdouble, (Cdouble, Cdouble), x, a
+    ccall( (:gsl_cdf_cauchy_Q, libgsl), Cdouble, (Cdouble, Cdouble), x, a
         )
 end
 @vectorize_2arg Number cdf_cauchy_Q
@@ -61,7 +61,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_cauchy_Pinv(P::Real, a::Real)
-    ccall( (:gsl_cdf_cauchy_Pinv, :libgsl), Cdouble, (Cdouble, Cdouble), P,
+    ccall( (:gsl_cdf_cauchy_Pinv, libgsl), Cdouble, (Cdouble, Cdouble), P,
         a )
 end
 @vectorize_2arg Number cdf_cauchy_Pinv
@@ -72,7 +72,7 @@ end
 # 
 #   Returns: Cdouble
 function cdf_cauchy_Qinv(Q::Real, a::Real)
-    ccall( (:gsl_cdf_cauchy_Qinv, :libgsl), Cdouble, (Cdouble, Cdouble), Q,
+    ccall( (:gsl_cdf_cauchy_Qinv, libgsl), Cdouble, (Cdouble, Cdouble), Q,
         a )
 end
 @vectorize_2arg Number cdf_cauchy_Qinv

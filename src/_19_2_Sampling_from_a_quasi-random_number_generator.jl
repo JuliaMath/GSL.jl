@@ -14,7 +14,7 @@ export qrng_get
 # 
 #   Returns: Cint
 function qrng_get(q::Ptr{gsl_qrng}, x::Real)
-    errno = ccall( (:gsl_qrng_get, :libgsl), Cint, (Ptr{gsl_qrng},
+    errno = ccall( (:gsl_qrng_get, libgsl), Cint, (Ptr{gsl_qrng},
         Cdouble), q, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
