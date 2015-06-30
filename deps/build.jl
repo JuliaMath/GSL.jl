@@ -18,7 +18,7 @@ provides(Pacman, "gsl", libgsl)
     provides(Homebrew.HB, "gsl", libgsl, os = :Darwin)
 end
 
-@windows_only begin #XXX Untested
+@windows_only begin
      using WinRPM
      provides(WinRPM.RPM, "gsl", libgsl, os = :Windows)
 end
@@ -27,5 +27,5 @@ end
 provides(Sources, URI("http://ftp.gnu.org/gnu/gsl/gsl-1.16.tar.gz"), libgsl)
 provides(BuildProcess, Autotools(libtarget = "libgsl.la"), libgsl)
 
-@BinDeps.install
+@BinDeps.install @compat Dict(:libgsl => :libgsl)
 
