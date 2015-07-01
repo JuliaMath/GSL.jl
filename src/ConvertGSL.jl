@@ -45,17 +45,14 @@ GSL_ERROR{T<:Integer}(errno::T)=custom_error_handler("", "None", 0, errno)
 # This is the first point in loading the package where we try to actually access
 # a function from within libgsl. This will fail if libgsl is not installed or
 # otherwise unavailable.
-try 
-convert(Ptr{gsl_error_handler_t},
-    cfunction(custom_error_handler, Void,
-    (Ptr{Uint8}, Ptr{Uint8}, Cint, Cint)))
+custom_gsl_error_handler = try
+    convert(Ptr{gsl_error_handler_t},
+        cfunction(custom_error_handler, Void, (Ptr{Uint8}, Ptr{Uint8}, Cint, Cint)
+    ))
 catch
-  error("Could not find the GNU Scientific Library.
-Please ensure that libgsl is installed on your system and is available on the system path.")
+    throw(LoadError("Could not find the GNU Scientific Library.
+Please ensure that libgsl is installed on your system and is available on the system path."))
 end
-custom_gsl_error_handler = convert(Ptr{gsl_error_handler_t},
-    cfunction(custom_error_handler, Void,
-    (Ptr{Uint8}, Ptr{Uint8}, Cint, Cint)))
 set_error_handler(custom_gsl_error_handler)
 
 

@@ -1,11 +1,8 @@
-using BinDeps
-@BinDeps.load_dependencies
-
 module GSL
     if isfile(joinpath(dirname(@__FILE__),"..","deps","deps.jl"))
         include("../deps/deps.jl")
     else
-        error("GSL not properly installed. Please run Pkg.build(\"GSL\")")
+        throw(LoadError("GSL not properly installed. Please run Pkg.build(\"GSL\")"))
     end
 
     include("__FILELIST.jl")
@@ -34,6 +31,6 @@ try
     set_error_handler(custom_gsl_error_handler)
     sf_hyperg_U(-1.0, -1.0, rand())
 catch
-    error("The GNU Scientific Library does not appear to be installed.")
+    throw(LoadError("The GNU Scientific Library does not appear to be installed."))
 end
 
