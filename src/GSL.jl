@@ -2,7 +2,7 @@ module GSL
     if isfile(joinpath(dirname(@__FILE__),"..","deps","deps.jl"))
         include("../deps/deps.jl")
     else
-        throw(LoadError("GSL not properly installed. Please run Pkg.build(\"GSL\")"))
+        error("GSL not properly installed. Please run Pkg.build(\"GSL\")")
     end
 
     include("__FILELIST.jl")
