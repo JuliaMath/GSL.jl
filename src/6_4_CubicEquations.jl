@@ -17,9 +17,9 @@ export poly_solve_cubic, poly_complex_solve_cubic
 # in the quadratic case, finite precision may cause equal or closely-spaced
 # real roots to move off the real axis into the complex plane, leading to a
 # discrete change in the number of real roots.
-# 
+#
 #   Returns: Cint
-function poly_solve_cubic (a::Cdouble, b::Cdouble, c::Cdouble)
+function poly_solve_cubic(a::Cdouble, b::Cdouble, c::Cdouble)
     x0 = Array(Float64, 1)
     x1 = Array(Float64, 1)
     x2 = Array(Float64, 1)
@@ -41,9 +41,9 @@ end
 # three) and the locations of the roots are stored in z0, z1 and z2.  The roots
 # are returned in ascending order, sorted first by their real components and
 # then by their imaginary components.
-# 
+#
 #   Returns: Cint
-function poly_complex_solve_cubic (a::Cdouble, b::Cdouble, c::Cdouble)
+function poly_complex_solve_cubic(a::Cdouble, b::Cdouble, c::Cdouble)
     z0 = Array(Complex128, 1)
     z1 = Array(Complex128, 1)
     z2 = Array(Complex128, 1)

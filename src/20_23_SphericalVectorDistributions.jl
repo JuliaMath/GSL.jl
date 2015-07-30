@@ -26,9 +26,9 @@ end
 # explained in Knuth, v2, 3rd ed, p136.  It uses the surprising fact that the
 # distribution projected along any axis is actually uniform (this is only true
 # for 3 dimensions).
-# 
+#
 #   Returns: Void
-function ran_dir_3d (r::Ptr{Void})
+function ran_dir_3d(r::Ptr{Void})
     x = Array(Cdouble, 1)
     y = Array(Cdouble, 1)
     z = Array(Cdouble, 1)
@@ -45,9 +45,9 @@ end
 # Gaussian distribution, and then the components are normalized.  The method is
 # described by Knuth, v2, 3rd ed, p135–136, and attributed to G. W. Brown,
 # Modern Mathematics for the Engineer (1956).
-# 
+#
 #   Returns: Void
-function ran_dir_nd (r::Ptr{Void}, n::Csize_t)
+function ran_dir_nd(r::Ptr{Void}, n::Csize_t)
     x = Array(Cdouble, n)
     ccall( (:gsl_ran_dir_nd, libgsl), Void, (Ptr{Void}, Csize_t,
         Ptr{Cdouble}), r, n, x)
