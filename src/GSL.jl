@@ -21,6 +21,7 @@ module GSL
     include("9_8_Permutations_in_cyclic_form.jl")
     include("20_23_SphericalVectorDistributions.jl")
     include("28_1_NumericalDifferentiationfunctions.jl")
+    include("35_4_Iteration.jl")
 end #module
 
 #Test
