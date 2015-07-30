@@ -22,6 +22,7 @@ module GSL
     include("20_23_SphericalVectorDistributions.jl")
     include("28_1_NumericalDifferentiationfunctions.jl")
     include("35_4_Iteration.jl")
+    include("35_5_Search_Stopping_Parameters.jl")
 end #module
 
 #Test
