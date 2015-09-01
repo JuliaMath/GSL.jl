@@ -32,7 +32,6 @@ end
 #
 #   Returns: Cint
 function multiroot_test_residual(f::Ptr{gsl_vector}, epsabs::Real)
-    @show epsabs
     errno = ccall( (:gsl_multiroot_test_residual, libgsl), Cint,
         (Ptr{gsl_vector}, Cdouble), f, epsabs )
     gslerrno = gsl_errno(errno)

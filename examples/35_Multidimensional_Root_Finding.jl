@@ -65,7 +65,7 @@ for iter = 1:maxiter
     #
     # The rest of this test works so long as the correct residual res is given
     #println(gsl_vector_ptr(res, n))
-    #errno = GSL.multiroot_test_residual(v, resid)
+    #errno = GSL.multiroot_test_residual(res, resid)
     #if GSL.gsl_errno(errno) == GSL.SUCCESS
     #    info("stopped after $iter iterations")
     #    break
