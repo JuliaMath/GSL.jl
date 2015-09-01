@@ -1,7 +1,8 @@
 using Base.Test
+using FactCheck
 using GSL
 
-const VERBOSE=false #change to show test output
+const VERBOSE=true #change to show test output
 
 srand(1)
 include("basic.jl")

@@ -240,7 +240,7 @@ def parsestructs1(soup, unknown_handler='report'):
 
         if len(struct_data) > 0 and struct_name is not None and is_struct:
             if error != '': parsed_out += error
-            parsed_out += ['type '+struct_name, '    '+'\n    '.join(struct_data), 'end']
+            parsed_out += ['immutable '+struct_name, '    '+'\n    '.join(struct_data), 'end']
             exports.append(struct_name)
             all_unknowns += unknowns
 
@@ -518,11 +518,11 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
                     dims = ty.count('}')
                     ty_decl=ty.replace('}','').replace('Ptr{','')
                     if dims==0:
-                        ty_decl='Array('+ty_decl+', 1)'
-                        return_me.append('unsafe_load('+x+')[1]')
+                        ty_decl='Ref{'+ty_decl+'}()'
+                        return_me.append(x+'[]')
                     else:
-                        ty_decl='convert('+ty+', Array('*dims+ty_decl+', 1)'*dims+')'
-                        return_me.append('unsafe_load('*dims+x+')'*dims)
+                        ty_decl='Array('*dims+ty_decl+', 1)'*dims
+                        return_me.append(x)
                     new_vars.append('    '+x+' = '+ty_decl)
 
             ccall_line = 'ccall( '+', '.join(ccall_args)+' )'

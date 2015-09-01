@@ -5,6 +5,8 @@ macro sf_test(sf, args...)
         u = $sf($args...)
         v = $(symbol(string(sf, "_e")))($args...)
         VERBOSE && println("\t", u, "\t", v)
-        @test_approx_eq_eps u v.val max(eps(), 2*v.err)
+        facts("$sf") do
+            @fact u --> roughly(v.val, max(eps(), 2*v.err))
+        end
     end
 end

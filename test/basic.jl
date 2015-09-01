@@ -5,8 +5,8 @@ include("testfunctions.jl")
 x=randn()
 nu=abs(randn())
 xabs=abs(x)
-s=int(rand()*10)+1
-t=int(rand()*10)+1+s #t>s
+s=round(Int, rand()*10)+1
+t=round(Int, rand()*10)+1+s #t>s
 
 for sf in (
     :sf_airy_Ai, :sf_airy_Bi, :sf_airy_Ai_scaled, :sf_airy_Bi_scaled, #7.4.1 Airy functions
@@ -149,8 +149,8 @@ end
 
 #7.7.3 Coulomb Wave Function Normalization Constant
 #TODO
-#u=sf_coulomb_CL_e(nu, xabs) 
-#v=sf_coulomb_CL_array(nu, 0, xabs) 
+#u=sf_coulomb_CL_e(nu, xabs)
+#v=sf_coulomb_CL_array(nu, 0, xabs)
 #println('\t', u, '\t', u)
 
 #7.8 Coupling Coefficients
@@ -228,7 +228,7 @@ begin
     local y=2rand()-1
     for sf in (:sf_ellint_Pcomp,
             :sf_ellint_F, :sf_ellint_E, #7.13.4 Legendre Form of Incomplete Elliptic Integrals
-            ) 
+            )
         for mode in (PREC_DOUBLE, PREC_SINGLE, PREC_APPROX)
             @eval @sf_test $sf $x $y $mode
         end
@@ -278,7 +278,7 @@ for sf in (
         :sf_exp, #7.16.1 Exponential Function
         )
     @eval begin
-        u = $sf(x) 
+        u = $sf(x)
         v = $(symbol(string(sf, "_e")))(x)
         #XXX cause bus error
         #p = $(symbol(string(sf, "_e10_e")))(x)
@@ -297,7 +297,7 @@ for sf in (
         :sf_exp_mult, #7.16.1 Exponential Function
         )
     @eval begin
-        u = $sf(x, y) 
+        u = $sf(x, y)
         v = $(symbol(string(sf, "_e")))(x, y)
         #XXX These functions cause bus error
         #p = $(symbol(string(sf, "_e10_e")))(x, y)
@@ -350,7 +350,7 @@ for sf in (
         :sf_lngamma, #7.19.1 Gamma Functions
         )
     @eval begin
-        u = $sf(x) 
+        u = $sf(x)
         v = $(symbol(string(sf, "_e")))(x)
         w = $(symbol(string(sf, "_sgn_e")))(x)
         VERBOSE && println($sf, "\t", u, "\t", v)
@@ -390,7 +390,7 @@ end
 
 for sf in (:sf_lnpoch,) #7.19.1 Gamma Functions
     @eval begin
-        u = $sf(abs(x), abs(y)) 
+        u = $sf(abs(x), abs(y))
         v = $(symbol(string(sf, "_e")))(abs(x), abs(y))
         w = $(symbol(string(sf, "_sgn_e")))(abs(x), abs(y))
         VERBOSE && println($sf, "\t", u, "\t", v)
@@ -467,13 +467,13 @@ end
 #7.24 Legendre Functions and Spherical Harmonics
 begin
     local x=2rand()-1
-    
+
     #7.24.1 Legendre Polynomials
     for sf in (:sf_legendre_P1, :sf_legendre_P2, :sf_legendre_P3,
                :sf_legendre_Q0, :sf_legendre_Q1,)
         @eval @sf_test $sf $x
     end
-    
+
     for sf in (:sf_legendre_Pl, :sf_legendre_Ql,)
         @eval @sf_test $sf $s $x
     end
@@ -494,7 +494,7 @@ begin
     #sf_legendre_sphPlm_deriv_array
     #sf_legendre_array_size
     #@test sf_legendre_array_size(m+n, n) == m+1
-end    
+end
 
 #7.24.3 Conical Functions
 begin
@@ -502,7 +502,7 @@ begin
     for sf in (:sf_conicalP_half, :sf_conicalP_mhalf, :sf_conicalP_0, :sf_conicalP_1)
         @eval @sf_test $sf $x $y
     end
-    
+
     for sf in (:sf_conicalP_sph_reg, :sf_conicalP_cyl_reg)
         @eval @sf_test $sf $(s-1) $x $y
     end
@@ -516,7 +516,7 @@ begin
     for sf in (:sf_legendre_H3d_0, :sf_legendre_H3d_1)
         @eval @sf_test $sf $lambda $eta
     end
-    
+
     @eval @sf_test sf_legendre_H3d $n $lambda $eta
     #TODO sf_legendre_H3d_array
 end
@@ -531,7 +531,7 @@ begin
     local w=sf_complex_log_e(x,0)
     @test_approx_eq_eps sf_log(x) w[1].val w[1].err
     @test_approx_eq_eps 0 w[2].val w[2].err
-end 
+end
 
 #TODO 7.26 Mathieu Functions
 
