@@ -41,7 +41,7 @@ function roots{T<:Real}(c::AbstractVector{T}, realOnly::Bool)
         if realOnly throw(ArgumentError("real-only roots not implemented for degree > 3")); end
         w = poly_complex_workspace_alloc(n)
         if (w == C_NULL)
-            throw(MemoryError())
+            throw(OutOfMemoryError())
         end
         try
             return poly_complex_solve(a, n, w)
@@ -69,7 +69,7 @@ roots{T<:Real}(c::AbstractVector{T}) = roots(c, false)
 # roots requires specialized algorithms that take the multiplicity structure
 # into account (see e.g. Z. Zeng, Algorithm 835, ACM Transactions on
 # Mathematical Software, Volume 30, Issue 2 (2004), pp 218–236).
-# 
+#
 #   Returns: Cint
 
 function poly_complex_solve{tA<:Real}(a_in::AbstractVector{tA}, n::Integer, w::Ptr{gsl_poly_complex_workspace})

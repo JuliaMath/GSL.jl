@@ -26,7 +26,7 @@ function custom_error_handler(reason, file, line, errno)
         throw(ArgumentError(string(bytestring(reason), " at ",
                                    bytestring(file), ":", line)))
     elseif errno == 8 # GSL_ENOMEM: malloc failed
-        throw(MemoryError())
+        throw(OutOfMemoryError())
     elseif errno == 12 # GSL_EZERODIV: tried to divide by zero
         throw(DivideByZeroError())
     elseif errno == 19 # GSL_EBADLEN: matrix, vector lengths are not conformant
@@ -47,7 +47,7 @@ GSL_ERROR{T<:Integer}(errno::T)=custom_error_handler("", "None", 0, errno)
 # otherwise unavailable.
 custom_gsl_error_handler = try
     convert(Ptr{gsl_error_handler_t},
-        cfunction(custom_error_handler, Void, (Ptr{Uint8}, Ptr{Uint8}, Cint, Cint)
+        cfunction(custom_error_handler, Void, (Ptr{UInt8}, Ptr{UInt8}, Cint, Cint)
     ))
 catch
     throw(LoadError("Could not find the GNU Scientific Library.

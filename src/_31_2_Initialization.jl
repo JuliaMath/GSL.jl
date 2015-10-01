@@ -28,7 +28,7 @@ function wavelet_name(w::Ptr{gsl_wavelet})
     output_string = output_ptr = ccall( (:gsl_wavelet_name, libgsl),
         Ptr{Cchar}, (Ptr{gsl_wavelet}, ), w )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(convert(Ptr{Uint8}, output_string))
+    bytestring(convert(Ptr{UInt8}, output_string))
 end
 
 

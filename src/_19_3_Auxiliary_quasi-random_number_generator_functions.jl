@@ -16,7 +16,7 @@ function qrng_name(q::Ptr{gsl_qrng})
     output_string = output_ptr = ccall( (:gsl_qrng_name, libgsl),
         Ptr{Cchar}, (Ptr{gsl_qrng}, ), q )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(convert(Ptr{Uint8}, output_string))
+    bytestring(convert(Ptr{UInt8}, output_string))
 end
 
 

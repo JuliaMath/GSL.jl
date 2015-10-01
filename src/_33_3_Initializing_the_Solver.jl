@@ -98,7 +98,7 @@ function root_fsolver_name(s::Ptr{gsl_root_fsolver})
     output_string = output_ptr = ccall( (:gsl_root_fsolver_name, libgsl),
         Ptr{Cchar}, (Ptr{gsl_root_fsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(convert(Ptr{Uint8}, output_string))
+    bytestring(convert(Ptr{UInt8}, output_string))
 end
 
 
@@ -111,5 +111,5 @@ function root_fdfsolver_name(s::Ptr{gsl_root_fdfsolver})
     output_string = output_ptr = ccall( (:gsl_root_fdfsolver_name,
         libgsl), Ptr{Cchar}, (Ptr{gsl_root_fdfsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(convert(Ptr{Uint8}, output_string))
+    bytestring(convert(Ptr{UInt8}, output_string))
 end
