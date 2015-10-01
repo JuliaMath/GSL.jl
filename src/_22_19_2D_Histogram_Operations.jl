@@ -25,7 +25,7 @@ end
 # 
 #   Returns: Cint
 function histogram2d_add(h2::Ptr{gsl_histogram2d})
-    h1 = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
+    h1 = Ref{gsl_histogram2d}()
     errno = ccall( (:gsl_histogram2d_add, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Ptr{gsl_histogram2d}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -39,7 +39,7 @@ end
 # 
 #   Returns: Cint
 function histogram2d_sub(h2::Ptr{gsl_histogram2d})
-    h1 = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
+    h1 = Ref{gsl_histogram2d}()
     errno = ccall( (:gsl_histogram2d_sub, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Ptr{gsl_histogram2d}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -53,7 +53,7 @@ end
 # 
 #   Returns: Cint
 function histogram2d_mul(h2::Ptr{gsl_histogram2d})
-    h1 = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
+    h1 = Ref{gsl_histogram2d}()
     errno = ccall( (:gsl_histogram2d_mul, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Ptr{gsl_histogram2d}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -67,7 +67,7 @@ end
 # 
 #   Returns: Cint
 function histogram2d_div(h2::Ptr{gsl_histogram2d})
-    h1 = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
+    h1 = Ref{gsl_histogram2d}()
     errno = ccall( (:gsl_histogram2d_div, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Ptr{gsl_histogram2d}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -80,7 +80,7 @@ end
 # 
 #   Returns: Cint
 function histogram2d_scale(scale::Real)
-    h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
+    h = Ref{gsl_histogram2d}()
     errno = ccall( (:gsl_histogram2d_scale, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble), h, scale )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -94,7 +94,7 @@ end
 # 
 #   Returns: Cint
 function histogram2d_shift(offset::Real)
-    h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
+    h = Ref{gsl_histogram2d}()
     errno = ccall( (:gsl_histogram2d_shift, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble), h, offset )
     if errno!= 0 throw(GSL_ERROR(errno)) end

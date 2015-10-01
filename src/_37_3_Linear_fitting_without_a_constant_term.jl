@@ -19,9 +19,9 @@ function fit_mul{tA<:Real, tB<:Real}(x_in::AbstractVector{tA}, xstride::Integer,
     n = length(x_in)
     x = convert(Vector{Cdouble}, x_in)
     y = convert(Vector{Cdouble}, y_in)
-    c1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    cov11 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    sumsq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    c1 = Ref{Cdouble}()
+    cov11 = Ref{Cdouble}()
+    sumsq = Ref{Cdouble}()
     errno = ccall( (:gsl_fit_mul, libgsl), Cint, (Ptr{Cdouble}, Csize_t,
         Ptr{Cdouble}, Csize_t, Csize_t, Ptr{Cdouble}, Ptr{Cdouble},
         Ptr{Cdouble}), x, xstride, y, ystride, n, c1, cov11, sumsq )
@@ -45,9 +45,9 @@ function fit_wmul{tA<:Real, tB<:Real, tC<:Real}(x_in::AbstractVector{tA}, xstrid
     x = convert(Vector{Cdouble}, x_in)
     w = convert(Vector{Cdouble}, w_in)
     y = convert(Vector{Cdouble}, y_in)
-    c1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    cov11 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    sumsq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    c1 = Ref{Cdouble}()
+    cov11 = Ref{Cdouble}()
+    sumsq = Ref{Cdouble}()
     errno = ccall( (:gsl_fit_wmul, libgsl), Cint, (Ptr{Cdouble}, Csize_t,
         Ptr{Cdouble}, Csize_t, Ptr{Cdouble}, Csize_t, Csize_t, Ptr{Cdouble},
         Ptr{Cdouble}, Ptr{Cdouble}), x, xstride, w, wstride, y, ystride, n, c1,
@@ -63,8 +63,8 @@ end
 # 
 #   Returns: Cint
 function fit_mul_est(x::Real, c1::Real, cov11::Real)
-    y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    y_err = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    y = Ref{Cdouble}()
+    y_err = Ref{Cdouble}()
     errno = ccall( (:gsl_fit_mul_est, libgsl), Cint, (Cdouble, Cdouble,
         Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), x, c1, cov11, y, y_err )
     if errno!= 0 throw(GSL_ERROR(errno)) end

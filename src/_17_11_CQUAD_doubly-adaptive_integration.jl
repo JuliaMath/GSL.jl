@@ -52,10 +52,10 @@ end
 # 
 #   Returns: Cint
 function integration_cquad(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real)
-    workspace = convert(Ptr{gsl_integration_cquad_workspace}, Array(gsl_integration_cquad_workspace, 1))
-    result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    nevals = convert(Ptr{Csize_t}, Array(Csize_t, 1))
+    workspace = Ref{gsl_integration_cquad_workspace}()
+    result = Ref{Cdouble}()
+    abserr = Ref{Cdouble}()
+    nevals = Ref{Csize_t}()
     errno = ccall( (:gsl_integration_cquad, libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble,
         Ptr{gsl_integration_cquad_workspace}, Ptr{Cdouble}, Ptr{Cdouble},

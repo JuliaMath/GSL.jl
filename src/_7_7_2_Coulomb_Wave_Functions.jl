@@ -20,12 +20,12 @@ export sf_coulomb_wave_FG_e, sf_coulomb_wave_F_array, sf_coulomb_wave_FG_array,
 # 
 #   Returns: Cint
 function sf_coulomb_wave_FG_e(eta::Real, x::Real, L_F::Real, k::Integer)
-    F = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    Fp = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    G = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    Gp = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    exp_F = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    exp_G = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    F = Ptr{gsl_sf_result}()
+    Fp = Ptr{gsl_sf_result}()
+    G = Ptr{gsl_sf_result}()
+    Gp = Ptr{gsl_sf_result}()
+    exp_F = Ref{Cdouble}()
+    exp_G = Ref{Cdouble}()
     errno = ccall( (:gsl_sf_coulomb_wave_FG_e, libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Cint, Ptr{gsl_sf_result}, Ptr{gsl_sf_result},
         Ptr{gsl_sf_result}, Ptr{gsl_sf_result}, Ptr{Cdouble}, Ptr{Cdouble}),

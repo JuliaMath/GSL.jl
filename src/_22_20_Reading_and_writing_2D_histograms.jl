@@ -30,7 +30,7 @@ end
 # 
 #   Returns: Cint
 function histogram2d_fread(stream::Ptr{Void})
-    h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
+    h = Ref{gsl_histogram2d}()
     errno = ccall( (:gsl_histogram2d_fread, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_histogram2d}), stream, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -62,8 +62,8 @@ end
 # 
 #   Returns: Cint
 function histogram2d_fprintf(stream::Ptr{Void}, h::Ptr{gsl_histogram2d})
-    range_format = convert(Ptr{Cchar}, Array(Cchar, 1))
-    bin_format = convert(Ptr{Cchar}, Array(Cchar, 1))
+    range_format = Ref{Cchar}()
+    bin_format = Ref{Cchar}()
     errno = ccall( (:gsl_histogram2d_fprintf, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_histogram2d}, Ptr{Cchar}, Ptr{Cchar}), stream, h, range_format,
         bin_format )
@@ -81,7 +81,7 @@ end
 # 
 #   Returns: Cint
 function histogram2d_fscanf(stream::Ptr{Void})
-    h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
+    h = Ref{gsl_histogram2d}()
     errno = ccall( (:gsl_histogram2d_fscanf, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_histogram2d}), stream, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end

@@ -30,7 +30,7 @@ end
 # 
 #   Returns: Cint
 function odeiv2_step_reset()
-    s = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
+    s = Ref{gsl_odeiv2_step}()
     errno = ccall( (:gsl_odeiv2_step_reset, libgsl), Cint,
         (Ptr{gsl_odeiv2_step}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -79,7 +79,7 @@ end
 # 
 #   Returns: Cint
 function odeiv2_step_set_driver(d::Ptr{gsl_odeiv2_driver})
-    s = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
+    s = Ref{gsl_odeiv2_step}()
     errno = ccall( (:gsl_odeiv2_step_set_driver, libgsl), Cint,
         (Ptr{gsl_odeiv2_step}, Ptr{gsl_odeiv2_driver}), s, d )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -111,7 +111,7 @@ end
 # 
 #   Returns: Cint
 function odeiv2_step_apply(t::Real, h::Real, y::Real)
-    s = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
+    s = Ref{gsl_odeiv2_step}()
     errno = ccall( (:gsl_odeiv2_step_apply, libgsl), Cint,
         (Ptr{gsl_odeiv2_step}, Cdouble, Cdouble, Cdouble), s, t, h, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end

@@ -84,7 +84,7 @@ end
 # 
 #   Returns: Cint
 function odeiv2_driver_set_hmin(hmin::Real)
-    d = convert(Ptr{gsl_odeiv2_driver}, Array(gsl_odeiv2_driver, 1))
+    d = Ref{gsl_odeiv2_driver}()
     errno = ccall( (:gsl_odeiv2_driver_set_hmin, libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, Cdouble), d, hmin )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -98,7 +98,7 @@ end
 # 
 #   Returns: Cint
 function odeiv2_driver_set_hmax(hmax::Real)
-    d = convert(Ptr{gsl_odeiv2_driver}, Array(gsl_odeiv2_driver, 1))
+    d = Ref{gsl_odeiv2_driver}()
     errno = ccall( (:gsl_odeiv2_driver_set_hmax, libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, Cdouble), d, hmax )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -112,7 +112,7 @@ end
 # 
 #   Returns: Cint
 function odeiv2_driver_set_nmax(nmax::Integer)
-    d = convert(Ptr{gsl_odeiv2_driver}, Array(gsl_odeiv2_driver, 1))
+    d = Ref{gsl_odeiv2_driver}()
     errno = ccall( (:gsl_odeiv2_driver_set_nmax, libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, Culong), d, nmax )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -134,8 +134,8 @@ end
 # 
 #   Returns: Cint
 function odeiv2_driver_apply(t1::Real, y::Real)
-    d = convert(Ptr{gsl_odeiv2_driver}, Array(gsl_odeiv2_driver, 1))
-    t = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    d = Ref{gsl_odeiv2_driver}()
+    t = Ref{Cdouble}()
     errno = ccall( (:gsl_odeiv2_driver_apply, libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, Ptr{Cdouble}, Cdouble, Cdouble), d, t, t1, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -151,8 +151,8 @@ end
 # 
 #   Returns: Cint
 function odeiv2_driver_apply_fixed_step(h::Real, n::Integer, y::Real)
-    d = convert(Ptr{gsl_odeiv2_driver}, Array(gsl_odeiv2_driver, 1))
-    t = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    d = Ref{gsl_odeiv2_driver}()
+    t = Ref{Cdouble}()
     errno = ccall( (:gsl_odeiv2_driver_apply_fixed_step, libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, Ptr{Cdouble}, Cdouble, Culong, Cdouble), d, t,
         h, n, y )
@@ -167,7 +167,7 @@ end
 # 
 #   Returns: Cint
 function odeiv2_driver_reset()
-    d = convert(Ptr{gsl_odeiv2_driver}, Array(gsl_odeiv2_driver, 1))
+    d = Ref{gsl_odeiv2_driver}()
     errno = ccall( (:gsl_odeiv2_driver_reset, libgsl), Cint,
         (Ptr{gsl_odeiv2_driver}, ), d )
     if errno!= 0 throw(GSL_ERROR(errno)) end

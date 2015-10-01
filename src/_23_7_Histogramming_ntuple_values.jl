@@ -17,10 +17,10 @@ export ntuple_project
 # 
 #   Returns: Cint
 function ntuple_project()
-    h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
-    ntuple = convert(Ptr{gsl_ntuple}, Array(gsl_ntuple, 1))
-    value_func = convert(Ptr{gsl_ntuple_value_fn}, Array(gsl_ntuple_value_fn, 1))
-    select_func = convert(Ptr{gsl_ntuple_select_fn}, Array(gsl_ntuple_select_fn, 1))
+    h = Ref{gsl_histogram}()
+    ntuple = Ref{gsl_ntuple}()
+    value_func = Ref{gsl_ntuple_value_fn}()
+    select_func = Ref{gsl_ntuple_select_fn}()
     errno = ccall( (:gsl_ntuple_project, libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_ntuple}, Ptr{gsl_ntuple_value_fn},
         Ptr{gsl_ntuple_select_fn}), h, ntuple, value_func, select_func )

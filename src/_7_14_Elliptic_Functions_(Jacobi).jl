@@ -12,9 +12,9 @@ export sf_elljac_e
 # 
 #   Returns: Cint
 function sf_elljac_e(u::Real, m::Real)
-    sn = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    cn = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    dn = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    sn = Ref{Cdouble}()
+    cn = Ref{Cdouble}()
+    dn = Ref{Cdouble}()
     errno = ccall( (:gsl_sf_elljac_e, libgsl), Cint, (Cdouble, Cdouble,
         Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}), u, m, sn, cn, dn )
     if errno!= 0 throw(GSL_ERROR(errno)) end

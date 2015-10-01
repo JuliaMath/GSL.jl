@@ -60,8 +60,8 @@ end
 # 
 #   Returns: Cint
 function sf_complex_log_e(zr::Real, zi::Real)
-    lnr = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    theta = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    lnr = Ptr{gsl_sf_result}()
+    theta = Ptr{gsl_sf_result}()
     errno = ccall( (:gsl_sf_complex_log_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, lnr, theta )
     if errno!= 0 throw(GSL_ERROR(errno)) end

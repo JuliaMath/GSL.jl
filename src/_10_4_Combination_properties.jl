@@ -42,7 +42,7 @@ end
 # 
 #   Returns: Cint
 function combination_valid()
-    c = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
+    c = Ref{gsl_combination}()
     errno = ccall( (:gsl_combination_valid, libgsl), Cint,
         (Ptr{gsl_combination}, ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end

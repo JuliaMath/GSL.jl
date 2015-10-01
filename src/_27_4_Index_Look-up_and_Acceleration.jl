@@ -51,7 +51,7 @@ end
 # 
 #   Returns: Cint
 function interp_accel_reset()
-    acc = convert(Ptr{gsl_interp_accel}, Array(gsl_interp_accel, 1))
+    acc = Ref{gsl_interp_accel}()
     errno = ccall( (:gsl_interp_accel_reset, libgsl), Cint,
         (Ptr{gsl_interp_accel}, ), acc )
     if errno!= 0 throw(GSL_ERROR(errno)) end

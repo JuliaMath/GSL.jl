@@ -59,8 +59,8 @@ end
 # 
 #   Returns: Cint
 function dht_apply(t::Ptr{gsl_dht})
-    f_in = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    f_out = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    f_in = Ref{Cdouble}()
+    f_out = Ref{Cdouble}()
     errno = ccall( (:gsl_dht_apply, libgsl), Cint, (Ptr{gsl_dht},
         Ptr{Cdouble}, Ptr{Cdouble}), t, f_in, f_out )
     if errno!= 0 throw(GSL_ERROR(errno)) end

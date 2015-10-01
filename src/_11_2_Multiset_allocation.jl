@@ -42,7 +42,7 @@ end
 # 
 #   Returns: Void
 function multiset_init_first()
-    c = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
+    c = Ref{gsl_multiset}()
     ccall( (:gsl_multiset_init_first, libgsl), Void, (Ptr{gsl_multiset},
         ), c )
     return unsafe_load(c)
@@ -54,7 +54,7 @@ end
 # 
 #   Returns: Void
 function multiset_init_last()
-    c = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
+    c = Ref{gsl_multiset}()
     ccall( (:gsl_multiset_init_last, libgsl), Void, (Ptr{gsl_multiset}, ),
         c )
     return unsafe_load(c)
@@ -74,7 +74,7 @@ end
 # 
 #   Returns: Cint
 function multiset_memcpy(src::Ptr{gsl_multiset})
-    dest = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
+    dest = Ref{gsl_multiset}()
     errno = ccall( (:gsl_multiset_memcpy, libgsl), Cint,
         (Ptr{gsl_multiset}, Ptr{gsl_multiset}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end

@@ -48,8 +48,8 @@ end
 # 
 #   Returns: Cint
 function min_fminimizer_set_with_values(x_minimum::Real, f_minimum::Real, x_lower::Real, f_lower::Real, x_upper::Real, f_upper::Real)
-    s = convert(Ptr{gsl_min_fminimizer}, Array(gsl_min_fminimizer, 1))
-    f = convert(Ptr{gsl_function}, Array(gsl_function, 1))
+    s = Ref{gsl_min_fminimizer}()
+    f = Ref{gsl_function}()
     errno = ccall( (:gsl_min_fminimizer_set_with_values, libgsl), Cint,
         (Ptr{gsl_min_fminimizer}, Ptr{gsl_function}, Cdouble, Cdouble, Cdouble,
         Cdouble, Cdouble, Cdouble), s, f, x_minimum, f_minimum, x_lower,

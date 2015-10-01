@@ -42,9 +42,9 @@ end
 function sum_levin_u_accel{tA<:Real}(array_in::AbstractVector{tA})
     array_size = length(array_in)
     array = convert(Vector{Cdouble}, array_in)
-    w = convert(Ptr{gsl_sum_levin_u_workspace}, Array(gsl_sum_levin_u_workspace, 1))
-    sum_accel = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    w = Ref{gsl_sum_levin_u_workspace}()
+    sum_accel = Ref{Cdouble}()
+    abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_sum_levin_u_accel, libgsl), Cint, (Ptr{Cdouble},
         Csize_t, Ptr{gsl_sum_levin_u_workspace}, Ptr{Cdouble}, Ptr{Cdouble}),
         array, array_size, w, sum_accel, abserr )

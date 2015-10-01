@@ -16,8 +16,8 @@ export bspline_eval, bspline_eval_nonzero, bspline_ncoeffs
 # 
 #   Returns: Cint
 function bspline_eval(x::Real)
-    B = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    w = convert(Ptr{gsl_bspline_workspace}, Array(gsl_bspline_workspace, 1))
+    B = Ref{gsl_vector}()
+    w = Ref{gsl_bspline_workspace}()
     errno = ccall( (:gsl_bspline_eval, libgsl), Cint, (Cdouble,
         Ptr{gsl_vector}, Ptr{gsl_bspline_workspace}), x, B, w )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -36,10 +36,10 @@ end
 # 
 #   Returns: Cint
 function bspline_eval_nonzero(x::Real)
-    Bk = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    istart = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    iend = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    w = convert(Ptr{gsl_bspline_workspace}, Array(gsl_bspline_workspace, 1))
+    Bk = Ref{gsl_vector}()
+    istart = Ref{Csize_t}()
+    iend = Ref{Csize_t}()
+    w = Ref{gsl_bspline_workspace}()
     errno = ccall( (:gsl_bspline_eval_nonzero, libgsl), Cint, (Cdouble,
         Ptr{gsl_vector}, Ptr{Csize_t}, Ptr{Csize_t},
         Ptr{gsl_bspline_workspace}), x, Bk, istart, iend, w )

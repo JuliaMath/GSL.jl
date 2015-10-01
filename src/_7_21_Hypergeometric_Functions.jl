@@ -123,7 +123,7 @@ end
 # 
 #   Returns: Cint
 function sf_hyperg_U_int_e10_e(m::Integer, n::Integer, x::Real)
-    result = convert(Ptr{gsl_sf_result_e10}, Array(gsl_sf_result_e10, 1))
+    result = Ref{gsl_sf_result_e10}()
     errno = ccall( (:gsl_sf_hyperg_U_int_e10_e, libgsl), Cint, (Cint,
         Cint, Cdouble, Ptr{gsl_sf_result_e10}), m, n, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -163,7 +163,7 @@ end
 # 
 #   Returns: Cint
 function sf_hyperg_U_e10_e(a::Real, b::Real, x::Real)
-    result = convert(Ptr{gsl_sf_result_e10}, Array(gsl_sf_result_e10, 1))
+    result = Ref{gsl_sf_result_e10}()
     errno = ccall( (:gsl_sf_hyperg_U_e10_e, libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Ptr{gsl_sf_result_e10}), a, b, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end

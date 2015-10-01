@@ -19,7 +19,7 @@ export min_fminimizer_iterate, min_fminimizer_iterate,
 # 
 #   Returns: Cint
 function min_fminimizer_iterate()
-    s = convert(Ptr{gsl_min_fminimizer}, Array(gsl_min_fminimizer, 1))
+    s = Ref{gsl_min_fminimizer}()
     errno = ccall( (:gsl_min_fminimizer_iterate, libgsl), Cint,
         (Ptr{gsl_min_fminimizer}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -32,7 +32,7 @@ end
 # 
 #   Returns: Cint
 function min_fminimizer_iterate()
-    s = convert(Ptr{gsl_min_fminimizer}, Array(gsl_min_fminimizer, 1))
+    s = Ref{gsl_min_fminimizer}()
     errno = ccall( (:gsl_min_fminimizer_iterate, libgsl), Cint,
         (Ptr{gsl_min_fminimizer}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end

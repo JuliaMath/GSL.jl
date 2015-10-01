@@ -21,8 +21,8 @@ export deriv_central, deriv_forward, deriv_backward
 # 
 #   Returns: Cint
 function deriv_central(f::Ptr{gsl_function}, x::Real, h::Real)
-    result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    result = Ref{Cdouble}()
+    abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_deriv_central, libgsl), Cint, (Ptr{gsl_function},
         Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f, x, h, result, abserr
         )
@@ -46,8 +46,8 @@ end
 # 
 #   Returns: Cint
 function deriv_forward(f::Ptr{gsl_function}, x::Real, h::Real)
-    result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    result = Ref{Cdouble}()
+    abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_deriv_forward, libgsl), Cint, (Ptr{gsl_function},
         Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f, x, h, result, abserr
         )
@@ -67,8 +67,8 @@ end
 # 
 #   Returns: Cint
 function deriv_backward(f::Ptr{gsl_function}, x::Real, h::Real)
-    result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    result = Ref{Cdouble}()
+    abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_deriv_backward, libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f,
         x, h, result, abserr )

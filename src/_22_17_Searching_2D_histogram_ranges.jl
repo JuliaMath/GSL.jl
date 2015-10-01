@@ -17,8 +17,8 @@ export histogram2d_find
 # 
 #   Returns: Cint
 function histogram2d_find(h::Ptr{gsl_histogram2d}, x::Real, y::Real)
-    i = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    j = convert(Ptr{Csize_t}, Array(Csize_t, 1))
+    i = Ref{Csize_t}()
+    j = Ref{Csize_t}()
     errno = ccall( (:gsl_histogram2d_find, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble, Cdouble, Ptr{Csize_t}, Ptr{Csize_t}),
         h, x, y, i, j )

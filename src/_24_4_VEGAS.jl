@@ -51,7 +51,7 @@ end
 # 
 #   Returns: Cint
 function monte_vegas_integrate(xl::Real)
-    f = convert(Ptr{gsl_monte_function}, Array(gsl_monte_function, 1))
+    f = Ref{gsl_monte_function}()
     errno = ccall( (:gsl_monte_vegas_integrate, libgsl), Cint,
         (Ptr{gsl_monte_function}, Cdouble), f, xl )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -88,8 +88,8 @@ end
 # 
 #   Returns: Void
 function monte_vegas_runval(s::Ptr{gsl_monte_vegas_state})
-    result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    sigma = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    result = Ref{Cdouble}()
+    sigma = Ref{Cdouble}()
     ccall( (:gsl_monte_vegas_runval, libgsl), Void,
         (Ptr{gsl_monte_vegas_state}, Ptr{Cdouble}, Ptr{Cdouble}), s, result,
         sigma )
@@ -102,7 +102,7 @@ end
 # 
 #   Returns: Void
 function monte_vegas_params_get(s::Ptr{gsl_monte_vegas_state})
-    params = convert(Ptr{gsl_monte_vegas_params}, Array(gsl_monte_vegas_params, 1))
+    params = Ref{gsl_monte_vegas_params}()
     ccall( (:gsl_monte_vegas_params_get, libgsl), Void,
         (Ptr{gsl_monte_vegas_state}, Ptr{gsl_monte_vegas_params}), s, params )
     return unsafe_load(params)

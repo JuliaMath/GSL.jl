@@ -34,7 +34,7 @@ export multifit_covar
 # 
 #   Returns: Cint
 function multifit_covar(J::Ptr{gsl_matrix}, epsrel::Real)
-    covar = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
+    covar = Ref{gsl_matrix}()
     errno = ccall( (:gsl_multifit_covar, libgsl), Cint, (Ptr{gsl_matrix},
         Cdouble, Ptr{gsl_matrix}), J, epsrel, covar )
     if errno!= 0 throw(GSL_ERROR(errno)) end

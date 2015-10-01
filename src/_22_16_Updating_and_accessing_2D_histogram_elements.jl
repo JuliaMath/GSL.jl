@@ -21,7 +21,7 @@ export histogram2d_increment, histogram2d_accumulate, histogram2d_get,
 # 
 #   Returns: Cint
 function histogram2d_increment(x::Real, y::Real)
-    h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
+    h = Ref{gsl_histogram2d}()
     errno = ccall( (:gsl_histogram2d_increment, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble, Cdouble), h, x, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -36,7 +36,7 @@ end
 # 
 #   Returns: Cint
 function histogram2d_accumulate(x::Real, y::Real, weight::Real)
-    h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
+    h = Ref{gsl_histogram2d}()
     errno = ccall( (:gsl_histogram2d_accumulate, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble, Cdouble, Cdouble), h, x, y, weight )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -70,8 +70,8 @@ end
 # 
 #   Returns: Cint
 function histogram2d_get_xrange(h::Ptr{gsl_histogram2d}, i::Integer)
-    xlower = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    xupper = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    xlower = Ref{Cdouble}()
+    xupper = Ref{Cdouble}()
     errno = ccall( (:gsl_histogram2d_get_xrange, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, i,
         xlower, xupper )
@@ -92,8 +92,8 @@ end
 # 
 #   Returns: Cint
 function histogram2d_get_yrange(h::Ptr{gsl_histogram2d}, j::Integer)
-    ylower = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    yupper = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    ylower = Ref{Cdouble}()
+    yupper = Ref{Cdouble}()
     errno = ccall( (:gsl_histogram2d_get_yrange, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, j,
         ylower, yupper )
@@ -178,7 +178,7 @@ end
 # 
 #   Returns: Void
 function histogram2d_reset()
-    h = convert(Ptr{gsl_histogram2d}, Array(gsl_histogram2d, 1))
+    h = Ref{gsl_histogram2d}()
     ccall( (:gsl_histogram2d_reset, libgsl), Void, (Ptr{gsl_histogram2d},
         ), h )
     return unsafe_load(h)

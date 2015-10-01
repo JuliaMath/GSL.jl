@@ -42,7 +42,7 @@ end
 # 
 #   Returns: Cint
 function histogram_set_ranges(range::Real)
-    h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
+    h = Ref{gsl_histogram}()
     errno = ccall( (:gsl_histogram_set_ranges, libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble), h, range )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -60,7 +60,7 @@ end
 # 
 #   Returns: Cint
 function histogram_set_ranges_uniform(xmin::Real, xmax::Real)
-    h = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
+    h = Ref{gsl_histogram}()
     errno = ccall( (:gsl_histogram_set_ranges_uniform, libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble, Cdouble), h, xmin, xmax )
     if errno!= 0 throw(GSL_ERROR(errno)) end

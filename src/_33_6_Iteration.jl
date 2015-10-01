@@ -18,7 +18,7 @@ export root_fsolver_iterate, root_fdfsolver_iterate, root_fdfsolver_iterate,
 # 
 #   Returns: Cint
 function root_fsolver_iterate()
-    s = convert(Ptr{gsl_root_fsolver}, Array(gsl_root_fsolver, 1))
+    s = Ref{gsl_root_fsolver}()
     errno = ccall( (:gsl_root_fsolver_iterate, libgsl), Cint,
         (Ptr{gsl_root_fsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -35,7 +35,7 @@ end
 # 
 #   Returns: Cint
 function root_fdfsolver_iterate()
-    s = convert(Ptr{gsl_root_fdfsolver}, Array(gsl_root_fdfsolver, 1))
+    s = Ref{gsl_root_fdfsolver}()
     errno = ccall( (:gsl_root_fdfsolver_iterate, libgsl), Cint,
         (Ptr{gsl_root_fdfsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -47,7 +47,7 @@ end
 # 
 #   Returns: Cint
 function root_fdfsolver_iterate()
-    s = convert(Ptr{gsl_root_fdfsolver}, Array(gsl_root_fdfsolver, 1))
+    s = Ref{gsl_root_fdfsolver}()
     errno = ccall( (:gsl_root_fdfsolver_iterate, libgsl), Cint,
         (Ptr{gsl_root_fdfsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end

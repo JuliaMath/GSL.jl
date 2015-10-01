@@ -17,7 +17,7 @@ export histogram_find
 # 
 #   Returns: Cint
 function histogram_find(h::Ptr{gsl_histogram}, x::Real)
-    i = convert(Ptr{Csize_t}, Array(Csize_t, 1))
+    i = Ref{Csize_t}()
     errno = ccall( (:gsl_histogram_find, libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble, Ptr{Csize_t}), h, x, i )
     if errno!= 0 throw(GSL_ERROR(errno)) end

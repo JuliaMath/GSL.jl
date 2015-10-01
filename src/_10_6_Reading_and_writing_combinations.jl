@@ -33,7 +33,7 @@ end
 # 
 #   Returns: Cint
 function combination_fread(stream::Ptr{Void})
-    c = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
+    c = Ref{gsl_combination}()
     errno = ccall( (:gsl_combination_fread, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_combination}), stream, c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -49,7 +49,7 @@ end
 # 
 #   Returns: Cint
 function combination_fprintf(stream::Ptr{Void}, c::Ptr{gsl_combination})
-    format = convert(Ptr{Cchar}, Array(Cchar, 1))
+    format = Ref{Cchar}()
     errno = ccall( (:gsl_combination_fprintf, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_combination}, Ptr{Cchar}), stream, c, format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -65,7 +65,7 @@ end
 # 
 #   Returns: Cint
 function combination_fscanf(stream::Ptr{Void})
-    c = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
+    c = Ref{gsl_combination}()
     errno = ccall( (:gsl_combination_fscanf, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_combination}), stream, c )
     if errno!= 0 throw(GSL_ERROR(errno)) end

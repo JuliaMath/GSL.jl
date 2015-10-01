@@ -27,7 +27,7 @@ end
 # 
 #   Returns: Cint
 function multiset_prev()
-    c = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
+    c = Ref{gsl_multiset}()
     errno = ccall( (:gsl_multiset_prev, libgsl), Cint, (Ptr{gsl_multiset},
         ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end

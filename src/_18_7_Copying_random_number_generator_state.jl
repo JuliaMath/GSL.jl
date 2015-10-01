@@ -13,7 +13,7 @@ export rng_memcpy, rng_clone
 # 
 #   Returns: Cint
 function rng_memcpy(src::Ptr{gsl_rng})
-    dest = convert(Ptr{gsl_rng}, Array(gsl_rng, 1))
+    dest = Ref{gsl_rng}()
     errno = ccall( (:gsl_rng_memcpy, libgsl), Cint, (Ptr{gsl_rng},
         Ptr{gsl_rng}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end

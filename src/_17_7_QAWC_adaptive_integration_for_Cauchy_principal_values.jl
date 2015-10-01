@@ -20,10 +20,10 @@ export integration_qawc
 # 
 #   Returns: Cint
 function integration_qawc(a::Real, b::Real, c::Real, epsabs::Real, epsrel::Real, limit::Integer)
-    f = convert(Ptr{gsl_function}, Array(gsl_function, 1))
-    workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
-    result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    f = Ref{gsl_function}()
+    workspace = Ref{gsl_integration_workspace}()
+    result = Ref{Cdouble}()
+    abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_integration_qawc, libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Cdouble,
         Csize_t, Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}),

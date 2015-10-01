@@ -45,7 +45,7 @@ end
 # 
 #   Returns: Cint
 function monte_plain_integrate(xl::Real)
-    f = convert(Ptr{gsl_monte_function}, Array(gsl_monte_function, 1))
+    f = Ref{gsl_monte_function}()
     errno = ccall( (:gsl_monte_plain_integrate, libgsl), Cint,
         (Ptr{gsl_monte_function}, Cdouble), f, xl )
     if errno!= 0 throw(GSL_ERROR(errno)) end

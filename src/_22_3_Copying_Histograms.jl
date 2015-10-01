@@ -13,7 +13,7 @@ export histogram_memcpy, histogram_clone
 # 
 #   Returns: Cint
 function histogram_memcpy(src::Ptr{gsl_histogram})
-    dest = convert(Ptr{gsl_histogram}, Array(gsl_histogram, 1))
+    dest = Ref{gsl_histogram}()
     errno = ccall( (:gsl_histogram_memcpy, libgsl), Cint,
         (Ptr{gsl_histogram}, Ptr{gsl_histogram}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end

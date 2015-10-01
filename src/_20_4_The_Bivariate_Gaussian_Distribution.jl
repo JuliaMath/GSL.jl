@@ -20,8 +20,8 @@ export ran_bivariate_gaussian, ran_bivariate_gaussian_pdf
 # 
 #   Returns: Void
 function ran_bivariate_gaussian(r::Ptr{gsl_rng}, sigma_x::Real, sigma_y::Real, rho::Real)
-    x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    x = Ref{Cdouble}()
+    y = Ref{Cdouble}()
     ccall( (:gsl_ran_bivariate_gaussian, libgsl), Void, (Ptr{gsl_rng},
         Cdouble, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), r, sigma_x,
         sigma_y, rho, x, y )

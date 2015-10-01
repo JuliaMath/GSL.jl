@@ -50,7 +50,7 @@ end
 # 
 #   Returns: Cint
 function heapsort_index(array::Ptr{Void}, count::Integer, size::Integer, compare::gsl_comparison_fn_t)
-    p = convert(Ptr{Csize_t}, Array(Csize_t, 1))
+    p = Ref{Csize_t}()
     errno = ccall( (:gsl_heapsort_index, libgsl), Cint, (Ptr{Csize_t},
         Ptr{Void}, Csize_t, Csize_t, gsl_comparison_fn_t), p, array, count,
         size, compare )

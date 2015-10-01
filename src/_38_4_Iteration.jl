@@ -14,7 +14,7 @@ export multifit_fsolver_iterate, multifit_fdfsolver_iterate,
 # 
 #   Returns: Cint
 function multifit_fsolver_iterate()
-    s = convert(Ptr{gsl_multifit_fsolver}, Array(gsl_multifit_fsolver, 1))
+    s = Ref{gsl_multifit_fsolver}()
     errno = ccall( (:gsl_multifit_fsolver_iterate, libgsl), Cint,
         (Ptr{gsl_multifit_fsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -28,7 +28,7 @@ end
 # 
 #   Returns: Cint
 function multifit_fdfsolver_iterate()
-    s = convert(Ptr{gsl_multifit_fdfsolver}, Array(gsl_multifit_fdfsolver, 1))
+    s = Ref{gsl_multifit_fdfsolver}()
     errno = ccall( (:gsl_multifit_fdfsolver_iterate, libgsl), Cint,
         (Ptr{gsl_multifit_fdfsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end

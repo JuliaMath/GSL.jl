@@ -38,7 +38,7 @@ end
 # 
 #   Returns: Cint
 function multiset_valid()
-    c = convert(Ptr{gsl_multiset}, Array(gsl_multiset, 1))
+    c = Ref{gsl_multiset}()
     errno = ccall( (:gsl_multiset_valid, libgsl), Cint,
         (Ptr{gsl_multiset}, ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end

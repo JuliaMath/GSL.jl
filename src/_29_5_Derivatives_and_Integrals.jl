@@ -13,7 +13,7 @@ export cheb_calc_deriv, cheb_calc_integ
 # 
 #   Returns: Cint
 function cheb_calc_deriv(cs::Ptr{gsl_cheb_series})
-    deriv = convert(Ptr{gsl_cheb_series}, Array(gsl_cheb_series, 1))
+    deriv = Ref{gsl_cheb_series}()
     errno = ccall( (:gsl_cheb_calc_deriv, libgsl), Cint,
         (Ptr{gsl_cheb_series}, Ptr{gsl_cheb_series}), deriv, cs )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -28,7 +28,7 @@ end
 # 
 #   Returns: Cint
 function cheb_calc_integ(cs::Ptr{gsl_cheb_series})
-    integ = convert(Ptr{gsl_cheb_series}, Array(gsl_cheb_series, 1))
+    integ = Ref{gsl_cheb_series}()
     errno = ccall( (:gsl_cheb_calc_integ, libgsl), Cint,
         (Ptr{gsl_cheb_series}, Ptr{gsl_cheb_series}), integ, cs )
     if errno!= 0 throw(GSL_ERROR(errno)) end

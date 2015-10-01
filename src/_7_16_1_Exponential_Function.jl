@@ -38,7 +38,7 @@ end
 # 
 #   Returns: Cint
 function sf_exp_e10_e(x::Real)
-    result = convert(Ptr{gsl_sf_result_e10}, Array(gsl_sf_result_e10, 1))
+    result = Ref{gsl_sf_result_e10}()
     errno = ccall( (:gsl_sf_exp_e10_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result_e10}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -76,7 +76,7 @@ end
 # 
 #   Returns: Cint
 function sf_exp_mult_e10_e(x::Real, y::Real)
-    result = convert(Ptr{gsl_sf_result_e10}, Array(gsl_sf_result_e10, 1))
+    result = Ref{gsl_sf_result_e10}()
     errno = ccall( (:gsl_sf_exp_mult_e10_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result_e10}), x, y, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end

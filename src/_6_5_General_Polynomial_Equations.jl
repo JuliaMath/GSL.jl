@@ -51,7 +51,7 @@ end
 function poly_complex_solve{tA<:Real}(a_in::AbstractVector{tA}, z::gsl_complex_packed_ptr)
     n = length(a_in)
     a = convert(Vector{Cdouble}, a_in)
-    w = convert(Ptr{gsl_poly_complex_workspace}, Array(gsl_poly_complex_workspace, 1))
+    w = Ref{gsl_poly_complex_workspace}()
     errno = ccall( (:gsl_poly_complex_solve, libgsl), Cint, (Ptr{Cdouble},
         Csize_t, Ptr{gsl_poly_complex_workspace}, gsl_complex_packed_ptr), a,
         n, w, z )

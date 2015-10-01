@@ -46,7 +46,7 @@ end
 # 
 #   Returns: Cint
 function multifit_gradient(J::Ptr{gsl_matrix}, f::Ptr{gsl_vector})
-    g = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
+    g = Ref{gsl_vector}()
     errno = ccall( (:gsl_multifit_gradient, libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), J, f, g )
     if errno!= 0 throw(GSL_ERROR(errno)) end

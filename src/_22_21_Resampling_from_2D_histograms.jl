@@ -63,8 +63,8 @@ end
 # 
 #   Returns: Cint
 function histogram2d_pdf_sample(p::Ptr{gsl_histogram2d_pdf}, r1::Real, r2::Real)
-    x = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    x = Ref{Cdouble}()
+    y = Ref{Cdouble}()
     errno = ccall( (:gsl_histogram2d_pdf_sample, libgsl), Cint,
         (Ptr{gsl_histogram2d_pdf}, Cdouble, Cdouble, Ptr{Cdouble},
         Ptr{Cdouble}), p, r1, r2, x, y )

@@ -22,12 +22,12 @@ function fit_linear{tA<:Real, tB<:Real}(x_in::AbstractVector{tA}, xstride::Integ
     n = length(x_in)
     x = convert(Vector{Cdouble}, x_in)
     y = convert(Vector{Cdouble}, y_in)
-    c0 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    c1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    cov00 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    cov01 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    cov11 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    sumsq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    c0 = Ref{Cdouble}()
+    c1 = Ref{Cdouble}()
+    cov00 = Ref{Cdouble}()
+    cov01 = Ref{Cdouble}()
+    cov11 = Ref{Cdouble}()
+    sumsq = Ref{Cdouble}()
     errno = ccall( (:gsl_fit_linear, libgsl), Cint, (Ptr{Cdouble},
         Csize_t, Ptr{Cdouble}, Csize_t, Csize_t, Ptr{Cdouble}, Ptr{Cdouble},
         Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}), x, xstride, y,
@@ -52,12 +52,12 @@ function fit_wlinear{tA<:Real, tB<:Real, tC<:Real}(x_in::AbstractVector{tA}, xst
     x = convert(Vector{Cdouble}, x_in)
     w = convert(Vector{Cdouble}, w_in)
     y = convert(Vector{Cdouble}, y_in)
-    c0 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    c1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    cov00 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    cov01 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    cov11 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    chisq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    c0 = Ref{Cdouble}()
+    c1 = Ref{Cdouble}()
+    cov00 = Ref{Cdouble}()
+    cov01 = Ref{Cdouble}()
+    cov11 = Ref{Cdouble}()
+    chisq = Ref{Cdouble}()
     errno = ccall( (:gsl_fit_wlinear, libgsl), Cint, (Ptr{Cdouble},
         Csize_t, Ptr{Cdouble}, Csize_t, Ptr{Cdouble}, Csize_t, Csize_t,
         Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble},
@@ -74,8 +74,8 @@ end
 # 
 #   Returns: Cint
 function fit_linear_est(x::Real, c0::Real, c1::Real, cov00::Real, cov01::Real, cov11::Real)
-    y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    y_err = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    y = Ref{Cdouble}()
+    y_err = Ref{Cdouble}()
     errno = ccall( (:gsl_fit_linear_est, libgsl), Cint, (Cdouble, Cdouble,
         Cdouble, Cdouble, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), x, c0,
         c1, cov00, cov01, cov11, y, y_err )

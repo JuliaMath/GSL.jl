@@ -40,8 +40,8 @@ end
 # 
 #   Returns: Cint
 function integration_glfixed_point(a::Real, b::Real, i::Integer, t::Ptr{gsl_integration_glfixed_table})
-    xi = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    wi = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    xi = Ref{Cdouble}()
+    wi = Ref{Cdouble}()
     errno = ccall( (:gsl_integration_glfixed_point, libgsl), Cint,
         (Cdouble, Cdouble, Csize_t, Ptr{Cdouble}, Ptr{Cdouble},
         Ptr{gsl_integration_glfixed_table}), a, b, i, xi, wi, t )

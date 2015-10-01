@@ -39,8 +39,8 @@ end
 # 
 #   Returns: Void
 function stats_minmax(data::Real)
-    min = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    max = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    min = Ref{Cdouble}()
+    max = Ref{Cdouble}()
     ccall( (:gsl_stats_minmax, libgsl), Void, (Ptr{Cdouble}, Ptr{Cdouble},
         Cdouble), min, max, data )
     return unsafe_load(min), unsafe_load(max)
@@ -77,8 +77,8 @@ end
 # 
 #   Returns: Void
 function stats_minmax_index(data::Real)
-    min_index = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    max_index = convert(Ptr{Csize_t}, Array(Csize_t, 1))
+    min_index = Ref{Csize_t}()
+    max_index = Ref{Csize_t}()
     ccall( (:gsl_stats_minmax_index, libgsl), Void, (Ptr{Csize_t},
         Ptr{Csize_t}, Cdouble), min_index, max_index, data )
     return unsafe_load(min_index), unsafe_load(max_index)

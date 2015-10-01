@@ -33,7 +33,7 @@ end
 # 
 #   Returns: Cint
 function permutation_fread(stream::Ptr{Void})
-    p = convert(Ptr{gsl_permutation}, Array(gsl_permutation, 1))
+    p = Ref{gsl_permutation}()
     errno = ccall( (:gsl_permutation_fread, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_permutation}), stream, p )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -49,7 +49,7 @@ end
 # 
 #   Returns: Cint
 function permutation_fprintf(stream::Ptr{Void}, p::Ptr{gsl_permutation})
-    format = convert(Ptr{Cchar}, Array(Cchar, 1))
+    format = Ref{Cchar}()
     errno = ccall( (:gsl_permutation_fprintf, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_permutation}, Ptr{Cchar}), stream, p, format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -65,7 +65,7 @@ end
 # 
 #   Returns: Cint
 function permutation_fscanf(stream::Ptr{Void})
-    p = convert(Ptr{gsl_permutation}, Array(gsl_permutation, 1))
+    p = Ref{gsl_permutation}()
     errno = ccall( (:gsl_permutation_fscanf, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_permutation}), stream, p )
     if errno!= 0 throw(GSL_ERROR(errno)) end

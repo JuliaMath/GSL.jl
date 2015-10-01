@@ -41,7 +41,7 @@ end
 # 
 #   Returns: Cint
 function sf_mathieu_a_array(order_min::Integer, order_max::Integer, q::Real)
-    work = convert(Ptr{gsl_sf_mathieu_workspace}, Array(gsl_sf_mathieu_workspace, 1))
+    work = Ref{gsl_sf_mathieu_workspace}()
     result_array = Array(Cdouble, 1)
     errno = ccall( (:gsl_sf_mathieu_a_array, libgsl), Cint, (Cint, Cint,
         Cdouble, Ptr{gsl_sf_mathieu_workspace}, Cdouble), order_min, order_max,
@@ -59,7 +59,7 @@ end
 # 
 #   Returns: Cint
 function sf_mathieu_b_array(order_min::Integer, order_max::Integer, q::Real)
-    work = convert(Ptr{gsl_sf_mathieu_workspace}, Array(gsl_sf_mathieu_workspace, 1))
+    work = Ref{gsl_sf_mathieu_workspace}()
     result_array = Array(Cdouble, 1)
     errno = ccall( (:gsl_sf_mathieu_b_array, libgsl), Cint, (Cint, Cint,
         Cdouble, Ptr{gsl_sf_mathieu_workspace}, Cdouble), order_min, order_max,

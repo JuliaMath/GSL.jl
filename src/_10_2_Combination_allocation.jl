@@ -41,7 +41,7 @@ end
 # 
 #   Returns: Void
 function combination_init_first()
-    c = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
+    c = Ref{gsl_combination}()
     ccall( (:gsl_combination_init_first, libgsl), Void,
         (Ptr{gsl_combination}, ), c )
     return unsafe_load(c)
@@ -53,7 +53,7 @@ end
 # 
 #   Returns: Void
 function combination_init_last()
-    c = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
+    c = Ref{gsl_combination}()
     ccall( (:gsl_combination_init_last, libgsl), Void,
         (Ptr{gsl_combination}, ), c )
     return unsafe_load(c)
@@ -74,7 +74,7 @@ end
 # 
 #   Returns: Cint
 function combination_memcpy(src::Ptr{gsl_combination})
-    dest = convert(Ptr{gsl_combination}, Array(gsl_combination, 1))
+    dest = Ref{gsl_combination}()
     errno = ccall( (:gsl_combination_memcpy, libgsl), Cint,
         (Ptr{gsl_combination}, Ptr{gsl_combination}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end

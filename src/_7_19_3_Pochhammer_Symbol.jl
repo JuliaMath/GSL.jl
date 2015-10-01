@@ -68,7 +68,7 @@ end
 #   Returns: Cint
 function sf_lnpoch_sgn_e(a::Real, x::Real)
     result = Ref{gsl_sf_result}()
-    sgn = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    sgn = Ref{Cdouble}()
     errno = ccall( (:gsl_sf_lnpoch_sgn_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{Cdouble}), a, x, result, sgn )
     if errno!= 0 throw(GSL_ERROR(errno)) end

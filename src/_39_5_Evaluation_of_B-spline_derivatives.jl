@@ -18,9 +18,9 @@ export bspline_deriv_eval, bspline_deriv_eval_nonzero
 # 
 #   Returns: Cint
 function bspline_deriv_eval(x::Real, nderiv::Integer)
-    dB = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    w = convert(Ptr{gsl_bspline_workspace}, Array(gsl_bspline_workspace, 1))
-    dw = convert(Ptr{gsl_bspline_deriv_workspace}, Array(gsl_bspline_deriv_workspace, 1))
+    dB = Ref{gsl_matrix}()
+    w = Ref{gsl_bspline_workspace}()
+    dw = Ref{gsl_bspline_deriv_workspace}()
     errno = ccall( (:gsl_bspline_deriv_eval, libgsl), Cint, (Cdouble,
         Csize_t, Ptr{gsl_matrix}, Ptr{gsl_bspline_workspace},
         Ptr{gsl_bspline_deriv_workspace}), x, nderiv, dB, w, dw )
@@ -42,11 +42,11 @@ end
 # 
 #   Returns: Cint
 function bspline_deriv_eval_nonzero(x::Real, nderiv::Integer)
-    dB = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    istart = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    iend = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    w = convert(Ptr{gsl_bspline_workspace}, Array(gsl_bspline_workspace, 1))
-    dw = convert(Ptr{gsl_bspline_deriv_workspace}, Array(gsl_bspline_deriv_workspace, 1))
+    dB = Ref{gsl_matrix}()
+    istart = Ref{Csize_t}()
+    iend = Ref{Csize_t}()
+    w = Ref{gsl_bspline_workspace}()
+    dw = Ref{gsl_bspline_deriv_workspace}()
     errno = ccall( (:gsl_bspline_deriv_eval_nonzero, libgsl), Cint,
         (Cdouble, Csize_t, Ptr{gsl_matrix}, Ptr{Csize_t}, Ptr{Csize_t},
         Ptr{gsl_bspline_workspace}, Ptr{gsl_bspline_deriv_workspace}), x,

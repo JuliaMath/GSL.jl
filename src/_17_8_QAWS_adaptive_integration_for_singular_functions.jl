@@ -74,11 +74,11 @@ end
 # 
 #   Returns: Cint
 function integration_qaws(a::Real, b::Real, epsabs::Real, epsrel::Real, limit::Integer)
-    f = convert(Ptr{gsl_function}, Array(gsl_function, 1))
-    t = convert(Ptr{gsl_integration_qaws_table}, Array(gsl_integration_qaws_table, 1))
-    workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
-    result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    f = Ref{gsl_function}()
+    t = Ref{gsl_integration_qaws_table}()
+    workspace = Ref{gsl_integration_workspace}()
+    result = Ref{Cdouble}()
+    abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_integration_qaws, libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Ptr{gsl_integration_qaws_table},
         Cdouble, Cdouble, Csize_t, Ptr{gsl_integration_workspace},

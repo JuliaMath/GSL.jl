@@ -60,7 +60,7 @@ end
 # 
 #   Returns: Cint
 function permutation_memcpy(src::Ptr{gsl_permutation})
-    dest = convert(Ptr{gsl_permutation}, Array(gsl_permutation, 1))
+    dest = Ref{gsl_permutation}()
     errno = ccall( (:gsl_permutation_memcpy, libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_permutation}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end

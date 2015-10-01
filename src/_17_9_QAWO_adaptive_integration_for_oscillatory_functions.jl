@@ -55,7 +55,7 @@ end
 # 
 #   Returns: Cint
 function integration_qawo_table_set_length(L::Real)
-    t = convert(Ptr{gsl_integration_qawo_table}, Array(gsl_integration_qawo_table, 1))
+    t = Ref{gsl_integration_qawo_table}()
     errno = ccall( (:gsl_integration_qawo_table_set_length, libgsl), Cint,
         (Ptr{gsl_integration_qawo_table}, Cdouble), t, L )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -89,11 +89,11 @@ end
 # 
 #   Returns: Cint
 function integration_qawo(a::Real, epsabs::Real, epsrel::Real, limit::Integer)
-    f = convert(Ptr{gsl_function}, Array(gsl_function, 1))
-    workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
-    wf = convert(Ptr{gsl_integration_qawo_table}, Array(gsl_integration_qawo_table, 1))
-    result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    f = Ref{gsl_function}()
+    workspace = Ref{gsl_integration_workspace}()
+    wf = Ref{gsl_integration_qawo_table}()
+    result = Ref{Cdouble}()
+    abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_integration_qawo, libgsl), Cint,
         (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Csize_t,
         Ptr{gsl_integration_workspace}, Ptr{gsl_integration_qawo_table},

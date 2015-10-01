@@ -12,8 +12,8 @@ export sf_polar_to_rect, sf_rect_to_polar
 # 
 #   Returns: Cint
 function sf_polar_to_rect(r::Real, theta::Real)
-    x = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    y = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    x = Ptr{gsl_sf_result}()
+    y = Ptr{gsl_sf_result}()
     errno = ccall( (:gsl_sf_polar_to_rect, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), r, theta, x, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -28,8 +28,8 @@ end
 # 
 #   Returns: Cint
 function sf_rect_to_polar(x::Real, y::Real)
-    r = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    theta = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    r = Ptr{gsl_sf_result}()
+    theta = Ptr{gsl_sf_result}()
     errno = ccall( (:gsl_sf_rect_to_polar, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), x, y, r, theta )
     if errno!= 0 throw(GSL_ERROR(errno)) end

@@ -143,8 +143,8 @@ end
 # 
 #   Returns: Cint
 function odeiv2_control_hadjust(y::Real)
-    c = convert(Ptr{gsl_odeiv2_control}, Array(gsl_odeiv2_control, 1))
-    s = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
+    c = Ref{gsl_odeiv2_control}()
+    s = Ref{gsl_odeiv2_step}()
     errno = ccall( (:gsl_odeiv2_control_hadjust, libgsl), Cint,
         (Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_step}, Cdouble), c, s, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -173,8 +173,8 @@ end
 # 
 #   Returns: Cint
 function odeiv2_control_errlevel(y::Real, dydt::Real, h::Real, ind::Integer)
-    c = convert(Ptr{gsl_odeiv2_control}, Array(gsl_odeiv2_control, 1))
-    errlev = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    c = Ref{gsl_odeiv2_control}()
+    errlev = Ref{Cdouble}()
     errno = ccall( (:gsl_odeiv2_control_errlevel, libgsl), Cint,
         (Ptr{gsl_odeiv2_control}, Cdouble, Cdouble, Cdouble, Csize_t,
         Ptr{Cdouble}), c, y, dydt, h, ind, errlev )
@@ -189,7 +189,7 @@ end
 # 
 #   Returns: Cint
 function odeiv2_control_set_driver(d::Ptr{gsl_odeiv2_driver})
-    c = convert(Ptr{gsl_odeiv2_control}, Array(gsl_odeiv2_control, 1))
+    c = Ref{gsl_odeiv2_control}()
     errno = ccall( (:gsl_odeiv2_control_set_driver, libgsl), Cint,
         (Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_driver}), c, d )
     if errno!= 0 throw(GSL_ERROR(errno)) end

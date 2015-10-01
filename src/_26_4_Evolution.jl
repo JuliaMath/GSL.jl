@@ -46,11 +46,11 @@ end
 # 
 #   Returns: Cint
 function odeiv2_evolve_apply(sys::Ptr{gsl_odeiv2_system}, t1::Real, y::Real)
-    e = convert(Ptr{gsl_odeiv2_evolve}, Array(gsl_odeiv2_evolve, 1))
-    con = convert(Ptr{gsl_odeiv2_control}, Array(gsl_odeiv2_control, 1))
-    step = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
-    t = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    h = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    e = Ref{gsl_odeiv2_evolve}()
+    con = Ref{gsl_odeiv2_control}()
+    step = Ref{gsl_odeiv2_step}()
+    t = Ref{Cdouble}()
+    h = Ref{Cdouble}()
     errno = ccall( (:gsl_odeiv2_evolve_apply, libgsl), Cint,
         (Ptr{gsl_odeiv2_evolve}, Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_step},
         Ptr{gsl_odeiv2_system}, Ptr{Cdouble}, Cdouble, Ptr{Cdouble}, Cdouble),
@@ -68,10 +68,10 @@ end
 # 
 #   Returns: Cint
 function odeiv2_evolve_apply_fixed_step(sys::Ptr{gsl_odeiv2_system}, h::Real, y::Real)
-    e = convert(Ptr{gsl_odeiv2_evolve}, Array(gsl_odeiv2_evolve, 1))
-    con = convert(Ptr{gsl_odeiv2_control}, Array(gsl_odeiv2_control, 1))
-    step = convert(Ptr{gsl_odeiv2_step}, Array(gsl_odeiv2_step, 1))
-    t = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    e = Ref{gsl_odeiv2_evolve}()
+    con = Ref{gsl_odeiv2_control}()
+    step = Ref{gsl_odeiv2_step}()
+    t = Ref{Cdouble}()
     errno = ccall( (:gsl_odeiv2_evolve_apply_fixed_step, libgsl), Cint,
         (Ptr{gsl_odeiv2_evolve}, Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_step},
         Ptr{gsl_odeiv2_system}, Ptr{Cdouble}, Cdouble, Cdouble), e, con, step,
@@ -86,7 +86,7 @@ end
 # 
 #   Returns: Cint
 function odeiv2_evolve_reset()
-    e = convert(Ptr{gsl_odeiv2_evolve}, Array(gsl_odeiv2_evolve, 1))
+    e = Ref{gsl_odeiv2_evolve}()
     errno = ccall( (:gsl_odeiv2_evolve_reset, libgsl), Cint,
         (Ptr{gsl_odeiv2_evolve}, ), e )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -107,7 +107,7 @@ end
 # 
 #   Returns: Cint
 function odeiv2_evolve_set_driver(d::Ptr{gsl_odeiv2_driver})
-    e = convert(Ptr{gsl_odeiv2_evolve}, Array(gsl_odeiv2_evolve, 1))
+    e = Ref{gsl_odeiv2_evolve}()
     errno = ccall( (:gsl_odeiv2_evolve_set_driver, libgsl), Cint,
         (Ptr{gsl_odeiv2_evolve}, Ptr{gsl_odeiv2_driver}), e, d )
     if errno!= 0 throw(GSL_ERROR(errno)) end

@@ -12,7 +12,7 @@ export ntuple_read
 # 
 #   Returns: Cint
 function ntuple_read()
-    ntuple = convert(Ptr{gsl_ntuple}, Array(gsl_ntuple, 1))
+    ntuple = Ref{gsl_ntuple}()
     errno = ccall( (:gsl_ntuple_read, libgsl), Cint, (Ptr{gsl_ntuple}, ),
         ntuple )
     if errno!= 0 throw(GSL_ERROR(errno)) end

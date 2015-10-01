@@ -22,10 +22,10 @@ export integration_qagp
 # 
 #   Returns: Cint
 function integration_qagp(f::Ptr{gsl_function}, npts::Integer, epsabs::Real, epsrel::Real, limit::Integer)
-    pts = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    workspace = convert(Ptr{gsl_integration_workspace}, Array(gsl_integration_workspace, 1))
-    result = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    abserr = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    pts = Ref{Cdouble}()
+    workspace = Ref{gsl_integration_workspace}()
+    result = Ref{Cdouble}()
+    abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_integration_qagp, libgsl), Cint,
         (Ptr{gsl_function}, Ptr{Cdouble}, Csize_t, Cdouble, Cdouble, Csize_t,
         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, pts,

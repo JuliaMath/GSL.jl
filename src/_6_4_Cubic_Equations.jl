@@ -24,9 +24,9 @@ export poly_solve_cubic, poly_complex_solve_cubic
 # 
 #   Returns: Cint
 function poly_solve_cubic(a::Real, b::Real, c::Real)
-    x0 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    x1 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    x2 = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    x0 = Ref{Cdouble}()
+    x1 = Ref{Cdouble}()
+    x2 = Ref{Cdouble}()
     errno = ccall( (:gsl_poly_solve_cubic, libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}), a, b, c,
         x0, x1, x2 )
@@ -45,9 +45,9 @@ end
 # 
 #   Returns: Cint
 function poly_complex_solve_cubic(a::Real, b::Real, c::Real)
-    z0 = convert(Ptr{gsl_complex}, Array(gsl_complex, 1))
-    z1 = convert(Ptr{gsl_complex}, Array(gsl_complex, 1))
-    z2 = convert(Ptr{gsl_complex}, Array(gsl_complex, 1))
+    z0 = Ref{gsl_complex}()
+    z1 = Ref{gsl_complex}()
+    z2 = Ref{gsl_complex}()
     errno = ccall( (:gsl_poly_complex_solve_cubic, libgsl), Cint,
         (Cdouble, Cdouble, Cdouble, Ptr{gsl_complex}, Ptr{gsl_complex},
         Ptr{gsl_complex}), a, b, c, z0, z1, z2 )

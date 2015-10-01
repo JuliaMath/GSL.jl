@@ -77,8 +77,8 @@ end
 # 
 #   Returns: Cint
 function sf_lngamma_sgn_e(x::Real)
-    result_lg = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    sgn = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    result_lg = Ptr{gsl_sf_result}()
+    sgn = Ref{Cdouble}()
     errno = ccall( (:gsl_sf_lngamma_sgn_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}, Ptr{Cdouble}), x, result_lg, sgn )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -149,8 +149,8 @@ end
 # 
 #   Returns: Cint
 function sf_lngamma_complex_e(zr::Real, zi::Real)
-    lnr = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    arg = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    lnr = Ptr{gsl_sf_result}()
+    arg = Ptr{gsl_sf_result}()
     errno = ccall( (:gsl_sf_lngamma_complex_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, lnr, arg )
     if errno!= 0 throw(GSL_ERROR(errno)) end

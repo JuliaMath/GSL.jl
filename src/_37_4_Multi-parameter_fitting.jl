@@ -52,10 +52,10 @@ end
 # 
 #   Returns: Cint
 function multifit_linear(X::Ptr{gsl_matrix}, y::Ptr{gsl_vector})
-    c = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    cov = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    chisq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    work = convert(Ptr{gsl_multifit_linear_workspace}, Array(gsl_multifit_linear_workspace, 1))
+    c = Ref{gsl_vector}()
+    cov = Ref{gsl_matrix}()
+    chisq = Ref{Cdouble}()
+    work = Ref{gsl_multifit_linear_workspace}()
     errno = ccall( (:gsl_multifit_linear, libgsl), Cint, (Ptr{gsl_matrix},
         Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Cdouble},
         Ptr{gsl_multifit_linear_workspace}), X, y, c, cov, chisq, work )
@@ -75,10 +75,10 @@ end
 # 
 #   Returns: Cint
 function multifit_wlinear(X::Ptr{gsl_matrix}, w::Ptr{gsl_vector}, y::Ptr{gsl_vector})
-    c = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    cov = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    chisq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    work = convert(Ptr{gsl_multifit_linear_workspace}, Array(gsl_multifit_linear_workspace, 1))
+    c = Ref{gsl_vector}()
+    cov = Ref{gsl_matrix}()
+    chisq = Ref{Cdouble}()
+    work = Ref{gsl_multifit_linear_workspace}()
     errno = ccall( (:gsl_multifit_wlinear, libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector},
         Ptr{gsl_matrix}, Ptr{Cdouble}, Ptr{gsl_multifit_linear_workspace}), X,
@@ -94,11 +94,11 @@ end
 # 
 #   Returns: Cint
 function multifit_linear_svd(X::Ptr{gsl_matrix}, y::Ptr{gsl_vector}, tol::Real)
-    rank = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    c = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    cov = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    chisq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    work = convert(Ptr{gsl_multifit_linear_workspace}, Array(gsl_multifit_linear_workspace, 1))
+    rank = Ref{Csize_t}()
+    c = Ref{gsl_vector}()
+    cov = Ref{gsl_matrix}()
+    chisq = Ref{Cdouble}()
+    work = Ref{gsl_multifit_linear_workspace}()
     errno = ccall( (:gsl_multifit_linear_svd, libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Cdouble, Ptr{Csize_t},
         Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Cdouble},
@@ -115,11 +115,11 @@ end
 # 
 #   Returns: Cint
 function multifit_wlinear_svd(X::Ptr{gsl_matrix}, w::Ptr{gsl_vector}, y::Ptr{gsl_vector}, tol::Real)
-    rank = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    c = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    cov = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    chisq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    work = convert(Ptr{gsl_multifit_linear_workspace}, Array(gsl_multifit_linear_workspace, 1))
+    rank = Ref{Csize_t}()
+    c = Ref{gsl_vector}()
+    cov = Ref{gsl_matrix}()
+    chisq = Ref{Cdouble}()
+    work = Ref{gsl_multifit_linear_workspace}()
     errno = ccall( (:gsl_multifit_wlinear_svd, libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}, Cdouble,
         Ptr{Csize_t}, Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Cdouble},
@@ -134,11 +134,11 @@ end
 # 
 #   Returns: Cint
 function multifit_linear_usvd(X::Ptr{gsl_matrix}, y::Ptr{gsl_vector}, tol::Real)
-    rank = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    c = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    cov = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    chisq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    work = convert(Ptr{gsl_multifit_linear_workspace}, Array(gsl_multifit_linear_workspace, 1))
+    rank = Ref{Csize_t}()
+    c = Ref{gsl_vector}()
+    cov = Ref{gsl_matrix}()
+    chisq = Ref{Cdouble}()
+    work = Ref{gsl_multifit_linear_workspace}()
     errno = ccall( (:gsl_multifit_linear_usvd, libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Cdouble, Ptr{Csize_t},
         Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Cdouble},
@@ -153,11 +153,11 @@ end
 # 
 #   Returns: Cint
 function multifit_wlinear_usvd(X::Ptr{gsl_matrix}, w::Ptr{gsl_vector}, y::Ptr{gsl_vector}, tol::Real)
-    rank = convert(Ptr{Csize_t}, Array(Csize_t, 1))
-    c = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
-    cov = convert(Ptr{gsl_matrix}, Array(gsl_matrix, 1))
-    chisq = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    work = convert(Ptr{gsl_multifit_linear_workspace}, Array(gsl_multifit_linear_workspace, 1))
+    rank = Ref{Csize_t}()
+    c = Ref{gsl_vector}()
+    cov = Ref{gsl_matrix}()
+    chisq = Ref{Cdouble}()
+    work = Ref{gsl_multifit_linear_workspace}()
     errno = ccall( (:gsl_multifit_wlinear_usvd, libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}, Cdouble,
         Ptr{Csize_t}, Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Cdouble},
@@ -174,8 +174,8 @@ end
 # 
 #   Returns: Cint
 function multifit_linear_est(x::Ptr{gsl_vector}, c::Ptr{gsl_vector}, cov::Ptr{gsl_matrix})
-    y = convert(Ptr{Cdouble}, Array(Cdouble, 1))
-    y_err = convert(Ptr{Cdouble}, Array(Cdouble, 1))
+    y = Ref{Cdouble}()
+    y_err = Ref{Cdouble}()
     errno = ccall( (:gsl_multifit_linear_est, libgsl), Cint,
         (Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Cdouble},
         Ptr{Cdouble}), x, c, cov, y, y_err )
@@ -189,7 +189,7 @@ end
 # 
 #   Returns: Cint
 function multifit_linear_residuals(X::Ptr{gsl_matrix}, y::Ptr{gsl_vector}, c::Ptr{gsl_vector})
-    r = convert(Ptr{gsl_vector}, Array(gsl_vector, 1))
+    r = Ref{gsl_vector}()
     errno = ccall( (:gsl_multifit_linear_residuals, libgsl), Cint,
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector}),
         X, y, c, r )
