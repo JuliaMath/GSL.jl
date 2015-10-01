@@ -22,7 +22,7 @@ function rng_name(r::Ptr{gsl_rng})
     output_string = output_ptr = ccall( (:gsl_rng_name, libgsl),
         Ptr{Cchar}, (Ptr{gsl_rng}, ), r )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(convert(Ptr{UInt8}, output_string))
+    bytestring(output_string)
 end
 
 

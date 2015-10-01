@@ -12,11 +12,10 @@ export ntuple_create
 # existing file with the same name is truncated to zero length and overwritten.
 # A pointer to memory for the current ntuple row ntuple_data must be
 # supplied—this is used to copy ntuples in and out of the file.
-# 
+#
 #   Returns: Ptr{gsl_ntuple}
-function ntuple_create{tA<:Char}(filename_in::Ptr{tA}, ntuple_data::Ptr{Void}, size::Integer)
-    filename = convert(Ptr{Cchar}, filename_in)
+function ntuple_create(filename_in::AbstractString, ntuple_data, size::Integer)
     output_ptr = ccall( (:gsl_ntuple_create, libgsl), Ptr{gsl_ntuple},
-        (Ptr{Cchar}, Ptr{Void}, Csize_t), filename, ntuple_data, size )
+        (Cstring, Ptr{Void}, Csize_t), filename_in, ntuple_data, size )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

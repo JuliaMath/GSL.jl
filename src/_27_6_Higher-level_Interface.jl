@@ -45,7 +45,7 @@ function spline_name(spline::Ptr{gsl_spline})
     output_string = output_ptr = ccall( (:gsl_spline_name, libgsl),
         Ptr{Cchar}, (Ptr{gsl_spline}, ), spline )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(convert(Ptr{UInt8}, output_string))
+    bytestring(output_string)
 end
 
 

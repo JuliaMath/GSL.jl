@@ -21,7 +21,7 @@ function interp_name(interp::Ptr{gsl_interp})
     output_string = output_ptr = ccall( (:gsl_interp_name, libgsl),
         Ptr{Cchar}, (Ptr{gsl_interp}, ), interp )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(convert(Ptr{UInt8}, output_string))
+    bytestring(output_string)
 end
 
 
