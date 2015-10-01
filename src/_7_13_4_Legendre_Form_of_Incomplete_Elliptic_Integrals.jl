@@ -15,7 +15,7 @@ export sf_ellint_F, sf_ellint_F_e, sf_ellint_E, sf_ellint_E_e, sf_ellint_P,
 # define this function in terms of the parameter m = k^2.
 # 
 #   Returns: Cdouble
-function sf_ellint_F(phi::Real, k::Real, mode::gsl_mode_t)
+function sf_ellint_F(phi::Real, k::Real, mode::Integer)
     ccall( (:gsl_sf_ellint_F, libgsl), Cdouble, (Cdouble, Cdouble,
         gsl_mode_t), phi, k, mode )
 end
@@ -26,7 +26,7 @@ end
 # define this function in terms of the parameter m = k^2.
 # 
 #   Returns: Cint
-function sf_ellint_F_e(phi::Real, k::Real, mode::gsl_mode_t)
+function sf_ellint_F_e(phi::Real, k::Real, mode::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     errno = ccall( (:gsl_sf_ellint_F_e, libgsl), Cint, (Cdouble, Cdouble,
         gsl_mode_t, Ptr{gsl_sf_result}), phi, k, mode, result )
@@ -40,7 +40,7 @@ end
 # define this function in terms of the parameter m = k^2.
 # 
 #   Returns: Cdouble
-function sf_ellint_E(phi::Real, k::Real, mode::gsl_mode_t)
+function sf_ellint_E(phi::Real, k::Real, mode::Integer)
     ccall( (:gsl_sf_ellint_E, libgsl), Cdouble, (Cdouble, Cdouble,
         gsl_mode_t), phi, k, mode )
 end
@@ -51,7 +51,7 @@ end
 # define this function in terms of the parameter m = k^2.
 # 
 #   Returns: Cint
-function sf_ellint_E_e(phi::Real, k::Real, mode::gsl_mode_t)
+function sf_ellint_E_e(phi::Real, k::Real, mode::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     errno = ccall( (:gsl_sf_ellint_E_e, libgsl), Cint, (Cdouble, Cdouble,
         gsl_mode_t, Ptr{gsl_sf_result}), phi, k, mode, result )
@@ -66,7 +66,7 @@ end
 # k^2, with the change of sign n \to -n.
 # 
 #   Returns: Cdouble
-function sf_ellint_P(phi::Real, k::Real, n::Real, mode::gsl_mode_t)
+function sf_ellint_P(phi::Real, k::Real, n::Real, mode::Integer)
     ccall( (:gsl_sf_ellint_P, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble, gsl_mode_t), phi, k, n, mode )
 end
@@ -78,7 +78,7 @@ end
 # k^2, with the change of sign n \to -n.
 # 
 #   Returns: Cint
-function sf_ellint_P_e(phi::Real, k::Real, n::Real, mode::gsl_mode_t)
+function sf_ellint_P_e(phi::Real, k::Real, n::Real, mode::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     errno = ccall( (:gsl_sf_ellint_P_e, libgsl), Cint, (Cdouble, Cdouble,
         Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), phi, k, n, mode, result )
@@ -93,7 +93,7 @@ end
 # The argument n is not used and will be removed in a future release.
 # 
 #   Returns: Cdouble
-function sf_ellint_D(phi::Real, k::Real, n::Real, mode::gsl_mode_t)
+function sf_ellint_D(phi::Real, k::Real, n::Real, mode::Integer)
     ccall( (:gsl_sf_ellint_D, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble, gsl_mode_t), phi, k, n, mode )
 end
@@ -105,7 +105,7 @@ end
 # The argument n is not used and will be removed in a future release.
 # 
 #   Returns: Cint
-function sf_ellint_D_e(phi::Real, k::Real, n::Real, mode::gsl_mode_t)
+function sf_ellint_D_e(phi::Real, k::Real, n::Real, mode::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     errno = ccall( (:gsl_sf_ellint_D_e, libgsl), Cint, (Cdouble, Cdouble,
         Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), phi, k, n, mode, result )

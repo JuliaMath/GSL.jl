@@ -13,7 +13,7 @@ export sf_airy_Ai_deriv, sf_airy_Ai_deriv_e, sf_airy_Bi_deriv,
 # specified by mode.
 # 
 #   Returns: Cdouble
-function sf_airy_Ai_deriv(x::Real, mode::gsl_mode_t)
+function sf_airy_Ai_deriv(x::Real, mode::Integer)
     ccall( (:gsl_sf_airy_Ai_deriv, libgsl), Cdouble, (Cdouble,
         gsl_mode_t), x, mode )
 end
@@ -23,7 +23,7 @@ end
 # specified by mode.
 # 
 #   Returns: Cint
-function sf_airy_Ai_deriv_e(x::Real, mode::gsl_mode_t)
+function sf_airy_Ai_deriv_e(x::Real, mode::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     errno = ccall( (:gsl_sf_airy_Ai_deriv_e, libgsl), Cint, (Cdouble,
         gsl_mode_t, Ptr{gsl_sf_result}), x, mode, result )
@@ -36,7 +36,7 @@ end
 # specified by mode.
 # 
 #   Returns: Cdouble
-function sf_airy_Bi_deriv(x::Real, mode::gsl_mode_t)
+function sf_airy_Bi_deriv(x::Real, mode::Integer)
     ccall( (:gsl_sf_airy_Bi_deriv, libgsl), Cdouble, (Cdouble,
         gsl_mode_t), x, mode )
 end
@@ -46,7 +46,7 @@ end
 # specified by mode.
 # 
 #   Returns: Cint
-function sf_airy_Bi_deriv_e(x::Real, mode::gsl_mode_t)
+function sf_airy_Bi_deriv_e(x::Real, mode::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     errno = ccall( (:gsl_sf_airy_Bi_deriv_e, libgsl), Cint, (Cdouble,
         gsl_mode_t, Ptr{gsl_sf_result}), x, mode, result )
@@ -59,7 +59,7 @@ end
 # For x>0 the scaling factor S_A(x) is  \exp(+(2/3) x^(3/2)), and is 1 for x<0.
 # 
 #   Returns: Cdouble
-function sf_airy_Ai_deriv_scaled(x::Real, mode::gsl_mode_t)
+function sf_airy_Ai_deriv_scaled(x::Real, mode::Integer)
     ccall( (:gsl_sf_airy_Ai_deriv_scaled, libgsl), Cdouble, (Cdouble,
         gsl_mode_t), x, mode )
 end
@@ -69,7 +69,7 @@ end
 # For x>0 the scaling factor S_A(x) is  \exp(+(2/3) x^(3/2)), and is 1 for x<0.
 # 
 #   Returns: Cint
-function sf_airy_Ai_deriv_scaled_e(x::Real, mode::gsl_mode_t)
+function sf_airy_Ai_deriv_scaled_e(x::Real, mode::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     errno = ccall( (:gsl_sf_airy_Ai_deriv_scaled_e, libgsl), Cint,
         (Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), x, mode, result )
@@ -82,7 +82,7 @@ end
 # For x>0 the scaling factor S_B(x) is  exp(-(2/3) x^(3/2)), and is 1 for x<0.
 # 
 #   Returns: Cdouble
-function sf_airy_Bi_deriv_scaled(x::Real, mode::gsl_mode_t)
+function sf_airy_Bi_deriv_scaled(x::Real, mode::Integer)
     ccall( (:gsl_sf_airy_Bi_deriv_scaled, libgsl), Cdouble, (Cdouble,
         gsl_mode_t), x, mode )
 end
@@ -92,7 +92,7 @@ end
 # For x>0 the scaling factor S_B(x) is  exp(-(2/3) x^(3/2)), and is 1 for x<0.
 # 
 #   Returns: Cint
-function sf_airy_Bi_deriv_scaled_e(x::Real, mode::gsl_mode_t)
+function sf_airy_Bi_deriv_scaled_e(x::Real, mode::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     errno = ccall( (:gsl_sf_airy_Bi_deriv_scaled_e, libgsl), Cint,
         (Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), x, mode, result )

@@ -13,7 +13,7 @@ export sf_ellint_Kcomp, sf_ellint_Kcomp_e, sf_ellint_Ecomp, sf_ellint_Ecomp_e,
 # this function in terms of the parameter m = k^2.
 # 
 #   Returns: Cdouble
-function sf_ellint_Kcomp(k::Real, mode::gsl_mode_t)
+function sf_ellint_Kcomp(k::Real, mode::Integer)
     ccall( (:gsl_sf_ellint_Kcomp, libgsl), Cdouble, (Cdouble, gsl_mode_t),
         k, mode )
 end
@@ -24,7 +24,7 @@ end
 # this function in terms of the parameter m = k^2.
 # 
 #   Returns: Cint
-function sf_ellint_Kcomp_e(k::Real, mode::gsl_mode_t)
+function sf_ellint_Kcomp_e(k::Real, mode::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     errno = ccall( (:gsl_sf_ellint_Kcomp_e, libgsl), Cint, (Cdouble,
         gsl_mode_t, Ptr{gsl_sf_result}), k, mode, result )
@@ -38,7 +38,7 @@ end
 # this function in terms of the parameter m = k^2.
 # 
 #   Returns: Cdouble
-function sf_ellint_Ecomp(k::Real, mode::gsl_mode_t)
+function sf_ellint_Ecomp(k::Real, mode::Integer)
     ccall( (:gsl_sf_ellint_Ecomp, libgsl), Cdouble, (Cdouble, gsl_mode_t),
         k, mode )
 end
@@ -49,7 +49,7 @@ end
 # this function in terms of the parameter m = k^2.
 # 
 #   Returns: Cint
-function sf_ellint_Ecomp_e(k::Real, mode::gsl_mode_t)
+function sf_ellint_Ecomp_e(k::Real, mode::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     errno = ccall( (:gsl_sf_ellint_Ecomp_e, libgsl), Cint, (Cdouble,
         gsl_mode_t, Ptr{gsl_sf_result}), k, mode, result )
@@ -64,7 +64,7 @@ end
 # k^2, with the change of sign n \to -n.
 # 
 #   Returns: Cdouble
-function sf_ellint_Pcomp(k::Real, n::Real, mode::gsl_mode_t)
+function sf_ellint_Pcomp(k::Real, n::Real, mode::Integer)
     ccall( (:gsl_sf_ellint_Pcomp, libgsl), Cdouble, (Cdouble, Cdouble,
         gsl_mode_t), k, n, mode )
 end
@@ -76,7 +76,7 @@ end
 # k^2, with the change of sign n \to -n.
 # 
 #   Returns: Cint
-function sf_ellint_Pcomp_e(k::Real, n::Real, mode::gsl_mode_t)
+function sf_ellint_Pcomp_e(k::Real, n::Real, mode::Integer)
     result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
     errno = ccall( (:gsl_sf_ellint_Pcomp_e, libgsl), Cint, (Cdouble,
         Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), k, n, mode, result )

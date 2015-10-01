@@ -38,7 +38,7 @@ end
 # and positive.  The array is over-written with the values of J_\nu(x_i).
 # 
 #   Returns: Cint
-function sf_bessel_sequence_Jnu_e(nu::Real, mode::gsl_mode_t, size::Integer, v::Real)
+function sf_bessel_sequence_Jnu_e(nu::Real, mode::Integer, size::Integer, v::Real)
     errno = ccall( (:gsl_sf_bessel_sequence_Jnu_e, libgsl), Cint,
         (Cdouble, gsl_mode_t, Csize_t, Cdouble), nu, mode, size, v )
     if errno!= 0 throw(GSL_ERROR(errno)) end
