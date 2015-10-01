@@ -27,11 +27,11 @@ end
 # 
 #   Returns: Cint
 function sf_legendre_Plm_e(l::Integer, m::Integer, x::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_Plm_e, libgsl), Cint, (Cint, Cint,
         Cdouble, Ptr{gsl_sf_result}), l, m, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_legendre_Plm_e
@@ -90,11 +90,11 @@ end
 # 
 #   Returns: Cint
 function sf_legendre_sphPlm_e(l::Integer, m::Integer, x::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_sphPlm_e, libgsl), Cint, (Cint, Cint,
         Cdouble, Ptr{gsl_sf_result}), l, m, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_legendre_sphPlm_e

@@ -25,11 +25,11 @@ end
 # 
 #   Returns: Cint
 function sf_hydrogenicR_1_e(Z::Real, r::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hydrogenicR_1_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), Z, r, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 @vectorize_2arg Number sf_hydrogenicR_1_e
 
@@ -59,11 +59,11 @@ end
 # 
 #   Returns: Cint
 function sf_hydrogenicR_e(n::Integer, l::Integer, Z::Real, r::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hydrogenicR_e, libgsl), Cint, (Cint, Cint,
         Cdouble, Cdouble, Ptr{gsl_sf_result}), n, l, Z, r, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number sf_hydrogenicR_e

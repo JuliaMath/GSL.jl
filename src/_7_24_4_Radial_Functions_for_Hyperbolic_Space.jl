@@ -29,11 +29,11 @@ end
 # 
 #   Returns: Cint
 function sf_legendre_H3d_0_e(lambda::Real, eta::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_H3d_0_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, eta, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 @vectorize_2arg Number sf_legendre_H3d_0_e
 
@@ -60,11 +60,11 @@ end
 # 
 #   Returns: Cint
 function sf_legendre_H3d_1_e(lambda::Real, eta::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_H3d_1_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), lambda, eta, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 @vectorize_2arg Number sf_legendre_H3d_1_e
 
@@ -88,11 +88,11 @@ end
 # 
 #   Returns: Cint
 function sf_legendre_H3d_e(l::Integer, lambda::Real, eta::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_H3d_e, libgsl), Cint, (Cint, Cdouble,
         Cdouble, Ptr{gsl_sf_result}), l, lambda, eta, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_legendre_H3d_e

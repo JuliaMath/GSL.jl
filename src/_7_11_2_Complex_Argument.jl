@@ -13,12 +13,12 @@ export sf_complex_dilog_e
 # 
 #   Returns: Cint
 function sf_complex_dilog_e(r::Real, theta::Real)
-    result_re = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
-    result_im = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result_re = Ref{gsl_sf_result}()
+    result_im = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_complex_dilog_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), r, theta, result_re,
         result_im )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result_re), unsafe_load(result_im)
+    return result_re[], result_im[]
 end
 @vectorize_2arg Number sf_complex_dilog_e

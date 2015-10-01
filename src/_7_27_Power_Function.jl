@@ -28,10 +28,10 @@ end
 # 
 #   Returns: Cint
 function sf_pow_int_e(x::Real, n::Integer)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_pow_int_e, libgsl), Cint, (Cdouble, Cint,
         Ptr{gsl_sf_result}), x, n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 @vectorize_2arg Number sf_pow_int_e

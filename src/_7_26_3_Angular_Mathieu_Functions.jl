@@ -12,11 +12,11 @@ export sf_mathieu_ce, sf_mathieu_se, sf_mathieu_ce_array, sf_mathieu_se_array
 # 
 #   Returns: Cint
 function sf_mathieu_ce(n::Integer, q::Real, x::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_mathieu_ce, libgsl), Cint, (Cint, Cdouble,
         Cdouble, Ptr{gsl_sf_result}), n, q, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_mathieu_ce
@@ -27,11 +27,11 @@ end
 # 
 #   Returns: Cint
 function sf_mathieu_se(n::Integer, q::Real, x::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_mathieu_se, libgsl), Cint, (Cint, Cdouble,
         Cdouble, Ptr{gsl_sf_result}), n, q, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_mathieu_se

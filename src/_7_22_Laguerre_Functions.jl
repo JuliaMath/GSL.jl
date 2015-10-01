@@ -46,11 +46,11 @@ end
 # 
 #   Returns: Cint
 function sf_laguerre_1_e(a::Real, x::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_laguerre_1_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 @vectorize_2arg Number sf_laguerre_1_e
 
@@ -60,11 +60,11 @@ end
 # 
 #   Returns: Cint
 function sf_laguerre_2_e(a::Real, x::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_laguerre_2_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 @vectorize_2arg Number sf_laguerre_2_e
 
@@ -74,11 +74,11 @@ end
 # 
 #   Returns: Cint
 function sf_laguerre_3_e(a::Real, x::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_laguerre_3_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 @vectorize_2arg Number sf_laguerre_3_e
 
@@ -100,11 +100,11 @@ end
 # 
 #   Returns: Cint
 function sf_laguerre_n_e(n::Integer, a::Real, x::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_laguerre_n_e, libgsl), Cint, (Cint, Cdouble,
         Cdouble, Ptr{gsl_sf_result}), n, a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_laguerre_n_e

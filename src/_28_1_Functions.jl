@@ -27,7 +27,7 @@ function deriv_central(f::Ptr{gsl_function}, x::Real, h::Real)
         Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f, x, h, result, abserr
         )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result), unsafe_load(abserr)
+    return result[], unsafe_load(abserr)
 end
 
 
@@ -52,7 +52,7 @@ function deriv_forward(f::Ptr{gsl_function}, x::Real, h::Real)
         Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f, x, h, result, abserr
         )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result), unsafe_load(abserr)
+    return result[], unsafe_load(abserr)
 end
 
 
@@ -73,5 +73,5 @@ function deriv_backward(f::Ptr{gsl_function}, x::Real, h::Real)
         (Ptr{gsl_function}, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f,
         x, h, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result), unsafe_load(abserr)
+    return result[], unsafe_load(abserr)
 end

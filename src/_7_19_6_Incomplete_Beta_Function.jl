@@ -30,11 +30,11 @@ end
 # 
 #   Returns: Cint
 function sf_beta_inc_e(a::Real, b::Real, x::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_beta_inc_e, libgsl), Cint, (Cdouble, Cdouble,
         Cdouble, Ptr{gsl_sf_result}), a, b, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_beta_inc_e

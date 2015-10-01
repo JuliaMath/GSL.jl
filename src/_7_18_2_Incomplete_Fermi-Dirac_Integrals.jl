@@ -25,10 +25,10 @@ end
 # 
 #   Returns: Cint
 function sf_fermi_dirac_inc_0_e(x::Real, b::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_fermi_dirac_inc_0_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}), x, b, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 @vectorize_2arg Number sf_fermi_dirac_inc_0_e

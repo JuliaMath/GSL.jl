@@ -29,13 +29,13 @@ end
 # 
 #   Returns: Cint
 function sf_coupling_9j_e(two_ja::Integer, two_jb::Integer, two_jc::Integer, two_jd::Integer, two_je::Integer, two_jf::Integer, two_jg::Integer, two_jh::Integer, two_ji::Integer)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_coupling_9j_e, libgsl), Cint, (Cint, Cint,
         Cint, Cint, Cint, Cint, Cint, Cint, Cint, Ptr{gsl_sf_result}), two_ja,
         two_jb, two_jc, two_jd, two_je, two_jf, two_jg, two_jh, two_ji, result
         )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_9arg Number sf_coupling_9j_e

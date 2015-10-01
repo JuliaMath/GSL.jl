@@ -15,11 +15,11 @@ export sf_mathieu_Mc, sf_mathieu_Ms, sf_mathieu_Mc_array, sf_mathieu_Ms_array
 # 
 #   Returns: Cint
 function sf_mathieu_Mc(j::Integer, n::Integer, q::Real, x::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_mathieu_Mc, libgsl), Cint, (Cint, Cint,
         Cdouble, Cdouble, Ptr{gsl_sf_result}), j, n, q, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number sf_mathieu_Mc
@@ -33,11 +33,11 @@ end
 # 
 #   Returns: Cint
 function sf_mathieu_Ms(j::Integer, n::Integer, q::Real, x::Real)
-    result = convert(Ptr{gsl_sf_result}, Array(gsl_sf_result, 1))
+    result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_mathieu_Ms, libgsl), Cint, (Cint, Cint,
         Cdouble, Cdouble, Ptr{gsl_sf_result}), j, n, q, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result)
+    return result[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number sf_mathieu_Ms

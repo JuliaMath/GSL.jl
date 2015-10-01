@@ -93,7 +93,7 @@ function monte_vegas_runval(s::Ptr{gsl_monte_vegas_state})
     ccall( (:gsl_monte_vegas_runval, libgsl), Void,
         (Ptr{gsl_monte_vegas_state}, Ptr{Cdouble}, Ptr{Cdouble}), s, result,
         sigma )
-    return unsafe_load(result), unsafe_load(sigma)
+    return result[], unsafe_load(sigma)
 end
 
 
