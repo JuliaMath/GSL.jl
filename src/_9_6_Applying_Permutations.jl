@@ -19,7 +19,7 @@ function permute{tA<:Integer}(p_in::AbstractVector{tA}, stride::Integer)
     errno = ccall( (:gsl_permute, libgsl), Cint, (Ptr{Csize_t},
         Ptr{Cdouble}, Csize_t, Csize_t), p, data, stride, n )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(data)
+    return data[]
 end
 
 
@@ -34,7 +34,7 @@ function permute_inverse{tA<:Integer}(p_in::AbstractVector{tA}, stride::Integer)
     errno = ccall( (:gsl_permute_inverse, libgsl), Cint, (Ptr{Csize_t},
         Ptr{Cdouble}, Csize_t, Csize_t), p, data, stride, n )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(data)
+    return data[]
 end
 
 
@@ -50,7 +50,7 @@ function permute_vector(p::Ptr{gsl_permutation})
     errno = ccall( (:gsl_permute_vector, libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_vector}), p, v )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(v)
+    return v[]
 end
 
 
@@ -67,7 +67,7 @@ function permute_vector_inverse(p::Ptr{gsl_permutation})
     errno = ccall( (:gsl_permute_vector_inverse, libgsl), Cint,
         (Ptr{gsl_permutation}, Ptr{gsl_vector}), p, v )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(v)
+    return v[]
 end
 
 
@@ -82,5 +82,5 @@ function permutation_mul(pa::Ptr{gsl_permutation}, pb::Ptr{gsl_permutation})
         (Ptr{gsl_permutation}, Ptr{gsl_permutation}, Ptr{gsl_permutation}), p,
         pa, pb )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(p)
+    return p[]
 end

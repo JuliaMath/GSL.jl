@@ -33,7 +33,7 @@ function block_fread(stream::Ptr{Void})
     errno = ccall( (:gsl_block_fread, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_block}), stream, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(b)
+    return b[]
 end
 
 
@@ -49,7 +49,7 @@ function block_fprintf(stream::Ptr{Void}, b::Ptr{gsl_block})
     errno = ccall( (:gsl_block_fprintf, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_block}, Ptr{Cchar}), stream, b, format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(format)
+    return format[]
 end
 
 
@@ -65,5 +65,5 @@ function block_fscanf(stream::Ptr{Void})
     errno = ccall( (:gsl_block_fscanf, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_block}), stream, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(b)
+    return b[]
 end

@@ -23,7 +23,7 @@ function multimin_fdfminimizer_iterate()
     errno = ccall( (:gsl_multimin_fdfminimizer_iterate, libgsl), Cint,
         (Ptr{gsl_multimin_fdfminimizer}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(s)
+    return s[]
 end
 
 
@@ -39,7 +39,7 @@ function multimin_fminimizer_iterate()
     errno = ccall( (:gsl_multimin_fminimizer_iterate, libgsl), Cint,
         (Ptr{gsl_multimin_fminimizer}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(s)
+    return s[]
 end
 
 
@@ -121,5 +121,5 @@ function multimin_fdfminimizer_restart()
     errno = ccall( (:gsl_multimin_fdfminimizer_restart, libgsl), Cint,
         (Ptr{gsl_multimin_fdfminimizer}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(s)
+    return s[]
 end

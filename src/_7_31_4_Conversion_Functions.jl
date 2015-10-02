@@ -17,7 +17,7 @@ function sf_polar_to_rect(r::Real, theta::Real)
     errno = ccall( (:gsl_sf_polar_to_rect, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), r, theta, x, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(x), unsafe_load(y)
+    return x[], y[]
 end
 @vectorize_2arg Number sf_polar_to_rect
 
@@ -33,6 +33,6 @@ function sf_rect_to_polar(x::Real, y::Real)
     errno = ccall( (:gsl_sf_rect_to_polar, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), x, y, r, theta )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(r), unsafe_load(theta)
+    return r[], theta[]
 end
 @vectorize_2arg Number sf_rect_to_polar

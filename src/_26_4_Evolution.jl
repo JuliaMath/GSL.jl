@@ -56,7 +56,7 @@ function odeiv2_evolve_apply(sys::Ptr{gsl_odeiv2_system}, t1::Real, y::Real)
         Ptr{gsl_odeiv2_system}, Ptr{Cdouble}, Cdouble, Ptr{Cdouble}, Cdouble),
         e, con, step, sys, t, t1, h, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(e), unsafe_load(con), unsafe_load(step), unsafe_load(t), unsafe_load(h)
+    return e[], con[], step[], t[], h[]
 end
 
 
@@ -77,7 +77,7 @@ function odeiv2_evolve_apply_fixed_step(sys::Ptr{gsl_odeiv2_system}, h::Real, y:
         Ptr{gsl_odeiv2_system}, Ptr{Cdouble}, Cdouble, Cdouble), e, con, step,
         sys, t, h, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(e), unsafe_load(con), unsafe_load(step), unsafe_load(t)
+    return e[], con[], step[], t[]
 end
 
 
@@ -90,7 +90,7 @@ function odeiv2_evolve_reset()
     errno = ccall( (:gsl_odeiv2_evolve_reset, libgsl), Cint,
         (Ptr{gsl_odeiv2_evolve}, ), e )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(e)
+    return e[]
 end
 
 
@@ -111,5 +111,5 @@ function odeiv2_evolve_set_driver(d::Ptr{gsl_odeiv2_driver})
     errno = ccall( (:gsl_odeiv2_evolve_set_driver, libgsl), Cint,
         (Ptr{gsl_odeiv2_evolve}, Ptr{gsl_odeiv2_driver}), e, d )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(e)
+    return e[]
 end

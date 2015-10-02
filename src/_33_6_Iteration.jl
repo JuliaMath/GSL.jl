@@ -22,7 +22,7 @@ function root_fsolver_iterate()
     errno = ccall( (:gsl_root_fsolver_iterate, libgsl), Cint,
         (Ptr{gsl_root_fsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(s)
+    return s[]
 end
 
 
@@ -39,7 +39,7 @@ function root_fdfsolver_iterate()
     errno = ccall( (:gsl_root_fdfsolver_iterate, libgsl), Cint,
         (Ptr{gsl_root_fdfsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(s)
+    return s[]
 end
 
 
@@ -51,7 +51,7 @@ function root_fdfsolver_iterate()
     errno = ccall( (:gsl_root_fdfsolver_iterate, libgsl), Cint,
         (Ptr{gsl_root_fdfsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(s)
+    return s[]
 end
 
 

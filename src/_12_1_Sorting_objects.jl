@@ -55,5 +55,5 @@ function heapsort_index(array::Ptr{Void}, count::Integer, size::Integer, compare
         Ptr{Void}, Csize_t, Csize_t, gsl_comparison_fn_t), p, array, count,
         size, compare )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(p)
+    return p[]
 end

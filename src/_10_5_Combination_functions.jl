@@ -31,5 +31,5 @@ function combination_prev()
     errno = ccall( (:gsl_combination_prev, libgsl), Cint,
         (Ptr{gsl_combination}, ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(c)
+    return c[]
 end

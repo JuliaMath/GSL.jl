@@ -120,7 +120,7 @@ function sf_gegenpoly_array(nmax::Integer, lambda::Real, x::Real)
     errno = ccall( (:gsl_sf_gegenpoly_array, libgsl), Cint, (Cint,
         Cdouble, Cdouble, Cdouble), nmax, lambda, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result_array)[1]
+    return result_array[][1]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_gegenpoly_array

@@ -46,7 +46,7 @@ function sf_legendre_Plm_array(lmax::Integer, m::Integer, x::Real)
     errno = ccall( (:gsl_sf_legendre_Plm_array, libgsl), Cint, (Cint,
         Cint, Cdouble, Cdouble), lmax, m, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result_array)[1]
+    return result_array[][1]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_legendre_Plm_array
@@ -61,7 +61,7 @@ function sf_legendre_Plm_deriv_array(lmax::Integer, m::Integer, x::Real)
     errno = ccall( (:gsl_sf_legendre_Plm_deriv_array, libgsl), Cint,
         (Cint, Cint, Cdouble, Cdouble), lmax, m, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result_array)[1]
+    return result_array[][1]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_legendre_Plm_deriv_array
@@ -110,7 +110,7 @@ function sf_legendre_sphPlm_array(lmax::Integer, m::Integer, x::Real)
     errno = ccall( (:gsl_sf_legendre_sphPlm_array, libgsl), Cint, (Cint,
         Cint, Cdouble, Cdouble), lmax, m, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result_array)[1]
+    return result_array[][1]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_legendre_sphPlm_array
@@ -126,7 +126,7 @@ function sf_legendre_sphPlm_deriv_array(lmax::Integer, m::Integer, x::Real)
     errno = ccall( (:gsl_sf_legendre_sphPlm_deriv_array, libgsl), Cint,
         (Cint, Cint, Cdouble, Cdouble), lmax, m, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result_array)[1]
+    return result_array[][1]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_legendre_sphPlm_deriv_array

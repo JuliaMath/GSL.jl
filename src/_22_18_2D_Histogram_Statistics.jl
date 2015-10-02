@@ -28,7 +28,7 @@ function histogram2d_max_bin(h::Ptr{gsl_histogram2d})
     j = Ref{Csize_t}()
     ccall( (:gsl_histogram2d_max_bin, libgsl), Void,
         (Ptr{gsl_histogram2d}, Ptr{Csize_t}, Ptr{Csize_t}), h, i, j )
-    return unsafe_load(i), unsafe_load(j)
+    return i[], j[]
 end
 
 
@@ -51,7 +51,7 @@ function histogram2d_min_bin(h::Ptr{gsl_histogram2d})
     j = Ref{Csize_t}()
     ccall( (:gsl_histogram2d_min_bin, libgsl), Void,
         (Ptr{gsl_histogram2d}, Ptr{Csize_t}, Ptr{Csize_t}), h, i, j )
-    return unsafe_load(i), unsafe_load(j)
+    return i[], j[]
 end
 
 

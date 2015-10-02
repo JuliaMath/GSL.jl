@@ -25,5 +25,5 @@ function ntuple_project()
         (Ptr{gsl_histogram}, Ptr{gsl_ntuple}, Ptr{gsl_ntuple_value_fn},
         Ptr{gsl_ntuple_select_fn}), h, ntuple, value_func, select_func )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(h), unsafe_load(ntuple), unsafe_load(value_func), unsafe_load(select_func)
+    return h[], ntuple[], value_func[], select_func[]
 end

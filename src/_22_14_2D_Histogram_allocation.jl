@@ -34,7 +34,7 @@ function histogram2d_set_ranges(xrange::Real)
     errno = ccall( (:gsl_histogram2d_set_ranges, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble), h, xrange )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(h)
+    return h[]
 end
 @vectorize_1arg Number histogram2d_set_ranges
 
@@ -50,7 +50,7 @@ function histogram2d_set_ranges_uniform(xmin::Real, xmax::Real, ymin::Real, ymax
         (Ptr{gsl_histogram2d}, Cdouble, Cdouble, Cdouble, Cdouble), h, xmin,
         xmax, ymin, ymax )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(h)
+    return h[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number histogram2d_set_ranges_uniform

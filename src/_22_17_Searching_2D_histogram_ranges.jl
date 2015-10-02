@@ -23,5 +23,5 @@ function histogram2d_find(h::Ptr{gsl_histogram2d}, x::Real, y::Real)
         (Ptr{gsl_histogram2d}, Cdouble, Cdouble, Ptr{Csize_t}, Ptr{Csize_t}),
         h, x, y, i, j )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(i), unsafe_load(j)
+    return i[], j[]
 end

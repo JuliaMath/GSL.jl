@@ -55,7 +55,7 @@ function monte_miser_integrate(xl::Real)
     errno = ccall( (:gsl_monte_miser_integrate, libgsl), Cint,
         (Ptr{gsl_monte_function}, Cdouble), f, xl )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(f)
+    return f[]
 end
 @vectorize_1arg Number monte_miser_integrate
 
@@ -77,7 +77,7 @@ function monte_miser_params_get(s::Ptr{gsl_monte_miser_state})
     params = Ref{gsl_monte_miser_params}()
     ccall( (:gsl_monte_miser_params_get, libgsl), Void,
         (Ptr{gsl_monte_miser_state}, Ptr{gsl_monte_miser_params}), s, params )
-    return unsafe_load(params)
+    return params[]
 end
 
 

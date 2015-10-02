@@ -51,5 +51,5 @@ function sum_levin_utrunc_accel{tA<:Real}(array_in::AbstractVector{tA})
         Ptr{Cdouble}, Ptr{Cdouble}), array, array_size, w, sum_accel,
         abserr_trunc )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(w), unsafe_load(sum_accel), unsafe_load(abserr_trunc)
+    return w[], sum_accel[], abserr_trunc[]
 end

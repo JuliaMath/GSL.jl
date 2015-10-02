@@ -37,7 +37,7 @@ function permutation_fread(stream::Ptr{Void})
     errno = ccall( (:gsl_permutation_fread, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_permutation}), stream, p )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(p)
+    return p[]
 end
 
 
@@ -53,7 +53,7 @@ function permutation_fprintf(stream::Ptr{Void}, p::Ptr{gsl_permutation})
     errno = ccall( (:gsl_permutation_fprintf, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_permutation}, Ptr{Cchar}), stream, p, format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(format)
+    return format[]
 end
 
 
@@ -69,5 +69,5 @@ function permutation_fscanf(stream::Ptr{Void})
     errno = ccall( (:gsl_permutation_fscanf, libgsl), Cint, (Ptr{Void},
         Ptr{gsl_permutation}), stream, p )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(p)
+    return p[]
 end

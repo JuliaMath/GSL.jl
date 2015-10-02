@@ -26,7 +26,7 @@ function fit_mul{tA<:Real, tB<:Real}(x_in::AbstractVector{tA}, xstride::Integer,
         Ptr{Cdouble}, Csize_t, Csize_t, Ptr{Cdouble}, Ptr{Cdouble},
         Ptr{Cdouble}), x, xstride, y, ystride, n, c1, cov11, sumsq )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(c1), unsafe_load(cov11), unsafe_load(sumsq)
+    return c1[], cov11[], sumsq[]
 end
 
 
@@ -53,7 +53,7 @@ function fit_wmul{tA<:Real, tB<:Real, tC<:Real}(x_in::AbstractVector{tA}, xstrid
         Ptr{Cdouble}, Ptr{Cdouble}), x, xstride, w, wstride, y, ystride, n, c1,
         cov11, sumsq )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(c1), unsafe_load(cov11), unsafe_load(sumsq)
+    return c1[], cov11[], sumsq[]
 end
 
 
@@ -68,7 +68,7 @@ function fit_mul_est(x::Real, c1::Real, cov11::Real)
     errno = ccall( (:gsl_fit_mul_est, libgsl), Cint, (Cdouble, Cdouble,
         Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), x, c1, cov11, y, y_err )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(y), unsafe_load(y_err)
+    return y[], y_err[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number fit_mul_est

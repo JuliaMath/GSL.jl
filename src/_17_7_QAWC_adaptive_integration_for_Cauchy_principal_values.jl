@@ -29,7 +29,7 @@ function integration_qawc(a::Real, b::Real, c::Real, epsabs::Real, epsrel::Real,
         Csize_t, Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}),
         f, a, b, c, epsabs, epsrel, limit, workspace, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(f), unsafe_load(workspace), unsafe_load(result), unsafe_load(abserr)
+    return f[], workspace[], result[], abserr[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_6arg Number integration_qawc

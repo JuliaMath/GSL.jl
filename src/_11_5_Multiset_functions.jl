@@ -31,5 +31,5 @@ function multiset_prev()
     errno = ccall( (:gsl_multiset_prev, libgsl), Cint, (Ptr{gsl_multiset},
         ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(c)
+    return c[]
 end

@@ -46,5 +46,5 @@ function combination_valid()
     errno = ccall( (:gsl_combination_valid, libgsl), Cint,
         (Ptr{gsl_combination}, ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(c)
+    return c[]
 end

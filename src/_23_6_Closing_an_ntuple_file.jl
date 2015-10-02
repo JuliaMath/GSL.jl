@@ -16,5 +16,5 @@ function ntuple_close()
     errno = ccall( (:gsl_ntuple_close, libgsl), Cint, (Ptr{gsl_ntuple}, ),
         ntuple )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(ntuple)
+    return ntuple[]
 end

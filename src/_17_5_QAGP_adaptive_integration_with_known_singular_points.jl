@@ -31,5 +31,5 @@ function integration_qagp(f::Ptr{gsl_function}, npts::Integer, epsabs::Real, eps
         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, pts,
         npts, epsabs, epsrel, limit, workspace, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(pts), unsafe_load(workspace), unsafe_load(result), unsafe_load(abserr)
+    return pts[], workspace[], result[], abserr[]
 end

@@ -46,7 +46,7 @@ function histogram_set_ranges(range::Real)
     errno = ccall( (:gsl_histogram_set_ranges, libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble), h, range )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(h)
+    return h[]
 end
 @vectorize_1arg Number histogram_set_ranges
 
@@ -64,7 +64,7 @@ function histogram_set_ranges_uniform(xmin::Real, xmax::Real)
     errno = ccall( (:gsl_histogram_set_ranges_uniform, libgsl), Cint,
         (Ptr{gsl_histogram}, Cdouble, Cdouble), h, xmin, xmax )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(h)
+    return h[]
 end
 @vectorize_2arg Number histogram_set_ranges_uniform
 

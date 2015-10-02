@@ -47,7 +47,7 @@ function multiroot_fdfsolver_iterate()
     errno = ccall( (:gsl_multiroot_fdfsolver_iterate, :libgsl), Cint,
         (Ptr{gsl_multiroot_fdfsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(s)
+    return s[]
 end
 
 

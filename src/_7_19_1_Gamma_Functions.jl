@@ -82,7 +82,7 @@ function sf_lngamma_sgn_e(x::Real)
     errno = ccall( (:gsl_sf_lngamma_sgn_e, libgsl), Cint, (Cdouble,
         Ptr{gsl_sf_result}, Ptr{Cdouble}), x, result_lg, sgn )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result_lg), unsafe_load(sgn)
+    return result_lg[], sgn[]
 end
 @vectorize_1arg Number sf_lngamma_sgn_e
 
@@ -154,6 +154,6 @@ function sf_lngamma_complex_e(zr::Real, zi::Real)
     errno = ccall( (:gsl_sf_lngamma_complex_e, libgsl), Cint, (Cdouble,
         Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, lnr, arg )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(lnr), unsafe_load(arg)
+    return lnr[], arg[]
 end
 @vectorize_2arg Number sf_lngamma_complex_e

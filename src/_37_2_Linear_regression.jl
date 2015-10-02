@@ -33,7 +33,7 @@ function fit_linear{tA<:Real, tB<:Real}(x_in::AbstractVector{tA}, xstride::Integ
         Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}), x, xstride, y,
         ystride, n, c0, c1, cov00, cov01, cov11, sumsq )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(c0), unsafe_load(c1), unsafe_load(cov00), unsafe_load(cov01), unsafe_load(cov11), unsafe_load(sumsq)
+    return c0[], c1[], cov00[], cov01[], cov11[], sumsq[]
 end
 
 
@@ -64,7 +64,7 @@ function fit_wlinear{tA<:Real, tB<:Real, tC<:Real}(x_in::AbstractVector{tA}, xst
         Ptr{Cdouble}), x, xstride, w, wstride, y, ystride, n, c0, c1, cov00,
         cov01, cov11, chisq )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(c0), unsafe_load(c1), unsafe_load(cov00), unsafe_load(cov01), unsafe_load(cov11), unsafe_load(chisq)
+    return c0[], c1[], cov00[], cov01[], cov11[], chisq[]
 end
 
 
@@ -80,7 +80,7 @@ function fit_linear_est(x::Real, c0::Real, c1::Real, cov00::Real, cov01::Real, c
         Cdouble, Cdouble, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), x, c0,
         c1, cov00, cov01, cov11, y, y_err )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(y), unsafe_load(y_err)
+    return y[], y_err[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_6arg Number fit_linear_est

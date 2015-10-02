@@ -17,7 +17,7 @@ function cheb_calc_deriv(cs::Ptr{gsl_cheb_series})
     errno = ccall( (:gsl_cheb_calc_deriv, libgsl), Cint,
         (Ptr{gsl_cheb_series}, Ptr{gsl_cheb_series}), deriv, cs )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(deriv)
+    return deriv[]
 end
 
 
@@ -32,5 +32,5 @@ function cheb_calc_integ(cs::Ptr{gsl_cheb_series})
     errno = ccall( (:gsl_cheb_calc_integ, libgsl), Cint,
         (Ptr{gsl_cheb_series}, Ptr{gsl_cheb_series}), integ, cs )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(integ)
+    return integ[]
 end

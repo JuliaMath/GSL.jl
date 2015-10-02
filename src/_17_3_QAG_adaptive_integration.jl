@@ -57,5 +57,5 @@ function integration_qag(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, e
         Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, b,
         epsabs, epsrel, limit, key, workspace, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(workspace), unsafe_load(result), unsafe_load(abserr)
+    return workspace[], result[], abserr[]
 end

@@ -76,7 +76,7 @@ function spline_eval_e(spline::Ptr{gsl_spline}, x::Real)
     errno = ccall( (:gsl_spline_eval_e, libgsl), Cint, (Ptr{gsl_spline},
         Cdouble, Ptr{gsl_interp_accel}, Ptr{Cdouble}), spline, x, acc, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(acc), unsafe_load(y)
+    return acc[], y[]
 end
 
 
@@ -99,7 +99,7 @@ function spline_eval_deriv_e(spline::Ptr{gsl_spline}, x::Real)
         (Ptr{gsl_spline}, Cdouble, Ptr{gsl_interp_accel}, Ptr{Cdouble}),
         spline, x, acc, d )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(acc), unsafe_load(d)
+    return acc[], d[]
 end
 
 
@@ -122,7 +122,7 @@ function spline_eval_deriv2_e(spline::Ptr{gsl_spline}, x::Real)
         (Ptr{gsl_spline}, Cdouble, Ptr{gsl_interp_accel}, Ptr{Cdouble}),
         spline, x, acc, d2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(acc), unsafe_load(d2)
+    return acc[], d2[]
 end
 
 
@@ -145,5 +145,5 @@ function spline_eval_integ_e(spline::Ptr{gsl_spline}, a::Real, b::Real)
         (Ptr{gsl_spline}, Cdouble, Cdouble, Ptr{gsl_interp_accel},
         Ptr{Cdouble}), spline, a, b, acc, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(acc), unsafe_load(result)
+    return acc[], result[]
 end

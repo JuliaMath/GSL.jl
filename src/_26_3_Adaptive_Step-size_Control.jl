@@ -148,7 +148,7 @@ function odeiv2_control_hadjust(y::Real)
     errno = ccall( (:gsl_odeiv2_control_hadjust, libgsl), Cint,
         (Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_step}, Cdouble), c, s, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(c), unsafe_load(s)
+    return c[], s[]
 end
 @vectorize_1arg Number odeiv2_control_hadjust
 
@@ -179,7 +179,7 @@ function odeiv2_control_errlevel(y::Real, dydt::Real, h::Real, ind::Integer)
         (Ptr{gsl_odeiv2_control}, Cdouble, Cdouble, Cdouble, Csize_t,
         Ptr{Cdouble}), c, y, dydt, h, ind, errlev )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(c), unsafe_load(errlev)
+    return c[], errlev[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number odeiv2_control_errlevel
@@ -193,5 +193,5 @@ function odeiv2_control_set_driver(d::Ptr{gsl_odeiv2_driver})
     errno = ccall( (:gsl_odeiv2_control_set_driver, libgsl), Cint,
         (Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_driver}), c, d )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(c)
+    return c[]
 end

@@ -34,7 +34,7 @@ function wavelet2d_transform(w::Ptr{gsl_wavelet}, tda::Integer, size1::Integer, 
         gsl_wavelet_direction, Ptr{gsl_wavelet_workspace}), w, data, tda,
         size1, size2, dir, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(data), unsafe_load(work)
+    return data[], work[]
 end
 
 
@@ -58,7 +58,7 @@ function wavelet2d_transform_forward(w::Ptr{gsl_wavelet}, tda::Integer, size1::I
         (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t, Csize_t,
         Ptr{gsl_wavelet_workspace}), w, data, tda, size1, size2, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(data), unsafe_load(work)
+    return data[], work[]
 end
 
 
@@ -82,7 +82,7 @@ function wavelet2d_transform_inverse(w::Ptr{gsl_wavelet}, tda::Integer, size1::I
         (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t, Csize_t,
         Ptr{gsl_wavelet_workspace}), w, data, tda, size1, size2, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(data), unsafe_load(work)
+    return data[], work[]
 end
 
 
@@ -97,7 +97,7 @@ function wavelet2d_transform_matrix(w::Ptr{gsl_wavelet}, dir::gsl_wavelet_direct
         (Ptr{gsl_wavelet}, Ptr{gsl_matrix}, gsl_wavelet_direction,
         Ptr{gsl_wavelet_workspace}), w, m, dir, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(m), unsafe_load(work)
+    return m[], work[]
 end
 
 
@@ -112,7 +112,7 @@ function wavelet2d_transform_matrix_forward(w::Ptr{gsl_wavelet})
         Cint, (Ptr{gsl_wavelet}, Ptr{gsl_matrix}, Ptr{gsl_wavelet_workspace}),
         w, m, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(m), unsafe_load(work)
+    return m[], work[]
 end
 
 
@@ -127,7 +127,7 @@ function wavelet2d_transform_matrix_inverse(w::Ptr{gsl_wavelet})
         Cint, (Ptr{gsl_wavelet}, Ptr{gsl_matrix}, Ptr{gsl_wavelet_workspace}),
         w, m, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(m), unsafe_load(work)
+    return m[], work[]
 end
 
 
@@ -143,7 +143,7 @@ function wavelet2d_nstransform(w::Ptr{gsl_wavelet}, tda::Integer, size1::Integer
         gsl_wavelet_direction, Ptr{gsl_wavelet_workspace}), w, data, tda,
         size1, size2, dir, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(data), unsafe_load(work)
+    return data[], work[]
 end
 
 
@@ -158,7 +158,7 @@ function wavelet2d_nstransform_forward(w::Ptr{gsl_wavelet}, tda::Integer, size1:
         (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t, Csize_t,
         Ptr{gsl_wavelet_workspace}), w, data, tda, size1, size2, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(data), unsafe_load(work)
+    return data[], work[]
 end
 
 
@@ -173,7 +173,7 @@ function wavelet2d_nstransform_inverse(w::Ptr{gsl_wavelet}, tda::Integer, size1:
         (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t, Csize_t,
         Ptr{gsl_wavelet_workspace}), w, data, tda, size1, size2, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(data), unsafe_load(work)
+    return data[], work[]
 end
 
 
@@ -188,7 +188,7 @@ function wavelet2d_nstransform_matrix(w::Ptr{gsl_wavelet}, dir::gsl_wavelet_dire
         (Ptr{gsl_wavelet}, Ptr{gsl_matrix}, gsl_wavelet_direction,
         Ptr{gsl_wavelet_workspace}), w, m, dir, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(m), unsafe_load(work)
+    return m[], work[]
 end
 
 
@@ -203,7 +203,7 @@ function wavelet2d_nstransform_matrix_forward(w::Ptr{gsl_wavelet})
         Cint, (Ptr{gsl_wavelet}, Ptr{gsl_matrix}, Ptr{gsl_wavelet_workspace}),
         w, m, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(m), unsafe_load(work)
+    return m[], work[]
 end
 
 
@@ -218,5 +218,5 @@ function wavelet2d_nstransform_matrix_inverse(w::Ptr{gsl_wavelet})
         Cint, (Ptr{gsl_wavelet}, Ptr{gsl_matrix}, Ptr{gsl_wavelet_workspace}),
         w, m, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(m), unsafe_load(work)
+    return m[], work[]
 end

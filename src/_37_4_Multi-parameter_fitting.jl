@@ -60,7 +60,7 @@ function multifit_linear(X::Ptr{gsl_matrix}, y::Ptr{gsl_vector})
         Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Cdouble},
         Ptr{gsl_multifit_linear_workspace}), X, y, c, cov, chisq, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(c), unsafe_load(cov), unsafe_load(chisq), unsafe_load(work)
+    return c[], cov[], chisq[], work[]
 end
 
 
@@ -84,7 +84,7 @@ function multifit_wlinear(X::Ptr{gsl_matrix}, w::Ptr{gsl_vector}, y::Ptr{gsl_vec
         Ptr{gsl_matrix}, Ptr{Cdouble}, Ptr{gsl_multifit_linear_workspace}), X,
         w, y, c, cov, chisq, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(c), unsafe_load(cov), unsafe_load(chisq), unsafe_load(work)
+    return c[], cov[], chisq[], work[]
 end
 
 
@@ -105,7 +105,7 @@ function multifit_linear_svd(X::Ptr{gsl_matrix}, y::Ptr{gsl_vector}, tol::Real)
         Ptr{gsl_multifit_linear_workspace}), X, y, tol, rank, c, cov, chisq,
         work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(rank), unsafe_load(c), unsafe_load(cov), unsafe_load(chisq), unsafe_load(work)
+    return rank[], c[], cov[], chisq[], work[]
 end
 
 
@@ -126,7 +126,7 @@ function multifit_wlinear_svd(X::Ptr{gsl_matrix}, w::Ptr{gsl_vector}, y::Ptr{gsl
         Ptr{gsl_multifit_linear_workspace}), X, w, y, tol, rank, c, cov, chisq,
         work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(rank), unsafe_load(c), unsafe_load(cov), unsafe_load(chisq), unsafe_load(work)
+    return rank[], c[], cov[], chisq[], work[]
 end
 
 
@@ -145,7 +145,7 @@ function multifit_linear_usvd(X::Ptr{gsl_matrix}, y::Ptr{gsl_vector}, tol::Real)
         Ptr{gsl_multifit_linear_workspace}), X, y, tol, rank, c, cov, chisq,
         work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(rank), unsafe_load(c), unsafe_load(cov), unsafe_load(chisq), unsafe_load(work)
+    return rank[], c[], cov[], chisq[], work[]
 end
 
 
@@ -164,7 +164,7 @@ function multifit_wlinear_usvd(X::Ptr{gsl_matrix}, w::Ptr{gsl_vector}, y::Ptr{gs
         Ptr{gsl_multifit_linear_workspace}), X, w, y, tol, rank, c, cov, chisq,
         work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(rank), unsafe_load(c), unsafe_load(cov), unsafe_load(chisq), unsafe_load(work)
+    return rank[], c[], cov[], chisq[], work[]
 end
 
 
@@ -180,7 +180,7 @@ function multifit_linear_est(x::Ptr{gsl_vector}, c::Ptr{gsl_vector}, cov::Ptr{gs
         (Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_matrix}, Ptr{Cdouble},
         Ptr{Cdouble}), x, c, cov, y, y_err )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(y), unsafe_load(y_err)
+    return y[], y_err[]
 end
 
 
@@ -194,5 +194,5 @@ function multifit_linear_residuals(X::Ptr{gsl_matrix}, y::Ptr{gsl_vector}, c::Pt
         (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}, Ptr{gsl_vector}),
         X, y, c, r )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(r)
+    return r[]
 end

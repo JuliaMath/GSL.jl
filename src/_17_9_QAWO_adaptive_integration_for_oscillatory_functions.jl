@@ -59,7 +59,7 @@ function integration_qawo_table_set_length(L::Real)
     errno = ccall( (:gsl_integration_qawo_table_set_length, libgsl), Cint,
         (Ptr{gsl_integration_qawo_table}, Cdouble), t, L )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(t)
+    return t[]
 end
 @vectorize_1arg Number integration_qawo_table_set_length
 
@@ -100,7 +100,7 @@ function integration_qawo(a::Real, epsabs::Real, epsrel::Real, limit::Integer)
         Ptr{Cdouble}, Ptr{Cdouble}), f, a, epsabs, epsrel, limit, workspace,
         wf, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(f), unsafe_load(workspace), unsafe_load(wf), unsafe_load(result), unsafe_load(abserr)
+    return f[], workspace[], wf[], result[], abserr[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number integration_qawo

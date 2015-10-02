@@ -92,7 +92,7 @@ function sf_bessel_Yn_array(nmin::Integer, nmax::Integer, x::Real)
     errno = ccall( (:gsl_sf_bessel_Yn_array, libgsl), Cint, (Cint, Cint,
         Cdouble, Cdouble), nmin, nmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result_array)[1]
+    return result_array[][1]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_bessel_Yn_array

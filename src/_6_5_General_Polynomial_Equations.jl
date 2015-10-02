@@ -56,5 +56,5 @@ function poly_complex_solve{tA<:Real}(a_in::AbstractVector{tA}, z::gsl_complex_p
         Csize_t, Ptr{gsl_poly_complex_workspace}, gsl_complex_packed_ptr), a,
         n, w, z )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(w)
+    return w[]
 end

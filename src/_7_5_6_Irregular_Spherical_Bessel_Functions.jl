@@ -116,6 +116,6 @@ function sf_bessel_yl_array(lmax::Integer, x::Real)
     errno = ccall( (:gsl_sf_bessel_yl_array, libgsl), Cint, (Cint,
         Cdouble, Cdouble), lmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result_array)[1]
+    return result_array[][1]
 end
 @vectorize_2arg Number sf_bessel_yl_array

@@ -107,7 +107,7 @@ function sf_legendre_H3d_array(lmax::Integer, lambda::Real, eta::Real)
     errno = ccall( (:gsl_sf_legendre_H3d_array, libgsl), Cint, (Cint,
         Cdouble, Cdouble, Cdouble), lmax, lambda, eta, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result_array)[1]
+    return result_array[][1]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number sf_legendre_H3d_array

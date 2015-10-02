@@ -116,7 +116,7 @@ function sf_legendre_Pl_array(lmax::Integer, x::Real)
     errno = ccall( (:gsl_sf_legendre_Pl_array, libgsl), Cint, (Cint,
         Cdouble, Cdouble), lmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result_array)[1]
+    return result_array[][1]
 end
 @vectorize_2arg Number sf_legendre_Pl_array
 
@@ -130,7 +130,7 @@ function sf_legendre_Pl_deriv_array(lmax::Integer, x::Real)
     errno = ccall( (:gsl_sf_legendre_Pl_deriv_array, libgsl), Cint, (Cint,
         Cdouble, Cdouble), lmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(result_array)[1]
+    return result_array[][1]
 end
 @vectorize_2arg Number sf_legendre_Pl_deriv_array
 

@@ -25,7 +25,7 @@ function histogram2d_increment(x::Real, y::Real)
     errno = ccall( (:gsl_histogram2d_increment, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble, Cdouble), h, x, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(h)
+    return h[]
 end
 @vectorize_2arg Number histogram2d_increment
 
@@ -40,7 +40,7 @@ function histogram2d_accumulate(x::Real, y::Real, weight::Real)
     errno = ccall( (:gsl_histogram2d_accumulate, libgsl), Cint,
         (Ptr{gsl_histogram2d}, Cdouble, Cdouble, Cdouble), h, x, y, weight )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(h)
+    return h[]
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_3arg Number histogram2d_accumulate
@@ -76,7 +76,7 @@ function histogram2d_get_xrange(h::Ptr{gsl_histogram2d}, i::Integer)
         (Ptr{gsl_histogram2d}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, i,
         xlower, xupper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(xlower), unsafe_load(xupper)
+    return xlower[], xupper[]
 end
 
 
@@ -98,7 +98,7 @@ function histogram2d_get_yrange(h::Ptr{gsl_histogram2d}, j::Integer)
         (Ptr{gsl_histogram2d}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, j,
         ylower, yupper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return unsafe_load(ylower), unsafe_load(yupper)
+    return ylower[], yupper[]
 end
 
 
@@ -181,5 +181,5 @@ function histogram2d_reset()
     h = Ref{gsl_histogram2d}()
     ccall( (:gsl_histogram2d_reset, libgsl), Void, (Ptr{gsl_histogram2d},
         ), h )
-    return unsafe_load(h)
+    return h[]
 end
