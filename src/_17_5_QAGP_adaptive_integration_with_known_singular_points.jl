@@ -21,14 +21,14 @@ export integration_qagp
 # faster than QAGS.
 # 
 #   Returns: Cint
-function integration_qagp(f::Ptr{gsl_function}, npts::Integer, epsabs::Real, epsrel::Real, limit::Integer)
+function integration_qagp(f::Ref{gsl_function}, npts::Integer, epsabs::Real, epsrel::Real, limit::Integer)
     pts = Ref{Cdouble}()
     workspace = Ref{gsl_integration_workspace}()
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_integration_qagp, libgsl), Cint,
-        (Ptr{gsl_function}, Ptr{Cdouble}, Csize_t, Cdouble, Cdouble, Csize_t,
-        Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, pts,
+        (Ref{gsl_function}, Ref{Cdouble}, Csize_t, Cdouble, Cdouble, Csize_t,
+        Ref{gsl_integration_workspace}, Ref{Cdouble}, Ref{Cdouble}), f, pts,
         npts, epsabs, epsrel, limit, workspace, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return pts[], workspace[], result[], abserr[]

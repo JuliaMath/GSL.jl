@@ -13,7 +13,7 @@ export sf_exp_err_e, sf_exp_err_e10_e, sf_exp_mult_err_e, sf_exp_mult_err_e10_e
 function sf_exp_err_e(x::Real, dx::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_exp_err_e, libgsl), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), x, dx, result )
+        Ref{gsl_sf_result}), x, dx, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -27,7 +27,7 @@ end
 function sf_exp_err_e10_e(x::Real, dx::Real)
     result = Ref{gsl_sf_result_e10}()
     errno = ccall( (:gsl_sf_exp_err_e10_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result_e10}), x, dx, result )
+        Cdouble, Ref{gsl_sf_result_e10}), x, dx, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -41,7 +41,7 @@ end
 function sf_exp_mult_err_e(x::Real, dx::Real, y::Real, dy::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_exp_mult_err_e, libgsl), Cint, (Cdouble,
-        Cdouble, Cdouble, Cdouble, Ptr{gsl_sf_result}), x, dx, y, dy, result )
+        Cdouble, Cdouble, Cdouble, Ref{gsl_sf_result}), x, dx, y, dy, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -57,7 +57,7 @@ end
 function sf_exp_mult_err_e10_e(x::Real, dx::Real, y::Real, dy::Real)
     result = Ref{gsl_sf_result_e10}()
     errno = ccall( (:gsl_sf_exp_mult_err_e10_e, libgsl), Cint, (Cdouble,
-        Cdouble, Cdouble, Cdouble, Ptr{gsl_sf_result_e10}), x, dx, y, dy,
+        Cdouble, Cdouble, Cdouble, Ref{gsl_sf_result_e10}), x, dx, y, dy,
         result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]

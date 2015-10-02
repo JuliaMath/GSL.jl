@@ -17,8 +17,8 @@ export ran_cauchy, ran_cauchy_pdf, cdf_cauchy_P, cdf_cauchy_Q, cdf_cauchy_Pinv,
 # Lorentz distribution.
 # 
 #   Returns: Cdouble
-function ran_cauchy(r::Ptr{gsl_rng}, a::Real)
-    ccall( (:gsl_ran_cauchy, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble), r,
+function ran_cauchy(r::Ref{gsl_rng}, a::Real)
+    ccall( (:gsl_ran_cauchy, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble), r,
         a )
 end
 

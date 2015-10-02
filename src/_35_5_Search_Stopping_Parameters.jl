@@ -18,9 +18,9 @@ export multiroot_test_delta, multiroot_test_residual
 # component of x and returns GSL_CONTINUE otherwise.
 # 
 #   Returns: Cint
-function multiroot_test_delta(dx::Ptr{gsl_vector}, x::Ptr{gsl_vector}, epsabs::Real, epsrel::Real)
+function multiroot_test_delta(dx::Ref{gsl_vector}, x::Ref{gsl_vector}, epsabs::Real, epsrel::Real)
     errno = ccall( (:gsl_multiroot_test_delta, libgsl), Cint,
-        (Ptr{gsl_vector}, Ptr{gsl_vector}, Cdouble, Cdouble), dx, x, epsabs,
+        (Ref{gsl_vector}, Ref{gsl_vector}, Cdouble, Cdouble), dx, x, epsabs,
         epsrel )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -33,8 +33,8 @@ end
 # unimportant provided a value can be found where the residual is small enough.
 # 
 #   Returns: Cint
-function multiroot_test_residual(f::Ptr{gsl_vector}, epsabs::Real)
+function multiroot_test_residual(f::Ref{gsl_vector}, epsabs::Real)
     errno = ccall( (:gsl_multiroot_test_residual, libgsl), Cint,
-        (Ptr{gsl_vector}, Cdouble), f, epsabs )
+        (Ref{gsl_vector}, Cdouble), f, epsabs )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end

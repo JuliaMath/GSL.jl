@@ -41,7 +41,7 @@ end
 function stats_minmax(data::Real)
     min = Ref{Cdouble}()
     max = Ref{Cdouble}()
-    ccall( (:gsl_stats_minmax, libgsl), Void, (Ptr{Cdouble}, Ptr{Cdouble},
+    ccall( (:gsl_stats_minmax, libgsl), Void, (Ref{Cdouble}, Ref{Cdouble},
         Cdouble), min, max, data )
     return min[], max[]
 end
@@ -79,8 +79,8 @@ end
 function stats_minmax_index(data::Real)
     min_index = Ref{Csize_t}()
     max_index = Ref{Csize_t}()
-    ccall( (:gsl_stats_minmax_index, libgsl), Void, (Ptr{Csize_t},
-        Ptr{Csize_t}, Cdouble), min_index, max_index, data )
+    ccall( (:gsl_stats_minmax_index, libgsl), Void, (Ref{Csize_t},
+        Ref{Csize_t}, Cdouble), min_index, max_index, data )
     return min_index[], max_index[]
 end
 @vectorize_1arg Number stats_minmax_index

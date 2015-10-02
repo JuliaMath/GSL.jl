@@ -17,13 +17,13 @@ export integration_qng
 # the total number of function evaluations.
 # 
 #   Returns: Cint
-function integration_qng(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real)
+function integration_qng(f::Ref{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real)
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
     neval = Ref{Csize_t}()
     errno = ccall( (:gsl_integration_qng, libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Ptr{Cdouble},
-        Ptr{Cdouble}, Ptr{Csize_t}), f, a, b, epsabs, epsrel, result, abserr,
+        (Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Ref{Cdouble},
+        Ref{Cdouble}, Ref{Csize_t}), f, a, b, epsabs, epsrel, result, abserr,
         neval )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[], abserr[], neval[]

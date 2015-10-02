@@ -25,8 +25,8 @@ function integration_qawc(a::Real, b::Real, c::Real, epsabs::Real, epsrel::Real,
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_integration_qawc, libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Cdouble,
-        Csize_t, Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}),
+        (Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Cdouble,
+        Csize_t, Ref{gsl_integration_workspace}, Ref{Cdouble}, Ref{Cdouble}),
         f, a, b, c, epsabs, epsrel, limit, workspace, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return f[], workspace[], result[], abserr[]

@@ -16,8 +16,8 @@ export ran_exppow, ran_exppow_pdf, cdf_exppow_P, cdf_exppow_Q
 # as a Gaussian distribution, but with  a = \sqrt{2} \sigma.
 # 
 #   Returns: Cdouble
-function ran_exppow(r::Ptr{gsl_rng}, a::Real, b::Real)
-    ccall( (:gsl_ran_exppow, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+function ran_exppow(r::Ref{gsl_rng}, a::Real, b::Real)
+    ccall( (:gsl_ran_exppow, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble,
         Cdouble), r, a, b )
 end
 

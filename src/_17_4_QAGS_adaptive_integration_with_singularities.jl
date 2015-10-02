@@ -19,13 +19,13 @@ export integration_qags
 # not exceed the allocated size of the workspace.
 # 
 #   Returns: Cint
-function integration_qags(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real, limit::Integer)
+function integration_qags(f::Ref{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real, limit::Integer)
     workspace = Ref{gsl_integration_workspace}()
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_integration_qags, libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Csize_t,
-        Ptr{gsl_integration_workspace}, Ptr{Cdouble}, Ptr{Cdouble}), f, a, b,
+        (Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Csize_t,
+        Ref{gsl_integration_workspace}, Ref{Cdouble}, Ref{Cdouble}), f, a, b,
         epsabs, epsrel, limit, workspace, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return workspace[], result[], abserr[]

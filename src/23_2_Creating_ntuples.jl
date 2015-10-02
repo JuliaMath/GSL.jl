@@ -13,9 +13,9 @@ export ntuple_create
 # A pointer to memory for the current ntuple row ntuple_data must be
 # supplied—this is used to copy ntuples in and out of the file.
 #
-#   Returns: Ptr{gsl_ntuple}
+#   Returns: Ref{gsl_ntuple}
 function ntuple_create(filename_in::AbstractString, ntuple_data, size::Integer)
-    output_ptr = ccall( (:gsl_ntuple_create, libgsl), Ptr{gsl_ntuple},
-        (Cstring, Ptr{Void}, Csize_t), filename_in, ntuple_data, size )
+    output_ptr = ccall( (:gsl_ntuple_create, libgsl), Ref{gsl_ntuple},
+        (Cstring, Ref{Void}, Csize_t), filename_in, ntuple_data, size )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

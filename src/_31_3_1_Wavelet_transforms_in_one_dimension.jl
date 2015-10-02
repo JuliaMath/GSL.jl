@@ -28,12 +28,12 @@ export wavelet_transform, wavelet_transform_forward, wavelet_transform_inverse
 # workspace is provided.
 # 
 #   Returns: Cint
-function wavelet_transform(w::Ptr{gsl_wavelet}, stride::Integer, n::Integer, dir::gsl_wavelet_direction)
+function wavelet_transform(w::Ref{gsl_wavelet}, stride::Integer, n::Integer, dir::gsl_wavelet_direction)
     v = Ref{Cdouble}()
     work = Ref{gsl_wavelet_workspace}()
     errno = ccall( (:gsl_wavelet_transform, libgsl), Cint,
-        (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t,
-        gsl_wavelet_direction, Ptr{gsl_wavelet_workspace}), w, data, stride, n,
+        (Ref{gsl_wavelet}, Ref{Cdouble}, Csize_t, Csize_t,
+        gsl_wavelet_direction, Ref{gsl_wavelet_workspace}), w, data, stride, n,
         dir, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return data[], work[]
@@ -59,12 +59,12 @@ end
 # workspace is provided.
 # 
 #   Returns: Cint
-function wavelet_transform_forward(w::Ptr{gsl_wavelet}, stride::Integer, n::Integer)
+function wavelet_transform_forward(w::Ref{gsl_wavelet}, stride::Integer, n::Integer)
     v = Ref{Cdouble}()
     work = Ref{gsl_wavelet_workspace}()
     errno = ccall( (:gsl_wavelet_transform_forward, libgsl), Cint,
-        (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t,
-        Ptr{gsl_wavelet_workspace}), w, data, stride, n, work )
+        (Ref{gsl_wavelet}, Ref{Cdouble}, Csize_t, Csize_t,
+        Ref{gsl_wavelet_workspace}), w, data, stride, n, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return data[], work[]
 end
@@ -89,12 +89,12 @@ end
 # workspace is provided.
 # 
 #   Returns: Cint
-function wavelet_transform_inverse(w::Ptr{gsl_wavelet}, stride::Integer, n::Integer)
+function wavelet_transform_inverse(w::Ref{gsl_wavelet}, stride::Integer, n::Integer)
     v = Ref{Cdouble}()
     work = Ref{gsl_wavelet_workspace}()
     errno = ccall( (:gsl_wavelet_transform_inverse, libgsl), Cint,
-        (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t,
-        Ptr{gsl_wavelet_workspace}), w, data, stride, n, work )
+        (Ref{gsl_wavelet}, Ref{Cdouble}, Csize_t, Csize_t,
+        Ref{gsl_wavelet_workspace}), w, data, stride, n, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return data[], work[]
 end

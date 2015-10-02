@@ -24,7 +24,7 @@ end
 function sf_zeta_int_e(n::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_zeta_int_e, libgsl), Cint, (Cint,
-        Ptr{gsl_sf_result}), n, result )
+        Ref{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -48,7 +48,7 @@ end
 function sf_zeta_e(s::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_zeta_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), s, result )
+        Ref{gsl_sf_result}), s, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

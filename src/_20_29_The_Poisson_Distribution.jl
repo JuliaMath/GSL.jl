@@ -14,8 +14,8 @@ export ran_poisson, ran_poisson_pdf, cdf_poisson_P, cdf_poisson_Q
 # p(k) = {\mu^k \over k!} \exp(-\mu)  for  k >= 0.
 # 
 #   Returns: Cuint
-function ran_poisson(r::Ptr{gsl_rng}, mu::Real)
-    ccall( (:gsl_ran_poisson, libgsl), Cuint, (Ptr{gsl_rng}, Cdouble), r,
+function ran_poisson(r::Ref{gsl_rng}, mu::Real)
+    ccall( (:gsl_ran_poisson, libgsl), Cuint, (Ref{gsl_rng}, Cdouble), r,
         mu )
 end
 

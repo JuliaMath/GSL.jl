@@ -15,8 +15,8 @@ export ran_gumbel1, ran_gumbel1_pdf, cdf_gumbel1_P, cdf_gumbel1_Q,
 # \exp(-(b \exp(-ax) + ax)) dx  for -\infty < x < \infty.
 # 
 #   Returns: Cdouble
-function ran_gumbel1(r::Ptr{gsl_rng}, a::Real, b::Real)
-    ccall( (:gsl_ran_gumbel1, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+function ran_gumbel1(r::Ref{gsl_rng}, a::Real, b::Real)
+    ccall( (:gsl_ran_gumbel1, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble,
         Cdouble), r, a, b )
 end
 

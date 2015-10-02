@@ -13,9 +13,9 @@ export gsl_histogram2d_pdf, histogram2d_pdf_alloc, histogram2d_pdf_init,
 type gsl_histogram2d_pdf
     nx::Csize_t
     ny::Csize_t
-    xrange::Ptr{Cdouble}
-    yrange::Ptr{Cdouble}
-    sum::Ptr{Cdouble}
+    xrange::Ref{Cdouble}
+    yrange::Ref{Cdouble}
+    sum::Ref{Cdouble}
 end
 
 
@@ -25,10 +25,10 @@ end
 # pointer is returned and the error handler is invoked with an error code of
 # GSL_ENOMEM.
 # 
-#   Returns: Ptr{gsl_histogram2d_pdf}
+#   Returns: Ref{gsl_histogram2d_pdf}
 function histogram2d_pdf_alloc(nx::Integer, ny::Integer)
     output_ptr = ccall( (:gsl_histogram2d_pdf_alloc, libgsl),
-        Ptr{gsl_histogram2d_pdf}, (Csize_t, Csize_t), nx, ny )
+        Ref{gsl_histogram2d_pdf}, (Csize_t, Csize_t), nx, ny )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number histogram2d_pdf_alloc
@@ -40,9 +40,9 @@ end
 # probability distribution cannot contain negative values.
 # 
 #   Returns: Cint
-function histogram2d_pdf_init(p::Ptr{gsl_histogram2d_pdf}, h::Ptr{gsl_histogram2d})
+function histogram2d_pdf_init(p::Ref{gsl_histogram2d_pdf}, h::Ref{gsl_histogram2d})
     errno = ccall( (:gsl_histogram2d_pdf_init, libgsl), Cint,
-        (Ptr{gsl_histogram2d_pdf}, Ptr{gsl_histogram2d}), p, h )
+        (Ref{gsl_histogram2d_pdf}, Ref{gsl_histogram2d}), p, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -51,9 +51,9 @@ end
 # and all of the memory associated with it.
 # 
 #   Returns: Void
-function histogram2d_pdf_free(p::Ptr{gsl_histogram2d_pdf})
+function histogram2d_pdf_free(p::Ref{gsl_histogram2d_pdf})
     ccall( (:gsl_histogram2d_pdf_free, libgsl), Void,
-        (Ptr{gsl_histogram2d_pdf}, ), p )
+        (Ref{gsl_histogram2d_pdf}, ), p )
 end
 
 
@@ -62,12 +62,12 @@ end
 # distribution p.
 # 
 #   Returns: Cint
-function histogram2d_pdf_sample(p::Ptr{gsl_histogram2d_pdf}, r1::Real, r2::Real)
+function histogram2d_pdf_sample(p::Ref{gsl_histogram2d_pdf}, r1::Real, r2::Real)
     x = Ref{Cdouble}()
     y = Ref{Cdouble}()
     errno = ccall( (:gsl_histogram2d_pdf_sample, libgsl), Cint,
-        (Ptr{gsl_histogram2d_pdf}, Cdouble, Cdouble, Ptr{Cdouble},
-        Ptr{Cdouble}), p, r1, r2, x, y )
+        (Ref{gsl_histogram2d_pdf}, Cdouble, Cdouble, Ref{Cdouble},
+        Ref{Cdouble}), p, r1, r2, x, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return x[], y[]
 end

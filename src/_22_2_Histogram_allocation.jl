@@ -17,10 +17,10 @@ export histogram_alloc, histogram_set_ranges, histogram_set_ranges_uniform,
 # be prepared using one of the range-setting functions below in order to make
 # the histogram ready for use.
 # 
-#   Returns: Ptr{gsl_histogram}
+#   Returns: Ref{gsl_histogram}
 function histogram_alloc(n::Integer)
     output_ptr = ccall( (:gsl_histogram_alloc, libgsl),
-        Ptr{gsl_histogram}, (Csize_t, ), n )
+        Ref{gsl_histogram}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number histogram_alloc
@@ -44,7 +44,7 @@ end
 function histogram_set_ranges(range::Real)
     h = Ref{gsl_histogram}()
     errno = ccall( (:gsl_histogram_set_ranges, libgsl), Cint,
-        (Ptr{gsl_histogram}, Cdouble), h, range )
+        (Ref{gsl_histogram}, Cdouble), h, range )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end
@@ -62,7 +62,7 @@ end
 function histogram_set_ranges_uniform(xmin::Real, xmax::Real)
     h = Ref{gsl_histogram}()
     errno = ccall( (:gsl_histogram_set_ranges_uniform, libgsl), Cint,
-        (Ptr{gsl_histogram}, Cdouble, Cdouble), h, xmin, xmax )
+        (Ref{gsl_histogram}, Cdouble, Cdouble), h, xmin, xmax )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end
@@ -72,7 +72,7 @@ end
 # This function frees the histogram h and all of the memory associated with it.
 # 
 #   Returns: Void
-function histogram_free(h::Ptr{gsl_histogram})
-    ccall( (:gsl_histogram_free, libgsl), Void, (Ptr{gsl_histogram}, ), h
+function histogram_free(h::Ref{gsl_histogram})
+    ccall( (:gsl_histogram_free, libgsl), Void, (Ref{gsl_histogram}, ), h
         )
 end

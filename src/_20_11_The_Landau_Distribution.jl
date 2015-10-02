@@ -19,8 +19,8 @@ export ran_landau, ran_landau_pdf
 # p(x) = (1/\pi) \int_0^\infty dt \exp(-t \log(t) - x t) \sin(\pi t).
 # 
 #   Returns: Cdouble
-function ran_landau(r::Ptr{gsl_rng})
-    ccall( (:gsl_ran_landau, libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
+function ran_landau(r::Ref{gsl_rng})
+    ccall( (:gsl_ran_landau, libgsl), Cdouble, (Ref{gsl_rng}, ), r )
 end
 
 

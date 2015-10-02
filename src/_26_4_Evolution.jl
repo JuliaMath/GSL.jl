@@ -12,10 +12,10 @@ export odeiv2_evolve_alloc, odeiv2_evolve_apply,
 # This function returns a pointer to a newly allocated instance of an evolution
 # function for a system of dim dimensions.
 # 
-#   Returns: Ptr{gsl_odeiv2_evolve}
+#   Returns: Ref{gsl_odeiv2_evolve}
 function odeiv2_evolve_alloc(dim::Integer)
     output_ptr = ccall( (:gsl_odeiv2_evolve_alloc, libgsl),
-        Ptr{gsl_odeiv2_evolve}, (Csize_t, ), dim )
+        Ref{gsl_odeiv2_evolve}, (Csize_t, ), dim )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number odeiv2_evolve_alloc
@@ -45,15 +45,15 @@ end
 # final time-step the value of t will be set to t1 exactly.
 # 
 #   Returns: Cint
-function odeiv2_evolve_apply(sys::Ptr{gsl_odeiv2_system}, t1::Real, y::Real)
+function odeiv2_evolve_apply(sys::Ref{gsl_odeiv2_system}, t1::Real, y::Real)
     e = Ref{gsl_odeiv2_evolve}()
     con = Ref{gsl_odeiv2_control}()
     step = Ref{gsl_odeiv2_step}()
     t = Ref{Cdouble}()
     h = Ref{Cdouble}()
     errno = ccall( (:gsl_odeiv2_evolve_apply, libgsl), Cint,
-        (Ptr{gsl_odeiv2_evolve}, Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_step},
-        Ptr{gsl_odeiv2_system}, Ptr{Cdouble}, Cdouble, Ptr{Cdouble}, Cdouble),
+        (Ref{gsl_odeiv2_evolve}, Ref{gsl_odeiv2_control}, Ref{gsl_odeiv2_step},
+        Ref{gsl_odeiv2_system}, Ref{Cdouble}, Cdouble, Ref{Cdouble}, Cdouble),
         e, con, step, sys, t, t1, h, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return e[], con[], step[], t[], h[]
@@ -67,14 +67,14 @@ end
 # returned by user function is returned.
 # 
 #   Returns: Cint
-function odeiv2_evolve_apply_fixed_step(sys::Ptr{gsl_odeiv2_system}, h::Real, y::Real)
+function odeiv2_evolve_apply_fixed_step(sys::Ref{gsl_odeiv2_system}, h::Real, y::Real)
     e = Ref{gsl_odeiv2_evolve}()
     con = Ref{gsl_odeiv2_control}()
     step = Ref{gsl_odeiv2_step}()
     t = Ref{Cdouble}()
     errno = ccall( (:gsl_odeiv2_evolve_apply_fixed_step, libgsl), Cint,
-        (Ptr{gsl_odeiv2_evolve}, Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_step},
-        Ptr{gsl_odeiv2_system}, Ptr{Cdouble}, Cdouble, Cdouble), e, con, step,
+        (Ref{gsl_odeiv2_evolve}, Ref{gsl_odeiv2_control}, Ref{gsl_odeiv2_step},
+        Ref{gsl_odeiv2_system}, Ref{Cdouble}, Cdouble, Cdouble), e, con, step,
         sys, t, h, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return e[], con[], step[], t[]
@@ -88,7 +88,7 @@ end
 function odeiv2_evolve_reset()
     e = Ref{gsl_odeiv2_evolve}()
     errno = ccall( (:gsl_odeiv2_evolve_reset, libgsl), Cint,
-        (Ptr{gsl_odeiv2_evolve}, ), e )
+        (Ref{gsl_odeiv2_evolve}, ), e )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return e[]
 end
@@ -97,19 +97,19 @@ end
 # This function frees all the memory associated with the evolution function e.
 # 
 #   Returns: Void
-function odeiv2_evolve_free(e::Ptr{gsl_odeiv2_evolve})
+function odeiv2_evolve_free(e::Ref{gsl_odeiv2_evolve})
     ccall( (:gsl_odeiv2_evolve_free, libgsl), Void,
-        (Ptr{gsl_odeiv2_evolve}, ), e )
+        (Ref{gsl_odeiv2_evolve}, ), e )
 end
 
 
 # This function sets a pointer of the driver object d for evolve object e.
 # 
 #   Returns: Cint
-function odeiv2_evolve_set_driver(d::Ptr{gsl_odeiv2_driver})
+function odeiv2_evolve_set_driver(d::Ref{gsl_odeiv2_driver})
     e = Ref{gsl_odeiv2_evolve}()
     errno = ccall( (:gsl_odeiv2_evolve_set_driver, libgsl), Cint,
-        (Ptr{gsl_odeiv2_evolve}, Ptr{gsl_odeiv2_driver}), e, d )
+        (Ref{gsl_odeiv2_evolve}, Ref{gsl_odeiv2_driver}), e, d )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return e[]
 end

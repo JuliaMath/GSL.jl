@@ -15,8 +15,8 @@ export ran_laplace, ran_laplace_pdf, cdf_laplace_P, cdf_laplace_Q,
 # \exp(-|x/a|) dx  for -\infty < x < \infty.
 # 
 #   Returns: Cdouble
-function ran_laplace(r::Ptr{gsl_rng}, a::Real)
-    ccall( (:gsl_ran_laplace, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
+function ran_laplace(r::Ref{gsl_rng}, a::Real)
+    ccall( (:gsl_ran_laplace, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble),
         r, a )
 end
 

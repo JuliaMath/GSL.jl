@@ -13,9 +13,9 @@ export block_fwrite, block_fread, block_fprintf, block_fscanf
 # binary format it may not be portable between different architectures.
 # 
 #   Returns: Cint
-function block_fwrite(stream::Ptr{Void}, b::Ptr{gsl_block})
-    errno = ccall( (:gsl_block_fwrite, libgsl), Cint, (Ptr{Void},
-        Ptr{gsl_block}), stream, b )
+function block_fwrite(stream::Ref{Void}, b::Ref{gsl_block})
+    errno = ccall( (:gsl_block_fwrite, libgsl), Cint, (Ref{Void},
+        Ref{gsl_block}), stream, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -28,10 +28,10 @@ end
 # format on the same architecture.
 # 
 #   Returns: Cint
-function block_fread(stream::Ptr{Void})
+function block_fread(stream::Ref{Void})
     b = Ref{gsl_block}()
-    errno = ccall( (:gsl_block_fread, libgsl), Cint, (Ptr{Void},
-        Ptr{gsl_block}), stream, b )
+    errno = ccall( (:gsl_block_fread, libgsl), Cint, (Ref{Void},
+        Ref{gsl_block}), stream, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return b[]
 end
@@ -44,10 +44,10 @@ end
 # file.
 # 
 #   Returns: Cint
-function block_fprintf(stream::Ptr{Void}, b::Ptr{gsl_block})
+function block_fprintf(stream::Ref{Void}, b::Ref{gsl_block})
     format = Ref{Cchar}()
-    errno = ccall( (:gsl_block_fprintf, libgsl), Cint, (Ptr{Void},
-        Ptr{gsl_block}, Ptr{Cchar}), stream, b, format )
+    errno = ccall( (:gsl_block_fprintf, libgsl), Cint, (Ref{Void},
+        Ref{gsl_block}, Ref{Cchar}), stream, b, format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return format[]
 end
@@ -60,10 +60,10 @@ end
 # file.
 # 
 #   Returns: Cint
-function block_fscanf(stream::Ptr{Void})
+function block_fscanf(stream::Ref{Void})
     b = Ref{gsl_block}()
-    errno = ccall( (:gsl_block_fscanf, libgsl), Cint, (Ptr{Void},
-        Ptr{gsl_block}), stream, b )
+    errno = ccall( (:gsl_block_fscanf, libgsl), Cint, (Ref{Void},
+        Ref{gsl_block}), stream, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return b[]
 end

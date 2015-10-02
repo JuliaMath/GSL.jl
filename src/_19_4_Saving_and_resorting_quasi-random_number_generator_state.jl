@@ -12,10 +12,10 @@ export qrng_memcpy, qrng_clone
 # generators must be of the same type.
 # 
 #   Returns: Cint
-function qrng_memcpy(src::Ptr{gsl_qrng})
+function qrng_memcpy(src::Ref{gsl_qrng})
     dest = Ref{gsl_qrng}()
-    errno = ccall( (:gsl_qrng_memcpy, libgsl), Cint, (Ptr{gsl_qrng},
-        Ptr{gsl_qrng}), dest, src )
+    errno = ccall( (:gsl_qrng_memcpy, libgsl), Cint, (Ref{gsl_qrng},
+        Ref{gsl_qrng}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return dest[]
 end
@@ -24,9 +24,9 @@ end
 # This function returns a pointer to a newly created generator which is an
 # exact copy of the generator q.
 # 
-#   Returns: Ptr{gsl_qrng}
-function qrng_clone(q::Ptr{gsl_qrng})
-    output_ptr = ccall( (:gsl_qrng_clone, libgsl), Ptr{gsl_qrng},
-        (Ptr{gsl_qrng}, ), q )
+#   Returns: Ref{gsl_qrng}
+function qrng_clone(q::Ref{gsl_qrng})
+    output_ptr = ccall( (:gsl_qrng_clone, libgsl), Ref{gsl_qrng},
+        (Ref{gsl_qrng}, ), q )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

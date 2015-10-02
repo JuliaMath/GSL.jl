@@ -15,8 +15,8 @@ export interp_eval, interp_eval_e, interp_eval_deriv, interp_eval_deriv_e,
 # with a value of GSL_NAN for y.
 # 
 #   Returns: Cdouble
-function interp_eval(interp::Ptr{gsl_interp}, xa::Real)
-    ccall( (:gsl_interp_eval, libgsl), Cdouble, (Ptr{gsl_interp},
+function interp_eval(interp::Ref{gsl_interp}, xa::Real)
+    ccall( (:gsl_interp_eval, libgsl), Cdouble, (Ref{gsl_interp},
         Cdouble), interp, xa )
 end
 
@@ -27,8 +27,8 @@ end
 # with a value of GSL_NAN for y.
 # 
 #   Returns: Cint
-function interp_eval_e(interp::Ptr{gsl_interp}, xa::Real)
-    errno = ccall( (:gsl_interp_eval_e, libgsl), Cint, (Ptr{gsl_interp},
+function interp_eval_e(interp::Ref{gsl_interp}, xa::Real)
+    errno = ccall( (:gsl_interp_eval_e, libgsl), Cint, (Ref{gsl_interp},
         Cdouble), interp, xa )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -39,8 +39,8 @@ end
 # and the accelerator acc.
 # 
 #   Returns: Cdouble
-function interp_eval_deriv(interp::Ptr{gsl_interp}, xa::Real)
-    ccall( (:gsl_interp_eval_deriv, libgsl), Cdouble, (Ptr{gsl_interp},
+function interp_eval_deriv(interp::Ref{gsl_interp}, xa::Real)
+    ccall( (:gsl_interp_eval_deriv, libgsl), Cdouble, (Ref{gsl_interp},
         Cdouble), interp, xa )
 end
 
@@ -50,9 +50,9 @@ end
 # and the accelerator acc.
 # 
 #   Returns: Cint
-function interp_eval_deriv_e(interp::Ptr{gsl_interp}, xa::Real)
+function interp_eval_deriv_e(interp::Ref{gsl_interp}, xa::Real)
     errno = ccall( (:gsl_interp_eval_deriv_e, libgsl), Cint,
-        (Ptr{gsl_interp}, Cdouble), interp, xa )
+        (Ref{gsl_interp}, Cdouble), interp, xa )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -62,8 +62,8 @@ end
 # and ya and the accelerator acc.
 # 
 #   Returns: Cdouble
-function interp_eval_deriv2(interp::Ptr{gsl_interp}, xa::Real)
-    ccall( (:gsl_interp_eval_deriv2, libgsl), Cdouble, (Ptr{gsl_interp},
+function interp_eval_deriv2(interp::Ref{gsl_interp}, xa::Real)
+    ccall( (:gsl_interp_eval_deriv2, libgsl), Cdouble, (Ref{gsl_interp},
         Cdouble), interp, xa )
 end
 
@@ -73,9 +73,9 @@ end
 # and ya and the accelerator acc.
 # 
 #   Returns: Cint
-function interp_eval_deriv2_e(interp::Ptr{gsl_interp}, xa::Real)
+function interp_eval_deriv2_e(interp::Ref{gsl_interp}, xa::Real)
     errno = ccall( (:gsl_interp_eval_deriv2_e, libgsl), Cint,
-        (Ptr{gsl_interp}, Cdouble), interp, xa )
+        (Ref{gsl_interp}, Cdouble), interp, xa )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -85,8 +85,8 @@ end
 # arrays xa and ya and the accelerator acc.
 # 
 #   Returns: Cdouble
-function interp_eval_integ(interp::Ptr{gsl_interp}, xa::Real)
-    ccall( (:gsl_interp_eval_integ, libgsl), Cdouble, (Ptr{gsl_interp},
+function interp_eval_integ(interp::Ref{gsl_interp}, xa::Real)
+    ccall( (:gsl_interp_eval_integ, libgsl), Cdouble, (Ref{gsl_interp},
         Cdouble), interp, xa )
 end
 
@@ -96,8 +96,8 @@ end
 # arrays xa and ya and the accelerator acc.
 # 
 #   Returns: Cint
-function interp_eval_integ_e(interp::Ptr{gsl_interp}, xa::Real)
+function interp_eval_integ_e(interp::Ref{gsl_interp}, xa::Real)
     errno = ccall( (:gsl_interp_eval_integ_e, libgsl), Cint,
-        (Ptr{gsl_interp}, Cdouble), interp, xa )
+        (Ref{gsl_interp}, Cdouble), interp, xa )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end

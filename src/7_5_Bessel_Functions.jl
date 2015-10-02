@@ -20,7 +20,7 @@ for sf in (:sf_bessel_Jn_array, :sf_bessel_Yn_array,
             nmax>=nmin ? nothing : throw(DomainError())
             result_array = Array(Cdouble, nmax-nmin+1)
             errno = ccall( ($(string("gsl_", sf)), libgsl), Cint, (Cint, Cint,
-                Cdouble, Ptr{Cdouble}), nmin, nmax, x, result_array )
+                Cdouble, Ref{Cdouble}), nmin, nmax, x, result_array )
             if errno!= 0 throw(GSL_ERROR(errno)) end
             return result_array
         end
@@ -40,7 +40,7 @@ for sf in (
             nmax>=0 ? nothing : throw(DomainError())
             result_array = Array(Cdouble, nmax+1)
             errno = ccall( ($(string("gsl_", sf)), libgsl), Cint, (Cint,
-                Cdouble, Ptr{Cdouble}), nmax, x, result_array )
+                Cdouble, Ref{Cdouble}), nmax, x, result_array )
             if errno!= 0 throw(GSL_ERROR(errno)) end
             return result_array
         end

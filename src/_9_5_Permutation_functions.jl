@@ -14,7 +14,7 @@ export permutation_reverse, permutation_inverse, permutation_next,
 function permutation_reverse()
     p = Ref{gsl_permutation}()
     ccall( (:gsl_permutation_reverse, libgsl), Void,
-        (Ptr{gsl_permutation}, ), p )
+        (Ref{gsl_permutation}, ), p )
     return p[]
 end
 
@@ -23,10 +23,10 @@ end
 # in inv.
 # 
 #   Returns: Cint
-function permutation_inverse(p::Ptr{gsl_permutation})
+function permutation_inverse(p::Ref{gsl_permutation})
     inv = Ref{gsl_permutation}()
     errno = ccall( (:gsl_permutation_inverse, libgsl), Cint,
-        (Ptr{gsl_permutation}, Ptr{gsl_permutation}), inv, p )
+        (Ref{gsl_permutation}, Ref{gsl_permutation}), inv, p )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return inv[]
 end
@@ -39,9 +39,9 @@ end
 # through all possible permutations of a given order.
 # 
 #   Returns: Cint
-function permutation_next(p::Ptr{gsl_permutation})
+function permutation_next(p::Ref{gsl_permutation})
     errno = ccall( (:gsl_permutation_next, libgsl), Cint,
-        (Ptr{gsl_permutation}, ), p )
+        (Ref{gsl_permutation}, ), p )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -54,7 +54,7 @@ end
 function permutation_prev()
     p = Ref{gsl_permutation}()
     errno = ccall( (:gsl_permutation_prev, libgsl), Cint,
-        (Ptr{gsl_permutation}, ), p )
+        (Ref{gsl_permutation}, ), p )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return p[]
 end

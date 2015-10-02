@@ -15,8 +15,8 @@ export ran_weibull, ran_weibull_pdf, cdf_weibull_P, cdf_weibull_Q,
 # \exp(-(x/a)^b) dx  for  x >= 0.
 # 
 #   Returns: Cdouble
-function ran_weibull(r::Ptr{gsl_rng}, a::Real, b::Real)
-    ccall( (:gsl_ran_weibull, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+function ran_weibull(r::Ref{gsl_rng}, a::Real, b::Real)
+    ccall( (:gsl_ran_weibull, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble,
         Cdouble), r, a, b )
 end
 

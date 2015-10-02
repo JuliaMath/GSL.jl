@@ -28,9 +28,9 @@ function fit_linear{tA<:Real, tB<:Real}(x_in::AbstractVector{tA}, xstride::Integ
     cov01 = Ref{Cdouble}()
     cov11 = Ref{Cdouble}()
     sumsq = Ref{Cdouble}()
-    errno = ccall( (:gsl_fit_linear, libgsl), Cint, (Ptr{Cdouble},
-        Csize_t, Ptr{Cdouble}, Csize_t, Csize_t, Ptr{Cdouble}, Ptr{Cdouble},
-        Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}), x, xstride, y,
+    errno = ccall( (:gsl_fit_linear, libgsl), Cint, (Ref{Cdouble},
+        Csize_t, Ref{Cdouble}, Csize_t, Csize_t, Ref{Cdouble}, Ref{Cdouble},
+        Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}), x, xstride, y,
         ystride, n, c0, c1, cov00, cov01, cov11, sumsq )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c0[], c1[], cov00[], cov01[], cov11[], sumsq[]
@@ -58,10 +58,10 @@ function fit_wlinear{tA<:Real, tB<:Real, tC<:Real}(x_in::AbstractVector{tA}, xst
     cov01 = Ref{Cdouble}()
     cov11 = Ref{Cdouble}()
     chisq = Ref{Cdouble}()
-    errno = ccall( (:gsl_fit_wlinear, libgsl), Cint, (Ptr{Cdouble},
-        Csize_t, Ptr{Cdouble}, Csize_t, Ptr{Cdouble}, Csize_t, Csize_t,
-        Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble},
-        Ptr{Cdouble}), x, xstride, w, wstride, y, ystride, n, c0, c1, cov00,
+    errno = ccall( (:gsl_fit_wlinear, libgsl), Cint, (Ref{Cdouble},
+        Csize_t, Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t,
+        Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble},
+        Ref{Cdouble}), x, xstride, w, wstride, y, ystride, n, c0, c1, cov00,
         cov01, cov11, chisq )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c0[], c1[], cov00[], cov01[], cov11[], chisq[]
@@ -77,7 +77,7 @@ function fit_linear_est(x::Real, c0::Real, c1::Real, cov00::Real, cov01::Real, c
     y = Ref{Cdouble}()
     y_err = Ref{Cdouble}()
     errno = ccall( (:gsl_fit_linear_est, libgsl), Cint, (Cdouble, Cdouble,
-        Cdouble, Cdouble, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), x, c0,
+        Cdouble, Cdouble, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), x, c0,
         c1, cov00, cov01, cov11, y, y_err )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return y[], y_err[]

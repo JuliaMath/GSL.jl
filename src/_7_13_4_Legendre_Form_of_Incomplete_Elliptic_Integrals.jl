@@ -29,7 +29,7 @@ end
 function sf_ellint_F_e(phi::Real, k::Real, mode::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_ellint_F_e, libgsl), Cint, (Cdouble, Cdouble,
-        gsl_mode_t, Ptr{gsl_sf_result}), phi, k, mode, result )
+        gsl_mode_t, Ref{gsl_sf_result}), phi, k, mode, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -54,7 +54,7 @@ end
 function sf_ellint_E_e(phi::Real, k::Real, mode::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_ellint_E_e, libgsl), Cint, (Cdouble, Cdouble,
-        gsl_mode_t, Ptr{gsl_sf_result}), phi, k, mode, result )
+        gsl_mode_t, Ref{gsl_sf_result}), phi, k, mode, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -81,7 +81,7 @@ end
 function sf_ellint_P_e(phi::Real, k::Real, n::Real, mode::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_ellint_P_e, libgsl), Cint, (Cdouble, Cdouble,
-        Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), phi, k, n, mode, result )
+        Cdouble, gsl_mode_t, Ref{gsl_sf_result}), phi, k, n, mode, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -108,7 +108,7 @@ end
 function sf_ellint_D_e(phi::Real, k::Real, n::Real, mode::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_ellint_D_e, libgsl), Cint, (Cdouble, Cdouble,
-        Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), phi, k, n, mode, result )
+        Cdouble, gsl_mode_t, Ref{gsl_sf_result}), phi, k, n, mode, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

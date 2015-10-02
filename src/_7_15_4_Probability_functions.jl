@@ -26,7 +26,7 @@ end
 function sf_erf_Z_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_erf_Z_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -50,7 +50,7 @@ end
 function sf_erf_Q_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_erf_Q_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -72,7 +72,7 @@ end
 function sf_hazard_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hazard_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

@@ -14,16 +14,16 @@ export gsl_multiroot_function, gsl_multiroot_function_fdf
 
 
 type gsl_multiroot_function
-    f::Ptr{Void}
+    f::Ref{Void}
     n::Csize_t
-    params::Ptr{Void}
+    params::Ref{Void}
 end
 
 
 type gsl_multiroot_function_fdf
-    f::Ptr{Void}
-    df::Ptr{Void}
-    fdf::Ptr{Void}
+    f::Ref{Void}
+    df::Ref{Void}
+    fdf::Ref{Void}
     n::Csize_t
-    params::Ptr{Void}
+    params::Ref{Void}
 end

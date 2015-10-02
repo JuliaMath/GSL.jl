@@ -30,7 +30,7 @@ end
 function sf_pow_int_e(x::Real, n::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_pow_int_e, libgsl), Cint, (Cdouble, Cint,
-        Ptr{gsl_sf_result}), x, n, result )
+        Ref{gsl_sf_result}), x, n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

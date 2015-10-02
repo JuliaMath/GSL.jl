@@ -27,7 +27,7 @@ end
 function sf_ellint_Kcomp_e(k::Real, mode::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_ellint_Kcomp_e, libgsl), Cint, (Cdouble,
-        gsl_mode_t, Ptr{gsl_sf_result}), k, mode, result )
+        gsl_mode_t, Ref{gsl_sf_result}), k, mode, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -52,7 +52,7 @@ end
 function sf_ellint_Ecomp_e(k::Real, mode::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_ellint_Ecomp_e, libgsl), Cint, (Cdouble,
-        gsl_mode_t, Ptr{gsl_sf_result}), k, mode, result )
+        gsl_mode_t, Ref{gsl_sf_result}), k, mode, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -79,7 +79,7 @@ end
 function sf_ellint_Pcomp_e(k::Real, n::Real, mode::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_ellint_Pcomp_e, libgsl), Cint, (Cdouble,
-        Cdouble, gsl_mode_t, Ptr{gsl_sf_result}), k, n, mode, result )
+        Cdouble, gsl_mode_t, Ref{gsl_sf_result}), k, n, mode, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

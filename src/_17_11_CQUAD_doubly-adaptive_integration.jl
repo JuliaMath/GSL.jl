@@ -14,10 +14,10 @@ export integration_cquad_workspace_alloc, integration_cquad_workspace_free,
 # will be discarded. A minimum of 3 intervals is required and or most
 # functions, a workspace of size 100 is sufficient.
 # 
-#   Returns: Ptr{gsl_integration_cquad_workspace}
+#   Returns: Ref{gsl_integration_cquad_workspace}
 function integration_cquad_workspace_alloc(n::Integer)
     output_ptr = ccall( (:gsl_integration_cquad_workspace_alloc, libgsl),
-        Ptr{gsl_integration_cquad_workspace}, (Csize_t, ), n )
+        Ref{gsl_integration_cquad_workspace}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number integration_cquad_workspace_alloc
@@ -26,9 +26,9 @@ end
 # This function frees the memory associated with the workspace w.
 # 
 #   Returns: Void
-function integration_cquad_workspace_free(w::Ptr{gsl_integration_cquad_workspace})
+function integration_cquad_workspace_free(w::Ref{gsl_integration_cquad_workspace})
     ccall( (:gsl_integration_cquad_workspace_free, libgsl), Void,
-        (Ptr{gsl_integration_cquad_workspace}, ), w )
+        (Ref{gsl_integration_cquad_workspace}, ), w )
 end
 
 
@@ -51,15 +51,15 @@ end
 # to NULL.
 # 
 #   Returns: Cint
-function integration_cquad(f::Ptr{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real)
+function integration_cquad(f::Ref{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real)
     workspace = Ref{gsl_integration_cquad_workspace}()
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
     nevals = Ref{Csize_t}()
     errno = ccall( (:gsl_integration_cquad, libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble,
-        Ptr{gsl_integration_cquad_workspace}, Ptr{Cdouble}, Ptr{Cdouble},
-        Ptr{Csize_t}), f, a, b, epsabs, epsrel, workspace, result, abserr,
+        (Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble,
+        Ref{gsl_integration_cquad_workspace}, Ref{Cdouble}, Ref{Cdouble},
+        Ref{Csize_t}), f, a, b, epsabs, epsrel, workspace, result, abserr,
         nevals )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return workspace[], result[], abserr[], nevals[]

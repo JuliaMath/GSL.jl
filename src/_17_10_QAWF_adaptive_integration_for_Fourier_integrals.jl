@@ -51,9 +51,9 @@ function integration_qawf(a::Real, epsabs::Real, limit::Integer)
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_integration_qawf, libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Csize_t,
-        Ptr{gsl_integration_workspace}, Ptr{gsl_integration_workspace},
-        Ptr{gsl_integration_qawo_table}, Ptr{Cdouble}, Ptr{Cdouble}), f, a,
+        (Ref{gsl_function}, Cdouble, Cdouble, Csize_t,
+        Ref{gsl_integration_workspace}, Ref{gsl_integration_workspace},
+        Ref{gsl_integration_qawo_table}, Ref{Cdouble}, Ref{Cdouble}), f, a,
         epsabs, limit, workspace, cycle_workspace, wf, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return f[], workspace[], cycle_workspace[], wf[], result[], abserr[]

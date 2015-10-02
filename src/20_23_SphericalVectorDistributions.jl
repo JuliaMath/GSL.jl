@@ -9,11 +9,11 @@ export ran_dir_2d, ran_dir_2d_trig_method, ran_dir_3d,
 
 for ran_dir in (:ran_dir_2d, :ran_dir_2d_trig_method)
     @eval begin
-        function ($ran_dir)(r::Ptr{Void})
+        function ($ran_dir)(r::Ref{Void})
             x = Array(Cdouble, 1)
             y = Array(Cdouble, 1)
-            ccall( ($(string("gsl_", ran_dir)), libgsl), Void, (Ptr{Void}, Ptr{Cdouble},
-                Ptr{Cdouble}), r, x, y)
+            ccall( ($(string("gsl_", ran_dir)), libgsl), Void, (Ref{Void}, Ref{Cdouble},
+                Ref{Cdouble}), r, x, y)
             return x[1], y[1]
         end
     end
@@ -28,12 +28,12 @@ end
 # for 3 dimensions).
 #
 #   Returns: Void
-function ran_dir_3d(r::Ptr{Void})
+function ran_dir_3d(r::Ref{Void})
     x = Array(Cdouble, 1)
     y = Array(Cdouble, 1)
     z = Array(Cdouble, 1)
-    ccall( (:gsl_ran_dir_3d, libgsl), Void, (Ptr{Void}, Ptr{Cdouble},
-        Ptr{Cdouble}, Ptr{Cdouble}), r, x, y, z )
+    ccall( (:gsl_ran_dir_3d, libgsl), Void, (Ref{Void}, Ref{Cdouble},
+        Ref{Cdouble}, Ref{Cdouble}), r, x, y, z )
     return x[1], y[1], z[1]
 end
 
@@ -47,9 +47,9 @@ end
 # Modern Mathematics for the Engineer (1956).
 #
 #   Returns: Void
-function ran_dir_nd(r::Ptr{Void}, n::Csize_t)
+function ran_dir_nd(r::Ref{Void}, n::Csize_t)
     x = Array(Cdouble, n)
-    ccall( (:gsl_ran_dir_nd, libgsl), Void, (Ptr{Void}, Csize_t,
-        Ptr{Cdouble}), r, n, x)
+    ccall( (:gsl_ran_dir_nd, libgsl), Void, (Ref{Void}, Csize_t,
+        Ref{Cdouble}), r, n, x)
     return x
 end

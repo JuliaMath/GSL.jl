@@ -12,8 +12,8 @@ export gsl_histogram_pdf, histogram_pdf_alloc, histogram_pdf_init,
 
 type gsl_histogram_pdf
     n::Csize_t
-    range::Ptr{Cdouble}
-    sum::Ptr{Cdouble}
+    range::Ref{Cdouble}
+    sum::Ref{Cdouble}
 end
 
 
@@ -22,10 +22,10 @@ end
 # insufficient memory is available a null pointer is returned and the error
 # handler is invoked with an error code of GSL_ENOMEM.
 # 
-#   Returns: Ptr{gsl_histogram_pdf}
+#   Returns: Ref{gsl_histogram_pdf}
 function histogram_pdf_alloc(n::Integer)
     output_ptr = ccall( (:gsl_histogram_pdf_alloc, libgsl),
-        Ptr{gsl_histogram_pdf}, (Csize_t, ), n )
+        Ref{gsl_histogram_pdf}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number histogram_pdf_alloc
@@ -37,9 +37,9 @@ end
 # cannot contain negative values.
 # 
 #   Returns: Cint
-function histogram_pdf_init(p::Ptr{gsl_histogram_pdf}, h::Ptr{gsl_histogram})
+function histogram_pdf_init(p::Ref{gsl_histogram_pdf}, h::Ref{gsl_histogram})
     errno = ccall( (:gsl_histogram_pdf_init, libgsl), Cint,
-        (Ptr{gsl_histogram_pdf}, Ptr{gsl_histogram}), p, h )
+        (Ref{gsl_histogram_pdf}, Ref{gsl_histogram}), p, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -48,9 +48,9 @@ end
 # memory associated with it.
 # 
 #   Returns: Void
-function histogram_pdf_free(p::Ptr{gsl_histogram_pdf})
+function histogram_pdf_free(p::Ref{gsl_histogram_pdf})
     ccall( (:gsl_histogram_pdf_free, libgsl), Void,
-        (Ptr{gsl_histogram_pdf}, ), p )
+        (Ref{gsl_histogram_pdf}, ), p )
 end
 
 
@@ -62,7 +62,7 @@ end
 # sum[i]).
 # 
 #   Returns: Cdouble
-function histogram_pdf_sample(p::Ptr{gsl_histogram_pdf}, r::Real)
+function histogram_pdf_sample(p::Ref{gsl_histogram_pdf}, r::Real)
     ccall( (:gsl_histogram_pdf_sample, libgsl), Cdouble,
-        (Ptr{gsl_histogram_pdf}, Cdouble), p, r )
+        (Ref{gsl_histogram_pdf}, Cdouble), p, r )
 end

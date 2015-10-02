@@ -9,5 +9,5 @@ export gsl_block
 
 type gsl_block
     size::Csize_t
-    data::Ptr{Cdouble}
+    data::Ref{Cdouble}
 end

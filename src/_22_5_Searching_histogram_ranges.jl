@@ -16,10 +16,10 @@ export histogram_find
 # function returns GSL_EDOM and the error handler is invoked.
 # 
 #   Returns: Cint
-function histogram_find(h::Ptr{gsl_histogram}, x::Real)
+function histogram_find(h::Ref{gsl_histogram}, x::Real)
     i = Ref{Csize_t}()
     errno = ccall( (:gsl_histogram_find, libgsl), Cint,
-        (Ptr{gsl_histogram}, Cdouble, Ptr{Csize_t}), h, x, i )
+        (Ref{gsl_histogram}, Cdouble, Ref{Csize_t}), h, x, i )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return i[]
 end

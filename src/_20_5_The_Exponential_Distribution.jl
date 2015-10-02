@@ -15,8 +15,8 @@ export ran_exponential, ran_exponential_pdf, cdf_exponential_P,
 # \exp(-x/\mu) dx  for  x >= 0.
 # 
 #   Returns: Cdouble
-function ran_exponential(r::Ptr{gsl_rng}, mu::Real)
-    ccall( (:gsl_ran_exponential, libgsl), Cdouble, (Ptr{gsl_rng},
+function ran_exponential(r::Ref{gsl_rng}, mu::Real)
+    ccall( (:gsl_ran_exponential, libgsl), Cdouble, (Ref{gsl_rng},
         Cdouble), r, mu )
 end
 

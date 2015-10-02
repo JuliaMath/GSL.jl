@@ -15,8 +15,8 @@ export ran_pascal, ran_pascal_pdf, cdf_pascal_P, cdf_pascal_Q
 # p^n (1-p)^k  for  k >= 0
 # 
 #   Returns: Cuint
-function ran_pascal(r::Ptr{gsl_rng}, p::Real, n::Integer)
-    ccall( (:gsl_ran_pascal, libgsl), Cuint, (Ptr{gsl_rng}, Cdouble,
+function ran_pascal(r::Ref{gsl_rng}, p::Real, n::Integer)
+    ccall( (:gsl_ran_pascal, libgsl), Cuint, (Ref{gsl_rng}, Cdouble,
         Cuint), r, p, n )
 end
 

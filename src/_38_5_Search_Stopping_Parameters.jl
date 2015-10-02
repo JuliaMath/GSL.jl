@@ -18,9 +18,9 @@ export multifit_test_delta, multifit_test_gradient, multifit_gradient
 # component of x and returns GSL_CONTINUE otherwise.
 # 
 #   Returns: Cint
-function multifit_test_delta(dx::Ptr{gsl_vector}, x::Ptr{gsl_vector}, epsabs::Real, epsrel::Real)
+function multifit_test_delta(dx::Ref{gsl_vector}, x::Ref{gsl_vector}, epsabs::Real, epsrel::Real)
     errno = ccall( (:gsl_multifit_test_delta, libgsl), Cint,
-        (Ptr{gsl_vector}, Ptr{gsl_vector}, Cdouble, Cdouble), dx, x, epsabs,
+        (Ref{gsl_vector}, Ref{gsl_vector}, Cdouble, Cdouble), dx, x, epsabs,
         epsrel )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -34,9 +34,9 @@ end
 # unimportant provided a value can be found where the gradient is small enough.
 # 
 #   Returns: Cint
-function multifit_test_gradient(g::Ptr{gsl_vector}, epsabs::Real)
+function multifit_test_gradient(g::Ref{gsl_vector}, epsabs::Real)
     errno = ccall( (:gsl_multifit_test_gradient, libgsl), Cint,
-        (Ptr{gsl_vector}, Cdouble), g, epsabs )
+        (Ref{gsl_vector}, Cdouble), g, epsabs )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -45,10 +45,10 @@ end
 # Jacobian matrix J and the function values f, using the formula g = J^T f.
 # 
 #   Returns: Cint
-function multifit_gradient(J::Ptr{gsl_matrix}, f::Ptr{gsl_vector})
+function multifit_gradient(J::Ref{gsl_matrix}, f::Ref{gsl_vector})
     g = Ref{gsl_vector}()
     errno = ccall( (:gsl_multifit_gradient, libgsl), Cint,
-        (Ptr{gsl_matrix}, Ptr{gsl_vector}, Ptr{gsl_vector}), J, f, g )
+        (Ref{gsl_matrix}, Ref{gsl_vector}, Ref{gsl_vector}), J, f, g )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return g[]
 end

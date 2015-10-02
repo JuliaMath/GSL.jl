@@ -13,7 +13,7 @@ export combination_get
 # HAVE_INLINE is defined.
 # 
 #   Returns: Csize_t
-function combination_get(c::Ptr{gsl_combination}, i::Integer)
-    ccall( (:gsl_combination_get, libgsl), Csize_t, (Ptr{gsl_combination},
+function combination_get(c::Ref{gsl_combination}, i::Integer)
+    ccall( (:gsl_combination_get, libgsl), Csize_t, (Ref{gsl_combination},
         Csize_t), c, i )
 end

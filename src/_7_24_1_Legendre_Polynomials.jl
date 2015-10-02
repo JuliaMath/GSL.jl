@@ -48,7 +48,7 @@ end
 function sf_legendre_P1_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_P1_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -62,7 +62,7 @@ end
 function sf_legendre_P2_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_P2_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -76,7 +76,7 @@ end
 function sf_legendre_P3_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_P3_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -100,7 +100,7 @@ end
 function sf_legendre_Pl_e(l::Integer, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_Pl_e, libgsl), Cint, (Cint, Cdouble,
-        Ptr{gsl_sf_result}), l, x, result )
+        Ref{gsl_sf_result}), l, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -150,7 +150,7 @@ end
 function sf_legendre_Q0_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_Q0_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -172,7 +172,7 @@ end
 function sf_legendre_Q1_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_Q1_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -196,7 +196,7 @@ end
 function sf_legendre_Ql_e(l::Integer, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_Ql_e, libgsl), Cint, (Cint, Cdouble,
-        Ptr{gsl_sf_result}), l, x, result )
+        Ref{gsl_sf_result}), l, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

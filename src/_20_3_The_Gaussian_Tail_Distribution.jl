@@ -24,8 +24,8 @@ export ran_gaussian_tail, ran_gaussian_tail_pdf, ran_ugaussian_tail,
 # sigma^2)).
 # 
 #   Returns: Cdouble
-function ran_gaussian_tail(r::Ptr{gsl_rng}, a::Real, sigma::Real)
-    ccall( (:gsl_ran_gaussian_tail, libgsl), Cdouble, (Ptr{gsl_rng},
+function ran_gaussian_tail(r::Ref{gsl_rng}, a::Real, sigma::Real)
+    ccall( (:gsl_ran_gaussian_tail, libgsl), Cdouble, (Ref{gsl_rng},
         Cdouble, Cdouble), r, a, sigma )
 end
 
@@ -48,8 +48,8 @@ end
 # sigma = 1.
 # 
 #   Returns: Cdouble
-function ran_ugaussian_tail(r::Ptr{gsl_rng}, a::Real)
-    ccall( (:gsl_ran_ugaussian_tail, libgsl), Cdouble, (Ptr{gsl_rng},
+function ran_ugaussian_tail(r::Ref{gsl_rng}, a::Real)
+    ccall( (:gsl_ran_ugaussian_tail, libgsl), Cdouble, (Ref{gsl_rng},
         Cdouble), r, a )
 end
 

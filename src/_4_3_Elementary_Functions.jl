@@ -97,5 +97,5 @@ end
 #   Returns: Cdouble
 function frexp{tA<:Integer}(x::Real, e_in::AbstractVector{tA})
     e = convert(Vector{Cint}, e_in)
-    ccall( (:gsl_frexp, libgsl), Cdouble, (Cdouble, Ptr{Cint}), x, e )
+    ccall( (:gsl_frexp, libgsl), Cdouble, (Cdouble, Ref{Cint}), x, e )
 end

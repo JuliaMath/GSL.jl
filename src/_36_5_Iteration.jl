@@ -21,7 +21,7 @@ export multimin_fdfminimizer_iterate, multimin_fminimizer_iterate,
 function multimin_fdfminimizer_iterate()
     s = Ref{gsl_multimin_fdfminimizer}()
     errno = ccall( (:gsl_multimin_fdfminimizer_iterate, libgsl), Cint,
-        (Ptr{gsl_multimin_fdfminimizer}, ), s )
+        (Ref{gsl_multimin_fdfminimizer}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return s[]
 end
@@ -37,7 +37,7 @@ end
 function multimin_fminimizer_iterate()
     s = Ref{gsl_multimin_fminimizer}()
     errno = ccall( (:gsl_multimin_fminimizer_iterate, libgsl), Cint,
-        (Ptr{gsl_multimin_fminimizer}, ), s )
+        (Ref{gsl_multimin_fminimizer}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return s[]
 end
@@ -47,10 +47,10 @@ end
 # minimum, the value of the function at that point, its gradient, and minimizer
 # specific characteristic size for the minimizer s.
 # 
-#   Returns: Ptr{gsl_vector}
-function multimin_fdfminimizer_x(s::Ptr{gsl_multimin_fdfminimizer})
+#   Returns: Ref{gsl_vector}
+function multimin_fdfminimizer_x(s::Ref{gsl_multimin_fdfminimizer})
     output_ptr = ccall( (:gsl_multimin_fdfminimizer_x, libgsl),
-        Ptr{gsl_vector}, (Ptr{gsl_multimin_fdfminimizer}, ), s )
+        Ref{gsl_vector}, (Ref{gsl_multimin_fdfminimizer}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -59,10 +59,10 @@ end
 # minimum, the value of the function at that point, its gradient, and minimizer
 # specific characteristic size for the minimizer s.
 # 
-#   Returns: Ptr{gsl_vector}
-function multimin_fminimizer_x(s::Ptr{gsl_multimin_fminimizer})
+#   Returns: Ref{gsl_vector}
+function multimin_fminimizer_x(s::Ref{gsl_multimin_fminimizer})
     output_ptr = ccall( (:gsl_multimin_fminimizer_x, libgsl),
-        Ptr{gsl_vector}, (Ptr{gsl_multimin_fminimizer}, ), s )
+        Ref{gsl_vector}, (Ref{gsl_multimin_fminimizer}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -72,9 +72,9 @@ end
 # specific characteristic size for the minimizer s.
 # 
 #   Returns: Cdouble
-function multimin_fdfminimizer_minimum(s::Ptr{gsl_multimin_fdfminimizer})
+function multimin_fdfminimizer_minimum(s::Ref{gsl_multimin_fdfminimizer})
     ccall( (:gsl_multimin_fdfminimizer_minimum, libgsl), Cdouble,
-        (Ptr{gsl_multimin_fdfminimizer}, ), s )
+        (Ref{gsl_multimin_fdfminimizer}, ), s )
 end
 
 
@@ -83,9 +83,9 @@ end
 # specific characteristic size for the minimizer s.
 # 
 #   Returns: Cdouble
-function multimin_fminimizer_minimum(s::Ptr{gsl_multimin_fminimizer})
+function multimin_fminimizer_minimum(s::Ref{gsl_multimin_fminimizer})
     ccall( (:gsl_multimin_fminimizer_minimum, libgsl), Cdouble,
-        (Ptr{gsl_multimin_fminimizer}, ), s )
+        (Ref{gsl_multimin_fminimizer}, ), s )
 end
 
 
@@ -93,10 +93,10 @@ end
 # minimum, the value of the function at that point, its gradient, and minimizer
 # specific characteristic size for the minimizer s.
 # 
-#   Returns: Ptr{gsl_vector}
-function multimin_fdfminimizer_gradient(s::Ptr{gsl_multimin_fdfminimizer})
+#   Returns: Ref{gsl_vector}
+function multimin_fdfminimizer_gradient(s::Ref{gsl_multimin_fdfminimizer})
     output_ptr = ccall( (:gsl_multimin_fdfminimizer_gradient, libgsl),
-        Ptr{gsl_vector}, (Ptr{gsl_multimin_fdfminimizer}, ), s )
+        Ref{gsl_vector}, (Ref{gsl_multimin_fdfminimizer}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -106,9 +106,9 @@ end
 # specific characteristic size for the minimizer s.
 # 
 #   Returns: Cdouble
-function multimin_fminimizer_size(s::Ptr{gsl_multimin_fminimizer})
+function multimin_fminimizer_size(s::Ref{gsl_multimin_fminimizer})
     ccall( (:gsl_multimin_fminimizer_size, libgsl), Cdouble,
-        (Ptr{gsl_multimin_fminimizer}, ), s )
+        (Ref{gsl_multimin_fminimizer}, ), s )
 end
 
 
@@ -119,7 +119,7 @@ end
 function multimin_fdfminimizer_restart()
     s = Ref{gsl_multimin_fdfminimizer}()
     errno = ccall( (:gsl_multimin_fdfminimizer_restart, libgsl), Cint,
-        (Ptr{gsl_multimin_fdfminimizer}, ), s )
+        (Ref{gsl_multimin_fdfminimizer}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return s[]
 end

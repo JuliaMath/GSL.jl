@@ -30,10 +30,10 @@ export integration_qawo_table_alloc, integration_qawo_table_set,
 # integration routine gsl_integration_qawo returns the error GSL_ETABLE if the
 # number of levels is insufficient for the requested accuracy.
 # 
-#   Returns: Ptr{gsl_integration_qawo_table}
+#   Returns: Ref{gsl_integration_qawo_table}
 function integration_qawo_table_alloc(omega::Real, L::Real, sine::enumgsl_integration_qawo_enum, n::Integer)
     output_ptr = ccall( (:gsl_integration_qawo_table_alloc, libgsl),
-        Ptr{gsl_integration_qawo_table}, (Cdouble, Cdouble,
+        Ref{gsl_integration_qawo_table}, (Cdouble, Cdouble,
         enumgsl_integration_qawo_enum, Csize_t), omega, L, sine, n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -43,9 +43,9 @@ end
 # workspace t.
 # 
 #   Returns: Cint
-function integration_qawo_table_set(t::Ptr{gsl_integration_qawo_table}, omega::Real, L::Real, sine::enumgsl_integration_qawo_enum)
+function integration_qawo_table_set(t::Ref{gsl_integration_qawo_table}, omega::Real, L::Real, sine::enumgsl_integration_qawo_enum)
     errno = ccall( (:gsl_integration_qawo_table_set, libgsl), Cint,
-        (Ptr{gsl_integration_qawo_table}, Cdouble, Cdouble,
+        (Ref{gsl_integration_qawo_table}, Cdouble, Cdouble,
         enumgsl_integration_qawo_enum), t, omega, L, sine )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -57,7 +57,7 @@ end
 function integration_qawo_table_set_length(L::Real)
     t = Ref{gsl_integration_qawo_table}()
     errno = ccall( (:gsl_integration_qawo_table_set_length, libgsl), Cint,
-        (Ptr{gsl_integration_qawo_table}, Cdouble), t, L )
+        (Ref{gsl_integration_qawo_table}, Cdouble), t, L )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return t[]
 end
@@ -67,9 +67,9 @@ end
 # This function frees all the memory associated with the workspace t.
 # 
 #   Returns: Void
-function integration_qawo_table_free(t::Ptr{gsl_integration_qawo_table})
+function integration_qawo_table_free(t::Ref{gsl_integration_qawo_table})
     ccall( (:gsl_integration_qawo_table_free, libgsl), Void,
-        (Ptr{gsl_integration_qawo_table}, ), t )
+        (Ref{gsl_integration_qawo_table}, ), t )
 end
 
 
@@ -95,9 +95,9 @@ function integration_qawo(a::Real, epsabs::Real, epsrel::Real, limit::Integer)
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_integration_qawo, libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Cdouble, Csize_t,
-        Ptr{gsl_integration_workspace}, Ptr{gsl_integration_qawo_table},
-        Ptr{Cdouble}, Ptr{Cdouble}), f, a, epsabs, epsrel, limit, workspace,
+        (Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Csize_t,
+        Ref{gsl_integration_workspace}, Ref{gsl_integration_qawo_table},
+        Ref{Cdouble}, Ref{Cdouble}), f, a, epsabs, epsrel, limit, workspace,
         wf, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return f[], workspace[], wf[], result[], abserr[]

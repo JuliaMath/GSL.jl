@@ -16,11 +16,11 @@ export histogram2d_find
 # and the error handler is invoked.
 # 
 #   Returns: Cint
-function histogram2d_find(h::Ptr{gsl_histogram2d}, x::Real, y::Real)
+function histogram2d_find(h::Ref{gsl_histogram2d}, x::Real, y::Real)
     i = Ref{Csize_t}()
     j = Ref{Csize_t}()
     errno = ccall( (:gsl_histogram2d_find, libgsl), Cint,
-        (Ptr{gsl_histogram2d}, Cdouble, Cdouble, Ptr{Csize_t}, Ptr{Csize_t}),
+        (Ref{gsl_histogram2d}, Cdouble, Cdouble, Ref{Csize_t}, Ref{Csize_t}),
         h, x, y, i, j )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return i[], j[]

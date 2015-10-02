@@ -13,7 +13,7 @@ export ntuple_write, ntuple_bookdata
 #   Returns: Cint
 function ntuple_write()
     ntuple = Ref{gsl_ntuple}()
-    errno = ccall( (:gsl_ntuple_write, libgsl), Cint, (Ptr{gsl_ntuple}, ),
+    errno = ccall( (:gsl_ntuple_write, libgsl), Cint, (Ref{gsl_ntuple}, ),
         ntuple )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return ntuple[]
@@ -25,7 +25,7 @@ end
 #   Returns: Cint
 function ntuple_bookdata()
     ntuple = Ref{gsl_ntuple}()
-    errno = ccall( (:gsl_ntuple_bookdata, libgsl), Cint, (Ptr{gsl_ntuple},
+    errno = ccall( (:gsl_ntuple_bookdata, libgsl), Cint, (Ref{gsl_ntuple},
         ), ntuple )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return ntuple[]

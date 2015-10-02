@@ -24,7 +24,7 @@ end
 function sf_psi_int_e(n::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_psi_int_e, libgsl), Cint, (Cint,
-        Ptr{gsl_sf_result}), n, result )
+        Ref{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -46,7 +46,7 @@ end
 function sf_psi_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_psi_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -70,7 +70,7 @@ end
 function sf_psi_1piy_e(y::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_psi_1piy_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), y, result )
+        Ref{gsl_sf_result}), y, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

@@ -71,7 +71,7 @@ end
 function sf_airy_Ai_scaled_e(x::Real, mode::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_airy_Ai_scaled_e, libgsl), Cint, (Cdouble,
-        gsl_mode_t, Ptr{gsl_sf_result}), x, mode, result )
+        gsl_mode_t, Ref{gsl_sf_result}), x, mode, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -94,7 +94,7 @@ end
 function sf_airy_Bi_scaled_e(x::Real, mode::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_airy_Bi_scaled_e, libgsl), Cint, (Cdouble,
-        gsl_mode_t, Ptr{gsl_sf_result}), x, mode, result )
+        gsl_mode_t, Ref{gsl_sf_result}), x, mode, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

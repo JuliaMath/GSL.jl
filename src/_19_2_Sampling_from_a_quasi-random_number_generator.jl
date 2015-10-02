@@ -13,8 +13,8 @@ export qrng_get
 # inline version of this function is used when HAVE_INLINE is defined.
 # 
 #   Returns: Cint
-function qrng_get(q::Ptr{gsl_qrng}, x::Real)
-    errno = ccall( (:gsl_qrng_get, libgsl), Cint, (Ptr{gsl_qrng},
+function qrng_get(q::Ref{gsl_qrng}, x::Real)
+    errno = ccall( (:gsl_qrng_get, libgsl), Cint, (Ref{gsl_qrng},
         Cdouble), q, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end

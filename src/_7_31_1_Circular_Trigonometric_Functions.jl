@@ -23,7 +23,7 @@ end
 function sf_sin_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_sin_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -45,7 +45,7 @@ end
 function sf_cos_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_cos_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -69,7 +69,7 @@ end
 function sf_hypot_e(x::Real, y::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hypot_e, libgsl), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), x, y, result )
+        Ref{gsl_sf_result}), x, y, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -91,7 +91,7 @@ end
 function sf_sinc_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_sinc_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

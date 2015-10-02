@@ -29,7 +29,7 @@ end
 function sf_hyperg_0F1_e(c::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hyperg_0F1_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), c, x, result )
+        Cdouble, Ref{gsl_sf_result}), c, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -55,7 +55,7 @@ end
 function sf_hyperg_1F1_int_e(m::Integer, n::Integer, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hyperg_1F1_int_e, libgsl), Cint, (Cint, Cint,
-        Cdouble, Ptr{gsl_sf_result}), m, n, x, result )
+        Cdouble, Ref{gsl_sf_result}), m, n, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -82,7 +82,7 @@ end
 function sf_hyperg_1F1_e(a::Real, b::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hyperg_1F1_e, libgsl), Cint, (Cdouble,
-        Cdouble, Cdouble, Ptr{gsl_sf_result}), a, b, x, result )
+        Cdouble, Cdouble, Ref{gsl_sf_result}), a, b, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -109,7 +109,7 @@ end
 function sf_hyperg_U_int_e(m::Integer, n::Integer, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hyperg_U_int_e, libgsl), Cint, (Cint, Cint,
-        Cdouble, Ptr{gsl_sf_result}), m, n, x, result )
+        Cdouble, Ref{gsl_sf_result}), m, n, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -125,7 +125,7 @@ end
 function sf_hyperg_U_int_e10_e(m::Integer, n::Integer, x::Real)
     result = Ref{gsl_sf_result_e10}()
     errno = ccall( (:gsl_sf_hyperg_U_int_e10_e, libgsl), Cint, (Cint,
-        Cint, Cdouble, Ptr{gsl_sf_result_e10}), m, n, x, result )
+        Cint, Cdouble, Ref{gsl_sf_result_e10}), m, n, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -150,7 +150,7 @@ end
 function sf_hyperg_U_e(a::Real, b::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hyperg_U_e, libgsl), Cint, (Cdouble, Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), a, b, x, result )
+        Cdouble, Ref{gsl_sf_result}), a, b, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -165,7 +165,7 @@ end
 function sf_hyperg_U_e10_e(a::Real, b::Real, x::Real)
     result = Ref{gsl_sf_result_e10}()
     errno = ccall( (:gsl_sf_hyperg_U_e10_e, libgsl), Cint, (Cdouble,
-        Cdouble, Cdouble, Ptr{gsl_sf_result_e10}), a, b, x, result )
+        Cdouble, Cdouble, Ref{gsl_sf_result_e10}), a, b, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -198,7 +198,7 @@ end
 function sf_hyperg_2F1_e(a::Real, b::Real, c::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hyperg_2F1_e, libgsl), Cint, (Cdouble,
-        Cdouble, Cdouble, Cdouble, Ptr{gsl_sf_result}), a, b, c, x, result )
+        Cdouble, Cdouble, Cdouble, Ref{gsl_sf_result}), a, b, c, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -225,7 +225,7 @@ end
 function sf_hyperg_2F1_conj_e(aR::Real, aI::Real, c::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hyperg_2F1_conj_e, libgsl), Cint, (Cdouble,
-        Cdouble, Cdouble, Cdouble, Ptr{gsl_sf_result}), aR, aI, c, x, result )
+        Cdouble, Cdouble, Cdouble, Ref{gsl_sf_result}), aR, aI, c, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -252,7 +252,7 @@ end
 function sf_hyperg_2F1_renorm_e(a::Real, b::Real, c::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hyperg_2F1_renorm_e, libgsl), Cint, (Cdouble,
-        Cdouble, Cdouble, Cdouble, Ptr{gsl_sf_result}), a, b, c, x, result )
+        Cdouble, Cdouble, Cdouble, Ref{gsl_sf_result}), a, b, c, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -279,7 +279,7 @@ end
 function sf_hyperg_2F1_conj_renorm_e(aR::Real, aI::Real, c::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hyperg_2F1_conj_renorm_e, libgsl), Cint,
-        (Cdouble, Cdouble, Cdouble, Cdouble, Ptr{gsl_sf_result}), aR, aI, c, x,
+        (Cdouble, Cdouble, Cdouble, Cdouble, Ref{gsl_sf_result}), aR, aI, c, x,
         result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
@@ -309,7 +309,7 @@ end
 function sf_hyperg_2F0_e(a::Real, b::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hyperg_2F0_e, libgsl), Cint, (Cdouble,
-        Cdouble, Cdouble, Ptr{gsl_sf_result}), a, b, x, result )
+        Cdouble, Cdouble, Ref{gsl_sf_result}), a, b, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

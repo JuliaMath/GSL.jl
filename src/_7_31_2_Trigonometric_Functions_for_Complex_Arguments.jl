@@ -12,10 +12,10 @@ export sf_complex_sin_e, sf_complex_cos_e, sf_complex_logsin_e
 # 
 #   Returns: Cint
 function sf_complex_sin_e(zr::Real, zi::Real)
-    szr = Ptr{gsl_sf_result}()
-    szi = Ptr{gsl_sf_result}()
+    szr = Ref{gsl_sf_result}()
+    szi = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_complex_sin_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, szr, szi )
+        Cdouble, Ref{gsl_sf_result}, Ref{gsl_sf_result}), zr, zi, szr, szi )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return szr[], szi[]
 end
@@ -27,10 +27,10 @@ end
 # 
 #   Returns: Cint
 function sf_complex_cos_e(zr::Real, zi::Real)
-    czr = Ptr{gsl_sf_result}()
-    czi = Ptr{gsl_sf_result}()
+    czr = Ref{gsl_sf_result}()
+    czi = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_complex_cos_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, czr, czi )
+        Cdouble, Ref{gsl_sf_result}, Ref{gsl_sf_result}), zr, zi, czr, czi )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return czr[], czi[]
 end
@@ -42,10 +42,10 @@ end
 # 
 #   Returns: Cint
 function sf_complex_logsin_e(zr::Real, zi::Real)
-    lszr = Ptr{gsl_sf_result}()
-    lszi = Ptr{gsl_sf_result}()
+    lszr = Ref{gsl_sf_result}()
+    lszi = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_complex_logsin_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, lszr, lszi )
+        Cdouble, Ref{gsl_sf_result}, Ref{gsl_sf_result}), zr, zi, lszr, lszi )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return lszr[], lszi[]
 end

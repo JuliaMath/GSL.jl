@@ -10,8 +10,8 @@ export cheb_eval, cheb_eval_err, cheb_eval_n, cheb_eval_n_err
 # This function evaluates the Chebyshev series cs at a given point x.
 # 
 #   Returns: Cdouble
-function cheb_eval(cs::Ptr{gsl_cheb_series}, x::Real)
-    ccall( (:gsl_cheb_eval, libgsl), Cdouble, (Ptr{gsl_cheb_series},
+function cheb_eval(cs::Ref{gsl_cheb_series}, x::Real)
+    ccall( (:gsl_cheb_eval, libgsl), Cdouble, (Ref{gsl_cheb_series},
         Cdouble), cs, x )
 end
 
@@ -21,11 +21,11 @@ end
 # made from the first neglected term in the series.
 # 
 #   Returns: Cint
-function cheb_eval_err(cs::Ptr{gsl_cheb_series}, x::Real)
+function cheb_eval_err(cs::Ref{gsl_cheb_series}, x::Real)
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_cheb_eval_err, libgsl), Cint,
-        (Ptr{gsl_cheb_series}, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), cs, x,
+        (Ref{gsl_cheb_series}, Cdouble, Ref{Cdouble}, Ref{Cdouble}), cs, x,
         result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[], abserr[]
@@ -36,8 +36,8 @@ end
 # most) the given order order.
 # 
 #   Returns: Cdouble
-function cheb_eval_n(cs::Ptr{gsl_cheb_series}, order::Integer, x::Real)
-    ccall( (:gsl_cheb_eval_n, libgsl), Cdouble, (Ptr{gsl_cheb_series},
+function cheb_eval_n(cs::Ref{gsl_cheb_series}, order::Integer, x::Real)
+    ccall( (:gsl_cheb_eval_n, libgsl), Cdouble, (Ref{gsl_cheb_series},
         Csize_t, Cdouble), cs, order, x )
 end
 
@@ -48,11 +48,11 @@ end
 # series.
 # 
 #   Returns: Cint
-function cheb_eval_n_err(cs::Ptr{gsl_cheb_series}, order::Integer, x::Real)
+function cheb_eval_n_err(cs::Ref{gsl_cheb_series}, order::Integer, x::Real)
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_cheb_eval_n_err, libgsl), Cint,
-        (Ptr{gsl_cheb_series}, Csize_t, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}),
+        (Ref{gsl_cheb_series}, Csize_t, Cdouble, Ref{Cdouble}, Ref{Cdouble}),
         cs, order, x, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[], abserr[]

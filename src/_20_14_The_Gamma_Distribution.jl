@@ -19,8 +19,8 @@ export ran_gamma, ran_gamma_knuth, ran_gamma_pdf, cdf_gamma_P, cdf_gamma_Q,
 # this name.
 # 
 #   Returns: Cdouble
-function ran_gamma(r::Ptr{gsl_rng}, a::Real, b::Real)
-    ccall( (:gsl_ran_gamma, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+function ran_gamma(r::Ref{gsl_rng}, a::Real, b::Real)
+    ccall( (:gsl_ran_gamma, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble,
         Cdouble), r, a, b )
 end
 
@@ -29,8 +29,8 @@ end
 # 2).
 # 
 #   Returns: Cdouble
-function ran_gamma_knuth(r::Ptr{gsl_rng}, a::Real, b::Real)
-    ccall( (:gsl_ran_gamma_knuth, libgsl), Cdouble, (Ptr{gsl_rng},
+function ran_gamma_knuth(r::Ref{gsl_rng}, a::Real, b::Real)
+    ccall( (:gsl_ran_gamma_knuth, libgsl), Cdouble, (Ref{gsl_rng},
         Cdouble, Cdouble), r, a, b )
 end
 

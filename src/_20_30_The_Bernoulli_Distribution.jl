@@ -14,8 +14,8 @@ export ran_bernoulli, ran_bernoulli_pdf
 # p(0) = 1 - p           p(1) = p
 # 
 #   Returns: Cuint
-function ran_bernoulli(r::Ptr{gsl_rng}, p::Real)
-    ccall( (:gsl_ran_bernoulli, libgsl), Cuint, (Ptr{gsl_rng}, Cdouble),
+function ran_bernoulli(r::Ref{gsl_rng}, p::Real)
+    ccall( (:gsl_ran_bernoulli, libgsl), Cuint, (Ref{gsl_rng}, Cdouble),
         r, p )
 end
 

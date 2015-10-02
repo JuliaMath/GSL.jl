@@ -15,8 +15,8 @@ export ran_gumbel2, ran_gumbel2_pdf, cdf_gumbel2_P, cdf_gumbel2_Q,
 # x^{-a-1} \exp(-b x^{-a}) dx  for 0 < x < \infty.
 # 
 #   Returns: Cdouble
-function ran_gumbel2(r::Ptr{gsl_rng}, a::Real, b::Real)
-    ccall( (:gsl_ran_gumbel2, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+function ran_gumbel2(r::Ref{gsl_rng}, a::Real, b::Real)
+    ccall( (:gsl_ran_gumbel2, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble,
         Cdouble), r, a, b )
 end
 

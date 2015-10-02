@@ -28,7 +28,7 @@ end
 function sf_angle_restrict_symm_e()
     theta = Ref{Cdouble}()
     errno = ccall( (:gsl_sf_angle_restrict_symm_e, libgsl), Cint,
-        (Ptr{Cdouble}, ), theta )
+        (Ref{Cdouble}, ), theta )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return theta[]
 end
@@ -54,7 +54,7 @@ end
 function sf_angle_restrict_pos_e()
     theta = Ref{Cdouble}()
     errno = ccall( (:gsl_sf_angle_restrict_pos_e, libgsl), Cint,
-        (Ptr{Cdouble}, ), theta )
+        (Ref{Cdouble}, ), theta )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return theta[]
 end

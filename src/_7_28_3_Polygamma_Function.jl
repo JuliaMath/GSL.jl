@@ -24,7 +24,7 @@ end
 function sf_psi_n_e(n::Integer, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_psi_n_e, libgsl), Cint, (Cint, Cdouble,
-        Ptr{gsl_sf_result}), n, x, result )
+        Ref{gsl_sf_result}), n, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

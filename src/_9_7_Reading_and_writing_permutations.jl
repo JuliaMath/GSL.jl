@@ -17,9 +17,9 @@ export permutation_fwrite, permutation_fread, permutation_fprintf,
 # it may not be portable between different architectures.
 # 
 #   Returns: Cint
-function permutation_fwrite(stream::Ptr{Void}, p::Ptr{gsl_permutation})
-    errno = ccall( (:gsl_permutation_fwrite, libgsl), Cint, (Ptr{Void},
-        Ptr{gsl_permutation}), stream, p )
+function permutation_fwrite(stream::Ref{Void}, p::Ref{gsl_permutation})
+    errno = ccall( (:gsl_permutation_fwrite, libgsl), Cint, (Ref{Void},
+        Ref{gsl_permutation}), stream, p )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -32,10 +32,10 @@ end
 # format on the same architecture.
 # 
 #   Returns: Cint
-function permutation_fread(stream::Ptr{Void})
+function permutation_fread(stream::Ref{Void})
     p = Ref{gsl_permutation}()
-    errno = ccall( (:gsl_permutation_fread, libgsl), Cint, (Ptr{Void},
-        Ptr{gsl_permutation}), stream, p )
+    errno = ccall( (:gsl_permutation_fread, libgsl), Cint, (Ref{Void},
+        Ref{gsl_permutation}), stream, p )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return p[]
 end
@@ -48,10 +48,10 @@ end
 # a problem writing to the file.
 # 
 #   Returns: Cint
-function permutation_fprintf(stream::Ptr{Void}, p::Ptr{gsl_permutation})
+function permutation_fprintf(stream::Ref{Void}, p::Ref{gsl_permutation})
     format = Ref{Cchar}()
-    errno = ccall( (:gsl_permutation_fprintf, libgsl), Cint, (Ptr{Void},
-        Ptr{gsl_permutation}, Ptr{Cchar}), stream, p, format )
+    errno = ccall( (:gsl_permutation_fprintf, libgsl), Cint, (Ref{Void},
+        Ref{gsl_permutation}, Ref{Cchar}), stream, p, format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return format[]
 end
@@ -64,10 +64,10 @@ end
 # the file.
 # 
 #   Returns: Cint
-function permutation_fscanf(stream::Ptr{Void})
+function permutation_fscanf(stream::Ref{Void})
     p = Ref{gsl_permutation}()
-    errno = ccall( (:gsl_permutation_fscanf, libgsl), Cint, (Ptr{Void},
-        Ptr{gsl_permutation}), stream, p )
+    errno = ccall( (:gsl_permutation_fscanf, libgsl), Cint, (Ref{Void},
+        Ref{gsl_permutation}), stream, p )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return p[]
 end

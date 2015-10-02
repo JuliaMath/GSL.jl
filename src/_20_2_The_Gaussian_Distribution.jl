@@ -22,8 +22,8 @@ export ran_gaussian, ran_gaussian_pdf, ran_gaussian_ziggurat,
 # which requires two calls to the random number generator r.
 # 
 #   Returns: Cdouble
-function ran_gaussian(r::Ptr{gsl_rng}, sigma::Real)
-    ccall( (:gsl_ran_gaussian, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
+function ran_gaussian(r::Ref{gsl_rng}, sigma::Real)
+    ccall( (:gsl_ran_gaussian, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble),
         r, sigma )
 end
 
@@ -44,8 +44,8 @@ end
 # Ziggurat algorithm is the fastest available algorithm in most cases.
 # 
 #   Returns: Cdouble
-function ran_gaussian_ziggurat(r::Ptr{gsl_rng}, sigma::Real)
-    ccall( (:gsl_ran_gaussian_ziggurat, libgsl), Cdouble, (Ptr{gsl_rng},
+function ran_gaussian_ziggurat(r::Ref{gsl_rng}, sigma::Real)
+    ccall( (:gsl_ran_gaussian_ziggurat, libgsl), Cdouble, (Ref{gsl_rng},
         Cdouble), r, sigma )
 end
 
@@ -55,9 +55,9 @@ end
 # Ziggurat algorithm is the fastest available algorithm in most cases.
 # 
 #   Returns: Cdouble
-function ran_gaussian_ratio_method(r::Ptr{gsl_rng}, sigma::Real)
+function ran_gaussian_ratio_method(r::Ref{gsl_rng}, sigma::Real)
     ccall( (:gsl_ran_gaussian_ratio_method, libgsl), Cdouble,
-        (Ptr{gsl_rng}, Cdouble), r, sigma )
+        (Ref{gsl_rng}, Cdouble), r, sigma )
 end
 
 
@@ -66,8 +66,8 @@ end
 # 1.
 # 
 #   Returns: Cdouble
-function ran_ugaussian(r::Ptr{gsl_rng})
-    ccall( (:gsl_ran_ugaussian, libgsl), Cdouble, (Ptr{gsl_rng}, ), r )
+function ran_ugaussian(r::Ref{gsl_rng})
+    ccall( (:gsl_ran_ugaussian, libgsl), Cdouble, (Ref{gsl_rng}, ), r )
 end
 
 
@@ -87,9 +87,9 @@ end
 # 1.
 # 
 #   Returns: Cdouble
-function ran_ugaussian_ratio_method(r::Ptr{gsl_rng})
+function ran_ugaussian_ratio_method(r::Ref{gsl_rng})
     ccall( (:gsl_ran_ugaussian_ratio_method, libgsl), Cdouble,
-        (Ptr{gsl_rng}, ), r )
+        (Ref{gsl_rng}, ), r )
 end
 
 

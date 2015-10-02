@@ -31,7 +31,7 @@ end
 function sf_fermi_dirac_m1_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_fermi_dirac_m1_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -55,7 +55,7 @@ end
 function sf_fermi_dirac_0_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_fermi_dirac_0_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -79,7 +79,7 @@ end
 function sf_fermi_dirac_1_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_fermi_dirac_1_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -103,7 +103,7 @@ end
 function sf_fermi_dirac_2_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_fermi_dirac_2_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -128,7 +128,7 @@ end
 function sf_fermi_dirac_int_e(j::Integer, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_fermi_dirac_int_e, libgsl), Cint, (Cint,
-        Cdouble, Ptr{gsl_sf_result}), j, x, result )
+        Cdouble, Ref{gsl_sf_result}), j, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -150,7 +150,7 @@ end
 function sf_fermi_dirac_mhalf_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_fermi_dirac_mhalf_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -172,7 +172,7 @@ end
 function sf_fermi_dirac_half_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_fermi_dirac_half_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -194,7 +194,7 @@ end
 function sf_fermi_dirac_3half_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_fermi_dirac_3half_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

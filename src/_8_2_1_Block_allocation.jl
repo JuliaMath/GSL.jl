@@ -14,9 +14,9 @@ export block_alloc, block_calloc, block_free
 # A null pointer is returned if insufficient memory is available to create the
 # block.
 # 
-#   Returns: Ptr{gsl_block}
+#   Returns: Ref{gsl_block}
 function block_alloc(n::Integer)
-    output_ptr = ccall( (:gsl_block_alloc, libgsl), Ptr{gsl_block},
+    output_ptr = ccall( (:gsl_block_alloc, libgsl), Ref{gsl_block},
         (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -26,9 +26,9 @@ end
 # This function allocates memory for a block and initializes all the elements
 # of the block to zero.
 # 
-#   Returns: Ptr{gsl_block}
+#   Returns: Ref{gsl_block}
 function block_calloc(n::Integer)
-    output_ptr = ccall( (:gsl_block_calloc, libgsl), Ptr{gsl_block},
+    output_ptr = ccall( (:gsl_block_calloc, libgsl), Ref{gsl_block},
         (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -40,6 +40,6 @@ end
 # object (a null pointer is not allowed).
 # 
 #   Returns: Void
-function block_free(b::Ptr{gsl_block})
-    ccall( (:gsl_block_free, libgsl), Void, (Ptr{gsl_block}, ), b )
+function block_free(b::Ref{gsl_block})
+    ccall( (:gsl_block_free, libgsl), Void, (Ref{gsl_block}, ), b )
 end

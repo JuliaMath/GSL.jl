@@ -24,9 +24,9 @@ export rng_env_setup
 # If you don't specify a generator for GSL_RNG_TYPE then gsl_rng_mt19937 is
 # used as the default.  The initial value of gsl_rng_default_seed is zero.
 # 
-#   Returns: Ptr{gsl_rng_type}
+#   Returns: Ref{gsl_rng_type}
 function rng_env_setup()
-    output_ptr = ccall( (:gsl_rng_env_setup, libgsl), Ptr{gsl_rng_type},
+    output_ptr = ccall( (:gsl_rng_env_setup, libgsl), Ref{gsl_rng_type},
         () )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

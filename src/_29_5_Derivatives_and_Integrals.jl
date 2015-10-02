@@ -12,10 +12,10 @@ export cheb_calc_deriv, cheb_calc_integ
 # and deriv must have been allocated with the same order.
 # 
 #   Returns: Cint
-function cheb_calc_deriv(cs::Ptr{gsl_cheb_series})
+function cheb_calc_deriv(cs::Ref{gsl_cheb_series})
     deriv = Ref{gsl_cheb_series}()
     errno = ccall( (:gsl_cheb_calc_deriv, libgsl), Cint,
-        (Ptr{gsl_cheb_series}, Ptr{gsl_cheb_series}), deriv, cs )
+        (Ref{gsl_cheb_series}, Ref{gsl_cheb_series}), deriv, cs )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return deriv[]
 end
@@ -27,10 +27,10 @@ end
 # integration is taken to be the left hand end of the range a.
 # 
 #   Returns: Cint
-function cheb_calc_integ(cs::Ptr{gsl_cheb_series})
+function cheb_calc_integ(cs::Ref{gsl_cheb_series})
     integ = Ref{gsl_cheb_series}()
     errno = ccall( (:gsl_cheb_calc_integ, libgsl), Cint,
-        (Ptr{gsl_cheb_series}, Ptr{gsl_cheb_series}), integ, cs )
+        (Ref{gsl_cheb_series}, Ref{gsl_cheb_series}), integ, cs )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return integ[]
 end

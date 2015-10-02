@@ -13,10 +13,10 @@ export permutation_linear_to_canonical, permutation_canonical_to_linear,
 # in the output argument q.
 # 
 #   Returns: Cint
-function permutation_linear_to_canonical(p::Ptr{gsl_permutation})
+function permutation_linear_to_canonical(p::Ref{gsl_permutation})
     q = Ref{gsl_permutation}()
     errno = ccall( (:gsl_permutation_linear_to_canonical, libgsl), Cint,
-        (Ptr{gsl_permutation}, Ptr{gsl_permutation}), q, p )
+        (Ref{gsl_permutation}, Ref{gsl_permutation}), q, p )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return q[]
 end
@@ -26,10 +26,10 @@ end
 # form storing it in the output argument p.
 # 
 #   Returns: Cint
-function permutation_canonical_to_linear(q::Ptr{gsl_permutation})
+function permutation_canonical_to_linear(q::Ref{gsl_permutation})
     p = Ref{gsl_permutation}()
     errno = ccall( (:gsl_permutation_canonical_to_linear, libgsl), Cint,
-        (Ptr{gsl_permutation}, Ptr{gsl_permutation}), p, q )
+        (Ref{gsl_permutation}, Ref{gsl_permutation}), p, q )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return p[]
 end
@@ -41,9 +41,9 @@ end
 # and (3,1).  The identity permutation has no inversions.
 # 
 #   Returns: Csize_t
-function permutation_inversions(p::Ptr{gsl_permutation})
+function permutation_inversions(p::Ref{gsl_permutation})
     ccall( (:gsl_permutation_inversions, libgsl), Csize_t,
-        (Ptr{gsl_permutation}, ), p )
+        (Ref{gsl_permutation}, ), p )
 end
 
 
@@ -51,9 +51,9 @@ end
 # linear form.
 # 
 #   Returns: Csize_t
-function permutation_linear_cycles(p::Ptr{gsl_permutation})
+function permutation_linear_cycles(p::Ref{gsl_permutation})
     ccall( (:gsl_permutation_linear_cycles, libgsl), Csize_t,
-        (Ptr{gsl_permutation}, ), p )
+        (Ref{gsl_permutation}, ), p )
 end
 
 
@@ -61,7 +61,7 @@ end
 # canonical form.
 # 
 #   Returns: Csize_t
-function permutation_canonical_cycles(q::Ptr{gsl_permutation})
+function permutation_canonical_cycles(q::Ref{gsl_permutation})
     ccall( (:gsl_permutation_canonical_cycles, libgsl), Csize_t,
-        (Ptr{gsl_permutation}, ), q )
+        (Ref{gsl_permutation}, ), q )
 end

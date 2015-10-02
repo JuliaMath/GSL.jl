@@ -12,9 +12,9 @@ export histogram2d_max_val, histogram2d_max_bin, histogram2d_min_val,
 # This function returns the maximum value contained in the histogram bins.
 # 
 #   Returns: Cdouble
-function histogram2d_max_val(h::Ptr{gsl_histogram2d})
+function histogram2d_max_val(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_max_val, libgsl), Cdouble,
-        (Ptr{gsl_histogram2d}, ), h )
+        (Ref{gsl_histogram2d}, ), h )
 end
 
 
@@ -23,11 +23,11 @@ end
 # bins contain the same maximum value the first bin found is returned.
 # 
 #   Returns: Void
-function histogram2d_max_bin(h::Ptr{gsl_histogram2d})
+function histogram2d_max_bin(h::Ref{gsl_histogram2d})
     i = Ref{Csize_t}()
     j = Ref{Csize_t}()
     ccall( (:gsl_histogram2d_max_bin, libgsl), Void,
-        (Ptr{gsl_histogram2d}, Ptr{Csize_t}, Ptr{Csize_t}), h, i, j )
+        (Ref{gsl_histogram2d}, Ref{Csize_t}, Ref{Csize_t}), h, i, j )
     return i[], j[]
 end
 
@@ -35,9 +35,9 @@ end
 # This function returns the minimum value contained in the histogram bins.
 # 
 #   Returns: Cdouble
-function histogram2d_min_val(h::Ptr{gsl_histogram2d})
+function histogram2d_min_val(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_min_val, libgsl), Cdouble,
-        (Ptr{gsl_histogram2d}, ), h )
+        (Ref{gsl_histogram2d}, ), h )
 end
 
 
@@ -46,11 +46,11 @@ end
 # bins contain the same maximum value the first bin found is returned.
 # 
 #   Returns: Void
-function histogram2d_min_bin(h::Ptr{gsl_histogram2d})
+function histogram2d_min_bin(h::Ref{gsl_histogram2d})
     i = Ref{Csize_t}()
     j = Ref{Csize_t}()
     ccall( (:gsl_histogram2d_min_bin, libgsl), Void,
-        (Ptr{gsl_histogram2d}, Ptr{Csize_t}, Ptr{Csize_t}), h, i, j )
+        (Ref{gsl_histogram2d}, Ref{Csize_t}, Ref{Csize_t}), h, i, j )
     return i[], j[]
 end
 
@@ -60,9 +60,9 @@ end
 # ignored for the purposes of this calculation.
 # 
 #   Returns: Cdouble
-function histogram2d_xmean(h::Ptr{gsl_histogram2d})
+function histogram2d_xmean(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_xmean, libgsl), Cdouble,
-        (Ptr{gsl_histogram2d}, ), h )
+        (Ref{gsl_histogram2d}, ), h )
 end
 
 
@@ -71,9 +71,9 @@ end
 # ignored for the purposes of this calculation.
 # 
 #   Returns: Cdouble
-function histogram2d_ymean(h::Ptr{gsl_histogram2d})
+function histogram2d_ymean(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_ymean, libgsl), Cdouble,
-        (Ptr{gsl_histogram2d}, ), h )
+        (Ref{gsl_histogram2d}, ), h )
 end
 
 
@@ -82,9 +82,9 @@ end
 # values are ignored for the purposes of this calculation.
 # 
 #   Returns: Cdouble
-function histogram2d_xsigma(h::Ptr{gsl_histogram2d})
+function histogram2d_xsigma(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_xsigma, libgsl), Cdouble,
-        (Ptr{gsl_histogram2d}, ), h )
+        (Ref{gsl_histogram2d}, ), h )
 end
 
 
@@ -93,9 +93,9 @@ end
 # values are ignored for the purposes of this calculation.
 # 
 #   Returns: Cdouble
-function histogram2d_ysigma(h::Ptr{gsl_histogram2d})
+function histogram2d_ysigma(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_ysigma, libgsl), Cdouble,
-        (Ptr{gsl_histogram2d}, ), h )
+        (Ref{gsl_histogram2d}, ), h )
 end
 
 
@@ -104,8 +104,8 @@ end
 # values are ignored for the purposes of this calculation.
 # 
 #   Returns: Cdouble
-function histogram2d_cov(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_cov, libgsl), Cdouble, (Ptr{gsl_histogram2d},
+function histogram2d_cov(h::Ref{gsl_histogram2d})
+    ccall( (:gsl_histogram2d_cov, libgsl), Cdouble, (Ref{gsl_histogram2d},
         ), h )
 end
 
@@ -114,7 +114,7 @@ end
 # included in the sum.
 # 
 #   Returns: Cdouble
-function histogram2d_sum(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_sum, libgsl), Cdouble, (Ptr{gsl_histogram2d},
+function histogram2d_sum(h::Ref{gsl_histogram2d})
+    ccall( (:gsl_histogram2d_sum, libgsl), Cdouble, (Ref{gsl_histogram2d},
         ), h )
 end

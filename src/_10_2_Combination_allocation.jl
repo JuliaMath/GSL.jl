@@ -14,10 +14,10 @@ export combination_alloc, combination_calloc, combination_init_first,
 # initialized to the lexicographically first combination. A null pointer is
 # returned if insufficient memory is available to create the combination.
 # 
-#   Returns: Ptr{gsl_combination}
+#   Returns: Ref{gsl_combination}
 function combination_alloc(n::Integer, k::Integer)
     output_ptr = ccall( (:gsl_combination_alloc, libgsl),
-        Ptr{gsl_combination}, (Csize_t, Csize_t), n, k )
+        Ref{gsl_combination}, (Csize_t, Csize_t), n, k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number combination_alloc
@@ -27,10 +27,10 @@ end
 # initializes it to the lexicographically first combination. A null pointer is
 # returned if insufficient memory is available to create the combination.
 # 
-#   Returns: Ptr{gsl_combination}
+#   Returns: Ref{gsl_combination}
 function combination_calloc(n::Integer, k::Integer)
     output_ptr = ccall( (:gsl_combination_calloc, libgsl),
-        Ptr{gsl_combination}, (Csize_t, Csize_t), n, k )
+        Ref{gsl_combination}, (Csize_t, Csize_t), n, k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number combination_calloc
@@ -43,7 +43,7 @@ end
 function combination_init_first()
     c = Ref{gsl_combination}()
     ccall( (:gsl_combination_init_first, libgsl), Void,
-        (Ptr{gsl_combination}, ), c )
+        (Ref{gsl_combination}, ), c )
     return c[]
 end
 
@@ -55,7 +55,7 @@ end
 function combination_init_last()
     c = Ref{gsl_combination}()
     ccall( (:gsl_combination_init_last, libgsl), Void,
-        (Ptr{gsl_combination}, ), c )
+        (Ref{gsl_combination}, ), c )
     return c[]
 end
 
@@ -63,8 +63,8 @@ end
 # This function frees all the memory used by the combination c.
 # 
 #   Returns: Void
-function combination_free(c::Ptr{gsl_combination})
-    ccall( (:gsl_combination_free, libgsl), Void, (Ptr{gsl_combination},
+function combination_free(c::Ref{gsl_combination})
+    ccall( (:gsl_combination_free, libgsl), Void, (Ref{gsl_combination},
         ), c )
 end
 
@@ -73,10 +73,10 @@ end
 # dest.  The two combinations must have the same size.
 # 
 #   Returns: Cint
-function combination_memcpy(src::Ptr{gsl_combination})
+function combination_memcpy(src::Ref{gsl_combination})
     dest = Ref{gsl_combination}()
     errno = ccall( (:gsl_combination_memcpy, libgsl), Cint,
-        (Ptr{gsl_combination}, Ptr{gsl_combination}), dest, src )
+        (Ref{gsl_combination}, Ref{gsl_combination}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return dest[]
 end

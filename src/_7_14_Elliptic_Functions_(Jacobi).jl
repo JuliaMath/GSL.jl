@@ -16,7 +16,7 @@ function sf_elljac_e(u::Real, m::Real)
     cn = Ref{Cdouble}()
     dn = Ref{Cdouble}()
     errno = ccall( (:gsl_sf_elljac_e, libgsl), Cint, (Cdouble, Cdouble,
-        Ptr{Cdouble}, Ptr{Cdouble}, Ptr{Cdouble}), u, m, sn, cn, dn )
+        Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}), u, m, sn, cn, dn )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return sn[], cn[], dn[]
 end

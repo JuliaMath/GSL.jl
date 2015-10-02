@@ -26,7 +26,7 @@ end
 function sf_bessel_Inu_e(nu::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_bessel_Inu_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), nu, x, result )
+        Cdouble, Ref{gsl_sf_result}), nu, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -51,7 +51,7 @@ end
 function sf_bessel_Inu_scaled_e(nu::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_bessel_Inu_scaled_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), nu, x, result )
+        Cdouble, Ref{gsl_sf_result}), nu, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

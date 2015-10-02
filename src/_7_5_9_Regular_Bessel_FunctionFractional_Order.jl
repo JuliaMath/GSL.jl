@@ -25,7 +25,7 @@ end
 function sf_bessel_Jnu_e(nu::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_bessel_Jnu_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), nu, x, result )
+        Cdouble, Ref{gsl_sf_result}), nu, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

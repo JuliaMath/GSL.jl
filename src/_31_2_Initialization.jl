@@ -13,20 +13,20 @@ export wavelet_alloc, wavelet_name, wavelet_free, wavelet_workspace_alloc,
 # pointer is returned if insufficient memory is available or if a unsupported
 # member is selected.
 # 
-#   Returns: Ptr{gsl_wavelet}
-function wavelet_alloc(T::Ptr{gsl_wavelet_type}, k::Integer)
-    output_ptr = ccall( (:gsl_wavelet_alloc, libgsl), Ptr{gsl_wavelet},
-        (Ptr{gsl_wavelet_type}, Csize_t), T, k )
+#   Returns: Ref{gsl_wavelet}
+function wavelet_alloc(T::Ref{gsl_wavelet_type}, k::Integer)
+    output_ptr = ccall( (:gsl_wavelet_alloc, libgsl), Ref{gsl_wavelet},
+        (Ref{gsl_wavelet_type}, Csize_t), T, k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 
 # This function returns a pointer to the name of the wavelet family for w.
 # 
-#   Returns: Ptr{Cchar}
-function wavelet_name(w::Ptr{gsl_wavelet})
+#   Returns: Ref{Cchar}
+function wavelet_name(w::Ref{gsl_wavelet})
     output_string = output_ptr = ccall( (:gsl_wavelet_name, libgsl),
-        Ptr{Cchar}, (Ptr{gsl_wavelet}, ), w )
+        Ref{Cchar}, (Ref{gsl_wavelet}, ), w )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(output_string)
 end
@@ -35,8 +35,8 @@ end
 # This function frees the wavelet object w.
 # 
 #   Returns: Void
-function wavelet_free(w::Ptr{gsl_wavelet})
-    ccall( (:gsl_wavelet_free, libgsl), Void, (Ptr{gsl_wavelet}, ), w )
+function wavelet_free(w::Ref{gsl_wavelet})
+    ccall( (:gsl_wavelet_free, libgsl), Void, (Ref{gsl_wavelet}, ), w )
 end
 
 
@@ -47,10 +47,10 @@ end
 # individual rows and columns. A null pointer is returned if insufficient
 # memory is available.
 # 
-#   Returns: Ptr{gsl_wavelet_workspace}
+#   Returns: Ref{gsl_wavelet_workspace}
 function wavelet_workspace_alloc(n::Integer)
     output_ptr = ccall( (:gsl_wavelet_workspace_alloc, libgsl),
-        Ptr{gsl_wavelet_workspace}, (Csize_t, ), n )
+        Ref{gsl_wavelet_workspace}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number wavelet_workspace_alloc
@@ -59,7 +59,7 @@ end
 # This function frees the allocated workspace work.
 # 
 #   Returns: Void
-function wavelet_workspace_free(work::Ptr{gsl_wavelet_workspace})
+function wavelet_workspace_free(work::Ref{gsl_wavelet_workspace})
     ccall( (:gsl_wavelet_workspace_free, libgsl), Void,
-        (Ptr{gsl_wavelet_workspace}, ), work )
+        (Ref{gsl_wavelet_workspace}, ), work )
 end

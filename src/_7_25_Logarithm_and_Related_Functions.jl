@@ -23,7 +23,7 @@ end
 function sf_log_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_log_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -47,7 +47,7 @@ end
 function sf_log_abs_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_log_abs_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -60,10 +60,10 @@ end
 # 
 #   Returns: Cint
 function sf_complex_log_e(zr::Real, zi::Real)
-    lnr = Ptr{gsl_sf_result}()
-    theta = Ptr{gsl_sf_result}()
+    lnr = Ref{gsl_sf_result}()
+    theta = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_complex_log_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, lnr, theta )
+        Cdouble, Ref{gsl_sf_result}, Ref{gsl_sf_result}), zr, zi, lnr, theta )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return lnr[], theta[]
 end
@@ -87,7 +87,7 @@ end
 function sf_log_1plusx_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_log_1plusx_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -111,7 +111,7 @@ end
 function sf_log_1plusx_mx_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_log_1plusx_mx_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

@@ -16,9 +16,9 @@ export multiset_fwrite, multiset_fread, multiset_fprintf, multiset_fscanf
 # it may not be portable between different architectures.
 # 
 #   Returns: Cint
-function multiset_fwrite(stream::Ptr{Void}, c::Ptr{gsl_multiset})
-    errno = ccall( (:gsl_multiset_fwrite, libgsl), Cint, (Ptr{Void},
-        Ptr{gsl_multiset}), stream, c )
+function multiset_fwrite(stream::Ref{Void}, c::Ref{gsl_multiset})
+    errno = ccall( (:gsl_multiset_fwrite, libgsl), Cint, (Ref{Void},
+        Ref{gsl_multiset}), stream, c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -31,10 +31,10 @@ end
 # format on the same architecture.
 # 
 #   Returns: Cint
-function multiset_fread(stream::Ptr{Void})
+function multiset_fread(stream::Ref{Void})
     c = Ref{gsl_multiset}()
-    errno = ccall( (:gsl_multiset_fread, libgsl), Cint, (Ptr{Void},
-        Ptr{gsl_multiset}), stream, c )
+    errno = ccall( (:gsl_multiset_fread, libgsl), Cint, (Ref{Void},
+        Ref{gsl_multiset}), stream, c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c[]
 end
@@ -47,10 +47,10 @@ end
 # a problem writing to the file.
 # 
 #   Returns: Cint
-function multiset_fprintf(stream::Ptr{Void}, c::Ptr{gsl_multiset})
+function multiset_fprintf(stream::Ref{Void}, c::Ref{gsl_multiset})
     format = Ref{Cchar}()
-    errno = ccall( (:gsl_multiset_fprintf, libgsl), Cint, (Ptr{Void},
-        Ptr{gsl_multiset}, Ptr{Cchar}), stream, c, format )
+    errno = ccall( (:gsl_multiset_fprintf, libgsl), Cint, (Ref{Void},
+        Ref{gsl_multiset}, Ref{Cchar}), stream, c, format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return format[]
 end
@@ -62,10 +62,10 @@ end
 # function returns GSL_EFAILED if there was a problem reading from the file.
 # 
 #   Returns: Cint
-function multiset_fscanf(stream::Ptr{Void})
+function multiset_fscanf(stream::Ref{Void})
     c = Ref{gsl_multiset}()
-    errno = ccall( (:gsl_multiset_fscanf, libgsl), Cint, (Ptr{Void},
-        Ptr{gsl_multiset}), stream, c )
+    errno = ccall( (:gsl_multiset_fscanf, libgsl), Cint, (Ref{Void},
+        Ref{gsl_multiset}), stream, c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c[]
 end

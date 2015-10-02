@@ -11,10 +11,10 @@ export qrng_name, qrng_size, qrng_state
 
 # This function returns a pointer to the name of the generator.
 # 
-#   Returns: Ptr{Cchar}
-function qrng_name(q::Ptr{gsl_qrng})
+#   Returns: Ref{Cchar}
+function qrng_name(q::Ref{gsl_qrng})
     output_string = output_ptr = ccall( (:gsl_qrng_name, libgsl),
-        Ptr{Cchar}, (Ptr{gsl_qrng}, ), q )
+        Ref{Cchar}, (Ref{gsl_qrng}, ), q )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(output_string)
 end
@@ -27,8 +27,8 @@ end
 # fwrite (state, n, 1, stream);
 # 
 #   Returns: Csize_t
-function qrng_size(q::Ptr{gsl_qrng})
-    ccall( (:gsl_qrng_size, libgsl), Csize_t, (Ptr{gsl_qrng}, ), q )
+function qrng_size(q::Ref{gsl_qrng})
+    ccall( (:gsl_qrng_size, libgsl), Csize_t, (Ref{gsl_qrng}, ), q )
 end
 
 
@@ -38,9 +38,9 @@ end
 # void * state = gsl_qrng_state (q);           size_t n = gsl_qrng_size (q);
 # fwrite (state, n, 1, stream);
 # 
-#   Returns: Ptr{Void}
-function qrng_state(q::Ptr{gsl_qrng})
-    output_ptr = ccall( (:gsl_qrng_state, libgsl), Ptr{Void},
-        (Ptr{gsl_qrng}, ), q )
+#   Returns: Ref{Void}
+function qrng_state(q::Ref{gsl_qrng})
+    output_ptr = ccall( (:gsl_qrng_state, libgsl), Ref{Void},
+        (Ref{gsl_qrng}, ), q )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

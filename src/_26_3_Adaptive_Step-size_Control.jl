@@ -39,10 +39,10 @@ export odeiv2_control_standard_new, odeiv2_control_y_new,
 # avoid uncontrolled changes in the stepsize, the overall scaling factor is
 # limited to the range 1/5 to 5.
 # 
-#   Returns: Ptr{gsl_odeiv2_control}
+#   Returns: Ref{gsl_odeiv2_control}
 function odeiv2_control_standard_new(eps_abs::Real, eps_rel::Real, a_y::Real, a_dydt::Real)
     output_ptr = ccall( (:gsl_odeiv2_control_standard_new, libgsl),
-        Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble, Cdouble, Cdouble), eps_abs,
+        Ref{gsl_odeiv2_control}, (Cdouble, Cdouble, Cdouble, Cdouble), eps_abs,
         eps_rel, a_y, a_dydt )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -55,10 +55,10 @@ end
 # with respect to the solution y_i(t).  This is equivalent to the standard
 # control object with a_y=1 and a_dydt=0.
 # 
-#   Returns: Ptr{gsl_odeiv2_control}
+#   Returns: Ref{gsl_odeiv2_control}
 function odeiv2_control_y_new(eps_abs::Real, eps_rel::Real)
     output_ptr = ccall( (:gsl_odeiv2_control_y_new, libgsl),
-        Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble), eps_abs, eps_rel )
+        Ref{gsl_odeiv2_control}, (Cdouble, Cdouble), eps_abs, eps_rel )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number odeiv2_control_y_new
@@ -69,10 +69,10 @@ end
 # with respect to the derivatives of the solution y'_i(t).  This is equivalent
 # to the standard control object with a_y=0 and a_dydt=1.
 # 
-#   Returns: Ptr{gsl_odeiv2_control}
+#   Returns: Ref{gsl_odeiv2_control}
 function odeiv2_control_yp_new(eps_abs::Real, eps_rel::Real)
     output_ptr = ccall( (:gsl_odeiv2_control_yp_new, libgsl),
-        Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble), eps_abs, eps_rel )
+        Ref{gsl_odeiv2_control}, (Cdouble, Cdouble), eps_abs, eps_rel )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number odeiv2_control_yp_new
@@ -85,10 +85,10 @@ end
 # + a_dydt h |y\prime_i|)  where s_i is the i-th component of the array
 # scale_abs.  The same error control heuristic is used by the Matlab ode suite.
 # 
-#   Returns: Ptr{gsl_odeiv2_control}
+#   Returns: Ref{gsl_odeiv2_control}
 function odeiv2_control_scaled_new(eps_abs::Real, eps_rel::Real, a_y::Real, a_dydt::Real, scale_abs::Real)
     output_ptr = ccall( (:gsl_odeiv2_control_scaled_new, libgsl),
-        Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble, Cdouble, Cdouble, Cdouble),
+        Ref{gsl_odeiv2_control}, (Cdouble, Cdouble, Cdouble, Cdouble, Cdouble),
         eps_abs, eps_rel, a_y, a_dydt, scale_abs )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -101,10 +101,10 @@ end
 # control functions.  For most purposes the standard control functions
 # described above should be sufficient.
 # 
-#   Returns: Ptr{gsl_odeiv2_control}
-function odeiv2_control_alloc(T::Ptr{gsl_odeiv2_control_type})
+#   Returns: Ref{gsl_odeiv2_control}
+function odeiv2_control_alloc(T::Ref{gsl_odeiv2_control_type})
     output_ptr = ccall( (:gsl_odeiv2_control_alloc, libgsl),
-        Ptr{gsl_odeiv2_control}, (Ptr{gsl_odeiv2_control_type}, ), T )
+        Ref{gsl_odeiv2_control}, (Ref{gsl_odeiv2_control_type}, ), T )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -114,9 +114,9 @@ end
 # a_dydt (scaling factor for derivatives).
 # 
 #   Returns: Cint
-function odeiv2_control_init(c::Ptr{gsl_odeiv2_control}, eps_abs::Real, eps_rel::Real, a_y::Real, a_dydt::Real)
+function odeiv2_control_init(c::Ref{gsl_odeiv2_control}, eps_abs::Real, eps_rel::Real, a_y::Real, a_dydt::Real)
     errno = ccall( (:gsl_odeiv2_control_init, libgsl), Cint,
-        (Ptr{gsl_odeiv2_control}, Cdouble, Cdouble, Cdouble, Cdouble), c,
+        (Ref{gsl_odeiv2_control}, Cdouble, Cdouble, Cdouble, Cdouble), c,
         eps_abs, eps_rel, a_y, a_dydt )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -125,9 +125,9 @@ end
 # This function frees all the memory associated with the control function c.
 # 
 #   Returns: Void
-function odeiv2_control_free(c::Ptr{gsl_odeiv2_control})
+function odeiv2_control_free(c::Ref{gsl_odeiv2_control})
     ccall( (:gsl_odeiv2_control_free, libgsl), Void,
-        (Ptr{gsl_odeiv2_control}, ), c )
+        (Ref{gsl_odeiv2_control}, ), c )
 end
 
 
@@ -146,7 +146,7 @@ function odeiv2_control_hadjust(y::Real)
     c = Ref{gsl_odeiv2_control}()
     s = Ref{gsl_odeiv2_step}()
     errno = ccall( (:gsl_odeiv2_control_hadjust, libgsl), Cint,
-        (Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_step}, Cdouble), c, s, y )
+        (Ref{gsl_odeiv2_control}, Ref{gsl_odeiv2_step}, Cdouble), c, s, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c[], s[]
 end
@@ -158,10 +158,10 @@ end
 # gsl_odeiv2_control_name (c));  would print something like control method is
 # 'standard'
 # 
-#   Returns: Ptr{Cchar}
-function odeiv2_control_name(c::Ptr{gsl_odeiv2_control})
+#   Returns: Ref{Cchar}
+function odeiv2_control_name(c::Ref{gsl_odeiv2_control})
     output_string = output_ptr = ccall( (:gsl_odeiv2_control_name,
-        libgsl), Ptr{Cchar}, (Ptr{gsl_odeiv2_control}, ), c )
+        libgsl), Ref{Cchar}, (Ref{gsl_odeiv2_control}, ), c )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(output_string)
 end
@@ -176,8 +176,8 @@ function odeiv2_control_errlevel(y::Real, dydt::Real, h::Real, ind::Integer)
     c = Ref{gsl_odeiv2_control}()
     errlev = Ref{Cdouble}()
     errno = ccall( (:gsl_odeiv2_control_errlevel, libgsl), Cint,
-        (Ptr{gsl_odeiv2_control}, Cdouble, Cdouble, Cdouble, Csize_t,
-        Ptr{Cdouble}), c, y, dydt, h, ind, errlev )
+        (Ref{gsl_odeiv2_control}, Cdouble, Cdouble, Cdouble, Csize_t,
+        Ref{Cdouble}), c, y, dydt, h, ind, errlev )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c[], errlev[]
 end
@@ -188,10 +188,10 @@ end
 # This function sets a pointer of the driver object d for control object c.
 # 
 #   Returns: Cint
-function odeiv2_control_set_driver(d::Ptr{gsl_odeiv2_driver})
+function odeiv2_control_set_driver(d::Ref{gsl_odeiv2_driver})
     c = Ref{gsl_odeiv2_control}()
     errno = ccall( (:gsl_odeiv2_control_set_driver, libgsl), Cint,
-        (Ptr{gsl_odeiv2_control}, Ptr{gsl_odeiv2_driver}), c, d )
+        (Ref{gsl_odeiv2_control}, Ref{gsl_odeiv2_driver}), c, d )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c[]
 end

@@ -20,7 +20,7 @@ export ran_levy
 # become extremely wide.          The algorithm only works for  0 < alpha <= 2.
 # 
 #   Returns: Cdouble
-function ran_levy(r::Ptr{gsl_rng}, c::Real, alpha::Real)
-    ccall( (:gsl_ran_levy, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+function ran_levy(r::Ref{gsl_rng}, c::Real, alpha::Real)
+    ccall( (:gsl_ran_levy, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble,
         Cdouble), r, c, alpha )
 end

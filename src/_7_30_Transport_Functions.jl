@@ -23,7 +23,7 @@ end
 function sf_transport_2_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_transport_2_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -45,7 +45,7 @@ end
 function sf_transport_3_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_transport_3_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -67,7 +67,7 @@ end
 function sf_transport_4_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_transport_4_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -89,7 +89,7 @@ end
 function sf_transport_5_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_transport_5_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

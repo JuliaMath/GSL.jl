@@ -22,7 +22,7 @@ end
 function sf_lambert_W0_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_lambert_W0_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -46,7 +46,7 @@ end
 function sf_lambert_Wm1_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_lambert_Wm1_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

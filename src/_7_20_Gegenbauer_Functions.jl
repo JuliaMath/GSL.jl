@@ -49,7 +49,7 @@ end
 function sf_gegenpoly_1_e(lambda::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_gegenpoly_1_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), lambda, x, result )
+        Cdouble, Ref{gsl_sf_result}), lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -63,7 +63,7 @@ end
 function sf_gegenpoly_2_e(lambda::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_gegenpoly_2_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), lambda, x, result )
+        Cdouble, Ref{gsl_sf_result}), lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -77,7 +77,7 @@ end
 function sf_gegenpoly_3_e(lambda::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_gegenpoly_3_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), lambda, x, result )
+        Cdouble, Ref{gsl_sf_result}), lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -103,7 +103,7 @@ end
 function sf_gegenpoly_n_e(n::Integer, lambda::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_gegenpoly_n_e, libgsl), Cint, (Cint, Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), n, lambda, x, result )
+        Cdouble, Ref{gsl_sf_result}), n, lambda, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

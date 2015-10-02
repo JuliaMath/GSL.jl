@@ -29,7 +29,7 @@ end
 function sf_legendre_Plm_e(l::Integer, m::Integer, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_Plm_e, libgsl), Cint, (Cint, Cint,
-        Cdouble, Ptr{gsl_sf_result}), l, m, x, result )
+        Cdouble, Ref{gsl_sf_result}), l, m, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -92,7 +92,7 @@ end
 function sf_legendre_sphPlm_e(l::Integer, m::Integer, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_sphPlm_e, libgsl), Cint, (Cint, Cint,
-        Cdouble, Ptr{gsl_sf_result}), l, m, x, result )
+        Cdouble, Ref{gsl_sf_result}), l, m, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

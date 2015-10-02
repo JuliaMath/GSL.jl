@@ -21,7 +21,7 @@ export min_fminimizer_iterate, min_fminimizer_iterate,
 function min_fminimizer_iterate()
     s = Ref{gsl_min_fminimizer}()
     errno = ccall( (:gsl_min_fminimizer_iterate, libgsl), Cint,
-        (Ptr{gsl_min_fminimizer}, ), s )
+        (Ref{gsl_min_fminimizer}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return s[]
 end
@@ -34,7 +34,7 @@ end
 function min_fminimizer_iterate()
     s = Ref{gsl_min_fminimizer}()
     errno = ccall( (:gsl_min_fminimizer_iterate, libgsl), Cint,
-        (Ptr{gsl_min_fminimizer}, ), s )
+        (Ref{gsl_min_fminimizer}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return s[]
 end
@@ -44,9 +44,9 @@ end
 # the minimizer s.
 # 
 #   Returns: Cdouble
-function min_fminimizer_x_minimum(s::Ptr{gsl_min_fminimizer})
+function min_fminimizer_x_minimum(s::Ref{gsl_min_fminimizer})
     ccall( (:gsl_min_fminimizer_x_minimum, libgsl), Cdouble,
-        (Ptr{gsl_min_fminimizer}, ), s )
+        (Ref{gsl_min_fminimizer}, ), s )
 end
 
 
@@ -54,9 +54,9 @@ end
 # the minimizer s.
 # 
 #   Returns: Cdouble
-function min_fminimizer_x_upper(s::Ptr{gsl_min_fminimizer})
+function min_fminimizer_x_upper(s::Ref{gsl_min_fminimizer})
     ccall( (:gsl_min_fminimizer_x_upper, libgsl), Cdouble,
-        (Ptr{gsl_min_fminimizer}, ), s )
+        (Ref{gsl_min_fminimizer}, ), s )
 end
 
 
@@ -64,9 +64,9 @@ end
 # the minimizer s.
 # 
 #   Returns: Cdouble
-function min_fminimizer_x_lower(s::Ptr{gsl_min_fminimizer})
+function min_fminimizer_x_lower(s::Ref{gsl_min_fminimizer})
     ccall( (:gsl_min_fminimizer_x_lower, libgsl), Cdouble,
-        (Ptr{gsl_min_fminimizer}, ), s )
+        (Ref{gsl_min_fminimizer}, ), s )
 end
 
 
@@ -75,9 +75,9 @@ end
 # minimizer s.
 # 
 #   Returns: Cdouble
-function min_fminimizer_f_minimum(s::Ptr{gsl_min_fminimizer})
+function min_fminimizer_f_minimum(s::Ref{gsl_min_fminimizer})
     ccall( (:gsl_min_fminimizer_f_minimum, libgsl), Cdouble,
-        (Ptr{gsl_min_fminimizer}, ), s )
+        (Ref{gsl_min_fminimizer}, ), s )
 end
 
 
@@ -86,9 +86,9 @@ end
 # minimizer s.
 # 
 #   Returns: Cdouble
-function min_fminimizer_f_upper(s::Ptr{gsl_min_fminimizer})
+function min_fminimizer_f_upper(s::Ref{gsl_min_fminimizer})
     ccall( (:gsl_min_fminimizer_f_upper, libgsl), Cdouble,
-        (Ptr{gsl_min_fminimizer}, ), s )
+        (Ref{gsl_min_fminimizer}, ), s )
 end
 
 
@@ -97,7 +97,7 @@ end
 # minimizer s.
 # 
 #   Returns: Cdouble
-function min_fminimizer_f_lower(s::Ptr{gsl_min_fminimizer})
+function min_fminimizer_f_lower(s::Ref{gsl_min_fminimizer})
     ccall( (:gsl_min_fminimizer_f_lower, libgsl), Cdouble,
-        (Ptr{gsl_min_fminimizer}, ), s )
+        (Ref{gsl_min_fminimizer}, ), s )
 end

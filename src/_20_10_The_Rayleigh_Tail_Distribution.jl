@@ -15,8 +15,8 @@ export ran_rayleigh_tail, ran_rayleigh_tail_pdf
 # x^2) /(2 \sigma^2)) dx  for x > a.
 # 
 #   Returns: Cdouble
-function ran_rayleigh_tail(r::Ptr{gsl_rng}, a::Real, sigma::Real)
-    ccall( (:gsl_ran_rayleigh_tail, libgsl), Cdouble, (Ptr{gsl_rng},
+function ran_rayleigh_tail(r::Ref{gsl_rng}, a::Real, sigma::Real)
+    ccall( (:gsl_ran_rayleigh_tail, libgsl), Cdouble, (Ref{gsl_rng},
         Cdouble, Cdouble), r, a, sigma )
 end
 

@@ -15,8 +15,8 @@ export ran_pareto, ran_pareto_pdf, cdf_pareto_P, cdf_pareto_Q, cdf_pareto_Pinv,
 # (x/b)^{a+1} dx  for  x >= b.
 # 
 #   Returns: Cdouble
-function ran_pareto(r::Ptr{gsl_rng}, a::Real, b::Real)
-    ccall( (:gsl_ran_pareto, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+function ran_pareto(r::Ref{gsl_rng}, a::Real, b::Real)
+    ccall( (:gsl_ran_pareto, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble,
         Cdouble), r, a, b )
 end
 

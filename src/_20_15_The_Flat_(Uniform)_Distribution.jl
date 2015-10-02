@@ -15,8 +15,8 @@ export ran_flat, ran_flat_pdf, cdf_flat_P, cdf_flat_Q, cdf_flat_Pinv,
 # dx  if  a <= x < b and 0 otherwise.
 # 
 #   Returns: Cdouble
-function ran_flat(r::Ptr{gsl_rng}, a::Real, b::Real)
-    ccall( (:gsl_ran_flat, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+function ran_flat(r::Ref{gsl_rng}, a::Real, b::Real)
+    ccall( (:gsl_ran_flat, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble,
         Cdouble), r, a, b )
 end
 

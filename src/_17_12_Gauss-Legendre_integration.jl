@@ -13,10 +13,10 @@ export integration_glfixed_table_alloc, integration_glfixed,
 # precomputed coefficients are used.  If precomputed weights are not available,
 # lower precision coefficients are computed on the fly.
 # 
-#   Returns: Ptr{gsl_integration_glfixed_table}
+#   Returns: Ref{gsl_integration_glfixed_table}
 function integration_glfixed_table_alloc(n::Integer)
     output_ptr = ccall( (:gsl_integration_glfixed_table_alloc, libgsl),
-        Ptr{gsl_integration_glfixed_table}, (Csize_t, ), n )
+        Ref{gsl_integration_glfixed_table}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number integration_glfixed_table_alloc
@@ -26,10 +26,10 @@ end
 # t and returns the result.
 # 
 #   Returns: Cdouble
-function integration_glfixed(f::Ptr{gsl_function}, a::Real, b::Real, t::Ptr{gsl_integration_glfixed_table})
+function integration_glfixed(f::Ref{gsl_function}, a::Real, b::Real, t::Ref{gsl_integration_glfixed_table})
     ccall( (:gsl_integration_glfixed, libgsl), Cdouble,
-        (Ptr{gsl_function}, Cdouble, Cdouble,
-        Ptr{gsl_integration_glfixed_table}), f, a, b, t )
+        (Ref{gsl_function}, Cdouble, Cdouble,
+        Ref{gsl_integration_glfixed_table}), f, a, b, t )
 end
 
 
@@ -39,12 +39,12 @@ end
 # by summing wi * f(xi) over i.
 # 
 #   Returns: Cint
-function integration_glfixed_point(a::Real, b::Real, i::Integer, t::Ptr{gsl_integration_glfixed_table})
+function integration_glfixed_point(a::Real, b::Real, i::Integer, t::Ref{gsl_integration_glfixed_table})
     xi = Ref{Cdouble}()
     wi = Ref{Cdouble}()
     errno = ccall( (:gsl_integration_glfixed_point, libgsl), Cint,
-        (Cdouble, Cdouble, Csize_t, Ptr{Cdouble}, Ptr{Cdouble},
-        Ptr{gsl_integration_glfixed_table}), a, b, i, xi, wi, t )
+        (Cdouble, Cdouble, Csize_t, Ref{Cdouble}, Ref{Cdouble},
+        Ref{gsl_integration_glfixed_table}), a, b, i, xi, wi, t )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return xi[], wi[]
 end
@@ -53,7 +53,7 @@ end
 # This function frees the memory associated with the table t.
 # 
 #   Returns: Void
-function integration_glfixed_table_free(t::Ptr{gsl_integration_glfixed_table})
+function integration_glfixed_table_free(t::Ref{gsl_integration_glfixed_table})
     ccall( (:gsl_integration_glfixed_table_free, libgsl), Void,
-        (Ptr{gsl_integration_glfixed_table}, ), t )
+        (Ref{gsl_integration_glfixed_table}, ), t )
 end

@@ -28,7 +28,7 @@ end
 function sf_debye_1_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_debye_1_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -52,7 +52,7 @@ end
 function sf_debye_2_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_debye_2_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -76,7 +76,7 @@ end
 function sf_debye_3_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_debye_3_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -100,7 +100,7 @@ end
 function sf_debye_4_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_debye_4_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -124,7 +124,7 @@ end
 function sf_debye_5_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_debye_5_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -148,7 +148,7 @@ end
 function sf_debye_6_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_debye_6_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

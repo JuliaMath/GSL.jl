@@ -20,10 +20,10 @@ export min_fminimizer_alloc, min_fminimizer_set,
 # the minimizer then the function returns a null pointer and the error handler
 # is invoked with an error code of GSL_ENOMEM.
 # 
-#   Returns: Ptr{gsl_min_fminimizer}
-function min_fminimizer_alloc(T::Ptr{gsl_min_fminimizer_type})
+#   Returns: Ref{gsl_min_fminimizer}
+function min_fminimizer_alloc(T::Ref{gsl_min_fminimizer_type})
     output_ptr = ccall( (:gsl_min_fminimizer_alloc, libgsl),
-        Ptr{gsl_min_fminimizer}, (Ptr{gsl_min_fminimizer_type}, ), T )
+        Ref{gsl_min_fminimizer}, (Ref{gsl_min_fminimizer_type}, ), T )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -34,9 +34,9 @@ end
 # contain a minimum, then the function returns an error code of GSL_EINVAL.
 # 
 #   Returns: Cint
-function min_fminimizer_set(s::Ptr{gsl_min_fminimizer}, f::Ptr{gsl_function}, x_minimum::Real, x_lower::Real, x_upper::Real)
+function min_fminimizer_set(s::Ref{gsl_min_fminimizer}, f::Ref{gsl_function}, x_minimum::Real, x_lower::Real, x_upper::Real)
     errno = ccall( (:gsl_min_fminimizer_set, libgsl), Cint,
-        (Ptr{gsl_min_fminimizer}, Ptr{gsl_function}, Cdouble, Cdouble,
+        (Ref{gsl_min_fminimizer}, Ref{gsl_function}, Cdouble, Cdouble,
         Cdouble), s, f, x_minimum, x_lower, x_upper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -51,7 +51,7 @@ function min_fminimizer_set_with_values(x_minimum::Real, f_minimum::Real, x_lowe
     s = Ref{gsl_min_fminimizer}()
     f = Ref{gsl_function}()
     errno = ccall( (:gsl_min_fminimizer_set_with_values, libgsl), Cint,
-        (Ptr{gsl_min_fminimizer}, Ptr{gsl_function}, Cdouble, Cdouble, Cdouble,
+        (Ref{gsl_min_fminimizer}, Ref{gsl_function}, Cdouble, Cdouble, Cdouble,
         Cdouble, Cdouble, Cdouble), s, f, x_minimum, f_minimum, x_lower,
         f_lower, x_upper, f_upper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -64,9 +64,9 @@ end
 # This function frees all the memory associated with the minimizer s.
 # 
 #   Returns: Void
-function min_fminimizer_free(s::Ptr{gsl_min_fminimizer})
+function min_fminimizer_free(s::Ref{gsl_min_fminimizer})
     ccall( (:gsl_min_fminimizer_free, libgsl), Void,
-        (Ptr{gsl_min_fminimizer}, ), s )
+        (Ref{gsl_min_fminimizer}, ), s )
 end
 
 
@@ -74,10 +74,10 @@ end
 # printf ("s is a '%s' minimizer\n",                   gsl_min_fminimizer_name
 # (s));  would print something like s is a 'brent' minimizer.
 # 
-#   Returns: Ptr{Cchar}
-function min_fminimizer_name(s::Ptr{gsl_min_fminimizer})
+#   Returns: Ref{Cchar}
+function min_fminimizer_name(s::Ref{gsl_min_fminimizer})
     output_string = output_ptr = ccall( (:gsl_min_fminimizer_name,
-        libgsl), Ptr{Cchar}, (Ptr{gsl_min_fminimizer}, ), s )
+        libgsl), Ref{Cchar}, (Ref{gsl_min_fminimizer}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(output_string)
 end

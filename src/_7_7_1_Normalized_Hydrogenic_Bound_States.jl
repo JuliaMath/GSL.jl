@@ -27,7 +27,7 @@ end
 function sf_hydrogenicR_1_e(Z::Real, r::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hydrogenicR_1_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), Z, r, result )
+        Cdouble, Ref{gsl_sf_result}), Z, r, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -61,7 +61,7 @@ end
 function sf_hydrogenicR_e(n::Integer, l::Integer, Z::Real, r::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hydrogenicR_e, libgsl), Cint, (Cint, Cint,
-        Cdouble, Cdouble, Ptr{gsl_sf_result}), n, l, Z, r, result )
+        Cdouble, Cdouble, Ref{gsl_sf_result}), n, l, Z, r, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

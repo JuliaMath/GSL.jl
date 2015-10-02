@@ -14,10 +14,10 @@ export strerror
 # (status));  would print an error message like error: output range error for a
 # status value of GSL_ERANGE.
 # 
-#   Returns: Ptr{Cchar}
+#   Returns: Ref{Cchar}
 function strerror(gsl_errno::Integer)
     output_string = output_ptr = ccall( (:gsl_strerror, libgsl),
-        Ptr{Cchar}, (Cint, ), gsl_errno )
+        Ref{Cchar}, (Cint, ), gsl_errno )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(output_string)
 end

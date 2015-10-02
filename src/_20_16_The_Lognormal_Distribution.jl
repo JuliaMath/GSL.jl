@@ -15,8 +15,8 @@ export ran_lognormal, ran_lognormal_pdf, cdf_lognormal_P, cdf_lognormal_Q,
 # \sigma^2} } \exp(-(\ln(x) - \zeta)^2/2 \sigma^2) dx  for x > 0.
 # 
 #   Returns: Cdouble
-function ran_lognormal(r::Ptr{gsl_rng}, zeta::Real, sigma::Real)
-    ccall( (:gsl_ran_lognormal, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+function ran_lognormal(r::Ref{gsl_rng}, zeta::Real, sigma::Real)
+    ccall( (:gsl_ran_lognormal, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble,
         Cdouble), r, zeta, sigma )
 end
 

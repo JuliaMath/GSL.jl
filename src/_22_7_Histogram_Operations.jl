@@ -12,9 +12,9 @@ export histogram_equal_bins_p, histogram_add, histogram_sub, histogram_mul,
 # histograms are identical, and 0 otherwise.
 # 
 #   Returns: Cint
-function histogram_equal_bins_p(h1::Ptr{gsl_histogram}, h2::Ptr{gsl_histogram})
+function histogram_equal_bins_p(h1::Ref{gsl_histogram}, h2::Ref{gsl_histogram})
     errno = ccall( (:gsl_histogram_equal_bins_p, libgsl), Cint,
-        (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
+        (Ref{gsl_histogram}, Ref{gsl_histogram}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -24,10 +24,10 @@ end
 # histograms must have identical bin ranges.
 # 
 #   Returns: Cint
-function histogram_add(h2::Ptr{gsl_histogram})
+function histogram_add(h2::Ref{gsl_histogram})
     h1 = Ref{gsl_histogram}()
     errno = ccall( (:gsl_histogram_add, libgsl), Cint,
-        (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
+        (Ref{gsl_histogram}, Ref{gsl_histogram}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h1[]
 end
@@ -38,10 +38,10 @@ end
 # histograms must have identical bin ranges.
 # 
 #   Returns: Cint
-function histogram_sub(h2::Ptr{gsl_histogram})
+function histogram_sub(h2::Ref{gsl_histogram})
     h1 = Ref{gsl_histogram}()
     errno = ccall( (:gsl_histogram_sub, libgsl), Cint,
-        (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
+        (Ref{gsl_histogram}, Ref{gsl_histogram}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h1[]
 end
@@ -52,10 +52,10 @@ end
 # h_2(i).  The two histograms must have identical bin ranges.
 # 
 #   Returns: Cint
-function histogram_mul(h2::Ptr{gsl_histogram})
+function histogram_mul(h2::Ref{gsl_histogram})
     h1 = Ref{gsl_histogram}()
     errno = ccall( (:gsl_histogram_mul, libgsl), Cint,
-        (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
+        (Ref{gsl_histogram}, Ref{gsl_histogram}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h1[]
 end
@@ -66,10 +66,10 @@ end
 # h_2(i).  The two histograms must have identical bin ranges.
 # 
 #   Returns: Cint
-function histogram_div(h2::Ptr{gsl_histogram})
+function histogram_div(h2::Ref{gsl_histogram})
     h1 = Ref{gsl_histogram}()
     errno = ccall( (:gsl_histogram_div, libgsl), Cint,
-        (Ptr{gsl_histogram}, Ptr{gsl_histogram}), h1, h2 )
+        (Ref{gsl_histogram}, Ref{gsl_histogram}), h1, h2 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h1[]
 end
@@ -82,7 +82,7 @@ end
 function histogram_scale(scale::Real)
     h = Ref{gsl_histogram}()
     errno = ccall( (:gsl_histogram_scale, libgsl), Cint,
-        (Ptr{gsl_histogram}, Cdouble), h, scale )
+        (Ref{gsl_histogram}, Cdouble), h, scale )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end
@@ -96,7 +96,7 @@ end
 function histogram_shift(offset::Real)
     h = Ref{gsl_histogram}()
     errno = ccall( (:gsl_histogram_shift, libgsl), Cint,
-        (Ptr{gsl_histogram}, Cdouble), h, offset )
+        (Ref{gsl_histogram}, Cdouble), h, offset )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end

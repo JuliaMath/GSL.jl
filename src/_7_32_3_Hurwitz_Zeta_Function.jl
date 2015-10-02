@@ -22,7 +22,7 @@ end
 function sf_hzeta_e(s::Real, q::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hzeta_e, libgsl), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), s, q, result )
+        Ref{gsl_sf_result}), s, q, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

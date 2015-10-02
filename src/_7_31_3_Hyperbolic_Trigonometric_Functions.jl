@@ -22,7 +22,7 @@ end
 function sf_lnsinh_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_lnsinh_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -44,7 +44,7 @@ end
 function sf_lncosh_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_lncosh_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

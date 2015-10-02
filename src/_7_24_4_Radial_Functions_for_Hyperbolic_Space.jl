@@ -31,7 +31,7 @@ end
 function sf_legendre_H3d_0_e(lambda::Real, eta::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_H3d_0_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), lambda, eta, result )
+        Cdouble, Ref{gsl_sf_result}), lambda, eta, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -62,7 +62,7 @@ end
 function sf_legendre_H3d_1_e(lambda::Real, eta::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_H3d_1_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), lambda, eta, result )
+        Cdouble, Ref{gsl_sf_result}), lambda, eta, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -90,7 +90,7 @@ end
 function sf_legendre_H3d_e(l::Integer, lambda::Real, eta::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_legendre_H3d_e, libgsl), Cint, (Cint, Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), l, lambda, eta, result )
+        Cdouble, Ref{gsl_sf_result}), l, lambda, eta, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

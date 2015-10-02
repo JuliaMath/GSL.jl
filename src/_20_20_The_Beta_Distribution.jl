@@ -15,8 +15,8 @@ export ran_beta, ran_beta_pdf, cdf_beta_P, cdf_beta_Q, cdf_beta_Pinv,
 # \Gamma(a) \Gamma(b)} x^{a-1} (1-x)^{b-1} dx  for  0 <= x <= 1.
 # 
 #   Returns: Cdouble
-function ran_beta(r::Ptr{gsl_rng}, a::Real, b::Real)
-    ccall( (:gsl_ran_beta, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+function ran_beta(r::Ref{gsl_rng}, a::Real, b::Real)
+    ccall( (:gsl_ran_beta, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble,
         Cdouble), r, a, b )
 end
 

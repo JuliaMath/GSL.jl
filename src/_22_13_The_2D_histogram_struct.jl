@@ -10,7 +10,7 @@ export gsl_histogram2d
 type gsl_histogram2d
     nx::Csize_t
     ny::Csize_t
-    xrange::Ptr{Cdouble}
-    yrange::Ptr{Cdouble}
-    bin::Ptr{Cdouble}
+    xrange::Ref{Cdouble}
+    yrange::Ref{Cdouble}
+    bin::Ref{Cdouble}
 end

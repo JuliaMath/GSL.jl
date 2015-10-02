@@ -10,25 +10,25 @@ export multiset_n, multiset_k, multiset_data, multiset_valid
 # This function returns the range (n) of the multiset c.
 # 
 #   Returns: Csize_t
-function multiset_n(c::Ptr{gsl_multiset})
-    ccall( (:gsl_multiset_n, libgsl), Csize_t, (Ptr{gsl_multiset}, ), c )
+function multiset_n(c::Ref{gsl_multiset})
+    ccall( (:gsl_multiset_n, libgsl), Csize_t, (Ref{gsl_multiset}, ), c )
 end
 
 
 # This function returns the number of elements (k) in the multiset c.
 # 
 #   Returns: Csize_t
-function multiset_k(c::Ptr{gsl_multiset})
-    ccall( (:gsl_multiset_k, libgsl), Csize_t, (Ptr{gsl_multiset}, ), c )
+function multiset_k(c::Ref{gsl_multiset})
+    ccall( (:gsl_multiset_k, libgsl), Csize_t, (Ref{gsl_multiset}, ), c )
 end
 
 
 # This function returns a pointer to the array of elements in the multiset c.
 # 
-#   Returns: Ptr{Csize_t}
-function multiset_data(c::Ptr{gsl_multiset})
-    output_ptr = ccall( (:gsl_multiset_data, libgsl), Ptr{Csize_t},
-        (Ptr{gsl_multiset}, ), c )
+#   Returns: Ref{Csize_t}
+function multiset_data(c::Ref{gsl_multiset})
+    output_ptr = ccall( (:gsl_multiset_data, libgsl), Ref{Csize_t},
+        (Ref{gsl_multiset}, ), c )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -40,7 +40,7 @@ end
 function multiset_valid()
     c = Ref{gsl_multiset}()
     errno = ccall( (:gsl_multiset_valid, libgsl), Cint,
-        (Ptr{gsl_multiset}, ), c )
+        (Ref{gsl_multiset}, ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c[]
 end

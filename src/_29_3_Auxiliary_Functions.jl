@@ -10,8 +10,8 @@ export cheb_order, cheb_size, cheb_coeffs
 # This function returns the order of Chebyshev series cs.
 # 
 #   Returns: Csize_t
-function cheb_order(cs::Ptr{gsl_cheb_series})
-    ccall( (:gsl_cheb_order, libgsl), Csize_t, (Ptr{gsl_cheb_series}, ),
+function cheb_order(cs::Ref{gsl_cheb_series})
+    ccall( (:gsl_cheb_order, libgsl), Csize_t, (Ref{gsl_cheb_series}, ),
         cs )
 end
 
@@ -20,8 +20,8 @@ end
 # pointer to its location in memory for the Chebyshev series cs.
 # 
 #   Returns: Csize_t
-function cheb_size(cs::Ptr{gsl_cheb_series})
-    ccall( (:gsl_cheb_size, libgsl), Csize_t, (Ptr{gsl_cheb_series}, ), cs
+function cheb_size(cs::Ref{gsl_cheb_series})
+    ccall( (:gsl_cheb_size, libgsl), Csize_t, (Ref{gsl_cheb_series}, ), cs
         )
 end
 
@@ -29,9 +29,9 @@ end
 # These functions return the size of the Chebyshev coefficient array c[] and a
 # pointer to its location in memory for the Chebyshev series cs.
 # 
-#   Returns: Ptr{Cdouble}
-function cheb_coeffs(cs::Ptr{gsl_cheb_series})
-    output_ptr = ccall( (:gsl_cheb_coeffs, libgsl), Ptr{Cdouble},
-        (Ptr{gsl_cheb_series}, ), cs )
+#   Returns: Ref{Cdouble}
+function cheb_coeffs(cs::Ref{gsl_cheb_series})
+    output_ptr = ccall( (:gsl_cheb_coeffs, libgsl), Ref{Cdouble},
+        (Ref{gsl_cheb_series}, ), cs )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

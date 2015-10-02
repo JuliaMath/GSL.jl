@@ -9,6 +9,6 @@ export gsl_histogram
 
 type gsl_histogram
     n::Csize_t
-    range::Ptr{Cdouble}
-    bin::Ptr{Cdouble}
+    range::Ref{Cdouble}
+    bin::Ref{Cdouble}
 end

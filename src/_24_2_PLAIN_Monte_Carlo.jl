@@ -15,10 +15,10 @@ export monte_plain_alloc, monte_plain_init, monte_plain_integrate,
 # This function allocates and initializes a workspace for Monte Carlo
 # integration in dim dimensions.
 # 
-#   Returns: Ptr{gsl_monte_plain_state}
+#   Returns: Ref{gsl_monte_plain_state}
 function monte_plain_alloc(dim::Integer)
     output_ptr = ccall( (:gsl_monte_plain_alloc, libgsl),
-        Ptr{gsl_monte_plain_state}, (Csize_t, ), dim )
+        Ref{gsl_monte_plain_state}, (Csize_t, ), dim )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number monte_plain_alloc
@@ -28,9 +28,9 @@ end
 # allows an existing workspace to be reused for different integrations.
 # 
 #   Returns: Cint
-function monte_plain_init(s::Ptr{gsl_monte_plain_state})
+function monte_plain_init(s::Ref{gsl_monte_plain_state})
     errno = ccall( (:gsl_monte_plain_init, libgsl), Cint,
-        (Ptr{gsl_monte_plain_state}, ), s )
+        (Ref{gsl_monte_plain_state}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -47,7 +47,7 @@ end
 function monte_plain_integrate(xl::Real)
     f = Ref{gsl_monte_function}()
     errno = ccall( (:gsl_monte_plain_integrate, libgsl), Cint,
-        (Ptr{gsl_monte_function}, Cdouble), f, xl )
+        (Ref{gsl_monte_function}, Cdouble), f, xl )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return f[]
 end
@@ -57,7 +57,7 @@ end
 # This function frees the memory associated with the integrator state s.
 # 
 #   Returns: Void
-function monte_plain_free(s::Ptr{gsl_monte_plain_state})
+function monte_plain_free(s::Ref{gsl_monte_plain_state})
     ccall( (:gsl_monte_plain_free, libgsl), Void,
-        (Ptr{gsl_monte_plain_state}, ), s )
+        (Ref{gsl_monte_plain_state}, ), s )
 end

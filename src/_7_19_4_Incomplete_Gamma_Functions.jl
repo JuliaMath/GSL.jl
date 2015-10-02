@@ -26,7 +26,7 @@ end
 function sf_gamma_inc_e(a::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_gamma_inc_e, libgsl), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), a, x, result )
+        Ref{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -51,7 +51,7 @@ end
 function sf_gamma_inc_Q_e(a::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_gamma_inc_Q_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), a, x, result )
+        Cdouble, Ref{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -80,7 +80,7 @@ end
 function sf_gamma_inc_P_e(a::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_gamma_inc_P_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), a, x, result )
+        Cdouble, Ref{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

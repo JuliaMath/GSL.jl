@@ -24,7 +24,7 @@ end
 function sf_log_erfc_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_log_erfc_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

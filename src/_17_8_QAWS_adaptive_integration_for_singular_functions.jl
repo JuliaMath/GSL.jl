@@ -29,10 +29,10 @@ export integration_qaws_table_alloc, integration_qaws_table_set,
 # gsl_integration_qaws_table if no errors were detected, and 0 in the case of
 # error.
 # 
-#   Returns: Ptr{gsl_integration_qaws_table}
+#   Returns: Ref{gsl_integration_qaws_table}
 function integration_qaws_table_alloc(alpha::Real, beta::Real, mu::Integer, nu::Integer)
     output_ptr = ccall( (:gsl_integration_qaws_table_alloc, libgsl),
-        Ptr{gsl_integration_qaws_table}, (Cdouble, Cdouble, Cint, Cint), alpha,
+        Ref{gsl_integration_qaws_table}, (Cdouble, Cdouble, Cint, Cint), alpha,
         beta, mu, nu )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -44,9 +44,9 @@ end
 # existing gsl_integration_qaws_table struct t.
 # 
 #   Returns: Cint
-function integration_qaws_table_set(t::Ptr{gsl_integration_qaws_table}, alpha::Real, beta::Real, mu::Integer, nu::Integer)
+function integration_qaws_table_set(t::Ref{gsl_integration_qaws_table}, alpha::Real, beta::Real, mu::Integer, nu::Integer)
     errno = ccall( (:gsl_integration_qaws_table_set, libgsl), Cint,
-        (Ptr{gsl_integration_qaws_table}, Cdouble, Cdouble, Cint, Cint), t,
+        (Ref{gsl_integration_qaws_table}, Cdouble, Cdouble, Cint, Cint), t,
         alpha, beta, mu, nu )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -56,9 +56,9 @@ end
 # gsl_integration_qaws_table struct t.
 # 
 #   Returns: Void
-function integration_qaws_table_free(t::Ptr{gsl_integration_qaws_table})
+function integration_qaws_table_free(t::Ref{gsl_integration_qaws_table})
     ccall( (:gsl_integration_qaws_table_free, libgsl), Void,
-        (Ptr{gsl_integration_qaws_table}, ), t )
+        (Ref{gsl_integration_qaws_table}, ), t )
 end
 
 
@@ -80,9 +80,9 @@ function integration_qaws(a::Real, b::Real, epsabs::Real, epsrel::Real, limit::I
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_integration_qaws, libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Ptr{gsl_integration_qaws_table},
-        Cdouble, Cdouble, Csize_t, Ptr{gsl_integration_workspace},
-        Ptr{Cdouble}, Ptr{Cdouble}), f, a, b, t, epsabs, epsrel, limit,
+        (Ref{gsl_function}, Cdouble, Cdouble, Ref{gsl_integration_qaws_table},
+        Cdouble, Cdouble, Csize_t, Ref{gsl_integration_workspace},
+        Ref{Cdouble}, Ref{Cdouble}), f, a, b, t, epsabs, epsrel, limit,
         workspace, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return f[], t[], workspace[], result[], abserr[]

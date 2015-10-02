@@ -18,8 +18,8 @@ export ran_negative_binomial, ran_negative_binomial_pdf,
 # required to be an integer.
 # 
 #   Returns: Cuint
-function ran_negative_binomial(r::Ptr{gsl_rng}, p::Real, n::Real)
-    ccall( (:gsl_ran_negative_binomial, libgsl), Cuint, (Ptr{gsl_rng},
+function ran_negative_binomial(r::Ref{gsl_rng}, p::Real, n::Real)
+    ccall( (:gsl_ran_negative_binomial, libgsl), Cuint, (Ref{gsl_rng},
         Cdouble, Cdouble), r, p, n )
 end
 

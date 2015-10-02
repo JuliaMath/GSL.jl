@@ -31,7 +31,7 @@ function poly_solve_quadratic(a::Real, b::Real, c::Real)
     x0 = Ref{Cdouble}()
     x1 = Ref{Cdouble}()
     errno = ccall( (:gsl_poly_solve_quadratic, libgsl), Cint, (Cdouble,
-        Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), a, b, c, x0, x1 )
+        Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), a, b, c, x0, x1 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return x0[], x1[]
 end
@@ -51,7 +51,7 @@ function poly_complex_solve_quadratic(a::Real, b::Real, c::Real)
     z0 = Ref{gsl_complex}()
     z1 = Ref{gsl_complex}()
     errno = ccall( (:gsl_poly_complex_solve_quadratic, libgsl), Cint,
-        (Cdouble, Cdouble, Cdouble, Ptr{gsl_complex}, Ptr{gsl_complex}), a, b,
+        (Cdouble, Cdouble, Cdouble, Ref{gsl_complex}, Ref{gsl_complex}), a, b,
         c, z0, z1 )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return z0[], z1[]

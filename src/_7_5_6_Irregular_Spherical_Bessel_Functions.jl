@@ -26,7 +26,7 @@ end
 function sf_bessel_y0_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_bessel_y0_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -50,7 +50,7 @@ end
 function sf_bessel_y1_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_bessel_y1_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -74,7 +74,7 @@ end
 function sf_bessel_y2_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_bessel_y2_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -98,7 +98,7 @@ end
 function sf_bessel_yl_e(l::Integer, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_bessel_yl_e, libgsl), Cint, (Cint, Cdouble,
-        Ptr{gsl_sf_result}), l, x, result )
+        Ref{gsl_sf_result}), l, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

@@ -23,11 +23,11 @@ export ran_dir_2d, ran_dir_2d_trig_method, ran_dir_3d, ran_dir_nd
 # x=(u^2-v^2)/(u^2+v^2) and y=2uv/(u^2+v^2).
 # 
 #   Returns: Void
-function ran_dir_2d(r::Ptr{gsl_rng})
+function ran_dir_2d(r::Ref{gsl_rng})
     x = Ref{Cdouble}()
     y = Ref{Cdouble}()
-    ccall( (:gsl_ran_dir_2d, libgsl), Void, (Ptr{gsl_rng}, Ptr{Cdouble},
-        Ptr{Cdouble}), r, x, y )
+    ccall( (:gsl_ran_dir_2d, libgsl), Void, (Ref{gsl_rng}, Ref{Cdouble},
+        Ref{Cdouble}), r, x, y )
     return x[], y[]
 end
 
@@ -48,11 +48,11 @@ end
 # x=(u^2-v^2)/(u^2+v^2) and y=2uv/(u^2+v^2).
 # 
 #   Returns: Void
-function ran_dir_2d_trig_method(r::Ptr{gsl_rng})
+function ran_dir_2d_trig_method(r::Ref{gsl_rng})
     x = Ref{Cdouble}()
     y = Ref{Cdouble}()
-    ccall( (:gsl_ran_dir_2d_trig_method, libgsl), Void, (Ptr{gsl_rng},
-        Ptr{Cdouble}, Ptr{Cdouble}), r, x, y )
+    ccall( (:gsl_ran_dir_2d_trig_method, libgsl), Void, (Ref{gsl_rng},
+        Ref{Cdouble}, Ref{Cdouble}), r, x, y )
     return x[], y[]
 end
 
@@ -65,12 +65,12 @@ end
 # for 3 dimensions).
 # 
 #   Returns: Void
-function ran_dir_3d(r::Ptr{gsl_rng})
+function ran_dir_3d(r::Ref{gsl_rng})
     x = Ref{Cdouble}()
     y = Ref{Cdouble}()
     z = Ref{Cdouble}()
-    ccall( (:gsl_ran_dir_3d, libgsl), Void, (Ptr{gsl_rng}, Ptr{Cdouble},
-        Ptr{Cdouble}, Ptr{Cdouble}), r, x, y, z )
+    ccall( (:gsl_ran_dir_3d, libgsl), Void, (Ref{gsl_rng}, Ref{Cdouble},
+        Ref{Cdouble}, Ref{Cdouble}), r, x, y, z )
     return x[], y[], z[]
 end
 
@@ -84,9 +84,9 @@ end
 # Modern Mathematics for the Engineer (1956).
 # 
 #   Returns: Void
-function ran_dir_nd(r::Ptr{gsl_rng}, n::Integer)
+function ran_dir_nd(r::Ref{gsl_rng}, n::Integer)
     x = Ref{Cdouble}()
-    ccall( (:gsl_ran_dir_nd, libgsl), Void, (Ptr{gsl_rng}, Csize_t,
-        Ptr{Cdouble}), r, n, x )
+    ccall( (:gsl_ran_dir_nd, libgsl), Void, (Ref{gsl_rng}, Csize_t,
+        Ref{Cdouble}), r, n, x )
     return x[]
 end

@@ -21,10 +21,10 @@ export monte_miser_alloc, monte_miser_init, monte_miser_integrate,
 # integration in dim dimensions.  The workspace is used to maintain the state
 # of the integration.
 # 
-#   Returns: Ptr{gsl_monte_miser_state}
+#   Returns: Ref{gsl_monte_miser_state}
 function monte_miser_alloc(dim::Integer)
     output_ptr = ccall( (:gsl_monte_miser_alloc, libgsl),
-        Ptr{gsl_monte_miser_state}, (Csize_t, ), dim )
+        Ref{gsl_monte_miser_state}, (Csize_t, ), dim )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number monte_miser_alloc
@@ -34,9 +34,9 @@ end
 # allows an existing workspace to be reused for different integrations.
 # 
 #   Returns: Cint
-function monte_miser_init(s::Ptr{gsl_monte_miser_state})
+function monte_miser_init(s::Ref{gsl_monte_miser_state})
     errno = ccall( (:gsl_monte_miser_init, libgsl), Cint,
-        (Ptr{gsl_monte_miser_state}, ), s )
+        (Ref{gsl_monte_miser_state}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -53,7 +53,7 @@ end
 function monte_miser_integrate(xl::Real)
     f = Ref{gsl_monte_function}()
     errno = ccall( (:gsl_monte_miser_integrate, libgsl), Cint,
-        (Ptr{gsl_monte_function}, Cdouble), f, xl )
+        (Ref{gsl_monte_function}, Cdouble), f, xl )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return f[]
 end
@@ -63,9 +63,9 @@ end
 # This function frees the memory associated with the integrator state s.
 # 
 #   Returns: Void
-function monte_miser_free(s::Ptr{gsl_monte_miser_state})
+function monte_miser_free(s::Ref{gsl_monte_miser_state})
     ccall( (:gsl_monte_miser_free, libgsl), Void,
-        (Ptr{gsl_monte_miser_state}, ), s )
+        (Ref{gsl_monte_miser_state}, ), s )
 end
 
 
@@ -73,10 +73,10 @@ end
 # supplied params structure.
 # 
 #   Returns: Void
-function monte_miser_params_get(s::Ptr{gsl_monte_miser_state})
+function monte_miser_params_get(s::Ref{gsl_monte_miser_state})
     params = Ref{gsl_monte_miser_params}()
     ccall( (:gsl_monte_miser_params_get, libgsl), Void,
-        (Ptr{gsl_monte_miser_state}, Ptr{gsl_monte_miser_params}), s, params )
+        (Ref{gsl_monte_miser_state}, Ref{gsl_monte_miser_params}), s, params )
     return params[]
 end
 
@@ -85,7 +85,7 @@ end
 # params structure.
 # 
 #   Returns: Void
-function monte_miser_params_set(s::Ptr{gsl_monte_miser_state}, params::Ptr{gsl_monte_miser_params})
+function monte_miser_params_set(s::Ref{gsl_monte_miser_state}, params::Ref{gsl_monte_miser_params})
     ccall( (:gsl_monte_miser_params_set, libgsl), Void,
-        (Ptr{gsl_monte_miser_state}, Ptr{gsl_monte_miser_params}), s, params )
+        (Ref{gsl_monte_miser_state}, Ref{gsl_monte_miser_params}), s, params )
 end

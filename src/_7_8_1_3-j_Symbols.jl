@@ -30,7 +30,7 @@ end
 function sf_coupling_3j_e(two_ja::Integer, two_jb::Integer, two_jc::Integer, two_ma::Integer, two_mb::Integer, two_mc::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_coupling_3j_e, libgsl), Cint, (Cint, Cint,
-        Cint, Cint, Cint, Cint, Ptr{gsl_sf_result}), two_ja, two_jb, two_jc,
+        Cint, Cint, Cint, Cint, Ref{gsl_sf_result}), two_ja, two_jb, two_jc,
         two_ma, two_mb, two_mc, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]

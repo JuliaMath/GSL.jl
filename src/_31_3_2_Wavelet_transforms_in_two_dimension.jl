@@ -26,12 +26,12 @@ export wavelet2d_transform, wavelet2d_transform_forward,
 # insufficient workspace is provided.
 # 
 #   Returns: Cint
-function wavelet2d_transform(w::Ptr{gsl_wavelet}, tda::Integer, size1::Integer, size2::Integer, dir::gsl_wavelet_direction)
+function wavelet2d_transform(w::Ref{gsl_wavelet}, tda::Integer, size1::Integer, size2::Integer, dir::gsl_wavelet_direction)
     v = Ref{Cdouble}()
     work = Ref{gsl_wavelet_workspace}()
     errno = ccall( (:gsl_wavelet2d_transform, libgsl), Cint,
-        (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t, Csize_t,
-        gsl_wavelet_direction, Ptr{gsl_wavelet_workspace}), w, data, tda,
+        (Ref{gsl_wavelet}, Ref{Cdouble}, Csize_t, Csize_t, Csize_t,
+        gsl_wavelet_direction, Ref{gsl_wavelet_workspace}), w, data, tda,
         size1, size2, dir, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return data[], work[]
@@ -51,12 +51,12 @@ end
 # insufficient workspace is provided.
 # 
 #   Returns: Cint
-function wavelet2d_transform_forward(w::Ptr{gsl_wavelet}, tda::Integer, size1::Integer, size2::Integer)
+function wavelet2d_transform_forward(w::Ref{gsl_wavelet}, tda::Integer, size1::Integer, size2::Integer)
     v = Ref{Cdouble}()
     work = Ref{gsl_wavelet_workspace}()
     errno = ccall( (:gsl_wavelet2d_transform_forward, libgsl), Cint,
-        (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t, Csize_t,
-        Ptr{gsl_wavelet_workspace}), w, data, tda, size1, size2, work )
+        (Ref{gsl_wavelet}, Ref{Cdouble}, Csize_t, Csize_t, Csize_t,
+        Ref{gsl_wavelet_workspace}), w, data, tda, size1, size2, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return data[], work[]
 end
@@ -75,12 +75,12 @@ end
 # insufficient workspace is provided.
 # 
 #   Returns: Cint
-function wavelet2d_transform_inverse(w::Ptr{gsl_wavelet}, tda::Integer, size1::Integer, size2::Integer)
+function wavelet2d_transform_inverse(w::Ref{gsl_wavelet}, tda::Integer, size1::Integer, size2::Integer)
     v = Ref{Cdouble}()
     work = Ref{gsl_wavelet_workspace}()
     errno = ccall( (:gsl_wavelet2d_transform_inverse, libgsl), Cint,
-        (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t, Csize_t,
-        Ptr{gsl_wavelet_workspace}), w, data, tda, size1, size2, work )
+        (Ref{gsl_wavelet}, Ref{Cdouble}, Csize_t, Csize_t, Csize_t,
+        Ref{gsl_wavelet_workspace}), w, data, tda, size1, size2, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return data[], work[]
 end
@@ -90,12 +90,12 @@ end
 # matrix a.
 # 
 #   Returns: Cint
-function wavelet2d_transform_matrix(w::Ptr{gsl_wavelet}, dir::gsl_wavelet_direction)
+function wavelet2d_transform_matrix(w::Ref{gsl_wavelet}, dir::gsl_wavelet_direction)
     m = Ref{gsl_matrix}()
     work = Ref{gsl_wavelet_workspace}()
     errno = ccall( (:gsl_wavelet2d_transform_matrix, libgsl), Cint,
-        (Ptr{gsl_wavelet}, Ptr{gsl_matrix}, gsl_wavelet_direction,
-        Ptr{gsl_wavelet_workspace}), w, m, dir, work )
+        (Ref{gsl_wavelet}, Ref{gsl_matrix}, gsl_wavelet_direction,
+        Ref{gsl_wavelet_workspace}), w, m, dir, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return m[], work[]
 end
@@ -105,11 +105,11 @@ end
 # matrix a.
 # 
 #   Returns: Cint
-function wavelet2d_transform_matrix_forward(w::Ptr{gsl_wavelet})
+function wavelet2d_transform_matrix_forward(w::Ref{gsl_wavelet})
     m = Ref{gsl_matrix}()
     work = Ref{gsl_wavelet_workspace}()
     errno = ccall( (:gsl_wavelet2d_transform_matrix_forward, libgsl),
-        Cint, (Ptr{gsl_wavelet}, Ptr{gsl_matrix}, Ptr{gsl_wavelet_workspace}),
+        Cint, (Ref{gsl_wavelet}, Ref{gsl_matrix}, Ref{gsl_wavelet_workspace}),
         w, m, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return m[], work[]
@@ -120,11 +120,11 @@ end
 # matrix a.
 # 
 #   Returns: Cint
-function wavelet2d_transform_matrix_inverse(w::Ptr{gsl_wavelet})
+function wavelet2d_transform_matrix_inverse(w::Ref{gsl_wavelet})
     m = Ref{gsl_matrix}()
     work = Ref{gsl_wavelet_workspace}()
     errno = ccall( (:gsl_wavelet2d_transform_matrix_inverse, libgsl),
-        Cint, (Ptr{gsl_wavelet}, Ptr{gsl_matrix}, Ptr{gsl_wavelet_workspace}),
+        Cint, (Ref{gsl_wavelet}, Ref{gsl_matrix}, Ref{gsl_wavelet_workspace}),
         w, m, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return m[], work[]
@@ -135,12 +135,12 @@ end
 # form.
 # 
 #   Returns: Cint
-function wavelet2d_nstransform(w::Ptr{gsl_wavelet}, tda::Integer, size1::Integer, size2::Integer, dir::gsl_wavelet_direction)
+function wavelet2d_nstransform(w::Ref{gsl_wavelet}, tda::Integer, size1::Integer, size2::Integer, dir::gsl_wavelet_direction)
     v = Ref{Cdouble}()
     work = Ref{gsl_wavelet_workspace}()
     errno = ccall( (:gsl_wavelet2d_nstransform, libgsl), Cint,
-        (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t, Csize_t,
-        gsl_wavelet_direction, Ptr{gsl_wavelet_workspace}), w, data, tda,
+        (Ref{gsl_wavelet}, Ref{Cdouble}, Csize_t, Csize_t, Csize_t,
+        gsl_wavelet_direction, Ref{gsl_wavelet_workspace}), w, data, tda,
         size1, size2, dir, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return data[], work[]
@@ -151,12 +151,12 @@ end
 # form.
 # 
 #   Returns: Cint
-function wavelet2d_nstransform_forward(w::Ptr{gsl_wavelet}, tda::Integer, size1::Integer, size2::Integer)
+function wavelet2d_nstransform_forward(w::Ref{gsl_wavelet}, tda::Integer, size1::Integer, size2::Integer)
     v = Ref{Cdouble}()
     work = Ref{gsl_wavelet_workspace}()
     errno = ccall( (:gsl_wavelet2d_nstransform_forward, libgsl), Cint,
-        (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t, Csize_t,
-        Ptr{gsl_wavelet_workspace}), w, data, tda, size1, size2, work )
+        (Ref{gsl_wavelet}, Ref{Cdouble}, Csize_t, Csize_t, Csize_t,
+        Ref{gsl_wavelet_workspace}), w, data, tda, size1, size2, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return data[], work[]
 end
@@ -166,12 +166,12 @@ end
 # form.
 # 
 #   Returns: Cint
-function wavelet2d_nstransform_inverse(w::Ptr{gsl_wavelet}, tda::Integer, size1::Integer, size2::Integer)
+function wavelet2d_nstransform_inverse(w::Ref{gsl_wavelet}, tda::Integer, size1::Integer, size2::Integer)
     v = Ref{Cdouble}()
     work = Ref{gsl_wavelet_workspace}()
     errno = ccall( (:gsl_wavelet2d_nstransform_inverse, libgsl), Cint,
-        (Ptr{gsl_wavelet}, Ptr{Cdouble}, Csize_t, Csize_t, Csize_t,
-        Ptr{gsl_wavelet_workspace}), w, data, tda, size1, size2, work )
+        (Ref{gsl_wavelet}, Ref{Cdouble}, Csize_t, Csize_t, Csize_t,
+        Ref{gsl_wavelet_workspace}), w, data, tda, size1, size2, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return data[], work[]
 end
@@ -181,12 +181,12 @@ end
 # wavelet transform on a matrix a.
 # 
 #   Returns: Cint
-function wavelet2d_nstransform_matrix(w::Ptr{gsl_wavelet}, dir::gsl_wavelet_direction)
+function wavelet2d_nstransform_matrix(w::Ref{gsl_wavelet}, dir::gsl_wavelet_direction)
     m = Ref{gsl_matrix}()
     work = Ref{gsl_wavelet_workspace}()
     errno = ccall( (:gsl_wavelet2d_nstransform_matrix, libgsl), Cint,
-        (Ptr{gsl_wavelet}, Ptr{gsl_matrix}, gsl_wavelet_direction,
-        Ptr{gsl_wavelet_workspace}), w, m, dir, work )
+        (Ref{gsl_wavelet}, Ref{gsl_matrix}, gsl_wavelet_direction,
+        Ref{gsl_wavelet_workspace}), w, m, dir, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return m[], work[]
 end
@@ -196,11 +196,11 @@ end
 # wavelet transform on a matrix a.
 # 
 #   Returns: Cint
-function wavelet2d_nstransform_matrix_forward(w::Ptr{gsl_wavelet})
+function wavelet2d_nstransform_matrix_forward(w::Ref{gsl_wavelet})
     m = Ref{gsl_matrix}()
     work = Ref{gsl_wavelet_workspace}()
     errno = ccall( (:gsl_wavelet2d_nstransform_matrix_forward, libgsl),
-        Cint, (Ptr{gsl_wavelet}, Ptr{gsl_matrix}, Ptr{gsl_wavelet_workspace}),
+        Cint, (Ref{gsl_wavelet}, Ref{gsl_matrix}, Ref{gsl_wavelet_workspace}),
         w, m, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return m[], work[]
@@ -211,11 +211,11 @@ end
 # wavelet transform on a matrix a.
 # 
 #   Returns: Cint
-function wavelet2d_nstransform_matrix_inverse(w::Ptr{gsl_wavelet})
+function wavelet2d_nstransform_matrix_inverse(w::Ref{gsl_wavelet})
     m = Ref{gsl_matrix}()
     work = Ref{gsl_wavelet_workspace}()
     errno = ccall( (:gsl_wavelet2d_nstransform_matrix_inverse, libgsl),
-        Cint, (Ptr{gsl_wavelet}, Ptr{gsl_matrix}, Ptr{gsl_wavelet_workspace}),
+        Cint, (Ref{gsl_wavelet}, Ref{gsl_matrix}, Ref{gsl_wavelet_workspace}),
         w, m, work )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return m[], work[]

@@ -28,7 +28,7 @@ end
 function sf_fact_e(n::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_fact_e, libgsl), Cint, (Cuint,
-        Ptr{gsl_sf_result}), n, result )
+        Ref{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -54,7 +54,7 @@ end
 function sf_doublefact_e(n::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_doublefact_e, libgsl), Cint, (Cuint,
-        Ptr{gsl_sf_result}), n, result )
+        Ref{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -80,7 +80,7 @@ end
 function sf_lnfact_e(n::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_lnfact_e, libgsl), Cint, (Cuint,
-        Ptr{gsl_sf_result}), n, result )
+        Ref{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -102,7 +102,7 @@ end
 function sf_lndoublefact_e(n::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_lndoublefact_e, libgsl), Cint, (Cuint,
-        Ptr{gsl_sf_result}), n, result )
+        Ref{gsl_sf_result}), n, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -124,7 +124,7 @@ end
 function sf_choose_e(n::Integer, m::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_choose_e, libgsl), Cint, (Cuint, Cuint,
-        Ptr{gsl_sf_result}), n, m, result )
+        Ref{gsl_sf_result}), n, m, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -148,7 +148,7 @@ end
 function sf_lnchoose_e(n::Integer, m::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_lnchoose_e, libgsl), Cint, (Cuint, Cuint,
-        Ptr{gsl_sf_result}), n, m, result )
+        Ref{gsl_sf_result}), n, m, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -170,7 +170,7 @@ end
 function sf_taylorcoeff_e(n::Integer, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_taylorcoeff_e, libgsl), Cint, (Cint, Cdouble,
-        Ptr{gsl_sf_result}), n, x, result )
+        Ref{gsl_sf_result}), n, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

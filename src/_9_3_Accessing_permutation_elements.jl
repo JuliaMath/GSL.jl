@@ -13,8 +13,8 @@ export permutation_get, permutation_swap
 # HAVE_INLINE is defined.
 # 
 #   Returns: Csize_t
-function permutation_get(p::Ptr{gsl_permutation}, i::Integer)
-    ccall( (:gsl_permutation_get, libgsl), Csize_t, (Ptr{gsl_permutation},
+function permutation_get(p::Ref{gsl_permutation}, i::Integer)
+    ccall( (:gsl_permutation_get, libgsl), Csize_t, (Ref{gsl_permutation},
         Csize_t), p, i )
 end
 
@@ -25,7 +25,7 @@ end
 function permutation_swap(i::Integer, j::Integer)
     p = Ref{gsl_permutation}()
     errno = ccall( (:gsl_permutation_swap, libgsl), Cint,
-        (Ptr{gsl_permutation}, Csize_t, Csize_t), p, i, j )
+        (Ref{gsl_permutation}, Csize_t, Csize_t), p, i, j )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return p[]
 end

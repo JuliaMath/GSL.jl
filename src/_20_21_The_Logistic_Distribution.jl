@@ -15,8 +15,8 @@ export ran_logistic, ran_logistic_pdf, cdf_logistic_P, cdf_logistic_Q,
 # \exp(-x/a))^2 } dx  for -\infty < x < +\infty.
 # 
 #   Returns: Cdouble
-function ran_logistic(r::Ptr{gsl_rng}, a::Real)
-    ccall( (:gsl_ran_logistic, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
+function ran_logistic(r::Ref{gsl_rng}, a::Real)
+    ccall( (:gsl_ran_logistic, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble),
         r, a )
 end
 

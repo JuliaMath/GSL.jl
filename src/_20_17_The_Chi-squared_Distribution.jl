@@ -17,8 +17,8 @@ export ran_chisq, ran_chisq_pdf, cdf_chisq_P, cdf_chisq_Q, cdf_chisq_Pinv,
 # = {1 \over 2 \Gamma(\nu/2) } (x/2)^{\nu/2 - 1} \exp(-x/2) dx  for  x >= 0.
 # 
 #   Returns: Cdouble
-function ran_chisq(r::Ptr{gsl_rng}, nu::Real)
-    ccall( (:gsl_ran_chisq, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble), r,
+function ran_chisq(r::Ref{gsl_rng}, nu::Real)
+    ccall( (:gsl_ran_chisq, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble), r,
         nu )
 end
 

@@ -12,10 +12,10 @@ export qrng_alloc, qrng_free, qrng_init
 # memory to create the generator then the function returns a null pointer and
 # the error handler is invoked with an error code of GSL_ENOMEM.
 # 
-#   Returns: Ptr{gsl_qrng}
-function qrng_alloc(T::Ptr{gsl_qrng_type}, d::Integer)
-    output_ptr = ccall( (:gsl_qrng_alloc, libgsl), Ptr{gsl_qrng},
-        (Ptr{gsl_qrng_type}, Cuint), T, d )
+#   Returns: Ref{gsl_qrng}
+function qrng_alloc(T::Ref{gsl_qrng_type}, d::Integer)
+    output_ptr = ccall( (:gsl_qrng_alloc, libgsl), Ref{gsl_qrng},
+        (Ref{gsl_qrng_type}, Cuint), T, d )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -23,8 +23,8 @@ end
 # This function frees all the memory associated with the generator q.
 # 
 #   Returns: Void
-function qrng_free(q::Ptr{gsl_qrng})
-    ccall( (:gsl_qrng_free, libgsl), Void, (Ptr{gsl_qrng}, ), q )
+function qrng_free(q::Ref{gsl_qrng})
+    ccall( (:gsl_qrng_free, libgsl), Void, (Ref{gsl_qrng}, ), q )
 end
 
 
@@ -33,6 +33,6 @@ end
 # values.
 # 
 #   Returns: Void
-function qrng_init(q::Ptr{gsl_qrng})
-    ccall( (:gsl_qrng_init, libgsl), Void, (Ptr{gsl_qrng}, ), q )
+function qrng_init(q::Ref{gsl_qrng})
+    ccall( (:gsl_qrng_init, libgsl), Void, (Ref{gsl_qrng}, ), q )
 end

@@ -14,7 +14,7 @@ export sf_coulomb_CL_e, sf_coulomb_CL_array
 function sf_coulomb_CL_e(L::Real, eta::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_coulomb_CL_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), L, eta, result )
+        Cdouble, Ref{gsl_sf_result}), L, eta, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

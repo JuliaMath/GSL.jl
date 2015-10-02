@@ -15,8 +15,8 @@ export ran_binomial, ran_binomial_pdf, cdf_binomial_P, cdf_binomial_Q
 # \over k! (n-k)! } p^k (1-p)^{n-k}  for  0 <= k <= n.
 # 
 #   Returns: Cuint
-function ran_binomial(r::Ptr{gsl_rng}, p::Real, n::Integer)
-    ccall( (:gsl_ran_binomial, libgsl), Cuint, (Ptr{gsl_rng}, Cdouble,
+function ran_binomial(r::Ref{gsl_rng}, p::Real, n::Integer)
+    ccall( (:gsl_ran_binomial, libgsl), Cuint, (Ref{gsl_rng}, Cdouble,
         Cuint), r, p, n )
 end
 

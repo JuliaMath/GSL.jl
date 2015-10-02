@@ -29,7 +29,7 @@ end
 function sf_poch_e(a::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_poch_e, libgsl), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), a, x, result )
+        Ref{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -53,7 +53,7 @@ end
 function sf_lnpoch_e(a::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_lnpoch_e, libgsl), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), a, x, result )
+        Ref{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -70,7 +70,7 @@ function sf_lnpoch_sgn_e(a::Real, x::Real)
     result = Ref{gsl_sf_result}()
     sgn = Ref{Cdouble}()
     errno = ccall( (:gsl_sf_lnpoch_sgn_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}, Ptr{Cdouble}), a, x, result, sgn )
+        Cdouble, Ref{gsl_sf_result}, Ref{Cdouble}), a, x, result, sgn )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[], sgn[]
 end
@@ -94,7 +94,7 @@ end
 function sf_pochrel_e(a::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_pochrel_e, libgsl), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), a, x, result )
+        Ref{gsl_sf_result}), a, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

@@ -16,8 +16,8 @@ function permute{tA<:Integer}(p_in::AbstractVector{tA}, stride::Integer)
     n = length(p_in)
     p = convert(Vector{Csize_t}, p_in)
     v = Ref{Cdouble}()
-    errno = ccall( (:gsl_permute, libgsl), Cint, (Ptr{Csize_t},
-        Ptr{Cdouble}, Csize_t, Csize_t), p, data, stride, n )
+    errno = ccall( (:gsl_permute, libgsl), Cint, (Ref{Csize_t},
+        Ref{Cdouble}, Csize_t, Csize_t), p, data, stride, n )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return data[]
 end
@@ -31,8 +31,8 @@ function permute_inverse{tA<:Integer}(p_in::AbstractVector{tA}, stride::Integer)
     n = length(p_in)
     p = convert(Vector{Csize_t}, p_in)
     v = Ref{Cdouble}()
-    errno = ccall( (:gsl_permute_inverse, libgsl), Cint, (Ptr{Csize_t},
-        Ptr{Cdouble}, Csize_t, Csize_t), p, data, stride, n )
+    errno = ccall( (:gsl_permute_inverse, libgsl), Cint, (Ref{Csize_t},
+        Ref{Cdouble}, Csize_t, Csize_t), p, data, stride, n )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return data[]
 end
@@ -45,10 +45,10 @@ end
 # the same length.
 # 
 #   Returns: Cint
-function permute_vector(p::Ptr{gsl_permutation})
+function permute_vector(p::Ref{gsl_permutation})
     v = Ref{gsl_vector}()
     errno = ccall( (:gsl_permute_vector, libgsl), Cint,
-        (Ptr{gsl_permutation}, Ptr{gsl_vector}), p, v )
+        (Ref{gsl_permutation}, Ref{gsl_vector}), p, v )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return v[]
 end
@@ -62,10 +62,10 @@ end
 # permutation p and the vector v must have the same length.
 # 
 #   Returns: Cint
-function permute_vector_inverse(p::Ptr{gsl_permutation})
+function permute_vector_inverse(p::Ref{gsl_permutation})
     v = Ref{gsl_vector}()
     errno = ccall( (:gsl_permute_vector_inverse, libgsl), Cint,
-        (Ptr{gsl_permutation}, Ptr{gsl_vector}), p, v )
+        (Ref{gsl_permutation}, Ref{gsl_vector}), p, v )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return v[]
 end
@@ -76,10 +76,10 @@ end
 # applying pb first and then pa.
 # 
 #   Returns: Cint
-function permutation_mul(pa::Ptr{gsl_permutation}, pb::Ptr{gsl_permutation})
+function permutation_mul(pa::Ref{gsl_permutation}, pb::Ref{gsl_permutation})
     p = Ref{gsl_permutation}()
     errno = ccall( (:gsl_permutation_mul, libgsl), Cint,
-        (Ptr{gsl_permutation}, Ptr{gsl_permutation}, Ptr{gsl_permutation}), p,
+        (Ref{gsl_permutation}, Ref{gsl_permutation}, Ref{gsl_permutation}), p,
         pa, pb )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return p[]

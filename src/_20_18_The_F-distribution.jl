@@ -20,8 +20,8 @@ export ran_fdist, ran_fdist_pdf, cdf_fdist_P, cdf_fdist_Q, cdf_fdist_Pinv,
 # -\nu_2/2}  for  x >= 0.
 # 
 #   Returns: Cdouble
-function ran_fdist(r::Ptr{gsl_rng}, nu1::Real, nu2::Real)
-    ccall( (:gsl_ran_fdist, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+function ran_fdist(r::Ref{gsl_rng}, nu1::Real, nu2::Real)
+    ccall( (:gsl_ran_fdist, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble,
         Cdouble), r, nu1, nu2 )
 end
 

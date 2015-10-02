@@ -14,7 +14,7 @@ export sf_multiply_e, sf_multiply_err_e
 function sf_multiply_e(x::Real, y::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_multiply_e, libgsl), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), x, y, result )
+        Ref{gsl_sf_result}), x, y, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -28,7 +28,7 @@ end
 function sf_multiply_err_e(x::Real, dx::Real, y::Real, dy::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_multiply_err_e, libgsl), Cint, (Cdouble,
-        Cdouble, Cdouble, Cdouble, Ptr{gsl_sf_result}), x, dx, y, dy, result )
+        Cdouble, Cdouble, Cdouble, Ref{gsl_sf_result}), x, dx, y, dy, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

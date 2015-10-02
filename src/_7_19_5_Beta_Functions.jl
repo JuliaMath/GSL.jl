@@ -26,7 +26,7 @@ end
 function sf_beta_e(a::Real, b::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_beta_e, libgsl), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), a, b, result )
+        Ref{gsl_sf_result}), a, b, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -50,7 +50,7 @@ end
 function sf_lnbeta_e(a::Real, b::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_lnbeta_e, libgsl), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), a, b, result )
+        Ref{gsl_sf_result}), a, b, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

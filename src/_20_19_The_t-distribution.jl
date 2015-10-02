@@ -18,8 +18,8 @@ export ran_tdist, ran_tdist_pdf, cdf_tdist_P, cdf_tdist_Q, cdf_tdist_Pinv,
 # dx  for -\infty < x < +\infty.
 # 
 #   Returns: Cdouble
-function ran_tdist(r::Ptr{gsl_rng}, nu::Real)
-    ccall( (:gsl_ran_tdist, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble), r,
+function ran_tdist(r::Ref{gsl_rng}, nu::Real)
+    ccall( (:gsl_ran_tdist, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble), r,
         nu )
 end
 

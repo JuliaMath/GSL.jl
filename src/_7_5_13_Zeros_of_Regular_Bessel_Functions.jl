@@ -25,7 +25,7 @@ end
 function sf_bessel_zero_J0_e(s::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_bessel_zero_J0_e, libgsl), Cint, (Cuint,
-        Ptr{gsl_sf_result}), s, result )
+        Ref{gsl_sf_result}), s, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -49,7 +49,7 @@ end
 function sf_bessel_zero_J1_e(s::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_bessel_zero_J1_e, libgsl), Cint, (Cuint,
-        Ptr{gsl_sf_result}), s, result )
+        Ref{gsl_sf_result}), s, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -76,7 +76,7 @@ end
 function sf_bessel_zero_Jnu_e(nu::Real, s::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_bessel_zero_Jnu_e, libgsl), Cint, (Cdouble,
-        Cuint, Ptr{gsl_sf_result}), nu, s, result )
+        Cuint, Ref{gsl_sf_result}), nu, s, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

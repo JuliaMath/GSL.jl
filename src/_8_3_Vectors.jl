@@ -10,7 +10,7 @@ export gsl_vector
 type gsl_vector
     size::Csize_t
     stride::Csize_t
-    data::Ptr{Cdouble}
-    block::Ptr{gsl_block}
+    data::Ref{Cdouble}
+    block::Ref{gsl_block}
     owner::Cint
 end

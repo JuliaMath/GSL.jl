@@ -17,8 +17,8 @@ export ran_geometric, ran_geometric_pdf, cdf_geometric_P, cdf_geometric_Q
 # replaced by k.
 # 
 #   Returns: Cuint
-function ran_geometric(r::Ptr{gsl_rng}, p::Real)
-    ccall( (:gsl_ran_geometric, libgsl), Cuint, (Ptr{gsl_rng}, Cdouble),
+function ran_geometric(r::Ref{gsl_rng}, p::Real)
+    ccall( (:gsl_ran_geometric, libgsl), Cuint, (Ref{gsl_rng}, Cdouble),
         r, p )
 end
 

@@ -23,7 +23,7 @@ export histogram2d_increment, histogram2d_accumulate, histogram2d_get,
 function histogram2d_increment(x::Real, y::Real)
     h = Ref{gsl_histogram2d}()
     errno = ccall( (:gsl_histogram2d_increment, libgsl), Cint,
-        (Ptr{gsl_histogram2d}, Cdouble, Cdouble), h, x, y )
+        (Ref{gsl_histogram2d}, Cdouble, Cdouble), h, x, y )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end
@@ -38,7 +38,7 @@ end
 function histogram2d_accumulate(x::Real, y::Real, weight::Real)
     h = Ref{gsl_histogram2d}()
     errno = ccall( (:gsl_histogram2d_accumulate, libgsl), Cint,
-        (Ptr{gsl_histogram2d}, Cdouble, Cdouble, Cdouble), h, x, y, weight )
+        (Ref{gsl_histogram2d}, Cdouble, Cdouble, Cdouble), h, x, y, weight )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end
@@ -52,8 +52,8 @@ end
 # returns 0.
 # 
 #   Returns: Cdouble
-function histogram2d_get(h::Ptr{gsl_histogram2d}, i::Integer, j::Integer)
-    ccall( (:gsl_histogram2d_get, libgsl), Cdouble, (Ptr{gsl_histogram2d},
+function histogram2d_get(h::Ref{gsl_histogram2d}, i::Integer, j::Integer)
+    ccall( (:gsl_histogram2d_get, libgsl), Cdouble, (Ref{gsl_histogram2d},
         Csize_t, Csize_t), h, i, j )
 end
 
@@ -69,11 +69,11 @@ end
 # error code of GSL_EDOM.
 # 
 #   Returns: Cint
-function histogram2d_get_xrange(h::Ptr{gsl_histogram2d}, i::Integer)
+function histogram2d_get_xrange(h::Ref{gsl_histogram2d}, i::Integer)
     xlower = Ref{Cdouble}()
     xupper = Ref{Cdouble}()
     errno = ccall( (:gsl_histogram2d_get_xrange, libgsl), Cint,
-        (Ptr{gsl_histogram2d}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, i,
+        (Ref{gsl_histogram2d}, Csize_t, Ref{Cdouble}, Ref{Cdouble}), h, i,
         xlower, xupper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return xlower[], xupper[]
@@ -91,11 +91,11 @@ end
 # error code of GSL_EDOM.
 # 
 #   Returns: Cint
-function histogram2d_get_yrange(h::Ptr{gsl_histogram2d}, j::Integer)
+function histogram2d_get_yrange(h::Ref{gsl_histogram2d}, j::Integer)
     ylower = Ref{Cdouble}()
     yupper = Ref{Cdouble}()
     errno = ccall( (:gsl_histogram2d_get_yrange, libgsl), Cint,
-        (Ptr{gsl_histogram2d}, Csize_t, Ptr{Cdouble}, Ptr{Cdouble}), h, j,
+        (Ref{gsl_histogram2d}, Csize_t, Ref{Cdouble}, Ref{Cdouble}), h, j,
         ylower, yupper )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return ylower[], yupper[]
@@ -108,9 +108,9 @@ end
 # gsl_histogram2d struct directly.
 # 
 #   Returns: Cdouble
-function histogram2d_xmax(h::Ptr{gsl_histogram2d})
+function histogram2d_xmax(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_xmax, libgsl), Cdouble,
-        (Ptr{gsl_histogram2d}, ), h )
+        (Ref{gsl_histogram2d}, ), h )
 end
 
 
@@ -120,9 +120,9 @@ end
 # gsl_histogram2d struct directly.
 # 
 #   Returns: Cdouble
-function histogram2d_xmin(h::Ptr{gsl_histogram2d})
+function histogram2d_xmin(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_xmin, libgsl), Cdouble,
-        (Ptr{gsl_histogram2d}, ), h )
+        (Ref{gsl_histogram2d}, ), h )
 end
 
 
@@ -132,8 +132,8 @@ end
 # gsl_histogram2d struct directly.
 # 
 #   Returns: Csize_t
-function histogram2d_nx(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_nx, libgsl), Csize_t, (Ptr{gsl_histogram2d},
+function histogram2d_nx(h::Ref{gsl_histogram2d})
+    ccall( (:gsl_histogram2d_nx, libgsl), Csize_t, (Ref{gsl_histogram2d},
         ), h )
 end
 
@@ -144,9 +144,9 @@ end
 # gsl_histogram2d struct directly.
 # 
 #   Returns: Cdouble
-function histogram2d_ymax(h::Ptr{gsl_histogram2d})
+function histogram2d_ymax(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_ymax, libgsl), Cdouble,
-        (Ptr{gsl_histogram2d}, ), h )
+        (Ref{gsl_histogram2d}, ), h )
 end
 
 
@@ -156,9 +156,9 @@ end
 # gsl_histogram2d struct directly.
 # 
 #   Returns: Cdouble
-function histogram2d_ymin(h::Ptr{gsl_histogram2d})
+function histogram2d_ymin(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_ymin, libgsl), Cdouble,
-        (Ptr{gsl_histogram2d}, ), h )
+        (Ref{gsl_histogram2d}, ), h )
 end
 
 
@@ -168,8 +168,8 @@ end
 # gsl_histogram2d struct directly.
 # 
 #   Returns: Csize_t
-function histogram2d_ny(h::Ptr{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_ny, libgsl), Csize_t, (Ptr{gsl_histogram2d},
+function histogram2d_ny(h::Ref{gsl_histogram2d})
+    ccall( (:gsl_histogram2d_ny, libgsl), Csize_t, (Ref{gsl_histogram2d},
         ), h )
 end
 
@@ -179,7 +179,7 @@ end
 #   Returns: Void
 function histogram2d_reset()
     h = Ref{gsl_histogram2d}()
-    ccall( (:gsl_histogram2d_reset, libgsl), Void, (Ptr{gsl_histogram2d},
+    ccall( (:gsl_histogram2d_reset, libgsl), Void, (Ref{gsl_histogram2d},
         ), h )
     return h[]
 end

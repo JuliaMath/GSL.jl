@@ -14,8 +14,8 @@ export ran_logarithmic, ran_logarithmic_pdf
 # p(k) = {-1 \over \log(1-p)} {(p^k \over k)}  for  k >= 1.
 # 
 #   Returns: Cuint
-function ran_logarithmic(r::Ptr{gsl_rng}, p::Real)
-    ccall( (:gsl_ran_logarithmic, libgsl), Cuint, (Ptr{gsl_rng}, Cdouble),
+function ran_logarithmic(r::Ref{gsl_rng}, p::Real)
+    ccall( (:gsl_ran_logarithmic, libgsl), Cuint, (Ref{gsl_rng}, Cdouble),
         r, p )
 end
 

@@ -21,10 +21,10 @@ export rng_alloc, rng_set, rng_free
 # The details of the available generator types are described later in this
 # chapter.
 # 
-#   Returns: Ptr{gsl_rng}
-function rng_alloc(T::Ptr{gsl_rng_type})
-    output_ptr = ccall( (:gsl_rng_alloc, libgsl), Ptr{gsl_rng},
-        (Ptr{gsl_rng_type}, ), T )
+#   Returns: Ref{gsl_rng}
+function rng_alloc(T::Ref{gsl_rng_type})
+    output_ptr = ccall( (:gsl_rng_alloc, libgsl), Ref{gsl_rng},
+        (Ref{gsl_rng_type}, ), T )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -45,14 +45,14 @@ end
 # lower.
 # 
 #   Returns: Void
-function rng_set(r::Ptr{gsl_rng}, s::Integer)
-    ccall( (:gsl_rng_set, libgsl), Void, (Ptr{gsl_rng}, Culong), r, s )
+function rng_set(r::Ref{gsl_rng}, s::Integer)
+    ccall( (:gsl_rng_set, libgsl), Void, (Ref{gsl_rng}, Culong), r, s )
 end
 
 
 # This function frees all the memory associated with the generator r.
 # 
 #   Returns: Void
-function rng_free(r::Ptr{gsl_rng})
-    ccall( (:gsl_rng_free, libgsl), Void, (Ptr{gsl_rng}, ), r )
+function rng_free(r::Ref{gsl_rng})
+    ccall( (:gsl_rng_free, libgsl), Void, (Ref{gsl_rng}, ), r )
 end

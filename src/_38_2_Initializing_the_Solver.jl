@@ -19,10 +19,10 @@ export multifit_fsolver_alloc, multifit_fdfsolver_alloc, multifit_fsolver_set,
 # insufficient memory to create the solver then the function returns a null
 # pointer and the error handler is invoked with an error code of GSL_ENOMEM.
 # 
-#   Returns: Ptr{gsl_multifit_fsolver}
-function multifit_fsolver_alloc(T::Ptr{gsl_multifit_fsolver_type}, n::Integer, p::Integer)
+#   Returns: Ref{gsl_multifit_fsolver}
+function multifit_fsolver_alloc(T::Ref{gsl_multifit_fsolver_type}, n::Integer, p::Integer)
     output_ptr = ccall( (:gsl_multifit_fsolver_alloc, libgsl),
-        Ptr{gsl_multifit_fsolver}, (Ptr{gsl_multifit_fsolver_type}, Csize_t,
+        Ref{gsl_multifit_fsolver}, (Ref{gsl_multifit_fsolver_type}, Csize_t,
         Csize_t), T, n, p )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -39,10 +39,10 @@ end
 # then the function returns a null pointer and the error handler is invoked
 # with an error code of GSL_ENOMEM.
 # 
-#   Returns: Ptr{gsl_multifit_fdfsolver}
-function multifit_fdfsolver_alloc(T::Ptr{gsl_multifit_fdfsolver_type}, n::Integer, p::Integer)
+#   Returns: Ref{gsl_multifit_fdfsolver}
+function multifit_fdfsolver_alloc(T::Ref{gsl_multifit_fdfsolver_type}, n::Integer, p::Integer)
     output_ptr = ccall( (:gsl_multifit_fdfsolver_alloc, libgsl),
-        Ptr{gsl_multifit_fdfsolver}, (Ptr{gsl_multifit_fdfsolver_type},
+        Ref{gsl_multifit_fdfsolver}, (Ref{gsl_multifit_fdfsolver_type},
         Csize_t, Csize_t), T, n, p )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -52,10 +52,10 @@ end
 # function f and the initial guess x.
 # 
 #   Returns: Cint
-function multifit_fsolver_set(s::Ptr{gsl_multifit_fsolver}, f::Ptr{gsl_multifit_function}, x::Ptr{gsl_vector})
+function multifit_fsolver_set(s::Ref{gsl_multifit_fsolver}, f::Ref{gsl_multifit_function}, x::Ref{gsl_vector})
     errno = ccall( (:gsl_multifit_fsolver_set, libgsl), Cint,
-        (Ptr{gsl_multifit_fsolver}, Ptr{gsl_multifit_function},
-        Ptr{gsl_vector}), s, f, x )
+        (Ref{gsl_multifit_fsolver}, Ref{gsl_multifit_function},
+        Ref{gsl_vector}), s, f, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -64,10 +64,10 @@ end
 # function and derivative fdf and the initial guess x.
 # 
 #   Returns: Cint
-function multifit_fdfsolver_set(s::Ptr{gsl_multifit_fdfsolver}, fdf::Ptr{gsl_multifit_function_fdf}, x::Ptr{gsl_vector})
+function multifit_fdfsolver_set(s::Ref{gsl_multifit_fdfsolver}, fdf::Ref{gsl_multifit_function_fdf}, x::Ref{gsl_vector})
     errno = ccall( (:gsl_multifit_fdfsolver_set, libgsl), Cint,
-        (Ptr{gsl_multifit_fdfsolver}, Ptr{gsl_multifit_function_fdf},
-        Ptr{gsl_vector}), s, fdf, x )
+        (Ref{gsl_multifit_fdfsolver}, Ref{gsl_multifit_function_fdf},
+        Ref{gsl_vector}), s, fdf, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -75,18 +75,18 @@ end
 # These functions free all the memory associated with the solver s.
 # 
 #   Returns: Void
-function multifit_fsolver_free(s::Ptr{gsl_multifit_fsolver})
+function multifit_fsolver_free(s::Ref{gsl_multifit_fsolver})
     ccall( (:gsl_multifit_fsolver_free, libgsl), Void,
-        (Ptr{gsl_multifit_fsolver}, ), s )
+        (Ref{gsl_multifit_fsolver}, ), s )
 end
 
 
 # These functions free all the memory associated with the solver s.
 # 
 #   Returns: Void
-function multifit_fdfsolver_free(s::Ptr{gsl_multifit_fdfsolver})
+function multifit_fdfsolver_free(s::Ref{gsl_multifit_fdfsolver})
     ccall( (:gsl_multifit_fdfsolver_free, libgsl), Void,
-        (Ptr{gsl_multifit_fdfsolver}, ), s )
+        (Ref{gsl_multifit_fdfsolver}, ), s )
 end
 
 
@@ -94,10 +94,10 @@ end
 # printf ("s is a '%s' solver\n",                   gsl_multifit_fdfsolver_name
 # (s));  would print something like s is a 'lmder' solver.
 # 
-#   Returns: Ptr{Cchar}
-function multifit_fsolver_name(s::Ptr{gsl_multifit_fsolver})
+#   Returns: Ref{Cchar}
+function multifit_fsolver_name(s::Ref{gsl_multifit_fsolver})
     output_string = output_ptr = ccall( (:gsl_multifit_fsolver_name,
-        libgsl), Ptr{Cchar}, (Ptr{gsl_multifit_fsolver}, ), s )
+        libgsl), Ref{Cchar}, (Ref{gsl_multifit_fsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(output_string)
 end
@@ -107,10 +107,10 @@ end
 # printf ("s is a '%s' solver\n",                   gsl_multifit_fdfsolver_name
 # (s));  would print something like s is a 'lmder' solver.
 # 
-#   Returns: Ptr{Cchar}
-function multifit_fdfsolver_name(s::Ptr{gsl_multifit_fdfsolver})
+#   Returns: Ref{Cchar}
+function multifit_fdfsolver_name(s::Ref{gsl_multifit_fdfsolver})
     output_string = output_ptr = ccall( (:gsl_multifit_fdfsolver_name,
-        libgsl), Ptr{Cchar}, (Ptr{gsl_multifit_fdfsolver}, ), s )
+        libgsl), Ref{Cchar}, (Ref{gsl_multifit_fdfsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(output_string)
 end

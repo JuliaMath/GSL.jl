@@ -20,8 +20,8 @@ export ran_hypergeometric, ran_hypergeometric_pdf, cdf_hypergeometric_P,
 # population without replacement.
 # 
 #   Returns: Cuint
-function ran_hypergeometric(r::Ptr{gsl_rng}, n1::Integer, n2::Integer, t::Integer)
-    ccall( (:gsl_ran_hypergeometric, libgsl), Cuint, (Ptr{gsl_rng}, Cuint,
+function ran_hypergeometric(r::Ref{gsl_rng}, n1::Integer, n2::Integer, t::Integer)
+    ccall( (:gsl_ran_hypergeometric, libgsl), Cuint, (Ref{gsl_rng}, Cuint,
         Cuint, Cuint), r, n1, n2, t )
 end
 

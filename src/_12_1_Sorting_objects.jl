@@ -34,8 +34,8 @@ export heapsort, heapsort_index
 # rearrangement of the data which destroys its initial ordering.
 # 
 #   Returns: Void
-function heapsort(array::Ptr{Void}, count::Integer, size::Integer, compare::gsl_comparison_fn_t)
-    ccall( (:gsl_heapsort, libgsl), Void, (Ptr{Void}, Csize_t, Csize_t,
+function heapsort(array::Ref{Void}, count::Integer, size::Integer, compare::gsl_comparison_fn_t)
+    ccall( (:gsl_heapsort, libgsl), Void, (Ref{Void}, Csize_t, Csize_t,
         gsl_comparison_fn_t), array, count, size, compare )
 end
 
@@ -49,10 +49,10 @@ end
 # index of the greatest element in array.  The array itself is not changed.
 # 
 #   Returns: Cint
-function heapsort_index(array::Ptr{Void}, count::Integer, size::Integer, compare::gsl_comparison_fn_t)
+function heapsort_index(array::Ref{Void}, count::Integer, size::Integer, compare::gsl_comparison_fn_t)
     p = Ref{Csize_t}()
-    errno = ccall( (:gsl_heapsort_index, libgsl), Cint, (Ptr{Csize_t},
-        Ptr{Void}, Csize_t, Csize_t, gsl_comparison_fn_t), p, array, count,
+    errno = ccall( (:gsl_heapsort_index, libgsl), Cint, (Ref{Csize_t},
+        Ref{Void}, Csize_t, Csize_t, gsl_comparison_fn_t), p, array, count,
         size, compare )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return p[]

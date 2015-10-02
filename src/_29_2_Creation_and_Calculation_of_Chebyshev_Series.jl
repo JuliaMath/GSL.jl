@@ -10,9 +10,9 @@ export cheb_alloc, cheb_free, cheb_init
 # This function allocates space for a Chebyshev series of order n and returns a
 # pointer to a new gsl_cheb_series struct.
 # 
-#   Returns: Ptr{gsl_cheb_series}
+#   Returns: Ref{gsl_cheb_series}
 function cheb_alloc(n::Integer)
-    output_ptr = ccall( (:gsl_cheb_alloc, libgsl), Ptr{gsl_cheb_series},
+    output_ptr = ccall( (:gsl_cheb_alloc, libgsl), Ref{gsl_cheb_series},
         (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -22,8 +22,8 @@ end
 # This function frees a previously allocated Chebyshev series cs.
 # 
 #   Returns: Void
-function cheb_free(cs::Ptr{gsl_cheb_series})
-    ccall( (:gsl_cheb_free, libgsl), Void, (Ptr{gsl_cheb_series}, ), cs )
+function cheb_free(cs::Ref{gsl_cheb_series})
+    ccall( (:gsl_cheb_free, libgsl), Void, (Ref{gsl_cheb_series}, ), cs )
 end
 
 
@@ -33,8 +33,8 @@ end
 # evaluations.
 # 
 #   Returns: Cint
-function cheb_init(cs::Ptr{gsl_cheb_series}, f::Ptr{gsl_function}, a::Real, b::Real)
-    errno = ccall( (:gsl_cheb_init, libgsl), Cint, (Ptr{gsl_cheb_series},
-        Ptr{gsl_function}, Cdouble, Cdouble), cs, f, a, b )
+function cheb_init(cs::Ref{gsl_cheb_series}, f::Ref{gsl_function}, a::Real, b::Real)
+    errno = ccall( (:gsl_cheb_init, libgsl), Cint, (Ref{gsl_cheb_series},
+        Ref{gsl_function}, Cdouble, Cdouble), cs, f, a, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end

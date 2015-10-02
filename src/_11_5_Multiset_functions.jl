@@ -14,8 +14,8 @@ export multiset_next, multiset_prev
 # iterate through all possible multisets of a given order.
 # 
 #   Returns: Cint
-function multiset_next(c::Ptr{gsl_multiset})
-    errno = ccall( (:gsl_multiset_next, libgsl), Cint, (Ptr{gsl_multiset},
+function multiset_next(c::Ref{gsl_multiset})
+    errno = ccall( (:gsl_multiset_next, libgsl), Cint, (Ref{gsl_multiset},
         ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -28,7 +28,7 @@ end
 #   Returns: Cint
 function multiset_prev()
     c = Ref{gsl_multiset}()
-    errno = ccall( (:gsl_multiset_prev, libgsl), Cint, (Ptr{gsl_multiset},
+    errno = ccall( (:gsl_multiset_prev, libgsl), Cint, (Ref{gsl_multiset},
         ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c[]

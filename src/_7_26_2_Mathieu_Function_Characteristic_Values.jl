@@ -14,7 +14,7 @@ export sf_mathieu_a, sf_mathieu_b, sf_mathieu_a_array, sf_mathieu_b_array
 function sf_mathieu_a(n::Integer, q::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_mathieu_a, libgsl), Cint, (Cint, Cdouble,
-        Ptr{gsl_sf_result}), n, q, result )
+        Ref{gsl_sf_result}), n, q, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -28,7 +28,7 @@ end
 function sf_mathieu_b(n::Integer, q::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_mathieu_b, libgsl), Cint, (Cint, Cdouble,
-        Ptr{gsl_sf_result}), n, q, result )
+        Ref{gsl_sf_result}), n, q, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -44,7 +44,7 @@ function sf_mathieu_a_array(order_min::Integer, order_max::Integer, q::Real)
     work = Ref{gsl_sf_mathieu_workspace}()
     result_array = Array(Cdouble, 1)
     errno = ccall( (:gsl_sf_mathieu_a_array, libgsl), Cint, (Cint, Cint,
-        Cdouble, Ptr{gsl_sf_mathieu_workspace}, Cdouble), order_min, order_max,
+        Cdouble, Ref{gsl_sf_mathieu_workspace}, Cdouble), order_min, order_max,
         q, work, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return work[], result_array[][1]
@@ -62,7 +62,7 @@ function sf_mathieu_b_array(order_min::Integer, order_max::Integer, q::Real)
     work = Ref{gsl_sf_mathieu_workspace}()
     result_array = Array(Cdouble, 1)
     errno = ccall( (:gsl_sf_mathieu_b_array, libgsl), Cint, (Cint, Cint,
-        Cdouble, Ptr{gsl_sf_mathieu_workspace}, Cdouble), order_min, order_max,
+        Cdouble, Ref{gsl_sf_mathieu_workspace}, Cdouble), order_min, order_max,
         q, work, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return work[], result_array[][1]

@@ -12,10 +12,10 @@ export rng_memcpy, rng_clone
 # must be of the same type.
 # 
 #   Returns: Cint
-function rng_memcpy(src::Ptr{gsl_rng})
+function rng_memcpy(src::Ref{gsl_rng})
     dest = Ref{gsl_rng}()
-    errno = ccall( (:gsl_rng_memcpy, libgsl), Cint, (Ptr{gsl_rng},
-        Ptr{gsl_rng}), dest, src )
+    errno = ccall( (:gsl_rng_memcpy, libgsl), Cint, (Ref{gsl_rng},
+        Ref{gsl_rng}), dest, src )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return dest[]
 end
@@ -24,9 +24,9 @@ end
 # This function returns a pointer to a newly created generator which is an
 # exact copy of the generator r.
 # 
-#   Returns: Ptr{gsl_rng}
-function rng_clone(r::Ptr{gsl_rng})
-    output_ptr = ccall( (:gsl_rng_clone, libgsl), Ptr{gsl_rng},
-        (Ptr{gsl_rng}, ), r )
+#   Returns: Ref{gsl_rng}
+function rng_clone(r::Ref{gsl_rng})
+    output_ptr = ccall( (:gsl_rng_clone, libgsl), Ref{gsl_rng},
+        (Ref{gsl_rng}, ), r )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

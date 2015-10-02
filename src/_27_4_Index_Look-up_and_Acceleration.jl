@@ -24,10 +24,10 @@ end
 # iterator for interpolation lookups.  It tracks the state of lookups, thus
 # allowing for application of various acceleration strategies.
 # 
-#   Returns: Ptr{gsl_interp_accel}
+#   Returns: Ref{gsl_interp_accel}
 function interp_accel_alloc()
     output_ptr = ccall( (:gsl_interp_accel_alloc, libgsl),
-        Ptr{gsl_interp_accel}, () )
+        Ref{gsl_interp_accel}, () )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -39,9 +39,9 @@ end
 # used when HAVE_INLINE is defined.
 # 
 #   Returns: Csize_t
-function interp_accel_find(a::Ptr{gsl_interp_accel}, x_array::Real)
+function interp_accel_find(a::Ref{gsl_interp_accel}, x_array::Real)
     ccall( (:gsl_interp_accel_find, libgsl), Csize_t,
-        (Ptr{gsl_interp_accel}, Cdouble), a, x_array )
+        (Ref{gsl_interp_accel}, Cdouble), a, x_array )
 end
 
 
@@ -53,7 +53,7 @@ end
 function interp_accel_reset()
     acc = Ref{gsl_interp_accel}()
     errno = ccall( (:gsl_interp_accel_reset, libgsl), Cint,
-        (Ptr{gsl_interp_accel}, ), acc )
+        (Ref{gsl_interp_accel}, ), acc )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return acc[]
 end
@@ -62,7 +62,7 @@ end
 # This function frees the accelerator object acc.
 # 
 #   Returns: Void
-function interp_accel_free(acc::Ptr{gsl_interp_accel})
-    ccall( (:gsl_interp_accel_free, libgsl), Void, (Ptr{gsl_interp_accel},
+function interp_accel_free(acc::Ref{gsl_interp_accel})
+    ccall( (:gsl_interp_accel_free, libgsl), Void, (Ref{gsl_interp_accel},
         ), acc )
 end

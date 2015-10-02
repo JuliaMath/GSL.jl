@@ -22,8 +22,8 @@ function bspline_deriv_eval(x::Real, nderiv::Integer)
     w = Ref{gsl_bspline_workspace}()
     dw = Ref{gsl_bspline_deriv_workspace}()
     errno = ccall( (:gsl_bspline_deriv_eval, libgsl), Cint, (Cdouble,
-        Csize_t, Ptr{gsl_matrix}, Ptr{gsl_bspline_workspace},
-        Ptr{gsl_bspline_deriv_workspace}), x, nderiv, dB, w, dw )
+        Csize_t, Ref{gsl_matrix}, Ref{gsl_bspline_workspace},
+        Ref{gsl_bspline_deriv_workspace}), x, nderiv, dB, w, dw )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return dB[], w[], dw[]
 end
@@ -48,8 +48,8 @@ function bspline_deriv_eval_nonzero(x::Real, nderiv::Integer)
     w = Ref{gsl_bspline_workspace}()
     dw = Ref{gsl_bspline_deriv_workspace}()
     errno = ccall( (:gsl_bspline_deriv_eval_nonzero, libgsl), Cint,
-        (Cdouble, Csize_t, Ptr{gsl_matrix}, Ptr{Csize_t}, Ptr{Csize_t},
-        Ptr{gsl_bspline_workspace}, Ptr{gsl_bspline_deriv_workspace}), x,
+        (Cdouble, Csize_t, Ref{gsl_matrix}, Ref{Csize_t}, Ref{Csize_t},
+        Ref{gsl_bspline_workspace}, Ref{gsl_bspline_deriv_workspace}), x,
         nderiv, dB, istart, iend, w, dw )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return dB[], istart[], iend[], w[], dw[]

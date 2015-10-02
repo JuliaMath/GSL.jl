@@ -23,8 +23,8 @@ export ran_dirichlet, ran_dirichlet_pdf, ran_dirichlet_lnpdf
 # Kelton, Simulation Modeling and Analysis (1991).
 # 
 #   Returns: Void
-function ran_dirichlet(r::Ptr{gsl_rng}, K::Integer, alpha::Real)
-    ccall( (:gsl_ran_dirichlet, libgsl), Void, (Ptr{gsl_rng}, Csize_t,
+function ran_dirichlet(r::Ref{gsl_rng}, K::Integer, alpha::Real)
+    ccall( (:gsl_ran_dirichlet, libgsl), Void, (Ref{gsl_rng}, Csize_t,
         Cdouble), r, K, alpha )
 end
 

@@ -25,7 +25,7 @@ end
 function sf_airy_zero_Ai_deriv_e(s::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_airy_zero_Ai_deriv_e, libgsl), Cint, (Cuint,
-        Ptr{gsl_sf_result}), s, result )
+        Ref{gsl_sf_result}), s, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -49,7 +49,7 @@ end
 function sf_airy_zero_Bi_deriv_e(s::Integer)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_airy_zero_Bi_deriv_e, libgsl), Cint, (Cuint,
-        Ptr{gsl_sf_result}), s, result )
+        Ref{gsl_sf_result}), s, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

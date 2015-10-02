@@ -24,7 +24,7 @@ export ran_levy_skew
 # 2.
 # 
 #   Returns: Cdouble
-function ran_levy_skew(r::Ptr{gsl_rng}, c::Real, alpha::Real, beta::Real)
-    ccall( (:gsl_ran_levy_skew, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble,
+function ran_levy_skew(r::Ref{gsl_rng}, c::Real, alpha::Real, beta::Real)
+    ccall( (:gsl_ran_levy_skew, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble,
         Cdouble, Cdouble), r, c, alpha, beta )
 end

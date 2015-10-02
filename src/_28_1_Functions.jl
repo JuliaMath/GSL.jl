@@ -20,11 +20,11 @@ export deriv_central, deriv_forward, deriv_backward
 # actually used.
 # 
 #   Returns: Cint
-function deriv_central(f::Ptr{gsl_function}, x::Real, h::Real)
+function deriv_central(f::Ref{gsl_function}, x::Real, h::Real)
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
-    errno = ccall( (:gsl_deriv_central, libgsl), Cint, (Ptr{gsl_function},
-        Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f, x, h, result, abserr
+    errno = ccall( (:gsl_deriv_central, libgsl), Cint, (Ref{gsl_function},
+        Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f, x, h, result, abserr
         )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[], abserr[]
@@ -45,11 +45,11 @@ end
 # corresponding 2-point rule x+h/2, x+h.
 # 
 #   Returns: Cint
-function deriv_forward(f::Ptr{gsl_function}, x::Real, h::Real)
+function deriv_forward(f::Ref{gsl_function}, x::Real, h::Real)
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
-    errno = ccall( (:gsl_deriv_forward, libgsl), Cint, (Ptr{gsl_function},
-        Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f, x, h, result, abserr
+    errno = ccall( (:gsl_deriv_forward, libgsl), Cint, (Ref{gsl_function},
+        Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f, x, h, result, abserr
         )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[], abserr[]
@@ -66,11 +66,11 @@ end
 # size.
 # 
 #   Returns: Cint
-function deriv_backward(f::Ptr{gsl_function}, x::Real, h::Real)
+function deriv_backward(f::Ref{gsl_function}, x::Real, h::Real)
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_deriv_backward, libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Ptr{Cdouble}, Ptr{Cdouble}), f,
+        (Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f,
         x, h, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[], abserr[]

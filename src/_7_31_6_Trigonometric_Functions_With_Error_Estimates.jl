@@ -15,7 +15,7 @@ export sf_sin_err_e, sf_cos_err_e
 function sf_sin_err_e(x::Real, dx::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_sin_err_e, libgsl), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), x, dx, result )
+        Ref{gsl_sf_result}), x, dx, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -30,7 +30,7 @@ end
 function sf_cos_err_e(x::Real, dx::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_cos_err_e, libgsl), Cint, (Cdouble, Cdouble,
-        Ptr{gsl_sf_result}), x, dx, result )
+        Ref{gsl_sf_result}), x, dx, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

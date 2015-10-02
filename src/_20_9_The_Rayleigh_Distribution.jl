@@ -15,8 +15,8 @@ export ran_rayleigh, ran_rayleigh_pdf, cdf_rayleigh_P, cdf_rayleigh_Q,
 # \over \sigma^2} \exp(- x^2/(2 \sigma^2)) dx  for x > 0.
 # 
 #   Returns: Cdouble
-function ran_rayleigh(r::Ptr{gsl_rng}, sigma::Real)
-    ccall( (:gsl_ran_rayleigh, libgsl), Cdouble, (Ptr{gsl_rng}, Cdouble),
+function ran_rayleigh(r::Ref{gsl_rng}, sigma::Real)
+    ccall( (:gsl_ran_rayleigh, libgsl), Cdouble, (Ref{gsl_rng}, Cdouble),
         r, sigma )
 end
 

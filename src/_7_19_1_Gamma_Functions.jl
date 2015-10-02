@@ -34,7 +34,7 @@ end
 function sf_gamma_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_gamma_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -62,7 +62,7 @@ end
 function sf_lngamma_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_lngamma_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -77,10 +77,10 @@ end
 # 
 #   Returns: Cint
 function sf_lngamma_sgn_e(x::Real)
-    result_lg = Ptr{gsl_sf_result}()
+    result_lg = Ref{gsl_sf_result}()
     sgn = Ref{Cdouble}()
     errno = ccall( (:gsl_sf_lngamma_sgn_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}, Ptr{Cdouble}), x, result_lg, sgn )
+        Ref{gsl_sf_result}, Ref{Cdouble}), x, result_lg, sgn )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result_lg[], sgn[]
 end
@@ -108,7 +108,7 @@ end
 function sf_gammastar_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_gammastar_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -132,7 +132,7 @@ end
 function sf_gammainv_e(x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_gammainv_e, libgsl), Cint, (Cdouble,
-        Ptr{gsl_sf_result}), x, result )
+        Ref{gsl_sf_result}), x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
@@ -149,10 +149,10 @@ end
 # 
 #   Returns: Cint
 function sf_lngamma_complex_e(zr::Real, zi::Real)
-    lnr = Ptr{gsl_sf_result}()
-    arg = Ptr{gsl_sf_result}()
+    lnr = Ref{gsl_sf_result}()
+    arg = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_lngamma_complex_e, libgsl), Cint, (Cdouble,
-        Cdouble, Ptr{gsl_sf_result}, Ptr{gsl_sf_result}), zr, zi, lnr, arg )
+        Cdouble, Ref{gsl_sf_result}, Ref{gsl_sf_result}), zr, zi, lnr, arg )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return lnr[], arg[]
 end

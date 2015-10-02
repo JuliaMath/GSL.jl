@@ -14,9 +14,9 @@ export combination_next, combination_prev
 # all possible combinations of a given order.
 # 
 #   Returns: Cint
-function combination_next(c::Ptr{gsl_combination})
+function combination_next(c::Ref{gsl_combination})
     errno = ccall( (:gsl_combination_next, libgsl), Cint,
-        (Ptr{gsl_combination}, ), c )
+        (Ref{gsl_combination}, ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -29,7 +29,7 @@ end
 function combination_prev()
     c = Ref{gsl_combination}()
     errno = ccall( (:gsl_combination_prev, libgsl), Cint,
-        (Ptr{gsl_combination}, ), c )
+        (Ref{gsl_combination}, ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c[]
 end

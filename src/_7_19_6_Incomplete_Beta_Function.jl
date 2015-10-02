@@ -32,7 +32,7 @@ end
 function sf_beta_inc_e(a::Real, b::Real, x::Real)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_beta_inc_e, libgsl), Cint, (Cdouble, Cdouble,
-        Cdouble, Ptr{gsl_sf_result}), a, b, x, result )
+        Cdouble, Ref{gsl_sf_result}), a, b, x, result )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end

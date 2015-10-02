@@ -13,7 +13,7 @@ export ntuple_close
 #   Returns: Cint
 function ntuple_close()
     ntuple = Ref{gsl_ntuple}()
-    errno = ccall( (:gsl_ntuple_close, libgsl), Cint, (Ptr{gsl_ntuple}, ),
+    errno = ccall( (:gsl_ntuple_close, libgsl), Cint, (Ref{gsl_ntuple}, ),
         ntuple )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return ntuple[]
