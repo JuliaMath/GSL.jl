@@ -50,7 +50,7 @@ end
 #   Returns: Cint
 function sf_mathieu_Mc_array(j::Integer, nmin::Integer, nmax::Integer, q::Real, x::Real)
     work = Ref{gsl_sf_mathieu_workspace}()
-    result_array = Array(Cdouble, 1)
+    result_array = Ref{Cdouble}()
     errno = ccall( (:gsl_sf_mathieu_Mc_array, libgsl), Cint, (Cint, Cint,
         Cint, Cdouble, Cdouble, Ref{gsl_sf_mathieu_workspace}, Cdouble), j,
         nmin, nmax, q, x, work, result_array )
@@ -68,7 +68,7 @@ end
 #   Returns: Cint
 function sf_mathieu_Ms_array(j::Integer, nmin::Integer, nmax::Integer, q::Real, x::Real)
     work = Ref{gsl_sf_mathieu_workspace}()
-    result_array = Array(Cdouble, 1)
+    result_array = Ref{Cdouble}()
     errno = ccall( (:gsl_sf_mathieu_Ms_array, libgsl), Cint, (Cint, Cint,
         Cint, Cdouble, Cdouble, Ref{gsl_sf_mathieu_workspace}, Cdouble), j,
         nmin, nmax, q, x, work, result_array )

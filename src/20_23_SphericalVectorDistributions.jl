@@ -10,8 +10,8 @@ export ran_dir_2d, ran_dir_2d_trig_method, ran_dir_3d,
 for ran_dir in (:ran_dir_2d, :ran_dir_2d_trig_method)
     @eval begin
         function ($ran_dir)(r::Ref{Void})
-            x = Array(Cdouble, 1)
-            y = Array(Cdouble, 1)
+            x = Ref{Cdouble}()
+            y = Ref{Cdouble}()
             ccall( ($(string("gsl_", ran_dir)), libgsl), Void, (Ref{Void}, Ref{Cdouble},
                 Ref{Cdouble}), r, x, y)
             return x[1], y[1]
@@ -29,9 +29,9 @@ end
 #
 #   Returns: Void
 function ran_dir_3d(r::Ref{Void})
-    x = Array(Cdouble, 1)
-    y = Array(Cdouble, 1)
-    z = Array(Cdouble, 1)
+    x = Ref{Cdouble}()
+    y = Ref{Cdouble}()
+    z = Ref{Cdouble}()
     ccall( (:gsl_ran_dir_3d, libgsl), Void, (Ref{Void}, Ref{Cdouble},
         Ref{Cdouble}, Ref{Cdouble}), r, x, y, z )
     return x[1], y[1], z[1]

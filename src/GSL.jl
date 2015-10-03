@@ -1,5 +1,4 @@
 module GSL
-
     __precompile__(true)
 
     if isfile(joinpath(dirname(@__FILE__),"..","deps","deps.jl"))
@@ -23,6 +22,8 @@ module GSL
     include("9_5_Permutation_functions.jl")
     include("9_8_Permutations_in_cyclic_form.jl")
     include("20_23_SphericalVectorDistributions.jl")
+    include("23_2_Creating_ntuples.jl")
+    include("23_3_Opening_an_existing_ntuple_file.jl")
     include("28_1_NumericalDifferentiationfunctions.jl")
     include("35_4_Iteration.jl")
     include("35_5_Search_Stopping_Parameters.jl")

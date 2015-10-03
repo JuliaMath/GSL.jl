@@ -114,7 +114,7 @@ end
 # 
 #   Returns: Cint
 function sf_bessel_il_scaled_array(lmax::Integer, x::Real)
-    result_array = Array(Cdouble, 1)
+    result_array = Ref{Cdouble}()
     errno = ccall( (:gsl_sf_bessel_il_scaled_array, libgsl), Cint, (Cint,
         Cdouble, Cdouble), lmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end

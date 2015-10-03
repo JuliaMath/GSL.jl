@@ -103,7 +103,7 @@ end
 # 
 #   Returns: Cint
 function sf_legendre_H3d_array(lmax::Integer, lambda::Real, eta::Real)
-    result_array = Array(Cdouble, 1)
+    result_array = Ref{Cdouble}()
     errno = ccall( (:gsl_sf_legendre_H3d_array, libgsl), Cint, (Cint,
         Cdouble, Cdouble, Cdouble), lmax, lambda, eta, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end

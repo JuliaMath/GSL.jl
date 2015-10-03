@@ -91,7 +91,7 @@ end
 # 
 #   Returns: Cint
 function sf_bessel_Kn_array(nmin::Integer, nmax::Integer, x::Real)
-    result_array = Array(Cdouble, 1)
+    result_array = Ref{Cdouble}()
     errno = ccall( (:gsl_sf_bessel_Kn_array, libgsl), Cint, (Cint, Cint,
         Cdouble, Cdouble), nmin, nmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -183,7 +183,7 @@ end
 # 
 #   Returns: Cint
 function sf_bessel_Kn_scaled_array(nmin::Integer, nmax::Integer, x::Real)
-    result_array = Array(Cdouble, 1)
+    result_array = Ref{Cdouble}()
     errno = ccall( (:gsl_sf_bessel_Kn_scaled_array, libgsl), Cint, (Cint,
         Cint, Cdouble, Cdouble), nmin, nmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end

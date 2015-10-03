@@ -10,19 +10,19 @@
 ##################
 export deriv_central, deriv_forward, deriv_backward
 
-function function_callback(x::Cdouble, f_::Ref{Void})
-    f = unsafe_pointer_to_objref(f_)::Function
-    convert(Cdouble, f(x))::Cdouble
+function function_callback(x::Cdouble, f_)
+    f = unsafe_pointer_to_objref(f_)
+    Cdouble(f(x))
 end
-const function_callback_ptr = cfunction(function_callback, Cdouble, (Cdouble, Ref{Void}))
+const function_callback_ptr = cfunction(function_callback, Cdouble, (Cdouble, Ptr{Void}))
 
 for gsl_deriv in (:deriv_central, :deriv_forward, :deriv_backward)
     @eval begin
         function ($gsl_deriv)(f::Function, x::Real, h::Real)
-            result = Array(Cdouble, 1)
-            abserr = Array(Cdouble, 1)
+            result = Ref{Cdouble}()
+            abserr = Ref{Cdouble}()
             gsl_errno = ccall(($(string("gsl_", gsl_deriv)),:libgsl),
-                  Cint, (Ref{gsl_function}, Cdouble, Cdouble,
+                  Cint, (Ptr{gsl_function}, Cdouble, Cdouble,
                          Ref{Cdouble}, Ref{Cdouble}),
                   &gsl_function(function_callback_ptr,
                                 pointer_from_objref(f)),

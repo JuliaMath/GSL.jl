@@ -14,7 +14,10 @@ complex_packed_ptr(c::Vector{Cdouble}) = Complex128[c[2i-1]+im*c[2i] for i=1:int
 
 #Register this error handler as GSL's default
 #where possible, maps errors to Julia's own exceptions
-function custom_error_handler(reason, file, line, errno)
+custom_error_handler(reason::Ptr{UInt8}, file::Ptr{UInt8}, line::Integer, errno::Integer) =
+    custom_error_handler(bytestring(reason), bytestring(file), line, errno)
+
+function custom_error_handler(reason::AbstractString, file::AbstractString, line::Integer, errno::Integer)
     if errno == 0; return; end # GSL_SUCCESS
     if errno == 1 # GSL_EDOM: input domain error, e.g sqrt(-1)
         throw(DomainError())
@@ -23,8 +26,7 @@ function custom_error_handler(reason, file, line, errno)
         # or GSL_EOVRFLW: overflow
         throw(OverflowError())
     elseif errno == 4 # GSL_EINVAL: invalid argument supplied by user
-        throw(ArgumentError(string(bytestring(reason), " at ",
-                                   bytestring(file), ":", line)))
+        throw(ArgumentError(string(reason, " at ", file, ":", line)))
     elseif errno == 8 # GSL_ENOMEM: malloc failed
         throw(OutOfMemoryError())
     elseif errno == 12 # GSL_EZERODIV: tried to divide by zero
@@ -34,8 +36,7 @@ function custom_error_handler(reason, file, line, errno)
     elseif errno == 32 # GSL_EOF: end of file
         throw(EOFError())
     else # convert all other errors into generic ErrorException
-        error(strerror(errno), " -- ",
-              bytestring(reason), " at ", bytestring(file), ":", line)
+        error(string(strerror(errno), " -- ", reason, " at ", file, ":", line))
     end
     return
 end
@@ -46,13 +47,13 @@ GSL_ERROR{T<:Integer}(errno::T)=custom_error_handler("", "None", 0, errno)
 # a function from within libgsl. This will fail if libgsl is not installed or
 # otherwise unavailable.
 custom_gsl_error_handler = try
-    convert(Ref{gsl_error_handler_t},
-        cfunction(custom_error_handler, Void, (Ref{UInt8}, Ref{UInt8}, Cint, Cint)
+    convert(Ptr{gsl_error_handler_t},
+        cfunction(custom_error_handler, Void, (Ptr{UInt8}, Ptr{UInt8}, Cint, Cint)
     ))
-catch
-    throw(LoadError("Could not find the GNU Scientific Library.
-Please ensure that libgsl is installed on your system and is available on the system path."))
+catch exc
+    @show exc
+    error("""Could not find the GNU Scientific Library.
+Please ensure that libgsl is installed on your system and is available on the system path.""")
 end
+
 set_error_handler(custom_gsl_error_handler)
-
-
