@@ -1,14 +1,15 @@
 GSL.jl
 ======
 
-[![GSL on julia release](http://pkg.julialang.org/badges/GSL_release.svg)](http://pkg.julialang.org/?pkg=GSL&ver=release)
-[![GSL on julia nightly](http://pkg.julialang.org/badges/GSL_nightly.svg)](http://pkg.julialang.org/?pkg=GSL&ver=nightly)
+[![GSL](http://pkg.julialang.org/badges/GSL_0.3.svg)](http://pkg.julialang.org/?pkg=GSL)
+[![GSL](http://pkg.julialang.org/badges/GSL_0.4.svg)](http://pkg.julialang.org/?pkg=GSL)
 [![Build Status](https://travis-ci.org/jiahao/GSL.jl.svg?branch=master)](https://travis-ci.org/jiahao/GSL.jl)
-[![Coverage Status](https://coveralls.io/repos/jiahao/GSL.jl/badge.svg?branch=master)](https://coveralls.io/r/jiahao/GSL.jl?branch=master)
+[![Coverage Status](https://coveralls.io/repos/jiahao/GSL.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/jiahao/GSL.jl?branch=master)
+[![codecov.io](http://codecov.io/github/jiahao/GSL.jl/coverage.svg?branch=master)](http://codecov.io/github/jiahao/GSL.jl?branch=master)
 
 Julia interface to the [GNU Scientific Library (GSL)](http://www.gnu.org/software/gsl)
 
-[Jiahao Chen](http://github.com/jiahao) <jiahao@mit.edu>
+[Jiahao Chen](http://github.com/jiahao)
 
 Licensed under [GPLv3](http://www.gnu.org/copyleft/gpl.html)
 
@@ -23,12 +24,13 @@ Pkg.add("GSL")
 
 ## How to use
 
-This package provides wrappers to all documented functions and structs in the
-[GSL manual](http://www.gnu.org/software/gsl/manual/html_node).
-For the functions, the `gsl_` prefix is not necessary in the name.
-More information is available below.
+This package aims to provide wrappers to all documented functions and structs
+in the [GSL manual](http://www.gnu.org/software/gsl/manual/html_node).
+For GSL functions, the `gsl_` prefix is not necessary in the name.  More
+information is available below.
 
 Example:
+
 ```julia
     using GSL
     x = randn()
