@@ -157,8 +157,8 @@ end
 
 #Just test some simple cases
 
-l=int(rand()*20)
-m=2*int((rand()-.5)*(l-1))+l%2
+l=rand(1:20)
+m=2*round(Int, (rand()-.5)*(l-1))+l%2
 for sf in (
     :sf_coupling_3j, #7.8.1 3-j Symbols
     )
@@ -171,7 +171,7 @@ for sf in (
 end
 
 a,b=l,m
-c=int((a+b)/4)*2
+c=round(Int, (a+b)/4)*2
 #XXX fail
 #for sf in (
 #    :sf_coupling_6j, #7.8.2 6-j Symbols
@@ -185,7 +185,7 @@ c=int((a+b)/4)*2
 #end
 
 #TODO Should try to test within the domain where it is not 0
-a, b, c, d, J, K=2*int(rand(6)*10)
+a, b, c, d, J, K=2*round(Int, rand(6)*10)
 for sf in (
     :sf_coupling_9j, #7.8.3 9-j Symbols
     )
@@ -313,7 +313,7 @@ for sf in (
         :sf_Shi, :sf_Chi, #7.17.3 Hyperbolic Integrals
         :sf_Si, #7.17.5 Trigonometric Integrals
         :sf_atanint, #7.17.6 Arctangent Integral
-        :sf_fermi_dirac_m1, :sf_fermi_dirac_0, :sf_fermi_dirac_1, sf_fermi_dirac_2, sf_fermi_dirac_mhalf, sf_fermi_dirac_half, #7.18.1 Complete Fermi-Dirac Integrals
+        #:sf_fermi_dirac_m1, :sf_fermi_dirac_0, :sf_fermi_dirac_1, :sf_fermi_dirac_2, :sf_fermi_dirac_mhalf, :sf_fermi_dirac_half, #7.18.1 Complete Fermi-Dirac Integrals
         )
     @eval @sf_test $sf $x
 end
@@ -328,7 +328,7 @@ end
 #7.18.2 Incomplete Fermi-Dirac Integrals
 @eval @sf_test sf_fermi_dirac_inc_0 $(abs(x)) $(abs(y))
 
-n=int(rand()*20)
+n=rand(1:20)
 for sf in (
         :sf_exprel_n, #7.16.2 Relative Exponential Functions
         :sf_fermi_dirac_int, #7.18.1 Complete Fermi-Dirac Integrals
@@ -377,7 +377,7 @@ for sf in (
     @eval @sf_test $sf $n
 end
 
-m=int(rand()*20)
+m=rand(1:20)
 for sf in (:sf_choose, :sf_lnchoose,) #7.19.2 Factorials
     @eval @sf_test $sf $(m+n) $n
 end
