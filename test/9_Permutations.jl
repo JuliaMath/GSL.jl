@@ -1,9 +1,17 @@
-==(P::gsl_permutation, Q::gsl_permutation) = P.size == Q.size &&
-    pointer_to_array(P.data, (int(P.size),)) == pointer_to_array(Q.data, (int(Q.size),))
-==(P::Ptr{gsl_permutation}, Q::Ptr{gsl_permutation}) = unsafe_load(P) == unsafe_load(Q)
+using GSL
+using Base.Test
 
-n = int(rand()*20)+1
+import Base: ==
 
+if !isdefined(:VERBOSE)
+    VERBOSE = true
+end
+
+==(P::gsl_permutation, Q::gsl_permutation) = (@show P, Q; P.size == Q.size &&
+    pointer_to_array(P.data, (int(P.size),)) == pointer_to_array(Q.data, (int(Q.size),)))
+==(P::Ptr{gsl_permutation}, Q::Ptr{gsl_permutation}) = (@show P, Q; @show unsafe_load(P); unsafe_load(P) == unsafe_load(Q))
+
+n = rand(1:20)
 
 VERBOSE && info("9.2 Permutation allocation")
 
