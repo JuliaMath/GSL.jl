@@ -50,10 +50,11 @@ custom_gsl_error_handler = try
     convert(Ptr{gsl_error_handler_t},
         cfunction(custom_error_handler, Void, (Ptr{UInt8}, Ptr{UInt8}, Cint, Cint)
     ))
-catch exc
-    @show exc
+catch
     error("""Could not find the GNU Scientific Library.
 Please ensure that libgsl is installed on your system and is available on the system path.""")
 end
 
 set_error_handler(custom_gsl_error_handler)
+print("") #See https://github.com/JuliaLang/julia/issues/13428
+
