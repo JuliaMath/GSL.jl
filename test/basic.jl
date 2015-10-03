@@ -1,3 +1,9 @@
+using GSL
+
+if !isdefined(:VERBOSE)
+    VERBOSE = true
+end
+
 # Very basic tests
 #Check that the two forms of the special functions agree
 include("testfunctions.jl")

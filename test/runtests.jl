@@ -1,5 +1,4 @@
 using Base.Test
-using FactCheck
 using GSL
 
 const VERBOSE=true #change to show test output
