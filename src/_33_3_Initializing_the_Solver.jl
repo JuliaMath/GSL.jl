@@ -23,10 +23,10 @@ export root_fsolver_alloc, root_fdfsolver_alloc, root_fsolver_set,
 # solver then the function returns a null pointer and the error handler is
 # invoked with an error code of GSL_ENOMEM.
 # 
-#   Returns: Ref{gsl_root_fsolver}
+#   Returns: Ptr{gsl_root_fsolver}
 function root_fsolver_alloc(T::Ref{gsl_root_fsolver_type})
     output_ptr = ccall( (:gsl_root_fsolver_alloc, libgsl),
-        Ref{gsl_root_fsolver}, (Ref{gsl_root_fsolver_type}, ), T )
+        Ptr{gsl_root_fsolver}, (Ref{gsl_root_fsolver_type}, ), T )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -39,10 +39,10 @@ end
 # is insufficient memory to create the solver then the function returns a null
 # pointer and the error handler is invoked with an error code of GSL_ENOMEM.
 # 
-#   Returns: Ref{gsl_root_fdfsolver}
+#   Returns: Ptr{gsl_root_fdfsolver}
 function root_fdfsolver_alloc(T::Ref{gsl_root_fdfsolver_type})
     output_ptr = ccall( (:gsl_root_fdfsolver_alloc, libgsl),
-        Ref{gsl_root_fdfsolver}, (Ref{gsl_root_fdfsolver_type}, ), T )
+        Ptr{gsl_root_fdfsolver}, (Ref{gsl_root_fdfsolver_type}, ), T )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -55,7 +55,10 @@ function root_fsolver_set(s::Ref{gsl_root_fsolver}, f::Ref{gsl_function}, x_lowe
     errno = ccall( (:gsl_root_fsolver_set, libgsl), Cint,
         (Ref{gsl_root_fsolver}, Ref{gsl_function}, Cdouble, Cdouble), s, f,
         x_lower, x_upper )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
+    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+        throw(GSL_ERROR(errno))
+    end
+    return errno
 end
 
 
@@ -67,7 +70,10 @@ function root_fdfsolver_set(s::Ref{gsl_root_fdfsolver}, fdf::Ref{gsl_function_fd
     errno = ccall( (:gsl_root_fdfsolver_set, libgsl), Cint,
         (Ref{gsl_root_fdfsolver}, Ref{gsl_function_fdf}, Cdouble), s, fdf, root
         )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
+    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+        throw(GSL_ERROR(errno))
+    end
+    return errno
 end
 
 
@@ -93,10 +99,10 @@ end
 # printf ("s is a '%s' solver\n",                   gsl_root_fsolver_name (s));
 # would print something like s is a 'bisection' solver.
 # 
-#   Returns: Ref{Cchar}
+#   Returns: Ptr{Cchar}
 function root_fsolver_name(s::Ref{gsl_root_fsolver})
     output_string = output_ptr = ccall( (:gsl_root_fsolver_name, libgsl),
-        Ref{Cchar}, (Ref{gsl_root_fsolver}, ), s )
+        Ptr{Cchar}, (Ref{gsl_root_fsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(output_string)
 end
@@ -106,10 +112,10 @@ end
 # printf ("s is a '%s' solver\n",                   gsl_root_fsolver_name (s));
 # would print something like s is a 'bisection' solver.
 # 
-#   Returns: Ref{Cchar}
+#   Returns: Ptr{Cchar}
 function root_fdfsolver_name(s::Ref{gsl_root_fdfsolver})
     output_string = output_ptr = ccall( (:gsl_root_fdfsolver_name,
-        libgsl), Ref{Cchar}, (Ref{gsl_root_fdfsolver}, ), s )
+        libgsl), Ptr{Cchar}, (Ref{gsl_root_fdfsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(output_string)
 end

@@ -31,7 +31,10 @@ export root_test_interval, root_test_delta, root_test_residual
 function root_test_interval(x_lower::Real, x_upper::Real, epsabs::Real, epsrel::Real)
     errno = ccall( (:gsl_root_test_interval, libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Cdouble), x_lower, x_upper, epsabs, epsrel )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
+    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+        throw(GSL_ERROR(errno))
+    end
+    return errno
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number root_test_interval
@@ -46,7 +49,10 @@ end
 function root_test_delta(x1::Real, x0::Real, epsabs::Real, epsrel::Real)
     errno = ccall( (:gsl_root_test_delta, libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Cdouble), x1, x0, epsabs, epsrel )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
+    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+        throw(GSL_ERROR(errno))
+    end
+    return errno
 end
 #TODO This vectorization macro is not implemented
 #@vectorize_4arg Number root_test_delta
@@ -62,6 +68,9 @@ end
 function root_test_residual(f::Real, epsabs::Real)
     errno = ccall( (:gsl_root_test_residual, libgsl), Cint, (Cdouble,
         Cdouble), f, epsabs )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
+    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+        throw(GSL_ERROR(errno))
+    end
+    return errno
 end
 @vectorize_2arg Number root_test_residual

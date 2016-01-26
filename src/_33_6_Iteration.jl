@@ -17,12 +17,13 @@ export root_fsolver_iterate, root_fdfsolver_iterate, root_fdfsolver_iterate,
 # from continuing without a division by zero.
 # 
 #   Returns: Cint
-function root_fsolver_iterate()
-    s = Ref{gsl_root_fsolver}()
+function root_fsolver_iterate(s::Ptr{gsl_root_solver})
     errno = ccall( (:gsl_root_fsolver_iterate, libgsl), Cint,
-        (Ref{gsl_root_fsolver}, ), s )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
-    return s[]
+        (Ptr{gsl_root_fsolver}, ), s )
+    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+        throw(GSL_ERROR(errno))
+    end
+    return errno
 end
 
 
@@ -34,58 +35,47 @@ end
 # from continuing without a division by zero.
 # 
 #   Returns: Cint
-function root_fdfsolver_iterate()
-    s = Ref{gsl_root_fdfsolver}()
+function root_fdfsolver_iterate(Ptr{gsl_root_fdfsolver})
     errno = ccall( (:gsl_root_fdfsolver_iterate, libgsl), Cint,
-        (Ref{gsl_root_fdfsolver}, ), s )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
-    return s[]
-end
-
-
-# These functions return the current estimate of the root for the solver s.
-# 
-#   Returns: Cint
-function root_fdfsolver_iterate()
-    s = Ref{gsl_root_fdfsolver}()
-    errno = ccall( (:gsl_root_fdfsolver_iterate, libgsl), Cint,
-        (Ref{gsl_root_fdfsolver}, ), s )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
-    return s[]
+        (Ptr{gsl_root_fdfsolver}, ), s )
+    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+        throw(GSL_ERROR(errno))
+    end
+    return errno
 end
 
 
 # These functions return the current estimate of the root for the solver s.
 # 
 #   Returns: Cdouble
-function root_fsolver_root(s::Ref{gsl_root_fsolver})
+function root_fsolver_root(s::Ptr{gsl_root_fsolver})
     ccall( (:gsl_root_fsolver_root, libgsl), Cdouble,
-        (Ref{gsl_root_fsolver}, ), s )
+        (Ptr{gsl_root_fsolver}, ), s )
 end
 
 
 # These functions return the current estimate of the root for the solver s.
 # 
 #   Returns: Cdouble
-function root_fdfsolver_root(s::Ref{gsl_root_fdfsolver})
+function root_fdfsolver_root(s::Ptr{gsl_root_fdfsolver})
     ccall( (:gsl_root_fdfsolver_root, libgsl), Cdouble,
-        (Ref{gsl_root_fdfsolver}, ), s )
+        (Ptr{gsl_root_fdfsolver}, ), s )
 end
 
 
 # These functions return the current bracketing interval for the solver s.
 # 
 #   Returns: Cdouble
-function root_fsolver_x_lower(s::Ref{gsl_root_fsolver})
+function root_fsolver_x_lower(s::Ptr{gsl_root_fsolver})
     ccall( (:gsl_root_fsolver_x_lower, libgsl), Cdouble,
-        (Ref{gsl_root_fsolver}, ), s )
+        (Ptr{gsl_root_fsolver}, ), s )
 end
 
 
 # These functions return the current bracketing interval for the solver s.
 # 
 #   Returns: Cdouble
-function root_fsolver_x_upper(s::Ref{gsl_root_fsolver})
+function root_fsolver_x_upper(s::Ptr{gsl_root_fsolver})
     ccall( (:gsl_root_fsolver_x_upper, libgsl), Cdouble,
-        (Ref{gsl_root_fsolver}, ), s )
+        (Ptr{gsl_root_fsolver}, ), s )
 end
