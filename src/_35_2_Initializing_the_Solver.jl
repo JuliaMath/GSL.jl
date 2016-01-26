@@ -62,7 +62,10 @@ function multiroot_fsolver_set(s::Ptr{gsl_multiroot_fsolver}, f::Ptr{gsl_multiro
     errno = ccall( (:gsl_multiroot_fsolver_set, libgsl), Cint,
         (Ptr{gsl_multiroot_fsolver}, Ptr{gsl_multiroot_function},
         Ptr{gsl_vector}), s, f, x )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
+    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+        throw(GSL_ERROR(errno))
+    end
+    return errno
 end
 
 
