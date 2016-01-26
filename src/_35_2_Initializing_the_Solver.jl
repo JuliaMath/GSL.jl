@@ -25,10 +25,10 @@ export multiroot_fsolver_alloc, multiroot_fdfsolver_alloc,
 # create the solver then the function returns a null pointer and the error
 # handler is invoked with an error code of GSL_ENOMEM.
 # 
-#   Returns: Ref{gsl_multiroot_fsolver}
+#   Returns: Ptr{gsl_multiroot_fsolver}
 function multiroot_fsolver_alloc(T::Ref{gsl_multiroot_fsolver_type}, n::Integer)
     output_ptr = ccall( (:gsl_multiroot_fsolver_alloc, libgsl),
-        Ref{gsl_multiroot_fsolver}, (Ref{gsl_multiroot_fsolver_type}, Csize_t),
+        Ptr{gsl_multiroot_fsolver}, (Ref{gsl_multiroot_fsolver_type}, Csize_t),
         T, n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -43,10 +43,10 @@ end
 # create the solver then the function returns a null pointer and the error
 # handler is invoked with an error code of GSL_ENOMEM.
 # 
-#   Returns: Ref{gsl_multiroot_fdfsolver}
+#   Returns: Ptr{gsl_multiroot_fdfsolver}
 function multiroot_fdfsolver_alloc(T::Ref{gsl_multiroot_fdfsolver_type}, n::Integer)
     output_ptr = ccall( (:gsl_multiroot_fdfsolver_alloc, libgsl),
-        Ref{gsl_multiroot_fdfsolver}, (Ref{gsl_multiroot_fdfsolver_type},
+        Ptr{gsl_multiroot_fdfsolver}, (Ref{gsl_multiroot_fdfsolver_type},
         Csize_t), T, n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -58,10 +58,10 @@ end
 # iterations.
 # 
 #   Returns: Cint
-function multiroot_fsolver_set(s::Ref{gsl_multiroot_fsolver}, f::Ref{gsl_multiroot_function}, x::Ref{gsl_vector})
+function multiroot_fsolver_set(s::Ptr{gsl_multiroot_fsolver}, f::Ptr{gsl_multiroot_function}, x::Ptr{gsl_vector})
     errno = ccall( (:gsl_multiroot_fsolver_set, libgsl), Cint,
-        (Ref{gsl_multiroot_fsolver}, Ref{gsl_multiroot_function},
-        Ref{gsl_vector}), s, f, x )
+        (Ptr{gsl_multiroot_fsolver}, Ptr{gsl_multiroot_function},
+        Ptr{gsl_vector}), s, f, x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
 
@@ -72,11 +72,14 @@ end
 # iterations.
 # 
 #   Returns: Cint
-function multiroot_fdfsolver_set(s::Ref{gsl_multiroot_fdfsolver}, fdf::Ref{gsl_multiroot_function_fdf}, x::Ref{gsl_vector})
+function multiroot_fdfsolver_set(s::Ptr{gsl_multiroot_fdfsolver}, fdf::Ptr{gsl_multiroot_function_fdf}, x::Ptr{gsl_vector})
     errno = ccall( (:gsl_multiroot_fdfsolver_set, libgsl), Cint,
-        (Ref{gsl_multiroot_fdfsolver}, Ref{gsl_multiroot_function_fdf},
-        Ref{gsl_vector}), s, fdf, x )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
+        (Ptr{gsl_multiroot_fdfsolver}, Ptr{gsl_multiroot_function_fdf},
+        Ptr{gsl_vector}), s, fdf, x )
+    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+        throw(GSL_ERROR(errno))
+    end
+    return errno
 end
 
 
@@ -103,10 +106,10 @@ end
 # gsl_multiroot_fdfsolver_name (s));  would print something like s is a
 # 'newton' solver.
 # 
-#   Returns: Ref{Cchar}
+#   Returns: Ptr{Cchar}
 function multiroot_fsolver_name(s::Ref{gsl_multiroot_fsolver})
     output_string = output_ptr = ccall( (:gsl_multiroot_fsolver_name,
-        libgsl), Ref{Cchar}, (Ref{gsl_multiroot_fsolver}, ), s )
+        libgsl), Ptr{Cchar}, (Ref{gsl_multiroot_fsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(output_string)
 end
@@ -117,10 +120,10 @@ end
 # gsl_multiroot_fdfsolver_name (s));  would print something like s is a
 # 'newton' solver.
 # 
-#   Returns: Ref{Cchar}
+#   Returns: Ptr{Cchar}
 function multiroot_fdfsolver_name(s::Ref{gsl_multiroot_fdfsolver})
     output_string = output_ptr = ccall( (:gsl_multiroot_fdfsolver_name,
-        libgsl), Ref{Cchar}, (Ref{gsl_multiroot_fdfsolver}, ), s )
+        libgsl), Ptr{Cchar}, (Ref{gsl_multiroot_fdfsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(output_string)
 end

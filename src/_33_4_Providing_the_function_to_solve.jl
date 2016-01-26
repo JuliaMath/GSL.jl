@@ -14,14 +14,14 @@ export gsl_function, gsl_function_fdf
 
 
 type gsl_function
-    function_::Ref{Void}
-    params::Ref{Void}
+    function_::Ptr{Void}
+    params::Ptr{Void}
 end
 
 
 type gsl_function_fdf
-    f::Ref{Void}
-    df::Ref{Void}
-    fdf::Ref{Void}
-    params::Ref{Void}
+    f::Ptr{Void}
+    df::Ptr{Void}
+    fdf::Ptr{Void}
+    params::Ptr{Void}
 end

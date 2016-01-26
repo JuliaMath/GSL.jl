@@ -22,7 +22,10 @@ function multiroot_test_delta(dx::Ref{gsl_vector}, x::Ref{gsl_vector}, epsabs::R
     errno = ccall( (:gsl_multiroot_test_delta, libgsl), Cint,
         (Ref{gsl_vector}, Ref{gsl_vector}, Cdouble, Cdouble), dx, x, epsabs,
         epsrel )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
+    iif gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+        throw(GSL_ERROR(errno))
+    end
+    return errno
 end
 
 
@@ -36,5 +39,8 @@ end
 function multiroot_test_residual(f::Ref{gsl_vector}, epsabs::Real)
     errno = ccall( (:gsl_multiroot_test_residual, libgsl), Cint,
         (Ref{gsl_vector}, Cdouble), f, epsabs )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
+    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+        throw(GSL_ERROR(errno))
+    end
+    return errno
 end

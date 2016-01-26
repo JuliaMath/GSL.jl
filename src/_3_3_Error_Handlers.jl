@@ -31,10 +31,10 @@ end
 # behavior (abort on error) set the error handler to NULL,
 # old_handler = gsl_set_error_handler (NULL);
 # 
-#   Returns: Ref{gsl_error_handler_t}
+#   Returns: Ptr{gsl_error_handler_t}
 function set_error_handler(new_handler::Ref{gsl_error_handler_t})
     output_ptr = ccall( (:gsl_set_error_handler, libgsl),
-        Ref{gsl_error_handler_t}, (Ref{gsl_error_handler_t}, ), new_handler )
+        Ptr{gsl_error_handler_t}, (Ref{gsl_error_handler_t}, ), new_handler )
 end
 
 
@@ -44,8 +44,8 @@ end
 # recommended behavior for production programs.  The previous handler is
 # returned (so that you can restore it later).
 # 
-#   Returns: Ref{gsl_error_handler_t}
+#   Returns: Ptr{gsl_error_handler_t}
 function set_error_handler_off()
     output_ptr = ccall( (:gsl_set_error_handler_off, libgsl),
-        Ref{gsl_error_handler_t}, () )
+        Ptr{gsl_error_handler_t}, () )
 end
