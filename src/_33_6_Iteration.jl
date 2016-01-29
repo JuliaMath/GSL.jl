@@ -17,7 +17,7 @@ export root_fsolver_iterate, root_fdfsolver_iterate, root_fdfsolver_iterate,
 # from continuing without a division by zero.
 # 
 #   Returns: Cint
-function root_fsolver_iterate(s::Ptr{gsl_root_solver})
+function root_fsolver_iterate(s::Ptr{gsl_root_fsolver})
     errno = ccall( (:gsl_root_fsolver_iterate, libgsl), Cint,
         (Ptr{gsl_root_fsolver}, ), s )
     if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
