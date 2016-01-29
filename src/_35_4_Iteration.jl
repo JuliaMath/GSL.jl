@@ -34,7 +34,7 @@ end
 # is not making any progress, preventing the algorithm from continuing.
 # 
 #   Returns: Cint
-function multiroot_fdfsolver_iterate(s::Ptr{gsl_multiroot_fdfsolver}())
+function multiroot_fdfsolver_iterate(s::Ptr{gsl_multiroot_fdfsolver})
     errno = ccall( (:gsl_multiroot_fdfsolver_iterate, libgsl), Cint,
         (Ptr{gsl_multiroot_fdfsolver}, ), s )
     if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
