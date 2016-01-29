@@ -35,7 +35,7 @@ end
 # from continuing without a division by zero.
 # 
 #   Returns: Cint
-function root_fdfsolver_iterate(Ptr{gsl_root_fdfsolver})
+function root_fdfsolver_iterate(s::Ptr{gsl_root_fdfsolver})
     errno = ccall( (:gsl_root_fdfsolver_iterate, libgsl), Cint,
         (Ptr{gsl_root_fdfsolver}, ), s )
     if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
