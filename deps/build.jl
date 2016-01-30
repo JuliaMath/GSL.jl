@@ -35,6 +35,12 @@ provides(BuildProcess, Autotools(libtarget = "libgsl.la"), libgsl)
 @show splitdir(Base.source_path())
 @show splitdir(Base.source_path())[1]
 
+try
 @BinDeps.install Dict(:libgsl => :libgsl)
+catch
+    @show readdir(dirname(Base.source_path()))
+end
+
+
 @show "done BinDeps.install"
 
