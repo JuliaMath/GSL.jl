@@ -18,13 +18,13 @@ export deriv_central, deriv_forward, deriv_backward
 # corresponding 3-point rule x-h, x, x+h.  Note that the value of the function
 # at x does not contribute to the derivative calculation, so only 4-points are
 # actually used.
-# 
+#
 #   Returns: Cint
-function deriv_central(f::Ref{gsl_function}, x::Real, h::Real)
+function deriv_central(f::gsl_function, x::Real, h::Real)
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
-    errno = ccall( (:gsl_deriv_central, libgsl), Cint, (Ref{gsl_function},
-        Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f, x, h, result, abserr
+    errno = ccall( (:gsl_deriv_central, libgsl), Cint, (Ptr{gsl_function},
+        Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), &f, x, h, result, abserr
         )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[], abserr[]
@@ -43,13 +43,13 @@ end
 # for equally spaced abscissae at x+h/4, x+h/2, x+3h/4, x+h, with an error
 # estimate taken from the difference between the 4-point rule and the
 # corresponding 2-point rule x+h/2, x+h.
-# 
+#
 #   Returns: Cint
-function deriv_forward(f::Ref{gsl_function}, x::Real, h::Real)
+function deriv_forward(f::gsl_function, x::Real, h::Real)
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
-    errno = ccall( (:gsl_deriv_forward, libgsl), Cint, (Ref{gsl_function},
-        Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f, x, h, result, abserr
+    errno = ccall( (:gsl_deriv_forward, libgsl), Cint, (Ptr{gsl_function},
+        Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), &f, x, h, result, abserr
         )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[], abserr[]
@@ -64,14 +64,15 @@ end
 # discontinuity at x, or is undefined for values greater than x.          This
 # function is equivalent to calling gsl_deriv_forward with a negative step-
 # size.
-# 
+#
 #   Returns: Cint
-function deriv_backward(f::Ref{gsl_function}, x::Real, h::Real)
+function deriv_backward(f::gsl_function, x::Real, h::Real)
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
     errno = ccall( (:gsl_deriv_backward, libgsl), Cint,
-        (Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f,
+        (Ptr{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), &f,
         x, h, result, abserr )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[], abserr[]
 end
+
