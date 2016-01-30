@@ -8,5 +8,6 @@ include("basic.jl")
 
 #XXX doesn't work anymore?
 #include("9_Permutations.jl")
+include("7_24_1_Legendre_Polynomials.jl")
 include("28_Numerical_Differentiation.jl")
 include("HypergeometricFunctions.jl")

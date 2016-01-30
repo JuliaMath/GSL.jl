@@ -13,7 +13,7 @@ export sf_legendre_P1, sf_legendre_P2, sf_legendre_P3, sf_legendre_P1_e,
 
 # These functions evaluate the Legendre polynomials  P_l(x) using explicit
 # representations for l=1, 2, 3.
-# 
+#
 #   Returns: Cdouble
 function sf_legendre_P1(x::Real)
     ccall( (:gsl_sf_legendre_P1, libgsl), Cdouble, (Cdouble, ), x )
@@ -23,7 +23,7 @@ end
 
 # These functions evaluate the Legendre polynomials  P_l(x) using explicit
 # representations for l=1, 2, 3.
-# 
+#
 #   Returns: Cdouble
 function sf_legendre_P2(x::Real)
     ccall( (:gsl_sf_legendre_P2, libgsl), Cdouble, (Cdouble, ), x )
@@ -33,7 +33,7 @@ end
 
 # These functions evaluate the Legendre polynomials  P_l(x) using explicit
 # representations for l=1, 2, 3.
-# 
+#
 #   Returns: Cdouble
 function sf_legendre_P3(x::Real)
     ccall( (:gsl_sf_legendre_P3, libgsl), Cdouble, (Cdouble, ), x )
@@ -43,7 +43,7 @@ end
 
 # These functions evaluate the Legendre polynomials  P_l(x) using explicit
 # representations for l=1, 2, 3.
-# 
+#
 #   Returns: Cint
 function sf_legendre_P1_e(x::Real)
     result = Ref{gsl_sf_result}()
@@ -57,7 +57,7 @@ end
 
 # These functions evaluate the Legendre polynomials  P_l(x) using explicit
 # representations for l=1, 2, 3.
-# 
+#
 #   Returns: Cint
 function sf_legendre_P2_e(x::Real)
     result = Ref{gsl_sf_result}()
@@ -71,7 +71,7 @@ end
 
 # These functions evaluate the Legendre polynomials  P_l(x) using explicit
 # representations for l=1, 2, 3.
-# 
+#
 #   Returns: Cint
 function sf_legendre_P3_e(x::Real)
     result = Ref{gsl_sf_result}()
@@ -85,7 +85,7 @@ end
 
 # These functions evaluate the Legendre polynomial  P_l(x) for a specific value
 # of l, x subject to  l >= 0,  |x| <= 1
-# 
+#
 #   Returns: Cdouble
 function sf_legendre_Pl(l::Integer, x::Real)
     ccall( (:gsl_sf_legendre_Pl, libgsl), Cdouble, (Cint, Cdouble), l, x )
@@ -95,7 +95,7 @@ end
 
 # These functions evaluate the Legendre polynomial  P_l(x) for a specific value
 # of l, x subject to  l >= 0,  |x| <= 1
-# 
+#
 #   Returns: Cint
 function sf_legendre_Pl_e(l::Integer, x::Real)
     result = Ref{gsl_sf_result}()
@@ -109,34 +109,34 @@ end
 
 # These functions compute arrays of Legendre polynomials P_l(x) and derivatives
 # dP_l(x)/dx, for l = 0, \dots, lmax,  |x| <= 1
-# 
+#
 #   Returns: Cint
 function sf_legendre_Pl_array(lmax::Integer, x::Real)
-    result_array = Ref{Cdouble}()
+    result_array = Array(Cdouble, lmax+1)
     errno = ccall( (:gsl_sf_legendre_Pl_array, libgsl), Cint, (Cint,
-        Cdouble, Cdouble), lmax, x, result_array )
+        Cdouble, Ref{Cdouble}), lmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return result_array[][1]
+    return result_array
 end
 @vectorize_2arg Number sf_legendre_Pl_array
 
 
 # These functions compute arrays of Legendre polynomials P_l(x) and derivatives
 # dP_l(x)/dx, for l = 0, \dots, lmax,  |x| <= 1
-# 
+#
 #   Returns: Cint
 function sf_legendre_Pl_deriv_array(lmax::Integer, x::Real)
-    result_array = Ref{Cdouble}()
+    result_array = Array(Cdouble, lmax+1)
     errno = ccall( (:gsl_sf_legendre_Pl_deriv_array, libgsl), Cint, (Cint,
-        Cdouble, Cdouble), lmax, x, result_array )
+        Cdouble, Ref{Cdouble}), lmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return result_array[][1]
+    return result_array
 end
 @vectorize_2arg Number sf_legendre_Pl_deriv_array
 
 
 # These routines compute the Legendre function Q_0(x) for x > -1,  x != 1.
-# 
+#
 #   Returns: Cdouble
 function sf_legendre_Q0(x::Real)
     ccall( (:gsl_sf_legendre_Q0, libgsl), Cdouble, (Cdouble, ), x )
@@ -145,7 +145,7 @@ end
 
 
 # These routines compute the Legendre function Q_0(x) for x > -1,  x != 1.
-# 
+#
 #   Returns: Cint
 function sf_legendre_Q0_e(x::Real)
     result = Ref{gsl_sf_result}()
@@ -158,7 +158,7 @@ end
 
 
 # These routines compute the Legendre function Q_1(x) for x > -1,  x != 1.
-# 
+#
 #   Returns: Cdouble
 function sf_legendre_Q1(x::Real)
     ccall( (:gsl_sf_legendre_Q1, libgsl), Cdouble, (Cdouble, ), x )
@@ -167,7 +167,7 @@ end
 
 
 # These routines compute the Legendre function Q_1(x) for x > -1,  x != 1.
-# 
+#
 #   Returns: Cint
 function sf_legendre_Q1_e(x::Real)
     result = Ref{gsl_sf_result}()
@@ -181,7 +181,7 @@ end
 
 # These routines compute the Legendre function Q_l(x) for x > -1,  x != 1 and
 # l >= 0.
-# 
+#
 #   Returns: Cdouble
 function sf_legendre_Ql(l::Integer, x::Real)
     ccall( (:gsl_sf_legendre_Ql, libgsl), Cdouble, (Cint, Cdouble), l, x )
@@ -191,7 +191,7 @@ end
 
 # These routines compute the Legendre function Q_l(x) for x > -1,  x != 1 and
 # l >= 0.
-# 
+#
 #   Returns: Cint
 function sf_legendre_Ql_e(l::Integer, x::Real)
     result = Ref{gsl_sf_result}()
