@@ -12,8 +12,6 @@ provides(AptGet,
 provides(Yum, "gsl-devel", libgsl)
 provides(Pacman, "gsl", libgsl)
 
-@show 1
-
 @osx_only begin
     if Pkg.installed("Homebrew") === nothing
         error("Homebrew package not installed, please run Pkg.add(\"Homebrew\")")
@@ -27,14 +25,16 @@ end
      provides(WinRPM.RPM, "gsl", libgsl, os = :Windows)
 end
 
-@show 4
-
 # build from source
 provides(Sources, URI("http://ftp.gnu.org/gnu/gsl/gsl-1.16.tar.gz"), libgsl)
 provides(BuildProcess, Autotools(libtarget = "libgsl.la"), libgsl)
 
-@show 5
+@show "begin BinDeps.install"
+
+@show Base.source_path()
+@show splitdir(Base.source_path())
+@show splitdir(Base.source_path())[1]
 
 @BinDeps.install Dict(:libgsl => :libgsl)
-@show 6
+@show "done BinDeps.install"
 
