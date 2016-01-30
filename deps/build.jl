@@ -1,12 +1,14 @@
 using BinDeps
-using Compat
 
 @BinDeps.setup
 
 libgsl = library_dependency("libgsl", aliases="libgsl-0")
 
 # package managers
-provides(AptGet, @compat Dict("libgsl0ldbl"=>libgsl, "libgsl0-dev" =>libgsl, "gsl-bin"=>libgsl))
+provides(AptGet,
+    Dict("libgsl0ldbl"=>libgsl,
+         "libgsl0-dev"=>libgsl,
+         "gsl-bin"=>libgsl))
 provides(Yum, "gsl-devel", libgsl)
 provides(Pacman, "gsl", libgsl)
 
@@ -27,5 +29,18 @@ end
 provides(Sources, URI("http://ftp.gnu.org/gnu/gsl/gsl-1.16.tar.gz"), libgsl)
 provides(BuildProcess, Autotools(libtarget = "libgsl.la"), libgsl)
 
-@BinDeps.install @compat Dict(:libgsl => :libgsl)
+@show "begin BinDeps.install"
+
+@show Base.source_path()
+@show splitdir(Base.source_path())
+@show splitdir(Base.source_path())[1]
+
+try
+@BinDeps.install Dict(:libgsl => :libgsl)
+catch
+    @show readdir(dirname(Base.source_path()))
+end
+
+
+@show "done BinDeps.install"
 
