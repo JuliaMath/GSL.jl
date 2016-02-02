@@ -38,5 +38,5 @@ function multiroot_test_residual(f::Ref{gsl_vector}, epsabs::Real)
     if gslerrno != SUCCESS && gslerrno != CONTINUE
         throw(GSL_ERROR(errno))
     end
-    gslerrno
+    errno
 end
