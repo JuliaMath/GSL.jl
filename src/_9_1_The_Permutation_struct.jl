@@ -6,8 +6,7 @@
 ##############################
 export gsl_permutation
 
-
 type gsl_permutation
     size::Csize_t
-    data::Ref{Csize_t}
+    data::Ptr{Csize_t}
 end

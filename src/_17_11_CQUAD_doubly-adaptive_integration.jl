@@ -13,18 +13,18 @@ export integration_cquad_workspace_alloc, integration_cquad_workspace_free,
 # evaluated. If the workspace is full, intervals with smaller error estimates
 # will be discarded. A minimum of 3 intervals is required and or most
 # functions, a workspace of size 100 is sufficient.
-# 
-#   Returns: Ref{gsl_integration_cquad_workspace}
+#
+#   Returns: Ptr{gsl_integration_cquad_workspace}
 function integration_cquad_workspace_alloc(n::Integer)
     output_ptr = ccall( (:gsl_integration_cquad_workspace_alloc, libgsl),
-        Ref{gsl_integration_cquad_workspace}, (Csize_t, ), n )
+        Ptr{gsl_integration_cquad_workspace}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number integration_cquad_workspace_alloc
 
 
 # This function frees the memory associated with the workspace w.
-# 
+#
 #   Returns: Void
 function integration_cquad_workspace_free(w::Ref{gsl_integration_cquad_workspace})
     ccall( (:gsl_integration_cquad_workspace_free, libgsl), Void,
@@ -49,7 +49,7 @@ end
 # in the memory provided by workspace. If the error estimate or the number of
 # function evaluations is not needed, the pointers abserr and nevals can be set
 # to NULL.
-# 
+#
 #   Returns: Cint
 function integration_cquad(f::Ref{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real)
     workspace = Ref{gsl_integration_cquad_workspace}()

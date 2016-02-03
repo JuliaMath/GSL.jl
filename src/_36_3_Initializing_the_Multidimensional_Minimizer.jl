@@ -9,18 +9,15 @@ export multimin_fdfminimizer_alloc, multimin_fminimizer_alloc,
        multimin_fminimizer_free, multimin_fdfminimizer_name,
        multimin_fminimizer_name
 
-
-
-
 # This function returns a pointer to a newly allocated instance of a minimizer
 # of type T for an n-dimension function.  If there is insufficient memory to
 # create the minimizer then the function returns a null pointer and the error
 # handler is invoked with an error code of GSL_ENOMEM.
-# 
-#   Returns: Ref{gsl_multimin_fdfminimizer}
+#
+#   Returns: Ptr{gsl_multimin_fdfminimizer}
 function multimin_fdfminimizer_alloc(T::Ref{gsl_multimin_fdfminimizer_type}, n::Integer)
     output_ptr = ccall( (:gsl_multimin_fdfminimizer_alloc, libgsl),
-        Ref{gsl_multimin_fdfminimizer}, (Ref{gsl_multimin_fdfminimizer_type},
+        Ptr{gsl_multimin_fdfminimizer}, (Ref{gsl_multimin_fdfminimizer_type},
         Csize_t), T, n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -30,11 +27,11 @@ end
 # of type T for an n-dimension function.  If there is insufficient memory to
 # create the minimizer then the function returns a null pointer and the error
 # handler is invoked with an error code of GSL_ENOMEM.
-# 
-#   Returns: Ref{gsl_multimin_fminimizer}
+#
+#   Returns: Ptr{gsl_multimin_fminimizer}
 function multimin_fminimizer_alloc(T::Ref{gsl_multimin_fminimizer_type}, n::Integer)
     output_ptr = ccall( (:gsl_multimin_fminimizer_alloc, libgsl),
-        Ref{gsl_multimin_fminimizer}, (Ref{gsl_multimin_fminimizer_type},
+        Ptr{gsl_multimin_fminimizer}, (Ref{gsl_multimin_fminimizer_type},
         Csize_t), T, n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -56,7 +53,7 @@ end
 # f, starting from the initial point x. The size of the initial trial steps is
 # given in vector step_size. The precise meaning of this parameter depends on
 # the method used.
-# 
+#
 #   Returns: Cint
 function multimin_fdfminimizer_set(s::Ref{gsl_multimin_fdfminimizer}, fdf::Ref{gsl_multimin_function_fdf}, x::Ref{gsl_vector}, step_size::Real, tol::Real)
     errno = ccall( (:gsl_multimin_fdfminimizer_set, libgsl), Cint,
@@ -67,7 +64,7 @@ end
 
 
 # This function frees all the memory associated with the minimizer s.
-# 
+#
 #   Returns: Void
 function multimin_fdfminimizer_free(s::Ref{gsl_multimin_fdfminimizer})
     ccall( (:gsl_multimin_fdfminimizer_free, libgsl), Void,
@@ -76,7 +73,7 @@ end
 
 
 # This function frees all the memory associated with the minimizer s.
-# 
+#
 #   Returns: Void
 function multimin_fminimizer_free(s::Ref{gsl_multimin_fminimizer})
     ccall( (:gsl_multimin_fminimizer_free, libgsl), Void,
@@ -88,11 +85,11 @@ end
 # printf ("s is a '%s' minimizer\n",
 # gsl_multimin_fdfminimizer_name (s));  would print something like s is a
 # 'conjugate_pr' minimizer.
-# 
-#   Returns: Ref{Cchar}
+#
+#   Returns: Ptr{Cchar}
 function multimin_fdfminimizer_name(s::Ref{gsl_multimin_fdfminimizer})
     output_string = output_ptr = ccall( (:gsl_multimin_fdfminimizer_name,
-        libgsl), Ref{Cchar}, (Ref{gsl_multimin_fdfminimizer}, ), s )
+        libgsl), Ptr{Cchar}, (Ref{gsl_multimin_fdfminimizer}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(output_string)
 end
@@ -102,11 +99,11 @@ end
 # printf ("s is a '%s' minimizer\n",
 # gsl_multimin_fdfminimizer_name (s));  would print something like s is a
 # 'conjugate_pr' minimizer.
-# 
-#   Returns: Ref{Cchar}
+#
+#   Returns: Ptr{Cchar}
 function multimin_fminimizer_name(s::Ref{gsl_multimin_fminimizer})
     output_string = output_ptr = ccall( (:gsl_multimin_fminimizer_name,
-        libgsl), Ref{Cchar}, (Ref{gsl_multimin_fminimizer}, ), s )
+        libgsl), Ptr{Cchar}, (Ref{gsl_multimin_fminimizer}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(output_string)
 end

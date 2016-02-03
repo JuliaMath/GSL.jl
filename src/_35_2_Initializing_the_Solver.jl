@@ -9,13 +9,6 @@ export multiroot_fsolver_alloc, multiroot_fdfsolver_alloc,
        multiroot_fdfsolver_free, multiroot_fsolver_name,
        multiroot_fdfsolver_name
 
-
-
-
-
-
-
-
 # This function returns a pointer to a newly allocated instance of a solver of
 # type T for a system of n dimensions.  For example, the following code creates
 # an instance of a hybrid solver, to solve a 3-dimensional system of equations.
@@ -24,7 +17,7 @@ export multiroot_fsolver_alloc, multiroot_fdfsolver_alloc,
 # = gsl_multiroot_fsolver_alloc (T, 3);  If there is insufficient memory to
 # create the solver then the function returns a null pointer and the error
 # handler is invoked with an error code of GSL_ENOMEM.
-# 
+#
 #   Returns: Ptr{gsl_multiroot_fsolver}
 function multiroot_fsolver_alloc(T::Ref{gsl_multiroot_fsolver_type}, n::Integer)
     output_ptr = ccall( (:gsl_multiroot_fsolver_alloc, libgsl),
@@ -42,7 +35,7 @@ end
 # gsl_multiroot_fdfsolver_alloc (T, 2);  If there is insufficient memory to
 # create the solver then the function returns a null pointer and the error
 # handler is invoked with an error code of GSL_ENOMEM.
-# 
+#
 #   Returns: Ptr{gsl_multiroot_fdfsolver}
 function multiroot_fdfsolver_alloc(T::Ref{gsl_multiroot_fdfsolver_type}, n::Integer)
     output_ptr = ccall( (:gsl_multiroot_fdfsolver_alloc, libgsl),
@@ -56,7 +49,7 @@ end
 # function and derivative fdf, and the initial guess x.  Note that the initial
 # position is copied from x, this argument is not modified by subsequent
 # iterations.
-# 
+#
 #   Returns: Cint
 function multiroot_fsolver_set(s::Ptr{gsl_multiroot_fsolver}, f::Ptr{gsl_multiroot_function}, x::Ptr{gsl_vector})
     errno = ccall( (:gsl_multiroot_fsolver_set, libgsl), Cint,
@@ -73,7 +66,7 @@ end
 # function and derivative fdf, and the initial guess x.  Note that the initial
 # position is copied from x, this argument is not modified by subsequent
 # iterations.
-# 
+#
 #   Returns: Cint
 function multiroot_fdfsolver_set(s::Ptr{gsl_multiroot_fdfsolver}, fdf::Ptr{gsl_multiroot_function_fdf}, x::Ptr{gsl_vector})
     errno = ccall( (:gsl_multiroot_fdfsolver_set, libgsl), Cint,
@@ -87,7 +80,7 @@ end
 
 
 # These functions free all the memory associated with the solver s.
-# 
+#
 #   Returns: Void
 function multiroot_fsolver_free(s::Ref{gsl_multiroot_fsolver})
     ccall( (:gsl_multiroot_fsolver_free, libgsl), Void,
@@ -96,7 +89,7 @@ end
 
 
 # These functions free all the memory associated with the solver s.
-# 
+#
 #   Returns: Void
 function multiroot_fdfsolver_free(s::Ref{gsl_multiroot_fdfsolver})
     ccall( (:gsl_multiroot_fdfsolver_free, libgsl), Void,
@@ -108,7 +101,7 @@ end
 # printf ("s is a '%s' solver\n",
 # gsl_multiroot_fdfsolver_name (s));  would print something like s is a
 # 'newton' solver.
-# 
+#
 #   Returns: Ptr{Cchar}
 function multiroot_fsolver_name(s::Ref{gsl_multiroot_fsolver})
     output_string = output_ptr = ccall( (:gsl_multiroot_fsolver_name,
@@ -122,7 +115,7 @@ end
 # printf ("s is a '%s' solver\n",
 # gsl_multiroot_fdfsolver_name (s));  would print something like s is a
 # 'newton' solver.
-# 
+#
 #   Returns: Ptr{Cchar}
 function multiroot_fdfsolver_name(s::Ref{gsl_multiroot_fdfsolver})
     output_string = output_ptr = ccall( (:gsl_multiroot_fdfsolver_name,

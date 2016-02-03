@@ -8,7 +8,7 @@ export gsl_cheb_series
 
 
 type gsl_cheb_series
-    c::Ref{Cdouble}
+    c::Ptr{Cdouble}
     order::Cint
     a::Cdouble
     b::Cdouble

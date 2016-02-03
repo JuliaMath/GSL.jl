@@ -12,9 +12,9 @@ export ntuple_open
 # size size.  A pointer to memory for the current ntuple row ntuple_data must
 # be supplied—this is used to copy ntuples in and out of the file.
 #
-#   Returns: Ref{gsl_ntuple}
+#   Returns: Ptr{gsl_ntuple}
 function ntuple_open(filename_in::AbstractString, ntuple_data, size::Integer)
-    output_ptr = ccall( (:gsl_ntuple_open, libgsl), Ref{gsl_ntuple},
+    output_ptr = ccall( (:gsl_ntuple_open, libgsl), Ptr{gsl_ntuple},
         (Cstring, Ref{Void}, Csize_t), filename, ntuple_data, size )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
