@@ -55,10 +55,11 @@ function multiroot_fsolver_set(s::Ptr{gsl_multiroot_fsolver}, f::Ptr{gsl_multiro
     errno = ccall( (:gsl_multiroot_fsolver_set, libgsl), Cint,
         (Ptr{gsl_multiroot_fsolver}, Ptr{gsl_multiroot_function},
         Ptr{gsl_vector}), s, f, x )
-    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+    gslerrno = gsl_errno(errno)
+    if gslerrno != SUCCESS && gslerrno != CONTINUE
         throw(GSL_ERROR(errno))
     end
-    return errno
+    return gslerrno
 end
 
 
@@ -72,10 +73,11 @@ function multiroot_fdfsolver_set(s::Ptr{gsl_multiroot_fdfsolver}, fdf::Ptr{gsl_m
     errno = ccall( (:gsl_multiroot_fdfsolver_set, libgsl), Cint,
         (Ptr{gsl_multiroot_fdfsolver}, Ptr{gsl_multiroot_function_fdf},
         Ptr{gsl_vector}), s, fdf, x )
-    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+    gslerrno = gsl_errno(errno)
+    if gslerrno != SUCCESS && gslerrno != CONTINUE
         throw(GSL_ERROR(errno))
     end
-    return errno
+    return gslerrno
 end
 
 

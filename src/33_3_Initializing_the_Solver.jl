@@ -47,10 +47,11 @@ function root_fsolver_set(s::Ref{gsl_root_fsolver}, f::Ref{gsl_function}, x_lowe
     errno = ccall( (:gsl_root_fsolver_set, libgsl), Cint,
         (Ref{gsl_root_fsolver}, Ref{gsl_function}, Cdouble, Cdouble), s, f,
         x_lower, x_upper )
-    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+    gslerrno = gsl_errno(errno)
+    if gslerrno != SUCCESS && gslerrno != CONTINUE
         throw(GSL_ERROR(errno))
     end
-    return errno
+    return gslerrno
 end
 
 
@@ -62,52 +63,10 @@ function root_fdfsolver_set(s::Ref{gsl_root_fdfsolver}, fdf::Ref{gsl_function_fd
     errno = ccall( (:gsl_root_fdfsolver_set, libgsl), Cint,
         (Ref{gsl_root_fdfsolver}, Ref{gsl_function_fdf}, Cdouble), s, fdf, root
         )
-    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+    gslerrno = gsl_errno(errno)
+    if gslerrno != SUCCESS && gslerrno != CONTINUE
         throw(GSL_ERROR(errno))
     end
-    return errno
+    return gslerrno
 end
 
-
-# These functions free all the memory associated with the solver s.
-#
-#   Returns: Void
-function root_fsolver_free(s::Ref{gsl_root_fsolver})
-    ccall( (:gsl_root_fsolver_free, libgsl), Void, (Ref{gsl_root_fsolver},
-        ), s )
-end
-
-
-# These functions free all the memory associated with the solver s.
-#
-#   Returns: Void
-function root_fdfsolver_free(s::Ref{gsl_root_fdfsolver})
-    ccall( (:gsl_root_fdfsolver_free, libgsl), Void,
-        (Ref{gsl_root_fdfsolver}, ), s )
-end
-
-
-# These functions return a pointer to the name of the solver.  For example,
-# printf ("s is a '%s' solver\n",                   gsl_root_fsolver_name (s));
-# would print something like s is a 'bisection' solver.
-#
-#   Returns: Ptr{Cchar}
-function root_fsolver_name(s::Ref{gsl_root_fsolver})
-    output_string = output_ptr = ccall( (:gsl_root_fsolver_name, libgsl),
-        Ptr{Cchar}, (Ref{gsl_root_fsolver}, ), s )
-    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(output_string)
-end
-
-
-# These functions return a pointer to the name of the solver.  For example,
-# printf ("s is a '%s' solver\n",                   gsl_root_fsolver_name (s));
-# would print something like s is a 'bisection' solver.
-#
-#   Returns: Ptr{Cchar}
-function root_fdfsolver_name(s::Ref{gsl_root_fdfsolver})
-    output_string = output_ptr = ccall( (:gsl_root_fdfsolver_name,
-        libgsl), Ptr{Cchar}, (Ref{gsl_root_fdfsolver}, ), s )
-    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(output_string)
-end

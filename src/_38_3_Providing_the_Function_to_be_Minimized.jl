@@ -8,18 +8,18 @@ export gsl_multifit_function, gsl_multifit_function_fdf
 
 
 type gsl_multifit_function
-    f::Ref{Void}
+    f::Ptr{Void}
     n::Csize_t
     p::Csize_t
-    params::Ref{Void}
+    params::Ptr{Void}
 end
 
 
 type gsl_multifit_function_fdf
-    f::Ref{Void}
-    df::Ref{Void}
-    fdf::Ref{Void}
+    f::Ptr{Void}
+    df::Ptr{Void}
+    fdf::Ptr{Void}
     n::Csize_t
     p::Csize_t
-    params::Ref{Void}
+    params::Ptr{Void}
 end

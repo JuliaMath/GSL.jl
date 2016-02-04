@@ -6,9 +6,8 @@
 ###############################
 export gsl_combination
 
-
 type gsl_combination
     n::Csize_t
     k::Csize_t
-    data::Ref{Csize_t}
+    data::Ptr{Csize_t}
 end

@@ -20,10 +20,10 @@ export rng_alloc, rng_set, rng_free
 # environment variable GSL_RNG_SEED (see Random number environment variables).
 # The details of the available generator types are described later in this
 # chapter.
-# 
-#   Returns: Ref{gsl_rng}
+#
+#   Returns: Ptr{gsl_rng}
 function rng_alloc(T::Ref{gsl_rng_type})
-    output_ptr = ccall( (:gsl_rng_alloc, libgsl), Ref{gsl_rng},
+    output_ptr = ccall( (:gsl_rng_alloc, libgsl), Ptr{gsl_rng},
         (Ref{gsl_rng_type}, ), T )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -43,7 +43,7 @@ end
 # only accept 32-bit seeds, with higher values being reduced modulo  2^32.  For
 # generators with smaller ranges the maximum seed value will typically be
 # lower.
-# 
+#
 #   Returns: Void
 function rng_set(r::Ref{gsl_rng}, s::Integer)
     ccall( (:gsl_rng_set, libgsl), Void, (Ref{gsl_rng}, Culong), r, s )
@@ -51,7 +51,7 @@ end
 
 
 # This function frees all the memory associated with the generator r.
-# 
+#
 #   Returns: Void
 function rng_free(r::Ref{gsl_rng})
     ccall( (:gsl_rng_free, libgsl), Void, (Ref{gsl_rng}, ), r )
