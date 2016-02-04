@@ -14,11 +14,11 @@ export histogram2d_alloc, histogram2d_set_ranges,
 # available a null pointer is returned and the error handler is invoked with an
 # error code of GSL_ENOMEM. The bins and ranges must be initialized with one of
 # the functions below before the histogram is ready for use.
-#
-#   Returns: Ptr{gsl_histogram2d}
+# 
+#   Returns: Ref{gsl_histogram2d}
 function histogram2d_alloc(nx::Integer, ny::Integer)
     output_ptr = ccall( (:gsl_histogram2d_alloc, libgsl),
-        Ptr{gsl_histogram2d}, (Csize_t, Csize_t), nx, ny )
+        Ref{gsl_histogram2d}, (Csize_t, Csize_t), nx, ny )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number histogram2d_alloc
@@ -27,7 +27,7 @@ end
 # This function sets the ranges of the existing histogram h using the arrays
 # xrange and yrange of size xsize and ysize respectively.  The values of the
 # histogram bins are reset to zero.
-#
+# 
 #   Returns: Cint
 function histogram2d_set_ranges(xrange::Real)
     h = Ref{gsl_histogram2d}()
@@ -42,7 +42,7 @@ end
 # This function sets the ranges of the existing histogram h to cover the ranges
 # xmin to xmax and ymin to ymax uniformly.  The values of the histogram bins
 # are reset to zero.
-#
+# 
 #   Returns: Cint
 function histogram2d_set_ranges_uniform(xmin::Real, xmax::Real, ymin::Real, ymax::Real)
     h = Ref{gsl_histogram2d}()
@@ -58,7 +58,7 @@ end
 
 # This function frees the 2D histogram h and all of the memory associated with
 # it.
-#
+# 
 #   Returns: Void
 function histogram2d_free(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_free, libgsl), Void, (Ref{gsl_histogram2d},

@@ -11,11 +11,11 @@ export odeiv2_evolve_alloc, odeiv2_evolve_apply,
 
 # This function returns a pointer to a newly allocated instance of an evolution
 # function for a system of dim dimensions.
-#
-#   Returns: Ptr{gsl_odeiv2_evolve}
+# 
+#   Returns: Ref{gsl_odeiv2_evolve}
 function odeiv2_evolve_alloc(dim::Integer)
     output_ptr = ccall( (:gsl_odeiv2_evolve_alloc, libgsl),
-        Ptr{gsl_odeiv2_evolve}, (Csize_t, ), dim )
+        Ref{gsl_odeiv2_evolve}, (Csize_t, ), dim )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number odeiv2_evolve_alloc
@@ -43,7 +43,7 @@ end
 # successful the function returns a suggested step-size for the next step in h.
 # The maximum time t1 is guaranteed not to be exceeded by the time-step. On the
 # final time-step the value of t will be set to t1 exactly.
-#
+# 
 #   Returns: Cint
 function odeiv2_evolve_apply(sys::Ref{gsl_odeiv2_system}, t1::Real, y::Real)
     e = Ref{gsl_odeiv2_evolve}()
@@ -65,7 +65,7 @@ end
 # error estimated by the stepping function exceeds the desired error level, the
 # step is not taken and the function returns GSL_FAILURE. Otherwise the value
 # returned by user function is returned.
-#
+# 
 #   Returns: Cint
 function odeiv2_evolve_apply_fixed_step(sys::Ref{gsl_odeiv2_system}, h::Real, y::Real)
     e = Ref{gsl_odeiv2_evolve}()
@@ -83,7 +83,7 @@ end
 
 # This function resets the evolution function e.  It should be used whenever
 # the next use of e will not be a continuation of a previous step.
-#
+# 
 #   Returns: Cint
 function odeiv2_evolve_reset()
     e = Ref{gsl_odeiv2_evolve}()
@@ -95,7 +95,7 @@ end
 
 
 # This function frees all the memory associated with the evolution function e.
-#
+# 
 #   Returns: Void
 function odeiv2_evolve_free(e::Ref{gsl_odeiv2_evolve})
     ccall( (:gsl_odeiv2_evolve_free, libgsl), Void,
@@ -104,7 +104,7 @@ end
 
 
 # This function sets a pointer of the driver object d for evolve object e.
-#
+# 
 #   Returns: Cint
 function odeiv2_evolve_set_driver(d::Ref{gsl_odeiv2_driver})
     e = Ref{gsl_odeiv2_evolve}()

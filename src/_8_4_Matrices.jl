@@ -6,12 +6,13 @@
 ################
 export gsl_matrix
 
+
 type gsl_matrix
     size1::Csize_t
     size2::Csize_t
     tda::Csize_t
-    data::Ptr{Cdouble}
-    block::Ptr{gsl_block}
+    data::Ref{Cdouble}
+    block::Ref{gsl_block}
     owner::Cint
 end
 

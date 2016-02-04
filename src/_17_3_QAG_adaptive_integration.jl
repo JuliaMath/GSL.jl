@@ -11,18 +11,18 @@ export integration_workspace_alloc, integration_workspace_free, integration_qag
 
 # This function allocates a workspace sufficient to hold n double precision
 # intervals, their integration results and error estimates.
-#
-#   Returns: Ptr{gsl_integration_workspace}
+# 
+#   Returns: Ref{gsl_integration_workspace}
 function integration_workspace_alloc(n::Integer)
     output_ptr = ccall( (:gsl_integration_workspace_alloc, libgsl),
-        Ptr{gsl_integration_workspace}, (Csize_t, ), n )
+        Ref{gsl_integration_workspace}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number integration_workspace_alloc
 
 
 # This function frees the memory associated with the workspace w.
-#
+# 
 #   Returns: Void
 function integration_workspace_free(w::Ref{gsl_integration_workspace})
     ccall( (:gsl_integration_workspace_free, libgsl), Void,
@@ -46,7 +46,7 @@ end
 # the largest error estimate.  The subintervals and their results are stored in
 # the memory provided by workspace.  The maximum number of subintervals is
 # given by limit, which may not exceed the allocated size of the workspace.
-#
+# 
 #   Returns: Cint
 function integration_qag(f::Ref{gsl_function}, a::Real, b::Real, epsabs::Real, epsrel::Real, limit::Integer, key::Integer)
     workspace = Ref{gsl_integration_workspace}()

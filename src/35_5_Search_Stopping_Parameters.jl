@@ -17,11 +17,10 @@ function multiroot_test_delta(dx::Ref{gsl_vector}, x::Ref{gsl_vector}, epsabs::R
     errno = ccall( (:gsl_multiroot_test_delta, libgsl), Cint,
         (Ref{gsl_vector}, Ref{gsl_vector}, Cdouble, Cdouble), dx, x, epsabs,
         epsrel )
-    gslerrno = gsl_errno(errno)
-    if gslerrno != SUCCESS && gslerrno != CONTINUE
+    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
         throw(GSL_ERROR(errno))
     end
-    gslerrno
+    errno
 end
 
 

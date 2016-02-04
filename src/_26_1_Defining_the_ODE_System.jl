@@ -6,9 +6,12 @@
 ################################
 export gsl_odeiv2_system
 
+
+
+
 type gsl_odeiv2_system
-    function_::Ptr{Void}
-    jacobian::Ptr{Void}
+    function_::Ref{Void}
+    jacobian::Ref{Void}
     dimension::Csize_t
-    params::Ptr{Void}
+    params::Ref{Void}
 end

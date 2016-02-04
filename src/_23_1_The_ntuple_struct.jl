@@ -8,7 +8,7 @@ export gsl_ntuple
 
 
 type gsl_ntuple
-    file::Ptr{Void}
-    ntuple_data::Ptr{Void}
+    file::Ref{Void}
+    ntuple_data::Ref{Void}
     size::Csize_t
 end

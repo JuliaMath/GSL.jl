@@ -9,20 +9,27 @@ export multifit_linear_alloc, multifit_linear_free, multifit_linear,
        multifit_linear_usvd, multifit_wlinear_usvd, multifit_linear_est,
        multifit_linear_residuals
 
+
+
+
+
+
+
+
 # This function allocates a workspace for fitting a model to n observations
 # using p parameters.
-#
-#   Returns: Ptr{gsl_multifit_linear_workspace}
+# 
+#   Returns: Ref{gsl_multifit_linear_workspace}
 function multifit_linear_alloc(n::Integer, p::Integer)
     output_ptr = ccall( (:gsl_multifit_linear_alloc, libgsl),
-        Ptr{gsl_multifit_linear_workspace}, (Csize_t, Csize_t), n, p )
+        Ref{gsl_multifit_linear_workspace}, (Csize_t, Csize_t), n, p )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_2arg Number multifit_linear_alloc
 
 
 # This function frees the memory associated with the workspace w.
-#
+# 
 #   Returns: Void
 function multifit_linear_free(work::Ref{gsl_multifit_linear_workspace})
     ccall( (:gsl_multifit_linear_free, libgsl), Void,
@@ -42,7 +49,7 @@ end
 # of the matrix X using the modified Golub-Reinsch SVD algorithm, with column
 # scaling to improve the accuracy of the singular values. Any components which
 # have zero singular value (to machine precision) are discarded from the fit.
-#
+# 
 #   Returns: Cint
 function multifit_linear(X::Ref{gsl_matrix}, y::Ref{gsl_vector})
     c = Ref{gsl_vector}()
@@ -65,7 +72,7 @@ end
 # chisq. If the coefficient of determination is desired, it can be computed
 # from the expression R^2 = 1 - \chi^2 / WTSS, where the weighted total sum of
 # squares (WTSS) of the observations y may be computed from gsl_stats_wtss.
-#
+# 
 #   Returns: Cint
 function multifit_wlinear(X::Ref{gsl_matrix}, w::Ref{gsl_vector}, y::Ref{gsl_vector})
     c = Ref{gsl_vector}()
@@ -84,7 +91,7 @@ end
 # In these functions components of the fit are discarded if the ratio of
 # singular values s_i/s_0 falls below the user-specified tolerance tol, and the
 # effective rank is returned in rank.
-#
+# 
 #   Returns: Cint
 function multifit_linear_svd(X::Ref{gsl_matrix}, y::Ref{gsl_vector}, tol::Real)
     rank = Ref{Csize_t}()
@@ -105,7 +112,7 @@ end
 # In these functions components of the fit are discarded if the ratio of
 # singular values s_i/s_0 falls below the user-specified tolerance tol, and the
 # effective rank is returned in rank.
-#
+# 
 #   Returns: Cint
 function multifit_wlinear_svd(X::Ref{gsl_matrix}, w::Ref{gsl_vector}, y::Ref{gsl_vector}, tol::Real)
     rank = Ref{Csize_t}()
@@ -124,7 +131,7 @@ end
 
 
 # These functions compute the fit using an SVD without column scaling.
-#
+# 
 #   Returns: Cint
 function multifit_linear_usvd(X::Ref{gsl_matrix}, y::Ref{gsl_vector}, tol::Real)
     rank = Ref{Csize_t}()
@@ -143,7 +150,7 @@ end
 
 
 # These functions compute the fit using an SVD without column scaling.
-#
+# 
 #   Returns: Cint
 function multifit_wlinear_usvd(X::Ref{gsl_matrix}, w::Ref{gsl_vector}, y::Ref{gsl_vector}, tol::Real)
     rank = Ref{Csize_t}()
@@ -164,7 +171,7 @@ end
 # This function uses the best-fit multilinear regression coefficients c and
 # their covariance matrix cov to compute the fitted function value y and its
 # standard deviation y_err for the model y = x.c at the point x.
-#
+# 
 #   Returns: Cint
 function multifit_linear_est(x::Ref{gsl_vector}, c::Ref{gsl_vector}, cov::Ref{gsl_matrix})
     y = Ref{Cdouble}()
@@ -179,7 +186,7 @@ end
 
 # This function computes the vector of residuals r = y - X c for the
 # observations y, coefficients c and matrix of predictor variables X.
-#
+# 
 #   Returns: Cint
 function multifit_linear_residuals(X::Ref{gsl_matrix}, y::Ref{gsl_vector}, c::Ref{gsl_vector})
     r = Ref{gsl_vector}()

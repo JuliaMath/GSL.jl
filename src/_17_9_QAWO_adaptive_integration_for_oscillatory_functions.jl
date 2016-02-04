@@ -29,11 +29,11 @@ export integration_qawo_table_alloc, integration_qawo_table_set,
 # n levels are sufficient for subintervals down to the length L/2^n.  The
 # integration routine gsl_integration_qawo returns the error GSL_ETABLE if the
 # number of levels is insufficient for the requested accuracy.
-#
-#   Returns: Ptr{gsl_integration_qawo_table}
+# 
+#   Returns: Ref{gsl_integration_qawo_table}
 function integration_qawo_table_alloc(omega::Real, L::Real, sine::enumgsl_integration_qawo_enum, n::Integer)
     output_ptr = ccall( (:gsl_integration_qawo_table_alloc, libgsl),
-        Ptr{gsl_integration_qawo_table}, (Cdouble, Cdouble,
+        Ref{gsl_integration_qawo_table}, (Cdouble, Cdouble,
         enumgsl_integration_qawo_enum, Csize_t), omega, L, sine, n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -41,7 +41,7 @@ end
 
 # This function changes the parameters omega, L and sine of the existing
 # workspace t.
-#
+# 
 #   Returns: Cint
 function integration_qawo_table_set(t::Ref{gsl_integration_qawo_table}, omega::Real, L::Real, sine::enumgsl_integration_qawo_enum)
     errno = ccall( (:gsl_integration_qawo_table_set, libgsl), Cint,
@@ -52,7 +52,7 @@ end
 
 
 # This function allows the length parameter L of the workspace t to be changed.
-#
+# 
 #   Returns: Cint
 function integration_qawo_table_set_length(L::Real)
     t = Ref{gsl_integration_qawo_table}()
@@ -65,7 +65,7 @@ end
 
 
 # This function frees all the memory associated with the workspace t.
-#
+# 
 #   Returns: Void
 function integration_qawo_table_free(t::Ref{gsl_integration_qawo_table})
     ccall( (:gsl_integration_qawo_table_free, libgsl), Void,
@@ -86,7 +86,7 @@ end
 # d\omega > 4 are computed using a 25-point Clenshaw-Curtis integration rule,
 # which handles the oscillatory behavior.  Subintervals with a “small” widths
 # where d\omega < 4 are computed using a 15-point Gauss-Kronrod integration.
-#
+# 
 #   Returns: Cint
 function integration_qawo(a::Real, epsabs::Real, epsrel::Real, limit::Integer)
     f = Ref{gsl_function}()
