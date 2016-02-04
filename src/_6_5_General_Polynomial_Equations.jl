@@ -13,18 +13,18 @@ export poly_complex_workspace_alloc, poly_complex_workspace_free,
 # routine gsl_poly_complex_solve.          The function returns a pointer to
 # the newly allocated gsl_poly_complex_workspace if no errors were detected,
 # and a null pointer in the case of error.
-#
-#   Returns: Ptr{gsl_poly_complex_workspace}
+# 
+#   Returns: Ref{gsl_poly_complex_workspace}
 function poly_complex_workspace_alloc(n::Integer)
     output_ptr = ccall( (:gsl_poly_complex_workspace_alloc, libgsl),
-        Ptr{gsl_poly_complex_workspace}, (Csize_t, ), n )
+        Ref{gsl_poly_complex_workspace}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number poly_complex_workspace_alloc
 
 
 # This function frees all the memory associated with the workspace w.
-#
+# 
 #   Returns: Void
 function poly_complex_workspace_free(w::Ref{gsl_poly_complex_workspace})
     ccall( (:gsl_poly_complex_workspace_free, libgsl), Void,
@@ -46,7 +46,7 @@ end
 # roots requires specialized algorithms that take the multiplicity structure
 # into account (see e.g. Z. Zeng, Algorithm 835, ACM Transactions on
 # Mathematical Software, Volume 30, Issue 2 (2004), pp 218–236).
-#
+# 
 #   Returns: Cint
 function poly_complex_solve{tA<:Real}(a_in::AbstractVector{tA}, z::gsl_complex_packed_ptr)
     n = length(a_in)

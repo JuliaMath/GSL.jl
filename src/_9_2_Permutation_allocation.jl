@@ -13,11 +13,11 @@ export permutation_alloc, permutation_calloc, permutation_init,
 # function gsl_permutation_calloc if you want to create a permutation which is
 # initialized to the identity. A null pointer is returned if insufficient
 # memory is available to create the permutation.
-#
-#   Returns: Ptr{gsl_permutation}
+# 
+#   Returns: Ref{gsl_permutation}
 function permutation_alloc(n::Integer)
     output_ptr = ccall( (:gsl_permutation_alloc, libgsl),
-        Ptr{gsl_permutation}, (Csize_t, ), n )
+        Ref{gsl_permutation}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number permutation_alloc
@@ -26,11 +26,11 @@ end
 # This function allocates memory for a new permutation of size n and
 # initializes it to the identity. A null pointer is returned if insufficient
 # memory is available to create the permutation.
-#
-#   Returns: Ptr{gsl_permutation}
+# 
+#   Returns: Ref{gsl_permutation}
 function permutation_calloc(n::Integer)
     output_ptr = ccall( (:gsl_permutation_calloc, libgsl),
-        Ptr{gsl_permutation}, (Csize_t, ), n )
+        Ref{gsl_permutation}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number permutation_calloc
@@ -38,7 +38,7 @@ end
 
 # This function initializes the permutation p to the identity, i.e.
 # (0,1,2,...,n-1).
-#
+# 
 #   Returns: Void
 function permutation_init(p::Ref{gsl_permutation})
     ccall( (:gsl_permutation_init, libgsl), Void, (Ref{gsl_permutation},
@@ -47,7 +47,7 @@ end
 
 
 # This function frees all the memory used by the permutation p.
-#
+# 
 #   Returns: Void
 function permutation_free(p::Ref{gsl_permutation})
     ccall( (:gsl_permutation_free, libgsl), Void, (Ref{gsl_permutation},
@@ -57,7 +57,7 @@ end
 
 # This function copies the elements of the permutation src into the permutation
 # dest.  The two permutations must have the same size.
-#
+# 
 #   Returns: Cint
 function permutation_memcpy(src::Ref{gsl_permutation})
     dest = Ref{gsl_permutation}()

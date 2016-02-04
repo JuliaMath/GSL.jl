@@ -6,8 +6,9 @@
 #########################################
 export gsl_complex
 
+
 type gsl_complex
-    dat::Ptr{Cdouble}
+    dat::Ref{Cdouble}
 end
 
 

@@ -9,18 +9,18 @@ export sum_levin_utrunc_alloc, sum_levin_utrunc_free, sum_levin_utrunc_accel
 
 # This function allocates a workspace for a Levin u-transform of n terms,
 # without error estimation.  The size of the workspace is O(3n).
-#
-#   Returns: Ptr{gsl_sum_levin_utrunc_workspace}
+# 
+#   Returns: Ref{gsl_sum_levin_utrunc_workspace}
 function sum_levin_utrunc_alloc(n::Integer)
     output_ptr = ccall( (:gsl_sum_levin_utrunc_alloc, libgsl),
-        Ptr{gsl_sum_levin_utrunc_workspace}, (Csize_t, ), n )
+        Ref{gsl_sum_levin_utrunc_workspace}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number sum_levin_utrunc_alloc
 
 
 # This function frees the memory associated with the workspace w.
-#
+# 
 #   Returns: Void
 function sum_levin_utrunc_free(w::Ref{gsl_sum_levin_utrunc_workspace})
     ccall( (:gsl_sum_levin_utrunc_free, libgsl), Void,
@@ -38,7 +38,7 @@ end
 # stored in abserr_trunc.  To improve the reliability of the algorithm the
 # extrapolated values are replaced by moving averages when calculating the
 # truncation error, smoothing out any fluctuations.
-#
+# 
 #   Returns: Cint
 function sum_levin_utrunc_accel{tA<:Real}(array_in::AbstractVector{tA})
     array_size = length(array_in)

@@ -16,11 +16,11 @@ export monte_vegas_alloc, monte_vegas_init, monte_vegas_integrate,
 # This function allocates and initializes a workspace for Monte Carlo
 # integration in dim dimensions.  The workspace is used to maintain the state
 # of the integration.
-#
-#   Returns: Ptr{gsl_monte_vegas_state}
+# 
+#   Returns: Ref{gsl_monte_vegas_state}
 function monte_vegas_alloc(dim::Integer)
     output_ptr = ccall( (:gsl_monte_vegas_alloc, libgsl),
-        Ptr{gsl_monte_vegas_state}, (Csize_t, ), dim )
+        Ref{gsl_monte_vegas_state}, (Csize_t, ), dim )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number monte_vegas_alloc
@@ -28,7 +28,7 @@ end
 
 # This function initializes a previously allocated integration state.  This
 # allows an existing workspace to be reused for different integrations.
-#
+# 
 #   Returns: Cint
 function monte_vegas_init(s::Ref{gsl_monte_vegas_state})
     errno = ccall( (:gsl_monte_vegas_init, libgsl), Cint,
@@ -48,7 +48,7 @@ end
 # freedom for the weighted average is returned via the state struct component,
 # s->chisq, and must be consistent with 1 for the weighted average to be
 # reliable.
-#
+# 
 #   Returns: Cint
 function monte_vegas_integrate(xl::Real)
     f = Ref{gsl_monte_function}()
@@ -61,7 +61,7 @@ end
 
 
 # This function frees the memory associated with the integrator state s.
-#
+# 
 #   Returns: Void
 function monte_vegas_free(s::Ref{gsl_monte_vegas_state})
     ccall( (:gsl_monte_vegas_free, libgsl), Void,
@@ -75,7 +75,7 @@ end
 # iterations are inconsistent.  In this case the weighted error will be under-
 # estimated, and further iterations of the algorithm are needed to obtain
 # reliable results.
-#
+# 
 #   Returns: Cdouble
 function monte_vegas_chisq(s::Ref{gsl_monte_vegas_state})
     ccall( (:gsl_monte_vegas_chisq, libgsl), Cdouble,
@@ -85,7 +85,7 @@ end
 
 # This function returns the raw (unaveraged) values of the integral result and
 # its error sigma from the most recent iteration of the algorithm.
-#
+# 
 #   Returns: Void
 function monte_vegas_runval(s::Ref{gsl_monte_vegas_state})
     result = Ref{Cdouble}()
@@ -99,7 +99,7 @@ end
 
 # This function copies the parameters of the integrator state into the user-
 # supplied params structure.
-#
+# 
 #   Returns: Void
 function monte_vegas_params_get(s::Ref{gsl_monte_vegas_state})
     params = Ref{gsl_monte_vegas_params}()
@@ -111,7 +111,7 @@ end
 
 # This function sets the integrator parameters based on values provided in the
 # params structure.
-#
+# 
 #   Returns: Void
 function monte_vegas_params_set(s::Ref{gsl_monte_vegas_state}, params::Ref{gsl_monte_vegas_params})
     ccall( (:gsl_monte_vegas_params_set, libgsl), Void,

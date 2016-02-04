@@ -6,8 +6,15 @@
 ##################
 export gsl_monte_function
 
+
+
+
+
+
+
+
 type gsl_monte_function
-    f::Ptr{Void}
+    f::Ref{Void}
     dim::Csize_t
-    params::Ptr{Void}
+    params::Ref{Void}
 end

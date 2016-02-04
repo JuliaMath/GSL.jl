@@ -16,7 +16,7 @@ export multimin_fdfminimizer_iterate, multimin_fminimizer_iterate,
 # returned.  The error code GSL_ENOPROG signifies that the minimizer is unable
 # to improve on its current estimate, either due to numerical difficulty or
 # because a genuine local minimum has been reached.
-#
+# 
 #   Returns: Cint
 function multimin_fdfminimizer_iterate()
     s = Ref{gsl_multimin_fdfminimizer}()
@@ -32,7 +32,7 @@ end
 # returned.  The error code GSL_ENOPROG signifies that the minimizer is unable
 # to improve on its current estimate, either due to numerical difficulty or
 # because a genuine local minimum has been reached.
-#
+# 
 #   Returns: Cint
 function multimin_fminimizer_iterate()
     s = Ref{gsl_multimin_fminimizer}()
@@ -46,11 +46,11 @@ end
 # These functions return the current best estimate of the location of the
 # minimum, the value of the function at that point, its gradient, and minimizer
 # specific characteristic size for the minimizer s.
-#
-#   Returns: Ptr{gsl_vector}
+# 
+#   Returns: Ref{gsl_vector}
 function multimin_fdfminimizer_x(s::Ref{gsl_multimin_fdfminimizer})
     output_ptr = ccall( (:gsl_multimin_fdfminimizer_x, libgsl),
-        Ptr{gsl_vector}, (Ref{gsl_multimin_fdfminimizer}, ), s )
+        Ref{gsl_vector}, (Ref{gsl_multimin_fdfminimizer}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -58,11 +58,11 @@ end
 # These functions return the current best estimate of the location of the
 # minimum, the value of the function at that point, its gradient, and minimizer
 # specific characteristic size for the minimizer s.
-#
-#   Returns: Ptr{gsl_vector}
+# 
+#   Returns: Ref{gsl_vector}
 function multimin_fminimizer_x(s::Ref{gsl_multimin_fminimizer})
     output_ptr = ccall( (:gsl_multimin_fminimizer_x, libgsl),
-        Ptr{gsl_vector}, (Ref{gsl_multimin_fminimizer}, ), s )
+        Ref{gsl_vector}, (Ref{gsl_multimin_fminimizer}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -70,7 +70,7 @@ end
 # These functions return the current best estimate of the location of the
 # minimum, the value of the function at that point, its gradient, and minimizer
 # specific characteristic size for the minimizer s.
-#
+# 
 #   Returns: Cdouble
 function multimin_fdfminimizer_minimum(s::Ref{gsl_multimin_fdfminimizer})
     ccall( (:gsl_multimin_fdfminimizer_minimum, libgsl), Cdouble,
@@ -81,7 +81,7 @@ end
 # These functions return the current best estimate of the location of the
 # minimum, the value of the function at that point, its gradient, and minimizer
 # specific characteristic size for the minimizer s.
-#
+# 
 #   Returns: Cdouble
 function multimin_fminimizer_minimum(s::Ref{gsl_multimin_fminimizer})
     ccall( (:gsl_multimin_fminimizer_minimum, libgsl), Cdouble,
@@ -92,11 +92,11 @@ end
 # These functions return the current best estimate of the location of the
 # minimum, the value of the function at that point, its gradient, and minimizer
 # specific characteristic size for the minimizer s.
-#
-#   Returns: Ptr{gsl_vector}
+# 
+#   Returns: Ref{gsl_vector}
 function multimin_fdfminimizer_gradient(s::Ref{gsl_multimin_fdfminimizer})
     output_ptr = ccall( (:gsl_multimin_fdfminimizer_gradient, libgsl),
-        Ptr{gsl_vector}, (Ref{gsl_multimin_fdfminimizer}, ), s )
+        Ref{gsl_vector}, (Ref{gsl_multimin_fdfminimizer}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -104,7 +104,7 @@ end
 # These functions return the current best estimate of the location of the
 # minimum, the value of the function at that point, its gradient, and minimizer
 # specific characteristic size for the minimizer s.
-#
+# 
 #   Returns: Cdouble
 function multimin_fminimizer_size(s::Ref{gsl_multimin_fminimizer})
     ccall( (:gsl_multimin_fminimizer_size, libgsl), Cdouble,
@@ -114,7 +114,7 @@ end
 
 # This function resets the minimizer s to use the current point as a new
 # starting point.
-#
+# 
 #   Returns: Cint
 function multimin_fdfminimizer_restart()
     s = Ref{gsl_multimin_fdfminimizer}()

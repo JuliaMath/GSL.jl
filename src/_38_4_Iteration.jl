@@ -11,7 +11,7 @@ export multifit_fsolver_iterate, multifit_fdfsolver_iterate,
 # These functions perform a single iteration of the solver s.  If the iteration
 # encounters an unexpected problem then an error code will be returned.  The
 # solver maintains a current estimate of the best-fit parameters at all times.
-#
+# 
 #   Returns: Cint
 function multifit_fsolver_iterate()
     s = Ref{gsl_multifit_fsolver}()
@@ -25,7 +25,7 @@ end
 # These functions perform a single iteration of the solver s.  If the iteration
 # encounters an unexpected problem then an error code will be returned.  The
 # solver maintains a current estimate of the best-fit parameters at all times.
-#
+# 
 #   Returns: Cint
 function multifit_fdfsolver_iterate()
     s = Ref{gsl_multifit_fdfsolver}()
@@ -38,21 +38,21 @@ end
 
 # These functions return the current position (i.e. best-fit parameters) s->x
 # of the solver s.
-#
-#   Returns: Ptr{gsl_vector}
+# 
+#   Returns: Ref{gsl_vector}
 function multifit_fsolver_position(s::Ref{gsl_multifit_fsolver})
     output_ptr = ccall( (:gsl_multifit_fsolver_position, libgsl),
-        Ptr{gsl_vector}, (Ref{gsl_multifit_fsolver}, ), s )
+        Ref{gsl_vector}, (Ref{gsl_multifit_fsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 
 # These functions return the current position (i.e. best-fit parameters) s->x
 # of the solver s.
-#
-#   Returns: Ptr{gsl_vector}
+# 
+#   Returns: Ref{gsl_vector}
 function multifit_fdfsolver_position(s::Ref{gsl_multifit_fdfsolver})
     output_ptr = ccall( (:gsl_multifit_fdfsolver_position, libgsl),
-        Ptr{gsl_vector}, (Ref{gsl_multifit_fdfsolver}, ), s )
+        Ref{gsl_vector}, (Ref{gsl_multifit_fdfsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

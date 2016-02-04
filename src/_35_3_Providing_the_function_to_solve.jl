@@ -6,11 +6,19 @@
 ########################################
 export gsl_multiroot_function, gsl_multiroot_function_fdf
 
+
+
+
+
+
+
+
 type gsl_multiroot_function
     f::Ptr{Void}
     n::Csize_t
-    params::Ptr{Void}
+    params::Ref{Void}
 end
+
 
 type gsl_multiroot_function_fdf
     f::Ptr{Void}

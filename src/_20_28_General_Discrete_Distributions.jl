@@ -15,20 +15,20 @@ export ran_discrete_preproc, ran_discrete, ran_discrete_pdf, ran_discrete_free
 # positive, but they needn't add up to one (so you can think of them more
 # generally as “weights”)—the preprocessor will normalize appropriately.  This
 # return value is used as an argument for the gsl_ran_discrete function below.
-#
-#   Returns: Ptr{gsl_ran_discrete_t}
+# 
+#   Returns: Ref{gsl_ran_discrete_t}
 function ran_discrete_preproc{tA<:Real}(P_in::AbstractVector{tA})
     K = length(P_in)
     P = convert(Vector{Cdouble}, P_in)
     output_ptr = ccall( (:gsl_ran_discrete_preproc, libgsl),
-        Ptr{gsl_ran_discrete_t}, (Csize_t, Ref{Cdouble}), K, P )
+        Ref{gsl_ran_discrete_t}, (Csize_t, Ref{Cdouble}), K, P )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
 
 # After the preprocessor, above, has been called, you use this function to get
 # the discrete random numbers.
-#
+# 
 #   Returns: Csize_t
 function ran_discrete(r::Ref{gsl_rng}, g::Ref{gsl_ran_discrete_t})
     ccall( (:gsl_ran_discrete, libgsl), Csize_t, (Ref{gsl_rng},
@@ -41,7 +41,7 @@ end
 # takes O(K), so if K is large and you care about the original array P[k] used
 # to create the lookup table, then you should just keep this original array
 # P[k] around.
-#
+# 
 #   Returns: Cdouble
 function ran_discrete_pdf(k::Integer, g::Ref{gsl_ran_discrete_t})
     ccall( (:gsl_ran_discrete_pdf, libgsl), Cdouble, (Csize_t,
@@ -50,7 +50,7 @@ end
 
 
 # De-allocates the lookup table pointed to by g.
-#
+# 
 #   Returns: Void
 function ran_discrete_free(g::Ref{gsl_ran_discrete_t})
     ccall( (:gsl_ran_discrete_free, libgsl), Void,

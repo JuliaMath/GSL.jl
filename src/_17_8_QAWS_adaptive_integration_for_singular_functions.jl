@@ -28,11 +28,11 @@ export integration_qaws_table_alloc, integration_qaws_table_set,
 # The function returns a pointer to the newly allocated table
 # gsl_integration_qaws_table if no errors were detected, and 0 in the case of
 # error.
-#
-#   Returns: Ptr{gsl_integration_qaws_table}
+# 
+#   Returns: Ref{gsl_integration_qaws_table}
 function integration_qaws_table_alloc(alpha::Real, beta::Real, mu::Integer, nu::Integer)
     output_ptr = ccall( (:gsl_integration_qaws_table_alloc, libgsl),
-        Ptr{gsl_integration_qaws_table}, (Cdouble, Cdouble, Cint, Cint), alpha,
+        Ref{gsl_integration_qaws_table}, (Cdouble, Cdouble, Cint, Cint), alpha,
         beta, mu, nu )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -42,7 +42,7 @@ end
 
 # This function modifies the parameters (\alpha, \beta, \mu, \nu) of an
 # existing gsl_integration_qaws_table struct t.
-#
+# 
 #   Returns: Cint
 function integration_qaws_table_set(t::Ref{gsl_integration_qaws_table}, alpha::Real, beta::Real, mu::Integer, nu::Integer)
     errno = ccall( (:gsl_integration_qaws_table_set, libgsl), Cint,
@@ -54,7 +54,7 @@ end
 
 # This function frees all the memory associated with the
 # gsl_integration_qaws_table struct t.
-#
+# 
 #   Returns: Void
 function integration_qaws_table_free(t::Ref{gsl_integration_qaws_table})
     ccall( (:gsl_integration_qaws_table_free, libgsl), Void,
@@ -71,7 +71,7 @@ end
 # of the endpoints then a special 25-point modified Clenshaw-Curtis rule is
 # used to control the singularities.  For subintervals which do not include the
 # endpoints an ordinary 15-point Gauss-Kronrod integration rule is used.
-#
+# 
 #   Returns: Cint
 function integration_qaws(a::Real, b::Real, epsabs::Real, epsrel::Real, limit::Integer)
     f = Ref{gsl_function}()

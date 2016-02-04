@@ -6,10 +6,18 @@
 ########################################
 export gsl_function, gsl_function_fdf
 
+
+
+
+
+
+
+
 type gsl_function
     function_::Ptr{Void}
     params::Ptr{Void}
 end
+
 
 type gsl_function_fdf
     f::Ptr{Void}
