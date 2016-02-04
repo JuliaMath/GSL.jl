@@ -25,10 +25,12 @@ type GSLError <: Exception
     line :: Cint
 end
 
-show(io::IO, E::GSLError) = print(io, string("GSL Error", strerror(E.errno), " -- ", E.reason, " at ", E.file, ":", E.line))
+show(io::IO, E::GSLError) = print(io, string("GSL Error: ", strerror(E.errno), " -- ", E.reason, " at ", E.file, ":", E.line))
 
 function custom_error_handler(reason::AbstractString, file::AbstractString, line::Integer, errno::Integer)
     if errno == 0; return; end # GSL_SUCCESS
+
+    warn(GSLError(errno, reason, file, line))
     if errno == 1 # GSL_EDOM: input domain error, e.g sqrt(-1)
         throw(DomainError())
     elseif errno == 2 || errno == 16
