@@ -41,19 +41,6 @@ end
 # These functions return the current estimate of the root for the solver s,
 # given by s->x.
 #
-#   Returns: Cint
-function multiroot_fdfsolver_iterate()
-    s = Ref{gsl_multiroot_fdfsolver}()
-    errno = ccall( (:gsl_multiroot_fdfsolver_iterate, libgsl), Cint,
-        (Ref{gsl_multiroot_fdfsolver}, ), s )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
-    return s[]
-end
-
-
-# These functions return the current estimate of the root for the solver s,
-# given by s->x.
-#
 #   Returns: Ptr{gsl_vector}
 function multiroot_fsolver_root(s::Ref{gsl_multiroot_fsolver})
     output_ptr = ccall( (:gsl_multiroot_fsolver_root, libgsl),
