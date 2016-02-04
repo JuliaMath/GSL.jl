@@ -127,10 +127,11 @@ end
 #   Returns: Cint
 function sf_legendre_Pl_deriv_array(lmax::Integer, x::Real)
     result_array = Array(Cdouble, lmax+1)
+    result_deriv_array = Array(Cdouble, lmax+1)
     errno = ccall( (:gsl_sf_legendre_Pl_deriv_array, libgsl), Cint, (Cint,
-        Cdouble, Ref{Cdouble}), lmax, x, result_array )
+        Cdouble, Ref{Cdouble}, Ref{Cdouble}), lmax, x, result_array, result_deriv_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return result_array
+    return (result_array, result_deriv_array)
 end
 @vectorize_2arg Number sf_legendre_Pl_deriv_array
 
