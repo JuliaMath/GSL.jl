@@ -3,6 +3,7 @@
 #(c) 2013 Jiahao Chen <jiahao@mit.edu>
 
 # Converts GSL data structures to Julia data types
+import Base.show
 
 export GSL_ERROR, custom_gsl_error_handler, complex_packed_ptr, complex_packed_array
 
@@ -16,6 +17,15 @@ complex_packed_ptr(c::Vector{Cdouble}) = Complex128[c[2i-1]+im*c[2i] for i=1:int
 #where possible, maps errors to Julia's own exceptions
 custom_error_handler(reason::Ptr{UInt8}, file::Ptr{UInt8}, line::Integer, errno::Integer) =
     custom_error_handler(bytestring(reason), bytestring(file), line, errno)
+
+type GSLError <: Exception
+    errno :: Int32
+    reason :: AbstractString
+    file :: AbstractString
+    line :: Cint
+end
+
+show(io::IO, E::GSLError) = print(io, string("GSL Error", strerror(E.errno), " -- ", E.reason, " at ", E.file, ":", E.line))
 
 function custom_error_handler(reason::AbstractString, file::AbstractString, line::Integer, errno::Integer)
     if errno == 0; return; end # GSL_SUCCESS
@@ -36,9 +46,8 @@ function custom_error_handler(reason::AbstractString, file::AbstractString, line
     elseif errno == 32 # GSL_EOF: end of file
         throw(EOFError())
     else # convert all other errors into generic ErrorException
-        error(string(strerror(errno), " -- ", reason, " at ", file, ":", line))
+        throw(GSLError(errno, reason, file, line))
     end
-    return
 end
 
 GSL_ERROR{T<:Integer}(errno::T)=custom_error_handler("", "None", 0, errno)
