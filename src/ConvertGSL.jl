@@ -40,7 +40,7 @@ function custom_error_handler(reason::AbstractString, file::AbstractString, line
     elseif errno == 8 # GSL_ENOMEM: malloc failed
         throw(OutOfMemoryError())
     elseif errno == 12 # GSL_EZERODIV: tried to divide by zero
-        throw(DivideByZeroError())
+        throw(DivideError())
     elseif errno == 19 # GSL_EBADLEN: matrix, vector lengths are not conformant
         throw(BoundsError())
     elseif errno == 32 # GSL_EOF: end of file
