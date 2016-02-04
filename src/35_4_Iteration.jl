@@ -18,7 +18,7 @@ export multiroot_fsolver_iterate, multiroot_fdfsolver_iterate,
 #
 #   Returns: Cint
 function multiroot_fsolver_iterate(s::Ref{gsl_multiroot_fsolver})
-    errno = ccall( (:gsl_multiroot_fsolver_iterate, :libgsl), Cint,
+    errno = ccall( (:gsl_multiroot_fsolver_iterate, libgsl), Cint,
         (Ref{gsl_multiroot_fsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -32,7 +32,7 @@ end
 #
 #   Returns: Cint
 function multiroot_fdfsolver_iterate(s::Ref{gsl_multiroot_fdfsolver})
-    errno = ccall( (:gsl_multiroot_fdfsolver_iterate, :libgsl), Cint,
+    errno = ccall( (:gsl_multiroot_fdfsolver_iterate, libgsl), Cint,
         (Ref{gsl_multiroot_fdfsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -44,7 +44,7 @@ end
 #   Returns: Cint
 function multiroot_fdfsolver_iterate()
     s = Ref{gsl_multiroot_fdfsolver}()
-    errno = ccall( (:gsl_multiroot_fdfsolver_iterate, :libgsl), Cint,
+    errno = ccall( (:gsl_multiroot_fdfsolver_iterate, libgsl), Cint,
         (Ref{gsl_multiroot_fdfsolver}, ), s )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return s[]
@@ -56,7 +56,7 @@ end
 #
 #   Returns: Ptr{gsl_vector}
 function multiroot_fsolver_root(s::Ref{gsl_multiroot_fsolver})
-    output_ptr = ccall( (:gsl_multiroot_fsolver_root, :libgsl),
+    output_ptr = ccall( (:gsl_multiroot_fsolver_root, libgsl),
         Ptr{gsl_vector}, (Ref{gsl_multiroot_fsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -67,7 +67,7 @@ end
 #
 #   Returns: Ptr{gsl_vector}
 function multiroot_fdfsolver_root(s::Ref{gsl_multiroot_fdfsolver})
-    output_ptr = ccall( (:gsl_multiroot_fdfsolver_root, :libgsl),
+    output_ptr = ccall( (:gsl_multiroot_fdfsolver_root, libgsl),
         Ptr{gsl_vector}, (Ref{gsl_multiroot_fdfsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -78,7 +78,7 @@ end
 #
 #   Returns: Ptr{gsl_vector}
 function multiroot_fsolver_f(s::Ref{gsl_multiroot_fsolver})
-    output_ptr = ccall( (:gsl_multiroot_fsolver_f, :libgsl),
+    output_ptr = ccall( (:gsl_multiroot_fsolver_f, libgsl),
         Ptr{gsl_vector}, (Ref{gsl_multiroot_fsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -89,7 +89,7 @@ end
 #
 #   Returns: Ptr{gsl_vector}
 function multiroot_fdfsolver_f(s::Ref{gsl_multiroot_fdfsolver})
-    output_ptr = ccall( (:gsl_multiroot_fdfsolver_f, :libgsl),
+    output_ptr = ccall( (:gsl_multiroot_fdfsolver_f, libgsl),
         Ptr{gsl_vector}, (Ref{gsl_multiroot_fdfsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -100,7 +100,7 @@ end
 #
 #   Returns: Ptr{gsl_vector}
 function multiroot_fsolver_dx(s::Ref{gsl_multiroot_fsolver})
-    output_ptr = ccall( (:gsl_multiroot_fsolver_dx, :libgsl),
+    output_ptr = ccall( (:gsl_multiroot_fsolver_dx, libgsl),
         Ptr{gsl_vector}, (Ref{gsl_multiroot_fsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -111,7 +111,7 @@ end
 #
 #   Returns: Ptr{gsl_vector}
 function multiroot_fdfsolver_dx(s::Ref{gsl_multiroot_fdfsolver})
-    output_ptr = ccall( (:gsl_multiroot_fdfsolver_dx, :libgsl),
+    output_ptr = ccall( (:gsl_multiroot_fdfsolver_dx, libgsl),
         Ptr{gsl_vector}, (Ref{gsl_multiroot_fdfsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
