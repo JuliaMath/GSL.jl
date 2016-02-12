@@ -19,17 +19,10 @@ const function_callback_ptr = cfunction(function_callback, Cdouble, (Cdouble, Pt
 for gsl_deriv in (:deriv_central, :deriv_forward, :deriv_backward)
     @eval begin
         function ($gsl_deriv)(f::Function, x::Real, h::Real)
-            result = Ref{Cdouble}()
-            abserr = Ref{Cdouble}()
-            gsl_errno = ccall(($(string("gsl_", gsl_deriv)),:libgsl),
-                  Cint, (Ptr{gsl_function}, Cdouble, Cdouble,
-                         Ref{Cdouble}, Ref{Cdouble}),
-                  &gsl_function(function_callback_ptr,
+            $gsl_deriv(
+                  gsl_function(function_callback_ptr,
                                 pointer_from_objref(f)),
-                  x, h,
-                  result, abserr)
-                  if gsl_errno != 0 throw(GSL_ERROR, gsl_errno) end
-            return (result[1], abserr[1])
+                  x, h)
         end
     end
 end

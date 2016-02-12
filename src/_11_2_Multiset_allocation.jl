@@ -13,10 +13,10 @@ export multiset_alloc, multiset_calloc, multiset_init_first,
 # gsl_multiset_calloc if you want to create a multiset which is initialized to
 # the lexicographically first multiset element. A null pointer is returned if
 # insufficient memory is available to create the multiset.
-# 
-#   Returns: Ref{gsl_multiset}
+#
+#   Returns: Ptr{gsl_multiset}
 function multiset_alloc(n::Integer, k::Integer)
-    output_ptr = ccall( (:gsl_multiset_alloc, libgsl), Ref{gsl_multiset},
+    output_ptr = ccall( (:gsl_multiset_alloc, libgsl), Ptr{gsl_multiset},
         (Csize_t, Csize_t), n, k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -27,10 +27,10 @@ end
 # initializes it to the lexicographically first multiset element. A null
 # pointer is returned if insufficient memory is available to create the
 # multiset.
-# 
-#   Returns: Ref{gsl_multiset}
+#
+#   Returns: Ptr{gsl_multiset}
 function multiset_calloc(n::Integer, k::Integer)
-    output_ptr = ccall( (:gsl_multiset_calloc, libgsl), Ref{gsl_multiset},
+    output_ptr = ccall( (:gsl_multiset_calloc, libgsl), Ptr{gsl_multiset},
         (Csize_t, Csize_t), n, k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
@@ -39,7 +39,7 @@ end
 
 # This function initializes the multiset c to the lexicographically first
 # multiset element, i.e. 0 repeated k times.
-# 
+#
 #   Returns: Void
 function multiset_init_first()
     c = Ref{gsl_multiset}()
@@ -51,7 +51,7 @@ end
 
 # This function initializes the multiset c to the lexicographically last
 # multiset element, i.e. n-1 repeated k times.
-# 
+#
 #   Returns: Void
 function multiset_init_last()
     c = Ref{gsl_multiset}()
@@ -62,7 +62,7 @@ end
 
 
 # This function frees all the memory used by the multiset c.
-# 
+#
 #   Returns: Void
 function multiset_free(c::Ref{gsl_multiset})
     ccall( (:gsl_multiset_free, libgsl), Void, (Ref{gsl_multiset}, ), c )
@@ -71,7 +71,7 @@ end
 
 # This function copies the elements of the multiset src into the multiset dest.
 # The two multisets must have the same size.
-# 
+#
 #   Returns: Cint
 function multiset_memcpy(src::Ref{gsl_multiset})
     dest = Ref{gsl_multiset}()

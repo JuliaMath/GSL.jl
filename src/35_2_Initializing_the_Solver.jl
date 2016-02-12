@@ -17,7 +17,7 @@ export multiroot_fsolver_alloc, multiroot_fdfsolver_alloc,
 # = gsl_multiroot_fsolver_alloc (T, 3);  If there is insufficient memory to
 # create the solver then the function returns a null pointer and the error
 # handler is invoked with an error code of GSL_ENOMEM.
-# 
+#
 #   Returns: Ptr{gsl_multiroot_fsolver}
 function multiroot_fsolver_alloc(T::Ref{gsl_multiroot_fsolver_type}, n::Integer)
     output_ptr = ccall( (:gsl_multiroot_fsolver_alloc, libgsl),
@@ -35,7 +35,7 @@ end
 # gsl_multiroot_fdfsolver_alloc (T, 2);  If there is insufficient memory to
 # create the solver then the function returns a null pointer and the error
 # handler is invoked with an error code of GSL_ENOMEM.
-# 
+#
 #   Returns: Ptr{gsl_multiroot_fdfsolver}
 function multiroot_fdfsolver_alloc(T::Ref{gsl_multiroot_fdfsolver_type}, n::Integer)
     output_ptr = ccall( (:gsl_multiroot_fdfsolver_alloc, libgsl),
@@ -55,10 +55,11 @@ function multiroot_fsolver_set(s::Ptr{gsl_multiroot_fsolver}, f::Ptr{gsl_multiro
     errno = ccall( (:gsl_multiroot_fsolver_set, libgsl), Cint,
         (Ptr{gsl_multiroot_fsolver}, Ptr{gsl_multiroot_function},
         Ptr{gsl_vector}), s, f, x )
-    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+    gslerrno = gsl_errno(errno)
+    if gslerrno != SUCCESS && gslerrno != CONTINUE
         throw(GSL_ERROR(errno))
     end
-    return errno
+    return gslerrno
 end
 
 
@@ -72,10 +73,11 @@ function multiroot_fdfsolver_set(s::Ptr{gsl_multiroot_fdfsolver}, fdf::Ptr{gsl_m
     errno = ccall( (:gsl_multiroot_fdfsolver_set, libgsl), Cint,
         (Ptr{gsl_multiroot_fdfsolver}, Ptr{gsl_multiroot_function_fdf},
         Ptr{gsl_vector}), s, fdf, x )
-    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+    gslerrno = gsl_errno(errno)
+    if gslerrno != SUCCESS && gslerrno != CONTINUE
         throw(GSL_ERROR(errno))
     end
-    return errno
+    return gslerrno
 end
 
 
@@ -101,7 +103,7 @@ end
 # printf ("s is a '%s' solver\n",
 # gsl_multiroot_fdfsolver_name (s));  would print something like s is a
 # 'newton' solver.
-# 
+#
 #   Returns: Ptr{Cchar}
 function multiroot_fsolver_name(s::Ref{gsl_multiroot_fsolver})
     output_string = output_ptr = ccall( (:gsl_multiroot_fsolver_name,
@@ -115,7 +117,7 @@ end
 # printf ("s is a '%s' solver\n",
 # gsl_multiroot_fdfsolver_name (s));  would print something like s is a
 # 'newton' solver.
-# 
+#
 #   Returns: Ptr{Cchar}
 function multiroot_fdfsolver_name(s::Ref{gsl_multiroot_fdfsolver})
     output_string = output_ptr = ccall( (:gsl_multiroot_fdfsolver_name,

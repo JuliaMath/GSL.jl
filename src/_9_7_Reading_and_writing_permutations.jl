@@ -15,7 +15,7 @@ export permutation_fwrite, permutation_fread, permutation_fprintf,
 # in binary format.  The function returns GSL_EFAILED if there was a problem
 # writing to the file.  Since the data is written in the native binary format
 # it may not be portable between different architectures.
-# 
+#
 #   Returns: Cint
 function permutation_fwrite(stream::Ref{Void}, p::Ref{gsl_permutation})
     errno = ccall( (:gsl_permutation_fwrite, libgsl), Cint, (Ref{Void},
@@ -30,7 +30,7 @@ end
 # read.  The function returns GSL_EFAILED if there was a problem reading from
 # the file.  The data is assumed to have been written in the native binary
 # format on the same architecture.
-# 
+#
 #   Returns: Cint
 function permutation_fread(stream::Ref{Void})
     p = Ref{gsl_permutation}()
@@ -46,7 +46,7 @@ end
 # a type of size_t.  In ISO C99 the type modifier z represents size_t, so
 # "%zu\n" is a suitable format.1 The function returns GSL_EFAILED if there was
 # a problem writing to the file.
-# 
+#
 #   Returns: Cint
 function permutation_fprintf(stream::Ref{Void}, p::Ref{gsl_permutation})
     format = Ref{Cchar}()
@@ -62,7 +62,7 @@ end
 # length since the function uses the size of p to determine how many numbers to
 # read.  The function returns GSL_EFAILED if there was a problem reading from
 # the file.
-# 
+#
 #   Returns: Cint
 function permutation_fscanf(stream::Ref{Void})
     p = Ref{gsl_permutation}()

@@ -20,11 +20,11 @@ export monte_miser_alloc, monte_miser_init, monte_miser_integrate,
 # This function allocates and initializes a workspace for Monte Carlo
 # integration in dim dimensions.  The workspace is used to maintain the state
 # of the integration.
-# 
-#   Returns: Ref{gsl_monte_miser_state}
+#
+#   Returns: Ptr{gsl_monte_miser_state}
 function monte_miser_alloc(dim::Integer)
     output_ptr = ccall( (:gsl_monte_miser_alloc, libgsl),
-        Ref{gsl_monte_miser_state}, (Csize_t, ), dim )
+        Ptr{gsl_monte_miser_state}, (Csize_t, ), dim )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number monte_miser_alloc
@@ -32,7 +32,7 @@ end
 
 # This function initializes a previously allocated integration state.  This
 # allows an existing workspace to be reused for different integrations.
-# 
+#
 #   Returns: Cint
 function monte_miser_init(s::Ref{gsl_monte_miser_state})
     errno = ccall( (:gsl_monte_miser_init, libgsl), Cint,
@@ -48,7 +48,7 @@ end
 # using the random number generator r. A previously allocated workspace s must
 # be supplied.  The result of the integration is returned in result, with an
 # estimated absolute error abserr.
-# 
+#
 #   Returns: Cint
 function monte_miser_integrate(xl::Real)
     f = Ref{gsl_monte_function}()
@@ -61,7 +61,7 @@ end
 
 
 # This function frees the memory associated with the integrator state s.
-# 
+#
 #   Returns: Void
 function monte_miser_free(s::Ref{gsl_monte_miser_state})
     ccall( (:gsl_monte_miser_free, libgsl), Void,
@@ -71,7 +71,7 @@ end
 
 # This function copies the parameters of the integrator state into the user-
 # supplied params structure.
-# 
+#
 #   Returns: Void
 function monte_miser_params_get(s::Ref{gsl_monte_miser_state})
     params = Ref{gsl_monte_miser_params}()
@@ -83,7 +83,7 @@ end
 
 # This function sets the integrator parameters based on values provided in the
 # params structure.
-# 
+#
 #   Returns: Void
 function monte_miser_params_set(s::Ref{gsl_monte_miser_state}, params::Ref{gsl_monte_miser_params})
     ccall( (:gsl_monte_miser_params_set, libgsl), Void,

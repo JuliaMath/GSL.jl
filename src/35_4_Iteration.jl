@@ -9,7 +9,6 @@ export multiroot_fsolver_iterate, multiroot_fdfsolver_iterate,
        multiroot_fdfsolver_root, multiroot_fsolver_f, multiroot_fdfsolver_f,
        multiroot_fsolver_dx, multiroot_fdfsolver_dx
 
-
 # These functions perform a single iteration of the solver s.  If the iteration
 # encounters an unexpected problem then an error code will be returned,
 # GSL_EBADFUNCthe iteration encountered a singular point where the function or
@@ -18,9 +17,13 @@ export multiroot_fsolver_iterate, multiroot_fdfsolver_iterate,
 #
 #   Returns: Cint
 function multiroot_fsolver_iterate(s::Ref{gsl_multiroot_fsolver})
-    errno = ccall( (:gsl_multiroot_fsolver_iterate, :libgsl), Cint,
-        (Ref{gsl_multiroot_fsolver}, ), s )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
+    errno = ccall( (:gsl_multiroot_fsolver_iterate, libgsl), Cint,
+        (Ptr{gsl_multiroot_fsolver}, ), s )
+    gslerrno = gsl_errno(errno)
+    if gslerrno != SUCCESS && gslerrno != CONTINUE
+        throw(GSL_ERROR(errno))
+    end
+    return gslerrno
 end
 
 
@@ -32,32 +35,22 @@ end
 #
 #   Returns: Cint
 function multiroot_fdfsolver_iterate(s::Ref{gsl_multiroot_fdfsolver})
-    errno = ccall( (:gsl_multiroot_fdfsolver_iterate, :libgsl), Cint,
-        (Ref{gsl_multiroot_fdfsolver}, ), s )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
+    errno = ccall( (:gsl_multiroot_fdfsolver_iterate, libgsl), Cint,
+        (Ptr{gsl_multiroot_fdfsolver}, ), s )
+    gslerrno = gsl_errno(errno)
+    if gslerrno != SUCCESS && gslerrno != CONTINUE
+        throw(GSL_ERROR(errno))
+    end
+    return gslerrno
 end
-
 
 # These functions return the current estimate of the root for the solver s,
 # given by s->x.
 #
-#   Returns: Cint
-function multiroot_fdfsolver_iterate()
-    s = Ref{gsl_multiroot_fdfsolver}()
-    errno = ccall( (:gsl_multiroot_fdfsolver_iterate, :libgsl), Cint,
-        (Ref{gsl_multiroot_fdfsolver}, ), s )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
-    return s[]
-end
-
-
-# These functions return the current estimate of the root for the solver s,
-# given by s->x.
-#
-#   Returns: Ref{gsl_vector}
+#   Returns: Ptr{gsl_vector}
 function multiroot_fsolver_root(s::Ref{gsl_multiroot_fsolver})
-    output_ptr = ccall( (:gsl_multiroot_fsolver_root, :libgsl),
-        Ref{gsl_vector}, (Ref{gsl_multiroot_fsolver}, ), s )
+    output_ptr = ccall( (:gsl_multiroot_fsolver_root, libgsl),
+        Ptr{gsl_vector}, (Ref{gsl_multiroot_fsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -65,10 +58,10 @@ end
 # These functions return the current estimate of the root for the solver s,
 # given by s->x.
 #
-#   Returns: Ref{gsl_vector}
+#   Returns: Ptr{gsl_vector}
 function multiroot_fdfsolver_root(s::Ref{gsl_multiroot_fdfsolver})
-    output_ptr = ccall( (:gsl_multiroot_fdfsolver_root, :libgsl),
-        Ref{gsl_vector}, (Ref{gsl_multiroot_fdfsolver}, ), s )
+    output_ptr = ccall( (:gsl_multiroot_fdfsolver_root, libgsl),
+        Ptr{gsl_vector}, (Ref{gsl_multiroot_fdfsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -76,10 +69,10 @@ end
 # These functions return the function value f(x) at the current estimate of the
 # root for the solver s, given by s->f.
 #
-#   Returns: Ref{gsl_vector}
+#   Returns: Ptr{gsl_vector}
 function multiroot_fsolver_f(s::Ref{gsl_multiroot_fsolver})
-    output_ptr = ccall( (:gsl_multiroot_fsolver_f, :libgsl),
-        Ref{gsl_vector}, (Ref{gsl_multiroot_fsolver}, ), s )
+    output_ptr = ccall( (:gsl_multiroot_fsolver_f, libgsl),
+        Ptr{gsl_vector}, (Ref{gsl_multiroot_fsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -87,10 +80,10 @@ end
 # These functions return the function value f(x) at the current estimate of the
 # root for the solver s, given by s->f.
 #
-#   Returns: Ref{gsl_vector}
+#   Returns: Ptr{gsl_vector}
 function multiroot_fdfsolver_f(s::Ref{gsl_multiroot_fdfsolver})
-    output_ptr = ccall( (:gsl_multiroot_fdfsolver_f, :libgsl),
-        Ref{gsl_vector}, (Ref{gsl_multiroot_fdfsolver}, ), s )
+    output_ptr = ccall( (:gsl_multiroot_fdfsolver_f, libgsl),
+        Ptr{gsl_vector}, (Ref{gsl_multiroot_fdfsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -98,10 +91,10 @@ end
 # These functions return the last step dx taken by the solver s, given by
 # s->dx.
 #
-#   Returns: Ref{gsl_vector}
+#   Returns: Ptr{gsl_vector}
 function multiroot_fsolver_dx(s::Ref{gsl_multiroot_fsolver})
-    output_ptr = ccall( (:gsl_multiroot_fsolver_dx, :libgsl),
-        Ref{gsl_vector}, (Ref{gsl_multiroot_fsolver}, ), s )
+    output_ptr = ccall( (:gsl_multiroot_fsolver_dx, libgsl),
+        Ptr{gsl_vector}, (Ref{gsl_multiroot_fsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 
@@ -109,9 +102,9 @@ end
 # These functions return the last step dx taken by the solver s, given by
 # s->dx.
 #
-#   Returns: Ref{gsl_vector}
+#   Returns: Ptr{gsl_vector}
 function multiroot_fdfsolver_dx(s::Ref{gsl_multiroot_fdfsolver})
-    output_ptr = ccall( (:gsl_multiroot_fdfsolver_dx, :libgsl),
-        Ref{gsl_vector}, (Ref{gsl_multiroot_fdfsolver}, ), s )
+    output_ptr = ccall( (:gsl_multiroot_fdfsolver_dx, libgsl),
+        Ptr{gsl_vector}, (Ref{gsl_multiroot_fdfsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

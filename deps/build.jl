@@ -3,10 +3,10 @@ using Compat
 
 @BinDeps.setup
 
-libgsl = library_dependency("libgsl", aliases="libgsl-0")
+libgsl = library_dependency("libgsl", aliases=["libgsl-0"])
 
 # package managers
-provides(AptGet, @compat Dict("libgsl0ldbl"=>libgsl, "libgsl0-dev" =>libgsl, "gsl-bin"=>libgsl))
+provides(AptGet, Dict("libgsl0ldbl"=>libgsl, "libgsl0-dev" =>libgsl, "gsl-bin"=>libgsl))
 provides(Yum, "gsl-devel", libgsl)
 provides(Pacman, "gsl", libgsl)
 
@@ -27,4 +27,4 @@ end
 provides(Sources, URI("http://ftp.gnu.org/gnu/gsl/gsl-1.16.tar.gz"), libgsl)
 provides(BuildProcess, Autotools(libtarget = "libgsl.la"), libgsl)
 
-@BinDeps.install @compat Dict(:libgsl => :libgsl)
+@BinDeps.install Dict(:libgsl => :libgsl)
