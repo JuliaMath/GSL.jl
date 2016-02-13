@@ -22,7 +22,7 @@ end
 # */           gsl_set_error_handler (old_handler);  To use the default
 # behavior (abort on error) set the error handler to NULL,
 # old_handler = gsl_set_error_handler (NULL);
-# 
+#
 #   Returns: Ptr{gsl_error_handler_t}
 function set_error_handler(new_handler::Ref{gsl_error_handler_t})
     output_ptr = ccall( (:gsl_set_error_handler, libgsl),
@@ -35,7 +35,7 @@ end
 # return values from any library routines must be checked.  This is the
 # recommended behavior for production programs.  The previous handler is
 # returned (so that you can restore it later).
-# 
+#
 #   Returns: Ptr{gsl_error_handler_t}
 function set_error_handler_off()
     output_ptr = ccall( (:gsl_set_error_handler_off, libgsl),

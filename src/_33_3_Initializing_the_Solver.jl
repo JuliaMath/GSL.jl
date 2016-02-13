@@ -15,11 +15,7 @@ export root_fsolver_alloc, root_fdfsolver_alloc, root_fsolver_set,
 # gsl_root_fsolver_alloc (T);  If there is insufficient memory to create the
 # solver then the function returns a null pointer and the error handler is
 # invoked with an error code of GSL_ENOMEM.
-<<<<<<< HEAD
-# 
-=======
 #
->>>>>>> 05c25fc44ba662e9e8f0452ec4b2cfa63d336d8d
 #   Returns: Ptr{gsl_root_fsolver}
 function root_fsolver_alloc(T::Ref{gsl_root_fsolver_type})
     output_ptr = ccall( (:gsl_root_fsolver_alloc, libgsl),
@@ -34,11 +30,7 @@ end
 # gsl_root_fdfsolver * s             = gsl_root_fdfsolver_alloc (T);  If there
 # is insufficient memory to create the solver then the function returns a null
 # pointer and the error handler is invoked with an error code of GSL_ENOMEM.
-<<<<<<< HEAD
-# 
-=======
 #
->>>>>>> 05c25fc44ba662e9e8f0452ec4b2cfa63d336d8d
 #   Returns: Ptr{gsl_root_fdfsolver}
 function root_fdfsolver_alloc(T::Ref{gsl_root_fdfsolver_type})
     output_ptr = ccall( (:gsl_root_fdfsolver_alloc, libgsl),
@@ -98,7 +90,7 @@ end
 # These functions return a pointer to the name of the solver.  For example,
 # printf ("s is a '%s' solver\n",                   gsl_root_fsolver_name (s));
 # would print something like s is a 'bisection' solver.
-# 
+#
 #   Returns: Ptr{Cchar}
 function root_fsolver_name(s::Ref{gsl_root_fsolver})
     output_string = output_ptr = ccall( (:gsl_root_fsolver_name, libgsl),
@@ -111,7 +103,7 @@ end
 # These functions return a pointer to the name of the solver.  For example,
 # printf ("s is a '%s' solver\n",                   gsl_root_fsolver_name (s));
 # would print something like s is a 'bisection' solver.
-# 
+#
 #   Returns: Ptr{Cchar}
 function root_fdfsolver_name(s::Ref{gsl_root_fdfsolver})
     output_string = output_ptr = ccall( (:gsl_root_fdfsolver_name,
