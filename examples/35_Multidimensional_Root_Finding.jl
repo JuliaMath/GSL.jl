@@ -1,3 +1,7 @@
+#TODO: Incorporate the following line into build.jl using BinDeps functionality
+#      such that the path to libgslcblas.so.0 is determined automatically.
+@unix_only Libdl.dlopen_e("/usr/lib/libgslcblas.so.0", Libdl.RTLD_GLOBAL)
+
 #Adapted from the GSL multiroot test
 using GSL
 
@@ -5,27 +9,27 @@ using GSL
 v0 = Cdouble[1.0, 5.0, 2.0, 1.5, -1.0]
 
 n = length(v0)
-v = ccall((:gsl_vector_alloc, :libgsl), Ptr{gsl_vector}, (Csize_t,), n)
+v = ccall((:gsl_vector_alloc, GSL.libgsl), Ptr{gsl_vector}, (Csize_t,), n)
 
 # #vector_set
 for i=1:n
-    ccall((:gsl_vector_set, :libgsl), Void, (Ptr{gsl_vector}, Csize_t, Cdouble), v, i-1, v0[i])
+    ccall((:gsl_vector_set, GSL.libgsl), Void, (Ptr{gsl_vector}, Csize_t, Cdouble), v, i-1, v0[i])
 end
 
-dnewton_ptr_ptr = cglobal((:gsl_multiroot_fsolver_dnewton, :libgsl), Ptr{GSL.gsl_multiroot_fsolver_type})
+dnewton_ptr_ptr = cglobal((:gsl_multiroot_fsolver_dnewton, GSL.libgsl), Ptr{GSL.gsl_multiroot_fsolver_type})
 dnewton_ptr = unsafe_load(dnewton_ptr_ptr)
 dnewton_solver = GSL.multiroot_fsolver_alloc(dnewton_ptr, n)
 
-gsl_multiroot_fsolver_set_ptr_ptr = cglobal((:gsl_multiroot_fsolver_set, :libgsl), Ptr{Ptr{GSL.gsl_multiroot_fsolver}})
+gsl_multiroot_fsolver_set_ptr_ptr = cglobal((:gsl_multiroot_fsolver_set, GSL.libgsl), Ptr{Ptr{GSL.gsl_multiroot_fsolver}})
 gsl_multiroot_fsolver_set_ptr = unsafe_load(gsl_multiroot_fsolver_set_ptr_ptr)
 
 #vector_get
 for i=1:5
-    @assert v0[i] == ccall((:gsl_vector_get, :libgsl), Cdouble, (Ptr{gsl_vector}, Csize_t), v, i-1)
+    @assert v0[i] == ccall((:gsl_vector_get, GSL.libgsl), Cdouble, (Ptr{gsl_vector}, Csize_t), v, i-1)
 end
 
 function gsl_vector_ptr(x::Ptr{gsl_vector}, n)
-    return pointer_to_array(ccall((:gsl_vector_ptr, :libgsl), Ptr{Cdouble}, (Ptr{gsl_vector}, Csize_t), x, 0), n)
+    return pointer_to_array(ccall((:gsl_vector_ptr, GSL.libgsl), Ptr{Cdouble}, (Ptr{gsl_vector}, Csize_t), x, 0), n)
 end
 
 function function_callback(x::Ptr{gsl_vector}, jlfunc::Function, f::Ptr{gsl_vector})
