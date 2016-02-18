@@ -25,8 +25,7 @@ module GSL
     include("23_2_Creating_ntuples.jl")
     include("23_3_Opening_an_existing_ntuple_file.jl")
     include("28_1_NumericalDifferentiationfunctions.jl")
-    include("35_4_Iteration.jl")
-    include("35_5_Search_Stopping_Parameters.jl")
+
 end #module
 
 #Test
