@@ -6,16 +6,8 @@
 ######################
 export gsl_error_handler_t, set_error_handler, set_error_handler_off
 
-
-
-
-
-
-
-
 type gsl_error_handler_t
 end
-
 
 # This function sets a new error handler, new_handler, for the GSL library
 # routines.  The previous handler is returned (so that you can restore it
@@ -30,11 +22,11 @@ end
 # */           gsl_set_error_handler (old_handler);  To use the default
 # behavior (abort on error) set the error handler to NULL,
 # old_handler = gsl_set_error_handler (NULL);
-# 
-#   Returns: Ref{gsl_error_handler_t}
+#
+#   Returns: Ptr{gsl_error_handler_t}
 function set_error_handler(new_handler::Ref{gsl_error_handler_t})
     output_ptr = ccall( (:gsl_set_error_handler, libgsl),
-        Ref{gsl_error_handler_t}, (Ref{gsl_error_handler_t}, ), new_handler )
+        Ptr{gsl_error_handler_t}, (Ref{gsl_error_handler_t}, ), new_handler )
 end
 
 
@@ -43,9 +35,9 @@ end
 # return values from any library routines must be checked.  This is the
 # recommended behavior for production programs.  The previous handler is
 # returned (so that you can restore it later).
-# 
-#   Returns: Ref{gsl_error_handler_t}
+#
+#   Returns: Ptr{gsl_error_handler_t}
 function set_error_handler_off()
     output_ptr = ccall( (:gsl_set_error_handler_off, libgsl),
-        Ref{gsl_error_handler_t}, () )
+        Ptr{gsl_error_handler_t}, () )
 end

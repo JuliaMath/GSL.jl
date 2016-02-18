@@ -6,15 +6,6 @@
 ###################################
 export root_test_interval, root_test_delta, root_test_residual
 
-
-
-
-
-
-
-
-
-
 # This function tests for the convergence of the interval [x_lower, x_upper]
 # with absolute error epsabs and relative error epsrel.  The test returns
 # GSL_SUCCESS if the following condition is achieved,                 |a - b| <
@@ -26,51 +17,47 @@ export root_test_interval, root_test_delta, root_test_residual
 # estimate of the root r in the interval satisfies the same condition with
 # respect to the true root r^*,                 |r - r^*| < epsabs + epsrel r^*
 # assuming that the true root r^* is contained within the interval.
-# 
+#
 #   Returns: Cint
 function root_test_interval(x_lower::Real, x_upper::Real, epsabs::Real, epsrel::Real)
     errno = ccall( (:gsl_root_test_interval, libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Cdouble), x_lower, x_upper, epsabs, epsrel )
-    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+    gslerrno = gsl_errno(errno)
+    if gslerrno != SUCCESS && gslerrno != CONTINUE
         throw(GSL_ERROR(errno))
     end
-    return errno
+    return gslerrno
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number root_test_interval
-
 
 # This function tests for the convergence of the sequence ..., x0, x1 with
 # absolute error epsabs and relative error epsrel.  The test returns
 # GSL_SUCCESS if the following condition is achieved,                 |x_1 -
 # x_0| < epsabs + epsrel |x_1|  and returns GSL_CONTINUE otherwise.
-# 
+#
 #   Returns: Cint
 function root_test_delta(x1::Real, x0::Real, epsabs::Real, epsrel::Real)
     errno = ccall( (:gsl_root_test_delta, libgsl), Cint, (Cdouble,
         Cdouble, Cdouble, Cdouble), x1, x0, epsabs, epsrel )
-    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+    gslerrno = gsl_errno(errno)
+    if gslerrno != SUCCESS && gslerrno != CONTINUE
         throw(GSL_ERROR(errno))
     end
-    return errno
+    return gslerrno
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number root_test_delta
-
 
 # This function tests the residual value f against the absolute error bound
 # epsabs.  The test returns GSL_SUCCESS if the following condition is achieved,
 # |f| < epsabs  and returns GSL_CONTINUE otherwise.  This criterion is suitable
 # for situations where the precise location of the root, x, is unimportant
 # provided a value can be found where the residual, |f(x)|, is small enough.
-# 
+#
 #   Returns: Cint
 function root_test_residual(f::Real, epsabs::Real)
     errno = ccall( (:gsl_root_test_residual, libgsl), Cint, (Cdouble,
         Cdouble), f, epsabs )
-    if gsl_errno(errno) != SUCCESS && gsl_errno(errno) != CONTINUE
+    gslerrno = gsl_errno(errno)
+    if gslerrno != SUCCESS && gslerrno != CONTINUE
         throw(GSL_ERROR(errno))
     end
-    return errno
+    return gslerrno
 end
-@vectorize_2arg Number root_test_residual

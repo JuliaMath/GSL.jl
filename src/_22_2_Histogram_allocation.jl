@@ -16,11 +16,11 @@ export histogram_alloc, histogram_set_ranges, histogram_set_ranges_uniform,
 # error code of GSL_ENOMEM. The bins and ranges are not initialized, and should
 # be prepared using one of the range-setting functions below in order to make
 # the histogram ready for use.
-# 
-#   Returns: Ref{gsl_histogram}
+#
+#   Returns: Ptr{gsl_histogram}
 function histogram_alloc(n::Integer)
     output_ptr = ccall( (:gsl_histogram_alloc, libgsl),
-        Ref{gsl_histogram}, (Csize_t, ), n )
+        Ptr{gsl_histogram}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
 @vectorize_1arg Number histogram_alloc
@@ -39,7 +39,7 @@ end
 # gsl_histogram_set_ranges (h, range, 4);  Note that the size of the range
 # array should be defined to be one element bigger than the number of bins.
 # The additional element is required for the upper value of the final bin.
-# 
+#
 #   Returns: Cint
 function histogram_set_ranges(range::Real)
     h = Ref{gsl_histogram}()
@@ -57,7 +57,7 @@ end
 # corresponds to xmin <= x < xmin + d           bin[1] corresponds to xmin + d
 # <= x < xmin + 2 d           ......           bin[n-1] corresponds to xmin +
 # (n-1)d <= x < xmax  where d is the bin spacing, d = (xmax-xmin)/n.
-# 
+#
 #   Returns: Cint
 function histogram_set_ranges_uniform(xmin::Real, xmax::Real)
     h = Ref{gsl_histogram}()
@@ -70,7 +70,7 @@ end
 
 
 # This function frees the histogram h and all of the memory associated with it.
-# 
+#
 #   Returns: Void
 function histogram_free(h::Ref{gsl_histogram})
     ccall( (:gsl_histogram_free, libgsl), Void, (Ref{gsl_histogram}, ), h
