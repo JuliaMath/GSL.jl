@@ -46,3 +46,38 @@ function root_fdfsolver_iterate(s::Ptr{gsl_root_fdfsolver})
     return gslerrno
 end
 
+
+# These functions return the current estimate of the root for the solver s.
+#
+#   Returns: Cdouble
+function root_fsolver_root(s::Ptr{gsl_root_fsolver})
+    ccall( (:gsl_root_fsolver_root, libgsl), Cdouble,
+        (Ptr{gsl_root_fsolver}, ), s )
+end
+
+
+# These functions return the current estimate of the root for the solver s.
+#
+#   Returns: Cdouble
+function root_fdfsolver_root(s::Ptr{gsl_root_fdfsolver})
+    ccall( (:gsl_root_fdfsolver_root, libgsl), Cdouble,
+        (Ptr{gsl_root_fdfsolver}, ), s )
+end
+
+
+# These functions return the current bracketing interval for the solver s.
+#
+#   Returns: Cdouble
+function root_fsolver_x_lower(s::Ptr{gsl_root_fsolver})
+    ccall( (:gsl_root_fsolver_x_lower, libgsl), Cdouble,
+        (Ptr{gsl_root_fsolver}, ), s )
+end
+
+
+# These functions return the current bracketing interval for the solver s.
+#
+#   Returns: Cdouble
+function root_fsolver_x_upper(s::Ptr{gsl_root_fsolver})
+    ccall( (:gsl_root_fsolver_x_upper, libgsl), Cdouble,
+        (Ptr{gsl_root_fsolver}, ), s )
+end

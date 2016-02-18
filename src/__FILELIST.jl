@@ -62,7 +62,15 @@ type gsl_wavelet; end
 type gsl_wavelet_direction; end
 type gsl_wavelet_type; end
 type gsl_wavelet_workspace; end
+
 #Automatically generated include list
+#
+# NOTE: This file has now been hand-edited to begin the process of
+#       moving away from having separate underscore and non-underscore
+#       versions of various source files both being loaded.  With Julia
+#       v0.5, the approach of using method redefinition will not be viable.
+#       Longer term, all of the GSL wrappers might be recreated using Clang.jl
+
 include("../src/_22_1_The_histogram_struct.jl")
 include("../src/_5_1_Representation_of_complex_numbers.jl")
 include("../src/_22_13_The_2D_histogram_struct.jl")
@@ -70,9 +78,9 @@ include("../src/_3_3_Error_Handlers.jl")
 include("../src/_22_21_Resampling_from_2D_histograms.jl")
 include("../src/_8_2_Blocks.jl")
 include("../src/_25_2_Simulated_Annealing_functions.jl")
-include("../src/_35_3_Providing_the_function_to_solve.jl")
+include("35_3_Providing_the_function_to_solve.jl")
 include("../src/_24_1_Interface.jl")
-include("../src/_33_4_Providing_the_function_to_solve.jl")
+include("33_4_Providing_the_function_to_solve.jl")
 include("../src/_11_1_The_Multiset_struct.jl")
 include("../src/_8_4_Matrices.jl")
 include("../src/_10_1_The_Combination_struct.jl")
@@ -185,9 +193,9 @@ include("../src/_4_2_Infinities_and_Not-a-number.jl")
 include("../src/_39_2_Initializing_the_B-splines_solver.jl")
 include("../src/_34_3_Initializing_the_Minimizer.jl")
 include("../src/_36_3_Initializing_the_Multidimensional_Minimizer.jl")
-include("../src/_35_2_Initializing_the_Solver.jl")
+include("35_2_Initializing_the_Solver.jl")
 include("../src/_38_2_Initializing_the_Solver.jl")
-include("../src/_33_3_Initializing_the_Solver.jl")
+include("33_3_Initializing_the_Solver.jl")
 include("../src/_27_2_Interpolation_Functions.jl")
 include("../src/_27_3_Interpolation_Types.jl")
 include("../src/_7_5_10_Irregular_Bessel_FunctionsFractional_Order.jl")
@@ -197,7 +205,7 @@ include("../src/_7_5_4_Irregular_Modified_Cylindrical_Bessel_Functions.jl")
 include("../src/_7_5_8_Irregular_Modified_Spherical_Bessel_Functions.jl")
 include("../src/_7_5_6_Irregular_Spherical_Bessel_Functions.jl")
 include("../src/_38_4_Iteration.jl")
-include("../src/_35_4_Iteration.jl")
+include("35_4_Iteration.jl")
 include("../src/_7_22_Laguerre_Functions.jl")
 include("../src/_7_23_Lambert_W_Functions.jl")
 include("../src/_7_13_3_Legendre_Form_of_Complete_Elliptic_Integrals.jl")
@@ -270,13 +278,13 @@ include("../src/_41_1_Representation_of_floating_point_numbers.jl")
 include("../src/_7_31_5_Restriction_Functions.jl")
 include("../src/_7_32_2_Riemann_Zeta_Function_Minus_One.jl")
 include("../src/_7_32_1_Riemann_Zeta_Function.jl")
-include("../src/_33_6_Iteration.jl")
+include("33_6_Iteration.jl")
 include("../src/_19_2_Sampling_from_a_quasi-random_number_generator.jl")
 include("../src/_18_4_Sampling_from_a_random_number_generator.jl")
 include("../src/_19_4_Saving_and_resorting_quasi-random_number_generator_state.jl")
 include("../src/_38_5_Search_Stopping_Parameters.jl")
-include("../src/_35_5_Search_Stopping_Parameters.jl")
-include("../src/_33_7_Search_Stopping_Parameters.jl")
+include("35_5_Search_Stopping_Parameters.jl")
+include("33_7_Search_Stopping_Parameters.jl")
 include("../src/_22_17_Searching_2D_histogram_ranges.jl")
 include("../src/_22_5_Searching_histogram_ranges.jl")
 include("../src/_41_2_Setting_up_your_IEEE_environment.jl")

@@ -70,3 +70,46 @@ function root_fdfsolver_set(s::Ref{gsl_root_fdfsolver}, fdf::Ref{gsl_function_fd
     return gslerrno
 end
 
+
+# These functions free all the memory associated with the solver s.
+#
+#   Returns: Void
+function root_fsolver_free(s::Ptr{gsl_root_fsolver})
+    ccall( (:gsl_root_fsolver_free, libgsl), Void, (Ptr{gsl_root_fsolver},
+        ), s )
+end
+
+
+# These functions free all the memory associated with the solver s.
+#
+#   Returns: Void
+function root_fdfsolver_free(s::Ptr{gsl_root_fdfsolver})
+    ccall( (:gsl_root_fdfsolver_free, libgsl), Void,
+        (Ptr{gsl_root_fdfsolver}, ), s )
+end
+
+
+# These functions return a pointer to the name of the solver.  For example,
+# printf ("s is a '%s' solver\n",                   gsl_root_fsolver_name (s));
+# would print something like s is a 'bisection' solver.
+#
+#   Returns: Ptr{Cchar}
+function root_fsolver_name(s::Ptr{gsl_root_fsolver})
+    output_string = output_ptr = ccall( (:gsl_root_fsolver_name, libgsl),
+        Ptr{Cchar}, (Ptr{gsl_root_fsolver}, ), s )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
+    bytestring(output_string)
+end
+
+
+# These functions return a pointer to the name of the solver.  For example,
+# printf ("s is a '%s' solver\n",                   gsl_root_fsolver_name (s));
+# would print something like s is a 'bisection' solver.
+#
+#   Returns: Ptr{Cchar}
+function root_fdfsolver_name(s::Ptr{gsl_root_fdfsolver})
+    output_string = output_ptr = ccall( (:gsl_root_fdfsolver_name,
+        libgsl), Ptr{Cchar}, (Ptr{gsl_root_fdfsolver}, ), s )
+    output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
+    bytestring(output_string)
+end
