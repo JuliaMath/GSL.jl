@@ -9,7 +9,7 @@ export permutation_reverse, permutation_inverse, permutation_next,
 
 
 # This function reverses the elements of the permutation p.
-# 
+#
 #   Returns: Void
 function permutation_reverse(p::Ref{gsl_permutation})
     ccall( (:gsl_permutation_reverse, libgsl), Void,
@@ -19,7 +19,7 @@ end
 
 # This function computes the inverse of the permutation p, storing the result
 # in inv.
-# 
+#
 #   Returns: Cint
 function permutation_inverse(p::Ref{gsl_permutation})
     inv = permutation_alloc(p[].size)
@@ -35,7 +35,7 @@ end
 # available it returns gsl_FAILURE and leaves p unmodified.  Starting with the
 # identity permutation and repeatedly applying this function will iterate
 # through all possible permutations of a given order.
-# 
+#
 #   Returns: Cint
 function permutation_next(p::Ref{gsl_permutation})
     errno = ccall( (:gsl_permutation_next, libgsl), Cint,
@@ -48,7 +48,7 @@ end
 # This function steps backwards from the permutation p to the previous
 # permutation in lexicographic order, returning gsl_SUCCESS.  If no previous
 # permutation is available it returns gsl_FAILURE and leaves p unmodified.
-# 
+#
 #   Returns: Cint
 function permutation_prev(p::Ref{gsl_permutation})
     errno = ccall( (:gsl_permutation_prev, libgsl), Cint,

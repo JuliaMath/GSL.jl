@@ -6,12 +6,12 @@
 #######################################################
 export sf_bessel_k0_scaled, sf_bessel_k0_scaled_e, sf_bessel_k1_scaled,
        sf_bessel_k1_scaled_e, sf_bessel_k2_scaled, sf_bessel_k2_scaled_e,
-       sf_bessel_kl_scaled, sf_bessel_kl_scaled_e, sf_bessel_kl_scaled_array
+       sf_bessel_kl_scaled, sf_bessel_kl_scaled_e
 
 
 # These routines compute the scaled irregular modified spherical Bessel
 # function of zeroth order, \exp(x) k_0(x), for x>0.
-# 
+#
 #   Returns: Cdouble
 function sf_bessel_k0_scaled(x::Real)
     ccall( (:gsl_sf_bessel_k0_scaled, libgsl), Cdouble, (Cdouble, ), x )
@@ -21,7 +21,7 @@ end
 
 # These routines compute the scaled irregular modified spherical Bessel
 # function of zeroth order, \exp(x) k_0(x), for x>0.
-# 
+#
 #   Returns: Cint
 function sf_bessel_k0_scaled_e(x::Real)
     result = Ref{gsl_sf_result}()
@@ -35,7 +35,7 @@ end
 
 # These routines compute the scaled irregular modified spherical Bessel
 # function of first order, \exp(x) k_1(x), for x>0.
-# 
+#
 #   Returns: Cdouble
 function sf_bessel_k1_scaled(x::Real)
     ccall( (:gsl_sf_bessel_k1_scaled, libgsl), Cdouble, (Cdouble, ), x )
@@ -45,7 +45,7 @@ end
 
 # These routines compute the scaled irregular modified spherical Bessel
 # function of first order, \exp(x) k_1(x), for x>0.
-# 
+#
 #   Returns: Cint
 function sf_bessel_k1_scaled_e(x::Real)
     result = Ref{gsl_sf_result}()
@@ -59,7 +59,7 @@ end
 
 # These routines compute the scaled irregular modified spherical Bessel
 # function of second order, \exp(x) k_2(x), for x>0.
-# 
+#
 #   Returns: Cdouble
 function sf_bessel_k2_scaled(x::Real)
     ccall( (:gsl_sf_bessel_k2_scaled, libgsl), Cdouble, (Cdouble, ), x )
@@ -69,7 +69,7 @@ end
 
 # These routines compute the scaled irregular modified spherical Bessel
 # function of second order, \exp(x) k_2(x), for x>0.
-# 
+#
 #   Returns: Cint
 function sf_bessel_k2_scaled_e(x::Real)
     result = Ref{gsl_sf_result}()
@@ -83,7 +83,7 @@ end
 
 # These routines compute the scaled irregular modified spherical Bessel
 # function of order l, \exp(x) k_l(x), for x>0.
-# 
+#
 #   Returns: Cdouble
 function sf_bessel_kl_scaled(l::Integer, x::Real)
     ccall( (:gsl_sf_bessel_kl_scaled, libgsl), Cdouble, (Cint, Cdouble),
@@ -94,7 +94,7 @@ end
 
 # These routines compute the scaled irregular modified spherical Bessel
 # function of order l, \exp(x) k_l(x), for x>0.
-# 
+#
 #   Returns: Cint
 function sf_bessel_kl_scaled_e(l::Integer, x::Real)
     result = Ref{gsl_sf_result}()
@@ -104,20 +104,3 @@ function sf_bessel_kl_scaled_e(l::Integer, x::Real)
     return result[]
 end
 @vectorize_2arg Number sf_bessel_kl_scaled_e
-
-
-# This routine computes the values of the scaled irregular modified spherical
-# Bessel functions \exp(x) k_l(x) for l from 0 to lmax inclusive for  lmax >= 0
-# and x>0, storing the results in the array result_array.  The values are
-# computed using recurrence relations for efficiency, and therefore may differ
-# slightly from the exact values.
-# 
-#   Returns: Cint
-function sf_bessel_kl_scaled_array(lmax::Integer, x::Real)
-    result_array = Ref{Cdouble}()
-    errno = ccall( (:gsl_sf_bessel_kl_scaled_array, libgsl), Cint, (Cint,
-        Cdouble, Cdouble), lmax, x, result_array )
-    if errno!= 0 throw(GSL_ERROR(errno)) end
-    return result_array[][1]
-end
-@vectorize_2arg Number sf_bessel_kl_scaled_array
