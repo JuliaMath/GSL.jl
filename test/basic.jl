@@ -1,4 +1,5 @@
 using GSL
+using Compat
 
 if !isdefined(:VERBOSE)
     VERBOSE = true
@@ -58,7 +59,7 @@ for sf in (
         u=$sf(s, t, x)
         VERBOSE && println($sf)
         for n=s:t
-            y = $(symbol(string(sf)[1:end-6]))(n, x)
+            y = $(Symbol(string(sf)[1:end-6]))(n, x)
             VERBOSE && println(n, '\t', y, '\t', u[n-s+1])
             @test_approx_eq y u[n-s+1]
         end
@@ -94,7 +95,7 @@ for sf in (
         u=$sf(s, t, xabs)
         VERBOSE && println($sf)
         for n=s:t
-            y = $(symbol(string(sf)[1:end-6]))(n, xabs)
+            y = $(Symbol(string(sf)[1:end-6]))(n, xabs)
             VERBOSE && println(n, '\t', y, '\t', u[n-s+1])
             @test_approx_eq y u[n-s+1]
         end
@@ -285,13 +286,13 @@ for sf in (
         )
     @eval begin
         u = $sf(x)
-        v = $(symbol(string(sf, "_e")))(x)
+        v = $(Symbol(sf, "_e"))(x)
         #XXX cause bus error
-        #p = $(symbol(string(sf, "_e10_e")))(x)
+        #p = $(Symbol(sf, "_e10_e"))(x)
         #7.16.3 Exponentiation With Error Estimate
-        a = $(symbol(string(sf, "_err_e")))(x, 0)
+        a = $(Symbol(sf, "_err_e"))(x, 0)
         #XXX cause bus error
-        #b = $(symbol(string(sf, "_err_e10_e")))(x, 0)
+        #b = $(Symbol(sf, "_err_e10_e"))(x, 0)
         @test_approx_eq_eps u v.val v.err
         #@test_approx_eq u p.val*10^p.e10
         @test_approx_eq_eps u a.val a.err
@@ -304,9 +305,9 @@ for sf in (
         )
     @eval begin
         u = $sf(x, y)
-        v = $(symbol(string(sf, "_e")))(x, y)
+        v = $(Symbol(sf, "_e"))(x, y)
         #XXX These functions cause bus error
-        #p = $(symbol(string(sf, "_e10_e")))(x, y)
+        #p = $(Symbol(sf, "_e10_e"))(x, y)
         @test_approx_eq_eps u v.val v.err
         #@test_approx_eq u p.val*10^p.e10
     end
@@ -357,8 +358,8 @@ for sf in (
         )
     @eval begin
         u = $sf(x)
-        v = $(symbol(string(sf, "_e")))(x)
-        w = $(symbol(string(sf, "_sgn_e")))(x)
+        v = $(Symbol(sf, "_e"))(x)
+        w = $(Symbol(sf, "_sgn_e"))(x)
         VERBOSE && println($sf, "\t", u, "\t", v)
         @test_approx_eq_eps u v.val v.err
         @test_approx_eq_eps u w[1].val w[1].err
@@ -397,8 +398,8 @@ end
 for sf in (:sf_lnpoch,) #7.19.1 Gamma Functions
     @eval begin
         u = $sf(abs(x), abs(y))
-        v = $(symbol(string(sf, "_e")))(abs(x), abs(y))
-        w = $(symbol(string(sf, "_sgn_e")))(abs(x), abs(y))
+        v = $(Symbol(sf, "_e"))(abs(x), abs(y))
+        w = $(Symbol(sf, "_sgn_e"))(abs(x), abs(y))
         VERBOSE && println($sf, "\t", u, "\t", v)
         @test_approx_eq_eps u v.val v.err
         @test_approx_eq_eps u w[1].val w[1].err
@@ -430,7 +431,7 @@ for sf in (:sf_gegenpoly_array,)
         VERBOSE && println($sf)
         u=$sf(s, xabs, y)
         for n=0:s
-            yy = $(symbol(string(string(sf)[1:end-6],"_n")))(n, xabs, y)
+            yy = $(Symbol(string(sf)[1:end-6], "_n"))(n, xabs, y)
             @test_approx_eq yy u[n+1]
             VERBOSE && println(n,"\t",yy,"\t",u[n+1])
         end
