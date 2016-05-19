@@ -13,11 +13,12 @@ export multimin_test_gradient, multimin_test_size
 # epsabs can be made from the desired accuracy in the function for small
 # variations in x.  The relationship between these quantities is given by
 # \delta f = g \delta x.
-# 
+#
 #   Returns: Cint
 function multimin_test_gradient(g::Ref{gsl_vector}, epsabs::Real)
     errno = ccall( (:gsl_multimin_test_gradient, libgsl), Cint,
         (Ref{gsl_vector}, Cdouble), g, epsabs )
+    gslerrno = gsl_errno(errno)
     if gslerrno != SUCCESS && gslerrno != CONTINUE
         throw(GSL_ERROR(errno))
     end
@@ -29,11 +30,12 @@ end
 # to the used minimizer) against absolute tolerance epsabs.  The test returns
 # GSL_SUCCESS if the size is smaller than tolerance, otherwise GSL_CONTINUE is
 # returned.
-# 
+#
 #   Returns: Cint
 function multimin_test_size(size::Real, epsabs::Real)
     errno = ccall( (:gsl_multimin_test_size, libgsl), Cint, (Cdouble,
         Cdouble), size, epsabs )
+    gslerrno = gsl_errno(errno)
     if gslerrno != SUCCESS && gslerrno != CONTINUE
         throw(GSL_ERROR(errno))
     end

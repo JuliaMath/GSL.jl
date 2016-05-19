@@ -59,6 +59,7 @@ function multimin_fdfminimizer_set(s::Ptr{gsl_multimin_fdfminimizer}, fdf::Ptr{g
     errno = ccall( (:gsl_multimin_fdfminimizer_set, libgsl), Cint,
         (Ptr{gsl_multimin_fdfminimizer}, Ptr{gsl_multimin_function_fdf},
         Ptr{gsl_vector}, Cdouble, Cdouble), s, fdf, x, step_size, tol )
+    gslerrno = gsl_errno(errno)
     if gslerrno != SUCCESS && gslerrno != CONTINUE
         throw(GSL_ERROR(errno))
     end
