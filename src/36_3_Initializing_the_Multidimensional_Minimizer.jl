@@ -5,9 +5,9 @@
 # 36.3 Initializing the Multidimensional Minimizer #
 ####################################################
 export multimin_fdfminimizer_alloc, multimin_fminimizer_alloc,
-       multimin_fdfminimizer_set, multimin_fdfminimizer_free,
-       multimin_fminimizer_free, multimin_fdfminimizer_name,
-       multimin_fminimizer_name
+       multimin_fdfminimizer_set, multimin_fminimizer_set,
+       multimin_fdfminimizer_free, multimin_fminimizer_free,
+       multimin_fdfminimizer_name, multimin_fminimizer_name
 
 # This function returns a pointer to a newly allocated instance of a minimizer
 # of type T for an n-dimension function.  If there is insufficient memory to
@@ -66,6 +66,17 @@ function multimin_fdfminimizer_set(s::Ptr{gsl_multimin_fdfminimizer}, fdf::Ptr{g
     return gslerrno
 end
 
+#   Returns: Cint
+function multimin_fminimizer_set(s::Ptr{gsl_multimin_fminimizer}, f::Ptr{gsl_multimin_function}, x::Ptr{gsl_vector}, step_size::Ptr{gsl_vector})
+    errno = ccall( (:gsl_multimin_fminimizer_set, libgsl), Cint,
+        (Ptr{gsl_multimin_fminimizer}, Ptr{gsl_multimin_function},
+        Ptr{gsl_vector}, Ptr{gsl_vector}), s, f, x, step_size)
+    gslerrno = gsl_errno(errno)
+    if gslerrno != SUCCESS && gslerrno != CONTINUE
+        throw(GSL_ERROR(errno))
+    end
+    return gslerrno
+end
 
 # This function frees all the memory associated with the minimizer s.
 #

@@ -17,7 +17,7 @@ export multimin_fdfminimizer_iterate, multimin_fminimizer_iterate,
 # because a genuine local minimum has been reached.
 #
 #   Returns: Cint
-function multimin_fdfminimizer_iterate(s::Ptr{gsl_multimin_fdf_minimizer})
+function multimin_fdfminimizer_iterate(s::Ptr{gsl_multimin_fdfminimizer})
     errno = ccall( (:gsl_multimin_fdfminimizer_iterate, libgsl), Cint,
         (Ref{gsl_multimin_fdfminimizer}, ), s )
     gslerrno = gsl_errno(errno)
