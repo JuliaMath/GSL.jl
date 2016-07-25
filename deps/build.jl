@@ -10,19 +10,17 @@ provides(AptGet, Dict("libgsl0ldbl"=>libgsl, "libgsl0-dev" =>libgsl, "gsl-bin"=>
 provides(Yum, "gsl-devel", libgsl)
 provides(Pacman, "gsl", libgsl)
 
-if is_apple() begin
+if is_apple() 
     if Pkg.installed("Homebrew") === nothing
         error("Homebrew package not installed, please run Pkg.add(\"Homebrew\")")
     end
     using Homebrew
     provides(Homebrew.HB, "gsl", libgsl, os = :Darwin)
 end
-end
 
-if is_windows() begin
+if is_windows() 
      using WinRPM
      provides(WinRPM.RPM, "gsl", libgsl, os = :Windows)
-end
 end
 
 # build from source
