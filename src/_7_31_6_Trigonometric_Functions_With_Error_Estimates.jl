@@ -19,7 +19,7 @@ function sf_sin_err_e(x::Real, dx::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_sin_err_e
+Compat.@dep_vectorize_2arg Number sf_sin_err_e
 
 
 # This routine computes the cosine of an angle x with an associated absolute
@@ -34,4 +34,4 @@ function sf_cos_err_e(x::Real, dx::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_cos_err_e
+Compat.@dep_vectorize_2arg Number sf_cos_err_e

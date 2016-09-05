@@ -28,7 +28,7 @@ function histogram_pdf_alloc(n::Integer)
         Ptr{gsl_histogram_pdf}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_1arg Number histogram_pdf_alloc
+Compat.@dep_vectorize_1arg Number histogram_pdf_alloc
 
 
 # This function initializes the probability distribution p with the contents of

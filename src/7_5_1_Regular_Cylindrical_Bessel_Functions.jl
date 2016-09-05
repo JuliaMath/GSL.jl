@@ -15,7 +15,7 @@ export sf_bessel_J0, sf_bessel_J0_e, sf_bessel_J1, sf_bessel_J1_e,
 function sf_bessel_J0(x::Real)
     ccall( (:gsl_sf_bessel_J0, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_bessel_J0
+Compat.@dep_vectorize_1arg Number sf_bessel_J0
 
 
 # These routines compute the regular cylindrical Bessel function of zeroth
@@ -29,7 +29,7 @@ function sf_bessel_J0_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_bessel_J0_e
+Compat.@dep_vectorize_1arg Number sf_bessel_J0_e
 
 
 # These routines compute the regular cylindrical Bessel function of first
@@ -39,7 +39,7 @@ end
 function sf_bessel_J1(x::Real)
     ccall( (:gsl_sf_bessel_J1, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_bessel_J1
+Compat.@dep_vectorize_1arg Number sf_bessel_J1
 
 
 # These routines compute the regular cylindrical Bessel function of first
@@ -53,7 +53,7 @@ function sf_bessel_J1_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_bessel_J1_e
+Compat.@dep_vectorize_1arg Number sf_bessel_J1_e
 
 
 # These routines compute the regular cylindrical Bessel function of order n,
@@ -63,7 +63,7 @@ end
 function sf_bessel_Jn(n::Integer, x::Real)
     ccall( (:gsl_sf_bessel_Jn, libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
-@vectorize_2arg Number sf_bessel_Jn
+Compat.@dep_vectorize_2arg Number sf_bessel_Jn
 
 
 # These routines compute the regular cylindrical Bessel function of order n,
@@ -77,4 +77,4 @@ function sf_bessel_Jn_e(n::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_bessel_Jn_e
+Compat.@dep_vectorize_2arg Number sf_bessel_Jn_e

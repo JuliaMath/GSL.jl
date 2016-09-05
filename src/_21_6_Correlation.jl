@@ -19,4 +19,4 @@ export stats_correlation
 function stats_correlation(data1::Real)
     ccall( (:gsl_stats_correlation, libgsl), Cdouble, (Cdouble, ), data1 )
 end
-@vectorize_1arg Number stats_correlation
+Compat.@dep_vectorize_1arg Number stats_correlation

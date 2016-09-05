@@ -21,4 +21,4 @@ function strerror(gsl_errno::Integer)
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
     bytestring(output_string)
 end
-@vectorize_1arg Number strerror
+Compat.@dep_vectorize_1arg Number strerror

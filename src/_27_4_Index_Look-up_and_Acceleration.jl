@@ -17,7 +17,7 @@ export interp_bsearch, interp_accel_alloc, interp_accel_find,
 function interp_bsearch(x_array::Real)
     ccall( (:gsl_interp_bsearch, libgsl), Csize_t, (Cdouble, ), x_array )
 end
-@vectorize_1arg Number interp_bsearch
+Compat.@dep_vectorize_1arg Number interp_bsearch
 
 
 # This function returns a pointer to an accelerator object, which is a kind of

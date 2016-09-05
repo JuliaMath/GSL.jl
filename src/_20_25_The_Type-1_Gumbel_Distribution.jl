@@ -29,8 +29,6 @@ function ran_gumbel1_pdf(x::Real, a::Real, b::Real)
     ccall( (:gsl_ran_gumbel1_pdf, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number ran_gumbel1_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -41,8 +39,6 @@ function cdf_gumbel1_P(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_gumbel1_P, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_gumbel1_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -53,8 +49,6 @@ function cdf_gumbel1_Q(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_gumbel1_Q, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_gumbel1_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -65,8 +59,6 @@ function cdf_gumbel1_Pinv(P::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_gumbel1_Pinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), P, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_gumbel1_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -77,5 +69,3 @@ function cdf_gumbel1_Qinv(Q::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_gumbel1_Qinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), Q, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_gumbel1_Qinv

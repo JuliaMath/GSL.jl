@@ -14,7 +14,7 @@ export sf_bessel_y0, sf_bessel_y0_e, sf_bessel_y1, sf_bessel_y1_e,
 function sf_bessel_y0(x::Real)
     ccall( (:gsl_sf_bessel_y0, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_bessel_y0
+Compat.@dep_vectorize_1arg Number sf_bessel_y0
 
 
 # These routines compute the irregular spherical Bessel function of zeroth
@@ -28,7 +28,7 @@ function sf_bessel_y0_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_bessel_y0_e
+Compat.@dep_vectorize_1arg Number sf_bessel_y0_e
 
 
 # These routines compute the irregular spherical Bessel function of first
@@ -38,7 +38,7 @@ end
 function sf_bessel_y1(x::Real)
     ccall( (:gsl_sf_bessel_y1, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_bessel_y1
+Compat.@dep_vectorize_1arg Number sf_bessel_y1
 
 
 # These routines compute the irregular spherical Bessel function of first
@@ -52,7 +52,7 @@ function sf_bessel_y1_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_bessel_y1_e
+Compat.@dep_vectorize_1arg Number sf_bessel_y1_e
 
 
 # These routines compute the irregular spherical Bessel function of second
@@ -62,7 +62,7 @@ end
 function sf_bessel_y2(x::Real)
     ccall( (:gsl_sf_bessel_y2, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_bessel_y2
+Compat.@dep_vectorize_1arg Number sf_bessel_y2
 
 
 # These routines compute the irregular spherical Bessel function of second
@@ -76,7 +76,7 @@ function sf_bessel_y2_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_bessel_y2_e
+Compat.@dep_vectorize_1arg Number sf_bessel_y2_e
 
 
 # These routines compute the irregular spherical Bessel function of order l,
@@ -86,7 +86,7 @@ end
 function sf_bessel_yl(l::Integer, x::Real)
     ccall( (:gsl_sf_bessel_yl, libgsl), Cdouble, (Cint, Cdouble), l, x )
 end
-@vectorize_2arg Number sf_bessel_yl
+Compat.@dep_vectorize_2arg Number sf_bessel_yl
 
 
 # These routines compute the irregular spherical Bessel function of order l,
@@ -100,4 +100,4 @@ function sf_bessel_yl_e(l::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_bessel_yl_e
+Compat.@dep_vectorize_2arg Number sf_bessel_yl_e

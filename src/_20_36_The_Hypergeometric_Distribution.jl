@@ -35,8 +35,6 @@ function ran_hypergeometric_pdf(k::Integer, n1::Integer, n2::Integer, t::Integer
     ccall( (:gsl_ran_hypergeometric_pdf, libgsl), Cdouble, (Cuint, Cuint,
         Cuint, Cuint), k, n1, n2, t )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number ran_hypergeometric_pdf
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
@@ -47,8 +45,6 @@ function cdf_hypergeometric_P(k::Integer, n1::Integer, n2::Integer, t::Integer)
     ccall( (:gsl_cdf_hypergeometric_P, libgsl), Cdouble, (Cuint, Cuint,
         Cuint, Cuint), k, n1, n2, t )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number cdf_hypergeometric_P
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
@@ -59,5 +55,3 @@ function cdf_hypergeometric_Q(k::Integer, n1::Integer, n2::Integer, t::Integer)
     ccall( (:gsl_cdf_hypergeometric_Q, libgsl), Cdouble, (Cuint, Cuint,
         Cuint, Cuint), k, n1, n2, t )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number cdf_hypergeometric_Q

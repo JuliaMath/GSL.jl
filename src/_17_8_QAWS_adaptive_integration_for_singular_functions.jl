@@ -36,8 +36,6 @@ function integration_qaws_table_alloc(alpha::Real, beta::Real, mu::Integer, nu::
         beta, mu, nu )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number integration_qaws_table_alloc
 
 
 # This function modifies the parameters (\alpha, \beta, \mu, \nu) of an
@@ -87,5 +85,3 @@ function integration_qaws(a::Real, b::Real, epsabs::Real, epsrel::Real, limit::I
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return f[], t[], workspace[], result[], abserr[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_5arg Number integration_qaws

@@ -16,7 +16,7 @@ function sum_levin_u_alloc(n::Integer)
         Ptr{gsl_sum_levin_u_workspace}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_1arg Number sum_levin_u_alloc
+Compat.@dep_vectorize_1arg Number sum_levin_u_alloc
 
 
 # This function frees the memory associated with the workspace w.

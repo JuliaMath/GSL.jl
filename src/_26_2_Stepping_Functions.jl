@@ -117,5 +117,3 @@ function odeiv2_step_apply(t::Real, h::Real, y::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return s[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number odeiv2_step_apply

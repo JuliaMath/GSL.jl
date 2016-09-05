@@ -14,7 +14,7 @@ export sf_zeta_int, sf_zeta_int_e, sf_zeta, sf_zeta_e
 function sf_zeta_int(n::Integer)
     ccall( (:gsl_sf_zeta_int, libgsl), Cdouble, (Cint, ), n )
 end
-@vectorize_1arg Number sf_zeta_int
+Compat.@dep_vectorize_1arg Number sf_zeta_int
 
 
 # These routines compute the Riemann zeta function \zeta(n) for integer n, n
@@ -28,7 +28,7 @@ function sf_zeta_int_e(n::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_zeta_int_e
+Compat.@dep_vectorize_1arg Number sf_zeta_int_e
 
 
 # These routines compute the Riemann zeta function \zeta(s) for arbitrary s, s
@@ -38,7 +38,7 @@ end
 function sf_zeta(s::Real)
     ccall( (:gsl_sf_zeta, libgsl), Cdouble, (Cdouble, ), s )
 end
-@vectorize_1arg Number sf_zeta
+Compat.@dep_vectorize_1arg Number sf_zeta
 
 
 # These routines compute the Riemann zeta function \zeta(s) for arbitrary s, s
@@ -52,4 +52,4 @@ function sf_zeta_e(s::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_zeta_e
+Compat.@dep_vectorize_1arg Number sf_zeta_e

@@ -33,8 +33,6 @@ function poly_solve_cubic(a::Real, b::Real, c::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return x0[], x1[], x2[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number poly_solve_cubic
 
 
 # This function finds the complex roots of the cubic equation,
@@ -54,5 +52,3 @@ function poly_complex_solve_cubic(a::Real, b::Real, c::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return z0[], z1[], z2[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number poly_complex_solve_cubic

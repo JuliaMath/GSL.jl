@@ -18,7 +18,7 @@ function sf_mathieu_a(n::Integer, q::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_mathieu_a
+Compat.@dep_vectorize_2arg Number sf_mathieu_a
 
 
 # These routines compute the characteristic values a_n(q), b_n(q) of the
@@ -32,7 +32,7 @@ function sf_mathieu_b(n::Integer, q::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_mathieu_b
+Compat.@dep_vectorize_2arg Number sf_mathieu_b
 
 
 # These routines compute a series of Mathieu characteristic values a_n(q),
@@ -49,8 +49,6 @@ function sf_mathieu_a_array(order_min::Integer, order_max::Integer, q::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return work[], result_array[][1]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_mathieu_a_array
 
 
 # These routines compute a series of Mathieu characteristic values a_n(q),
@@ -67,5 +65,3 @@ function sf_mathieu_b_array(order_min::Integer, order_max::Integer, q::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return work[], result_array[][1]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_mathieu_b_array

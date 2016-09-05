@@ -14,7 +14,7 @@ export sf_psi_n, sf_psi_n_e
 function sf_psi_n(n::Integer, x::Real)
     ccall( (:gsl_sf_psi_n, libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
-@vectorize_2arg Number sf_psi_n
+Compat.@dep_vectorize_2arg Number sf_psi_n
 
 
 # These routines compute the polygamma function  \psi^{(n)}(x) for  n >= 0, x >
@@ -28,4 +28,4 @@ function sf_psi_n_e(n::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_psi_n_e
+Compat.@dep_vectorize_2arg Number sf_psi_n_e

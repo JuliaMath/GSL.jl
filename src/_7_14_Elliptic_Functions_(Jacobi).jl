@@ -20,4 +20,4 @@ function sf_elljac_e(u::Real, m::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return sn[], cn[], dn[]
 end
-@vectorize_2arg Number sf_elljac_e
+Compat.@dep_vectorize_2arg Number sf_elljac_e

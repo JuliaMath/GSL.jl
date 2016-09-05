@@ -18,7 +18,7 @@ function bspline_alloc(k::Integer, nbreak::Integer)
         Ptr{gsl_bspline_workspace}, (Csize_t, Csize_t), k, nbreak )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_2arg Number bspline_alloc
+Compat.@dep_vectorize_2arg Number bspline_alloc
 
 
 # This function frees the memory associated with the workspace w.
@@ -39,7 +39,7 @@ function bspline_deriv_alloc(k::Integer)
         Ptr{gsl_bspline_deriv_workspace}, (Csize_t, ), k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_1arg Number bspline_deriv_alloc
+Compat.@dep_vectorize_1arg Number bspline_deriv_alloc
 
 
 # This function frees the memory associated with the derivative workspace w.

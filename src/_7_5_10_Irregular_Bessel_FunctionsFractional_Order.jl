@@ -15,7 +15,7 @@ function sf_bessel_Ynu(nu::Real, x::Real)
     ccall( (:gsl_sf_bessel_Ynu, libgsl), Cdouble, (Cdouble, Cdouble), nu,
         x )
 end
-@vectorize_2arg Number sf_bessel_Ynu
+Compat.@dep_vectorize_2arg Number sf_bessel_Ynu
 
 
 # These routines compute the irregular cylindrical Bessel function of
@@ -29,4 +29,4 @@ function sf_bessel_Ynu_e(nu::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_bessel_Ynu_e
+Compat.@dep_vectorize_2arg Number sf_bessel_Ynu_e

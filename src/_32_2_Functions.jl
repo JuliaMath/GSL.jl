@@ -16,7 +16,7 @@ function dht_alloc(size::Integer)
         ), size )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_1arg Number dht_alloc
+Compat.@dep_vectorize_1arg Number dht_alloc
 
 
 # This function initializes the transform t for the given values of nu and
@@ -39,8 +39,6 @@ function dht_new(size::Integer, nu::Real, xmax::Real)
         Cdouble, Cdouble), size, nu, xmax )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number dht_new
 
 
 # This function frees the transform t.

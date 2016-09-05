@@ -31,8 +31,6 @@ function ran_exppow_pdf(x::Real, a::Real, b::Real)
     ccall( (:gsl_ran_exppow_pdf, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number ran_exppow_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) for
@@ -43,8 +41,6 @@ function cdf_exppow_P(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_exppow_P, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_exppow_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) for
@@ -55,5 +51,3 @@ function cdf_exppow_Q(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_exppow_Q, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_exppow_Q

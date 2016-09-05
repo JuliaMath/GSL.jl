@@ -32,7 +32,7 @@ function ran_tdist_pdf(x::Real, nu::Real)
     ccall( (:gsl_ran_tdist_pdf, libgsl), Cdouble, (Cdouble, Cdouble), x,
         nu )
 end
-@vectorize_2arg Number ran_tdist_pdf
+Compat.@dep_vectorize_2arg Number ran_tdist_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -43,7 +43,7 @@ function cdf_tdist_P(x::Real, nu::Real)
     ccall( (:gsl_cdf_tdist_P, libgsl), Cdouble, (Cdouble, Cdouble), x, nu
         )
 end
-@vectorize_2arg Number cdf_tdist_P
+Compat.@dep_vectorize_2arg Number cdf_tdist_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -54,7 +54,7 @@ function cdf_tdist_Q(x::Real, nu::Real)
     ccall( (:gsl_cdf_tdist_Q, libgsl), Cdouble, (Cdouble, Cdouble), x, nu
         )
 end
-@vectorize_2arg Number cdf_tdist_Q
+Compat.@dep_vectorize_2arg Number cdf_tdist_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -65,7 +65,7 @@ function cdf_tdist_Pinv(P::Real, nu::Real)
     ccall( (:gsl_cdf_tdist_Pinv, libgsl), Cdouble, (Cdouble, Cdouble), P,
         nu )
 end
-@vectorize_2arg Number cdf_tdist_Pinv
+Compat.@dep_vectorize_2arg Number cdf_tdist_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -76,4 +76,4 @@ function cdf_tdist_Qinv(Q::Real, nu::Real)
     ccall( (:gsl_cdf_tdist_Qinv, libgsl), Cdouble, (Cdouble, Cdouble), Q,
         nu )
 end
-@vectorize_2arg Number cdf_tdist_Qinv
+Compat.@dep_vectorize_2arg Number cdf_tdist_Qinv

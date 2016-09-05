@@ -21,4 +21,4 @@ function sf_complex_dilog_e(r::Real, theta::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result_re[], result_im[]
 end
-@vectorize_2arg Number sf_complex_dilog_e
+Compat.@dep_vectorize_2arg Number sf_complex_dilog_e

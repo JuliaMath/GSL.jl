@@ -20,7 +20,7 @@ function poly_complex_workspace_alloc(n::Integer)
         Ptr{gsl_poly_complex_workspace}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_1arg Number poly_complex_workspace_alloc
+Compat.@dep_vectorize_1arg Number poly_complex_workspace_alloc
 
 
 # This function frees all the memory associated with the workspace w.

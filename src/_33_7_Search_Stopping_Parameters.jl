@@ -36,8 +36,6 @@ function root_test_interval(x_lower::Real, x_upper::Real, epsabs::Real, epsrel::
     end
     return errno
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number root_test_interval
 
 
 # This function tests for the convergence of the sequence ..., x0, x1 with
@@ -54,8 +52,6 @@ function root_test_delta(x1::Real, x0::Real, epsabs::Real, epsrel::Real)
     end
     return errno
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number root_test_delta
 
 
 # This function tests the residual value f against the absolute error bound
@@ -73,4 +69,4 @@ function root_test_residual(f::Real, epsabs::Real)
     end
     return errno
 end
-@vectorize_2arg Number root_test_residual
+Compat.@dep_vectorize_2arg Number root_test_residual

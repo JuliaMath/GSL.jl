@@ -19,7 +19,7 @@ function sf_legendre_H3d_0(lambda::Real, eta::Real)
     ccall( (:gsl_sf_legendre_H3d_0, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, eta )
 end
-@vectorize_2arg Number sf_legendre_H3d_0
+Compat.@dep_vectorize_2arg Number sf_legendre_H3d_0
 
 
 # These routines compute the zeroth radial eigenfunction of the Laplacian on
@@ -35,7 +35,7 @@ function sf_legendre_H3d_0_e(lambda::Real, eta::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_legendre_H3d_0_e
+Compat.@dep_vectorize_2arg Number sf_legendre_H3d_0_e
 
 
 # These routines compute the first radial eigenfunction of the Laplacian on the
@@ -49,7 +49,7 @@ function sf_legendre_H3d_1(lambda::Real, eta::Real)
     ccall( (:gsl_sf_legendre_H3d_1, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, eta )
 end
-@vectorize_2arg Number sf_legendre_H3d_1
+Compat.@dep_vectorize_2arg Number sf_legendre_H3d_1
 
 
 # These routines compute the first radial eigenfunction of the Laplacian on the
@@ -66,7 +66,7 @@ function sf_legendre_H3d_1_e(lambda::Real, eta::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_legendre_H3d_1_e
+Compat.@dep_vectorize_2arg Number sf_legendre_H3d_1_e
 
 
 # These routines compute the l-th radial eigenfunction of the Laplacian on the
@@ -78,8 +78,6 @@ function sf_legendre_H3d(l::Integer, lambda::Real, eta::Real)
     ccall( (:gsl_sf_legendre_H3d, libgsl), Cdouble, (Cint, Cdouble,
         Cdouble), l, lambda, eta )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_legendre_H3d
 
 
 # These routines compute the l-th radial eigenfunction of the Laplacian on the
@@ -94,8 +92,6 @@ function sf_legendre_H3d_e(l::Integer, lambda::Real, eta::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_legendre_H3d_e
 
 
 # This function computes an array of radial eigenfunctions  L^{H3d}_l(\lambda,
@@ -109,5 +105,3 @@ function sf_legendre_H3d_array(lmax::Integer, lambda::Real, eta::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result_array[][1]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_legendre_H3d_array

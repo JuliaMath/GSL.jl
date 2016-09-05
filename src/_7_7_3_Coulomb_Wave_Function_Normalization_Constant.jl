@@ -18,7 +18,7 @@ function sf_coulomb_CL_e(L::Real, eta::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_coulomb_CL_e
+Compat.@dep_vectorize_2arg Number sf_coulomb_CL_e
 
 
 # This function computes the Coulomb wave function normalization constant
@@ -30,5 +30,3 @@ function sf_coulomb_CL_array(Lmin::Real, kmax::Integer, eta::Real, cl::Real)
         Cint, Cdouble, Cdouble), Lmin, kmax, eta, cl )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_coulomb_CL_array

@@ -27,7 +27,7 @@ function histogram2d_increment(x::Real, y::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end
-@vectorize_2arg Number histogram2d_increment
+Compat.@dep_vectorize_2arg Number histogram2d_increment
 
 
 # This function is similar to gsl_histogram2d_increment but increases the value
@@ -42,8 +42,6 @@ function histogram2d_accumulate(x::Real, y::Real, weight::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number histogram2d_accumulate
 
 
 # This function returns the contents of the (i,j)-th bin of the histogram h.

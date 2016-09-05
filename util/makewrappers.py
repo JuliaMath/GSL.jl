@@ -560,10 +560,7 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             #add vectorization macro call if applicable
             if do_vectorize > 0:
                 if do_vectorize <= 2:
-                    parsed_out += ['@vectorize_%darg Number ' % do_vectorize + funcname]
-                else:
-                    parsed_out += ['#TODO This vectorization macro is not implemented',
-                                   '#@vectorize_%darg Number ' % do_vectorize + funcname]
+                    parsed_out += ['@dep_vectorize_%darg Number ' % do_vectorize + funcname]
 
             all_parsed_out += ['', '']
             if isDisabled and 'disable' in unknown_handler:

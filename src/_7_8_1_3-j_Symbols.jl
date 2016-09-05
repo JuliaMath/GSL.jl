@@ -18,8 +18,6 @@ function sf_coupling_3j(two_ja::Integer, two_jb::Integer, two_jc::Integer, two_m
     ccall( (:gsl_sf_coupling_3j, libgsl), Cdouble, (Cint, Cint, Cint,
         Cint, Cint, Cint), two_ja, two_jb, two_jc, two_ma, two_mb, two_mc )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_6arg Number sf_coupling_3j
 
 
 # These routines compute the Wigner 3-j coefficient,                 (ja jb jc
@@ -35,5 +33,3 @@ function sf_coupling_3j_e(two_ja::Integer, two_jb::Integer, two_jc::Integer, two
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_6arg Number sf_coupling_3j_e

@@ -29,7 +29,7 @@ function ran_rayleigh_pdf(x::Real, sigma::Real)
     ccall( (:gsl_ran_rayleigh_pdf, libgsl), Cdouble, (Cdouble, Cdouble),
         x, sigma )
 end
-@vectorize_2arg Number ran_rayleigh_pdf
+Compat.@dep_vectorize_2arg Number ran_rayleigh_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -40,7 +40,7 @@ function cdf_rayleigh_P(x::Real, sigma::Real)
     ccall( (:gsl_cdf_rayleigh_P, libgsl), Cdouble, (Cdouble, Cdouble), x,
         sigma )
 end
-@vectorize_2arg Number cdf_rayleigh_P
+Compat.@dep_vectorize_2arg Number cdf_rayleigh_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -51,7 +51,7 @@ function cdf_rayleigh_Q(x::Real, sigma::Real)
     ccall( (:gsl_cdf_rayleigh_Q, libgsl), Cdouble, (Cdouble, Cdouble), x,
         sigma )
 end
-@vectorize_2arg Number cdf_rayleigh_Q
+Compat.@dep_vectorize_2arg Number cdf_rayleigh_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -62,7 +62,7 @@ function cdf_rayleigh_Pinv(P::Real, sigma::Real)
     ccall( (:gsl_cdf_rayleigh_Pinv, libgsl), Cdouble, (Cdouble, Cdouble),
         P, sigma )
 end
-@vectorize_2arg Number cdf_rayleigh_Pinv
+Compat.@dep_vectorize_2arg Number cdf_rayleigh_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -73,4 +73,4 @@ function cdf_rayleigh_Qinv(Q::Real, sigma::Real)
     ccall( (:gsl_cdf_rayleigh_Qinv, libgsl), Cdouble, (Cdouble, Cdouble),
         Q, sigma )
 end
-@vectorize_2arg Number cdf_rayleigh_Qinv
+Compat.@dep_vectorize_2arg Number cdf_rayleigh_Qinv

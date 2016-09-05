@@ -29,8 +29,6 @@ function ran_flat_pdf(x::Real, a::Real, b::Real)
     ccall( (:gsl_ran_flat_pdf, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number ran_flat_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -41,8 +39,6 @@ function cdf_flat_P(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_flat_P, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_flat_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -53,8 +49,6 @@ function cdf_flat_Q(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_flat_Q, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_flat_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -65,8 +59,6 @@ function cdf_flat_Pinv(P::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_flat_Pinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), P, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_flat_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -77,5 +69,3 @@ function cdf_flat_Qinv(Q::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_flat_Qinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), Q, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_flat_Qinv

@@ -15,7 +15,7 @@ export sf_airy_zero_Ai_deriv, sf_airy_zero_Ai_deriv_e, sf_airy_zero_Bi_deriv,
 function sf_airy_zero_Ai_deriv(s::Integer)
     ccall( (:gsl_sf_airy_zero_Ai_deriv, libgsl), Cdouble, (Cuint, ), s )
 end
-@vectorize_1arg Number sf_airy_zero_Ai_deriv
+Compat.@dep_vectorize_1arg Number sf_airy_zero_Ai_deriv
 
 
 # These routines compute the location of the s-th zero of the Airy function
@@ -29,7 +29,7 @@ function sf_airy_zero_Ai_deriv_e(s::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_airy_zero_Ai_deriv_e
+Compat.@dep_vectorize_1arg Number sf_airy_zero_Ai_deriv_e
 
 
 # These routines compute the location of the s-th zero of the Airy function
@@ -39,7 +39,7 @@ end
 function sf_airy_zero_Bi_deriv(s::Integer)
     ccall( (:gsl_sf_airy_zero_Bi_deriv, libgsl), Cdouble, (Cuint, ), s )
 end
-@vectorize_1arg Number sf_airy_zero_Bi_deriv
+Compat.@dep_vectorize_1arg Number sf_airy_zero_Bi_deriv
 
 
 # These routines compute the location of the s-th zero of the Airy function
@@ -53,4 +53,4 @@ function sf_airy_zero_Bi_deriv_e(s::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_airy_zero_Bi_deriv_e
+Compat.@dep_vectorize_1arg Number sf_airy_zero_Bi_deriv_e

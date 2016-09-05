@@ -38,7 +38,7 @@ function ran_dirichlet_pdf(K::Integer, alpha::Real)
     ccall( (:gsl_ran_dirichlet_pdf, libgsl), Cdouble, (Csize_t, Cdouble),
         K, alpha )
 end
-@vectorize_2arg Number ran_dirichlet_pdf
+Compat.@dep_vectorize_2arg Number ran_dirichlet_pdf
 
 
 # This function computes the logarithm of the probability density  p(\theta_1,
@@ -49,4 +49,4 @@ function ran_dirichlet_lnpdf(K::Integer, alpha::Real)
     ccall( (:gsl_ran_dirichlet_lnpdf, libgsl), Cdouble, (Csize_t,
         Cdouble), K, alpha )
 end
-@vectorize_2arg Number ran_dirichlet_lnpdf
+Compat.@dep_vectorize_2arg Number ran_dirichlet_lnpdf

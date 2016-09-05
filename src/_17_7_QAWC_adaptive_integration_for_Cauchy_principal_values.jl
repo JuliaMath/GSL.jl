@@ -31,5 +31,3 @@ function integration_qawc(a::Real, b::Real, c::Real, epsabs::Real, epsrel::Real,
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return f[], workspace[], result[], abserr[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_6arg Number integration_qawc

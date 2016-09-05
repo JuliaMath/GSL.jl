@@ -18,7 +18,7 @@ export sf_legendre_P1, sf_legendre_P2, sf_legendre_P3, sf_legendre_P1_e,
 function sf_legendre_P1(x::Real)
     ccall( (:gsl_sf_legendre_P1, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_legendre_P1
+Compat.@dep_vectorize_1arg Number sf_legendre_P1
 
 
 # These functions evaluate the Legendre polynomials  P_l(x) using explicit
@@ -28,7 +28,7 @@ end
 function sf_legendre_P2(x::Real)
     ccall( (:gsl_sf_legendre_P2, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_legendre_P2
+Compat.@dep_vectorize_1arg Number sf_legendre_P2
 
 
 # These functions evaluate the Legendre polynomials  P_l(x) using explicit
@@ -38,7 +38,7 @@ end
 function sf_legendre_P3(x::Real)
     ccall( (:gsl_sf_legendre_P3, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_legendre_P3
+Compat.@dep_vectorize_1arg Number sf_legendre_P3
 
 
 # These functions evaluate the Legendre polynomials  P_l(x) using explicit
@@ -52,7 +52,7 @@ function sf_legendre_P1_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_legendre_P1_e
+Compat.@dep_vectorize_1arg Number sf_legendre_P1_e
 
 
 # These functions evaluate the Legendre polynomials  P_l(x) using explicit
@@ -66,7 +66,7 @@ function sf_legendre_P2_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_legendre_P2_e
+Compat.@dep_vectorize_1arg Number sf_legendre_P2_e
 
 
 # These functions evaluate the Legendre polynomials  P_l(x) using explicit
@@ -80,7 +80,7 @@ function sf_legendre_P3_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_legendre_P3_e
+Compat.@dep_vectorize_1arg Number sf_legendre_P3_e
 
 
 # These functions evaluate the Legendre polynomial  P_l(x) for a specific value
@@ -90,7 +90,7 @@ end
 function sf_legendre_Pl(l::Integer, x::Real)
     ccall( (:gsl_sf_legendre_Pl, libgsl), Cdouble, (Cint, Cdouble), l, x )
 end
-@vectorize_2arg Number sf_legendre_Pl
+Compat.@dep_vectorize_2arg Number sf_legendre_Pl
 
 
 # These functions evaluate the Legendre polynomial  P_l(x) for a specific value
@@ -104,7 +104,7 @@ function sf_legendre_Pl_e(l::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_legendre_Pl_e
+Compat.@dep_vectorize_2arg Number sf_legendre_Pl_e
 
 
 # These functions compute arrays of Legendre polynomials P_l(x) and derivatives
@@ -118,7 +118,7 @@ function sf_legendre_Pl_array(lmax::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result_array
 end
-@vectorize_2arg Number sf_legendre_Pl_array
+Compat.@dep_vectorize_2arg Number sf_legendre_Pl_array
 
 
 # These functions compute arrays of Legendre polynomials P_l(x) and derivatives
@@ -133,7 +133,7 @@ function sf_legendre_Pl_deriv_array(lmax::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return (result_array, result_deriv_array)
 end
-@vectorize_2arg Number sf_legendre_Pl_deriv_array
+Compat.@dep_vectorize_2arg Number sf_legendre_Pl_deriv_array
 
 
 # These routines compute the Legendre function Q_0(x) for x > -1,  x != 1.
@@ -142,7 +142,7 @@ end
 function sf_legendre_Q0(x::Real)
     ccall( (:gsl_sf_legendre_Q0, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_legendre_Q0
+Compat.@dep_vectorize_1arg Number sf_legendre_Q0
 
 
 # These routines compute the Legendre function Q_0(x) for x > -1,  x != 1.
@@ -155,7 +155,7 @@ function sf_legendre_Q0_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_legendre_Q0_e
+Compat.@dep_vectorize_1arg Number sf_legendre_Q0_e
 
 
 # These routines compute the Legendre function Q_1(x) for x > -1,  x != 1.
@@ -164,7 +164,7 @@ end
 function sf_legendre_Q1(x::Real)
     ccall( (:gsl_sf_legendre_Q1, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_legendre_Q1
+Compat.@dep_vectorize_1arg Number sf_legendre_Q1
 
 
 # These routines compute the Legendre function Q_1(x) for x > -1,  x != 1.
@@ -177,7 +177,7 @@ function sf_legendre_Q1_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_legendre_Q1_e
+Compat.@dep_vectorize_1arg Number sf_legendre_Q1_e
 
 
 # These routines compute the Legendre function Q_l(x) for x > -1,  x != 1 and
@@ -187,7 +187,7 @@ end
 function sf_legendre_Ql(l::Integer, x::Real)
     ccall( (:gsl_sf_legendre_Ql, libgsl), Cdouble, (Cint, Cdouble), l, x )
 end
-@vectorize_2arg Number sf_legendre_Ql
+Compat.@dep_vectorize_2arg Number sf_legendre_Ql
 
 
 # These routines compute the Legendre function Q_l(x) for x > -1,  x != 1 and
@@ -201,4 +201,4 @@ function sf_legendre_Ql_e(l::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_legendre_Ql_e
+Compat.@dep_vectorize_2arg Number sf_legendre_Ql_e

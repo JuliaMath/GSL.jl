@@ -13,7 +13,7 @@ export sf_eta_int, sf_eta_int_e, sf_eta, sf_eta_e
 function sf_eta_int(n::Integer)
     ccall( (:gsl_sf_eta_int, libgsl), Cdouble, (Cint, ), n )
 end
-@vectorize_1arg Number sf_eta_int
+Compat.@dep_vectorize_1arg Number sf_eta_int
 
 
 # These routines compute the eta function \eta(n) for integer n.
@@ -26,7 +26,7 @@ function sf_eta_int_e(n::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_eta_int_e
+Compat.@dep_vectorize_1arg Number sf_eta_int_e
 
 
 # These routines compute the eta function \eta(s) for arbitrary s.
@@ -35,7 +35,7 @@ end
 function sf_eta(s::Real)
     ccall( (:gsl_sf_eta, libgsl), Cdouble, (Cdouble, ), s )
 end
-@vectorize_1arg Number sf_eta
+Compat.@dep_vectorize_1arg Number sf_eta
 
 
 # These routines compute the eta function \eta(s) for arbitrary s.
@@ -48,4 +48,4 @@ function sf_eta_e(s::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_eta_e
+Compat.@dep_vectorize_1arg Number sf_eta_e

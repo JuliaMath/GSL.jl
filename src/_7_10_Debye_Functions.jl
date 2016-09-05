@@ -18,7 +18,7 @@ export sf_debye_1, sf_debye_1_e, sf_debye_2, sf_debye_2_e, sf_debye_3,
 function sf_debye_1(x::Real)
     ccall( (:gsl_sf_debye_1, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_debye_1
+Compat.@dep_vectorize_1arg Number sf_debye_1
 
 
 # These routines compute the first-order Debye function D_1(x) = (1/x) \int_0^x
@@ -32,7 +32,7 @@ function sf_debye_1_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_debye_1_e
+Compat.@dep_vectorize_1arg Number sf_debye_1_e
 
 
 # These routines compute the second-order Debye function D_2(x) = (2/x^2)
@@ -42,7 +42,7 @@ end
 function sf_debye_2(x::Real)
     ccall( (:gsl_sf_debye_2, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_debye_2
+Compat.@dep_vectorize_1arg Number sf_debye_2
 
 
 # These routines compute the second-order Debye function D_2(x) = (2/x^2)
@@ -56,7 +56,7 @@ function sf_debye_2_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_debye_2_e
+Compat.@dep_vectorize_1arg Number sf_debye_2_e
 
 
 # These routines compute the third-order Debye function D_3(x) = (3/x^3)
@@ -66,7 +66,7 @@ end
 function sf_debye_3(x::Real)
     ccall( (:gsl_sf_debye_3, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_debye_3
+Compat.@dep_vectorize_1arg Number sf_debye_3
 
 
 # These routines compute the third-order Debye function D_3(x) = (3/x^3)
@@ -80,7 +80,7 @@ function sf_debye_3_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_debye_3_e
+Compat.@dep_vectorize_1arg Number sf_debye_3_e
 
 
 # These routines compute the fourth-order Debye function D_4(x) = (4/x^4)
@@ -90,7 +90,7 @@ end
 function sf_debye_4(x::Real)
     ccall( (:gsl_sf_debye_4, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_debye_4
+Compat.@dep_vectorize_1arg Number sf_debye_4
 
 
 # These routines compute the fourth-order Debye function D_4(x) = (4/x^4)
@@ -104,7 +104,7 @@ function sf_debye_4_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_debye_4_e
+Compat.@dep_vectorize_1arg Number sf_debye_4_e
 
 
 # These routines compute the fifth-order Debye function D_5(x) = (5/x^5)
@@ -114,7 +114,7 @@ end
 function sf_debye_5(x::Real)
     ccall( (:gsl_sf_debye_5, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_debye_5
+Compat.@dep_vectorize_1arg Number sf_debye_5
 
 
 # These routines compute the fifth-order Debye function D_5(x) = (5/x^5)
@@ -128,7 +128,7 @@ function sf_debye_5_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_debye_5_e
+Compat.@dep_vectorize_1arg Number sf_debye_5_e
 
 
 # These routines compute the sixth-order Debye function D_6(x) = (6/x^6)
@@ -138,7 +138,7 @@ end
 function sf_debye_6(x::Real)
     ccall( (:gsl_sf_debye_6, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_debye_6
+Compat.@dep_vectorize_1arg Number sf_debye_6
 
 
 # These routines compute the sixth-order Debye function D_6(x) = (6/x^6)
@@ -152,4 +152,4 @@ function sf_debye_6_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_debye_6_e
+Compat.@dep_vectorize_1arg Number sf_debye_6_e

@@ -25,8 +25,6 @@ for sf in (:sf_bessel_Jn_array, :sf_bessel_Yn_array,
             if errno!= 0 throw(GSL_ERROR(errno)) end
             return result_array
         end
-        #TODO This vectorization macro is not implemented
-        #@vectorize_3arg Number $sf
     end
 end
 
@@ -45,9 +43,6 @@ for sf in (
             if errno!= 0 throw(GSL_ERROR(errno)) end
             return result_array
         end
-        @vectorize_2arg Number $sf
+        Compat.@dep_vectorize_2arg Number $sf
     end
 end
-
-
-

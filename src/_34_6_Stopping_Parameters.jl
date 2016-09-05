@@ -30,5 +30,3 @@ function min_test_interval(x_lower::Real, x_upper::Real, epsabs::Real, epsrel::R
         Cdouble, Cdouble, Cdouble), x_lower, x_upper, epsabs, epsrel )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number min_test_interval

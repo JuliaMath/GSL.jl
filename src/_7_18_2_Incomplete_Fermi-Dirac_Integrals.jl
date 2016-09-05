@@ -17,7 +17,7 @@ function sf_fermi_dirac_inc_0(x::Real, b::Real)
     ccall( (:gsl_sf_fermi_dirac_inc_0, libgsl), Cdouble, (Cdouble,
         Cdouble), x, b )
 end
-@vectorize_2arg Number sf_fermi_dirac_inc_0
+Compat.@dep_vectorize_2arg Number sf_fermi_dirac_inc_0
 
 
 # These routines compute the incomplete Fermi-Dirac integral with an index of
@@ -31,4 +31,4 @@ function sf_fermi_dirac_inc_0_e(x::Real, b::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_fermi_dirac_inc_0_e
+Compat.@dep_vectorize_2arg Number sf_fermi_dirac_inc_0_e

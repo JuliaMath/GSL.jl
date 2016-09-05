@@ -17,7 +17,7 @@ export sf_bessel_K0, sf_bessel_K0_e, sf_bessel_K1, sf_bessel_K1_e,
 function sf_bessel_K0(x::Real)
     ccall( (:gsl_sf_bessel_K0, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_bessel_K0
+Compat.@dep_vectorize_1arg Number sf_bessel_K0
 
 
 # These routines compute the irregular modified cylindrical Bessel function of
@@ -31,7 +31,7 @@ function sf_bessel_K0_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_bessel_K0_e
+Compat.@dep_vectorize_1arg Number sf_bessel_K0_e
 
 
 # These routines compute the irregular modified cylindrical Bessel function of
@@ -41,7 +41,7 @@ end
 function sf_bessel_K1(x::Real)
     ccall( (:gsl_sf_bessel_K1, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_bessel_K1
+Compat.@dep_vectorize_1arg Number sf_bessel_K1
 
 
 # These routines compute the irregular modified cylindrical Bessel function of
@@ -55,7 +55,7 @@ function sf_bessel_K1_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_bessel_K1_e
+Compat.@dep_vectorize_1arg Number sf_bessel_K1_e
 
 
 # These routines compute the irregular modified cylindrical Bessel function of
@@ -65,7 +65,7 @@ end
 function sf_bessel_Kn(n::Integer, x::Real)
     ccall( (:gsl_sf_bessel_Kn, libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
-@vectorize_2arg Number sf_bessel_Kn
+Compat.@dep_vectorize_2arg Number sf_bessel_Kn
 
 
 # These routines compute the irregular modified cylindrical Bessel function of
@@ -79,7 +79,7 @@ function sf_bessel_Kn_e(n::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_bessel_Kn_e
+Compat.@dep_vectorize_2arg Number sf_bessel_Kn_e
 
 
 # This routine computes the values of the irregular modified cylindrical Bessel
@@ -97,8 +97,6 @@ function sf_bessel_Kn_array(nmin::Integer, nmax::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result_array[][1]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_bessel_Kn_array
 
 
 # These routines compute the scaled irregular modified cylindrical Bessel
@@ -108,7 +106,7 @@ end
 function sf_bessel_K0_scaled(x::Real)
     ccall( (:gsl_sf_bessel_K0_scaled, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_bessel_K0_scaled
+Compat.@dep_vectorize_1arg Number sf_bessel_K0_scaled
 
 
 # These routines compute the scaled irregular modified cylindrical Bessel
@@ -122,7 +120,7 @@ function sf_bessel_K0_scaled_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_bessel_K0_scaled_e
+Compat.@dep_vectorize_1arg Number sf_bessel_K0_scaled_e
 
 
 # These routines compute the scaled irregular modified cylindrical Bessel
@@ -132,7 +130,7 @@ end
 function sf_bessel_K1_scaled(x::Real)
     ccall( (:gsl_sf_bessel_K1_scaled, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_bessel_K1_scaled
+Compat.@dep_vectorize_1arg Number sf_bessel_K1_scaled
 
 
 # These routines compute the scaled irregular modified cylindrical Bessel
@@ -146,7 +144,7 @@ function sf_bessel_K1_scaled_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_bessel_K1_scaled_e
+Compat.@dep_vectorize_1arg Number sf_bessel_K1_scaled_e
 
 
 # These routines compute the scaled irregular modified cylindrical Bessel
@@ -157,7 +155,7 @@ function sf_bessel_Kn_scaled(n::Integer, x::Real)
     ccall( (:gsl_sf_bessel_Kn_scaled, libgsl), Cdouble, (Cint, Cdouble),
         n, x )
 end
-@vectorize_2arg Number sf_bessel_Kn_scaled
+Compat.@dep_vectorize_2arg Number sf_bessel_Kn_scaled
 
 
 # These routines compute the scaled irregular modified cylindrical Bessel
@@ -171,7 +169,7 @@ function sf_bessel_Kn_scaled_e(n::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_bessel_Kn_scaled_e
+Compat.@dep_vectorize_2arg Number sf_bessel_Kn_scaled_e
 
 
 # This routine computes the values of the scaled irregular cylindrical Bessel
@@ -189,5 +187,3 @@ function sf_bessel_Kn_scaled_array(nmin::Integer, nmax::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result_array[][1]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_bessel_Kn_scaled_array

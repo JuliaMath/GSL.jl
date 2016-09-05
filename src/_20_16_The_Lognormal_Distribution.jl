@@ -29,8 +29,6 @@ function ran_lognormal_pdf(x::Real, zeta::Real, sigma::Real)
     ccall( (:gsl_ran_lognormal_pdf, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, zeta, sigma )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number ran_lognormal_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -41,8 +39,6 @@ function cdf_lognormal_P(x::Real, zeta::Real, sigma::Real)
     ccall( (:gsl_cdf_lognormal_P, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, zeta, sigma )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_lognormal_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -53,8 +49,6 @@ function cdf_lognormal_Q(x::Real, zeta::Real, sigma::Real)
     ccall( (:gsl_cdf_lognormal_Q, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, zeta, sigma )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_lognormal_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -65,8 +59,6 @@ function cdf_lognormal_Pinv(P::Real, zeta::Real, sigma::Real)
     ccall( (:gsl_cdf_lognormal_Pinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), P, zeta, sigma )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_lognormal_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -77,5 +69,3 @@ function cdf_lognormal_Qinv(Q::Real, zeta::Real, sigma::Real)
     ccall( (:gsl_cdf_lognormal_Qinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), Q, zeta, sigma )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_lognormal_Qinv

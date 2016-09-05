@@ -27,7 +27,7 @@ function bspline_deriv_eval(x::Real, nderiv::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return dB[], w[], dw[]
 end
-@vectorize_2arg Number bspline_deriv_eval
+Compat.@dep_vectorize_2arg Number bspline_deriv_eval
 
 
 # This function evaluates all potentially nonzero B-spline basis function
@@ -54,4 +54,4 @@ function bspline_deriv_eval_nonzero(x::Real, nderiv::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return dB[], istart[], iend[], w[], dw[]
 end
-@vectorize_2arg Number bspline_deriv_eval_nonzero
+Compat.@dep_vectorize_2arg Number bspline_deriv_eval_nonzero

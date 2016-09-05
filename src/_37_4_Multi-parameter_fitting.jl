@@ -18,7 +18,7 @@ function multifit_linear_alloc(n::Integer, p::Integer)
         Ptr{gsl_multifit_linear_workspace}, (Csize_t, Csize_t), n, p )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_2arg Number multifit_linear_alloc
+Compat.@dep_vectorize_2arg Number multifit_linear_alloc
 
 
 # This function frees the memory associated with the workspace w.

@@ -17,7 +17,7 @@ function sf_exp_err_e(x::Real, dx::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_exp_err_e
+Compat.@dep_vectorize_2arg Number sf_exp_err_e
 
 
 # This function exponentiates a quantity x with an associated absolute error dx
@@ -31,7 +31,7 @@ function sf_exp_err_e10_e(x::Real, dx::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_exp_err_e10_e
+Compat.@dep_vectorize_2arg Number sf_exp_err_e10_e
 
 
 # This routine computes the product y \exp(x) for the quantities x, y with
@@ -45,8 +45,6 @@ function sf_exp_mult_err_e(x::Real, dx::Real, y::Real, dy::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_exp_mult_err_e
 
 
 # This routine computes the product y \exp(x) for the quantities x, y with
@@ -62,5 +60,3 @@ function sf_exp_mult_err_e10_e(x::Real, dx::Real, y::Real, dy::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_exp_mult_err_e10_e

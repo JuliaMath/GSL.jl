@@ -14,7 +14,7 @@ export poly_eval, poly_complex_eval, poly_eval_derivs
 function poly_eval(c::Real)
     ccall( (:gsl_poly_eval, libgsl), Cdouble, (Cdouble, ), c )
 end
-@vectorize_1arg Number poly_eval
+Compat.@dep_vectorize_1arg Number poly_eval
 
 
 # This function evaluates a polynomial with real coefficients for the complex
@@ -24,7 +24,7 @@ end
 function poly_complex_eval(c::Real)
     ccall( (:gsl_poly_complex_eval, libgsl), gsl_complex, (Cdouble, ), c )
 end
-@vectorize_1arg Number poly_complex_eval
+Compat.@dep_vectorize_1arg Number poly_complex_eval
 
 
 # This function evaluates a polynomial and its derivatives storing the results
@@ -36,4 +36,4 @@ function poly_eval_derivs(c::Real)
     errno = ccall( (:gsl_poly_eval_derivs, libgsl), Cint, (Cdouble, ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-@vectorize_1arg Number poly_eval_derivs
+Compat.@dep_vectorize_1arg Number poly_eval_derivs

@@ -38,5 +38,3 @@ function ran_bivariate_gaussian_pdf(x::Real, y::Real, sigma_x::Real, sigma_y::Re
     ccall( (:gsl_ran_bivariate_gaussian_pdf, libgsl), Cdouble, (Cdouble,
         Cdouble, Cdouble, Cdouble, Cdouble), x, y, sigma_x, sigma_y, rho )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_5arg Number ran_bivariate_gaussian_pdf

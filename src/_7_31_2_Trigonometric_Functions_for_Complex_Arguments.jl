@@ -19,7 +19,7 @@ function sf_complex_sin_e(zr::Real, zi::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return szr[], szi[]
 end
-@vectorize_2arg Number sf_complex_sin_e
+Compat.@dep_vectorize_2arg Number sf_complex_sin_e
 
 
 # This function computes the complex cosine, \cos(z_r + i z_i) storing the real
@@ -34,7 +34,7 @@ function sf_complex_cos_e(zr::Real, zi::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return czr[], czi[]
 end
-@vectorize_2arg Number sf_complex_cos_e
+Compat.@dep_vectorize_2arg Number sf_complex_cos_e
 
 
 # This function computes the logarithm of the complex sine, \log(\sin(z_r + i
@@ -49,4 +49,4 @@ function sf_complex_logsin_e(zr::Real, zi::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return lszr[], lszi[]
 end
-@vectorize_2arg Number sf_complex_logsin_e
+Compat.@dep_vectorize_2arg Number sf_complex_logsin_e

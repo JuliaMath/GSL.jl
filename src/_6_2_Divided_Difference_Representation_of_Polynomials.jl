@@ -17,7 +17,7 @@ function poly_dd_init(dd::Real)
     errno = ccall( (:gsl_poly_dd_init, libgsl), Cint, (Cdouble, ), dd )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-@vectorize_1arg Number poly_dd_init
+Compat.@dep_vectorize_1arg Number poly_dd_init
 
 
 # This function evaluates the polynomial stored in divided-difference form in
@@ -28,7 +28,7 @@ end
 function poly_dd_eval(dd::Real)
     ccall( (:gsl_poly_dd_eval, libgsl), Cdouble, (Cdouble, ), dd )
 end
-@vectorize_1arg Number poly_dd_eval
+Compat.@dep_vectorize_1arg Number poly_dd_eval
 
 
 # This function converts the divided-difference representation of a polynomial
@@ -42,4 +42,4 @@ function poly_dd_taylor(c::Real)
     errno = ccall( (:gsl_poly_dd_taylor, libgsl), Cint, (Cdouble, ), c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-@vectorize_1arg Number poly_dd_taylor
+Compat.@dep_vectorize_1arg Number poly_dd_taylor

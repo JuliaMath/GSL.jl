@@ -18,7 +18,7 @@ function sf_conicalP_half(lambda::Real, x::Real)
     ccall( (:gsl_sf_conicalP_half, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, x )
 end
-@vectorize_2arg Number sf_conicalP_half
+Compat.@dep_vectorize_2arg Number sf_conicalP_half
 
 
 # These routines compute the irregular Spherical Conical Function
@@ -32,7 +32,7 @@ function sf_conicalP_half_e(lambda::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_conicalP_half_e
+Compat.@dep_vectorize_2arg Number sf_conicalP_half_e
 
 
 # These routines compute the regular Spherical Conical Function  P^{-1/2}_{-1/2
@@ -43,7 +43,7 @@ function sf_conicalP_mhalf(lambda::Real, x::Real)
     ccall( (:gsl_sf_conicalP_mhalf, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, x )
 end
-@vectorize_2arg Number sf_conicalP_mhalf
+Compat.@dep_vectorize_2arg Number sf_conicalP_mhalf
 
 
 # These routines compute the regular Spherical Conical Function  P^{-1/2}_{-1/2
@@ -57,7 +57,7 @@ function sf_conicalP_mhalf_e(lambda::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_conicalP_mhalf_e
+Compat.@dep_vectorize_2arg Number sf_conicalP_mhalf_e
 
 
 # These routines compute the conical function  P^0_{-1/2 + i \lambda}(x) for x
@@ -68,7 +68,7 @@ function sf_conicalP_0(lambda::Real, x::Real)
     ccall( (:gsl_sf_conicalP_0, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, x )
 end
-@vectorize_2arg Number sf_conicalP_0
+Compat.@dep_vectorize_2arg Number sf_conicalP_0
 
 
 # These routines compute the conical function  P^0_{-1/2 + i \lambda}(x) for x
@@ -82,7 +82,7 @@ function sf_conicalP_0_e(lambda::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_conicalP_0_e
+Compat.@dep_vectorize_2arg Number sf_conicalP_0_e
 
 
 # These routines compute the conical function  P^1_{-1/2 + i \lambda}(x) for x
@@ -93,7 +93,7 @@ function sf_conicalP_1(lambda::Real, x::Real)
     ccall( (:gsl_sf_conicalP_1, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, x )
 end
-@vectorize_2arg Number sf_conicalP_1
+Compat.@dep_vectorize_2arg Number sf_conicalP_1
 
 
 # These routines compute the conical function  P^1_{-1/2 + i \lambda}(x) for x
@@ -107,7 +107,7 @@ function sf_conicalP_1_e(lambda::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_conicalP_1_e
+Compat.@dep_vectorize_2arg Number sf_conicalP_1_e
 
 
 # These routines compute the Regular Spherical Conical Function
@@ -118,8 +118,6 @@ function sf_conicalP_sph_reg(l::Integer, lambda::Real, x::Real)
     ccall( (:gsl_sf_conicalP_sph_reg, libgsl), Cdouble, (Cint, Cdouble,
         Cdouble), l, lambda, x )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_conicalP_sph_reg
 
 
 # These routines compute the Regular Spherical Conical Function
@@ -133,8 +131,6 @@ function sf_conicalP_sph_reg_e(l::Integer, lambda::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_conicalP_sph_reg_e
 
 
 # These routines compute the Regular Cylindrical Conical Function  P^{-m}_{-1/2
@@ -145,8 +141,6 @@ function sf_conicalP_cyl_reg(m::Integer, lambda::Real, x::Real)
     ccall( (:gsl_sf_conicalP_cyl_reg, libgsl), Cdouble, (Cint, Cdouble,
         Cdouble), m, lambda, x )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_conicalP_cyl_reg
 
 
 # These routines compute the Regular Cylindrical Conical Function  P^{-m}_{-1/2
@@ -160,5 +154,3 @@ function sf_conicalP_cyl_reg_e(m::Integer, lambda::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_conicalP_cyl_reg_e

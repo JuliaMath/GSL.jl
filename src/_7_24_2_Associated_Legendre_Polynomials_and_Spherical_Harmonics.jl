@@ -18,8 +18,6 @@ function sf_legendre_Plm(l::Integer, m::Integer, x::Real)
     ccall( (:gsl_sf_legendre_Plm, libgsl), Cdouble, (Cint, Cint, Cdouble),
         l, m, x )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_legendre_Plm
 
 
 # These routines compute the associated Legendre polynomial P_l^m(x) for  m >=
@@ -33,8 +31,6 @@ function sf_legendre_Plm_e(l::Integer, m::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_legendre_Plm_e
 
 
 # These functions compute arrays of Legendre polynomials P_l^m(x) and
@@ -49,8 +45,6 @@ function sf_legendre_Plm_array(lmax::Integer, m::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result_array
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_legendre_Plm_array
 
 
 # These functions compute arrays of Legendre polynomials P_l^m(x) and
@@ -66,8 +60,6 @@ function sf_legendre_Plm_deriv_array(lmax::Integer, m::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return (result_array, result_deriv_array)
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_legendre_Plm_deriv_array
 
 
 # These routines compute the normalized associated Legendre polynomial
@@ -81,8 +73,6 @@ function sf_legendre_sphPlm(l::Integer, m::Integer, x::Real)
     ccall( (:gsl_sf_legendre_sphPlm, libgsl), Cdouble, (Cint, Cint,
         Cdouble), l, m, x )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_legendre_sphPlm
 
 
 # These routines compute the normalized associated Legendre polynomial
@@ -99,8 +89,6 @@ function sf_legendre_sphPlm_e(l::Integer, m::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_legendre_sphPlm_e
 
 
 # These functions compute arrays of normalized associated Legendre functions
@@ -116,8 +104,6 @@ function sf_legendre_sphPlm_array(lmax::Integer, m::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result_array
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_legendre_sphPlm_array
 
 
 # These functions compute arrays of normalized associated Legendre functions
@@ -134,8 +120,6 @@ function sf_legendre_sphPlm_deriv_array(lmax::Integer, m::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return (result_array, result_deriv_array)
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_legendre_sphPlm_deriv_array
 
 
 # This function returns the size of result_array[] needed for the array
@@ -148,4 +132,4 @@ function sf_legendre_array_size(lmax::Integer, m::Integer)
         Cint), lmax, m )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-@vectorize_2arg Number sf_legendre_array_size
+Compat.@dep_vectorize_2arg Number sf_legendre_array_size

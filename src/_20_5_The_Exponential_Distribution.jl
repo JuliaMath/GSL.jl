@@ -29,7 +29,7 @@ function ran_exponential_pdf(x::Real, mu::Real)
     ccall( (:gsl_ran_exponential_pdf, libgsl), Cdouble, (Cdouble,
         Cdouble), x, mu )
 end
-@vectorize_2arg Number ran_exponential_pdf
+Compat.@dep_vectorize_2arg Number ran_exponential_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -40,7 +40,7 @@ function cdf_exponential_P(x::Real, mu::Real)
     ccall( (:gsl_cdf_exponential_P, libgsl), Cdouble, (Cdouble, Cdouble),
         x, mu )
 end
-@vectorize_2arg Number cdf_exponential_P
+Compat.@dep_vectorize_2arg Number cdf_exponential_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -51,7 +51,7 @@ function cdf_exponential_Q(x::Real, mu::Real)
     ccall( (:gsl_cdf_exponential_Q, libgsl), Cdouble, (Cdouble, Cdouble),
         x, mu )
 end
-@vectorize_2arg Number cdf_exponential_Q
+Compat.@dep_vectorize_2arg Number cdf_exponential_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -62,7 +62,7 @@ function cdf_exponential_Pinv(P::Real, mu::Real)
     ccall( (:gsl_cdf_exponential_Pinv, libgsl), Cdouble, (Cdouble,
         Cdouble), P, mu )
 end
-@vectorize_2arg Number cdf_exponential_Pinv
+Compat.@dep_vectorize_2arg Number cdf_exponential_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -73,4 +73,4 @@ function cdf_exponential_Qinv(Q::Real, mu::Real)
     ccall( (:gsl_cdf_exponential_Qinv, libgsl), Cdouble, (Cdouble,
         Cdouble), Q, mu )
 end
-@vectorize_2arg Number cdf_exponential_Qinv
+Compat.@dep_vectorize_2arg Number cdf_exponential_Qinv

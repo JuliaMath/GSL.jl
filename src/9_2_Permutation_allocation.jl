@@ -20,7 +20,7 @@ function permutation_alloc(n::Integer)
         Ptr{gsl_permutation}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_1arg Number permutation_alloc
+Compat.@dep_vectorize_1arg Number permutation_alloc
 
 
 # This function allocates memory for a new permutation of size n and
@@ -33,7 +33,7 @@ function permutation_calloc(n::Integer)
         Ptr{gsl_permutation}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_1arg Number permutation_calloc
+Compat.@dep_vectorize_1arg Number permutation_calloc
 
 
 # This function initializes the permutation p to the identity, i.e.
