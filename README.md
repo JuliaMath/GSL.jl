@@ -1,8 +1,8 @@
 GSL.jl
 ======
 
-[![GSL](http://pkg.julialang.org/badges/GSL_0.3.svg)](http://pkg.julialang.org/?pkg=GSL)
 [![GSL](http://pkg.julialang.org/badges/GSL_0.4.svg)](http://pkg.julialang.org/?pkg=GSL)
+[![GSL](http://pkg.julialang.org/badges/GSL_0.5.svg)](http://pkg.julialang.org/?pkg=GSL)
 [![Build Status](https://travis-ci.org/jiahao/GSL.jl.svg?branch=master)](https://travis-ci.org/jiahao/GSL.jl)
 [![Coverage Status](https://coveralls.io/repos/jiahao/GSL.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/jiahao/GSL.jl?branch=master)
 [![codecov.io](http://codecov.io/github/jiahao/GSL.jl/coverage.svg?branch=master)](http://codecov.io/github/jiahao/GSL.jl?branch=master)
