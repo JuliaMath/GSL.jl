@@ -15,7 +15,7 @@ if is_apple()
         error("Homebrew package not installed, please run Pkg.add(\"Homebrew\")")
     end
     using Homebrew
-    provides(Homebrew.HB, "gsl", libgsl, os = :Darwin)
+    provides(Homebrew.HB, "homebrew/versions/gsl1", libgsl, os = :Darwin)
 end
 
 if is_windows() 
