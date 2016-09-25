@@ -14,7 +14,7 @@ export sf_log, sf_log_e, sf_log_abs, sf_log_abs_e, sf_complex_log_e,
 function sf_log(x::Real)
     ccall( (:gsl_sf_log, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_log
+Compat.@dep_vectorize_1arg Number sf_log
 
 
 # These routines compute the logarithm of x, \log(x), for x > 0.
@@ -27,7 +27,7 @@ function sf_log_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_log_e
+Compat.@dep_vectorize_1arg Number sf_log_e
 
 
 # These routines compute the logarithm of the magnitude of x, \log(|x|), for x
@@ -37,7 +37,7 @@ end
 function sf_log_abs(x::Real)
     ccall( (:gsl_sf_log_abs, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_log_abs
+Compat.@dep_vectorize_1arg Number sf_log_abs
 
 
 # These routines compute the logarithm of the magnitude of x, \log(|x|), for x
@@ -51,7 +51,7 @@ function sf_log_abs_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_log_abs_e
+Compat.@dep_vectorize_1arg Number sf_log_abs_e
 
 
 # This routine computes the complex logarithm of z = z_r + i z_i. The results
@@ -67,7 +67,7 @@ function sf_complex_log_e(zr::Real, zi::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return lnr[], theta[]
 end
-@vectorize_2arg Number sf_complex_log_e
+Compat.@dep_vectorize_2arg Number sf_complex_log_e
 
 
 # These routines compute \log(1 + x) for x > -1 using an algorithm that is
@@ -77,7 +77,7 @@ end
 function sf_log_1plusx(x::Real)
     ccall( (:gsl_sf_log_1plusx, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_log_1plusx
+Compat.@dep_vectorize_1arg Number sf_log_1plusx
 
 
 # These routines compute \log(1 + x) for x > -1 using an algorithm that is
@@ -91,7 +91,7 @@ function sf_log_1plusx_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_log_1plusx_e
+Compat.@dep_vectorize_1arg Number sf_log_1plusx_e
 
 
 # These routines compute \log(1 + x) - x for x > -1 using an algorithm that is
@@ -101,7 +101,7 @@ end
 function sf_log_1plusx_mx(x::Real)
     ccall( (:gsl_sf_log_1plusx_mx, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_log_1plusx_mx
+Compat.@dep_vectorize_1arg Number sf_log_1plusx_mx
 
 
 # These routines compute \log(1 + x) - x for x > -1 using an algorithm that is
@@ -115,4 +115,4 @@ function sf_log_1plusx_mx_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_log_1plusx_mx_e
+Compat.@dep_vectorize_1arg Number sf_log_1plusx_mx_e

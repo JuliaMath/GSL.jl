@@ -17,7 +17,7 @@ export sf_expint_Ei, sf_expint_Ei_e
 function sf_expint_Ei(x::Real)
     ccall( (:gsl_sf_expint_Ei, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_expint_Ei
+Compat.@dep_vectorize_1arg Number sf_expint_Ei
 
 
 # These routines compute the exponential integral  Ei(x),                 Ei(x)
@@ -32,4 +32,4 @@ function sf_expint_Ei_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_expint_Ei_e
+Compat.@dep_vectorize_1arg Number sf_expint_Ei_e

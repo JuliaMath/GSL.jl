@@ -82,5 +82,3 @@ function fit_linear_est(x::Real, c0::Real, c1::Real, cov00::Real, cov01::Real, c
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return y[], y_err[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_6arg Number fit_linear_est

@@ -20,7 +20,7 @@ function block_alloc(n::Integer)
         (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_1arg Number block_alloc
+Compat.@dep_vectorize_1arg Number block_alloc
 
 
 # This function allocates memory for a block and initializes all the elements
@@ -32,7 +32,7 @@ function block_calloc(n::Integer)
         (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_1arg Number block_calloc
+Compat.@dep_vectorize_1arg Number block_calloc
 
 
 # This function frees the memory used by a block b previously allocated with

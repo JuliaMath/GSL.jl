@@ -17,7 +17,7 @@ export sf_poch, sf_poch_e, sf_lnpoch, sf_lnpoch_e, sf_lnpoch_sgn_e, sf_pochrel,
 function sf_poch(a::Real, x::Real)
     ccall( (:gsl_sf_poch, libgsl), Cdouble, (Cdouble, Cdouble), a, x )
 end
-@vectorize_2arg Number sf_poch
+Compat.@dep_vectorize_2arg Number sf_poch
 
 
 # These routines compute the Pochhammer symbol (a)_x = \Gamma(a + x)/\Gamma(a).
@@ -33,7 +33,7 @@ function sf_poch_e(a::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_poch_e
+Compat.@dep_vectorize_2arg Number sf_poch_e
 
 
 # These routines compute the logarithm of the Pochhammer symbol, \log((a)_x) =
@@ -43,7 +43,7 @@ end
 function sf_lnpoch(a::Real, x::Real)
     ccall( (:gsl_sf_lnpoch, libgsl), Cdouble, (Cdouble, Cdouble), a, x )
 end
-@vectorize_2arg Number sf_lnpoch
+Compat.@dep_vectorize_2arg Number sf_lnpoch
 
 
 # These routines compute the logarithm of the Pochhammer symbol, \log((a)_x) =
@@ -57,7 +57,7 @@ function sf_lnpoch_e(a::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_lnpoch_e
+Compat.@dep_vectorize_2arg Number sf_lnpoch_e
 
 
 # These routines compute the sign of the Pochhammer symbol and the logarithm of
@@ -74,7 +74,7 @@ function sf_lnpoch_sgn_e(a::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[], sgn[]
 end
-@vectorize_2arg Number sf_lnpoch_sgn_e
+Compat.@dep_vectorize_2arg Number sf_lnpoch_sgn_e
 
 
 # These routines compute the relative Pochhammer symbol ((a)_x - 1)/x where
@@ -84,7 +84,7 @@ end
 function sf_pochrel(a::Real, x::Real)
     ccall( (:gsl_sf_pochrel, libgsl), Cdouble, (Cdouble, Cdouble), a, x )
 end
-@vectorize_2arg Number sf_pochrel
+Compat.@dep_vectorize_2arg Number sf_pochrel
 
 
 # These routines compute the relative Pochhammer symbol ((a)_x - 1)/x where
@@ -98,4 +98,4 @@ function sf_pochrel_e(a::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_pochrel_e
+Compat.@dep_vectorize_2arg Number sf_pochrel_e

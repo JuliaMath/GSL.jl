@@ -17,7 +17,7 @@ export sf_fact, sf_fact_e, sf_doublefact, sf_doublefact_e, sf_lnfact,
 function sf_fact(n::Integer)
     ccall( (:gsl_sf_fact, libgsl), Cdouble, (Cuint, ), n )
 end
-@vectorize_1arg Number sf_fact
+Compat.@dep_vectorize_1arg Number sf_fact
 
 
 # These routines compute the factorial n!.  The factorial is related to the
@@ -32,7 +32,7 @@ function sf_fact_e(n::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_fact_e
+Compat.@dep_vectorize_1arg Number sf_fact_e
 
 
 # These routines compute the double factorial n!! = n(n-2)(n-4) \dots.  The
@@ -43,7 +43,7 @@ end
 function sf_doublefact(n::Integer)
     ccall( (:gsl_sf_doublefact, libgsl), Cdouble, (Cuint, ), n )
 end
-@vectorize_1arg Number sf_doublefact
+Compat.@dep_vectorize_1arg Number sf_doublefact
 
 
 # These routines compute the double factorial n!! = n(n-2)(n-4) \dots.  The
@@ -58,7 +58,7 @@ function sf_doublefact_e(n::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_doublefact_e
+Compat.@dep_vectorize_1arg Number sf_doublefact_e
 
 
 # These routines compute the logarithm of the factorial of n, \log(n!).  The
@@ -69,7 +69,7 @@ end
 function sf_lnfact(n::Integer)
     ccall( (:gsl_sf_lnfact, libgsl), Cdouble, (Cuint, ), n )
 end
-@vectorize_1arg Number sf_lnfact
+Compat.@dep_vectorize_1arg Number sf_lnfact
 
 
 # These routines compute the logarithm of the factorial of n, \log(n!).  The
@@ -84,7 +84,7 @@ function sf_lnfact_e(n::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_lnfact_e
+Compat.@dep_vectorize_1arg Number sf_lnfact_e
 
 
 # These routines compute the logarithm of the double factorial of n, \log(n!!).
@@ -93,7 +93,7 @@ end
 function sf_lndoublefact(n::Integer)
     ccall( (:gsl_sf_lndoublefact, libgsl), Cdouble, (Cuint, ), n )
 end
-@vectorize_1arg Number sf_lndoublefact
+Compat.@dep_vectorize_1arg Number sf_lndoublefact
 
 
 # These routines compute the logarithm of the double factorial of n, \log(n!!).
@@ -106,7 +106,7 @@ function sf_lndoublefact_e(n::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_lndoublefact_e
+Compat.@dep_vectorize_1arg Number sf_lndoublefact_e
 
 
 # These routines compute the combinatorial factor n choose m = n!/(m!(n-m)!)
@@ -115,7 +115,7 @@ end
 function sf_choose(n::Integer, m::Integer)
     ccall( (:gsl_sf_choose, libgsl), Cdouble, (Cuint, Cuint), n, m )
 end
-@vectorize_2arg Number sf_choose
+Compat.@dep_vectorize_2arg Number sf_choose
 
 
 # These routines compute the combinatorial factor n choose m = n!/(m!(n-m)!)
@@ -128,7 +128,7 @@ function sf_choose_e(n::Integer, m::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_choose_e
+Compat.@dep_vectorize_2arg Number sf_choose_e
 
 
 # These routines compute the logarithm of n choose m.  This is equivalent to
@@ -138,7 +138,7 @@ end
 function sf_lnchoose(n::Integer, m::Integer)
     ccall( (:gsl_sf_lnchoose, libgsl), Cdouble, (Cuint, Cuint), n, m )
 end
-@vectorize_2arg Number sf_lnchoose
+Compat.@dep_vectorize_2arg Number sf_lnchoose
 
 
 # These routines compute the logarithm of n choose m.  This is equivalent to
@@ -152,7 +152,7 @@ function sf_lnchoose_e(n::Integer, m::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_lnchoose_e
+Compat.@dep_vectorize_2arg Number sf_lnchoose_e
 
 
 # These routines compute the Taylor coefficient x^n / n! for  x >= 0,  n >= 0.
@@ -161,7 +161,7 @@ end
 function sf_taylorcoeff(n::Integer, x::Real)
     ccall( (:gsl_sf_taylorcoeff, libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
-@vectorize_2arg Number sf_taylorcoeff
+Compat.@dep_vectorize_2arg Number sf_taylorcoeff
 
 
 # These routines compute the Taylor coefficient x^n / n! for  x >= 0,  n >= 0.
@@ -174,4 +174,4 @@ function sf_taylorcoeff_e(n::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_taylorcoeff_e
+Compat.@dep_vectorize_2arg Number sf_taylorcoeff_e

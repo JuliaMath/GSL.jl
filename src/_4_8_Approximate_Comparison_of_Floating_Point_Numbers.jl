@@ -24,5 +24,3 @@ function fcmp(x::Real, y::Real, epsilon::Real)
         x, y, epsilon )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number fcmp

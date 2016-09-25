@@ -53,7 +53,7 @@ function wavelet_workspace_alloc(n::Integer)
         Ptr{gsl_wavelet_workspace}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_1arg Number wavelet_workspace_alloc
+Compat.@dep_vectorize_1arg Number wavelet_workspace_alloc
 
 
 # This function frees the allocated workspace work.

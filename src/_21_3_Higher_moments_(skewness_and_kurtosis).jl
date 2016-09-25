@@ -26,7 +26,7 @@ export stats_skew, stats_skew_m_sd, stats_kurtosis, stats_kurtosis_m_sd
 function stats_skew(data::Real)
     ccall( (:gsl_stats_skew, libgsl), Cdouble, (Cdouble, ), data )
 end
-@vectorize_1arg Number stats_skew
+Compat.@dep_vectorize_1arg Number stats_skew
 
 
 # This function computes the skewness of the dataset data using the given
@@ -39,7 +39,7 @@ end
 function stats_skew_m_sd(data::Real)
     ccall( (:gsl_stats_skew_m_sd, libgsl), Cdouble, (Cdouble, ), data )
 end
-@vectorize_1arg Number stats_skew_m_sd
+Compat.@dep_vectorize_1arg Number stats_skew_m_sd
 
 
 # This function computes the kurtosis of data, a dataset of length n with
@@ -52,7 +52,7 @@ end
 function stats_kurtosis(data::Real)
     ccall( (:gsl_stats_kurtosis, libgsl), Cdouble, (Cdouble, ), data )
 end
-@vectorize_1arg Number stats_kurtosis
+Compat.@dep_vectorize_1arg Number stats_kurtosis
 
 
 # This function computes the kurtosis of the dataset data using the given
@@ -66,4 +66,4 @@ function stats_kurtosis_m_sd(data::Real)
     ccall( (:gsl_stats_kurtosis_m_sd, libgsl), Cdouble, (Cdouble, ), data
         )
 end
-@vectorize_1arg Number stats_kurtosis_m_sd
+Compat.@dep_vectorize_1arg Number stats_kurtosis_m_sd

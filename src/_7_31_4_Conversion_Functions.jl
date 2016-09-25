@@ -19,7 +19,7 @@ function sf_polar_to_rect(r::Real, theta::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return x[], y[]
 end
-@vectorize_2arg Number sf_polar_to_rect
+Compat.@dep_vectorize_2arg Number sf_polar_to_rect
 
 
 # This function converts the rectilinear coordinates (x,y) to polar coordinates
@@ -35,4 +35,4 @@ function sf_rect_to_polar(x::Real, y::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return r[], theta[]
 end
-@vectorize_2arg Number sf_rect_to_polar
+Compat.@dep_vectorize_2arg Number sf_rect_to_polar

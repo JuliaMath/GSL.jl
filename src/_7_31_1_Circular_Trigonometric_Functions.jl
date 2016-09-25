@@ -14,7 +14,7 @@ export sf_sin, sf_sin_e, sf_cos, sf_cos_e, sf_hypot, sf_hypot_e, sf_sinc,
 function sf_sin(x::Real)
     ccall( (:gsl_sf_sin, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_sin
+Compat.@dep_vectorize_1arg Number sf_sin
 
 
 # These routines compute the sine function \sin(x).
@@ -27,7 +27,7 @@ function sf_sin_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_sin_e
+Compat.@dep_vectorize_1arg Number sf_sin_e
 
 
 # These routines compute the cosine function \cos(x).
@@ -36,7 +36,7 @@ end
 function sf_cos(x::Real)
     ccall( (:gsl_sf_cos, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_cos
+Compat.@dep_vectorize_1arg Number sf_cos
 
 
 # These routines compute the cosine function \cos(x).
@@ -49,7 +49,7 @@ function sf_cos_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_cos_e
+Compat.@dep_vectorize_1arg Number sf_cos_e
 
 
 # These routines compute the hypotenuse function  \sqrt{x^2 + y^2} avoiding
@@ -59,7 +59,7 @@ end
 function sf_hypot(x::Real, y::Real)
     ccall( (:gsl_sf_hypot, libgsl), Cdouble, (Cdouble, Cdouble), x, y )
 end
-@vectorize_2arg Number sf_hypot
+Compat.@dep_vectorize_2arg Number sf_hypot
 
 
 # These routines compute the hypotenuse function  \sqrt{x^2 + y^2} avoiding
@@ -73,7 +73,7 @@ function sf_hypot_e(x::Real, y::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_hypot_e
+Compat.@dep_vectorize_2arg Number sf_hypot_e
 
 
 # These routines compute \sinc(x) = \sin(\pi x) / (\pi x) for any value of x.
@@ -82,7 +82,7 @@ end
 function sf_sinc(x::Real)
     ccall( (:gsl_sf_sinc, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_sinc
+Compat.@dep_vectorize_1arg Number sf_sinc
 
 
 # These routines compute \sinc(x) = \sin(\pi x) / (\pi x) for any value of x.
@@ -95,4 +95,4 @@ function sf_sinc_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_sinc_e
+Compat.@dep_vectorize_1arg Number sf_sinc_e

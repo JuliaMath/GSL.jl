@@ -2,6 +2,8 @@ __precompile__(true)
 
 module GSL
 
+using Compat
+
 if isfile(joinpath(dirname(@__FILE__),"..","deps","deps.jl"))
     include("../deps/deps.jl")
 else

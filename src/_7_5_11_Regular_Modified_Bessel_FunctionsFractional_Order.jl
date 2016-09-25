@@ -16,7 +16,7 @@ function sf_bessel_Inu(nu::Real, x::Real)
     ccall( (:gsl_sf_bessel_Inu, libgsl), Cdouble, (Cdouble, Cdouble), nu,
         x )
 end
-@vectorize_2arg Number sf_bessel_Inu
+Compat.@dep_vectorize_2arg Number sf_bessel_Inu
 
 
 # These routines compute the regular modified Bessel function of fractional
@@ -30,7 +30,7 @@ function sf_bessel_Inu_e(nu::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_bessel_Inu_e
+Compat.@dep_vectorize_2arg Number sf_bessel_Inu_e
 
 
 # These routines compute the scaled regular modified Bessel function of
@@ -41,7 +41,7 @@ function sf_bessel_Inu_scaled(nu::Real, x::Real)
     ccall( (:gsl_sf_bessel_Inu_scaled, libgsl), Cdouble, (Cdouble,
         Cdouble), nu, x )
 end
-@vectorize_2arg Number sf_bessel_Inu_scaled
+Compat.@dep_vectorize_2arg Number sf_bessel_Inu_scaled
 
 
 # These routines compute the scaled regular modified Bessel function of
@@ -55,4 +55,4 @@ function sf_bessel_Inu_scaled_e(nu::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_bessel_Inu_scaled_e
+Compat.@dep_vectorize_2arg Number sf_bessel_Inu_scaled_e

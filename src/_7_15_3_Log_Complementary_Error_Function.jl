@@ -14,7 +14,7 @@ export sf_log_erfc, sf_log_erfc_e
 function sf_log_erfc(x::Real)
     ccall( (:gsl_sf_log_erfc, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_log_erfc
+Compat.@dep_vectorize_1arg Number sf_log_erfc
 
 
 # These routines compute the logarithm of the complementary error function
@@ -28,4 +28,4 @@ function sf_log_erfc_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_log_erfc_e
+Compat.@dep_vectorize_1arg Number sf_log_erfc_e

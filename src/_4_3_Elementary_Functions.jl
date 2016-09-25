@@ -14,7 +14,7 @@ export log1p, expm1, hypot, hypot3, acosh, asinh, atanh, ldexp, frexp
 function log1p(x::Real)
     ccall( (:gsl_log1p, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number log1p
+Compat.@dep_vectorize_1arg Number log1p
 
 
 # This function computes the value of \exp(x)-1 in a way that is accurate for
@@ -24,7 +24,7 @@ end
 function expm1(x::Real)
     ccall( (:gsl_expm1, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number expm1
+Compat.@dep_vectorize_1arg Number expm1
 
 
 # This function computes the value of  \sqrt{x^2 + y^2} in a way that avoids
@@ -34,7 +34,7 @@ end
 function hypot(x::Real, y::Real)
     ccall( (:gsl_hypot, libgsl), Cdouble, (Cdouble, Cdouble), x, y )
 end
-@vectorize_2arg Number hypot
+Compat.@dep_vectorize_2arg Number hypot
 
 
 # This function computes the value of  \sqrt{x^2 + y^2 + z^2} in a way that
@@ -45,8 +45,6 @@ function hypot3(x::Real, y::Real, z::Real)
     ccall( (:gsl_hypot3, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x,
         y, z )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number hypot3
 
 
 # This function computes the value of \arccosh(x). It provides an alternative
@@ -56,7 +54,7 @@ end
 function acosh(x::Real)
     ccall( (:gsl_acosh, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number acosh
+Compat.@dep_vectorize_1arg Number acosh
 
 
 # This function computes the value of \arcsinh(x). It provides an alternative
@@ -66,7 +64,7 @@ end
 function asinh(x::Real)
     ccall( (:gsl_asinh, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number asinh
+Compat.@dep_vectorize_1arg Number asinh
 
 
 # This function computes the value of \arctanh(x). It provides an alternative
@@ -76,7 +74,7 @@ end
 function atanh(x::Real)
     ccall( (:gsl_atanh, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number atanh
+Compat.@dep_vectorize_1arg Number atanh
 
 
 # This function computes the value of x * 2^e. It provides an alternative to
@@ -86,7 +84,7 @@ end
 function ldexp(x::Real, e::Integer)
     ccall( (:gsl_ldexp, libgsl), Cdouble, (Cdouble, Cint), x, e )
 end
-@vectorize_2arg Number ldexp
+Compat.@dep_vectorize_2arg Number ldexp
 
 
 # This function splits the number x into its normalized fraction f and exponent

@@ -70,5 +70,3 @@ function fit_mul_est(x::Real, c1::Real, cov11::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return y[], y_err[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number fit_mul_est

@@ -16,7 +16,7 @@ export sf_bessel_j0, sf_bessel_j0_e, sf_bessel_j1, sf_bessel_j1_e,
 function sf_bessel_j0(x::Real)
     ccall( (:gsl_sf_bessel_j0, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_bessel_j0
+Compat.@dep_vectorize_1arg Number sf_bessel_j0
 
 
 # These routines compute the regular spherical Bessel function of zeroth order,
@@ -30,7 +30,7 @@ function sf_bessel_j0_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_bessel_j0_e
+Compat.@dep_vectorize_1arg Number sf_bessel_j0_e
 
 
 # These routines compute the regular spherical Bessel function of first order,
@@ -40,7 +40,7 @@ end
 function sf_bessel_j1(x::Real)
     ccall( (:gsl_sf_bessel_j1, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_bessel_j1
+Compat.@dep_vectorize_1arg Number sf_bessel_j1
 
 
 # These routines compute the regular spherical Bessel function of first order,
@@ -54,7 +54,7 @@ function sf_bessel_j1_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_bessel_j1_e
+Compat.@dep_vectorize_1arg Number sf_bessel_j1_e
 
 
 # These routines compute the regular spherical Bessel function of second order,
@@ -64,7 +64,7 @@ end
 function sf_bessel_j2(x::Real)
     ccall( (:gsl_sf_bessel_j2, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_bessel_j2
+Compat.@dep_vectorize_1arg Number sf_bessel_j2
 
 
 # These routines compute the regular spherical Bessel function of second order,
@@ -78,7 +78,7 @@ function sf_bessel_j2_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_bessel_j2_e
+Compat.@dep_vectorize_1arg Number sf_bessel_j2_e
 
 
 # These routines compute the regular spherical Bessel function of order l,
@@ -88,7 +88,7 @@ end
 function sf_bessel_jl(l::Integer, x::Real)
     ccall( (:gsl_sf_bessel_jl, libgsl), Cdouble, (Cint, Cdouble), l, x )
 end
-@vectorize_2arg Number sf_bessel_jl
+Compat.@dep_vectorize_2arg Number sf_bessel_jl
 
 
 # These routines compute the regular spherical Bessel function of order l,
@@ -102,7 +102,7 @@ function sf_bessel_jl_e(l::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_bessel_jl_e
+Compat.@dep_vectorize_2arg Number sf_bessel_jl_e
 
 
 # This routine computes the values of the regular spherical Bessel functions
@@ -119,7 +119,7 @@ function sf_bessel_jl_array(lmax::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result_array[][1]
 end
-@vectorize_2arg Number sf_bessel_jl_array
+Compat.@dep_vectorize_2arg Number sf_bessel_jl_array
 
 
 # This routine uses Steed's method to compute the values of the regular
@@ -137,4 +137,4 @@ function sf_bessel_jl_steed_array(lmax::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result_array[]
 end
-@vectorize_2arg Number sf_bessel_jl_steed_array
+Compat.@dep_vectorize_2arg Number sf_bessel_jl_steed_array

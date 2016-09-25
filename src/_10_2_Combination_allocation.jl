@@ -20,7 +20,7 @@ function combination_alloc(n::Integer, k::Integer)
         Ptr{gsl_combination}, (Csize_t, Csize_t), n, k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_2arg Number combination_alloc
+Compat.@dep_vectorize_2arg Number combination_alloc
 
 
 # This function allocates memory for a new combination with parameters n, k and
@@ -33,7 +33,7 @@ function combination_calloc(n::Integer, k::Integer)
         Ptr{gsl_combination}, (Csize_t, Csize_t), n, k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_2arg Number combination_calloc
+Compat.@dep_vectorize_2arg Number combination_calloc
 
 
 # This function initializes the combination c to the lexicographically first

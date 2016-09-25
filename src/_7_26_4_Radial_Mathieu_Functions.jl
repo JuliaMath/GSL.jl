@@ -21,8 +21,6 @@ function sf_mathieu_Mc(j::Integer, n::Integer, q::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_mathieu_Mc
 
 
 # These routines compute the radial j-th kind Mathieu functions
@@ -39,8 +37,6 @@ function sf_mathieu_Ms(j::Integer, n::Integer, q::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_mathieu_Ms
 
 
 # These routines compute a series of the radial Mathieu functions of kind j,
@@ -57,8 +53,6 @@ function sf_mathieu_Mc_array(j::Integer, nmin::Integer, nmax::Integer, q::Real, 
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return work[], result_array[][1]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_5arg Number sf_mathieu_Mc_array
 
 
 # These routines compute a series of the radial Mathieu functions of kind j,
@@ -75,5 +69,3 @@ function sf_mathieu_Ms_array(j::Integer, nmin::Integer, nmax::Integer, q::Real, 
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return work[], result_array[][1]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_5arg Number sf_mathieu_Ms_array

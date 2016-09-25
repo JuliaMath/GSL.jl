@@ -20,7 +20,7 @@ function multiset_alloc(n::Integer, k::Integer)
         (Csize_t, Csize_t), n, k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_2arg Number multiset_alloc
+Compat.@dep_vectorize_2arg Number multiset_alloc
 
 
 # This function allocates memory for a new multiset with parameters n, k and
@@ -34,7 +34,7 @@ function multiset_calloc(n::Integer, k::Integer)
         (Csize_t, Csize_t), n, k )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_2arg Number multiset_calloc
+Compat.@dep_vectorize_2arg Number multiset_calloc
 
 
 # This function initializes the multiset c to the lexicographically first

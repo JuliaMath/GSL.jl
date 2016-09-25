@@ -18,7 +18,7 @@ function odeiv2_evolve_alloc(dim::Integer)
         Ptr{gsl_odeiv2_evolve}, (Csize_t, ), dim )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_1arg Number odeiv2_evolve_alloc
+Compat.@dep_vectorize_1arg Number odeiv2_evolve_alloc
 
 
 # This function advances the system (e, sys) from time t and position y using

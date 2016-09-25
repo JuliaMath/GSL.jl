@@ -16,7 +16,7 @@ function sf_laguerre_1(a::Real, x::Real)
     ccall( (:gsl_sf_laguerre_1, libgsl), Cdouble, (Cdouble, Cdouble), a, x
         )
 end
-@vectorize_2arg Number sf_laguerre_1
+Compat.@dep_vectorize_2arg Number sf_laguerre_1
 
 
 # These routines evaluate the generalized Laguerre polynomials L^a_1(x),
@@ -27,7 +27,7 @@ function sf_laguerre_2(a::Real, x::Real)
     ccall( (:gsl_sf_laguerre_2, libgsl), Cdouble, (Cdouble, Cdouble), a, x
         )
 end
-@vectorize_2arg Number sf_laguerre_2
+Compat.@dep_vectorize_2arg Number sf_laguerre_2
 
 
 # These routines evaluate the generalized Laguerre polynomials L^a_1(x),
@@ -38,7 +38,7 @@ function sf_laguerre_3(a::Real, x::Real)
     ccall( (:gsl_sf_laguerre_3, libgsl), Cdouble, (Cdouble, Cdouble), a, x
         )
 end
-@vectorize_2arg Number sf_laguerre_3
+Compat.@dep_vectorize_2arg Number sf_laguerre_3
 
 
 # These routines evaluate the generalized Laguerre polynomials L^a_1(x),
@@ -52,7 +52,7 @@ function sf_laguerre_1_e(a::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_laguerre_1_e
+Compat.@dep_vectorize_2arg Number sf_laguerre_1_e
 
 
 # These routines evaluate the generalized Laguerre polynomials L^a_1(x),
@@ -66,7 +66,7 @@ function sf_laguerre_2_e(a::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_laguerre_2_e
+Compat.@dep_vectorize_2arg Number sf_laguerre_2_e
 
 
 # These routines evaluate the generalized Laguerre polynomials L^a_1(x),
@@ -80,7 +80,7 @@ function sf_laguerre_3_e(a::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_laguerre_3_e
+Compat.@dep_vectorize_2arg Number sf_laguerre_3_e
 
 
 # These routines evaluate the generalized Laguerre polynomials L^a_n(x) for a >
@@ -91,8 +91,6 @@ function sf_laguerre_n(n::Integer, a::Real, x::Real)
     ccall( (:gsl_sf_laguerre_n, libgsl), Cdouble, (Cint, Cdouble,
         Cdouble), n, a, x )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_laguerre_n
 
 
 # These routines evaluate the generalized Laguerre polynomials L^a_n(x) for a >
@@ -106,5 +104,3 @@ function sf_laguerre_n_e(n::Integer, a::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_laguerre_n_e

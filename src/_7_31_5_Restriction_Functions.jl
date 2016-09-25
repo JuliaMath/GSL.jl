@@ -17,7 +17,7 @@ function sf_angle_restrict_symm(theta::Real)
     ccall( (:gsl_sf_angle_restrict_symm, libgsl), Cdouble, (Cdouble, ),
         theta )
 end
-@vectorize_1arg Number sf_angle_restrict_symm
+Compat.@dep_vectorize_1arg Number sf_angle_restrict_symm
 
 
 # These routines force the angle theta to lie in the range (-\pi,\pi].
@@ -43,7 +43,7 @@ function sf_angle_restrict_pos(theta::Real)
     ccall( (:gsl_sf_angle_restrict_pos, libgsl), Cdouble, (Cdouble, ),
         theta )
 end
-@vectorize_1arg Number sf_angle_restrict_pos
+Compat.@dep_vectorize_1arg Number sf_angle_restrict_pos
 
 
 # These routines force the angle theta to lie in the range [0, 2\pi).

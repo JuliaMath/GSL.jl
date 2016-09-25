@@ -90,7 +90,7 @@ function odeiv2_driver_set_hmin(hmin::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return d[]
 end
-@vectorize_1arg Number odeiv2_driver_set_hmin
+Compat.@dep_vectorize_1arg Number odeiv2_driver_set_hmin
 
 
 # The function sets a maximum for allowed step size hmax for driver d. Default
@@ -104,7 +104,7 @@ function odeiv2_driver_set_hmax(hmax::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return d[]
 end
-@vectorize_1arg Number odeiv2_driver_set_hmax
+Compat.@dep_vectorize_1arg Number odeiv2_driver_set_hmax
 
 
 # The function sets a maximum for allowed number of steps nmax for driver d.
@@ -118,7 +118,7 @@ function odeiv2_driver_set_nmax(nmax::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return d[]
 end
-@vectorize_1arg Number odeiv2_driver_set_nmax
+Compat.@dep_vectorize_1arg Number odeiv2_driver_set_nmax
 
 
 # This function evolves the driver system d from t to t1. Initially vector y
@@ -141,7 +141,7 @@ function odeiv2_driver_apply(t1::Real, y::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return d[], t[]
 end
-@vectorize_2arg Number odeiv2_driver_apply
+Compat.@dep_vectorize_2arg Number odeiv2_driver_apply
 
 
 # This function evolves the driver system d from t with n steps of size h. If
@@ -159,8 +159,6 @@ function odeiv2_driver_apply_fixed_step(h::Real, n::Integer, y::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return d[], t[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number odeiv2_driver_apply_fixed_step
 
 
 # This function resets the evolution and stepper objects.

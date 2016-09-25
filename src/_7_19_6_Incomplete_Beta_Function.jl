@@ -18,8 +18,6 @@ function sf_beta_inc(a::Real, b::Real, x::Real)
     ccall( (:gsl_sf_beta_inc, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), a, b, x )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_beta_inc
 
 
 # These routines compute the normalized incomplete Beta function
@@ -36,5 +34,3 @@ function sf_beta_inc_e(a::Real, b::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_beta_inc_e

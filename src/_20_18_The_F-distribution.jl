@@ -35,8 +35,6 @@ function ran_fdist_pdf(x::Real, nu1::Real, nu2::Real)
     ccall( (:gsl_ran_fdist_pdf, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, nu1, nu2 )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number ran_fdist_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -47,8 +45,6 @@ function cdf_fdist_P(x::Real, nu1::Real, nu2::Real)
     ccall( (:gsl_cdf_fdist_P, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, nu1, nu2 )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_fdist_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -59,8 +55,6 @@ function cdf_fdist_Q(x::Real, nu1::Real, nu2::Real)
     ccall( (:gsl_cdf_fdist_Q, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, nu1, nu2 )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_fdist_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -71,8 +65,6 @@ function cdf_fdist_Pinv(P::Real, nu1::Real, nu2::Real)
     ccall( (:gsl_cdf_fdist_Pinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), P, nu1, nu2 )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_fdist_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -83,5 +75,3 @@ function cdf_fdist_Qinv(Q::Real, nu1::Real, nu2::Real)
     ccall( (:gsl_cdf_fdist_Qinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), Q, nu1, nu2 )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_fdist_Qinv

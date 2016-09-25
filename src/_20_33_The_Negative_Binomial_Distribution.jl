@@ -32,8 +32,6 @@ function ran_negative_binomial_pdf(k::Integer, p::Real, n::Real)
     ccall( (:gsl_ran_negative_binomial_pdf, libgsl), Cdouble, (Cuint,
         Cdouble, Cdouble), k, p, n )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number ran_negative_binomial_pdf
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
@@ -44,8 +42,6 @@ function cdf_negative_binomial_P(k::Integer, p::Real, n::Real)
     ccall( (:gsl_cdf_negative_binomial_P, libgsl), Cdouble, (Cuint,
         Cdouble, Cdouble), k, p, n )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_negative_binomial_P
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
@@ -56,5 +52,3 @@ function cdf_negative_binomial_Q(k::Integer, p::Real, n::Real)
     ccall( (:gsl_cdf_negative_binomial_Q, libgsl), Cdouble, (Cuint,
         Cdouble, Cdouble), k, p, n )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_negative_binomial_Q

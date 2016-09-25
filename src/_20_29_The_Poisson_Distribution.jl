@@ -28,7 +28,7 @@ function ran_poisson_pdf(k::Integer, mu::Real)
     ccall( (:gsl_ran_poisson_pdf, libgsl), Cdouble, (Cuint, Cdouble), k,
         mu )
 end
-@vectorize_2arg Number ran_poisson_pdf
+Compat.@dep_vectorize_2arg Number ran_poisson_pdf
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
@@ -39,7 +39,7 @@ function cdf_poisson_P(k::Integer, mu::Real)
     ccall( (:gsl_cdf_poisson_P, libgsl), Cdouble, (Cuint, Cdouble), k, mu
         )
 end
-@vectorize_2arg Number cdf_poisson_P
+Compat.@dep_vectorize_2arg Number cdf_poisson_P
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
@@ -50,4 +50,4 @@ function cdf_poisson_Q(k::Integer, mu::Real)
     ccall( (:gsl_cdf_poisson_Q, libgsl), Cdouble, (Cuint, Cdouble), k, mu
         )
 end
-@vectorize_2arg Number cdf_poisson_Q
+Compat.@dep_vectorize_2arg Number cdf_poisson_Q

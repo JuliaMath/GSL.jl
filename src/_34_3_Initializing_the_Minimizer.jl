@@ -52,8 +52,6 @@ function min_fminimizer_set_with_values(x_minimum::Real, f_minimum::Real, x_lowe
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return s[], f[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_6arg Number min_fminimizer_set_with_values
 
 
 # This function frees all the memory associated with the minimizer s.

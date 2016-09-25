@@ -29,8 +29,6 @@ function ran_weibull_pdf(x::Real, a::Real, b::Real)
     ccall( (:gsl_ran_weibull_pdf, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number ran_weibull_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -41,8 +39,6 @@ function cdf_weibull_P(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_weibull_P, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_weibull_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -53,8 +49,6 @@ function cdf_weibull_Q(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_weibull_Q, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_weibull_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -65,8 +59,6 @@ function cdf_weibull_Pinv(P::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_weibull_Pinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), P, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_weibull_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -77,5 +69,3 @@ function cdf_weibull_Qinv(Q::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_weibull_Qinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), Q, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_weibull_Qinv

@@ -14,7 +14,7 @@ export sf_transport_2, sf_transport_2_e, sf_transport_3, sf_transport_3_e,
 function sf_transport_2(x::Real)
     ccall( (:gsl_sf_transport_2, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_transport_2
+Compat.@dep_vectorize_1arg Number sf_transport_2
 
 
 # These routines compute the transport function J(2,x).
@@ -27,7 +27,7 @@ function sf_transport_2_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_transport_2_e
+Compat.@dep_vectorize_1arg Number sf_transport_2_e
 
 
 # These routines compute the transport function J(3,x).
@@ -36,7 +36,7 @@ end
 function sf_transport_3(x::Real)
     ccall( (:gsl_sf_transport_3, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_transport_3
+Compat.@dep_vectorize_1arg Number sf_transport_3
 
 
 # These routines compute the transport function J(3,x).
@@ -49,7 +49,7 @@ function sf_transport_3_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_transport_3_e
+Compat.@dep_vectorize_1arg Number sf_transport_3_e
 
 
 # These routines compute the transport function J(4,x).
@@ -58,7 +58,7 @@ end
 function sf_transport_4(x::Real)
     ccall( (:gsl_sf_transport_4, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_transport_4
+Compat.@dep_vectorize_1arg Number sf_transport_4
 
 
 # These routines compute the transport function J(4,x).
@@ -71,7 +71,7 @@ function sf_transport_4_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_transport_4_e
+Compat.@dep_vectorize_1arg Number sf_transport_4_e
 
 
 # These routines compute the transport function J(5,x).
@@ -80,7 +80,7 @@ end
 function sf_transport_5(x::Real)
     ccall( (:gsl_sf_transport_5, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_transport_5
+Compat.@dep_vectorize_1arg Number sf_transport_5
 
 
 # These routines compute the transport function J(5,x).
@@ -93,4 +93,4 @@ function sf_transport_5_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_transport_5_e
+Compat.@dep_vectorize_1arg Number sf_transport_5_e

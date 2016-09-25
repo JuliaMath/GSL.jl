@@ -35,8 +35,6 @@ function integration_qagi(epsabs::Real, epsrel::Real, limit::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return f[], workspace[], result[], abserr[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number integration_qagi
 
 
 # This function computes the integral of the function f over the semi-infinite
@@ -58,8 +56,6 @@ function integration_qagiu(a::Real, epsabs::Real, epsrel::Real, limit::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return f[], workspace[], result[], abserr[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number integration_qagiu
 
 
 # This function computes the integral of the function f over the semi-infinite
@@ -81,5 +77,3 @@ function integration_qagil(b::Real, epsabs::Real, epsrel::Real, limit::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return f[], workspace[], result[], abserr[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number integration_qagil

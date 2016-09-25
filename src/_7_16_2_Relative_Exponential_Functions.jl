@@ -17,7 +17,7 @@ export sf_expm1, sf_expm1_e, sf_exprel, sf_exprel_e, sf_exprel_2,
 function sf_expm1(x::Real)
     ccall( (:gsl_sf_expm1, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_expm1
+Compat.@dep_vectorize_1arg Number sf_expm1
 
 
 # These routines compute the quantity \exp(x)-1 using an algorithm that is
@@ -31,7 +31,7 @@ function sf_expm1_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_expm1_e
+Compat.@dep_vectorize_1arg Number sf_expm1_e
 
 
 # These routines compute the quantity (\exp(x)-1)/x using an algorithm that is
@@ -42,7 +42,7 @@ end
 function sf_exprel(x::Real)
     ccall( (:gsl_sf_exprel, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_exprel
+Compat.@dep_vectorize_1arg Number sf_exprel
 
 
 # These routines compute the quantity (\exp(x)-1)/x using an algorithm that is
@@ -57,7 +57,7 @@ function sf_exprel_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_exprel_e
+Compat.@dep_vectorize_1arg Number sf_exprel_e
 
 
 # These routines compute the quantity 2(\exp(x)-1-x)/x^2 using an algorithm
@@ -68,7 +68,7 @@ end
 function sf_exprel_2(x::Real)
     ccall( (:gsl_sf_exprel_2, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_exprel_2
+Compat.@dep_vectorize_1arg Number sf_exprel_2
 
 
 # These routines compute the quantity 2(\exp(x)-1-x)/x^2 using an algorithm
@@ -83,7 +83,7 @@ function sf_exprel_2_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_exprel_2_e
+Compat.@dep_vectorize_1arg Number sf_exprel_2_e
 
 
 # These routines compute the N-relative exponential, which is the n-th
@@ -96,7 +96,7 @@ end
 function sf_exprel_n(n::Integer, x::Real)
     ccall( (:gsl_sf_exprel_n, libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
-@vectorize_2arg Number sf_exprel_n
+Compat.@dep_vectorize_2arg Number sf_exprel_n
 
 
 # These routines compute the N-relative exponential, which is the n-th
@@ -113,4 +113,4 @@ function sf_exprel_n_e(n::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_exprel_n_e
+Compat.@dep_vectorize_2arg Number sf_exprel_n_e

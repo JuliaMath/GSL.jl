@@ -15,7 +15,7 @@ function sf_bessel_Jnu(nu::Real, x::Real)
     ccall( (:gsl_sf_bessel_Jnu, libgsl), Cdouble, (Cdouble, Cdouble), nu,
         x )
 end
-@vectorize_2arg Number sf_bessel_Jnu
+Compat.@dep_vectorize_2arg Number sf_bessel_Jnu
 
 
 # These routines compute the regular cylindrical Bessel function of fractional
@@ -29,7 +29,7 @@ function sf_bessel_Jnu_e(nu::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_bessel_Jnu_e
+Compat.@dep_vectorize_2arg Number sf_bessel_Jnu_e
 
 
 # This function computes the regular cylindrical Bessel function of fractional

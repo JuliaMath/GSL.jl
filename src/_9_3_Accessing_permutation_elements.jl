@@ -29,4 +29,4 @@ function permutation_swap(i::Integer, j::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return p[]
 end
-@vectorize_2arg Number permutation_swap
+Compat.@dep_vectorize_2arg Number permutation_swap

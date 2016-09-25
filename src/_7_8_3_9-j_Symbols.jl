@@ -19,8 +19,6 @@ function sf_coupling_9j(two_ja::Integer, two_jb::Integer, two_jc::Integer, two_j
         Cint, Cint, Cint, Cint, Cint, Cint), two_ja, two_jb, two_jc, two_jd,
         two_je, two_jf, two_jg, two_jh, two_ji )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_9arg Number sf_coupling_9j
 
 
 # These routines compute the Wigner 9-j coefficient,                 {ja jb jc
@@ -37,5 +35,3 @@ function sf_coupling_9j_e(two_ja::Integer, two_jb::Integer, two_jc::Integer, two
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_9arg Number sf_coupling_9j_e

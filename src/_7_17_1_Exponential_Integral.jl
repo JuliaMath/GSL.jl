@@ -21,7 +21,7 @@ export sf_expint_E1, sf_expint_E1_e, sf_expint_E2, sf_expint_E2_e,
 function sf_expint_E1(x::Real)
     ccall( (:gsl_sf_expint_E1, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_expint_E1
+Compat.@dep_vectorize_1arg Number sf_expint_E1
 
 
 # These routines compute the exponential integral E_1(x),
@@ -35,7 +35,7 @@ function sf_expint_E1_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_expint_E1_e
+Compat.@dep_vectorize_1arg Number sf_expint_E1_e
 
 
 # These routines compute the second-order exponential integral E_2(x),
@@ -45,7 +45,7 @@ end
 function sf_expint_E2(x::Real)
     ccall( (:gsl_sf_expint_E2, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_expint_E2
+Compat.@dep_vectorize_1arg Number sf_expint_E2
 
 
 # These routines compute the second-order exponential integral E_2(x),
@@ -59,7 +59,7 @@ function sf_expint_E2_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_expint_E2_e
+Compat.@dep_vectorize_1arg Number sf_expint_E2_e
 
 
 # These routines compute the exponential integral E_n(x) of order n,
@@ -69,7 +69,7 @@ end
 function sf_expint_En(n::Integer, x::Real)
     ccall( (:gsl_sf_expint_En, libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
-@vectorize_2arg Number sf_expint_En
+Compat.@dep_vectorize_2arg Number sf_expint_En
 
 
 # These routines compute the exponential integral E_n(x) of order n,
@@ -83,4 +83,4 @@ function sf_expint_En_e(n::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_expint_En_e
+Compat.@dep_vectorize_2arg Number sf_expint_En_e

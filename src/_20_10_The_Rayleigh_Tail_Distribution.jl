@@ -13,7 +13,7 @@ export ran_rayleigh_tail, ran_rayleigh_tail_pdf
 # distribution with scale parameter sigma and a lower limit of a.  The
 # distribution is,                 p(x) dx = {x \over \sigma^2} \exp ((a^2 -
 # x^2) /(2 \sigma^2)) dx  for x > a.
-# 
+#
 #   Returns: Cdouble
 function ran_rayleigh_tail(r::Ref{gsl_rng}, a::Real, sigma::Real)
     ccall( (:gsl_ran_rayleigh_tail, libgsl), Cdouble, (Ref{gsl_rng},
@@ -24,11 +24,9 @@ end
 # This function computes the probability density p(x) at x for a Rayleigh tail
 # distribution with scale parameter sigma and lower limit a, using the formula
 # given above.
-# 
+#
 #   Returns: Cdouble
 function ran_rayleigh_tail_pdf(x::Real, a::Real, sigma::Real)
     ccall( (:gsl_ran_rayleigh_tail_pdf, libgsl), Cdouble, (Cdouble,
         Cdouble, Cdouble), x, a, sigma )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number ran_rayleigh_tail_pdf

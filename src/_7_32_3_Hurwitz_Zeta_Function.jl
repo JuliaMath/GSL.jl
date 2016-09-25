@@ -13,7 +13,7 @@ export sf_hzeta, sf_hzeta_e
 function sf_hzeta(s::Real, q::Real)
     ccall( (:gsl_sf_hzeta, libgsl), Cdouble, (Cdouble, Cdouble), s, q )
 end
-@vectorize_2arg Number sf_hzeta
+Compat.@dep_vectorize_2arg Number sf_hzeta
 
 
 # These routines compute the Hurwitz zeta function \zeta(s,q) for s > 1, q > 0.
@@ -26,4 +26,4 @@ function sf_hzeta_e(s::Real, q::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_hzeta_e
+Compat.@dep_vectorize_2arg Number sf_hzeta_e

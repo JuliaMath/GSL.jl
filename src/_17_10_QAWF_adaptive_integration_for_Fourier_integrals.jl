@@ -41,7 +41,7 @@ export integration_qawf
 # which may not exceed the allocated size of the workspace.  The integration
 # over each subinterval uses the memory provided by cycle_workspace as
 # workspace for the QAWO algorithm.
-# 
+#
 #   Returns: Cint
 function integration_qawf(a::Real, epsabs::Real, limit::Integer)
     f = Ref{gsl_function}()
@@ -58,5 +58,3 @@ function integration_qawf(a::Real, epsabs::Real, limit::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return f[], workspace[], cycle_workspace[], wf[], result[], abserr[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number integration_qawf

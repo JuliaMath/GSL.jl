@@ -61,7 +61,7 @@ function integration_qawo_table_set_length(L::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return t[]
 end
-@vectorize_1arg Number integration_qawo_table_set_length
+Compat.@dep_vectorize_1arg Number integration_qawo_table_set_length
 
 
 # This function frees all the memory associated with the workspace t.
@@ -102,5 +102,3 @@ function integration_qawo(a::Real, epsabs::Real, epsrel::Real, limit::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return f[], workspace[], wf[], result[], abserr[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number integration_qawo

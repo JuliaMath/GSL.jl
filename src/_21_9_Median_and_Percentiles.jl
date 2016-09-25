@@ -24,7 +24,7 @@ function stats_median_from_sorted_data(sorted_data::Real)
     ccall( (:gsl_stats_median_from_sorted_data, libgsl), Cdouble,
         (Cdouble, ), sorted_data )
 end
-@vectorize_1arg Number stats_median_from_sorted_data
+Compat.@dep_vectorize_1arg Number stats_median_from_sorted_data
 
 
 # This function returns a quantile value of sorted_data, a double-precision
@@ -47,4 +47,4 @@ function stats_quantile_from_sorted_data(sorted_data::Real)
     ccall( (:gsl_stats_quantile_from_sorted_data, libgsl), Cdouble,
         (Cdouble, ), sorted_data )
 end
-@vectorize_1arg Number stats_quantile_from_sorted_data
+Compat.@dep_vectorize_1arg Number stats_quantile_from_sorted_data

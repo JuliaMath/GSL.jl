@@ -13,7 +13,7 @@ export sf_dawson, sf_dawson_e
 function sf_dawson(x::Real)
     ccall( (:gsl_sf_dawson, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_dawson
+Compat.@dep_vectorize_1arg Number sf_dawson
 
 
 # These routines compute the value of Dawson's integral for x.
@@ -26,4 +26,4 @@ function sf_dawson_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_dawson_e
+Compat.@dep_vectorize_1arg Number sf_dawson_e

@@ -20,7 +20,7 @@ function sf_hyperg_0F1(c::Real, x::Real)
     ccall( (:gsl_sf_hyperg_0F1, libgsl), Cdouble, (Cdouble, Cdouble), c, x
         )
 end
-@vectorize_2arg Number sf_hyperg_0F1
+Compat.@dep_vectorize_2arg Number sf_hyperg_0F1
 
 
 # These routines compute the hypergeometric function  0F1(c,x).
@@ -33,7 +33,7 @@ function sf_hyperg_0F1_e(c::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_hyperg_0F1_e
+Compat.@dep_vectorize_2arg Number sf_hyperg_0F1_e
 
 
 # These routines compute the confluent hypergeometric function  1F1(m,n,x) =
@@ -44,8 +44,6 @@ function sf_hyperg_1F1_int(m::Integer, n::Integer, x::Real)
     ccall( (:gsl_sf_hyperg_1F1_int, libgsl), Cdouble, (Cint, Cint,
         Cdouble), m, n, x )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_hyperg_1F1_int
 
 
 # These routines compute the confluent hypergeometric function  1F1(m,n,x) =
@@ -59,8 +57,6 @@ function sf_hyperg_1F1_int_e(m::Integer, n::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_hyperg_1F1_int_e
 
 
 # These routines compute the confluent hypergeometric function  1F1(a,b,x) =
@@ -71,8 +67,6 @@ function sf_hyperg_1F1(a::Real, b::Real, x::Real)
     ccall( (:gsl_sf_hyperg_1F1, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), a, b, x )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_hyperg_1F1
 
 
 # These routines compute the confluent hypergeometric function  1F1(a,b,x) =
@@ -86,8 +80,6 @@ function sf_hyperg_1F1_e(a::Real, b::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_hyperg_1F1_e
 
 
 # These routines compute the confluent hypergeometric function U(m,n,x) for
@@ -98,8 +90,6 @@ function sf_hyperg_U_int(m::Integer, n::Integer, x::Real)
     ccall( (:gsl_sf_hyperg_U_int, libgsl), Cdouble, (Cint, Cint, Cdouble),
         m, n, x )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_hyperg_U_int
 
 
 # These routines compute the confluent hypergeometric function U(m,n,x) for
@@ -113,8 +103,6 @@ function sf_hyperg_U_int_e(m::Integer, n::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_hyperg_U_int_e
 
 
 # This routine computes the confluent hypergeometric function U(m,n,x) for
@@ -129,8 +117,6 @@ function sf_hyperg_U_int_e10_e(m::Integer, n::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_hyperg_U_int_e10_e
 
 
 # These routines compute the confluent hypergeometric function U(a,b,x).
@@ -140,8 +126,6 @@ function sf_hyperg_U(a::Real, b::Real, x::Real)
     ccall( (:gsl_sf_hyperg_U, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), a, b, x )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_hyperg_U
 
 
 # These routines compute the confluent hypergeometric function U(a,b,x).
@@ -154,8 +138,6 @@ function sf_hyperg_U_e(a::Real, b::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_hyperg_U_e
 
 
 # This routine computes the confluent hypergeometric function U(a,b,x) using
@@ -169,8 +151,6 @@ function sf_hyperg_U_e10_e(a::Real, b::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_hyperg_U_e10_e
 
 
 # These routines compute the Gauss hypergeometric function  2F1(a,b,c,x) =
@@ -184,8 +164,6 @@ function sf_hyperg_2F1(a::Real, b::Real, c::Real, x::Real)
     ccall( (:gsl_sf_hyperg_2F1, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble, Cdouble), a, b, c, x )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_hyperg_2F1
 
 
 # These routines compute the Gauss hypergeometric function  2F1(a,b,c,x) =
@@ -202,8 +180,6 @@ function sf_hyperg_2F1_e(a::Real, b::Real, c::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_hyperg_2F1_e
 
 
 # These routines compute the Gauss hypergeometric function  2F1(a_R + i a_I,
@@ -214,8 +190,6 @@ function sf_hyperg_2F1_conj(aR::Real, aI::Real, c::Real, x::Real)
     ccall( (:gsl_sf_hyperg_2F1_conj, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble, Cdouble), aR, aI, c, x )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_hyperg_2F1_conj
 
 
 # These routines compute the Gauss hypergeometric function  2F1(a_R + i a_I,
@@ -229,8 +203,6 @@ function sf_hyperg_2F1_conj_e(aR::Real, aI::Real, c::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_hyperg_2F1_conj_e
 
 
 # These routines compute the renormalized Gauss hypergeometric function
@@ -241,8 +213,6 @@ function sf_hyperg_2F1_renorm(a::Real, b::Real, c::Real, x::Real)
     ccall( (:gsl_sf_hyperg_2F1_renorm, libgsl), Cdouble, (Cdouble,
         Cdouble, Cdouble, Cdouble), a, b, c, x )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_hyperg_2F1_renorm
 
 
 # These routines compute the renormalized Gauss hypergeometric function
@@ -256,8 +226,6 @@ function sf_hyperg_2F1_renorm_e(a::Real, b::Real, c::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_hyperg_2F1_renorm_e
 
 
 # These routines compute the renormalized Gauss hypergeometric function
@@ -268,8 +236,6 @@ function sf_hyperg_2F1_conj_renorm(aR::Real, aI::Real, c::Real, x::Real)
     ccall( (:gsl_sf_hyperg_2F1_conj_renorm, libgsl), Cdouble, (Cdouble,
         Cdouble, Cdouble, Cdouble), aR, aI, c, x )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_hyperg_2F1_conj_renorm
 
 
 # These routines compute the renormalized Gauss hypergeometric function
@@ -284,8 +250,6 @@ function sf_hyperg_2F1_conj_renorm_e(aR::Real, aI::Real, c::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_hyperg_2F1_conj_renorm_e
 
 
 # These routines compute the hypergeometric function  2F0(a,b,x).  The series
@@ -297,8 +261,6 @@ function sf_hyperg_2F0(a::Real, b::Real, x::Real)
     ccall( (:gsl_sf_hyperg_2F0, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), a, b, x )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_hyperg_2F0
 
 
 # These routines compute the hypergeometric function  2F0(a,b,x).  The series
@@ -313,5 +275,3 @@ function sf_hyperg_2F0_e(a::Real, b::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_hyperg_2F0_e

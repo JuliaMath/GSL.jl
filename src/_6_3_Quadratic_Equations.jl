@@ -35,8 +35,6 @@ function poly_solve_quadratic(a::Real, b::Real, c::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return x0[], x1[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number poly_solve_quadratic
 
 
 # This function finds the complex roots of the quadratic equation,
@@ -56,5 +54,3 @@ function poly_complex_solve_quadratic(a::Real, b::Real, c::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return z0[], z1[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number poly_complex_solve_quadratic

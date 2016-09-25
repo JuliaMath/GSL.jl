@@ -17,7 +17,7 @@ export stats_covariance, stats_covariance_m
 function stats_covariance(data1::Real)
     ccall( (:gsl_stats_covariance, libgsl), Cdouble, (Cdouble, ), data1 )
 end
-@vectorize_1arg Number stats_covariance
+Compat.@dep_vectorize_1arg Number stats_covariance
 
 
 # This function computes the covariance of the datasets data1 and data2 using
@@ -30,4 +30,4 @@ function stats_covariance_m(data1::Real)
     ccall( (:gsl_stats_covariance_m, libgsl), Cdouble, (Cdouble, ), data1
         )
 end
-@vectorize_1arg Number stats_covariance_m
+Compat.@dep_vectorize_1arg Number stats_covariance_m

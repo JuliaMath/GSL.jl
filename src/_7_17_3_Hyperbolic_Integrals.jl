@@ -13,7 +13,7 @@ export sf_Shi, sf_Shi_e, sf_Chi, sf_Chi_e
 function sf_Shi(x::Real)
     ccall( (:gsl_sf_Shi, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_Shi
+Compat.@dep_vectorize_1arg Number sf_Shi
 
 
 # These routines compute the integral  Shi(x) = \int_0^x dt \sinh(t)/t.
@@ -26,7 +26,7 @@ function sf_Shi_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_Shi_e
+Compat.@dep_vectorize_1arg Number sf_Shi_e
 
 
 # These routines compute the integral   Chi(x) := \Re[ \gamma_E + \log(x) +
@@ -37,7 +37,7 @@ end
 function sf_Chi(x::Real)
     ccall( (:gsl_sf_Chi, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_Chi
+Compat.@dep_vectorize_1arg Number sf_Chi
 
 
 # These routines compute the integral   Chi(x) := \Re[ \gamma_E + \log(x) +
@@ -52,4 +52,4 @@ function sf_Chi_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_Chi_e
+Compat.@dep_vectorize_1arg Number sf_Chi_e

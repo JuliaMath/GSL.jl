@@ -35,8 +35,6 @@ function odeiv2_control_standard_new(eps_abs::Real, eps_rel::Real, a_y::Real, a_
         eps_rel, a_y, a_dydt )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number odeiv2_control_standard_new
 
 
 # This function creates a new control object which will keep the local error on
@@ -50,7 +48,7 @@ function odeiv2_control_y_new(eps_abs::Real, eps_rel::Real)
         Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble), eps_abs, eps_rel )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_2arg Number odeiv2_control_y_new
+Compat.@dep_vectorize_2arg Number odeiv2_control_y_new
 
 
 # This function creates a new control object which will keep the local error on
@@ -64,7 +62,7 @@ function odeiv2_control_yp_new(eps_abs::Real, eps_rel::Real)
         Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble), eps_abs, eps_rel )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_2arg Number odeiv2_control_yp_new
+Compat.@dep_vectorize_2arg Number odeiv2_control_yp_new
 
 
 # This function creates a new control object which uses the same algorithm as
@@ -81,8 +79,6 @@ function odeiv2_control_scaled_new(eps_abs::Real, eps_rel::Real, a_y::Real, a_dy
         eps_abs, eps_rel, a_y, a_dydt, scale_abs )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_5arg Number odeiv2_control_scaled_new
 
 
 # This function returns a pointer to a newly allocated instance of a control
@@ -139,7 +135,7 @@ function odeiv2_control_hadjust(y::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c[], s[]
 end
-@vectorize_1arg Number odeiv2_control_hadjust
+Compat.@dep_vectorize_1arg Number odeiv2_control_hadjust
 
 
 # This function returns a pointer to the name of the control function.  For
@@ -170,8 +166,6 @@ function odeiv2_control_errlevel(y::Real, dydt::Real, h::Real, ind::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c[], errlev[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number odeiv2_control_errlevel
 
 
 # This function sets a pointer of the driver object d for control object c.

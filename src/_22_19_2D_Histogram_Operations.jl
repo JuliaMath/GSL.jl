@@ -86,7 +86,7 @@ function histogram2d_scale(scale::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end
-@vectorize_1arg Number histogram2d_scale
+Compat.@dep_vectorize_1arg Number histogram2d_scale
 
 
 # This function shifts the contents of the bins of histogram h by the constant
@@ -100,4 +100,4 @@ function histogram2d_shift(offset::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end
-@vectorize_1arg Number histogram2d_shift
+Compat.@dep_vectorize_1arg Number histogram2d_shift

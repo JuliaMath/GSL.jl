@@ -31,7 +31,7 @@ function histogram2d_pdf_alloc(nx::Integer, ny::Integer)
         Ptr{gsl_histogram2d_pdf}, (Csize_t, Csize_t), nx, ny )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_2arg Number histogram2d_pdf_alloc
+Compat.@dep_vectorize_2arg Number histogram2d_pdf_alloc
 
 
 # This function initializes the two-dimensional probability distribution

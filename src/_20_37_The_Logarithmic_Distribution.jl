@@ -28,4 +28,4 @@ function ran_logarithmic_pdf(k::Integer, p::Real)
     ccall( (:gsl_ran_logarithmic_pdf, libgsl), Cdouble, (Cuint, Cdouble),
         k, p )
 end
-@vectorize_2arg Number ran_logarithmic_pdf
+Compat.@dep_vectorize_2arg Number ran_logarithmic_pdf

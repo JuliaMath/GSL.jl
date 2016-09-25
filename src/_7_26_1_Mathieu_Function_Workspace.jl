@@ -17,7 +17,7 @@ function sf_mathieu_alloc(n::Integer, qmax::Real)
         Ptr{gsl_sf_mathieu_workspace}, (Csize_t, Cdouble), n, qmax )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-@vectorize_2arg Number sf_mathieu_alloc
+Compat.@dep_vectorize_2arg Number sf_mathieu_alloc
 
 
 # This function frees the workspace work.

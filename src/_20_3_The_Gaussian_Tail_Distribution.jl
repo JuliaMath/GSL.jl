@@ -39,8 +39,6 @@ function ran_gaussian_tail_pdf(x::Real, a::Real, sigma::Real)
     ccall( (:gsl_ran_gaussian_tail_pdf, libgsl), Cdouble, (Cdouble,
         Cdouble, Cdouble), x, a, sigma )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number ran_gaussian_tail_pdf
 
 
 # These functions compute results for the tail of a unit Gaussian distribution.
@@ -63,4 +61,4 @@ function ran_ugaussian_tail_pdf(x::Real, a::Real)
     ccall( (:gsl_ran_ugaussian_tail_pdf, libgsl), Cdouble, (Cdouble,
         Cdouble), x, a )
 end
-@vectorize_2arg Number ran_ugaussian_tail_pdf
+Compat.@dep_vectorize_2arg Number ran_ugaussian_tail_pdf

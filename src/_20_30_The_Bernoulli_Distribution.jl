@@ -28,4 +28,4 @@ function ran_bernoulli_pdf(k::Integer, p::Real)
     ccall( (:gsl_ran_bernoulli_pdf, libgsl), Cdouble, (Cuint, Cdouble), k,
         p )
 end
-@vectorize_2arg Number ran_bernoulli_pdf
+Compat.@dep_vectorize_2arg Number ran_bernoulli_pdf

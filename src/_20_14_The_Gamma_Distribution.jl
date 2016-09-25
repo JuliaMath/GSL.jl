@@ -43,8 +43,6 @@ function ran_gamma_pdf(x::Real, a::Real, b::Real)
     ccall( (:gsl_ran_gamma_pdf, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number ran_gamma_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -55,8 +53,6 @@ function cdf_gamma_P(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_gamma_P, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_gamma_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -67,8 +63,6 @@ function cdf_gamma_Q(x::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_gamma_Q, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), x, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_gamma_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -79,8 +73,6 @@ function cdf_gamma_Pinv(P::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_gamma_Pinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), P, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_gamma_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -91,5 +83,3 @@ function cdf_gamma_Qinv(Q::Real, a::Real, b::Real)
     ccall( (:gsl_cdf_gamma_Qinv, libgsl), Cdouble, (Cdouble, Cdouble,
         Cdouble), Q, a, b )
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number cdf_gamma_Qinv

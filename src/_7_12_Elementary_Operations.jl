@@ -18,7 +18,7 @@ function sf_multiply_e(x::Real, y::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_2arg Number sf_multiply_e
+Compat.@dep_vectorize_2arg Number sf_multiply_e
 
 
 # This function multiplies x and y with associated absolute errors dx and dy.
@@ -32,5 +32,3 @@ function sf_multiply_err_e(x::Real, dx::Real, y::Real, dy::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_multiply_err_e

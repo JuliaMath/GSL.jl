@@ -18,8 +18,6 @@ function sf_mathieu_ce(n::Integer, q::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_mathieu_ce
 
 
 # These routines compute the angular Mathieu functions ce_n(q,x) and se_n(q,x),
@@ -33,8 +31,6 @@ function sf_mathieu_se(n::Integer, q::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_3arg Number sf_mathieu_se
 
 
 # These routines compute a series of the angular Mathieu functions ce_n(q,x)
@@ -51,8 +47,6 @@ function sf_mathieu_ce_array(nmin::Integer, nmax::Integer, q::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return work[], result_array[][1]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_mathieu_ce_array
 
 
 # These routines compute a series of the angular Mathieu functions ce_n(q,x)
@@ -69,5 +63,3 @@ function sf_mathieu_se_array(nmin::Integer, nmax::Integer, q::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return work[], result_array[][1]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_mathieu_se_array

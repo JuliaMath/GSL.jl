@@ -22,7 +22,7 @@ export sf_gamma, sf_gamma_e, sf_lngamma, sf_lngamma_e, sf_lngamma_sgn_e,
 function sf_gamma(x::Real)
     ccall( (:gsl_sf_gamma, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_gamma
+Compat.@dep_vectorize_1arg Number sf_gamma
 
 
 # These routines compute the Gamma function \Gamma(x), subject to x not being a
@@ -38,7 +38,7 @@ function sf_gamma_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_gamma_e
+Compat.@dep_vectorize_1arg Number sf_gamma_e
 
 
 # These routines compute the logarithm of the Gamma function, \log(\Gamma(x)),
@@ -50,7 +50,7 @@ end
 function sf_lngamma(x::Real)
     ccall( (:gsl_sf_lngamma, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_lngamma
+Compat.@dep_vectorize_1arg Number sf_lngamma
 
 
 # These routines compute the logarithm of the Gamma function, \log(\Gamma(x)),
@@ -66,7 +66,7 @@ function sf_lngamma_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_lngamma_e
+Compat.@dep_vectorize_1arg Number sf_lngamma_e
 
 
 # This routine computes the sign of the gamma function and the logarithm of its
@@ -84,7 +84,7 @@ function sf_lngamma_sgn_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result_lg[], sgn[]
 end
-@vectorize_1arg Number sf_lngamma_sgn_e
+Compat.@dep_vectorize_1arg Number sf_lngamma_sgn_e
 
 
 # These routines compute the regulated Gamma Function \Gamma^*(x) for x > 0.
@@ -96,7 +96,7 @@ end
 function sf_gammastar(x::Real)
     ccall( (:gsl_sf_gammastar, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_gammastar
+Compat.@dep_vectorize_1arg Number sf_gammastar
 
 
 # These routines compute the regulated Gamma Function \Gamma^*(x) for x > 0.
@@ -112,7 +112,7 @@ function sf_gammastar_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_gammastar_e
+Compat.@dep_vectorize_1arg Number sf_gammastar_e
 
 
 # These routines compute the reciprocal of the gamma function, 1/\Gamma(x)
@@ -122,7 +122,7 @@ end
 function sf_gammainv(x::Real)
     ccall( (:gsl_sf_gammainv, libgsl), Cdouble, (Cdouble, ), x )
 end
-@vectorize_1arg Number sf_gammainv
+Compat.@dep_vectorize_1arg Number sf_gammainv
 
 
 # These routines compute the reciprocal of the gamma function, 1/\Gamma(x)
@@ -136,7 +136,7 @@ function sf_gammainv_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-@vectorize_1arg Number sf_gammainv_e
+Compat.@dep_vectorize_1arg Number sf_gammainv_e
 
 
 # This routine computes \log(\Gamma(z)) for complex z=z_r+i z_i and z not a
@@ -156,4 +156,4 @@ function sf_lngamma_complex_e(zr::Real, zi::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return lnr[], arg[]
 end
-@vectorize_2arg Number sf_lngamma_complex_e
+Compat.@dep_vectorize_2arg Number sf_lngamma_complex_e

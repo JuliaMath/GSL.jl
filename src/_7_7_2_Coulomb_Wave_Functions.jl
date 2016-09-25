@@ -33,8 +33,6 @@ function sf_coulomb_wave_FG_e(eta::Real, x::Real, L_F::Real, k::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return F[], Fp[], G[], Gp[], exp_F[], exp_G[]
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_4arg Number sf_coulomb_wave_FG_e
 
 
 # This function computes the Coulomb wave function F_L(\eta,x) for L = Lmin
@@ -47,8 +45,6 @@ function sf_coulomb_wave_F_array(L_min::Real, kmax::Integer, eta::Real, x::Real,
         Cint, Cdouble, Cdouble, Cdouble), L_min, kmax, eta, x, fc_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_5arg Number sf_coulomb_wave_F_array
 
 
 # This function computes the functions F_L(\eta,x), G_L(\eta,x) for L = Lmin
@@ -62,8 +58,6 @@ function sf_coulomb_wave_FG_array(L_min::Real, kmax::Integer, eta::Real, x::Real
         fc_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_5arg Number sf_coulomb_wave_FG_array
 
 
 # This function computes the functions F_L(\eta,x), G_L(\eta,x) and their
@@ -78,8 +72,6 @@ function sf_coulomb_wave_FGp_array(L_min::Real, kmax::Integer, eta::Real, x::Rea
         fc_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_5arg Number sf_coulomb_wave_FGp_array
 
 
 # This function computes the Coulomb wave function divided by the argument
@@ -94,5 +86,3 @@ function sf_coulomb_wave_sphF_array(L_min::Real, kmax::Integer, eta::Real, x::Re
         fc_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-#TODO This vectorization macro is not implemented
-#@vectorize_5arg Number sf_coulomb_wave_sphF_array
