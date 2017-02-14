@@ -4,7 +4,7 @@
 
 export hypergeom, hypergeom_e
 
-typealias hypergeom_input Union{Float64, Vector{Float64}, Vector{Union{}}}
+const hypergeom_input = Union{Float64, Vector{Float64}, Vector{Union{}}}
 
 #A convenience function to wrap the most common hypergeometric functions
 function hypergeom(a::hypergeom_input, b::hypergeom_input, x::Float64)
