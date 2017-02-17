@@ -16,7 +16,7 @@ type gsl_interp_accel; end
 type gsl_interp_type; end
 type gsl_min_fminimizer; end
 type gsl_min_fminimizer_type; end
-typealias gsl_mode_t Cint
+const gsl_mode_t = Cint
 type gsl_monte_miser_params; end
 type gsl_monte_miser_state; end
 type gsl_monte_plain_state; end

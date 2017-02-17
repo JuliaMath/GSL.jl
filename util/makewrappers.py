@@ -704,7 +704,7 @@ if __name__ == '__main__':
     for unknown in sorted(list(set(all_unknowns))):
         f.write('type '+unknown.replace(' ','')+'; end\n')
         #Generate pointer types if needed
-        #f.write('typealias '+'p'+unknown+' Ptr{'+unknown+'}\n')
+        #f.write('const '+'p'+unknown+' = Ptr{'+unknown+'}\n')
 
     f.write('\n\n#Automatically generated include list\n')
     #f.write('\n\n'.join(['\nprintln("'+x+'")\ninclude("'+x+'")' for x in filenames]))
