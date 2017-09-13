@@ -48,7 +48,7 @@ end
 #
 #   Returns: Void
 function ran_dir_nd(r::Ref{Void}, n::Csize_t)
-    x = Array(Cdouble, n)
+    x = Vector{Cdouble}(n)
     ccall( (:gsl_ran_dir_nd, libgsl), Void, (Ref{Void}, Csize_t,
         Ref{Cdouble}), r, n, x)
     return x

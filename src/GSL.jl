@@ -30,7 +30,7 @@ function __init__()
         custom_gsl_error_handler[] = try
         convert(Ptr{gsl_error_handler_t},
         cfunction(custom_error_handler, Void,
-                  (Ptr{UInt8}, Ptr{UInt8}, Cint, Cint)
+                  Tuple{Ptr{UInt8}, Ptr{UInt8}, Cint, Cint}
                   ))
         catch
             error("""Could not find the GNU Scientific Library.
@@ -43,7 +43,7 @@ function __init__()
         throw(LoadError("The GNU Scientific Library does not appear to be installed."))
     end
     function_callback_ptr[] = cfunction(function_callback, Cdouble,
-                                        (Cdouble, Ptr{Void}))
+                                        Tuple{Cdouble, Ptr{Void}})
 end
 
 end #module

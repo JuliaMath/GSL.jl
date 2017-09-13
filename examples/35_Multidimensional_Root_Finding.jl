@@ -35,7 +35,7 @@ end
 function function_callback(x::Ptr{gsl_vector}, jlfunc::Function, f::Ptr{gsl_vector})
     convert(Cint, jlfunc(gsl_vector_ptr(x, n), gsl_vector_ptr(f, n)))::Cint
 end
-const function_callback_ptr = cfunction(function_callback, Cint, (Ptr{gsl_vector}, Ref{Function}, Ptr{gsl_vector}))
+const function_callback_ptr = cfunction(function_callback, Cint, Tuple{Ptr{gsl_vector}, Ref{Function}, Ptr{gsl_vector}})
 
 f = function(x, f)
     f[:] = (x - (-3:2:5)) .^ 2
@@ -79,4 +79,4 @@ v = GSL.multiroot_fsolver_root(dnewton_solver)
 v1= gsl_vector_ptr(v, n)
 
 using Base.Test
-@test_approx_eq_eps v1 -3:2:5 resid
+@test v1 ≈ -3:2:5 atol=resid

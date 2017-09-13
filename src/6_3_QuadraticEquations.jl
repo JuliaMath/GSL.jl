@@ -24,17 +24,17 @@ export poly_solve_quadratic, poly_complex_solve_quadratic
 #
 #   Returns: Cint
 function poly_solve_quadratic(a::Cdouble, b::Cdouble, c::Cdouble)
-    x0 = Array(Float64, 1)
-    x1 = Array(Float64, 1)
+    x0 = Ref{Float64}()
+    x1 = Ref{Float64}()
     num_roots = ccall( (:gsl_poly_solve_quadratic, libgsl), Cint,
         (Cdouble, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), a, b, c, x0,
         x1 )
     if num_roots==0
         nothing
     elseif num_roots==1
-        x0[1]
+        x0[]
     elseif num_roots==2
-        x0[1], x1[1]
+        x0[], x1[]
     else #Not supposed to happen
         throw(GSL_ERROR, num_roots)
     end
@@ -50,17 +50,17 @@ end
 #
 #   Returns: Cint
 function poly_complex_solve_quadratic(a::Cdouble, b::Cdouble, c::Cdouble)
-    z0 = Array(Complex128, 1)
-    z1 = Array(Complex128, 1)
+    z0 = Ref{Complex128}()
+    z1 = Ref{Complex128}()
     num_roots = ccall( (:gsl_poly_complex_solve_quadratic, libgsl), Cint,
         (Cdouble, Cdouble, Cdouble, Ref{Void}, Ref{Void}), a, b,
         c, z0, z1 )
     if num_roots==0
         nothing
     elseif num_roots==1
-        z0[1]
+        z0[]
     elseif num_roots==2
-        z0[1], z1[1]
+        z0[], z1[]
     else #Not supposed to happen
         throw(GSL_ERROR, num_roots)
     end

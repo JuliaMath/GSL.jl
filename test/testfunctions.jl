@@ -8,6 +8,6 @@ macro sf_test(sf, args...)
         u = $sf($args...)
         v = $(Symbol(sf, "_e"))($args...)
         VERBOSE && println("\t", u, "\t", v)
-        @test_approx_eq_eps u v.val max(eps(), 2*v.err)
+        @test isapprox(u, v.val, atol=max(eps(), 2*v.err))
     end
 end
