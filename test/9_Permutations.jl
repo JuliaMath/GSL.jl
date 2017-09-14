@@ -3,8 +3,11 @@ using Base.Test
 
 import Base: ==
 
-if !isdefined(:VERBOSE)
-    VERBOSE = true
+try
+    # Replace with `@isdefined` check on 0.7
+    VERBOSE
+catch
+    @eval VERBOSE = true
 end
 
 ==(P::gsl_permutation, Q::gsl_permutation) = (@show P, Q; P.size == Q.size &&

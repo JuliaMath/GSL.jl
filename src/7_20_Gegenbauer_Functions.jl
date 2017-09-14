@@ -112,7 +112,7 @@ end
 #
 #   Returns: Cint
 function sf_gegenpoly_array(nmax::Integer, lambda::Real, x::Real)
-    result_array = Array(Cdouble, nmax+1)
+    result_array = Vector{Cdouble}(nmax + 1)
     errno = ccall( (:gsl_sf_gegenpoly_array, libgsl), Cint, (Cint,
         Cdouble, Cdouble, Ref{Cdouble}), nmax, lambda, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end

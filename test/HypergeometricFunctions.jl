@@ -6,24 +6,23 @@ c = 3*randn()
 x = 2*rand()-1
 
 # Test definition
-@test_approx_eq sf_hyperg_2F1_renorm(a, b, c, x) hypergeom([a, b], c, x)/gamma(c)
+@test sf_hyperg_2F1_renorm(a, b, c, x) ≈ hypergeom([a, b], c, x)/gamma(c)
 
 # Test special cases
-@test_approx_eq log(1+complex(x)) x*hypergeom([1.0, 1.0], 2.0, -x)
-@test_approx_eq (1-x)^-a hypergeom([a, 1.0], 1.0, x)
-@test_approx_eq asin(x) x*hypergeom([0.5, 0.5], 1.5, x^2)
+@test log(1+complex(x)) ≈ x*hypergeom([1.0, 1.0], 2.0, -x)
+@test (1-x)^-a ≈ hypergeom([a, 1.0], 1.0, x)
+@test asin(x) ≈ x*hypergeom([0.5, 0.5], 1.5, x^2)
 
 #gsl function is unstable for b=2
-#@test_approx_eq x*sf_hyperg_U(1.0, 2.0, x) 1.0
-@test_approx_eq 1+x sf_hyperg_U(-1.0, -1.0, x)
+#@test x*sf_hyperg_U(1.0, 2.0, x) ≈ 1.0
+@test 1+x ≈ sf_hyperg_U(-1.0, -1.0, x)
 
 #"Cancellation theorem" that reduces order of hypergeometric function
-@test_approx_eq hypergeom([a], [a], x) hypergeom(Float64[], Float64[], x)
+@test hypergeom([a], [a], x) ≈ hypergeom(Float64[], Float64[], x)
 
 c = a+b+3*rand()
-@test_approx_eq hypergeom([a, b], c, 1.0) (gamma(c)*gamma(c-a-b)/(gamma(c-a)*gamma(c-b)))
+@test hypergeom([a, b], c, 1.0) ≈ (gamma(c)*gamma(c-a-b)/(gamma(c-a)*gamma(c-b)))
 
 #Kummer's theorem
 y,e=hypergeom_e([a, b], 1+a-b, -1.0)
-@test_approx_eq_eps y (gamma(1+a-b)*gamma(1+a/2)/(gamma(1+a)*gamma(1+a/2-b))) e
-
+@test isapprox(y, (gamma(1+a-b)*gamma(1+a/2)/(gamma(1+a)*gamma(1+a/2-b))), atol=e)

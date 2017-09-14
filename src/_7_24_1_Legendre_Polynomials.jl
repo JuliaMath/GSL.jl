@@ -112,7 +112,7 @@ Compat.@dep_vectorize_2arg Number sf_legendre_Pl_e
 #
 #   Returns: Cint
 function sf_legendre_Pl_array(lmax::Integer, x::Real)
-    result_array = Array(Cdouble, lmax+1)
+    result_array = Vector{Cdouble}(lmax + 1)
     errno = ccall( (:gsl_sf_legendre_Pl_array, libgsl), Cint, (Cint,
         Cdouble, Ref{Cdouble}), lmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -126,8 +126,8 @@ Compat.@dep_vectorize_2arg Number sf_legendre_Pl_array
 #
 #   Returns: Cint
 function sf_legendre_Pl_deriv_array(lmax::Integer, x::Real)
-    result_array = Array(Cdouble, lmax+1)
-    result_deriv_array = Array(Cdouble, lmax+1)
+    result_array = Vector{Cdouble}(lmax + 1)
+    result_deriv_array = Vector{Cdouble}(lmax + 1)
     errno = ccall( (:gsl_sf_legendre_Pl_deriv_array, libgsl), Cint, (Cint,
         Cdouble, Ref{Cdouble}, Ref{Cdouble}), lmax, x, result_array, result_deriv_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end

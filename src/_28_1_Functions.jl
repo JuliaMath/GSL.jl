@@ -23,9 +23,10 @@ export deriv_central, deriv_forward, deriv_backward
 function deriv_central(f::gsl_function, x::Real, h::Real)
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
-    errno = ccall( (:gsl_deriv_central, libgsl), Cint, (Ptr{gsl_function},
-        Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), &f, x, h, result, abserr
-        )
+    # TODO: replace `Any` with `Ref{gsl_function}` when 0.6 support is dropped.
+    errno = ccall((:gsl_deriv_central, libgsl), Cint,
+                  (Any, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}),
+                  f, x, h, result, abserr)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[], abserr[]
 end
@@ -48,9 +49,10 @@ end
 function deriv_forward(f::gsl_function, x::Real, h::Real)
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
-    errno = ccall( (:gsl_deriv_forward, libgsl), Cint, (Ptr{gsl_function},
-        Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), &f, x, h, result, abserr
-        )
+    # TODO: replace `Any` with `Ref{gsl_function}` when 0.6 support is dropped.
+    errno = ccall((:gsl_deriv_forward, libgsl), Cint,
+                  (Any, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}),
+                  f, x, h, result, abserr)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[], abserr[]
 end
@@ -69,10 +71,10 @@ end
 function deriv_backward(f::gsl_function, x::Real, h::Real)
     result = Ref{Cdouble}()
     abserr = Ref{Cdouble}()
-    errno = ccall( (:gsl_deriv_backward, libgsl), Cint,
-        (Ptr{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), &f,
-        x, h, result, abserr )
+    # TODO: replace `Any` with `Ref{gsl_function}` when 0.6 support is dropped.
+    errno = ccall((:gsl_deriv_backward, libgsl), Cint,
+                  (Any, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}),
+                  f, x, h, result, abserr)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[], abserr[]
 end
-

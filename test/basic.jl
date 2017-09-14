@@ -1,8 +1,11 @@
 using GSL
 using Compat
 
-if !isdefined(:VERBOSE)
-    VERBOSE = true
+try
+    # Replace with `@isdefined` check on 0.7
+    VERBOSE
+catch
+    @eval VERBOSE = true
 end
 
 # Very basic tests
@@ -61,7 +64,7 @@ for sf in (
         for n=s:t
             y = $(Symbol(string(sf)[1:end-6]))(n, x)
             VERBOSE && println(n, '\t', y, '\t', u[n-s+1])
-            @test_approx_eq y u[n-s+1]
+            @test y ≈ u[n-s+1]
         end
     end
 end
@@ -97,7 +100,7 @@ for sf in (
         for n=s:t
             y = $(Symbol(string(sf)[1:end-6]))(n, xabs)
             VERBOSE && println(n, '\t', y, '\t', u[n-s+1])
-            @test_approx_eq y u[n-s+1]
+            @test y ≈ u[n-s+1]
         end
     end
 end
@@ -115,7 +118,7 @@ for (sf, scalar_sf) in (
          for n=0:t
              y = $scalar_sf(n, xabs)
              VERBOSE && println(n, '\t', y, '\t', u[n+1])
-             @test_approx_eq y u[n+1]
+             @test y ≈ u[n+1]
          end
     end
 end
@@ -141,7 +144,7 @@ end
 #        for xabs in xvec
 #            y = $scalar_sf(nu, xabs)
 #            println(n, '\t', y, '\t', u[n+1])
-#            @test_approx_eq y u[n+1]
+#            @test y ≈ u[n+1]
 #        end
 #    end
 #end
@@ -173,7 +176,7 @@ for sf in (
         u=$sf(l, l, 0, m, -m, 0)
         v=(-1)^((l-m)/2)/sqrt(l+1)
         VERBOSE && println($sf, '\t', u, '\t', v)
-        @test_approx_eq u v
+        @test u ≈ v
     end
 end
 
@@ -187,12 +190,12 @@ c=round(Int, (a+b)/4)*2
 #        u=$sf(a, b, c, 0, c, b)
 #        v=(-1)^((a+b+c)/2)/sqrt((b+1)*(c+1))
 #        VERBOSE && println($sf, '\t', u, '\t', v)
-#        @test_approx_eq u v
+#        @test u ≈ v
 #    end
 #end
 
 #TODO Should try to test within the domain where it is not 0
-a, b, c, d, J, K=2*round(Int, rand(6)*10)
+a, b, c, d, J, K = Int[2 * round(Int, rand() * 10) for i in 1:6]
 for sf in (
     :sf_coupling_9j, #7.8.3 9-j Symbols
     )
@@ -201,7 +204,7 @@ for sf in (
         v=(-1)^((b+c+J+K)/2)/sqrt((J+1)*(K+1))
         v*=sf_coupling_6j(a, b, J, d, c, K)
         VERBOSE && println($sf, '\t', u, '\t', v)
-        @test_approx_eq u v
+        @test u ≈ v
     end
 end
 
@@ -293,10 +296,10 @@ for sf in (
         a = $(Symbol(sf, "_err_e"))(x, 0)
         #XXX cause bus error
         #b = $(Symbol(sf, "_err_e10_e"))(x, 0)
-        @test_approx_eq_eps u v.val v.err
-        #@test_approx_eq u p.val*10^p.e10
-        @test_approx_eq_eps u a.val a.err
-        #@test_approx_eq u b.val*10^b.e10
+        @test isapprox(u, v.val, atol=v.err)
+        #@test u ≈ p.val*10^p.e10
+        @test isapprox(u, a.val, atol=a.err)
+        #@test u ≈ b.val*10^b.e10
     end
 end
 
@@ -308,8 +311,8 @@ for sf in (
         v = $(Symbol(sf, "_e"))(x, y)
         #XXX These functions cause bus error
         #p = $(Symbol(sf, "_e10_e"))(x, y)
-        @test_approx_eq_eps u v.val v.err
-        #@test_approx_eq u p.val*10^p.e10
+        @test isapprox(u, v.val, atol=v.err)
+        #@test u ≈ p.val*10^p.e10
     end
 end
 
@@ -361,8 +364,8 @@ for sf in (
         v = $(Symbol(sf, "_e"))(x)
         w = $(Symbol(sf, "_sgn_e"))(x)
         VERBOSE && println($sf, "\t", u, "\t", v)
-        @test_approx_eq_eps u v.val v.err
-        @test_approx_eq_eps u w[1].val w[1].err
+        @test isapprox(u, v.val, atol=v.err)
+        @test isapprox(u, w[1].val, atol=w[1].err)
     end
 end
 
@@ -371,11 +374,11 @@ end
 
 w=sf_lngamma_complex_e(xabs, 0)
 v=sf_lngamma_e(xabs)
-@test_approx_eq_eps v.val w[1].val v.err+w[1].err
-@test_approx_eq_eps 0 w[2].val max(eps(), w[2].err)
+@test isapprox(v.val, w[1].val, atol=v.err + w[1].err)
+@test isapprox(0, w[2].val, atol=max(eps(), w[2].err))
 w=sf_lngamma_complex_e(-xabs, 0)
 v=sf_lngamma_e(-xabs)
-@test_approx_eq_eps v.val w[1].val v.err+w[1].err
+@test isapprox(v.val, w[1].val, atol=v.err+w[1].err)
 
 #7.19.2 Factorials
 for sf in (
@@ -401,8 +404,8 @@ for sf in (:sf_lnpoch,) #7.19.1 Gamma Functions
         v = $(Symbol(sf, "_e"))(abs(x), abs(y))
         w = $(Symbol(sf, "_sgn_e"))(abs(x), abs(y))
         VERBOSE && println($sf, "\t", u, "\t", v)
-        @test_approx_eq_eps u v.val v.err
-        @test_approx_eq_eps u w[1].val w[1].err
+        @test isapprox(u, v.val, atol=v.err)
+        @test isapprox(u, w[1].val, atol=w[1].err)
     end
 end
 
@@ -431,8 +434,9 @@ for sf in (:sf_gegenpoly_array,)
         VERBOSE && println($sf)
         u=$sf(s, xabs, y)
         for n=0:s
+            local n
             yy = $(Symbol(string(sf)[1:end-6], "_n"))(n, xabs, y)
-            @test_approx_eq yy u[n+1]
+            @test yy ≈ u[n+1]
             VERBOSE && println(n,"\t",yy,"\t",u[n+1])
         end
     end
@@ -458,7 +462,7 @@ for sf in (
 end
 
 @eval @sf_test sf_hyperg_2F0 $x $y $(-abs(z))
-@test_approx_eq sf_hyperg_2F0(x,y,-abs(z)) (1/abs(z))^x* sf_hyperg_U(x,1+x-y,1/abs(z))
+@test sf_hyperg_2F0(x,y,-abs(z)) ≈ (1/abs(z))^x* sf_hyperg_U(x,1+x-y,1/abs(z))
 
 #7.22 Laguerre Functions
 for sf in (:sf_laguerre_1, :sf_laguerre_2, :sf_laguerre_3)
@@ -536,8 +540,8 @@ begin
     end
 
     local w=sf_complex_log_e(x,0)
-    @test_approx_eq_eps sf_log(x) w[1].val w[1].err
-    @test_approx_eq_eps 0 w[2].val w[2].err
+    @test isapprox(sf_log(x), w[1].val, atol=w[1].err)
+    @test isapprox(0, w[2].val, atol=w[2].err)
 end
 
 #TODO 7.26 Mathieu Functions
