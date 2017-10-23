@@ -110,7 +110,7 @@ function sf_hermite_phys_array(nmax::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result_array[]
 end
-Compat.@dep_vectorize_2arg Number sf_hermite_phys_array
+#Compat.@dep_vectorize_2arg Number sf_hermite_phys_array
 
 
 # These routines evaluate the series sum_{j=0}^n a_j \* H_j(x) with H_j being
