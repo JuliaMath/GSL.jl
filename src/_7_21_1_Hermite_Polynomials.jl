@@ -17,7 +17,7 @@ export sf_hermite_prob, sf_hermite_prob_e, sf_hermite_prob_array,
 function sf_hermite_prob(n::Integer, x::Real)
     ccall( (:gsl_sf_hermite_prob, libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
-Compat.@dep_vectorize_2arg Number sf_hermite_prob
+#Compat.@dep_vectorize_2arg Number sf_hermite_prob
 
 
 # These routines evaluate the probabilists’ Hermite polynomial He_n(x) of order
@@ -31,7 +31,7 @@ function sf_hermite_prob_e(n::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_hermite_prob_e
+#Compat.@dep_vectorize_2arg Number sf_hermite_prob_e
 
 
 # This routine evaluates all probabilists’ Hermite polynomials He_n(x) up to
@@ -45,7 +45,7 @@ function sf_hermite_prob_array(nmax::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result_array[]
 end
-Compat.@dep_vectorize_2arg Number sf_hermite_prob_array
+#Compat.@dep_vectorize_2arg Number sf_hermite_prob_array
 
 
 # These routines evaluate the series sum_{j=0}^n a_j \* He_j(x) with He_j being
@@ -82,7 +82,7 @@ end
 function sf_hermite_phys(n::Integer, x::Real)
     ccall( (:gsl_sf_hermite_phys, libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
-Compat.@dep_vectorize_2arg Number sf_hermite_phys
+#Compat.@dep_vectorize_2arg Number sf_hermite_phys
 
 
 # These routines evaluate the physicists’ Hermite polynomial H_n(x) of order n
@@ -96,7 +96,7 @@ function sf_hermite_phys_e(n::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_hermite_phys_e
+#Compat.@dep_vectorize_2arg Number sf_hermite_phys_e
 
 
 # This routine evaluates all physicists’ Hermite polynomials H_n(x) up to
