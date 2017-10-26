@@ -53,7 +53,7 @@ end
 #
 #   Returns: Cdouble
 function sf_hermite_prob_series{tA<:Real}(n::Integer, x::Real,
-                                          a_in:AbstractVector(tA))
+                                          a_in::AbstractVector{tA})
     a = convert(Vector{Cdouble}, a_in)
     ccall( (:gsl_sf_hermite_prob_series, libgsl), Cdouble, (Cint, Cdouble,
         Ref{Cdouble}), n, x, a )
@@ -65,7 +65,7 @@ end
 #
 #   Returns: Cint
 function sf_hermite_prob_series_e{tA<:Real}(n::Integer, x::Real,
-                                            a_in:AbstractVector(tA))
+                                            a_in::AbstractVector{tA})
     a = convert(Vector{Cdouble}, a_in)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hermite_prob_series_e, libgsl), Cint, (Cint,
@@ -118,7 +118,7 @@ end
 #
 #   Returns: Cdouble
 function sf_hermite_phys_series{tA<:Real}(n::Integer, x::Real,
-                                          a_in:AbstractVector(tA))
+                                          a_in::AbstractVector{tA})
     a = convert(Vector{Cdouble}, a_in)
     ccall( (:gsl_sf_hermite_phys_series, libgsl), Cdouble, (Cint, Cdouble,
         Ref{Cdouble}), n, x, a )
@@ -130,7 +130,7 @@ end
 #
 #   Returns: Cint
 function sf_hermite_phys_series_e{tA<:Real}(n::Integer, x::Real,
-                                            a_in:AbstractVector(tA))
+                                            a_in::AbstractVector{tA})
     a = convert(Vector{Cdouble}, a_in)
     result = Ref{gsl_sf_result}()
     errno = ccall( (:gsl_sf_hermite_phys_series_e, libgsl), Cint, (Cint,
