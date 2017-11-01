@@ -39,11 +39,11 @@ end
 #
 #   Returns: Cint
 function sf_hermite_prob_array(nmax::Integer, x::Real)
-    result_array = Ref{Cdouble}()
+    result_array = Vector{Cdouble}(nmax + 1)
     errno = ccall( (:gsl_sf_hermite_prob_array, libgsl), Cint, (Cint, Cdouble,
         Ref{Cdouble}), nmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return result_array[]
+    return result_array
 end
 #Compat.@dep_vectorize_2arg Number sf_hermite_prob_array
 
@@ -104,11 +104,11 @@ end
 #
 #   Returns: Cint
 function sf_hermite_phys_array(nmax::Integer, x::Real)
-    result_array = Ref{Cdouble}()
+    result_array = Vector{Cdouble}(nmax + 1)
     errno = ccall( (:gsl_sf_hermite_phys_array, libgsl), Cint, (Cint, Cdouble,
         Ref{Cdouble}), nmax, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
-    return result_array[]
+    return result_array
 end
 #Compat.@dep_vectorize_2arg Number sf_hermite_phys_array
 
