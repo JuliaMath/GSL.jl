@@ -341,4 +341,5 @@ include("../src/_23_4_Writing_ntuples.jl")
 include("../src/_7_4_3_Zeros_of_Airy_Functions.jl")
 include("../src/_7_4_4_Zeros_of_Derivatives_of_Airy_Functions.jl")
 include("../src/_7_5_13_Zeros_of_Regular_Bessel_Functions.jl")
+include("../src/_7_21_1_Hermite_Polynomials.jl")
 
