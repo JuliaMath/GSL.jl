@@ -42,7 +42,7 @@ known_types = {
     'size_t':'Csize_t',
     'complexfloat':'Ccomplex_float',
     'complexdouble':'Ccomplex_double',
-    'void':'Void',
+    'void':'Nothing',
 
     #These are too complicated to deal with with simple substitutions
 #    'struct T*':'Ptr{T} (call using &variable_name in the parameter list)
@@ -58,7 +58,7 @@ known_types = {
     'wchar_t':'Char',
 
     #XXX Fake this!
-    'FILE':'Void',
+    'FILE':'Nothing',
     'longdouble':'Cdouble',
 }
 
@@ -84,11 +84,11 @@ GeneralType={
 
 
 def forcevoid(v):
-    """Forces the unknown type v to become a Void, while preserving Ptr{} wraps"""
+    """Forces the unknown type v to become a Nothing, while preserving Ptr{} wraps"""
     begidx = v.rfind('{')
     endidx = v.find('}')
     if endidx == -1: endidx = len(v)
-    return v[:begidx+1] + 'Void' + v[endidx:]
+    return v[:begidx+1] + 'Nothing' + v[endidx:]
 
 
 def should_ignore(funcname):
@@ -291,7 +291,7 @@ def parsestructs2(soup, unknown_handler = 'report'):
                 entry = tag.code.string
                 if '(' in entry: #Assume functor
                     var_name = entry[entry.find('(')+1:entry.find(')')].replace('*','').strip()
-                    var_jtype = 'Ptr{Void}'
+                    var_jtype = 'Ptr{Nothing}'
                     #Sanitize name
                     if var_name in sensitive_names: var_name += '_'
                     all_parsed_out += ['    '+var_name+'::'+var_jtype]
@@ -407,16 +407,16 @@ def parsefunctions(soup, unknown_handler=['disable', 'report']):
             new_julia_inputs = julia_inputs
             new_julia_input_names = julia_input_names
             #If the function does not end in _free or _init or _set AND
-            #return type is Void or Cint then look more carefully
+            #return type is Nothing or Cint then look more carefully
             if not funcname[-5:]=='_free' and not funcname[-4:]=='_set' \
                     and not funcname[-5:]=='_init' and not funcname[-5:]=='_next' \
-                    and (julia_output == 'Cint' or julia_output == 'Void'):
+                    and (julia_output == 'Cint' or julia_output == 'Nothing'):
                 new_julia_inputs = []
                 new_julia_input_names = []
                 for i, inp in enumerate(julia_inputs):
                     input_name = julia_input_names[i]
                     #Assume all non-constant pointers are output
-                    if 'Ptr{Void}' in inp:
+                    if 'Ptr{Nothing}' in inp:
                         new_julia_inputs.append(inp)
                         new_julia_input_names.append(input_name)
                     elif 'Ptr{Cchar}' in inp or ('Ptr{' in inp and not julia_input_const[i]):

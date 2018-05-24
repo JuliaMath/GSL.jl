@@ -109,9 +109,9 @@ end
 
 # This function frees all the memory associated with the control function c.
 #
-#   Returns: Void
+#   Returns: Nothing
 function odeiv2_control_free(c::Ref{gsl_odeiv2_control})
-    ccall( (:gsl_odeiv2_control_free, libgsl), Void,
+    ccall( (:gsl_odeiv2_control_free, libgsl), Nothing,
         (Ref{gsl_odeiv2_control}, ), c )
 end
 

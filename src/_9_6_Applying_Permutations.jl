@@ -12,7 +12,7 @@ export permute, permute_inverse, permute_vector, permute_vector_inverse,
 # stride stride.
 # 
 #   Returns: Cint
-function permute{tA<:Integer}(p_in::AbstractVector{tA}, stride::Integer)
+function permute(p_in::AbstractVector{tA}, stride::Integer) where tA <: Integer
     n = length(p_in)
     p = convert(Vector{Csize_t}, p_in)
     v = Ref{Cdouble}()
@@ -27,7 +27,7 @@ end
 # size n with stride stride.
 # 
 #   Returns: Cint
-function permute_inverse{tA<:Integer}(p_in::AbstractVector{tA}, stride::Integer)
+function permute_inverse(p_in::AbstractVector{tA}, stride::Integer) where tA <: Integer
     n = length(p_in)
     p = convert(Vector{Csize_t}, p_in)
     v = Ref{Cdouble}()

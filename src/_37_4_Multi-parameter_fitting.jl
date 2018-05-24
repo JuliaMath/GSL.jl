@@ -23,9 +23,9 @@ Compat.@dep_vectorize_2arg Number multifit_linear_alloc
 
 # This function frees the memory associated with the workspace w.
 #
-#   Returns: Void
+#   Returns: Nothing
 function multifit_linear_free(work::Ref{gsl_multifit_linear_workspace})
-    ccall( (:gsl_multifit_linear_free, libgsl), Void,
+    ccall( (:gsl_multifit_linear_free, libgsl), Nothing,
         (Ref{gsl_multifit_linear_workspace}, ), work )
 end
 

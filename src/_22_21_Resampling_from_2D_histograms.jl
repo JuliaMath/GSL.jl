@@ -10,7 +10,7 @@ export gsl_histogram2d_pdf, histogram2d_pdf_alloc, histogram2d_pdf_init,
 
 
 
-type gsl_histogram2d_pdf
+mutable struct gsl_histogram2d_pdf
     nx::Csize_t
     ny::Csize_t
     xrange::Ptr{Cdouble}
@@ -50,9 +50,9 @@ end
 # This function frees the two-dimensional probability distribution function p
 # and all of the memory associated with it.
 #
-#   Returns: Void
+#   Returns: Nothing
 function histogram2d_pdf_free(p::Ref{gsl_histogram2d_pdf})
-    ccall( (:gsl_histogram2d_pdf_free, libgsl), Void,
+    ccall( (:gsl_histogram2d_pdf_free, libgsl), Nothing,
         (Ref{gsl_histogram2d_pdf}, ), p )
 end
 

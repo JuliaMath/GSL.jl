@@ -21,9 +21,9 @@ Compat.@dep_vectorize_1arg Number sum_levin_utrunc_alloc
 
 # This function frees the memory associated with the workspace w.
 #
-#   Returns: Void
+#   Returns: Nothing
 function sum_levin_utrunc_free(w::Ref{gsl_sum_levin_utrunc_workspace})
-    ccall( (:gsl_sum_levin_utrunc_free, libgsl), Void,
+    ccall( (:gsl_sum_levin_utrunc_free, libgsl), Nothing,
         (Ref{gsl_sum_levin_utrunc_workspace}, ), w )
 end
 
@@ -40,7 +40,7 @@ end
 # truncation error, smoothing out any fluctuations.
 #
 #   Returns: Cint
-function sum_levin_utrunc_accel{tA<:Real}(array_in::AbstractVector{tA})
+function sum_levin_utrunc_accel(array_in::AbstractVector{tA}) where tA <: Real
     array_size = length(array_in)
     array = convert(Vector{Cdouble}, array_in)
     w = Ref{gsl_sum_levin_utrunc_workspace}()

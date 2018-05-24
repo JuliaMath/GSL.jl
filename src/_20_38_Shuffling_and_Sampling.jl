@@ -20,9 +20,9 @@ export ran_shuffle, ran_choose, ran_sample
 # i++)             {               a[i] = i;             }
 # gsl_ran_shuffle (r, a, 52, sizeof (int));
 # 
-#   Returns: Void
-function ran_shuffle(r::Ref{gsl_rng}, base::Ref{Void}, n::Integer, size::Integer)
-    ccall( (:gsl_ran_shuffle, libgsl), Void, (Ref{gsl_rng}, Ref{Void},
+#   Returns: Nothing
+function ran_shuffle(r::Ref{gsl_rng}, base::Ref{Nothing}, n::Integer, size::Integer)
+    ccall( (:gsl_ran_shuffle, libgsl), Nothing, (Ref{gsl_rng}, Ref{Nothing},
         Csize_t, Csize_t), r, base, n, size )
 end
 
@@ -42,9 +42,9 @@ end
 # gsl_ran_choose (r, a, 3, b, 100, sizeof (double));
 # 
 #   Returns: Cint
-function ran_choose(r::Ref{gsl_rng}, dest::Ref{Void}, k::Integer, src::Ref{Void}, n::Integer, size::Integer)
+function ran_choose(r::Ref{gsl_rng}, dest::Ref{Nothing}, k::Integer, src::Ref{Nothing}, n::Integer, size::Integer)
     errno = ccall( (:gsl_ran_choose, libgsl), Cint, (Ref{gsl_rng},
-        Ref{Void}, Csize_t, Ref{Void}, Csize_t, Csize_t), r, dest, k, src, n,
+        Ref{Nothing}, Csize_t, Ref{Nothing}, Csize_t, Csize_t), r, dest, k, src, n,
         size )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -55,8 +55,8 @@ end
 # than once in the output sequence dest.  There is no requirement that k be
 # less than n in this case.
 # 
-#   Returns: Void
-function ran_sample(r::Ref{gsl_rng}, dest::Ref{Void}, k::Integer, src::Ref{Void}, n::Integer, size::Integer)
-    ccall( (:gsl_ran_sample, libgsl), Void, (Ref{gsl_rng}, Ref{Void},
-        Csize_t, Ref{Void}, Csize_t, Csize_t), r, dest, k, src, n, size )
+#   Returns: Nothing
+function ran_sample(r::Ref{gsl_rng}, dest::Ref{Nothing}, k::Integer, src::Ref{Nothing}, n::Integer, size::Integer)
+    ccall( (:gsl_ran_sample, libgsl), Nothing, (Ref{gsl_rng}, Ref{Nothing},
+        Csize_t, Ref{Nothing}, Csize_t, Csize_t), r, dest, k, src, n, size )
 end

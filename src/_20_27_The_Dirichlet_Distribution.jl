@@ -22,9 +22,9 @@ export ran_dirichlet, ran_dirichlet_pdf, ran_dirichlet_lnpdf
 # with parameters  a=alpha_i, b=1, and renormalizing.  See A.M. Law, W.D.
 # Kelton, Simulation Modeling and Analysis (1991).
 # 
-#   Returns: Void
+#   Returns: Nothing
 function ran_dirichlet(r::Ref{gsl_rng}, K::Integer, alpha::Real)
-    ccall( (:gsl_ran_dirichlet, libgsl), Void, (Ref{gsl_rng}, Csize_t,
+    ccall( (:gsl_ran_dirichlet, libgsl), Nothing, (Ref{gsl_rng}, Csize_t,
         Cdouble), r, K, alpha )
 end
 

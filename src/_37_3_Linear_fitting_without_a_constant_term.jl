@@ -15,7 +15,7 @@ export fit_mul, fit_wmul, fit_mul_est
 # residuals from the best-fit line is returned in sumsq.
 # 
 #   Returns: Cint
-function fit_mul{tA<:Real, tB<:Real}(x_in::AbstractVector{tA}, xstride::Integer, y_in::AbstractVector{tB}, ystride::Integer)
+function fit_mul(x_in::AbstractVector{tA}, xstride::Integer, y_in::AbstractVector{tB}, ystride::Integer) where {tA <: Real,tB <: Real}
     n = length(x_in)
     x = convert(Vector{Cdouble}, x_in)
     y = convert(Vector{Cdouble}, y_in)
@@ -40,7 +40,7 @@ end
 # \chi^2, is returned in chisq.
 # 
 #   Returns: Cint
-function fit_wmul{tA<:Real, tB<:Real, tC<:Real}(x_in::AbstractVector{tA}, xstride::Integer, w_in::AbstractVector{tB}, wstride::Integer, y_in::AbstractVector{tC}, ystride::Integer)
+function fit_wmul(x_in::AbstractVector{tA}, xstride::Integer, w_in::AbstractVector{tB}, wstride::Integer, y_in::AbstractVector{tC}, ystride::Integer) where {tA <: Real,tB <: Real,tC <: Real}
     n = length(x_in)
     x = convert(Vector{Cdouble}, x_in)
     w = convert(Vector{Cdouble}, w_in)

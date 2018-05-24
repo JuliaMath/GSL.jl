@@ -38,9 +38,9 @@ end
 # void * state = gsl_qrng_state (q);           size_t n = gsl_qrng_size (q);
 # fwrite (state, n, 1, stream);
 #
-#   Returns: Ptr{Void}
+#   Returns: Ptr{Nothing}
 function qrng_state(q::Ref{gsl_qrng})
-    output_ptr = ccall( (:gsl_qrng_state, libgsl), Ptr{Void},
+    output_ptr = ccall( (:gsl_qrng_state, libgsl), Ptr{Nothing},
         (Ref{gsl_qrng}, ), q )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

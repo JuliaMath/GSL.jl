@@ -22,7 +22,7 @@ end
 println()
      
 print(" random permutation:")  
-ran_shuffle(r, convert(Ptr{Void}, unsafe_ref(p).data), N, sizeof(Uint64))
+ran_shuffle(r, convert(Ptr{Nothing}, unsafe_ref(p).data), N, sizeof(Uint64))
 #permutation_fprintf(stdout, p, " %u")
 for x in pointer_to_array(unsafe_ref(p).data, (int(unsafe_ref(p).size),))
     print(int(x), " ")

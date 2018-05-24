@@ -96,9 +96,9 @@ end
 
 # This function frees all the memory associated with the evolution function e.
 #
-#   Returns: Void
+#   Returns: Nothing
 function odeiv2_evolve_free(e::Ref{gsl_odeiv2_evolve})
-    ccall( (:gsl_odeiv2_evolve_free, libgsl), Void,
+    ccall( (:gsl_odeiv2_evolve_free, libgsl), Nothing,
         (Ref{gsl_odeiv2_evolve}, ), e )
 end
 

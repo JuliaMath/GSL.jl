@@ -61,8 +61,8 @@ end
 
 # This function frees the accelerator object acc.
 #
-#   Returns: Void
+#   Returns: Nothing
 function interp_accel_free(acc::Ref{gsl_interp_accel})
-    ccall( (:gsl_interp_accel_free, libgsl), Void, (Ref{gsl_interp_accel},
+    ccall( (:gsl_interp_accel_free, libgsl), Nothing, (Ref{gsl_interp_accel},
         ), acc )
 end

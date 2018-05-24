@@ -44,15 +44,15 @@ end
 # generators with smaller ranges the maximum seed value will typically be
 # lower.
 #
-#   Returns: Void
+#   Returns: Nothing
 function rng_set(r::Ref{gsl_rng}, s::Integer)
-    ccall( (:gsl_rng_set, libgsl), Void, (Ref{gsl_rng}, Culong), r, s )
+    ccall( (:gsl_rng_set, libgsl), Nothing, (Ref{gsl_rng}, Culong), r, s )
 end
 
 
 # This function frees all the memory associated with the generator r.
 #
-#   Returns: Void
+#   Returns: Nothing
 function rng_free(r::Ref{gsl_rng})
-    ccall( (:gsl_rng_free, libgsl), Void, (Ref{gsl_rng}, ), r )
+    ccall( (:gsl_rng_free, libgsl), Nothing, (Ref{gsl_rng}, ), r )
 end

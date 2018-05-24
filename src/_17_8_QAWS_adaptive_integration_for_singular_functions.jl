@@ -53,9 +53,9 @@ end
 # This function frees all the memory associated with the
 # gsl_integration_qaws_table struct t.
 #
-#   Returns: Void
+#   Returns: Nothing
 function integration_qaws_table_free(t::Ref{gsl_integration_qaws_table})
-    ccall( (:gsl_integration_qaws_table_free, libgsl), Void,
+    ccall( (:gsl_integration_qaws_table_free, libgsl), Nothing,
         (Ref{gsl_integration_qaws_table}, ), t )
 end
 

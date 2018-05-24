@@ -10,10 +10,10 @@ export permutation_reverse, permutation_inverse, permutation_next,
 
 # This function reverses the elements of the permutation p.
 # 
-#   Returns: Void
+#   Returns: Nothing
 function permutation_reverse()
     p = Ref{gsl_permutation}()
-    ccall( (:gsl_permutation_reverse, libgsl), Void,
+    ccall( (:gsl_permutation_reverse, libgsl), Nothing,
         (Ref{gsl_permutation}, ), p )
     return p[]
 end

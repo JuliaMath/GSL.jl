@@ -73,18 +73,18 @@ end
 
 # These functions free all the memory associated with the solver s.
 #
-#   Returns: Void
+#   Returns: Nothing
 function root_fsolver_free(s::Ptr{gsl_root_fsolver})
-    ccall( (:gsl_root_fsolver_free, libgsl), Void, (Ptr{gsl_root_fsolver},
+    ccall( (:gsl_root_fsolver_free, libgsl), Nothing, (Ptr{gsl_root_fsolver},
         ), s )
 end
 
 
 # These functions free all the memory associated with the solver s.
 #
-#   Returns: Void
+#   Returns: Nothing
 function root_fdfsolver_free(s::Ptr{gsl_root_fdfsolver})
-    ccall( (:gsl_root_fdfsolver_free, libgsl), Void,
+    ccall( (:gsl_root_fdfsolver_free, libgsl), Nothing,
         (Ptr{gsl_root_fdfsolver}, ), s )
 end
 

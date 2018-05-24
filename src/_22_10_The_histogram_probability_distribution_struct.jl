@@ -10,7 +10,7 @@ export gsl_histogram_pdf, histogram_pdf_alloc, histogram_pdf_init,
 
 
 
-type gsl_histogram_pdf
+mutable struct gsl_histogram_pdf
     n::Csize_t
     range::Ptr{Cdouble}
     sum::Ptr{Cdouble}
@@ -47,9 +47,9 @@ end
 # This function frees the probability distribution function p and all of the
 # memory associated with it.
 #
-#   Returns: Void
+#   Returns: Nothing
 function histogram_pdf_free(p::Ref{gsl_histogram_pdf})
-    ccall( (:gsl_histogram_pdf_free, libgsl), Void,
+    ccall( (:gsl_histogram_pdf_free, libgsl), Nothing,
         (Ref{gsl_histogram_pdf}, ), p )
 end
 

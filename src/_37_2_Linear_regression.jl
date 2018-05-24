@@ -18,7 +18,7 @@ export fit_linear, fit_wlinear, fit_linear_est
 # does not depend on the fit.
 # 
 #   Returns: Cint
-function fit_linear{tA<:Real, tB<:Real}(x_in::AbstractVector{tA}, xstride::Integer, y_in::AbstractVector{tB}, ystride::Integer)
+function fit_linear(x_in::AbstractVector{tA}, xstride::Integer, y_in::AbstractVector{tB}, ystride::Integer) where {tA <: Real,tB <: Real}
     n = length(x_in)
     x = convert(Vector{Cdouble}, x_in)
     y = convert(Vector{Cdouble}, y_in)
@@ -47,7 +47,7 @@ end
 # residuals from the best-fit line, \chi^2, is returned in chisq.
 # 
 #   Returns: Cint
-function fit_wlinear{tA<:Real, tB<:Real, tC<:Real}(x_in::AbstractVector{tA}, xstride::Integer, w_in::AbstractVector{tB}, wstride::Integer, y_in::AbstractVector{tC}, ystride::Integer)
+function fit_wlinear(x_in::AbstractVector{tA}, xstride::Integer, w_in::AbstractVector{tB}, wstride::Integer, y_in::AbstractVector{tC}, ystride::Integer) where {tA <: Real,tB <: Real,tC <: Real}
     n = length(x_in)
     x = convert(Vector{Cdouble}, x_in)
     w = convert(Vector{Cdouble}, w_in)

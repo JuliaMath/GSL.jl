@@ -7,13 +7,13 @@
 export gsl_sf_result, gsl_sf_result_e10
 
 
-immutable gsl_sf_result
+struct gsl_sf_result
     val::Cdouble
     err::Cdouble
 end
 
 
-immutable gsl_sf_result_e10
+struct gsl_sf_result_e10
     val::Cdouble
     err::Cdouble
     e10::Cint

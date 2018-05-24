@@ -22,8 +22,8 @@ Compat.@dep_vectorize_2arg Number sf_mathieu_alloc
 
 # This function frees the workspace work.
 #
-#   Returns: Void
+#   Returns: Nothing
 function sf_mathieu_free(work::Ref{gsl_sf_mathieu_workspace})
-    ccall( (:gsl_sf_mathieu_free, libgsl), Void,
+    ccall( (:gsl_sf_mathieu_free, libgsl), Nothing,
         (Ref{gsl_sf_mathieu_workspace}, ), work )
 end

@@ -17,8 +17,8 @@ export permutation_fwrite, permutation_fread, permutation_fprintf,
 # it may not be portable between different architectures.
 #
 #   Returns: Cint
-function permutation_fwrite(stream::Ref{Void}, p::Ref{gsl_permutation})
-    errno = ccall( (:gsl_permutation_fwrite, libgsl), Cint, (Ref{Void},
+function permutation_fwrite(stream::Ref{Nothing}, p::Ref{gsl_permutation})
+    errno = ccall( (:gsl_permutation_fwrite, libgsl), Cint, (Ref{Nothing},
         Ref{gsl_permutation}), stream, p )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -32,9 +32,9 @@ end
 # format on the same architecture.
 #
 #   Returns: Cint
-function permutation_fread(stream::Ref{Void})
+function permutation_fread(stream::Ref{Nothing})
     p = Ref{gsl_permutation}()
-    errno = ccall( (:gsl_permutation_fread, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_permutation_fread, libgsl), Cint, (Ref{Nothing},
         Ref{gsl_permutation}), stream, p )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return p[]
@@ -48,9 +48,9 @@ end
 # a problem writing to the file.
 #
 #   Returns: Cint
-function permutation_fprintf(stream::Ref{Void}, p::Ref{gsl_permutation})
+function permutation_fprintf(stream::Ref{Nothing}, p::Ref{gsl_permutation})
     format = Ref{Cchar}()
-    errno = ccall( (:gsl_permutation_fprintf, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_permutation_fprintf, libgsl), Cint, (Ref{Nothing},
         Ref{gsl_permutation}, Ref{Cchar}), stream, p, format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return format[]
@@ -64,9 +64,9 @@ end
 # the file.
 #
 #   Returns: Cint
-function permutation_fscanf(stream::Ref{Void})
+function permutation_fscanf(stream::Ref{Nothing})
     p = Ref{gsl_permutation}()
-    errno = ccall( (:gsl_permutation_fscanf, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_permutation_fscanf, libgsl), Cint, (Ref{Nothing},
         Ref{gsl_permutation}), stream, p )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return p[]

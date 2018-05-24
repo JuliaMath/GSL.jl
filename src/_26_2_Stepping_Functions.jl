@@ -40,9 +40,9 @@ end
 
 # This function frees all the memory associated with the stepping function s.
 #
-#   Returns: Void
+#   Returns: Nothing
 function odeiv2_step_free(s::Ref{gsl_odeiv2_step})
-    ccall( (:gsl_odeiv2_step_free, libgsl), Void, (Ref{gsl_odeiv2_step},
+    ccall( (:gsl_odeiv2_step_free, libgsl), Nothing, (Ref{gsl_odeiv2_step},
         ), s )
 end
 

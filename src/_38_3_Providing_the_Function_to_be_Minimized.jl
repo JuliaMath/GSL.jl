@@ -7,19 +7,19 @@
 export gsl_multifit_function, gsl_multifit_function_fdf
 
 
-type gsl_multifit_function
-    f::Ptr{Void}
+mutable struct gsl_multifit_function
+    f::Ptr{Nothing}
     n::Csize_t
     p::Csize_t
-    params::Ptr{Void}
+    params::Ptr{Nothing}
 end
 
 
-type gsl_multifit_function_fdf
-    f::Ptr{Void}
-    df::Ptr{Void}
-    fdf::Ptr{Void}
+mutable struct gsl_multifit_function_fdf
+    f::Ptr{Nothing}
+    df::Ptr{Nothing}
+    fdf::Ptr{Nothing}
     n::Csize_t
     p::Csize_t
-    params::Ptr{Void}
+    params::Ptr{Nothing}
 end

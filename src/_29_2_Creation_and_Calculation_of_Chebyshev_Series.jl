@@ -21,9 +21,9 @@ Compat.@dep_vectorize_1arg Number cheb_alloc
 
 # This function frees a previously allocated Chebyshev series cs.
 #
-#   Returns: Void
+#   Returns: Nothing
 function cheb_free(cs::Ref{gsl_cheb_series})
-    ccall( (:gsl_cheb_free, libgsl), Void, (Ref{gsl_cheb_series}, ), cs )
+    ccall( (:gsl_cheb_free, libgsl), Nothing, (Ref{gsl_cheb_series}, ), cs )
 end
 
 

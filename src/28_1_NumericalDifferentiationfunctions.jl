@@ -14,7 +14,7 @@ function function_callback(x::Cdouble, f_)
     f = unsafe_pointer_to_objref(f_)
     Cdouble(f(x))
 end
-const function_callback_ptr = Ref{Ptr{Void}}()
+const function_callback_ptr = Ref{Ptr{Nothing}}()
 
 for gsl_deriv in (:deriv_central, :deriv_forward, :deriv_backward)
     @eval begin

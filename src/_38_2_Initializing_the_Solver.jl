@@ -69,18 +69,18 @@ end
 
 # These functions free all the memory associated with the solver s.
 #
-#   Returns: Void
+#   Returns: Nothing
 function multifit_fsolver_free(s::Ref{gsl_multifit_fsolver})
-    ccall( (:gsl_multifit_fsolver_free, libgsl), Void,
+    ccall( (:gsl_multifit_fsolver_free, libgsl), Nothing,
         (Ref{gsl_multifit_fsolver}, ), s )
 end
 
 
 # These functions free all the memory associated with the solver s.
 #
-#   Returns: Void
+#   Returns: Nothing
 function multifit_fdfsolver_free(s::Ref{gsl_multifit_fdfsolver})
-    ccall( (:gsl_multifit_fdfsolver_free, libgsl), Void,
+    ccall( (:gsl_multifit_fdfsolver_free, libgsl), Nothing,
         (Ref{gsl_multifit_fdfsolver}, ), s )
 end
 

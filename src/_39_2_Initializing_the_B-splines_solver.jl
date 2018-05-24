@@ -23,9 +23,9 @@ Compat.@dep_vectorize_2arg Number bspline_alloc
 
 # This function frees the memory associated with the workspace w.
 #
-#   Returns: Void
+#   Returns: Nothing
 function bspline_free(w::Ref{gsl_bspline_workspace})
-    ccall( (:gsl_bspline_free, libgsl), Void, (Ref{gsl_bspline_workspace},
+    ccall( (:gsl_bspline_free, libgsl), Nothing, (Ref{gsl_bspline_workspace},
         ), w )
 end
 
@@ -44,8 +44,8 @@ Compat.@dep_vectorize_1arg Number bspline_deriv_alloc
 
 # This function frees the memory associated with the derivative workspace w.
 #
-#   Returns: Void
+#   Returns: Nothing
 function bspline_deriv_free(w::Ref{gsl_bspline_deriv_workspace})
-    ccall( (:gsl_bspline_deriv_free, libgsl), Void,
+    ccall( (:gsl_bspline_deriv_free, libgsl), Nothing,
         (Ref{gsl_bspline_deriv_workspace}, ), w )
 end

@@ -37,11 +37,11 @@ Compat.@dep_vectorize_1arg Number stats_min
 # This function finds both the minimum and maximum values min, max in data in a
 # single pass.
 # 
-#   Returns: Void
+#   Returns: Nothing
 function stats_minmax(data::Real)
     min = Ref{Cdouble}()
     max = Ref{Cdouble}()
-    ccall( (:gsl_stats_minmax, libgsl), Void, (Ref{Cdouble}, Ref{Cdouble},
+    ccall( (:gsl_stats_minmax, libgsl), Nothing, (Ref{Cdouble}, Ref{Cdouble},
         Cdouble), min, max, data )
     return min[], max[]
 end
@@ -75,11 +75,11 @@ Compat.@dep_vectorize_1arg Number stats_min_index
 # This function returns the indexes min_index, max_index of the minimum and
 # maximum values in data in a single pass.
 # 
-#   Returns: Void
+#   Returns: Nothing
 function stats_minmax_index(data::Real)
     min_index = Ref{Csize_t}()
     max_index = Ref{Csize_t}()
-    ccall( (:gsl_stats_minmax_index, libgsl), Void, (Ref{Csize_t},
+    ccall( (:gsl_stats_minmax_index, libgsl), Nothing, (Ref{Csize_t},
         Ref{Csize_t}, Cdouble), min_index, max_index, data )
     return min_index[], max_index[]
 end

@@ -16,8 +16,8 @@ export multiset_fwrite, multiset_fread, multiset_fprintf, multiset_fscanf
 # it may not be portable between different architectures.
 # 
 #   Returns: Cint
-function multiset_fwrite(stream::Ref{Void}, c::Ref{gsl_multiset})
-    errno = ccall( (:gsl_multiset_fwrite, libgsl), Cint, (Ref{Void},
+function multiset_fwrite(stream::Ref{Nothing}, c::Ref{gsl_multiset})
+    errno = ccall( (:gsl_multiset_fwrite, libgsl), Cint, (Ref{Nothing},
         Ref{gsl_multiset}), stream, c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -31,9 +31,9 @@ end
 # format on the same architecture.
 # 
 #   Returns: Cint
-function multiset_fread(stream::Ref{Void})
+function multiset_fread(stream::Ref{Nothing})
     c = Ref{gsl_multiset}()
-    errno = ccall( (:gsl_multiset_fread, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_multiset_fread, libgsl), Cint, (Ref{Nothing},
         Ref{gsl_multiset}), stream, c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c[]
@@ -47,9 +47,9 @@ end
 # a problem writing to the file.
 # 
 #   Returns: Cint
-function multiset_fprintf(stream::Ref{Void}, c::Ref{gsl_multiset})
+function multiset_fprintf(stream::Ref{Nothing}, c::Ref{gsl_multiset})
     format = Ref{Cchar}()
-    errno = ccall( (:gsl_multiset_fprintf, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_multiset_fprintf, libgsl), Cint, (Ref{Nothing},
         Ref{gsl_multiset}, Ref{Cchar}), stream, c, format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return format[]
@@ -62,9 +62,9 @@ end
 # function returns GSL_EFAILED if there was a problem reading from the file.
 # 
 #   Returns: Cint
-function multiset_fscanf(stream::Ref{Void})
+function multiset_fscanf(stream::Ref{Nothing})
     c = Ref{gsl_multiset}()
-    errno = ccall( (:gsl_multiset_fscanf, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_multiset_fscanf, libgsl), Cint, (Ref{Nothing},
         Ref{gsl_multiset}), stream, c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c[]

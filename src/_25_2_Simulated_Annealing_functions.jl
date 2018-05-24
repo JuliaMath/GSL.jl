@@ -8,35 +8,35 @@ export gsl_siman_Efunc_t, gsl_siman_step_t, gsl_siman_metric_t,
        gsl_siman_print_t, gsl_siman_copy_t, gsl_siman_copy_construct_t,
        gsl_siman_destroy_t, gsl_siman_params_t, siman_solve
 
-type gsl_siman_Efunc_t
+mutable struct gsl_siman_Efunc_t
 end
 
 
-type gsl_siman_step_t
+mutable struct gsl_siman_step_t
 end
 
 
-type gsl_siman_metric_t
+mutable struct gsl_siman_metric_t
 end
 
 
-type gsl_siman_print_t
+mutable struct gsl_siman_print_t
 end
 
 
-type gsl_siman_copy_t
+mutable struct gsl_siman_copy_t
 end
 
 
-type gsl_siman_copy_construct_t
+mutable struct gsl_siman_copy_construct_t
 end
 
 
-type gsl_siman_destroy_t
+mutable struct gsl_siman_destroy_t
 end
 
 
-type gsl_siman_params_t
+mutable struct gsl_siman_params_t
     n_tries::Cint
     iters_fixed_T::Cint
     step_size::Cdouble
@@ -71,9 +71,9 @@ end
 # print_position itself.  If print_position is null then no information is
 # printed.
 #
-#   Returns: Void
-function siman_solve(r::Ref{gsl_rng}, x0_p::Ref{Void}, Ef::gsl_siman_Efunc_t, take_step::gsl_siman_step_t, distance::gsl_siman_metric_t, print_position::gsl_siman_print_t, copyfunc::gsl_siman_copy_t, copy_constructor::gsl_siman_copy_ruct_t, destructor::gsl_siman_destroy_t, element_size::Integer, params::gsl_siman_params_t)
-    ccall( (:gsl_siman_solve, libgsl), Void, (Ref{gsl_rng}, Ref{Void},
+#   Returns: Nothing
+function siman_solve(r::Ref{gsl_rng}, x0_p::Ref{Nothing}, Ef::gsl_siman_Efunc_t, take_step::gsl_siman_step_t, distance::gsl_siman_metric_t, print_position::gsl_siman_print_t, copyfunc::gsl_siman_copy_t, copy_constructor::gsl_siman_copy_ruct_t, destructor::gsl_siman_destroy_t, element_size::Integer, params::gsl_siman_params_t)
+    ccall( (:gsl_siman_solve, libgsl), Nothing, (Ref{gsl_rng}, Ref{Nothing},
         gsl_siman_Efunc_t, gsl_siman_step_t, gsl_siman_metric_t,
         gsl_siman_print_t, gsl_siman_copy_t, gsl_siman_copy_ruct_t,
         gsl_siman_destroy_t, Csize_t, gsl_siman_params_t), r, x0_p, Ef,

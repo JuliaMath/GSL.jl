@@ -71,8 +71,8 @@ Compat.@dep_vectorize_2arg Number histogram_set_ranges_uniform
 
 # This function frees the histogram h and all of the memory associated with it.
 #
-#   Returns: Void
+#   Returns: Nothing
 function histogram_free(h::Ref{gsl_histogram})
-    ccall( (:gsl_histogram_free, libgsl), Void, (Ref{gsl_histogram}, ), h
+    ccall( (:gsl_histogram_free, libgsl), Nothing, (Ref{gsl_histogram}, ), h
         )
 end

@@ -80,18 +80,18 @@ end
 
 # This function frees all the memory associated with the minimizer s.
 #
-#   Returns: Void
+#   Returns: Nothing
 function multimin_fdfminimizer_free(s::Ptr{gsl_multimin_fdfminimizer})
-    ccall( (:gsl_multimin_fdfminimizer_free, libgsl), Void,
+    ccall( (:gsl_multimin_fdfminimizer_free, libgsl), Nothing,
         (Ptr{gsl_multimin_fdfminimizer}, ), s )
 end
 
 
 # This function frees all the memory associated with the minimizer s.
 #
-#   Returns: Void
+#   Returns: Nothing
 function multimin_fminimizer_free(s::Ptr{gsl_multimin_fminimizer})
-    ccall( (:gsl_multimin_fminimizer_free, libgsl), Void,
+    ccall( (:gsl_multimin_fminimizer_free, libgsl), Nothing,
         (Ptr{gsl_multimin_fminimizer}, ), s )
 end
 

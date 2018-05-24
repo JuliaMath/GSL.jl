@@ -13,7 +13,7 @@ v = ccall((:gsl_vector_alloc, GSL.libgsl), Ptr{gsl_vector}, (Csize_t,), n)
 
 # #vector_set
 for i=1:n
-    ccall((:gsl_vector_set, GSL.libgsl), Void, (Ptr{gsl_vector}, Csize_t, Cdouble), v, i-1, v0[i])
+    ccall((:gsl_vector_set, GSL.libgsl), Nothing, (Ptr{gsl_vector}, Csize_t, Cdouble), v, i-1, v0[i])
 end
 
 dnewton_ptr_ptr = cglobal((:gsl_multiroot_fsolver_dnewton, GSL.libgsl), Ptr{GSL.gsl_multiroot_fsolver_type})

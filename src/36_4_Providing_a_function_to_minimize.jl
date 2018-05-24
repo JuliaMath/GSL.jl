@@ -6,16 +6,16 @@
 #########################################
 export gsl_multimin_function_fdf, gsl_multimin_function
 
-type gsl_multimin_function_fdf
-    f::Ptr{Void}
-    df::Ptr{Void}
-    fdf::Ptr{Void}
+mutable struct gsl_multimin_function_fdf
+    f::Ptr{Nothing}
+    df::Ptr{Nothing}
+    fdf::Ptr{Nothing}
     n::Csize_t
-    params::Ptr{Void}
+    params::Ptr{Nothing}
 end
 
-type gsl_multimin_function
-    f::Ptr{Void}
+mutable struct gsl_multimin_function
+    f::Ptr{Nothing}
     n::Csize_t
-    params::Ptr{Void}
+    params::Ptr{Nothing}
 end

@@ -39,7 +39,7 @@ Compat.@dep_vectorize_1arg Number block_calloc
 # gsl_block_alloc or gsl_block_calloc.  The block b must be a valid block
 # object (a null pointer is not allowed).
 #
-#   Returns: Void
+#   Returns: Nothing
 function block_free(b::Ref{gsl_block})
-    ccall( (:gsl_block_free, libgsl), Void, (Ref{gsl_block}, ), b )
+    ccall( (:gsl_block_free, libgsl), Nothing, (Ref{gsl_block}, ), b )
 end

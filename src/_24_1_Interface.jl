@@ -6,8 +6,8 @@
 ##################
 export gsl_monte_function
 
-type gsl_monte_function
-    f::Ptr{Void}
+mutable struct gsl_monte_function
+    f::Ptr{Nothing}
     dim::Csize_t
-    params::Ptr{Void}
+    params::Ptr{Nothing}
 end

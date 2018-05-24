@@ -22,11 +22,11 @@ end
 # the histogram h and stores the result in (i,j). In the case where several
 # bins contain the same maximum value the first bin found is returned.
 # 
-#   Returns: Void
+#   Returns: Nothing
 function histogram2d_max_bin(h::Ref{gsl_histogram2d})
     i = Ref{Csize_t}()
     j = Ref{Csize_t}()
-    ccall( (:gsl_histogram2d_max_bin, libgsl), Void,
+    ccall( (:gsl_histogram2d_max_bin, libgsl), Nothing,
         (Ref{gsl_histogram2d}, Ref{Csize_t}, Ref{Csize_t}), h, i, j )
     return i[], j[]
 end
@@ -45,11 +45,11 @@ end
 # the histogram h and stores the result in (i,j). In the case where several
 # bins contain the same maximum value the first bin found is returned.
 # 
-#   Returns: Void
+#   Returns: Nothing
 function histogram2d_min_bin(h::Ref{gsl_histogram2d})
     i = Ref{Csize_t}()
     j = Ref{Csize_t}()
-    ccall( (:gsl_histogram2d_min_bin, libgsl), Void,
+    ccall( (:gsl_histogram2d_min_bin, libgsl), Nothing,
         (Ref{gsl_histogram2d}, Ref{Csize_t}, Ref{Csize_t}), h, i, j )
     return i[], j[]
 end

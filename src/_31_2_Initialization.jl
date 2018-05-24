@@ -34,9 +34,9 @@ end
 
 # This function frees the wavelet object w.
 #
-#   Returns: Void
+#   Returns: Nothing
 function wavelet_free(w::Ref{gsl_wavelet})
-    ccall( (:gsl_wavelet_free, libgsl), Void, (Ref{gsl_wavelet}, ), w )
+    ccall( (:gsl_wavelet_free, libgsl), Nothing, (Ref{gsl_wavelet}, ), w )
 end
 
 
@@ -58,8 +58,8 @@ Compat.@dep_vectorize_1arg Number wavelet_workspace_alloc
 
 # This function frees the allocated workspace work.
 #
-#   Returns: Void
+#   Returns: Nothing
 function wavelet_workspace_free(work::Ref{gsl_wavelet_workspace})
-    ccall( (:gsl_wavelet_workspace_free, libgsl), Void,
+    ccall( (:gsl_wavelet_workspace_free, libgsl), Nothing,
         (Ref{gsl_wavelet_workspace}, ), work )
 end

@@ -52,8 +52,8 @@ end
 
 # This function frees the memory associated with the table t.
 #
-#   Returns: Void
+#   Returns: Nothing
 function integration_glfixed_table_free(t::Ref{gsl_integration_glfixed_table})
-    ccall( (:gsl_integration_glfixed_table_free, libgsl), Void,
+    ccall( (:gsl_integration_glfixed_table_free, libgsl), Nothing,
         (Ref{gsl_integration_glfixed_table}, ), t )
 end

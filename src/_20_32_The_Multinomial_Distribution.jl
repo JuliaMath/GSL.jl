@@ -21,9 +21,9 @@ export ran_multinomial, ran_multinomial_pdf, ran_multinomial_lnpdf
 # Davis, The computer generation of multinomial random variates, Comp. Stat.
 # Data Anal. 16 (1993) 205–217 for details).
 # 
-#   Returns: Void
+#   Returns: Nothing
 function ran_multinomial(r::Ref{gsl_rng}, K::Integer, N::Integer, p::Real)
-    ccall( (:gsl_ran_multinomial, libgsl), Void, (Ref{gsl_rng}, Csize_t,
+    ccall( (:gsl_ran_multinomial, libgsl), Nothing, (Ref{gsl_rng}, Csize_t,
         Cuint, Cdouble), r, K, N, p )
 end
 

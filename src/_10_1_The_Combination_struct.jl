@@ -6,7 +6,7 @@
 ###############################
 export gsl_combination
 
-type gsl_combination
+mutable struct gsl_combination
     n::Csize_t
     k::Csize_t
     data::Ptr{Csize_t}

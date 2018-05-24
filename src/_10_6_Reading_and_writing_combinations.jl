@@ -17,8 +17,8 @@ export combination_fwrite, combination_fread, combination_fprintf,
 # it may not be portable between different architectures.
 # 
 #   Returns: Cint
-function combination_fwrite(stream::Ref{Void}, c::Ref{gsl_combination})
-    errno = ccall( (:gsl_combination_fwrite, libgsl), Cint, (Ref{Void},
+function combination_fwrite(stream::Ref{Nothing}, c::Ref{gsl_combination})
+    errno = ccall( (:gsl_combination_fwrite, libgsl), Cint, (Ref{Nothing},
         Ref{gsl_combination}), stream, c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -32,9 +32,9 @@ end
 # native binary format on the same architecture.
 # 
 #   Returns: Cint
-function combination_fread(stream::Ref{Void})
+function combination_fread(stream::Ref{Nothing})
     c = Ref{gsl_combination}()
-    errno = ccall( (:gsl_combination_fread, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_combination_fread, libgsl), Cint, (Ref{Nothing},
         Ref{gsl_combination}), stream, c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c[]
@@ -48,9 +48,9 @@ end
 # a problem writing to the file.
 # 
 #   Returns: Cint
-function combination_fprintf(stream::Ref{Void}, c::Ref{gsl_combination})
+function combination_fprintf(stream::Ref{Nothing}, c::Ref{gsl_combination})
     format = Ref{Cchar}()
-    errno = ccall( (:gsl_combination_fprintf, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_combination_fprintf, libgsl), Cint, (Ref{Nothing},
         Ref{gsl_combination}, Ref{Cchar}), stream, c, format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return format[]
@@ -64,9 +64,9 @@ end
 # from the file.
 # 
 #   Returns: Cint
-function combination_fscanf(stream::Ref{Void})
+function combination_fscanf(stream::Ref{Nothing})
     c = Ref{gsl_combination}()
-    errno = ccall( (:gsl_combination_fscanf, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_combination_fscanf, libgsl), Cint, (Ref{Nothing},
         Ref{gsl_combination}), stream, c )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c[]

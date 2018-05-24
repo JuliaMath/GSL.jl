@@ -18,11 +18,11 @@ export ran_bivariate_gaussian, ran_bivariate_gaussian_pdf
 # -\infty to +\infty.  The correlation coefficient rho should lie between 1 and
 # -1.
 # 
-#   Returns: Void
+#   Returns: Nothing
 function ran_bivariate_gaussian(r::Ref{gsl_rng}, sigma_x::Real, sigma_y::Real, rho::Real)
     x = Ref{Cdouble}()
     y = Ref{Cdouble}()
-    ccall( (:gsl_ran_bivariate_gaussian, libgsl), Void, (Ref{gsl_rng},
+    ccall( (:gsl_ran_bivariate_gaussian, libgsl), Nothing, (Ref{gsl_rng},
         Cdouble, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), r, sigma_x,
         sigma_y, rho, x, y )
     return x[], y[]

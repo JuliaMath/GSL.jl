@@ -53,7 +53,7 @@ function poly_complex_solve_quadratic(a::Cdouble, b::Cdouble, c::Cdouble)
     z0 = Ref{Complex128}()
     z1 = Ref{Complex128}()
     num_roots = ccall( (:gsl_poly_complex_solve_quadratic, libgsl), Cint,
-        (Cdouble, Cdouble, Cdouble, Ref{Void}, Ref{Void}), a, b,
+        (Cdouble, Cdouble, Cdouble, Ref{Nothing}, Ref{Nothing}), a, b,
         c, z0, z1 )
     if num_roots==0
         nothing

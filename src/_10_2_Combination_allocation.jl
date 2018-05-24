@@ -39,10 +39,10 @@ Compat.@dep_vectorize_2arg Number combination_calloc
 # This function initializes the combination c to the lexicographically first
 # combination, i.e.  (0,1,2,...,k-1).
 #
-#   Returns: Void
+#   Returns: Nothing
 function combination_init_first()
     c = Ref{gsl_combination}()
-    ccall( (:gsl_combination_init_first, libgsl), Void,
+    ccall( (:gsl_combination_init_first, libgsl), Nothing,
         (Ref{gsl_combination}, ), c )
     return c[]
 end
@@ -51,10 +51,10 @@ end
 # This function initializes the combination c to the lexicographically last
 # combination, i.e.  (n-k,n-k+1,...,n-1).
 #
-#   Returns: Void
+#   Returns: Nothing
 function combination_init_last()
     c = Ref{gsl_combination}()
-    ccall( (:gsl_combination_init_last, libgsl), Void,
+    ccall( (:gsl_combination_init_last, libgsl), Nothing,
         (Ref{gsl_combination}, ), c )
     return c[]
 end
@@ -62,9 +62,9 @@ end
 
 # This function frees all the memory used by the combination c.
 #
-#   Returns: Void
+#   Returns: Nothing
 function combination_free(c::Ref{gsl_combination})
-    ccall( (:gsl_combination_free, libgsl), Void, (Ref{gsl_combination},
+    ccall( (:gsl_combination_free, libgsl), Nothing, (Ref{gsl_combination},
         ), c )
 end
 

@@ -62,9 +62,9 @@ Compat.@dep_vectorize_1arg Number monte_miser_integrate
 
 # This function frees the memory associated with the integrator state s.
 #
-#   Returns: Void
+#   Returns: Nothing
 function monte_miser_free(s::Ref{gsl_monte_miser_state})
-    ccall( (:gsl_monte_miser_free, libgsl), Void,
+    ccall( (:gsl_monte_miser_free, libgsl), Nothing,
         (Ref{gsl_monte_miser_state}, ), s )
 end
 
@@ -72,10 +72,10 @@ end
 # This function copies the parameters of the integrator state into the user-
 # supplied params structure.
 #
-#   Returns: Void
+#   Returns: Nothing
 function monte_miser_params_get(s::Ref{gsl_monte_miser_state})
     params = Ref{gsl_monte_miser_params}()
-    ccall( (:gsl_monte_miser_params_get, libgsl), Void,
+    ccall( (:gsl_monte_miser_params_get, libgsl), Nothing,
         (Ref{gsl_monte_miser_state}, Ref{gsl_monte_miser_params}), s, params )
     return params[]
 end
@@ -84,8 +84,8 @@ end
 # This function sets the integrator parameters based on values provided in the
 # params structure.
 #
-#   Returns: Void
+#   Returns: Nothing
 function monte_miser_params_set(s::Ref{gsl_monte_miser_state}, params::Ref{gsl_monte_miser_params})
-    ccall( (:gsl_monte_miser_params_set, libgsl), Void,
+    ccall( (:gsl_monte_miser_params_set, libgsl), Nothing,
         (Ref{gsl_monte_miser_state}, Ref{gsl_monte_miser_params}), s, params )
 end

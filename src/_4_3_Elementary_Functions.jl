@@ -93,7 +93,7 @@ Compat.@dep_vectorize_2arg Number ldexp
 # provides an alternative to the standard math function frexp(x, e).
 # 
 #   Returns: Cdouble
-function frexp{tA<:Integer}(x::Real, e_in::AbstractVector{tA})
+function frexp(x::Real, e_in::AbstractVector{tA}) where tA <: Integer
     e = convert(Vector{Cint}, e_in)
     ccall( (:gsl_frexp, libgsl), Cdouble, (Cdouble, Ref{Cint}), x, e )
 end

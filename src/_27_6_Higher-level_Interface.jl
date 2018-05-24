@@ -32,9 +32,9 @@ end
 
 #
 #
-#   Returns: Void
+#   Returns: Nothing
 function spline_free(spline::Ref{gsl_spline})
-    ccall( (:gsl_spline_free, libgsl), Void, (Ref{gsl_spline}, ), spline )
+    ccall( (:gsl_spline_free, libgsl), Nothing, (Ref{gsl_spline}, ), spline )
 end
 
 

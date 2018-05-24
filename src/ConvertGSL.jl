@@ -18,7 +18,7 @@ complex_packed_ptr(c::Vector{Cdouble}) = Complex128[c[2i-1]+im*c[2i] for i=1:int
 custom_error_handler(reason::Ptr{UInt8}, file::Ptr{UInt8}, line::Integer, errno::Integer) =
     custom_error_handler(bytestring(reason), bytestring(file), line, errno)
 
-type GSLError <: Exception
+mutable struct GSLError <: Exception
     errno :: Int32
     reason :: AbstractString
     file :: AbstractString
@@ -52,7 +52,7 @@ function custom_error_handler(reason::AbstractString, file::AbstractString, line
     end
 end
 
-GSL_ERROR{T<:Integer}(errno::T) = custom_error_handler("", "None", 0, errno)
+GSL_ERROR(errno::T) where {T <: Integer} = custom_error_handler("", "None", 0, errno)
 
 # This is the first point in loading the package where we try to actually access
 # a function from within libgsl. This will fail if libgsl is not installed or
