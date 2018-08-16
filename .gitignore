@@ -1,3 +1,4 @@
 deps/deps.jl
+deps/build.log
 html_node
 *.html #Ignore HTML documentation
