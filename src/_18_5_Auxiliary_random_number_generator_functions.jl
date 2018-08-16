@@ -50,9 +50,9 @@ end
 # void * state = gsl_rng_state (r);           size_t n = gsl_rng_size (r);
 # fwrite (state, n, 1, stream);
 #
-#   Returns: Ptr{Void}
+#   Returns: Ptr{Cvoid}
 function rng_state(r::Ref{gsl_rng})
-    output_ptr = ccall( (:gsl_rng_state, libgsl), Ptr{Void},
+    output_ptr = ccall( (:gsl_rng_state, libgsl), Ptr{Cvoid},
         (Ref{gsl_rng}, ), r )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end

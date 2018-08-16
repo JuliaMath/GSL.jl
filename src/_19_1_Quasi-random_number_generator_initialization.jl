@@ -22,9 +22,9 @@ end
 
 # This function frees all the memory associated with the generator q.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function qrng_free(q::Ref{gsl_qrng})
-    ccall( (:gsl_qrng_free, libgsl), Void, (Ref{gsl_qrng}, ), q )
+    ccall( (:gsl_qrng_free, libgsl), Cvoid, (Ref{gsl_qrng}, ), q )
 end
 
 
@@ -32,7 +32,7 @@ end
 # quasi-random sequences do not use a seed and always produce the same set of
 # values.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function qrng_init(q::Ref{gsl_qrng})
-    ccall( (:gsl_qrng_init, libgsl), Void, (Ref{gsl_qrng}, ), q )
+    ccall( (:gsl_qrng_init, libgsl), Cvoid, (Ref{gsl_qrng}, ), q )
 end

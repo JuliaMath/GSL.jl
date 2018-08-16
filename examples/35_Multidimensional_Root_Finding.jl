@@ -13,7 +13,7 @@ v = ccall((:gsl_vector_alloc, GSL.libgsl), Ptr{gsl_vector}, (Csize_t,), n)
 
 # #vector_set
 for i=1:n
-    ccall((:gsl_vector_set, GSL.libgsl), Void, (Ptr{gsl_vector}, Csize_t, Cdouble), v, i-1, v0[i])
+    ccall((:gsl_vector_set, GSL.libgsl), Cvoid, (Ptr{gsl_vector}, Csize_t, Cdouble), v, i-1, v0[i])
 end
 
 dnewton_ptr_ptr = cglobal((:gsl_multiroot_fsolver_dnewton, GSL.libgsl), Ptr{GSL.gsl_multiroot_fsolver_type})
@@ -35,7 +35,7 @@ end
 function function_callback(x::Ptr{gsl_vector}, jlfunc::Function, f::Ptr{gsl_vector})
     convert(Cint, jlfunc(gsl_vector_ptr(x, n), gsl_vector_ptr(f, n)))::Cint
 end
-const function_callback_ptr = cfunction(function_callback, Cint, Tuple{Ptr{gsl_vector}, Ref{Function}, Ptr{gsl_vector}})
+const function_callback_ptr = @cfunction(function_callback, Cint, (Ptr{gsl_vector}, Ref{Function}, Ptr{gsl_vector}))
 
 f = function(x, f)
     f[:] = (x - (-3:2:5)) .^ 2

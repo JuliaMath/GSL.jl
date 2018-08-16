@@ -13,10 +13,10 @@ export histogram_fwrite, histogram_fread, histogram_fprintf, histogram_fscanf
 # stream in binary format.  The return value is 0 for success and GSL_EFAILED
 # if there was a problem writing to the file.  Since the data is written in the
 # native binary format it may not be portable between different architectures.
-# 
+#
 #   Returns: Cint
-function histogram_fwrite(stream::Ref{Void}, h::Ref{gsl_histogram})
-    errno = ccall( (:gsl_histogram_fwrite, libgsl), Cint, (Ref{Void},
+function histogram_fwrite(stream::Ref{Cvoid}, h::Ref{gsl_histogram})
+    errno = ccall( (:gsl_histogram_fwrite, libgsl), Cint, (Ref{Cvoid},
         Ref{gsl_histogram}), stream, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -28,11 +28,11 @@ end
 # to read.  The return value is 0 for success and GSL_EFAILED if there was a
 # problem reading from the file.  The data is assumed to have been written in
 # the native binary format on the same architecture.
-# 
+#
 #   Returns: Cint
-function histogram_fread(stream::Ref{Void})
+function histogram_fread(stream::Ref{Cvoid})
     h = Ref{gsl_histogram}()
-    errno = ccall( (:gsl_histogram_fread, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_histogram_fread, libgsl), Cint, (Ref{Cvoid},
         Ref{gsl_histogram}), stream, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
@@ -53,12 +53,12 @@ end
 # upper limit of one bin is the lower limit of the next there is duplication of
 # these values between lines but this allows the histogram to be manipulated
 # with line-oriented tools.
-# 
+#
 #   Returns: Cint
-function histogram_fprintf(stream::Ref{Void}, h::Ref{gsl_histogram})
+function histogram_fprintf(stream::Ref{Cvoid}, h::Ref{gsl_histogram})
     range_format = Ref{Cchar}()
     bin_format = Ref{Cchar}()
-    errno = ccall( (:gsl_histogram_fprintf, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_histogram_fprintf, libgsl), Cint, (Ref{Cvoid},
         Ref{gsl_histogram}, Ref{Cchar}, Ref{Cchar}), stream, h, range_format,
         bin_format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -72,11 +72,11 @@ end
 # length since the function uses the size of h to determine how many numbers to
 # read.  The function returns 0 for success and GSL_EFAILED if there was a
 # problem reading from the file.
-# 
+#
 #   Returns: Cint
-function histogram_fscanf(stream::Ref{Void})
+function histogram_fscanf(stream::Ref{Cvoid})
     h = Ref{gsl_histogram}()
-    errno = ccall( (:gsl_histogram_fscanf, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_histogram_fscanf, libgsl), Cint, (Ref{Cvoid},
         Ref{gsl_histogram}), stream, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]

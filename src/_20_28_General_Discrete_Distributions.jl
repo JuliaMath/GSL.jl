@@ -51,8 +51,8 @@ end
 
 # De-allocates the lookup table pointed to by g.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function ran_discrete_free(g::Ref{gsl_ran_discrete_t})
-    ccall( (:gsl_ran_discrete_free, libgsl), Void,
+    ccall( (:gsl_ran_discrete_free, libgsl), Cvoid,
         (Ref{gsl_ran_discrete_t}, ), g )
 end

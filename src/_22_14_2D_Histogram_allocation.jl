@@ -57,8 +57,8 @@ end
 # This function frees the 2D histogram h and all of the memory associated with
 # it.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function histogram2d_free(h::Ref{gsl_histogram2d})
-    ccall( (:gsl_histogram2d_free, libgsl), Void, (Ref{gsl_histogram2d},
+    ccall( (:gsl_histogram2d_free, libgsl), Cvoid, (Ref{gsl_histogram2d},
         ), h )
 end

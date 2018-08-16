@@ -9,10 +9,10 @@ export ran_dir_2d, ran_dir_2d_trig_method, ran_dir_3d,
 
 for ran_dir in (:ran_dir_2d, :ran_dir_2d_trig_method)
     @eval begin
-        function ($ran_dir)(r::Ref{Void})
+        function ($ran_dir)(r::Ref{Cvoid})
             x = Ref{Cdouble}()
             y = Ref{Cdouble}()
-            ccall( ($(string("gsl_", ran_dir)), libgsl), Void, (Ref{Void}, Ref{Cdouble},
+            ccall( ($(string("gsl_", ran_dir)), libgsl), Cvoid, (Ref{Cvoid}, Ref{Cdouble},
                 Ref{Cdouble}), r, x, y)
             return x[1], y[1]
         end
@@ -27,12 +27,12 @@ end
 # distribution projected along any axis is actually uniform (this is only true
 # for 3 dimensions).
 #
-#   Returns: Void
-function ran_dir_3d(r::Ref{Void})
+#   Returns: Cvoid
+function ran_dir_3d(r::Ref{Cvoid})
     x = Ref{Cdouble}()
     y = Ref{Cdouble}()
     z = Ref{Cdouble}()
-    ccall( (:gsl_ran_dir_3d, libgsl), Void, (Ref{Void}, Ref{Cdouble},
+    ccall( (:gsl_ran_dir_3d, libgsl), Cvoid, (Ref{Cvoid}, Ref{Cdouble},
         Ref{Cdouble}, Ref{Cdouble}), r, x, y, z )
     return x[1], y[1], z[1]
 end
@@ -46,10 +46,10 @@ end
 # described by Knuth, v2, 3rd ed, p135–136, and attributed to G. W. Brown,
 # Modern Mathematics for the Engineer (1956).
 #
-#   Returns: Void
-function ran_dir_nd(r::Ref{Void}, n::Csize_t)
-    x = Vector{Cdouble}(n)
-    ccall( (:gsl_ran_dir_nd, libgsl), Void, (Ref{Void}, Csize_t,
+#   Returns: Cvoid
+function ran_dir_nd(r::Ref{Cvoid}, n::Csize_t)
+    x = Vector{Cdouble}(undef, n)
+    ccall( (:gsl_ran_dir_nd, libgsl), Cvoid, (Ref{Cvoid}, Csize_t,
         Ref{Cdouble}), r, n, x)
     return x
 end

@@ -25,9 +25,9 @@ Compat.@dep_vectorize_1arg Number integration_cquad_workspace_alloc
 
 # This function frees the memory associated with the workspace w.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function integration_cquad_workspace_free(w::Ref{gsl_integration_cquad_workspace})
-    ccall( (:gsl_integration_cquad_workspace_free, libgsl), Void,
+    ccall( (:gsl_integration_cquad_workspace_free, libgsl), Cvoid,
         (Ref{gsl_integration_cquad_workspace}, ), w )
 end
 

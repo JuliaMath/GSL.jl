@@ -6,7 +6,7 @@
 ##############################
 export gsl_permutation
 
-type gsl_permutation
+mutable struct gsl_permutation
     size::Csize_t
     data::Ptr{Csize_t}
 end

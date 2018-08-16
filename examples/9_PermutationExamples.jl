@@ -7,40 +7,40 @@
 using GSL
 
 N = 10
-     
+
 p = permutation_alloc(N)
-     
+
 T = rng_env_setup()
 r = rng_alloc(T)
-     
-print("initial permutation:")  
+
+print("initial permutation:")
 permutation_init(p)
 #permutation_fprintf(stdout, p, " %u")
 for x in pointer_to_array(unsafe_ref(p).data, (int(unsafe_ref(p).size),))
     print(int(x), " ")
 end
 println()
-     
-print(" random permutation:")  
-ran_shuffle(r, convert(Ptr{Void}, unsafe_ref(p).data), N, sizeof(Uint64))
+
+print(" random permutation:")
+ran_shuffle(r, convert(Ptr{Cvoid}, unsafe_ref(p).data), N, sizeof(Uint64))
 #permutation_fprintf(stdout, p, " %u")
 for x in pointer_to_array(unsafe_ref(p).data, (int(unsafe_ref(p).size),))
     print(int(x), " ")
 end
 println()
-     
-print("inverse permutation:")  
+
+print("inverse permutation:")
 q = permutation_inverse(p)
 #permutation_fprintf(stdout, q, " %u")
 for x in pointer_to_array(unsafe_ref(q).data, (int(unsafe_ref(q).size),))
     print(int(x), " ")
 end
 println()
-     
+
 permutation_free(p)
 permutation_free(q)
 rng_free(r)
-     
+
 #Here is the output from the program,
 #
 #     $ ./a.out
@@ -59,7 +59,7 @@ while true
         #permutation_fprintf(stdout, p, " %u")
         for x in pointer_to_array(unsafe_ref(p).data, (int(unsafe_ref(p).size),))
             print(int(x), " ")
-        end 
+        end
         println()
         p=permutation_next(p)
     catch Ex
@@ -68,7 +68,7 @@ while true
     end
 end
 permutation_free(p)
-    
+
 #Here is the output from the program,
 #
 #     $ ./a.out

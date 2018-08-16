@@ -20,10 +20,10 @@ export ran_multinomial, ran_multinomial_pdf, ran_multinomial_lnpdf
 # Random variates are generated using the conditional binomial method (see C.S.
 # Davis, The computer generation of multinomial random variates, Comp. Stat.
 # Data Anal. 16 (1993) 205–217 for details).
-# 
-#   Returns: Void
+#
+#   Returns: Cvoid
 function ran_multinomial(r::Ref{gsl_rng}, K::Integer, N::Integer, p::Real)
-    ccall( (:gsl_ran_multinomial, libgsl), Void, (Ref{gsl_rng}, Csize_t,
+    ccall( (:gsl_ran_multinomial, libgsl), Cvoid, (Ref{gsl_rng}, Csize_t,
         Cuint, Cdouble), r, K, N, p )
 end
 
@@ -31,7 +31,7 @@ end
 # This function computes the probability  P(n_1, n_2, ..., n_K) of sampling
 # n[K] from a multinomial distribution with parameters p[K], using the formula
 # given above.
-# 
+#
 #   Returns: Cdouble
 function ran_multinomial_pdf(K::Integer, p::Real)
     ccall( (:gsl_ran_multinomial_pdf, libgsl), Cdouble, (Csize_t,
@@ -42,7 +42,7 @@ Compat.@dep_vectorize_2arg Number ran_multinomial_pdf
 
 # This function returns the logarithm of the probability for the multinomial
 # distribution  P(n_1, n_2, ..., n_K) with parameters p[K].
-# 
+#
 #   Returns: Cdouble
 function ran_multinomial_lnpdf(K::Integer, p::Real)
     ccall( (:gsl_ran_multinomial_lnpdf, libgsl), Cdouble, (Csize_t,

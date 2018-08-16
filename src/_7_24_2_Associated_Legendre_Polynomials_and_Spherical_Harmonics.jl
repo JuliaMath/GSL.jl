@@ -12,7 +12,7 @@ export sf_legendre_Plm, sf_legendre_Plm_e, sf_legendre_Plm_array,
 
 # These routines compute the associated Legendre polynomial P_l^m(x) for  m >=
 # 0,  l >= m,  |x| <= 1.
-# 
+#
 #   Returns: Cdouble
 function sf_legendre_Plm(l::Integer, m::Integer, x::Real)
     ccall( (:gsl_sf_legendre_Plm, libgsl), Cdouble, (Cint, Cint, Cdouble),
@@ -22,7 +22,7 @@ end
 
 # These routines compute the associated Legendre polynomial P_l^m(x) for  m >=
 # 0,  l >= m,  |x| <= 1.
-# 
+#
 #   Returns: Cint
 function sf_legendre_Plm_e(l::Integer, m::Integer, x::Real)
     result = Ref{gsl_sf_result}()
@@ -35,11 +35,11 @@ end
 
 # These functions compute arrays of Legendre polynomials P_l^m(x) and
 # derivatives dP_l^m(x)/dx, for  m >= 0,  l = |m|, ..., lmax,  |x| <= 1.
-# 
+#
 #   Returns: Cint
 function sf_legendre_Plm_array(lmax::Integer, m::Integer, x::Real)
     @assert lmax >= m
-    result_array = Vector{Cdouble}(lmax - m + 1)
+    result_array = Vector{Cdouble}(undef, lmax - m + 1)
     errno = ccall( (:gsl_sf_legendre_Plm_array, libgsl), Cint, (Cint,
         Cint, Cdouble, Ref{Cdouble}), lmax, m, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -49,12 +49,12 @@ end
 
 # These functions compute arrays of Legendre polynomials P_l^m(x) and
 # derivatives dP_l^m(x)/dx, for  m >= 0,  l = |m|, ..., lmax,  |x| <= 1.
-# 
+#
 #   Returns: Cint
 function sf_legendre_Plm_deriv_array(lmax::Integer, m::Integer, x::Real)
     @assert lmax >= m
-    result_array = Vector{Cdouble}(lmax - m + 1)
-    result_deriv_array = Vector{Cdouble}(lmax - m + 1)
+    result_array = Vector{Cdouble}(undef, lmax - m + 1)
+    result_deriv_array = Vector{Cdouble}(undef, lmax - m + 1)
     errno = ccall( (:gsl_sf_legendre_Plm_deriv_array, libgsl), Cint,
         (Cint, Cint, Cdouble, Ref{Cdouble}, Ref{Cdouble}), lmax, m, x, result_array, result_deriv_array)
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -67,7 +67,7 @@ end
 # spherical harmonics.  The parameters must satisfy  m >= 0,  l >= m,  |x| <=
 # 1. Theses routines avoid the overflows that occur for the standard
 # normalization of P_l^m(x).
-# 
+#
 #   Returns: Cdouble
 function sf_legendre_sphPlm(l::Integer, m::Integer, x::Real)
     ccall( (:gsl_sf_legendre_sphPlm, libgsl), Cdouble, (Cint, Cint,
@@ -80,7 +80,7 @@ end
 # spherical harmonics.  The parameters must satisfy  m >= 0,  l >= m,  |x| <=
 # 1. Theses routines avoid the overflows that occur for the standard
 # normalization of P_l^m(x).
-# 
+#
 #   Returns: Cint
 function sf_legendre_sphPlm_e(l::Integer, m::Integer, x::Real)
     result = Ref{gsl_sf_result}()
@@ -94,11 +94,11 @@ end
 # These functions compute arrays of normalized associated Legendre functions
 # \sqrt{(2l+1)/(4\pi)} \sqrt{(l-m)!/(l+m)!} P_l^m(x), and derivatives, for  m
 # >= 0,  l = |m|, ..., lmax,  |x| <= 1.0
-# 
+#
 #   Returns: Cint
 function sf_legendre_sphPlm_array(lmax::Integer, m::Integer, x::Real)
     @assert lmax >= m
-    result_array = Vector{Cdouble}(lmax - m + 1)
+    result_array = Vector{Cdouble}(undef, lmax - m + 1)
     errno = ccall( (:gsl_sf_legendre_sphPlm_array, libgsl), Cint, (Cint,
         Cint, Cdouble, Ref{Cdouble}), lmax, m, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -109,12 +109,12 @@ end
 # These functions compute arrays of normalized associated Legendre functions
 # \sqrt{(2l+1)/(4\pi)} \sqrt{(l-m)!/(l+m)!} P_l^m(x), and derivatives, for  m
 # >= 0,  l = |m|, ..., lmax,  |x| <= 1.0
-# 
+#
 #   Returns: Cint
 function sf_legendre_sphPlm_deriv_array(lmax::Integer, m::Integer, x::Real)
     @assert lmax >= m
-    result_array = Vector{Cdouble}(lmax - m + 1)
-    result_deriv_array = Vector{Cdouble}(lmax - m + 1)
+    result_array = Vector{Cdouble}(undef, lmax - m + 1)
+    result_deriv_array = Vector{Cdouble}(undef, lmax - m + 1)
     errno = ccall( (:gsl_sf_legendre_sphPlm_deriv_array, libgsl), Cint,
         (Cint, Cint, Cdouble, Ref{Cdouble}, Ref{Cdouble}), lmax, m, x, result_array, result_deriv_array)
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -125,7 +125,7 @@ end
 # This function returns the size of result_array[] needed for the array
 # versions of P_l^m(x), lmax - m + 1.  An inline version of this function is
 # used when HAVE_INLINE is defined.
-# 
+#
 #   Returns: Cint
 function sf_legendre_array_size(lmax::Integer, m::Integer)
     errno = ccall( (:gsl_sf_legendre_array_size, libgsl), Cint, (Cint,

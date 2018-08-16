@@ -52,8 +52,8 @@ export ieee_env_setup
 # units do not have a precision-control bit, and always work in double-
 # precision.  The single-precision and extended-precision keywords have no
 # effect in this case.
-# 
-#   Returns: Void
+#
+#   Returns: Cvoid
 function ieee_env_setup()
-    ccall( (:gsl_ieee_env_setup, libgsl), Void, () )
+    ccall( (:gsl_ieee_env_setup, libgsl), Cvoid, () )
 end

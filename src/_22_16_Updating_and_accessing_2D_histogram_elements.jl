@@ -18,7 +18,7 @@ export histogram2d_increment, histogram2d_accumulate, histogram2d_get,
 # handler is not called, since it is often necessary to compute histograms for
 # a small range of a larger dataset, ignoring any coordinates outside the range
 # of interest.
-# 
+#
 #   Returns: Cint
 function histogram2d_increment(x::Real, y::Real)
     h = Ref{gsl_histogram2d}()
@@ -33,7 +33,7 @@ Compat.@dep_vectorize_2arg Number histogram2d_increment
 # This function is similar to gsl_histogram2d_increment but increases the value
 # of the appropriate bin in the histogram h by the floating-point number
 # weight.
-# 
+#
 #   Returns: Cint
 function histogram2d_accumulate(x::Real, y::Real, weight::Real)
     h = Ref{gsl_histogram2d}()
@@ -48,7 +48,7 @@ end
 # If (i,j) lies outside the valid range of indices for the histogram then the
 # error handler is called with an error code of GSL_EDOM and the function
 # returns 0.
-# 
+#
 #   Returns: Cdouble
 function histogram2d_get(h::Ref{gsl_histogram2d}, i::Integer, j::Integer)
     ccall( (:gsl_histogram2d_get, libgsl), Cdouble, (Ref{gsl_histogram2d},
@@ -65,7 +65,7 @@ end
 # functions return 0 to indicate success.  If i or j lies outside the valid
 # range of indices for the histogram then the error handler is called with an
 # error code of GSL_EDOM.
-# 
+#
 #   Returns: Cint
 function histogram2d_get_xrange(h::Ref{gsl_histogram2d}, i::Integer)
     xlower = Ref{Cdouble}()
@@ -87,7 +87,7 @@ end
 # functions return 0 to indicate success.  If i or j lies outside the valid
 # range of indices for the histogram then the error handler is called with an
 # error code of GSL_EDOM.
-# 
+#
 #   Returns: Cint
 function histogram2d_get_yrange(h::Ref{gsl_histogram2d}, j::Integer)
     ylower = Ref{Cdouble}()
@@ -104,7 +104,7 @@ end
 # the number of bins for the x and y directions of the histogram h.  They
 # provide a way of determining these values without accessing the
 # gsl_histogram2d struct directly.
-# 
+#
 #   Returns: Cdouble
 function histogram2d_xmax(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_xmax, libgsl), Cdouble,
@@ -116,7 +116,7 @@ end
 # the number of bins for the x and y directions of the histogram h.  They
 # provide a way of determining these values without accessing the
 # gsl_histogram2d struct directly.
-# 
+#
 #   Returns: Cdouble
 function histogram2d_xmin(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_xmin, libgsl), Cdouble,
@@ -128,7 +128,7 @@ end
 # the number of bins for the x and y directions of the histogram h.  They
 # provide a way of determining these values without accessing the
 # gsl_histogram2d struct directly.
-# 
+#
 #   Returns: Csize_t
 function histogram2d_nx(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_nx, libgsl), Csize_t, (Ref{gsl_histogram2d},
@@ -140,7 +140,7 @@ end
 # the number of bins for the x and y directions of the histogram h.  They
 # provide a way of determining these values without accessing the
 # gsl_histogram2d struct directly.
-# 
+#
 #   Returns: Cdouble
 function histogram2d_ymax(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_ymax, libgsl), Cdouble,
@@ -152,7 +152,7 @@ end
 # the number of bins for the x and y directions of the histogram h.  They
 # provide a way of determining these values without accessing the
 # gsl_histogram2d struct directly.
-# 
+#
 #   Returns: Cdouble
 function histogram2d_ymin(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_ymin, libgsl), Cdouble,
@@ -164,7 +164,7 @@ end
 # the number of bins for the x and y directions of the histogram h.  They
 # provide a way of determining these values without accessing the
 # gsl_histogram2d struct directly.
-# 
+#
 #   Returns: Csize_t
 function histogram2d_ny(h::Ref{gsl_histogram2d})
     ccall( (:gsl_histogram2d_ny, libgsl), Csize_t, (Ref{gsl_histogram2d},
@@ -173,11 +173,11 @@ end
 
 
 # This function resets all the bins of the histogram h to zero.
-# 
-#   Returns: Void
+#
+#   Returns: Cvoid
 function histogram2d_reset()
     h = Ref{gsl_histogram2d}()
-    ccall( (:gsl_histogram2d_reset, libgsl), Void, (Ref{gsl_histogram2d},
+    ccall( (:gsl_histogram2d_reset, libgsl), Cvoid, (Ref{gsl_histogram2d},
         ), h )
     return h[]
 end

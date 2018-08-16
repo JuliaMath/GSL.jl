@@ -32,10 +32,10 @@ export heapsort, heapsort_index
 # pointers for equal elements in the comparison function does not work for the
 # heapsort algorithm.  The heapsort algorithm performs an internal
 # rearrangement of the data which destroys its initial ordering.
-# 
-#   Returns: Void
-function heapsort(array::Ref{Void}, count::Integer, size::Integer, compare::gsl_comparison_fn_t)
-    ccall( (:gsl_heapsort, libgsl), Void, (Ref{Void}, Csize_t, Csize_t,
+#
+#   Returns: Cvoid
+function heapsort(array::Ref{Cvoid}, count::Integer, size::Integer, compare::gsl_comparison_fn_t)
+    ccall( (:gsl_heapsort, libgsl), Cvoid, (Ref{Cvoid}, Csize_t, Csize_t,
         gsl_comparison_fn_t), array, count, size, compare )
 end
 
@@ -47,12 +47,12 @@ end
 # position if the array had been sorted in place.  The first element of p gives
 # the index of the least element in array, and the last element of p gives the
 # index of the greatest element in array.  The array itself is not changed.
-# 
+#
 #   Returns: Cint
-function heapsort_index(array::Ref{Void}, count::Integer, size::Integer, compare::gsl_comparison_fn_t)
+function heapsort_index(array::Ref{Cvoid}, count::Integer, size::Integer, compare::gsl_comparison_fn_t)
     p = Ref{Csize_t}()
     errno = ccall( (:gsl_heapsort_index, libgsl), Cint, (Ref{Csize_t},
-        Ref{Void}, Csize_t, Csize_t, gsl_comparison_fn_t), p, array, count,
+        Ref{Cvoid}, Csize_t, Csize_t, gsl_comparison_fn_t), p, array, count,
         size, compare )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return p[]

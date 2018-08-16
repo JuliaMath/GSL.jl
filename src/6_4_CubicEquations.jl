@@ -44,12 +44,12 @@ end
 #
 #   Returns: Cint
 function poly_complex_solve_cubic(a::Cdouble, b::Cdouble, c::Cdouble)
-    z0 = Ref{Complex128}()
-    z1 = Ref{Complex128}()
-    z2 = Ref{Complex128}()
+    z0 = Ref{ComplexF64}()
+    z1 = Ref{ComplexF64}()
+    z2 = Ref{ComplexF64}()
     num_roots = ccall((:gsl_poly_complex_solve_cubic, libgsl), Cint,
                       (Cdouble, Cdouble, Cdouble,
-                       Ptr{Complex128}, Ptr{Complex128}, Ptr{Complex128}),
+                       Ptr{ComplexF64}, Ptr{ComplexF64}, Ptr{ComplexF64}),
                       a, b, c, z0, z1, z2)
     if num_roots == 3
         return z0[], z1[], z2[]

@@ -18,7 +18,7 @@ export histogram_increment, histogram_accumulate, histogram_get,
 # and none of the bins are modified.  The error handler is not called, however,
 # since it is often necessary to compute histograms for a small range of a
 # larger dataset, ignoring the values outside the range of interest.
-# 
+#
 #   Returns: Cint
 function histogram_increment(x::Real)
     h = Ref{gsl_histogram}()
@@ -33,7 +33,7 @@ Compat.@dep_vectorize_1arg Number histogram_increment
 # This function is similar to gsl_histogram_increment but increases the value
 # of the appropriate bin in the histogram h by the floating-point number
 # weight.
-# 
+#
 #   Returns: Cint
 function histogram_accumulate(x::Real, weight::Real)
     h = Ref{gsl_histogram}()
@@ -48,7 +48,7 @@ Compat.@dep_vectorize_2arg Number histogram_accumulate
 # This function returns the contents of the i-th bin of the histogram h.  If i
 # lies outside the valid range of indices for the histogram then the error
 # handler is called with an error code of GSL_EDOM and the function returns 0.
-# 
+#
 #   Returns: Cdouble
 function histogram_get(h::Ref{gsl_histogram}, i::Integer)
     ccall( (:gsl_histogram_get, libgsl), Cdouble, (Ref{gsl_histogram},
@@ -65,7 +65,7 @@ end
 # indicate success.  If i lies outside the valid range of indices for the
 # histogram then the error handler is called and the function returns an error
 # code of GSL_EDOM.
-# 
+#
 #   Returns: Cint
 function histogram_get_range(h::Ref{gsl_histogram}, i::Integer)
     lower = Ref{Cdouble}()
@@ -81,7 +81,7 @@ end
 # These functions return the maximum upper and minimum lower range limits and
 # the number of bins of the histogram h.  They provide a way of determining
 # these values without accessing the gsl_histogram struct directly.
-# 
+#
 #   Returns: Cdouble
 function histogram_max(h::Ref{gsl_histogram})
     ccall( (:gsl_histogram_max, libgsl), Cdouble, (Ref{gsl_histogram}, ),
@@ -92,7 +92,7 @@ end
 # These functions return the maximum upper and minimum lower range limits and
 # the number of bins of the histogram h.  They provide a way of determining
 # these values without accessing the gsl_histogram struct directly.
-# 
+#
 #   Returns: Cdouble
 function histogram_min(h::Ref{gsl_histogram})
     ccall( (:gsl_histogram_min, libgsl), Cdouble, (Ref{gsl_histogram}, ),
@@ -103,7 +103,7 @@ end
 # These functions return the maximum upper and minimum lower range limits and
 # the number of bins of the histogram h.  They provide a way of determining
 # these values without accessing the gsl_histogram struct directly.
-# 
+#
 #   Returns: Csize_t
 function histogram_bins(h::Ref{gsl_histogram})
     ccall( (:gsl_histogram_bins, libgsl), Csize_t, (Ref{gsl_histogram}, ),
@@ -112,11 +112,11 @@ end
 
 
 # This function resets all the bins in the histogram h to zero.
-# 
-#   Returns: Void
+#
+#   Returns: Cvoid
 function histogram_reset()
     h = Ref{gsl_histogram}()
-    ccall( (:gsl_histogram_reset, libgsl), Void, (Ref{gsl_histogram}, ), h
+    ccall( (:gsl_histogram_reset, libgsl), Cvoid, (Ref{gsl_histogram}, ), h
         )
     return h[]
 end

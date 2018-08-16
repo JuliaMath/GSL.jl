@@ -1,67 +1,67 @@
 
 #Automatically generated list of dummy opaque pointer types
-type enumgsl_integration_qawo_enum; end
-type gsl_bspline_deriv_workspace; end
-type gsl_bspline_workspace; end
-type gsl_comparison_fn_t; end
-type gsl_complex_packed_ptr; end
-type gsl_dht; end
-type gsl_integration_cquad_workspace; end
-type gsl_integration_glfixed_table; end
-type gsl_integration_qawo_table; end
-type gsl_integration_qaws_table; end
-type gsl_integration_workspace; end
-type gsl_interp; end
-type gsl_interp_accel; end
-type gsl_interp_type; end
-type gsl_min_fminimizer; end
-type gsl_min_fminimizer_type; end
+mutable struct enumgsl_integration_qawo_enum; end
+mutable struct gsl_bspline_deriv_workspace; end
+mutable struct gsl_bspline_workspace; end
+mutable struct gsl_comparison_fn_t; end
+mutable struct gsl_complex_packed_ptr; end
+mutable struct gsl_dht; end
+mutable struct gsl_integration_cquad_workspace; end
+mutable struct gsl_integration_glfixed_table; end
+mutable struct gsl_integration_qawo_table; end
+mutable struct gsl_integration_qaws_table; end
+mutable struct gsl_integration_workspace; end
+mutable struct gsl_interp; end
+mutable struct gsl_interp_accel; end
+mutable struct gsl_interp_type; end
+mutable struct gsl_min_fminimizer; end
+mutable struct gsl_min_fminimizer_type; end
 const gsl_mode_t = Cint
-type gsl_monte_miser_params; end
-type gsl_monte_miser_state; end
-type gsl_monte_plain_state; end
-type gsl_monte_vegas_params; end
-type gsl_monte_vegas_state; end
-type gsl_multifit_fdfsolver; end
-type gsl_multifit_fdfsolver_type; end
-type gsl_multifit_fsolver; end
-type gsl_multifit_fsolver_type; end
-type gsl_multifit_linear_workspace; end
-type gsl_multimin_fdfminimizer; end
-type gsl_multimin_fdfminimizer_type; end
-type gsl_multimin_fminimizer; end
-type gsl_multimin_fminimizer_type; end
-type gsl_multiroot_fdfsolver; end
-type gsl_multiroot_fdfsolver_type; end
-type gsl_multiroot_fsolver; end
-type gsl_multiroot_fsolver_type; end
-type gsl_ntuple_select_fn; end
-type gsl_ntuple_value_fn; end
-type gsl_odeiv2_control; end
-type gsl_odeiv2_control_type; end
-type gsl_odeiv2_driver; end
-type gsl_odeiv2_evolve; end
-type gsl_odeiv2_step; end
-type gsl_odeiv2_step_type; end
-type gsl_poly_complex_workspace; end
-type gsl_qrng; end
-type gsl_qrng_type; end
-type gsl_ran_discrete_t; end
-type gsl_rng; end
-type gsl_rng_type; end
-type gsl_root_fdfsolver; end
-type gsl_root_fdfsolver_type; end
-type gsl_root_fsolver; end
-type gsl_root_fsolver_type; end
-type gsl_sf_mathieu_workspace; end
-type gsl_siman_copy_ruct_t; end
-type gsl_spline; end
-type gsl_sum_levin_u_workspace; end
-type gsl_sum_levin_utrunc_workspace; end
-type gsl_wavelet; end
-type gsl_wavelet_direction; end
-type gsl_wavelet_type; end
-type gsl_wavelet_workspace; end
+mutable struct gsl_monte_miser_params; end
+mutable struct gsl_monte_miser_state; end
+mutable struct gsl_monte_plain_state; end
+mutable struct gsl_monte_vegas_params; end
+mutable struct gsl_monte_vegas_state; end
+mutable struct gsl_multifit_fdfsolver; end
+mutable struct gsl_multifit_fdfsolver_type; end
+mutable struct gsl_multifit_fsolver; end
+mutable struct gsl_multifit_fsolver_type; end
+mutable struct gsl_multifit_linear_workspace; end
+mutable struct gsl_multimin_fdfminimizer; end
+mutable struct gsl_multimin_fdfminimizer_type; end
+mutable struct gsl_multimin_fminimizer; end
+mutable struct gsl_multimin_fminimizer_type; end
+mutable struct gsl_multiroot_fdfsolver; end
+mutable struct gsl_multiroot_fdfsolver_type; end
+mutable struct gsl_multiroot_fsolver; end
+mutable struct gsl_multiroot_fsolver_type; end
+mutable struct gsl_ntuple_select_fn; end
+mutable struct gsl_ntuple_value_fn; end
+mutable struct gsl_odeiv2_control; end
+mutable struct gsl_odeiv2_control_type; end
+mutable struct gsl_odeiv2_driver; end
+mutable struct gsl_odeiv2_evolve; end
+mutable struct gsl_odeiv2_step; end
+mutable struct gsl_odeiv2_step_type; end
+mutable struct gsl_poly_complex_workspace; end
+mutable struct gsl_qrng; end
+mutable struct gsl_qrng_type; end
+mutable struct gsl_ran_discrete_t; end
+mutable struct gsl_rng; end
+mutable struct gsl_rng_type; end
+mutable struct gsl_root_fdfsolver; end
+mutable struct gsl_root_fdfsolver_type; end
+mutable struct gsl_root_fsolver; end
+mutable struct gsl_root_fsolver_type; end
+mutable struct gsl_sf_mathieu_workspace; end
+mutable struct gsl_siman_copy_ruct_t; end
+mutable struct gsl_spline; end
+mutable struct gsl_sum_levin_u_workspace; end
+mutable struct gsl_sum_levin_utrunc_workspace; end
+mutable struct gsl_wavelet; end
+mutable struct gsl_wavelet_direction; end
+mutable struct gsl_wavelet_type; end
+mutable struct gsl_wavelet_workspace; end
 
 #Automatically generated include list
 #

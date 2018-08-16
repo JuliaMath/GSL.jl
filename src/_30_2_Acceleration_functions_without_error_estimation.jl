@@ -21,9 +21,9 @@ Compat.@dep_vectorize_1arg Number sum_levin_utrunc_alloc
 
 # This function frees the memory associated with the workspace w.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function sum_levin_utrunc_free(w::Ref{gsl_sum_levin_utrunc_workspace})
-    ccall( (:gsl_sum_levin_utrunc_free, libgsl), Void,
+    ccall( (:gsl_sum_levin_utrunc_free, libgsl), Cvoid,
         (Ref{gsl_sum_levin_utrunc_workspace}, ), w )
 end
 

@@ -12,10 +12,10 @@ export rng_fwrite, rng_fread
 # GSL_EFAILED if there was a problem writing to the file.  Since the data is
 # written in the native binary format it may not be portable between different
 # architectures.
-# 
+#
 #   Returns: Cint
-function rng_fwrite(stream::Ref{Void}, r::Ref{gsl_rng})
-    errno = ccall( (:gsl_rng_fwrite, libgsl), Cint, (Ref{Void},
+function rng_fwrite(stream::Ref{Cvoid}, r::Ref{gsl_rng})
+    errno = ccall( (:gsl_rng_fwrite, libgsl), Cint, (Ref{Cvoid},
         Ref{gsl_rng}), stream, r )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -28,11 +28,11 @@ end
 # GSL_EFAILED if there was a problem reading from the file.  The data is
 # assumed to have been written in the native binary format on the same
 # architecture.
-# 
+#
 #   Returns: Cint
-function rng_fread(stream::Ref{Void})
+function rng_fread(stream::Ref{Cvoid})
     r = Ref{gsl_rng}()
-    errno = ccall( (:gsl_rng_fread, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_rng_fread, libgsl), Cint, (Ref{Cvoid},
         Ref{gsl_rng}), stream, r )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return r[]
