@@ -21,7 +21,7 @@ for gsl_deriv in (:deriv_central, :deriv_forward, :deriv_backward)
         function ($gsl_deriv)(f::Function, x::Real, h::Real)
             $gsl_deriv(
                   gsl_function(function_callback_ptr[],
-                               @cfunction($f, Cdouble, (Cdouble,))),
+                               pointer_from_objref(f)),
                   x, h)
         end
     end
