@@ -39,7 +39,7 @@ end
 #   Returns: Cint
 function sf_legendre_Plm_array(lmax::Integer, m::Integer, x::Real)
     @assert lmax >= m
-    result_array = Vector{Cdouble}(lmax - m + 1)
+    result_array = Vector{Cdouble}(undef, lmax - m + 1)
     errno = ccall( (:gsl_sf_legendre_Plm_array, libgsl), Cint, (Cint,
         Cint, Cdouble, Ref{Cdouble}), lmax, m, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -53,8 +53,8 @@ end
 #   Returns: Cint
 function sf_legendre_Plm_deriv_array(lmax::Integer, m::Integer, x::Real)
     @assert lmax >= m
-    result_array = Vector{Cdouble}(lmax - m + 1)
-    result_deriv_array = Vector{Cdouble}(lmax - m + 1)
+    result_array = Vector{Cdouble}(undef, lmax - m + 1)
+    result_deriv_array = Vector{Cdouble}(undef, lmax - m + 1)
     errno = ccall( (:gsl_sf_legendre_Plm_deriv_array, libgsl), Cint,
         (Cint, Cint, Cdouble, Ref{Cdouble}, Ref{Cdouble}), lmax, m, x, result_array, result_deriv_array)
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -98,7 +98,7 @@ end
 #   Returns: Cint
 function sf_legendre_sphPlm_array(lmax::Integer, m::Integer, x::Real)
     @assert lmax >= m
-    result_array = Vector{Cdouble}(lmax - m + 1)
+    result_array = Vector{Cdouble}(undef, lmax - m + 1)
     errno = ccall( (:gsl_sf_legendre_sphPlm_array, libgsl), Cint, (Cint,
         Cint, Cdouble, Ref{Cdouble}), lmax, m, x, result_array )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -113,8 +113,8 @@ end
 #   Returns: Cint
 function sf_legendre_sphPlm_deriv_array(lmax::Integer, m::Integer, x::Real)
     @assert lmax >= m
-    result_array = Vector{Cdouble}(lmax - m + 1)
-    result_deriv_array = Vector{Cdouble}(lmax - m + 1)
+    result_array = Vector{Cdouble}(undef, lmax - m + 1)
+    result_deriv_array = Vector{Cdouble}(undef, lmax - m + 1)
     errno = ccall( (:gsl_sf_legendre_sphPlm_deriv_array, libgsl), Cint,
         (Cint, Cint, Cdouble, Ref{Cdouble}, Ref{Cdouble}), lmax, m, x, result_array, result_deriv_array)
     if errno!= 0 throw(GSL_ERROR(errno)) end

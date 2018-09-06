@@ -12,7 +12,7 @@ export roots, poly_complex_solve
 # roots(c, true) only returns real roots
 function roots(c::AbstractVector{T}, realOnly::Bool) where {T<:Real}
     n = length(c)
-    a = Vector{Cdouble}(n)
+    a = Vector{Cdouble}(undef, n)
     # follow Matlab convention: c[1] is the highest-degree coefficient,
     # while in GSL a[1] is the lowest-degree coefficient.
     for i = 1:n
@@ -74,7 +74,7 @@ roots(c::AbstractVector{T}) where {T<:Real} = roots(c, false)
 
 function poly_complex_solve(a_in::AbstractVector{tA}, n::Integer, w::Ref{gsl_poly_complex_workspace}) where {tA<:Real}
     a = convert(Vector{Cdouble}, a_in)
-    z = Vector{Complex{Cdouble}}(n - 1)
+    z = Vector{Complex{Cdouble}}(undef, n - 1)
     errno = ccall( (:gsl_poly_complex_solve, libgsl), Cint,
         (Ref{Cdouble}, Csize_t, Ref{Cvoid}, Ref{Complex{Cdouble}}), a, n, w, z )
     if errno!= 0 throw(GSL_ERROR(errno)) end

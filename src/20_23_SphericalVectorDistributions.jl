@@ -48,7 +48,7 @@ end
 #
 #   Returns: Cvoid
 function ran_dir_nd(r::Ref{Cvoid}, n::Csize_t)
-    x = Vector{Cdouble}(n)
+    x = Vector{Cdouble}(undef, n)
     ccall( (:gsl_ran_dir_nd, libgsl), Cvoid, (Ref{Cvoid}, Csize_t,
         Ref{Cdouble}), r, n, x)
     return x
