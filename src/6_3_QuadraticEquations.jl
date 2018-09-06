@@ -50,10 +50,10 @@ end
 #
 #   Returns: Cint
 function poly_complex_solve_quadratic(a::Cdouble, b::Cdouble, c::Cdouble)
-    z0 = Ref{Complex128}()
-    z1 = Ref{Complex128}()
+    z0 = Ref{ComplexF64}()
+    z1 = Ref{ComplexF64}()
     num_roots = ccall( (:gsl_poly_complex_solve_quadratic, libgsl), Cint,
-        (Cdouble, Cdouble, Cdouble, Ref{Void}, Ref{Void}), a, b,
+        (Cdouble, Cdouble, Cdouble, Ref{Cvoid}, Ref{Cvoid}), a, b,
         c, z0, z1 )
     if num_roots==0
         nothing

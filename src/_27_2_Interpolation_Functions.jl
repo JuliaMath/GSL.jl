@@ -35,7 +35,7 @@ end
 
 # This function frees the interpolation object interp.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function interp_free(interp::Ref{gsl_interp})
-    ccall( (:gsl_interp_free, libgsl), Void, (Ref{gsl_interp}, ), interp )
+    ccall( (:gsl_interp_free, libgsl), Cvoid, (Ref{gsl_interp}, ), interp )
 end

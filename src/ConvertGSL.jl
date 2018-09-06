@@ -7,18 +7,18 @@ import Base.show
 
 export GSL_ERROR, custom_gsl_error_handler, complex_packed_ptr, complex_packed_array
 
-#Convert gsl_complex_packed_ptr to Vector{Complex128}
-complex_packed_array(c::Vector{Cdouble}) = Complex128[c[2i-1]+im*c[2i] for i=1:int(length(c)/2)]
+#Convert gsl_complex_packed_ptr to Vector{ComplexF64}
+complex_packed_array(c::Vector{Cdouble}) = ComplexF64[c[2i-1]+im*c[2i] for i=1:int(length(c)/2)]
 
-#Convert gsl_complex_packed_ptr to Vector{Complex128}
-complex_packed_ptr(c::Vector{Cdouble}) = Complex128[c[2i-1]+im*c[2i] for i=1:int(length(c)/2)]
+#Convert gsl_complex_packed_ptr to Vector{ComplexF64}
+complex_packed_ptr(c::Vector{Cdouble}) = ComplexF64[c[2i-1]+im*c[2i] for i=1:int(length(c)/2)]
 
 #Register this error handler as GSL's default
 #where possible, maps errors to Julia's own exceptions
 custom_error_handler(reason::Ptr{UInt8}, file::Ptr{UInt8}, line::Integer, errno::Integer) =
     custom_error_handler(bytestring(reason), bytestring(file), line, errno)
 
-type GSLError <: Exception
+mutable struct GSLError <: Exception
     errno :: Int32
     reason :: AbstractString
     file :: AbstractString
@@ -52,7 +52,7 @@ function custom_error_handler(reason::AbstractString, file::AbstractString, line
     end
 end
 
-GSL_ERROR{T<:Integer}(errno::T) = custom_error_handler("", "None", 0, errno)
+GSL_ERROR(errno::T) where {T<:Integer} = custom_error_handler("", "None", 0, errno)
 
 # This is the first point in loading the package where we try to actually access
 # a function from within libgsl. This will fail if libgsl is not installed or

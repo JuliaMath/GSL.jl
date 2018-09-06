@@ -10,7 +10,7 @@ export roots, poly_complex_solve
 # roots(c) returns the roots of the (real-coefficient) polynomial
 #    c[1] * z^(n-1) + ... + c[n]
 # roots(c, true) only returns real roots
-function roots{T<:Real}(c::AbstractVector{T}, realOnly::Bool)
+function roots(c::AbstractVector{T}, realOnly::Bool) where {T<:Real}
     n = length(c)
     a = Vector{Cdouble}(n)
     # follow Matlab convention: c[1] is the highest-degree coefficient,
@@ -52,7 +52,7 @@ function roots{T<:Real}(c::AbstractVector{T}, realOnly::Bool)
 end
 
 # By default, all complex roots
-roots{T<:Real}(c::AbstractVector{T}) = roots(c, false)
+roots(c::AbstractVector{T}) where {T<:Real} = roots(c, false)
 
 
 # This function computes the roots of the general polynomial  P(x) = a_0 + a_1
@@ -72,11 +72,11 @@ roots{T<:Real}(c::AbstractVector{T}) = roots(c, false)
 #
 #   Returns: Cint
 
-function poly_complex_solve{tA<:Real}(a_in::AbstractVector{tA}, n::Integer, w::Ref{gsl_poly_complex_workspace})
+function poly_complex_solve(a_in::AbstractVector{tA}, n::Integer, w::Ref{gsl_poly_complex_workspace}) where {tA<:Real}
     a = convert(Vector{Cdouble}, a_in)
     z = Vector{Complex{Cdouble}}(n - 1)
     errno = ccall( (:gsl_poly_complex_solve, libgsl), Cint,
-        (Ref{Cdouble}, Csize_t, Ref{Void}, Ref{Complex{Cdouble}}), a, n, w, z )
+        (Ref{Cdouble}, Csize_t, Ref{Cvoid}, Ref{Complex{Cdouble}}), a, n, w, z )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     z#complex_packed_ptr(z)
 end

@@ -56,8 +56,8 @@ Compat.@dep_vectorize_1arg Number monte_plain_integrate
 
 # This function frees the memory associated with the integrator state s.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function monte_plain_free(s::Ref{gsl_monte_plain_state})
-    ccall( (:gsl_monte_plain_free, libgsl), Void,
+    ccall( (:gsl_monte_plain_free, libgsl), Cvoid,
         (Ref{gsl_monte_plain_state}, ), s )
 end

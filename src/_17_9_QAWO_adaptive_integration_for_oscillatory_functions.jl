@@ -66,9 +66,9 @@ Compat.@dep_vectorize_1arg Number integration_qawo_table_set_length
 
 # This function frees all the memory associated with the workspace t.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function integration_qawo_table_free(t::Ref{gsl_integration_qawo_table})
-    ccall( (:gsl_integration_qawo_table_free, libgsl), Void,
+    ccall( (:gsl_integration_qawo_table_free, libgsl), Cvoid,
         (Ref{gsl_integration_qawo_table}, ), t )
 end
 

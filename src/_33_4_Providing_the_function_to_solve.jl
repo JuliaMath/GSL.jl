@@ -6,14 +6,14 @@
 ########################################
 export gsl_function, gsl_function_fdf
 
-type gsl_function
-    function_::Ptr{Void}
-    params::Ptr{Void}
+mutable struct gsl_function
+    function_::Ptr{Cvoid}
+    params::Ptr{Cvoid}
 end
 
-type gsl_function_fdf
-    f::Ptr{Void}
-    df::Ptr{Void}
-    fdf::Ptr{Void}
-    params::Ptr{Void}
+mutable struct gsl_function_fdf
+    f::Ptr{Cvoid}
+    df::Ptr{Cvoid}
+    fdf::Ptr{Cvoid}
+    params::Ptr{Cvoid}
 end

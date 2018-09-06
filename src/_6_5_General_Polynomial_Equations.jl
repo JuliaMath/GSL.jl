@@ -25,9 +25,9 @@ Compat.@dep_vectorize_1arg Number poly_complex_workspace_alloc
 
 # This function frees all the memory associated with the workspace w.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function poly_complex_workspace_free(w::Ref{gsl_poly_complex_workspace})
-    ccall( (:gsl_poly_complex_workspace_free, libgsl), Void,
+    ccall( (:gsl_poly_complex_workspace_free, libgsl), Cvoid,
         (Ref{gsl_poly_complex_workspace}, ), w )
 end
 
@@ -48,7 +48,7 @@ end
 # Mathematical Software, Volume 30, Issue 2 (2004), pp 218–236).
 #
 #   Returns: Cint
-function poly_complex_solve{tA<:Real}(a_in::AbstractVector{tA}, z::gsl_complex_packed_ptr)
+function poly_complex_solve(a_in::AbstractVector{tA}, z::gsl_complex_packed_ptr) where {tA<:Real}
     n = length(a_in)
     a = convert(Vector{Cdouble}, a_in)
     w = Ref{gsl_poly_complex_workspace}()

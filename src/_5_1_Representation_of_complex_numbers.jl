@@ -6,8 +6,6 @@
 #########################################
 export gsl_complex
 
-type gsl_complex
+mutable struct gsl_complex
     dat::Ptr{Cdouble}
 end
-
-

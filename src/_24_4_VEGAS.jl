@@ -62,9 +62,9 @@ Compat.@dep_vectorize_1arg Number monte_vegas_integrate
 
 # This function frees the memory associated with the integrator state s.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function monte_vegas_free(s::Ref{gsl_monte_vegas_state})
-    ccall( (:gsl_monte_vegas_free, libgsl), Void,
+    ccall( (:gsl_monte_vegas_free, libgsl), Cvoid,
         (Ref{gsl_monte_vegas_state}, ), s )
 end
 
@@ -86,11 +86,11 @@ end
 # This function returns the raw (unaveraged) values of the integral result and
 # its error sigma from the most recent iteration of the algorithm.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function monte_vegas_runval(s::Ref{gsl_monte_vegas_state})
     result = Ref{Cdouble}()
     sigma = Ref{Cdouble}()
-    ccall( (:gsl_monte_vegas_runval, libgsl), Void,
+    ccall( (:gsl_monte_vegas_runval, libgsl), Cvoid,
         (Ref{gsl_monte_vegas_state}, Ref{Cdouble}, Ref{Cdouble}), s, result,
         sigma )
     return result[], sigma[]
@@ -100,10 +100,10 @@ end
 # This function copies the parameters of the integrator state into the user-
 # supplied params structure.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function monte_vegas_params_get(s::Ref{gsl_monte_vegas_state})
     params = Ref{gsl_monte_vegas_params}()
-    ccall( (:gsl_monte_vegas_params_get, libgsl), Void,
+    ccall( (:gsl_monte_vegas_params_get, libgsl), Cvoid,
         (Ref{gsl_monte_vegas_state}, Ref{gsl_monte_vegas_params}), s, params )
     return params[]
 end
@@ -112,8 +112,8 @@ end
 # This function sets the integrator parameters based on values provided in the
 # params structure.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function monte_vegas_params_set(s::Ref{gsl_monte_vegas_state}, params::Ref{gsl_monte_vegas_params})
-    ccall( (:gsl_monte_vegas_params_set, libgsl), Void,
+    ccall( (:gsl_monte_vegas_params_set, libgsl), Cvoid,
         (Ref{gsl_monte_vegas_state}, Ref{gsl_monte_vegas_params}), s, params )
 end

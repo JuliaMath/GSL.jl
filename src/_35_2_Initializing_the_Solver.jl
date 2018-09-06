@@ -81,18 +81,18 @@ end
 
 # These functions free all the memory associated with the solver s.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function multiroot_fsolver_free(s::Ref{gsl_multiroot_fsolver})
-    ccall( (:gsl_multiroot_fsolver_free, libgsl), Void,
+    ccall( (:gsl_multiroot_fsolver_free, libgsl), Cvoid,
         (Ref{gsl_multiroot_fsolver}, ), s )
 end
 
 
 # These functions free all the memory associated with the solver s.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function multiroot_fdfsolver_free(s::Ref{gsl_multiroot_fdfsolver})
-    ccall( (:gsl_multiroot_fdfsolver_free, libgsl), Void,
+    ccall( (:gsl_multiroot_fdfsolver_free, libgsl), Cvoid,
         (Ref{gsl_multiroot_fdfsolver}, ), s )
 end
 

@@ -7,8 +7,8 @@
 export gsl_ntuple
 
 
-type gsl_ntuple
-    file::Ptr{Void}
-    ntuple_data::Ptr{Void}
+mutable struct gsl_ntuple
+    file::Ptr{Cvoid}
+    ntuple_data::Ptr{Cvoid}
     size::Csize_t
 end

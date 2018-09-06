@@ -43,9 +43,9 @@ end
 
 # This function frees the transform t.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function dht_free(t::Ref{gsl_dht})
-    ccall( (:gsl_dht_free, libgsl), Void, (Ref{gsl_dht}, ), t )
+    ccall( (:gsl_dht_free, libgsl), Cvoid, (Ref{gsl_dht}, ), t )
 end
 
 

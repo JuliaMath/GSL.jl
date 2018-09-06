@@ -6,7 +6,7 @@
 ################
 export gsl_matrix
 
-type gsl_matrix
+mutable struct gsl_matrix
     size1::Csize_t
     size2::Csize_t
     tda::Csize_t

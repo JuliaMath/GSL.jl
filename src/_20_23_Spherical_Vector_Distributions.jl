@@ -22,11 +22,11 @@ export ran_dir_2d, ran_dir_2d_trig_method, ran_dir_3d, ran_dir_nd
 # chosen at random from the interior of a unit circle, and then
 # x=(u^2-v^2)/(u^2+v^2) and y=2uv/(u^2+v^2).
 # 
-#   Returns: Void
+#   Returns: Cvoid
 function ran_dir_2d(r::Ref{gsl_rng})
     x = Ref{Cdouble}()
     y = Ref{Cdouble}()
-    ccall( (:gsl_ran_dir_2d, libgsl), Void, (Ref{gsl_rng}, Ref{Cdouble},
+    ccall( (:gsl_ran_dir_2d, libgsl), Cvoid, (Ref{gsl_rng}, Ref{Cdouble},
         Ref{Cdouble}), r, x, y )
     return x[], y[]
 end
@@ -47,11 +47,11 @@ end
 # chosen at random from the interior of a unit circle, and then
 # x=(u^2-v^2)/(u^2+v^2) and y=2uv/(u^2+v^2).
 # 
-#   Returns: Void
+#   Returns: Cvoid
 function ran_dir_2d_trig_method(r::Ref{gsl_rng})
     x = Ref{Cdouble}()
     y = Ref{Cdouble}()
-    ccall( (:gsl_ran_dir_2d_trig_method, libgsl), Void, (Ref{gsl_rng},
+    ccall( (:gsl_ran_dir_2d_trig_method, libgsl), Cvoid, (Ref{gsl_rng},
         Ref{Cdouble}, Ref{Cdouble}), r, x, y )
     return x[], y[]
 end
@@ -64,12 +64,12 @@ end
 # distribution projected along any axis is actually uniform (this is only true
 # for 3 dimensions).
 # 
-#   Returns: Void
+#   Returns: Cvoid
 function ran_dir_3d(r::Ref{gsl_rng})
     x = Ref{Cdouble}()
     y = Ref{Cdouble}()
     z = Ref{Cdouble}()
-    ccall( (:gsl_ran_dir_3d, libgsl), Void, (Ref{gsl_rng}, Ref{Cdouble},
+    ccall( (:gsl_ran_dir_3d, libgsl), Cvoid, (Ref{gsl_rng}, Ref{Cdouble},
         Ref{Cdouble}, Ref{Cdouble}), r, x, y, z )
     return x[], y[], z[]
 end
@@ -83,10 +83,10 @@ end
 # described by Knuth, v2, 3rd ed, p135–136, and attributed to G. W. Brown,
 # Modern Mathematics for the Engineer (1956).
 # 
-#   Returns: Void
+#   Returns: Cvoid
 function ran_dir_nd(r::Ref{gsl_rng}, n::Integer)
     x = Ref{Cdouble}()
-    ccall( (:gsl_ran_dir_nd, libgsl), Void, (Ref{gsl_rng}, Csize_t,
+    ccall( (:gsl_ran_dir_nd, libgsl), Cvoid, (Ref{gsl_rng}, Csize_t,
         Ref{Cdouble}), r, n, x )
     return x[]
 end

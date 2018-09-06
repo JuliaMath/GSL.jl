@@ -28,10 +28,10 @@ function __init__()
         # Turn off GSL's default error handler so that Julia doesn't segfault
         # on error
         custom_gsl_error_handler[] = try
-        convert(Ptr{gsl_error_handler_t},
-        cfunction(custom_error_handler, Void,
-                  Tuple{Ptr{UInt8}, Ptr{UInt8}, Cint, Cint}
-                  ))
+            convert(Ptr{gsl_error_handler_t},
+                    @cfunction(custom_error_handler, Cvoid,
+                               (Ptr{UInt8}, Ptr{UInt8}, Cint, Cint)
+                               ))
         catch
             error("""Could not find the GNU Scientific Library.
                   Please ensure that libgsl is installed on your system and is available on the system path.""")
@@ -40,10 +40,10 @@ function __init__()
         set_error_handler(custom_gsl_error_handler[])
         sf_hyperg_U(-1.0, -1.0, rand())
     catch
-        throw(LoadError("The GNU Scientific Library does not appear to be installed."))
+        error("The GNU Scientific Library does not appear to be installed.")
     end
-    function_callback_ptr[] = cfunction(function_callback, Cdouble,
-                                        Tuple{Cdouble, Ptr{Void}})
+    function_callback_ptr[] = @cfunction(function_callback, Cdouble,
+                                         (Cdouble, Ptr{Cvoid}))
 end
 
 end #module
