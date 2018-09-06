@@ -77,7 +77,7 @@ Translated examples from the GSL documentation are available in `examples/`.
 ```julia
     @sf_test(sf, args...)
 ```
-> Macro to help test equality of a function and its error-propagating variant. Requires `Base.Test`.
+> Macro to help test equality of a function and its error-propagating variant. Requires `Test`.
 > Example:
 
 ```julia

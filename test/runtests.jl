@@ -1,9 +1,10 @@
-using Base.Test
+using Test
 using GSL
+using Random
 
 const VERBOSE=true #change to show test output
 
-srand(1)
+Random.seed!(1)
 include("basic.jl")
 
 #XXX doesn't work anymore?

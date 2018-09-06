@@ -1,0 +1,12 @@
+name = "GSL"
+uuid = "92c85e6c-cbff-5e0c-80f7-495c94daaecd"
+authors = ["Jiahao Chen <jiahao@mit.edu>"]
+version = "0.1.0"
+
+[deps]
+BinDeps = "9e28174c-4ba2-5203-b857-d8d62c4213ee"
+Compat = "34da2185-b29b-5c13-b0c7-acf172513d20"
+Libdl = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
+Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+Random = "9a3f8284-a2c9-5f02-9a11-845980a1fd5c"
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
