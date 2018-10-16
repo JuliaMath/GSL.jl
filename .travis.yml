@@ -8,8 +8,6 @@ julia:
     - 1.0
 notifications:
     email: false
-script:
-    - if [[ -a .git/shallow ]]; then git fetch --unshallow; fi
-    - julia -e 'Pkg.clone(pwd()); Pkg.build("GSL"); Pkg.test("GSL"; coverage=true)';
+
 after_success:
     - julia -e 'Pkg.add("Coverage"); cd(Pkg.dir("GSL")); using Coverage; Coveralls.submit(process_folder()); Codecov.submit(process_folder())'

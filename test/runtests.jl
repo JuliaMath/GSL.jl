@@ -1,7 +1,7 @@
 using Compat
-using Test
+using Compat.Test
+using Compat.Random
 using GSL
-using Random
 using SpecialFunctions
 
 const VERBOSE=true #change to show test output

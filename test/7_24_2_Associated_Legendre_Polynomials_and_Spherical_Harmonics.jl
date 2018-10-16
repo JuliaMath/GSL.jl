@@ -1,5 +1,5 @@
 using GSL
-using Test
+using Compat.Test
 
 let
     lmax = 5
