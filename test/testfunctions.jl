@@ -1,4 +1,4 @@
-using Test
+using Compat.Test
 using Compat
 
 #Tests GSL special functions and their error-propagating _e variants

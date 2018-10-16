@@ -1,4 +1,4 @@
-VERBOSE && @info("Hypergeometric functions")
+VERBOSE && Compat.@info("Hypergeometric functions")
 
 a = 3*randn()
 b = 3*randn()

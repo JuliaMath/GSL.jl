@@ -6,7 +6,12 @@ using SpecialFunctions
 
 const VERBOSE=true #change to show test output
 
-Random.seed!(1)
+if VERSION < v"0.7"
+    srand(1)
+else
+    Random.seed!(1)
+end
+
 @testset "Basic" begin
     include("basic.jl")
 end
