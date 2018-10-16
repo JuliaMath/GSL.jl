@@ -1,11 +1,8 @@
 GSL.jl
 ======
 
-[![GSL](http://pkg.julialang.org/badges/GSL_0.4.svg)](http://pkg.julialang.org/?pkg=GSL)
-[![GSL](http://pkg.julialang.org/badges/GSL_0.5.svg)](http://pkg.julialang.org/?pkg=GSL)
-[![Build Status](https://travis-ci.org/jiahao/GSL.jl.svg?branch=master)](https://travis-ci.org/jiahao/GSL.jl)
-[![Coverage Status](https://coveralls.io/repos/jiahao/GSL.jl/badge.svg?branch=master&service=github)](https://coveralls.io/github/jiahao/GSL.jl?branch=master)
-[![codecov.io](http://codecov.io/github/jiahao/GSL.jl/coverage.svg?branch=master)](http://codecov.io/github/jiahao/GSL.jl?branch=master)
+[![Build Status](https://travis-ci.org/JuliaMath/GSL.jl.svg?branch=master)](https://travis-ci.org/JuliaMath/GSL.jl)
+[![codecov.io](http://codecov.io/github/JuliaMath/GSL.jl/coverage.svg?branch=master)](http://codecov.io/github/JuliaMath/GSL.jl?branch=master)
 
 Julia interface to the [GNU Scientific Library (GSL)](http://www.gnu.org/software/gsl)
 
@@ -13,13 +10,18 @@ Julia interface to the [GNU Scientific Library (GSL)](http://www.gnu.org/softwar
 
 Licensed under [GPLv3](http://www.gnu.org/copyleft/gpl.html)
 
-Tested with [libgsl](http://www.gnu.org/software/gsl) 1.16
+Tested with [libgsl](http://www.gnu.org/software/gsl) 1.16 and Julia 0.6 - 1.0
 
 ## How to install
 
-In Julia:
+In Julia 0.6:
 ```julia
 Pkg.add("GSL")
+```
+
+In Julia 0.7 and up:
+```julia
+]add GSL
 ```
 
 ## How to use
