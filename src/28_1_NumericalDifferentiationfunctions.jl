@@ -16,13 +16,14 @@ function function_callback(x::Cdouble, f_)
 end
 const function_callback_ptr = Ref{Ptr{Cvoid}}()
 
-for gsl_deriv in (:deriv_central, :deriv_forward, :deriv_backward)
-    @eval begin
-        function ($gsl_deriv)(f::Function, x::Real, h::Real)
-            $gsl_deriv(
-                  gsl_function(function_callback_ptr[],
-                               pointer_from_objref(f)),
-                  x, h)
-        end
-    end
-end
+# for gsl_deriv in (:deriv_central, :deriv_forward, :deriv_backward)
+#     @eval begin
+#         function ($gsl_deriv)(f::Function, x::Real, h::Real)
+#             $gsl_deriv(
+#                   gsl_function(function_callback_ptr[],f),
+#                                #pointer_from_objref(f)),
+#                                #@cfunction(f, Cdouble, (Cdouble, Ptr{Cvoid}))),
+#                   x, h)
+#         end
+#     end
+# end
