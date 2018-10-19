@@ -6,7 +6,7 @@
 ##############
 export gsl_block
 
-type gsl_block
+mutable struct gsl_block
     size::Csize_t
     data::Ptr{Cdouble}
 end

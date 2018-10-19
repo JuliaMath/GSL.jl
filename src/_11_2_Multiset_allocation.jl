@@ -40,10 +40,10 @@ Compat.@dep_vectorize_2arg Number multiset_calloc
 # This function initializes the multiset c to the lexicographically first
 # multiset element, i.e. 0 repeated k times.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function multiset_init_first()
     c = Ref{gsl_multiset}()
-    ccall( (:gsl_multiset_init_first, libgsl), Void, (Ref{gsl_multiset},
+    ccall( (:gsl_multiset_init_first, libgsl), Cvoid, (Ref{gsl_multiset},
         ), c )
     return c[]
 end
@@ -52,10 +52,10 @@ end
 # This function initializes the multiset c to the lexicographically last
 # multiset element, i.e. n-1 repeated k times.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function multiset_init_last()
     c = Ref{gsl_multiset}()
-    ccall( (:gsl_multiset_init_last, libgsl), Void, (Ref{gsl_multiset}, ),
+    ccall( (:gsl_multiset_init_last, libgsl), Cvoid, (Ref{gsl_multiset}, ),
         c )
     return c[]
 end
@@ -63,9 +63,9 @@ end
 
 # This function frees all the memory used by the multiset c.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function multiset_free(c::Ref{gsl_multiset})
-    ccall( (:gsl_multiset_free, libgsl), Void, (Ref{gsl_multiset}, ), c )
+    ccall( (:gsl_multiset_free, libgsl), Cvoid, (Ref{gsl_multiset}, ), c )
 end
 
 

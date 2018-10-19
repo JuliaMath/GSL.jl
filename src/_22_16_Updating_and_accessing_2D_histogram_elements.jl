@@ -174,10 +174,10 @@ end
 
 # This function resets all the bins of the histogram h to zero.
 # 
-#   Returns: Void
+#   Returns: Cvoid
 function histogram2d_reset()
     h = Ref{gsl_histogram2d}()
-    ccall( (:gsl_histogram2d_reset, libgsl), Void, (Ref{gsl_histogram2d},
+    ccall( (:gsl_histogram2d_reset, libgsl), Cvoid, (Ref{gsl_histogram2d},
         ), h )
     return h[]
 end

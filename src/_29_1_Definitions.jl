@@ -7,7 +7,7 @@
 export gsl_cheb_series
 
 
-type gsl_cheb_series
+mutable struct gsl_cheb_series
     c::Ptr{Cdouble}
     order::Cint
     a::Cdouble

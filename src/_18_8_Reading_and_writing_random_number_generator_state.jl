@@ -14,8 +14,8 @@ export rng_fwrite, rng_fread
 # architectures.
 # 
 #   Returns: Cint
-function rng_fwrite(stream::Ref{Void}, r::Ref{gsl_rng})
-    errno = ccall( (:gsl_rng_fwrite, libgsl), Cint, (Ref{Void},
+function rng_fwrite(stream::Ref{Cvoid}, r::Ref{gsl_rng})
+    errno = ccall( (:gsl_rng_fwrite, libgsl), Cint, (Ref{Cvoid},
         Ref{gsl_rng}), stream, r )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -30,9 +30,9 @@ end
 # architecture.
 # 
 #   Returns: Cint
-function rng_fread(stream::Ref{Void})
+function rng_fread(stream::Ref{Cvoid})
     r = Ref{gsl_rng}()
-    errno = ccall( (:gsl_rng_fread, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_rng_fread, libgsl), Cint, (Ref{Cvoid},
         Ref{gsl_rng}), stream, r )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return r[]

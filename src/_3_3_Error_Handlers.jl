@@ -6,7 +6,7 @@
 ######################
 export gsl_error_handler_t, set_error_handler, set_error_handler_off
 
-type gsl_error_handler_t
+struct gsl_error_handler_t
 end
 
 # This function sets a new error handler, new_handler, for the GSL library

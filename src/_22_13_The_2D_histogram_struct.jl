@@ -7,7 +7,7 @@
 export gsl_histogram2d
 
 
-type gsl_histogram2d
+mutable struct gsl_histogram2d
     nx::Csize_t
     ny::Csize_t
     xrange::Ptr{Cdouble}

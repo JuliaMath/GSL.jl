@@ -6,16 +6,16 @@
 ########################################
 export gsl_multiroot_function, gsl_multiroot_function_fdf
 
-type gsl_multiroot_function
-    f::Ptr{Void}
+mutable struct gsl_multiroot_function
+    f::Ptr{Cvoid}
     n::Csize_t
-    params::Ptr{Void}
+    params::Ptr{Cvoid}
 end
 
-type gsl_multiroot_function_fdf
-    f::Ptr{Void}
-    df::Ptr{Void}
-    fdf::Ptr{Void}
+mutable struct gsl_multiroot_function_fdf
+    f::Ptr{Cvoid}
+    df::Ptr{Cvoid}
+    fdf::Ptr{Cvoid}
     n::Csize_t
-    params::Ptr{Void}
+    params::Ptr{Cvoid}
 end

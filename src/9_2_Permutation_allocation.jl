@@ -39,18 +39,18 @@ Compat.@dep_vectorize_1arg Number permutation_calloc
 # This function initializes the permutation p to the identity, i.e.
 # (0,1,2,...,n-1).
 #
-#   Returns: Void
+#   Returns: Cvoid
 function permutation_init(p::Ptr{gsl_permutation})
-    ccall( (:gsl_permutation_init, libgsl), Void, (Ptr{gsl_permutation},
+    ccall( (:gsl_permutation_init, libgsl), Cvoid, (Ptr{gsl_permutation},
         ), p)
 end
 
 
 # This function frees all the memory used by the permutation p.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function permutation_free(p::Ptr{gsl_permutation})
-    ccall( (:gsl_permutation_free, libgsl), Void, (Ptr{gsl_permutation},
+    ccall( (:gsl_permutation_free, libgsl), Cvoid, (Ptr{gsl_permutation},
         ), p)
 end
 

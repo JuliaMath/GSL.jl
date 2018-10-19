@@ -14,8 +14,8 @@ export histogram2d_fwrite, histogram2d_fread, histogram2d_fprintf,
 # native binary format it may not be portable between different architectures.
 # 
 #   Returns: Cint
-function histogram2d_fwrite(stream::Ref{Void}, h::Ref{gsl_histogram2d})
-    errno = ccall( (:gsl_histogram2d_fwrite, libgsl), Cint, (Ref{Void},
+function histogram2d_fwrite(stream::Ref{Cvoid}, h::Ref{gsl_histogram2d})
+    errno = ccall( (:gsl_histogram2d_fwrite, libgsl), Cint, (Ref{Cvoid},
         Ref{gsl_histogram2d}), stream, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
@@ -29,9 +29,9 @@ end
 # the native binary format on the same architecture.
 # 
 #   Returns: Cint
-function histogram2d_fread(stream::Ref{Void})
+function histogram2d_fread(stream::Ref{Cvoid})
     h = Ref{gsl_histogram2d}()
-    errno = ccall( (:gsl_histogram2d_fread, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_histogram2d_fread, libgsl), Cint, (Ref{Cvoid},
         Ref{gsl_histogram2d}), stream, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
@@ -61,10 +61,10 @@ end
 # histogram to be manipulated with line-oriented tools.
 # 
 #   Returns: Cint
-function histogram2d_fprintf(stream::Ref{Void}, h::Ref{gsl_histogram2d})
+function histogram2d_fprintf(stream::Ref{Cvoid}, h::Ref{gsl_histogram2d})
     range_format = Ref{Cchar}()
     bin_format = Ref{Cchar}()
-    errno = ccall( (:gsl_histogram2d_fprintf, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_histogram2d_fprintf, libgsl), Cint, (Ref{Cvoid},
         Ref{gsl_histogram2d}, Ref{Cchar}, Ref{Cchar}), stream, h, range_format,
         bin_format )
     if errno!= 0 throw(GSL_ERROR(errno)) end
@@ -80,9 +80,9 @@ end
 # was a problem reading from the file.
 # 
 #   Returns: Cint
-function histogram2d_fscanf(stream::Ref{Void})
+function histogram2d_fscanf(stream::Ref{Cvoid})
     h = Ref{gsl_histogram2d}()
-    errno = ccall( (:gsl_histogram2d_fscanf, libgsl), Cint, (Ref{Void},
+    errno = ccall( (:gsl_histogram2d_fscanf, libgsl), Cint, (Ref{Cvoid},
         Ref{gsl_histogram2d}), stream, h )
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]

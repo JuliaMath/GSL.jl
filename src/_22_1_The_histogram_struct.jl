@@ -7,7 +7,7 @@
 export gsl_histogram
 
 
-type gsl_histogram
+mutable struct gsl_histogram
     n::Csize_t
     range::Ptr{Cdouble}
     bin::Ptr{Cdouble}

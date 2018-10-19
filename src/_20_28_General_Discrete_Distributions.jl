@@ -17,7 +17,7 @@ export ran_discrete_preproc, ran_discrete, ran_discrete_pdf, ran_discrete_free
 # return value is used as an argument for the gsl_ran_discrete function below.
 #
 #   Returns: Ptr{gsl_ran_discrete_t}
-function ran_discrete_preproc{tA<:Real}(P_in::AbstractVector{tA})
+function ran_discrete_preproc(P_in::AbstractVector{tA}) where {tA<:Real}
     K = length(P_in)
     P = convert(Vector{Cdouble}, P_in)
     output_ptr = ccall( (:gsl_ran_discrete_preproc, libgsl),
@@ -51,8 +51,8 @@ end
 
 # De-allocates the lookup table pointed to by g.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function ran_discrete_free(g::Ref{gsl_ran_discrete_t})
-    ccall( (:gsl_ran_discrete_free, libgsl), Void,
+    ccall( (:gsl_ran_discrete_free, libgsl), Cvoid,
         (Ref{gsl_ran_discrete_t}, ), g )
 end

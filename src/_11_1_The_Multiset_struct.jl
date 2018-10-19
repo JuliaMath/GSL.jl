@@ -7,7 +7,7 @@
 export gsl_multiset
 
 
-type gsl_multiset
+mutable struct gsl_multiset
     n::Csize_t
     k::Csize_t
     data::Ptr{Csize_t}

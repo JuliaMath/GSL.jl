@@ -6,9 +6,9 @@
 ################################
 export gsl_odeiv2_system
 
-type gsl_odeiv2_system
-    function_::Ptr{Void}
-    jacobian::Ptr{Void}
+mutable struct gsl_odeiv2_system
+    function_::Ptr{Cvoid}
+    jacobian::Ptr{Cvoid}
     dimension::Csize_t
-    params::Ptr{Void}
+    params::Ptr{Cvoid}
 end

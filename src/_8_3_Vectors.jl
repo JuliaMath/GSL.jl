@@ -6,7 +6,7 @@
 ###############
 export gsl_vector
 
-type gsl_vector
+mutable struct gsl_vector
     size::Csize_t
     stride::Csize_t
     data::Ptr{Cdouble}

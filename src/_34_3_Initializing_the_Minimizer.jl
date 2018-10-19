@@ -56,9 +56,9 @@ end
 
 # This function frees all the memory associated with the minimizer s.
 #
-#   Returns: Void
+#   Returns: Cvoid
 function min_fminimizer_free(s::Ref{gsl_min_fminimizer})
-    ccall( (:gsl_min_fminimizer_free, libgsl), Void,
+    ccall( (:gsl_min_fminimizer_free, libgsl), Cvoid,
         (Ref{gsl_min_fminimizer}, ), s )
 end
 
