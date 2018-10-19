@@ -1,7 +1,8 @@
 GSL.jl
 ======
 
-[![Build Status](https://travis-ci.org/JuliaMath/GSL.jl.svg?branch=master)](https://travis-ci.org/JuliaMath/GSL.jl)
+[![Travis Build Status](https://travis-ci.org/JuliaMath/GSL.jl.svg?branch=master)](https://travis-ci.org/JuliaMath/GSL.jl)
+[![Appveyor Build status](https://ci.appveyor.com/api/projects/status/7049flml50cs65mu/branch/master?svg=true)](https://ci.appveyor.com/project/simonbyrne/gsl-jl/branch/master)
 [![codecov.io](http://codecov.io/github/JuliaMath/GSL.jl/coverage.svg?branch=master)](http://codecov.io/github/JuliaMath/GSL.jl?branch=master)
 
 Julia interface to the [GNU Scientific Library (GSL)](http://www.gnu.org/software/gsl)
