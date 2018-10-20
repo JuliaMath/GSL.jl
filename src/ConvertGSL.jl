@@ -16,7 +16,7 @@ complex_packed_ptr(c::Vector{Cdouble}) = ComplexF64[c[2i-1]+im*c[2i] for i=1:int
 #Register this error handler as GSL's default
 #where possible, maps errors to Julia's own exceptions
 custom_error_handler(reason::Ptr{UInt8}, file::Ptr{UInt8}, line::Integer, errno::Integer) =
-    custom_error_handler(bytestring(reason), bytestring(file), line, errno)
+    custom_error_handler(unsafe_string(reason), unsafe_string(file), line, errno)
 
 mutable struct GSLError <: Exception
     errno :: Int32

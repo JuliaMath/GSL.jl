@@ -22,7 +22,7 @@ function rng_name(r::Ref{gsl_rng})
     output_string = output_ptr = ccall( (:gsl_rng_name, libgsl),
         Ref{Cchar}, (Ref{gsl_rng}, ), r )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(output_string)
+    unsafe_string(output_string)
 end
 
 

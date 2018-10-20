@@ -77,5 +77,5 @@ function min_fminimizer_name(s::Ptr{gsl_min_fminimizer})
     output_string = output_ptr = ccall( (:gsl_min_fminimizer_name,
         libgsl), Ptr{Cchar}, (Ptr{gsl_min_fminimizer}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(output_string)
+    unsafe_string(output_string)
 end
