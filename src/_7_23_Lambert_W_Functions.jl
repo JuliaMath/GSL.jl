@@ -13,7 +13,6 @@ export sf_lambert_W0, sf_lambert_W0_e, sf_lambert_Wm1, sf_lambert_Wm1_e
 function sf_lambert_W0(x::Real)
     ccall( (:gsl_sf_lambert_W0, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_lambert_W0
 
 
 # These compute the principal branch of the Lambert W function, W_0(x).
@@ -26,7 +25,6 @@ function sf_lambert_W0_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_lambert_W0_e
 
 
 # These compute the secondary real-valued branch of the Lambert W function,
@@ -36,7 +34,6 @@ Compat.@dep_vectorize_1arg Number sf_lambert_W0_e
 function sf_lambert_Wm1(x::Real)
     ccall( (:gsl_sf_lambert_Wm1, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_lambert_Wm1
 
 
 # These compute the secondary real-valued branch of the Lambert W function,
@@ -50,4 +47,3 @@ function sf_lambert_Wm1_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_lambert_Wm1_e

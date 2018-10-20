@@ -17,7 +17,6 @@ function sf_gegenpoly_1(lambda::Real, x::Real)
     ccall( (:gsl_sf_gegenpoly_1, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, x )
 end
-Compat.@dep_vectorize_2arg Number sf_gegenpoly_1
 
 
 # These functions evaluate the Gegenbauer polynomials  C^{(\lambda)}_n(x) using
@@ -28,7 +27,6 @@ function sf_gegenpoly_2(lambda::Real, x::Real)
     ccall( (:gsl_sf_gegenpoly_2, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, x )
 end
-Compat.@dep_vectorize_2arg Number sf_gegenpoly_2
 
 
 # These functions evaluate the Gegenbauer polynomials  C^{(\lambda)}_n(x) using
@@ -39,7 +37,6 @@ function sf_gegenpoly_3(lambda::Real, x::Real)
     ccall( (:gsl_sf_gegenpoly_3, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, x )
 end
-Compat.@dep_vectorize_2arg Number sf_gegenpoly_3
 
 
 # These functions evaluate the Gegenbauer polynomials  C^{(\lambda)}_n(x) using
@@ -53,7 +50,6 @@ function sf_gegenpoly_1_e(lambda::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_gegenpoly_1_e
 
 
 # These functions evaluate the Gegenbauer polynomials  C^{(\lambda)}_n(x) using
@@ -67,7 +63,6 @@ function sf_gegenpoly_2_e(lambda::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_gegenpoly_2_e
 
 
 # These functions evaluate the Gegenbauer polynomials  C^{(\lambda)}_n(x) using
@@ -81,7 +76,6 @@ function sf_gegenpoly_3_e(lambda::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_gegenpoly_3_e
 
 
 # These functions evaluate the Gegenbauer polynomial  C^{(\lambda)}_n(x) for a

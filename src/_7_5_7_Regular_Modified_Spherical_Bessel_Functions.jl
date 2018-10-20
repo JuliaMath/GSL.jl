@@ -16,7 +16,6 @@ export sf_bessel_i0_scaled, sf_bessel_i0_scaled_e, sf_bessel_i1_scaled,
 function sf_bessel_i0_scaled(x::Real)
     ccall( (:gsl_sf_bessel_i0_scaled, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_i0_scaled
 
 
 # These routines compute the scaled regular modified spherical Bessel function
@@ -30,7 +29,6 @@ function sf_bessel_i0_scaled_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_i0_scaled_e
 
 
 # These routines compute the scaled regular modified spherical Bessel function
@@ -40,7 +38,6 @@ Compat.@dep_vectorize_1arg Number sf_bessel_i0_scaled_e
 function sf_bessel_i1_scaled(x::Real)
     ccall( (:gsl_sf_bessel_i1_scaled, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_i1_scaled
 
 
 # These routines compute the scaled regular modified spherical Bessel function
@@ -54,7 +51,6 @@ function sf_bessel_i1_scaled_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_i1_scaled_e
 
 
 # These routines compute the scaled regular modified spherical Bessel function
@@ -64,7 +60,6 @@ Compat.@dep_vectorize_1arg Number sf_bessel_i1_scaled_e
 function sf_bessel_i2_scaled(x::Real)
     ccall( (:gsl_sf_bessel_i2_scaled, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_i2_scaled
 
 
 # These routines compute the scaled regular modified spherical Bessel function
@@ -78,7 +73,6 @@ function sf_bessel_i2_scaled_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_i2_scaled_e
 
 
 # These routines compute the scaled regular modified spherical Bessel function
@@ -89,7 +83,6 @@ function sf_bessel_il_scaled(l::Integer, x::Real)
     ccall( (:gsl_sf_bessel_il_scaled, libgsl), Cdouble, (Cint, Cdouble),
         l, x )
 end
-Compat.@dep_vectorize_2arg Number sf_bessel_il_scaled
 
 
 # These routines compute the scaled regular modified spherical Bessel function
@@ -103,7 +96,6 @@ function sf_bessel_il_scaled_e(l::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_bessel_il_scaled_e
 
 
 # This routine computes the values of the scaled regular modified cylindrical
@@ -120,4 +112,3 @@ function sf_bessel_il_scaled_array(lmax::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result_array[][1]
 end
-Compat.@dep_vectorize_2arg Number sf_bessel_il_scaled_array

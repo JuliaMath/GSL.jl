@@ -17,7 +17,6 @@ export sf_bessel_I0, sf_bessel_I0_e, sf_bessel_I1, sf_bessel_I1_e,
 function sf_bessel_I0(x::Real)
     ccall( (:gsl_sf_bessel_I0, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_I0
 
 
 # These routines compute the regular modified cylindrical Bessel function of
@@ -31,7 +30,6 @@ function sf_bessel_I0_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_I0_e
 
 
 # These routines compute the regular modified cylindrical Bessel function of
@@ -41,7 +39,6 @@ Compat.@dep_vectorize_1arg Number sf_bessel_I0_e
 function sf_bessel_I1(x::Real)
     ccall( (:gsl_sf_bessel_I1, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_I1
 
 
 # These routines compute the regular modified cylindrical Bessel function of
@@ -55,7 +52,6 @@ function sf_bessel_I1_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_I1_e
 
 
 # These routines compute the regular modified cylindrical Bessel function of
@@ -65,7 +61,6 @@ Compat.@dep_vectorize_1arg Number sf_bessel_I1_e
 function sf_bessel_In(n::Integer, x::Real)
     ccall( (:gsl_sf_bessel_In, libgsl), Cdouble, (Cint, Cdouble), n, x )
 end
-Compat.@dep_vectorize_2arg Number sf_bessel_In
 
 
 # These routines compute the regular modified cylindrical Bessel function of
@@ -79,7 +74,6 @@ function sf_bessel_In_e(n::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_bessel_In_e
 
 
 # These routines compute the scaled regular modified cylindrical Bessel
@@ -89,7 +83,6 @@ Compat.@dep_vectorize_2arg Number sf_bessel_In_e
 function sf_bessel_I0_scaled(x::Real)
     ccall( (:gsl_sf_bessel_I0_scaled, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_I0_scaled
 
 
 # These routines compute the scaled regular modified cylindrical Bessel
@@ -103,7 +96,6 @@ function sf_bessel_I0_scaled_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_I0_scaled_e
 
 
 # These routines compute the scaled regular modified cylindrical Bessel
@@ -113,7 +105,6 @@ Compat.@dep_vectorize_1arg Number sf_bessel_I0_scaled_e
 function sf_bessel_I1_scaled(x::Real)
     ccall( (:gsl_sf_bessel_I1_scaled, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_I1_scaled
 
 
 # These routines compute the scaled regular modified cylindrical Bessel
@@ -127,7 +118,6 @@ function sf_bessel_I1_scaled_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_I1_scaled_e
 
 
 # These routines compute the scaled regular modified cylindrical Bessel
@@ -138,7 +128,6 @@ function sf_bessel_In_scaled(n::Integer, x::Real)
     ccall( (:gsl_sf_bessel_In_scaled, libgsl), Cdouble, (Cint, Cdouble),
         n, x )
 end
-Compat.@dep_vectorize_2arg Number sf_bessel_In_scaled
 
 
 # These routines compute the scaled regular modified cylindrical Bessel
@@ -152,4 +141,3 @@ function sf_bessel_In_scaled_e(n::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_bessel_In_scaled_e

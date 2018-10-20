@@ -14,7 +14,6 @@ export sf_erf, sf_erf_e
 function sf_erf(x::Real)
     ccall( (:gsl_sf_erf, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_erf
 
 
 # These routines compute the error function  erf(x), where  erf(x) =
@@ -28,4 +27,3 @@ function sf_erf_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_erf_e

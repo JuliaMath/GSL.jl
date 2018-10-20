@@ -33,7 +33,6 @@ export stats_wmean, stats_wvariance, stats_wvariance_m, stats_wsd, stats_wsd_m,
 function stats_wmean(w::Real)
     ccall( (:gsl_stats_wmean, libgsl), Cdouble, (Cdouble, ), w )
 end
-Compat.@dep_vectorize_1arg Number stats_wmean
 
 
 # This function returns the estimated variance of the dataset data with stride
@@ -48,7 +47,6 @@ Compat.@dep_vectorize_1arg Number stats_wmean
 function stats_wvariance(w::Real)
     ccall( (:gsl_stats_wvariance, libgsl), Cdouble, (Cdouble, ), w )
 end
-Compat.@dep_vectorize_1arg Number stats_wvariance
 
 
 # This function returns the estimated variance of the weighted dataset data
@@ -58,7 +56,6 @@ Compat.@dep_vectorize_1arg Number stats_wvariance
 function stats_wvariance_m(w::Real)
     ccall( (:gsl_stats_wvariance_m, libgsl), Cdouble, (Cdouble, ), w )
 end
-Compat.@dep_vectorize_1arg Number stats_wvariance_m
 
 
 # The standard deviation is defined as the square root of the variance.  This
@@ -69,7 +66,6 @@ Compat.@dep_vectorize_1arg Number stats_wvariance_m
 function stats_wsd(w::Real)
     ccall( (:gsl_stats_wsd, libgsl), Cdouble, (Cdouble, ), w )
 end
-Compat.@dep_vectorize_1arg Number stats_wsd
 
 
 # This function returns the square root of the corresponding variance function
@@ -79,7 +75,6 @@ Compat.@dep_vectorize_1arg Number stats_wsd
 function stats_wsd_m(w::Real)
     ccall( (:gsl_stats_wsd_m, libgsl), Cdouble, (Cdouble, ), w )
 end
-Compat.@dep_vectorize_1arg Number stats_wsd_m
 
 
 # This function computes an unbiased estimate of the variance of the weighted
@@ -93,7 +88,6 @@ function stats_wvariance_with_fixed_mean(w::Real)
     ccall( (:gsl_stats_wvariance_with_fixed_mean, libgsl), Cdouble,
         (Cdouble, ), w )
 end
-Compat.@dep_vectorize_1arg Number stats_wvariance_with_fixed_mean
 
 
 # The standard deviation is defined as the square root of the variance.  This
@@ -105,7 +99,6 @@ function stats_wsd_with_fixed_mean(w::Real)
     ccall( (:gsl_stats_wsd_with_fixed_mean, libgsl), Cdouble, (Cdouble, ),
         w )
 end
-Compat.@dep_vectorize_1arg Number stats_wsd_with_fixed_mean
 
 
 # These functions return the weighted total sum of squares (TSS) of data about
@@ -117,7 +110,6 @@ Compat.@dep_vectorize_1arg Number stats_wsd_with_fixed_mean
 function stats_wtss(w::Real)
     ccall( (:gsl_stats_wtss, libgsl), Cdouble, (Cdouble, ), w )
 end
-Compat.@dep_vectorize_1arg Number stats_wtss
 
 
 # These functions return the weighted total sum of squares (TSS) of data about
@@ -129,7 +121,6 @@ Compat.@dep_vectorize_1arg Number stats_wtss
 function stats_wtss_m(w::Real)
     ccall( (:gsl_stats_wtss_m, libgsl), Cdouble, (Cdouble, ), w )
 end
-Compat.@dep_vectorize_1arg Number stats_wtss_m
 
 
 # This function computes the weighted absolute deviation from the weighted mean
@@ -140,7 +131,6 @@ Compat.@dep_vectorize_1arg Number stats_wtss_m
 function stats_wabsdev(w::Real)
     ccall( (:gsl_stats_wabsdev, libgsl), Cdouble, (Cdouble, ), w )
 end
-Compat.@dep_vectorize_1arg Number stats_wabsdev
 
 
 # This function computes the absolute deviation of the weighted dataset data
@@ -150,7 +140,6 @@ Compat.@dep_vectorize_1arg Number stats_wabsdev
 function stats_wabsdev_m(w::Real)
     ccall( (:gsl_stats_wabsdev_m, libgsl), Cdouble, (Cdouble, ), w )
 end
-Compat.@dep_vectorize_1arg Number stats_wabsdev_m
 
 
 # This function computes the weighted skewness of the dataset data.
@@ -160,7 +149,6 @@ Compat.@dep_vectorize_1arg Number stats_wabsdev_m
 function stats_wskew(w::Real)
     ccall( (:gsl_stats_wskew, libgsl), Cdouble, (Cdouble, ), w )
 end
-Compat.@dep_vectorize_1arg Number stats_wskew
 
 
 # This function computes the weighted skewness of the dataset data using the
@@ -171,7 +159,6 @@ Compat.@dep_vectorize_1arg Number stats_wskew
 function stats_wskew_m_sd(w::Real)
     ccall( (:gsl_stats_wskew_m_sd, libgsl), Cdouble, (Cdouble, ), w )
 end
-Compat.@dep_vectorize_1arg Number stats_wskew_m_sd
 
 
 # This function computes the weighted kurtosis of the dataset data.
@@ -181,7 +168,6 @@ Compat.@dep_vectorize_1arg Number stats_wskew_m_sd
 function stats_wkurtosis(w::Real)
     ccall( (:gsl_stats_wkurtosis, libgsl), Cdouble, (Cdouble, ), w )
 end
-Compat.@dep_vectorize_1arg Number stats_wkurtosis
 
 
 # This function computes the weighted kurtosis of the dataset data using the
@@ -192,4 +178,3 @@ Compat.@dep_vectorize_1arg Number stats_wkurtosis
 function stats_wkurtosis_m_sd(w::Real)
     ccall( (:gsl_stats_wkurtosis_m_sd, libgsl), Cdouble, (Cdouble, ), w )
 end
-Compat.@dep_vectorize_1arg Number stats_wkurtosis_m_sd

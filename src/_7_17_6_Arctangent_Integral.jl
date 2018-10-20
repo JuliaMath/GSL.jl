@@ -14,7 +14,6 @@ export sf_atanint, sf_atanint_e
 function sf_atanint(x::Real)
     ccall( (:gsl_sf_atanint, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_atanint
 
 
 # These routines compute the Arctangent integral, which is defined as
@@ -28,4 +27,3 @@ function sf_atanint_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_atanint_e

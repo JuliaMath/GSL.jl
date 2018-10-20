@@ -18,7 +18,6 @@ function sf_coulomb_CL_e(L::Real, eta::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_coulomb_CL_e
 
 
 # This function computes the Coulomb wave function normalization constant

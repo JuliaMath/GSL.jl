@@ -16,7 +16,6 @@ function sf_laguerre_1(a::Real, x::Real)
     ccall( (:gsl_sf_laguerre_1, libgsl), Cdouble, (Cdouble, Cdouble), a, x
         )
 end
-Compat.@dep_vectorize_2arg Number sf_laguerre_1
 
 
 # These routines evaluate the generalized Laguerre polynomials L^a_1(x),
@@ -27,7 +26,6 @@ function sf_laguerre_2(a::Real, x::Real)
     ccall( (:gsl_sf_laguerre_2, libgsl), Cdouble, (Cdouble, Cdouble), a, x
         )
 end
-Compat.@dep_vectorize_2arg Number sf_laguerre_2
 
 
 # These routines evaluate the generalized Laguerre polynomials L^a_1(x),
@@ -38,7 +36,6 @@ function sf_laguerre_3(a::Real, x::Real)
     ccall( (:gsl_sf_laguerre_3, libgsl), Cdouble, (Cdouble, Cdouble), a, x
         )
 end
-Compat.@dep_vectorize_2arg Number sf_laguerre_3
 
 
 # These routines evaluate the generalized Laguerre polynomials L^a_1(x),
@@ -52,7 +49,6 @@ function sf_laguerre_1_e(a::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_laguerre_1_e
 
 
 # These routines evaluate the generalized Laguerre polynomials L^a_1(x),
@@ -66,7 +62,6 @@ function sf_laguerre_2_e(a::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_laguerre_2_e
 
 
 # These routines evaluate the generalized Laguerre polynomials L^a_1(x),
@@ -80,7 +75,6 @@ function sf_laguerre_3_e(a::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_laguerre_3_e
 
 
 # These routines evaluate the generalized Laguerre polynomials L^a_n(x) for a >

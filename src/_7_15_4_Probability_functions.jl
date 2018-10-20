@@ -16,7 +16,6 @@ export sf_erf_Z, sf_erf_Z_e, sf_erf_Q, sf_erf_Q_e, sf_hazard, sf_hazard_e
 function sf_erf_Z(x::Real)
     ccall( (:gsl_sf_erf_Z, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_erf_Z
 
 
 # These routines compute the Gaussian probability density function  Z(x) =
@@ -30,7 +29,6 @@ function sf_erf_Z_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_erf_Z_e
 
 
 # These routines compute the upper tail of the Gaussian probability function
@@ -40,7 +38,6 @@ Compat.@dep_vectorize_1arg Number sf_erf_Z_e
 function sf_erf_Q(x::Real)
     ccall( (:gsl_sf_erf_Q, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_erf_Q
 
 
 # These routines compute the upper tail of the Gaussian probability function
@@ -54,7 +51,6 @@ function sf_erf_Q_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_erf_Q_e
 
 
 # These routines compute the hazard function for the normal distribution.
@@ -63,7 +59,6 @@ Compat.@dep_vectorize_1arg Number sf_erf_Q_e
 function sf_hazard(x::Real)
     ccall( (:gsl_sf_hazard, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_hazard
 
 
 # These routines compute the hazard function for the normal distribution.
@@ -76,4 +71,3 @@ function sf_hazard_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_hazard_e

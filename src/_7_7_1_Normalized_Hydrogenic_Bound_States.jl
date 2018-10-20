@@ -17,7 +17,6 @@ function sf_hydrogenicR_1(Z::Real, r::Real)
     ccall( (:gsl_sf_hydrogenicR_1, libgsl), Cdouble, (Cdouble, Cdouble),
         Z, r )
 end
-Compat.@dep_vectorize_2arg Number sf_hydrogenicR_1
 
 
 # These routines compute the lowest-order normalized hydrogenic bound state
@@ -31,7 +30,6 @@ function sf_hydrogenicR_1_e(Z::Real, r::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_hydrogenicR_1_e
 
 
 # These routines compute the n-th normalized hydrogenic bound state radial

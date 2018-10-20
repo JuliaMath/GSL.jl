@@ -69,4 +69,3 @@ function root_test_residual(f::Real, epsabs::Real)
     end
     return errno
 end
-Compat.@dep_vectorize_2arg Number root_test_residual

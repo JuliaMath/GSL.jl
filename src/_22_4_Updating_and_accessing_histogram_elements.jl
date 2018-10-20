@@ -27,7 +27,6 @@ function histogram_increment(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end
-Compat.@dep_vectorize_1arg Number histogram_increment
 
 
 # This function is similar to gsl_histogram_increment but increases the value
@@ -42,7 +41,6 @@ function histogram_accumulate(x::Real, weight::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end
-Compat.@dep_vectorize_2arg Number histogram_accumulate
 
 
 # This function returns the contents of the i-th bin of the histogram h.  If i

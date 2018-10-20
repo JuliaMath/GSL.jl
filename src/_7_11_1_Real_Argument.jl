@@ -18,7 +18,6 @@ export sf_dilog, sf_dilog_e
 function sf_dilog(x::Real)
     ccall( (:gsl_sf_dilog, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_dilog
 
 
 # These routines compute the dilogarithm for a real argument. In Lewin's
@@ -36,4 +35,3 @@ function sf_dilog_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_dilog_e

@@ -29,7 +29,6 @@ function ran_laplace_pdf(x::Real, a::Real)
     ccall( (:gsl_ran_laplace_pdf, libgsl), Cdouble, (Cdouble, Cdouble), x,
         a )
 end
-Compat.@dep_vectorize_2arg Number ran_laplace_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -40,7 +39,6 @@ function cdf_laplace_P(x::Real, a::Real)
     ccall( (:gsl_cdf_laplace_P, libgsl), Cdouble, (Cdouble, Cdouble), x, a
         )
 end
-Compat.@dep_vectorize_2arg Number cdf_laplace_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -51,7 +49,6 @@ function cdf_laplace_Q(x::Real, a::Real)
     ccall( (:gsl_cdf_laplace_Q, libgsl), Cdouble, (Cdouble, Cdouble), x, a
         )
 end
-Compat.@dep_vectorize_2arg Number cdf_laplace_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -62,7 +59,6 @@ function cdf_laplace_Pinv(P::Real, a::Real)
     ccall( (:gsl_cdf_laplace_Pinv, libgsl), Cdouble, (Cdouble, Cdouble),
         P, a )
 end
-Compat.@dep_vectorize_2arg Number cdf_laplace_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -73,4 +69,3 @@ function cdf_laplace_Qinv(Q::Real, a::Real)
     ccall( (:gsl_cdf_laplace_Qinv, libgsl), Cdouble, (Cdouble, Cdouble),
         Q, a )
 end
-Compat.@dep_vectorize_2arg Number cdf_laplace_Qinv

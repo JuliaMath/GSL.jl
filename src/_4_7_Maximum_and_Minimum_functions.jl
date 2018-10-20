@@ -17,7 +17,6 @@ export GSL_MAX_DBL, GSL_MIN_DBL, GSL_MAX_INT, GSL_MIN_INT, GSL_MAX_LDBL,
 function GSL_MAX_DBL(a::Real, b::Real)
     ccall( (:GSL_MAX_DBL, libgsl), Cdouble, (Cdouble, Cdouble), a, b )
 end
-Compat.@dep_vectorize_2arg Number GSL_MAX_DBL
 
 
 # This function returns the minimum of the double precision numbers a and b
@@ -29,7 +28,6 @@ Compat.@dep_vectorize_2arg Number GSL_MAX_DBL
 function GSL_MIN_DBL(a::Real, b::Real)
     ccall( (:GSL_MIN_DBL, libgsl), Cdouble, (Cdouble, Cdouble), a, b )
 end
-Compat.@dep_vectorize_2arg Number GSL_MIN_DBL
 
 
 # These functions return the maximum or minimum of the integers a and b using
@@ -41,7 +39,6 @@ function GSL_MAX_INT(a::Integer, b::Integer)
     errno = ccall( (:GSL_MAX_INT, libgsl), Cint, (Cint, Cint), a, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-Compat.@dep_vectorize_2arg Number GSL_MAX_INT
 
 
 # These functions return the maximum or minimum of the integers a and b using
@@ -53,7 +50,6 @@ function GSL_MIN_INT(a::Integer, b::Integer)
     errno = ccall( (:GSL_MIN_INT, libgsl), Cint, (Cint, Cint), a, b )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-Compat.@dep_vectorize_2arg Number GSL_MIN_INT
 
 
 # These functions return the maximum or minimum of the long doubles a and b
@@ -64,7 +60,6 @@ Compat.@dep_vectorize_2arg Number GSL_MIN_INT
 function GSL_MAX_LDBL(a::Real, b::Real)
     ccall( (:GSL_MAX_LDBL, libgsl), Cdouble, (Cdouble, Cdouble), a, b )
 end
-Compat.@dep_vectorize_2arg Number GSL_MAX_LDBL
 
 
 # These functions return the maximum or minimum of the long doubles a and b
@@ -75,4 +70,3 @@ Compat.@dep_vectorize_2arg Number GSL_MAX_LDBL
 function GSL_MIN_LDBL(a::Real, b::Real)
     ccall( (:GSL_MIN_LDBL, libgsl), Cdouble, (Cdouble, Cdouble), a, b )
 end
-Compat.@dep_vectorize_2arg Number GSL_MIN_LDBL

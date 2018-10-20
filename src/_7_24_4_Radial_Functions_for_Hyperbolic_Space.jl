@@ -19,7 +19,6 @@ function sf_legendre_H3d_0(lambda::Real, eta::Real)
     ccall( (:gsl_sf_legendre_H3d_0, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, eta )
 end
-Compat.@dep_vectorize_2arg Number sf_legendre_H3d_0
 
 
 # These routines compute the zeroth radial eigenfunction of the Laplacian on
@@ -35,7 +34,6 @@ function sf_legendre_H3d_0_e(lambda::Real, eta::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_legendre_H3d_0_e
 
 
 # These routines compute the first radial eigenfunction of the Laplacian on the
@@ -49,7 +47,6 @@ function sf_legendre_H3d_1(lambda::Real, eta::Real)
     ccall( (:gsl_sf_legendre_H3d_1, libgsl), Cdouble, (Cdouble, Cdouble),
         lambda, eta )
 end
-Compat.@dep_vectorize_2arg Number sf_legendre_H3d_1
 
 
 # These routines compute the first radial eigenfunction of the Laplacian on the
@@ -66,7 +63,6 @@ function sf_legendre_H3d_1_e(lambda::Real, eta::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_legendre_H3d_1_e
 
 
 # These routines compute the l-th radial eigenfunction of the Laplacian on the

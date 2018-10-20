@@ -15,7 +15,6 @@ export sf_clausen, sf_clausen_e
 function sf_clausen(x::Real)
     ccall( (:gsl_sf_clausen, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_clausen
 
 
 # These routines compute the Clausen integral Cl_2(x).
@@ -28,4 +27,3 @@ function sf_clausen_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_clausen_e

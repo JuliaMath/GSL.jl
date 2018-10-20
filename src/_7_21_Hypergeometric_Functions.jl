@@ -20,7 +20,6 @@ function sf_hyperg_0F1(c::Real, x::Real)
     ccall( (:gsl_sf_hyperg_0F1, libgsl), Cdouble, (Cdouble, Cdouble), c, x
         )
 end
-Compat.@dep_vectorize_2arg Number sf_hyperg_0F1
 
 
 # These routines compute the hypergeometric function  0F1(c,x).
@@ -33,7 +32,6 @@ function sf_hyperg_0F1_e(c::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_hyperg_0F1_e
 
 
 # These routines compute the confluent hypergeometric function  1F1(m,n,x) =

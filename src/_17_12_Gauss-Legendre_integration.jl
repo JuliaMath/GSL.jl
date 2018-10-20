@@ -19,7 +19,6 @@ function integration_glfixed_table_alloc(n::Integer)
         Ptr{gsl_integration_glfixed_table}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-Compat.@dep_vectorize_1arg Number integration_glfixed_table_alloc
 
 
 # This function applies the Gauss-Legendre integration rule contained in table

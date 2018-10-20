@@ -27,7 +27,6 @@ function histogram2d_increment(x::Real, y::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end
-Compat.@dep_vectorize_2arg Number histogram2d_increment
 
 
 # This function is similar to gsl_histogram2d_increment but increases the value

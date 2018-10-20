@@ -15,7 +15,6 @@ export sf_bessel_zero_J0, sf_bessel_zero_J0_e, sf_bessel_zero_J1,
 function sf_bessel_zero_J0(s::Integer)
     ccall( (:gsl_sf_bessel_zero_J0, libgsl), Cdouble, (Cuint, ), s )
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_zero_J0
 
 
 # These routines compute the location of the s-th positive zero of the Bessel
@@ -29,7 +28,6 @@ function sf_bessel_zero_J0_e(s::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_zero_J0_e
 
 
 # These routines compute the location of the s-th positive zero of the Bessel
@@ -39,7 +37,6 @@ Compat.@dep_vectorize_1arg Number sf_bessel_zero_J0_e
 function sf_bessel_zero_J1(s::Integer)
     ccall( (:gsl_sf_bessel_zero_J1, libgsl), Cdouble, (Cuint, ), s )
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_zero_J1
 
 
 # These routines compute the location of the s-th positive zero of the Bessel
@@ -53,7 +50,6 @@ function sf_bessel_zero_J1_e(s::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_bessel_zero_J1_e
 
 
 # These routines compute the location of the s-th positive zero of the Bessel
@@ -65,7 +61,6 @@ function sf_bessel_zero_Jnu(nu::Real, s::Integer)
     ccall( (:gsl_sf_bessel_zero_Jnu, libgsl), Cdouble, (Cdouble, Cuint),
         nu, s )
 end
-Compat.@dep_vectorize_2arg Number sf_bessel_zero_Jnu
 
 
 # These routines compute the location of the s-th positive zero of the Bessel
@@ -80,4 +75,3 @@ function sf_bessel_zero_Jnu_e(nu::Real, s::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_bessel_zero_Jnu_e

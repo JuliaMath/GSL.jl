@@ -27,7 +27,6 @@ function monte_miser_alloc(dim::Integer)
         Ptr{gsl_monte_miser_state}, (Csize_t, ), dim )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-Compat.@dep_vectorize_1arg Number monte_miser_alloc
 
 
 # This function initializes a previously allocated integration state.  This
@@ -57,7 +56,6 @@ function monte_miser_integrate(xl::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return f[]
 end
-Compat.@dep_vectorize_1arg Number monte_miser_integrate
 
 
 # This function frees the memory associated with the integrator state s.

@@ -32,4 +32,3 @@ function bspline_knots_uniform(a::Real, b::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return w[]
 end
-Compat.@dep_vectorize_2arg Number bspline_knots_uniform

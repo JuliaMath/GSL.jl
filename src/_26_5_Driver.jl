@@ -90,7 +90,6 @@ function odeiv2_driver_set_hmin(hmin::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return d[]
 end
-Compat.@dep_vectorize_1arg Number odeiv2_driver_set_hmin
 
 
 # The function sets a maximum for allowed step size hmax for driver d. Default
@@ -104,7 +103,6 @@ function odeiv2_driver_set_hmax(hmax::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return d[]
 end
-Compat.@dep_vectorize_1arg Number odeiv2_driver_set_hmax
 
 
 # The function sets a maximum for allowed number of steps nmax for driver d.
@@ -118,7 +116,6 @@ function odeiv2_driver_set_nmax(nmax::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return d[]
 end
-Compat.@dep_vectorize_1arg Number odeiv2_driver_set_nmax
 
 
 # This function evolves the driver system d from t to t1. Initially vector y
@@ -141,7 +138,6 @@ function odeiv2_driver_apply(t1::Real, y::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return d[], t[]
 end
-Compat.@dep_vectorize_2arg Number odeiv2_driver_apply
 
 
 # This function evolves the driver system d from t with n steps of size h. If

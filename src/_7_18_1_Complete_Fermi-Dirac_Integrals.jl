@@ -21,7 +21,6 @@ export sf_fermi_dirac_m1, sf_fermi_dirac_m1_e, sf_fermi_dirac_0,
 function sf_fermi_dirac_m1(x::Real)
     ccall( (:gsl_sf_fermi_dirac_m1, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_fermi_dirac_m1
 
 
 # These routines compute the complete Fermi-Dirac integral with an index of -1.
@@ -35,7 +34,6 @@ function sf_fermi_dirac_m1_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_fermi_dirac_m1_e
 
 
 # These routines compute the complete Fermi-Dirac integral with an index of 0.
@@ -45,7 +43,6 @@ Compat.@dep_vectorize_1arg Number sf_fermi_dirac_m1_e
 function sf_fermi_dirac_0(x::Real)
     ccall( (:gsl_sf_fermi_dirac_0, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_fermi_dirac_0
 
 
 # These routines compute the complete Fermi-Dirac integral with an index of 0.
@@ -59,7 +56,6 @@ function sf_fermi_dirac_0_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_fermi_dirac_0_e
 
 
 # These routines compute the complete Fermi-Dirac integral with an index of 1,
@@ -69,7 +65,6 @@ Compat.@dep_vectorize_1arg Number sf_fermi_dirac_0_e
 function sf_fermi_dirac_1(x::Real)
     ccall( (:gsl_sf_fermi_dirac_1, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_fermi_dirac_1
 
 
 # These routines compute the complete Fermi-Dirac integral with an index of 1,
@@ -83,7 +78,6 @@ function sf_fermi_dirac_1_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_fermi_dirac_1_e
 
 
 # These routines compute the complete Fermi-Dirac integral with an index of 2,
@@ -93,7 +87,6 @@ Compat.@dep_vectorize_1arg Number sf_fermi_dirac_1_e
 function sf_fermi_dirac_2(x::Real)
     ccall( (:gsl_sf_fermi_dirac_2, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_fermi_dirac_2
 
 
 # These routines compute the complete Fermi-Dirac integral with an index of 2,
@@ -107,7 +100,6 @@ function sf_fermi_dirac_2_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_fermi_dirac_2_e
 
 
 # These routines compute the complete Fermi-Dirac integral with an integer
@@ -118,7 +110,6 @@ function sf_fermi_dirac_int(j::Integer, x::Real)
     ccall( (:gsl_sf_fermi_dirac_int, libgsl), Cdouble, (Cint, Cdouble), j,
         x )
 end
-Compat.@dep_vectorize_2arg Number sf_fermi_dirac_int
 
 
 # These routines compute the complete Fermi-Dirac integral with an integer
@@ -132,7 +123,6 @@ function sf_fermi_dirac_int_e(j::Integer, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_fermi_dirac_int_e
 
 
 # These routines compute the complete Fermi-Dirac integral  F_{-1/2}(x).
@@ -141,7 +131,6 @@ Compat.@dep_vectorize_2arg Number sf_fermi_dirac_int_e
 function sf_fermi_dirac_mhalf(x::Real)
     ccall( (:gsl_sf_fermi_dirac_mhalf, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_fermi_dirac_mhalf
 
 
 # These routines compute the complete Fermi-Dirac integral  F_{-1/2}(x).
@@ -154,7 +143,6 @@ function sf_fermi_dirac_mhalf_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_fermi_dirac_mhalf_e
 
 
 # These routines compute the complete Fermi-Dirac integral  F_{1/2}(x).
@@ -163,7 +151,6 @@ Compat.@dep_vectorize_1arg Number sf_fermi_dirac_mhalf_e
 function sf_fermi_dirac_half(x::Real)
     ccall( (:gsl_sf_fermi_dirac_half, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_fermi_dirac_half
 
 
 # These routines compute the complete Fermi-Dirac integral  F_{1/2}(x).
@@ -176,7 +163,6 @@ function sf_fermi_dirac_half_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_fermi_dirac_half_e
 
 
 # These routines compute the complete Fermi-Dirac integral  F_{3/2}(x).
@@ -185,7 +171,6 @@ Compat.@dep_vectorize_1arg Number sf_fermi_dirac_half_e
 function sf_fermi_dirac_3half(x::Real)
     ccall( (:gsl_sf_fermi_dirac_3half, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_fermi_dirac_3half
 
 
 # These routines compute the complete Fermi-Dirac integral  F_{3/2}(x).
@@ -198,4 +183,3 @@ function sf_fermi_dirac_3half_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_fermi_dirac_3half_e

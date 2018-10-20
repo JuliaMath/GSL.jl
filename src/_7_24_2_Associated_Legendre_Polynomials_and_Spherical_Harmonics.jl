@@ -132,4 +132,3 @@ function sf_legendre_array_size(lmax::Integer, m::Integer)
         Cint), lmax, m )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-Compat.@dep_vectorize_2arg Number sf_legendre_array_size

@@ -31,4 +31,3 @@ end
 function ran_landau_pdf(x::Real)
     ccall( (:gsl_ran_landau_pdf, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number ran_landau_pdf

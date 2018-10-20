@@ -36,4 +36,3 @@ function multimin_test_size(size::Real, epsabs::Real)
         Cdouble), size, epsabs )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-Compat.@dep_vectorize_2arg Number multimin_test_size

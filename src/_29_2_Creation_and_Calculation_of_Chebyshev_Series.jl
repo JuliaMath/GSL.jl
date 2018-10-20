@@ -16,7 +16,6 @@ function cheb_alloc(n::Integer)
         (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-Compat.@dep_vectorize_1arg Number cheb_alloc
 
 
 # This function frees a previously allocated Chebyshev series cs.

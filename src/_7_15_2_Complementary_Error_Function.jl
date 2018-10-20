@@ -14,7 +14,6 @@ export sf_erfc, sf_erfc_e
 function sf_erfc(x::Real)
     ccall( (:gsl_sf_erfc, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_erfc
 
 
 # These routines compute the complementary error function  erfc(x) = 1 - erf(x)
@@ -28,4 +27,3 @@ function sf_erfc_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_erfc_e

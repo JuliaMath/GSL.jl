@@ -13,7 +13,6 @@ export sf_psi_1_int, sf_psi_1_int_e, sf_psi_1, sf_psi_1_e
 function sf_psi_1_int(n::Integer)
     ccall( (:gsl_sf_psi_1_int, libgsl), Cdouble, (Cint, ), n )
 end
-Compat.@dep_vectorize_1arg Number sf_psi_1_int
 
 
 # These routines compute the Trigamma function \psi'(n) for positive integer n.
@@ -26,7 +25,6 @@ function sf_psi_1_int_e(n::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_psi_1_int_e
 
 
 # These routines compute the Trigamma function \psi'(x) for general x.
@@ -35,7 +33,6 @@ Compat.@dep_vectorize_1arg Number sf_psi_1_int_e
 function sf_psi_1(x::Real)
     ccall( (:gsl_sf_psi_1, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_psi_1
 
 
 # These routines compute the Trigamma function \psi'(x) for general x.
@@ -48,4 +45,3 @@ function sf_psi_1_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_psi_1_e

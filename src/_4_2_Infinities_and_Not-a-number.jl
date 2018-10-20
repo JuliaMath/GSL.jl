@@ -17,7 +17,6 @@ function isnan(x::Real)
     errno = ccall( (:gsl_isnan, libgsl), Cint, (Cdouble, ), x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-Compat.@dep_vectorize_1arg Number isnan
 
 
 # This function returns +1 if x is positive infinity, -1 if x is negative
@@ -28,7 +27,6 @@ function isinf(x::Real)
     errno = ccall( (:gsl_isinf, libgsl), Cint, (Cdouble, ), x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-Compat.@dep_vectorize_1arg Number isinf
 
 
 # This function returns 1 if x is a real number, and 0 if it is infinite or
@@ -39,4 +37,3 @@ function finite(x::Real)
     errno = ccall( (:gsl_finite, libgsl), Cint, (Cdouble, ), x )
     if errno!= 0 throw(GSL_ERROR(errno)) end
 end
-Compat.@dep_vectorize_1arg Number finite

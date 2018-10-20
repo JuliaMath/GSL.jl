@@ -29,7 +29,6 @@ function ran_logistic_pdf(x::Real, a::Real)
     ccall( (:gsl_ran_logistic_pdf, libgsl), Cdouble, (Cdouble, Cdouble),
         x, a )
 end
-Compat.@dep_vectorize_2arg Number ran_logistic_pdf
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -40,7 +39,6 @@ function cdf_logistic_P(x::Real, a::Real)
     ccall( (:gsl_cdf_logistic_P, libgsl), Cdouble, (Cdouble, Cdouble), x,
         a )
 end
-Compat.@dep_vectorize_2arg Number cdf_logistic_P
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -51,7 +49,6 @@ function cdf_logistic_Q(x::Real, a::Real)
     ccall( (:gsl_cdf_logistic_Q, libgsl), Cdouble, (Cdouble, Cdouble), x,
         a )
 end
-Compat.@dep_vectorize_2arg Number cdf_logistic_Q
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -62,7 +59,6 @@ function cdf_logistic_Pinv(P::Real, a::Real)
     ccall( (:gsl_cdf_logistic_Pinv, libgsl), Cdouble, (Cdouble, Cdouble),
         P, a )
 end
-Compat.@dep_vectorize_2arg Number cdf_logistic_Pinv
 
 
 # These functions compute the cumulative distribution functions P(x), Q(x) and
@@ -73,4 +69,3 @@ function cdf_logistic_Qinv(Q::Real, a::Real)
     ccall( (:gsl_cdf_logistic_Qinv, libgsl), Cdouble, (Cdouble, Cdouble),
         Q, a )
 end
-Compat.@dep_vectorize_2arg Number cdf_logistic_Qinv

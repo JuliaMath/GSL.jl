@@ -21,7 +21,6 @@ function histogram2d_alloc(nx::Integer, ny::Integer)
         Ptr{gsl_histogram2d}, (Csize_t, Csize_t), nx, ny )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-Compat.@dep_vectorize_2arg Number histogram2d_alloc
 
 
 # This function sets the ranges of the existing histogram h using the arrays
@@ -36,7 +35,6 @@ function histogram2d_set_ranges(xrange::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end
-Compat.@dep_vectorize_1arg Number histogram2d_set_ranges
 
 
 # This function sets the ranges of the existing histogram h to cover the ranges

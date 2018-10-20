@@ -14,7 +14,6 @@ export sf_psi_int, sf_psi_int_e, sf_psi, sf_psi_e, sf_psi_1piy, sf_psi_1piy_e
 function sf_psi_int(n::Integer)
     ccall( (:gsl_sf_psi_int, libgsl), Cdouble, (Cint, ), n )
 end
-Compat.@dep_vectorize_1arg Number sf_psi_int
 
 
 # These routines compute the digamma function \psi(n) for positive integer n.
@@ -28,7 +27,6 @@ function sf_psi_int_e(n::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_psi_int_e
 
 
 # These routines compute the digamma function \psi(x) for general x, x \ne 0.
@@ -37,7 +35,6 @@ Compat.@dep_vectorize_1arg Number sf_psi_int_e
 function sf_psi(x::Real)
     ccall( (:gsl_sf_psi, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_psi
 
 
 # These routines compute the digamma function \psi(x) for general x, x \ne 0.
@@ -50,7 +47,6 @@ function sf_psi_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_psi_e
 
 
 # These routines compute the real part of the digamma function on the line 1+i
@@ -60,7 +56,6 @@ Compat.@dep_vectorize_1arg Number sf_psi_e
 function sf_psi_1piy(y::Real)
     ccall( (:gsl_sf_psi_1piy, libgsl), Cdouble, (Cdouble, ), y )
 end
-Compat.@dep_vectorize_1arg Number sf_psi_1piy
 
 
 # These routines compute the real part of the digamma function on the line 1+i
@@ -74,4 +69,3 @@ function sf_psi_1piy_e(y::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_psi_1piy_e
