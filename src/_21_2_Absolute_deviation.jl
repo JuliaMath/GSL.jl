@@ -23,7 +23,6 @@ export stats_absdev, stats_absdev_m
 function stats_absdev(data::Real)
     ccall( (:gsl_stats_absdev, libgsl), Cdouble, (Cdouble, ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_absdev
 
 
 # This function computes the absolute deviation of the dataset data relative to
@@ -36,4 +35,3 @@ Compat.@dep_vectorize_1arg Number stats_absdev
 function stats_absdev_m(data::Real)
     ccall( (:gsl_stats_absdev_m, libgsl), Cdouble, (Cdouble, ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_absdev_m

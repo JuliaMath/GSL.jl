@@ -18,7 +18,6 @@ export sf_pow_int, sf_pow_int_e
 function sf_pow_int(x::Real, n::Integer)
     ccall( (:gsl_sf_pow_int, libgsl), Cdouble, (Cdouble, Cint), x, n )
 end
-Compat.@dep_vectorize_2arg Number sf_pow_int
 
 
 # These routines compute the power x^n for integer n.  The power is computed
@@ -34,4 +33,3 @@ function sf_pow_int_e(x::Real, n::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_pow_int_e

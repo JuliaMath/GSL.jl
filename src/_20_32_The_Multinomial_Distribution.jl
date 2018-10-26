@@ -37,7 +37,6 @@ function ran_multinomial_pdf(K::Integer, p::Real)
     ccall( (:gsl_ran_multinomial_pdf, libgsl), Cdouble, (Csize_t,
         Cdouble), K, p )
 end
-Compat.@dep_vectorize_2arg Number ran_multinomial_pdf
 
 
 # This function returns the logarithm of the probability for the multinomial
@@ -48,4 +47,3 @@ function ran_multinomial_lnpdf(K::Integer, p::Real)
     ccall( (:gsl_ran_multinomial_lnpdf, libgsl), Cdouble, (Csize_t,
         Cdouble), K, p )
 end
-Compat.@dep_vectorize_2arg Number ran_multinomial_lnpdf

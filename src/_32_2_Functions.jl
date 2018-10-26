@@ -16,7 +16,6 @@ function dht_alloc(size::Integer)
         ), size )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-Compat.@dep_vectorize_1arg Number dht_alloc
 
 
 # This function initializes the transform t for the given values of nu and

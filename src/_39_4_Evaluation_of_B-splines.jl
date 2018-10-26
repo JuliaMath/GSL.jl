@@ -23,7 +23,6 @@ function bspline_eval(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return B[], w[]
 end
-Compat.@dep_vectorize_1arg Number bspline_eval
 
 
 # This function evaluates all potentially nonzero B-spline basis functions at
@@ -46,7 +45,6 @@ function bspline_eval_nonzero(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return Bk[], istart[], iend[], w[]
 end
-Compat.@dep_vectorize_1arg Number bspline_eval_nonzero
 
 
 # This function returns the number of B-spline coefficients given by n = nbreak

@@ -29,7 +29,6 @@ export stats_mean, stats_variance, stats_variance_m, stats_sd, stats_sd_m,
 function stats_mean(data::Real)
     ccall( (:gsl_stats_mean, libgsl), Cdouble, (Cdouble, ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_mean
 
 
 # This function returns the estimated, or sample, variance of data, a dataset
@@ -47,7 +46,6 @@ Compat.@dep_vectorize_1arg Number stats_mean
 function stats_variance(data::Real)
     ccall( (:gsl_stats_variance, libgsl), Cdouble, (Cdouble, ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_variance
 
 
 # This function returns the sample variance of data relative to the given value
@@ -58,7 +56,6 @@ Compat.@dep_vectorize_1arg Number stats_variance
 function stats_variance_m(data::Real)
     ccall( (:gsl_stats_variance_m, libgsl), Cdouble, (Cdouble, ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_variance_m
 
 
 # The standard deviation is defined as the square root of the variance.  These
@@ -69,7 +66,6 @@ Compat.@dep_vectorize_1arg Number stats_variance_m
 function stats_sd(data::Real)
     ccall( (:gsl_stats_sd, libgsl), Cdouble, (Cdouble, ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_sd
 
 
 # The standard deviation is defined as the square root of the variance.  These
@@ -80,7 +76,6 @@ Compat.@dep_vectorize_1arg Number stats_sd
 function stats_sd_m(data::Real)
     ccall( (:gsl_stats_sd_m, libgsl), Cdouble, (Cdouble, ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_sd_m
 
 
 # These functions return the total sum of squares (TSS) of data about the mean.
@@ -92,7 +87,6 @@ Compat.@dep_vectorize_1arg Number stats_sd_m
 function stats_tss(data::Real)
     ccall( (:gsl_stats_tss, libgsl), Cdouble, (Cdouble, ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_tss
 
 
 # These functions return the total sum of squares (TSS) of data about the mean.
@@ -104,7 +98,6 @@ Compat.@dep_vectorize_1arg Number stats_tss
 function stats_tss_m(data::Real)
     ccall( (:gsl_stats_tss_m, libgsl), Cdouble, (Cdouble, ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_tss_m
 
 
 # This function computes an unbiased estimate of the variance of data when the
@@ -118,7 +111,6 @@ function stats_variance_with_fixed_mean(data::Real)
     ccall( (:gsl_stats_variance_with_fixed_mean, libgsl), Cdouble,
         (Cdouble, ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_variance_with_fixed_mean
 
 
 # This function calculates the standard deviation of data for a fixed
@@ -130,4 +122,3 @@ function stats_sd_with_fixed_mean(data::Real)
     ccall( (:gsl_stats_sd_with_fixed_mean, libgsl), Cdouble, (Cdouble, ),
         data )
 end
-Compat.@dep_vectorize_1arg Number stats_sd_with_fixed_mean

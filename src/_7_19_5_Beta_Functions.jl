@@ -15,7 +15,6 @@ export sf_beta, sf_beta_e, sf_lnbeta, sf_lnbeta_e
 function sf_beta(a::Real, b::Real)
     ccall( (:gsl_sf_beta, libgsl), Cdouble, (Cdouble, Cdouble), a, b )
 end
-Compat.@dep_vectorize_2arg Number sf_beta
 
 
 # These routines compute the Beta Function, B(a,b) =
@@ -30,7 +29,6 @@ function sf_beta_e(a::Real, b::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_beta_e
 
 
 # These routines compute the logarithm of the Beta Function, \log(B(a,b))
@@ -40,7 +38,6 @@ Compat.@dep_vectorize_2arg Number sf_beta_e
 function sf_lnbeta(a::Real, b::Real)
     ccall( (:gsl_sf_lnbeta, libgsl), Cdouble, (Cdouble, Cdouble), a, b )
 end
-Compat.@dep_vectorize_2arg Number sf_lnbeta
 
 
 # These routines compute the logarithm of the Beta Function, \log(B(a,b))
@@ -54,4 +51,3 @@ function sf_lnbeta_e(a::Real, b::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_lnbeta_e

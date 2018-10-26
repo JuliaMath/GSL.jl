@@ -18,7 +18,6 @@ function integration_workspace_alloc(n::Integer)
         Ptr{gsl_integration_workspace}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-Compat.@dep_vectorize_1arg Number integration_workspace_alloc
 
 
 # This function frees the memory associated with the workspace w.

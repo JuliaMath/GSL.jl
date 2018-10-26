@@ -43,6 +43,5 @@ for sf in (
             if errno!= 0 throw(GSL_ERROR(errno)) end
             return result_array
         end
-        Compat.@dep_vectorize_2arg Number $sf
     end
 end

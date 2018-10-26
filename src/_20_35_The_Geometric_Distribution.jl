@@ -31,7 +31,6 @@ function ran_geometric_pdf(k::Integer, p::Real)
     ccall( (:gsl_ran_geometric_pdf, libgsl), Cdouble, (Cuint, Cdouble), k,
         p )
 end
-Compat.@dep_vectorize_2arg Number ran_geometric_pdf
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
@@ -42,7 +41,6 @@ function cdf_geometric_P(k::Integer, p::Real)
     ccall( (:gsl_cdf_geometric_P, libgsl), Cdouble, (Cuint, Cdouble), k, p
         )
 end
-Compat.@dep_vectorize_2arg Number cdf_geometric_P
 
 
 # These functions compute the cumulative distribution functions P(k), Q(k) for
@@ -53,4 +51,3 @@ function cdf_geometric_Q(k::Integer, p::Real)
     ccall( (:gsl_cdf_geometric_Q, libgsl), Cdouble, (Cuint, Cdouble), k, p
         )
 end
-Compat.@dep_vectorize_2arg Number cdf_geometric_Q

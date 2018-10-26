@@ -61,7 +61,6 @@ function integration_qawo_table_set_length(L::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return t[]
 end
-Compat.@dep_vectorize_1arg Number integration_qawo_table_set_length
 
 
 # This function frees all the memory associated with the workspace t.

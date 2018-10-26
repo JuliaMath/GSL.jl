@@ -18,7 +18,6 @@ export stats_max, stats_min, stats_minmax, stats_max_index, stats_min_index,
 function stats_max(data::Real)
     ccall( (:gsl_stats_max, libgsl), Cdouble, (Cdouble, ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_max
 
 
 # This function returns the minimum value in data, a dataset of length n with
@@ -31,7 +30,6 @@ Compat.@dep_vectorize_1arg Number stats_max
 function stats_min(data::Real)
     ccall( (:gsl_stats_min, libgsl), Cdouble, (Cdouble, ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_min
 
 
 # This function finds both the minimum and maximum values min, max in data in a
@@ -45,7 +43,6 @@ function stats_minmax(data::Real)
         Cdouble), min, max, data )
     return min[], max[]
 end
-Compat.@dep_vectorize_1arg Number stats_minmax
 
 
 # This function returns the index of the maximum value in data, a dataset of
@@ -57,7 +54,6 @@ Compat.@dep_vectorize_1arg Number stats_minmax
 function stats_max_index(data::Real)
     ccall( (:gsl_stats_max_index, libgsl), Csize_t, (Cdouble, ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_max_index
 
 
 # This function returns the index of the minimum value in data, a dataset of
@@ -69,7 +65,6 @@ Compat.@dep_vectorize_1arg Number stats_max_index
 function stats_min_index(data::Real)
     ccall( (:gsl_stats_min_index, libgsl), Csize_t, (Cdouble, ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_min_index
 
 
 # This function returns the indexes min_index, max_index of the minimum and
@@ -83,4 +78,3 @@ function stats_minmax_index(data::Real)
         Ref{Csize_t}, Cdouble), min_index, max_index, data )
     return min_index[], max_index[]
 end
-Compat.@dep_vectorize_1arg Number stats_minmax_index

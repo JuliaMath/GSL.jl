@@ -14,7 +14,6 @@ export sf_expint_3, sf_expint_3_e
 function sf_expint_3(x::Real)
     ccall( (:gsl_sf_expint_3, libgsl), Cdouble, (Cdouble, ), x )
 end
-Compat.@dep_vectorize_1arg Number sf_expint_3
 
 
 # These routines compute the third-order exponential integral  Ei_3(x) =
@@ -28,4 +27,3 @@ function sf_expint_3_e(x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_expint_3_e

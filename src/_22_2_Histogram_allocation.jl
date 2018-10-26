@@ -23,7 +23,6 @@ function histogram_alloc(n::Integer)
         Ptr{gsl_histogram}, (Csize_t, ), n )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-Compat.@dep_vectorize_1arg Number histogram_alloc
 
 
 # This function sets the ranges of the existing histogram h using the array
@@ -48,7 +47,6 @@ function histogram_set_ranges(range::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end
-Compat.@dep_vectorize_1arg Number histogram_set_ranges
 
 
 # This function sets the ranges of the existing histogram h to cover the range
@@ -66,7 +64,6 @@ function histogram_set_ranges_uniform(xmin::Real, xmax::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return h[]
 end
-Compat.@dep_vectorize_2arg Number histogram_set_ranges_uniform
 
 
 # This function frees the histogram h and all of the memory associated with it.

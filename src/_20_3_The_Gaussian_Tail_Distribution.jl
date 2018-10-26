@@ -61,4 +61,3 @@ function ran_ugaussian_tail_pdf(x::Real, a::Real)
     ccall( (:gsl_ran_ugaussian_tail_pdf, libgsl), Cdouble, (Cdouble,
         Cdouble), x, a )
 end
-Compat.@dep_vectorize_2arg Number ran_ugaussian_tail_pdf

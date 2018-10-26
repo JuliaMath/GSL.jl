@@ -16,7 +16,6 @@ function sf_gamma_inc(a::Real, x::Real)
     ccall( (:gsl_sf_gamma_inc, libgsl), Cdouble, (Cdouble, Cdouble), a, x
         )
 end
-Compat.@dep_vectorize_2arg Number sf_gamma_inc
 
 
 # These functions compute the unnormalized incomplete Gamma Function
@@ -30,7 +29,6 @@ function sf_gamma_inc_e(a::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_gamma_inc_e
 
 
 # These routines compute the normalized incomplete Gamma Function  Q(a,x) =
@@ -41,7 +39,6 @@ function sf_gamma_inc_Q(a::Real, x::Real)
     ccall( (:gsl_sf_gamma_inc_Q, libgsl), Cdouble, (Cdouble, Cdouble), a,
         x )
 end
-Compat.@dep_vectorize_2arg Number sf_gamma_inc_Q
 
 
 # These routines compute the normalized incomplete Gamma Function  Q(a,x) =
@@ -55,7 +52,6 @@ function sf_gamma_inc_Q_e(a::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_gamma_inc_Q_e
 
 
 # These routines compute the complementary normalized incomplete Gamma Function
@@ -68,7 +64,6 @@ function sf_gamma_inc_P(a::Real, x::Real)
     ccall( (:gsl_sf_gamma_inc_P, libgsl), Cdouble, (Cdouble, Cdouble), a,
         x )
 end
-Compat.@dep_vectorize_2arg Number sf_gamma_inc_P
 
 
 # These routines compute the complementary normalized incomplete Gamma Function
@@ -84,4 +79,3 @@ function sf_gamma_inc_P_e(a::Real, x::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_2arg Number sf_gamma_inc_P_e

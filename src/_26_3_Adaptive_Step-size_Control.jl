@@ -48,7 +48,6 @@ function odeiv2_control_y_new(eps_abs::Real, eps_rel::Real)
         Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble), eps_abs, eps_rel )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-Compat.@dep_vectorize_2arg Number odeiv2_control_y_new
 
 
 # This function creates a new control object which will keep the local error on
@@ -62,7 +61,6 @@ function odeiv2_control_yp_new(eps_abs::Real, eps_rel::Real)
         Ptr{gsl_odeiv2_control}, (Cdouble, Cdouble), eps_abs, eps_rel )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
 end
-Compat.@dep_vectorize_2arg Number odeiv2_control_yp_new
 
 
 # This function creates a new control object which uses the same algorithm as
@@ -135,7 +133,6 @@ function odeiv2_control_hadjust(y::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return c[], s[]
 end
-Compat.@dep_vectorize_1arg Number odeiv2_control_hadjust
 
 
 # This function returns a pointer to the name of the control function.  For

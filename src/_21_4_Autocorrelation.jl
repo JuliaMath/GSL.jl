@@ -18,7 +18,6 @@ function stats_lag1_autocorrelation(data::Real)
     ccall( (:gsl_stats_lag1_autocorrelation, libgsl), Cdouble, (Cdouble,
         ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_lag1_autocorrelation
 
 
 # This function computes the lag-1 autocorrelation of the dataset data using
@@ -29,4 +28,3 @@ function stats_lag1_autocorrelation_m(data::Real)
     ccall( (:gsl_stats_lag1_autocorrelation_m, libgsl), Cdouble, (Cdouble,
         ), data )
 end
-Compat.@dep_vectorize_1arg Number stats_lag1_autocorrelation_m

@@ -13,7 +13,6 @@ export sf_zetam1_int, sf_zetam1_int_e, sf_zetam1, sf_zetam1_e
 function sf_zetam1_int(n::Integer)
     ccall( (:gsl_sf_zetam1_int, libgsl), Cdouble, (Cint, ), n )
 end
-Compat.@dep_vectorize_1arg Number sf_zetam1_int
 
 
 # These routines compute \zeta(n) - 1 for integer n, n \ne 1.
@@ -26,7 +25,6 @@ function sf_zetam1_int_e(n::Integer)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_zetam1_int_e
 
 
 # These routines compute \zeta(s) - 1 for arbitrary s, s \ne 1.
@@ -35,7 +33,6 @@ Compat.@dep_vectorize_1arg Number sf_zetam1_int_e
 function sf_zetam1(s::Real)
     ccall( (:gsl_sf_zetam1, libgsl), Cdouble, (Cdouble, ), s )
 end
-Compat.@dep_vectorize_1arg Number sf_zetam1
 
 
 # These routines compute \zeta(s) - 1 for arbitrary s, s \ne 1.
@@ -48,4 +45,3 @@ function sf_zetam1_e(s::Real)
     if errno!= 0 throw(GSL_ERROR(errno)) end
     return result[]
 end
-Compat.@dep_vectorize_1arg Number sf_zetam1_e
