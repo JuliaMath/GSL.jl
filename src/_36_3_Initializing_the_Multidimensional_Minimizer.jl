@@ -91,7 +91,7 @@ function multimin_fdfminimizer_name(s::Ref{gsl_multimin_fdfminimizer})
     output_string = output_ptr = ccall( (:gsl_multimin_fdfminimizer_name,
         libgsl), Ptr{Cchar}, (Ref{gsl_multimin_fdfminimizer}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(output_string)
+    unsafe_string(output_string)
 end
 
 
@@ -105,5 +105,5 @@ function multimin_fminimizer_name(s::Ref{gsl_multimin_fminimizer})
     output_string = output_ptr = ccall( (:gsl_multimin_fminimizer_name,
         libgsl), Ptr{Cchar}, (Ref{gsl_multimin_fminimizer}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(output_string)
+    unsafe_string(output_string)
 end

@@ -57,7 +57,7 @@ function odeiv2_step_name(s::Ref{gsl_odeiv2_step})
     output_string = output_ptr = ccall( (:gsl_odeiv2_step_name, libgsl),
         Ptr{Cchar}, (Ref{gsl_odeiv2_step}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(output_string)
+    unsafe_string(output_string)
 end
 
 

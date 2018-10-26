@@ -107,7 +107,7 @@ function multiroot_fsolver_name(s::Ref{gsl_multiroot_fsolver})
     output_string = output_ptr = ccall( (:gsl_multiroot_fsolver_name,
         libgsl), Ptr{Cchar}, (Ref{gsl_multiroot_fsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(output_string)
+    unsafe_string(output_string)
 end
 
 
@@ -121,5 +121,5 @@ function multiroot_fdfsolver_name(s::Ref{gsl_multiroot_fdfsolver})
     output_string = output_ptr = ccall( (:gsl_multiroot_fdfsolver_name,
         libgsl), Ptr{Cchar}, (Ref{gsl_multiroot_fdfsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(output_string)
+    unsafe_string(output_string)
 end

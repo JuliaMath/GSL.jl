@@ -94,7 +94,7 @@ function multifit_fsolver_name(s::Ref{gsl_multifit_fsolver})
     output_string = output_ptr = ccall( (:gsl_multifit_fsolver_name,
         libgsl), Ptr{Cchar}, (Ref{gsl_multifit_fsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(output_string)
+    unsafe_string(output_string)
 end
 
 
@@ -107,5 +107,5 @@ function multifit_fdfsolver_name(s::Ref{gsl_multifit_fdfsolver})
     output_string = output_ptr = ccall( (:gsl_multifit_fdfsolver_name,
         libgsl), Ptr{Cchar}, (Ref{gsl_multifit_fdfsolver}, ), s )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(output_string)
+    unsafe_string(output_string)
 end

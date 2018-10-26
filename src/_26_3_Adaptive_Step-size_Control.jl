@@ -145,7 +145,7 @@ function odeiv2_control_name(c::Ref{gsl_odeiv2_control})
     output_string = output_ptr = ccall( (:gsl_odeiv2_control_name,
         libgsl), Ptr{Cchar}, (Ref{gsl_odeiv2_control}, ), c )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(output_string)
+    unsafe_string(output_string)
 end
 
 

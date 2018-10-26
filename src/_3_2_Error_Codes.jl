@@ -19,5 +19,5 @@ function strerror(gsl_errno::Integer)
     output_string = output_ptr = ccall( (:gsl_strerror, libgsl),
         Ptr{Cchar}, (Cint, ), gsl_errno )
     output_ptr==C_NULL ? throw(GSL_ERROR(8)) : output_ptr
-    bytestring(output_string)
+    unsafe_string(output_string)
 end
