@@ -1,2 +1,3 @@
 julia 0.7
 BinaryProvider v0.5.2
+Compat 1.3.0
