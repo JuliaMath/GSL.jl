@@ -1,3 +1,2 @@
-julia 0.6
-BinaryProvider 0.3.0
-Compat 0.9.1
+julia 0.7
+BinaryProvider v0.5.2

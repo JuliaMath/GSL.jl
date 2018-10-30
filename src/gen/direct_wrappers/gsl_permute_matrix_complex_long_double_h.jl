@@ -1,0 +1,18 @@
+#
+# This code is auto generated from the GSL headers, do not edit!
+#
+
+
+#### gsl_permute_matrix_complex_long_double.h #################################
+
+
+"""
+    gsl_permute_matrix_complex_long_double(p, A) -> Cint
+
+C signature:
+`int gsl_permute_matrix_complex_long_double (const gsl_permutation * p, gsl_matrix_complex_long_double * A)`
+"""
+function gsl_permute_matrix_complex_long_double(p, A)
+    ccall((:gsl_permute_matrix_complex_long_double, libgsl), Cint, (Ref{gsl_permutation}, Ref{gsl_matrix_complex_long_double}), p, A)
+end
+

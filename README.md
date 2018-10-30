@@ -5,133 +5,77 @@ GSL.jl
 [![Appveyor Build status](https://ci.appveyor.com/api/projects/status/7049flml50cs65mu/branch/master?svg=true)](https://ci.appveyor.com/project/simonbyrne/gsl-jl/branch/master)
 [![codecov.io](http://codecov.io/github/JuliaMath/GSL.jl/coverage.svg?branch=master)](http://codecov.io/github/JuliaMath/GSL.jl?branch=master)
 
-Julia interface to the [GNU Scientific Library (GSL)](http://www.gnu.org/software/gsl)
+Julia wrapper for the [Gnu Scientific
+Library](https://www.gnu.org/software/gsl/doc/html/index.html) (GSL).
 
-[Jiahao Chen](http://github.com/jiahao)
+This is a redevelopment of [GSL.jl](https://github.com/JuliaMath/GSL.jl) by Jiahao Chen,
+using GSL 2.5 through [GSLBuilder.jl](https://github.com/giordano/GSLBuilder.jl) by Mosè
+Giordano, intended to eventually either replace or be merged into GSL.jl.
 
-Licensed under [GPLv3](http://www.gnu.org/copyleft/gpl.html)
+Developed for Julia 1.0+.
 
-Tested with [libgsl](http://www.gnu.org/software/gsl) 1.16 and Julia 0.6 - 1.0
+## Structure
 
-## How to install
+The library tries as faithfully as possible to export the functions, types and symbols
+defined in the [GSL
+documentation](https://www.gnu.org/software/gsl/doc/html/index.html). Most of these have
+the prefix `gsl_` in their name.
 
-In Julia 0.6:
+In addition, a number convenience functions are supplied, which try to make the interface
+less cumbersome. These are created both manually and using a heuristic rule set. The
+convenience functions have the prefix `gsl_` dropped from their name.
+
+Parts of GSL are not interfaced to, since they provide functionality already existing in
+Julia. These are functions with prefixes `gsl_spmatrix_`, `gsl_splinalg_`, `gsl_spblas_`,
+`gsl_eigen_`, `gsl_complex`, `gsl_sort`, `gsl_vector_`, `gsl_matrix_`, `gsl_blas_`,
+`cblas_`, `gsl_fft_`, and `gsl_linalg_`.
+
+### Examples of convenience functions
+
+**Function with result struct:**
 ```julia
-Pkg.add("GSL")
+# Direct call
+gsl_sf_legendre_P3(x)
+# Output: -0.4375
+
+# Direct call with structure that stores result and error:
+result = gsl_sf_result(0,0)
+gsl_sf_legendre_P3_e(0.5, result)
+# Output: gsl_sf_result_struct(-0.4375, 3.3306690738754696e-16)
+
+# Using convenience function:
+sf_legendre_P3_e(0.5)
+# Output: gsl_sf_result_struct(-0.4375, 3.3306690738754696e-16)
 ```
 
-In Julia 0.7 and up:
+**Function with array output:**
 ```julia
-]add GSL
+x = 0.5
+lmax = 4
+# Direct call:
+n = gsl_sf_legendre_array_n(lmax)
+result = Array{Float64}(undef, n)
+gsl_sf_legendre_array(GSL_SF_LEGENDRE_SPHARM, lmax, x, result)
+# Equivalent using convenience function:
+result = sf_legendre_array(GSL_SF_LEGENDRE_SPHARM, lmax, x)
 ```
 
-## How to use
+## Functionality
 
-This package aims to provide wrappers to all documented functions and structs
-in the [GSL manual](http://www.gnu.org/software/gsl/manual/html_node).
-For GSL functions, the `gsl_` prefix is not necessary in the name.  More
-information is available below.
+A lot of GSL functionality is interfaced, but most of it is untested.
 
-Example:
+Things that seem to be working:
 
-```julia
-    using GSL
-    x = randn()
-    sf_hyperg_U(-1.0, -1.0, x) - (1 + x)
-    #Answer: 0.0
-```
+* A lot of the special functions `gsl_sf_*`.
+* Root finding, see examples in [test/rootfinding.jl](test/rootfinding.jl).
+* Convenice functions `hypergeom` and `hypergeom_e` for the hypergeometric functions.
 
-Translated examples from the GSL documentation are available in `examples/`.
+## Behind the scenes
 
-# Convenience methods provided
-
-## Roots of polynomials
-```julia
-    roots{T<:Real}(c::Vector{T}, realOnly::Bool) -> Vector{Complex128}
-```
-> Finds the roots of the polynomial with real coefficients c
-> \[
-> 0 = \sum_{i=1}^{length(c)} c_i z^{i-1}
-> \]
-> The coefficients are returned in ascending order of the power
-> If the degree of the polynomial is <= 3, then `realOnly=true` finds only
-> the real roots.
-
-## Special functions
-
-### Hypergeometric functions
-```julia
-    hypergeom(a, b, x::Float64) -> Float64
-```
-> Computes the appropriate hypergeometric *<sub>p</sub>F<sub>q</sub>* function,
-> where *p* and *q* are the lengths of the input vectors *a* and *b*
-> respectively.
-> Singleton *a* and/or *b* may be specified as scalars, and length-0 *a* and/or
-> *b* may be input as simply `[]`.
-> Supported values of (p, q) are (0, 0), (0, 1), (1, 1), (2, 0) and (2, 1).
-> This only calls the floating-point versions of the GSL functions
-> `gsl_sf_hyperg_?F?` [(GSL manual, Section 7.24)](http://www.gnu.org/software/gsl/manual/html_node/Hypergeometric-Functions.html)
-```julia
-    hypergeom_e(a, b, x::Float64) -> (Float64, Float64)
-```
-> An error-estimating version of `hypergeom`.
-
-## Test functions
-```julia
-    @sf_test(sf, args...)
-```
-> Macro to help test equality of a function and its error-propagating variant. Requires `Test`.
-> Example:
-
-```julia
-    x = randn()
-    @eval @sf_test sf_dawson $x
-```
-
-# Current status
-
-## What is available
-* Functions: all except the ones described below. Functions have the `gsl_` prefix stripped.
-  * Most special functions: All except for the following categories:
-    * Some array-valued functions `sf_*_array`
-      * Available:  `sf_bessel_*_array`, `sf_gegenpoly_array`.
-      * Not available: all others. The wrappers do not currently work.
-    * Not available: `sf_*_e10_e` that return the `sf_result_e10` struct. (Currently returns bus error.)
-* All documented `gsl_*` structs - These do NOT have the `gsl_` prefix stripped.
-* `GSL_*` constants: strip `GSL_` and `GSL_CONST_` prefixes
-* `GSL_*` macros: Most available but untested.
-
-## What is not available
-* GSL's BLAS and CBLAS wrappers `blas_*`, `cblas_*`. Use Julia's interface instead.
-* Data I/O functions, such as `*_fprintf` and `*_fscanf`.
-  Work in progress.
-  Wrappers to these functions exist but most likely won't work
-* Row and column views of matrices, `matrix_row*` and `matrix_column*` (Sec. 8.4.6)
-* `GSL_*` macros:
-  * `COMPLEX_AT`, `COMPLEX_FLOAT_AT`, `COMPLEX_LONG_DOUBLE_AT`
-  * `SF_RESULT_SET` and others in `gsl_sf_result.h`
-  * `SET_COMPLEX`, `SET_REAL`, `SET_IMAG`, `SET_COMPLEX_PACKED`
-
-## Current tests
-* Special functions
-  * Basic tests comparing equality of basic and error-propagating special functions
-  * Some identity tests for hypergeometric functions
-  * Available but untested:
-    * `sf_bessel_sequence_Jnu_e`, `sf_bessel_Jnu`
-    * `sf_coulomb_CL_e`, `sf_coulomb_CL_e`
-    * `sf_coupling_6j`, `sf_elljac_e`
-    * Mathieu Functions (Section 7.26). (Needs convenience function)
-    * Trigonometric Functions for Complex Arguments (Section 7.31)
-    * Conversion Functions (Section 7.31.4)
-    * Restriction Functions (Section 7.31.5)
-    * Trigonometric Functions With Error Estimates (Section 7.31.6)
-* All other functions are untested
-* All macros are untested
-
-## How you can help
-
-The wrappers are automatically generated using `util/makewrapper.py`.
-
-1. Test function wrappers for correctness.
-2. Write convenience methods to further wrap the function calls with a Julia-
-   friendly syntax.
+* All interface code in [src/gen](src/gen) is created by running the script
+  [gen/makewrappers.jl](gen/makewrappers.jl), which attempts to parse the GSL headers
+  using regular expressions.
+* Heuristics for creating convenience functions are in
+  [gen/heuristic.jl](gen/heuristic.jl).
+* Hand-written convenience functions are in
+  [src/manual_wrappers.jl](src/manual_wrappers.jl).
