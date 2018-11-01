@@ -38,8 +38,8 @@ fdf = @gsl_function_fdf(myfun_f, myfun_df, myfun_fdf)
 
     @testset "Names" begin
         # Test that algorithms loaded OK
-        function algorithm_name(f::Ptr{gsl_root_fsolver_type})
-            unsafe_string(unsafe_load(f).name)
+        function algorithm_name(f)
+            unsafe_string(f[].name)
         end
         @test algorithm_name(gsl_root_fsolver_bisection) == "bisection"
         @test algorithm_name(gsl_root_fsolver_brent) == "brent"

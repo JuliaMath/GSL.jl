@@ -12,6 +12,7 @@ end
 include("gen/gsl_export.jl")
 include("gen/gsl_types.jl")
 include("gen/gsl_direct_wrappers.jl")
+include("gen/gsl_global_vars.jl")
 include("gen/heuristic_wrappers.jl")
 
 # Hand-written code
@@ -29,7 +30,7 @@ function __init__()
                                      )
                           )
     # Other things that need loading
-    init_rootfinders()
+    init_global_vars()
 end
 
 end

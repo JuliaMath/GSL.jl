@@ -1,7 +1,8 @@
-#
 # This tries to create clever wrappers based on heuristics.
 # Some of the heuristics are the same as those written for the original GSL.jl
 # wrapper script by Jiahao Chen.
+#
+# Ludvig af Klinteberg, 2018
 #
 # TODO: error handler on integer output
 

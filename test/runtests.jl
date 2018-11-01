@@ -5,7 +5,10 @@ using SpecialFunctions
 
 Random.seed!(1)
 
-include("rootfinding.jl")
-include("specfunc.jl")
-include("hypergeom.jl")
-include("legendre.jl")
+@testset "GSL" begin
+    include("rootfinding.jl")
+    include("specfunc.jl")
+    include("hypergeom.jl")
+    include("legendre.jl")
+    include("rng.jl")
+end

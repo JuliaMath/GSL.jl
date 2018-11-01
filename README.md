@@ -66,9 +66,10 @@ A lot of GSL functionality is interfaced, but most of it is untested.
 
 Things that seem to be working:
 
-* A lot of the special functions `gsl_sf_*`.
+* A lot of the special functions `gsl_sf_*`, and convenience functions `sf_*`.
 * Root finding, see examples in [test/rootfinding.jl](test/rootfinding.jl).
 * Convenice functions `hypergeom` and `hypergeom_e` for the hypergeometric functions.
+* Random number generation, see [test/rng.jl](test/rng.jl).
 
 ## Behind the scenes
 

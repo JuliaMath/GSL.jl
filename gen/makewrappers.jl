@@ -1,3 +1,7 @@
+# Generates Julia wrappers from the GSL headers
+#
+# Ludvig af Klinteberg, 2018
+#
 # TODO:
 # - deal with variable length arguments, i.e. "splat"
 # - maybe translate enum's to @enum ?
@@ -70,6 +74,10 @@ mutable struct constant_signature
     name
     value
 end
+mutable struct global_var_signature
+    name
+    type
+end
 
 
 function create_base_wrappers()
@@ -98,7 +106,8 @@ function create_base_wrappers()
     # Lists of all the items that we find
     structs = Array{struct_signature}(undef, 0)
     typedefs = Array{function_argument}(undef, 0)
-    constants = Array{constant_signature}(undef, 0)            
+    constants = Array{constant_signature}(undef, 0)
+    global_vars = Array{global_var_signature}(undef, 0)                
     allfunctions = []
     # Initialize output for type file
     type_output = "const size_t = Csize_t\n\n"
@@ -117,6 +126,8 @@ function create_base_wrappers()
             out = parse_line(line)
             if typeof(out) == struct_signature
                 push!(newstructs, out)
+            elseif typeof(out) == global_var_signature
+                push!(global_vars, out)
             elseif typeof(out) <: Array{function_argument}            
                 append!(newtypedefs, out)
             elseif typeof(out) <: Array{constant_signature}            
@@ -172,7 +183,12 @@ function create_base_wrappers()
         close(fh)
         append!(functions, newfunctions)
         allfcnwrappers *= fcn_output
-    end    
+    end
+    # Loader for all global vars
+    output = gen_global_vars(global_vars)
+    fh = open(joinpath(OUTPUT_DIR, "gsl_global_vars.jl"), "w")
+    write(fh, HEAD*output)
+    close(fh)    
     # Main wrapper to include all subwrappers
     output = ""
     for w in wrapper_list
@@ -222,7 +238,6 @@ function load_and_clean_file(filename)
     # except constant declarations
     filestr = replace(filestr, r"^ *#(?!define +\w+ +\(?\d[\.\de\-\+]*\)?).*$"m => "")        
     # Remove various macros
-    filestr = replace(filestr, r"^ *GSL_VAR .*"m => "")
     filestr = replace(filestr, "__BEGIN_DECLS" => "")
     filestr = replace(filestr, "__END_DECLS" => "")
     filestr = replace(filestr, "INLINE_DECL" => "")
@@ -262,6 +277,8 @@ function parse_line(line)
         return match_typedef(line)
     elseif startswith(line, "#define")
         return match_define(line)
+    elseif startswith(line, "GSL_VAR")
+        return match_gsl_var(line)
     else
         foutput = match_function(line)
         if foutput != nothing
@@ -424,6 +441,17 @@ function match_define(line)
     value = m.captures[2]
     return [constant_signature(name, value)]
 end
+
+function match_gsl_var(line)
+    m = match(r"^GSL_VAR const (\w+)( \*| \* |\* )(\w+) *;", line)
+    if m!==nothing
+        typ = m.captures[1]            
+        nam = m.captures[3]
+        return global_var_signature(nam, typ)
+    end
+    return nothing
+end
+
 
 function parse_argument(argstr)
     # Attempt to match argument declared in functions or structs
@@ -634,6 +662,33 @@ end
 
 function docstr(str)
     return "\"\"\"\n$str\n\"\"\"\n"
+end
+
+function gen_global_vars(global_vars)
+    header1 = ""
+    header2 = ""
+    loader = ""
+    for v in global_vars
+        jtype = juliatype(v.type)
+        header1 *= "export $(v.name)\n"
+        header2 *= "const $(v.name) = Ref{$jtype}()\n"
+        #loader *= "    $(v.name)[] = unsafe_load(unsafe_load(cglobal((:$(v.name), libgsl), Ptr{$jtype})))\n"
+        loader *= "    $(v.name)[] =  @gload_pp(:$(v.name), $jtype) \n"
+    end
+    output = header1 * "\n" * header2
+    output *= "
+
+macro gload_pp(n, t)
+    return :( unsafe_load(unsafe_load(cglobal((\$n, libgsl), Ptr{\$t}))) )
+end
+
+"
+    
+    output *= "function init_global_vars()\n"
+    output *= loader
+    output *= "end\n"
+    
+    return output
 end
 
 ## RUN

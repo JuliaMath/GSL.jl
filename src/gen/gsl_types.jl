@@ -1794,6 +1794,14 @@ const gsl_matrix_ushort_const_view = _gsl_matrix_ushort_const_view
 #### gsl_message.h ############################################################
 
 const GSL_MESSAGE_MASK = 0
+const GSL_MESSAGE_MASK_A = 1
+const GSL_MESSAGE_MASK_B = 2
+const GSL_MESSAGE_MASK_C = 4
+const GSL_MESSAGE_MASK_D = 8
+const GSL_MESSAGE_MASK_E = 16
+const GSL_MESSAGE_MASK_F = 32
+const GSL_MESSAGE_MASK_G = 64
+const GSL_MESSAGE_MASK_H = 128
 
 
 #### gsl_min.h ################################################################

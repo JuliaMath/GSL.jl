@@ -1,48 +1,4 @@
 ## Root finding
-
-export gsl_root_fsolver_bisection
-export gsl_root_fsolver_brent
-export gsl_root_fsolver_falsepos
-export gsl_root_fdfsolver_newton
-export gsl_root_fdfsolver_secant
-export gsl_root_fdfsolver_steffenson
-
-global gsl_root_fsolver_bisection
-global gsl_root_fsolver_brent
-global gsl_root_fsolver_falsepos
-global gsl_root_fdfsolver_newton
-global gsl_root_fdfsolver_secant
-global gsl_root_fdfsolver_steffenson
-
-function init_rootfinders()
-    # Load pointers to root finding algorithms
-    
-    global gsl_root_fsolver_bisection
-    global gsl_root_fsolver_brent
-    global gsl_root_fsolver_falsepos
-    global gsl_root_fdfsolver_newton
-    global gsl_root_fdfsolver_secant
-    global gsl_root_fdfsolver_steffenson
-    
-    gsl_root_fsolver_bisection = unsafe_load(cglobal(
-        (:gsl_root_fsolver_bisection, libgsl), Ptr{gsl_root_fsolver_type}), 1)
-
-    gsl_root_fsolver_brent = unsafe_load(cglobal(
-        (:gsl_root_fsolver_brent, libgsl), Ptr{gsl_root_fsolver_type}), 1)
-
-    gsl_root_fsolver_falsepos = unsafe_load(cglobal(
-        (:gsl_root_fsolver_falsepos, libgsl), Ptr{gsl_root_fsolver_type}), 1)
-
-    gsl_root_fdfsolver_newton = unsafe_load(cglobal(
-        (:gsl_root_fdfsolver_newton, libgsl), Ptr{gsl_root_fsolver_type}), 1)
-
-    gsl_root_fdfsolver_secant = unsafe_load(cglobal(
-        (:gsl_root_fdfsolver_secant, libgsl), Ptr{gsl_root_fsolver_type}), 1)
-
-    gsl_root_fdfsolver_steffenson = unsafe_load(cglobal(
-        (:gsl_root_fdfsolver_steffenson, libgsl), Ptr{gsl_root_fsolver_type}), 1)
-end
-
 # Macros for easier creation of gsl_function and gsl_function_fdf structs
 export @gsl_function, @gsl_function_fdf
 macro gsl_function(f)
@@ -95,5 +51,3 @@ function hypergeom_e(a, b, x)
         error("hypergeometric function of order $n is not implemented")
     end
 end
-
-
