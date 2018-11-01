@@ -1,6 +1,18 @@
+#
+# Manual wrappers for the gsl_* stuff
+# 
+
 ## Root finding
 # Macros for easier creation of gsl_function and gsl_function_fdf structs
 export @gsl_function, @gsl_function_fdf
+
+"""
+    @gsl_function(f)
+
+Create a `gsl_function` object.
+
+`f(x::Float64) -> Float64`              Return target functions f
+"""
 macro gsl_function(f)
     return :(
         gsl_function( @cfunction( (x,p) -> $f(x), Cdouble, (Cdouble, Ptr{Cvoid})),
@@ -9,7 +21,7 @@ macro gsl_function(f)
 end
 
 """
-    gsl_function_fdf(f, df, fdf)
+    @gsl_function_fdf(f, df, fdf)
 
 Create a `gsl_function_fdf` object.
 
@@ -35,7 +47,7 @@ macro gsl_function_fdf(f, df, fdf)
 end
 
 """
-    gsl_function_fdf(f, df)
+    @gsl_function_fdf(f, df)
 
 Create a `gsl_function_fdf` object.
 

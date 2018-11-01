@@ -87,7 +87,6 @@ fdf2 = @gsl_function_fdf(myfun, myfun_deriv)
                     error("No convergence")
                 end                
             end
-            @show iter
             @test status == GSL_SUCCESS
             x = gsl_root_fdfsolver_root(solver)
             @test abs(myfun(x)) < 1e-10
@@ -109,7 +108,6 @@ fdf2 = @gsl_function_fdf(myfun, myfun_deriv)
                     error("No convergence")
                 end                
             end
-            @show iter
             @test status == GSL_SUCCESS
             x = gsl_root_fdfsolver_root(solver)
             @test abs(myfun(x)) < 1e-10
