@@ -3,6 +3,7 @@
 #################
 
 using GSL
+using Printf
 
 #The following example demonstrates the use of the error handling form of the special functions, in this case to compute the Bessel function J_0(5.0),
 #
@@ -26,7 +27,7 @@ println("status  = ", strerror(0))
 x = 5.0
 expected = -0.17759677131433830434739701
        
-y = sf_bessel_J0 (x)
+y = gsl_sf_bessel_J0(x)
      
 @printf("J0(5.0) = %.18f\n", y)
 @printf("exact   = %.18f\n", expected)

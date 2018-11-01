@@ -4,8 +4,8 @@
 
 using GSL
 
-b=block_alloc(100)
-pb=unsafe_ref(b)
-println("length of block = ", int(pb.size))
+b=gsl_block_alloc(100)
+pb=unsafe_load(b)
+println("length of block = ", Int(pb.size))
 println("block data address = ", pb.data)
-block_free(b)
+gsl_block_free(b)
