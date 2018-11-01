@@ -567,7 +567,7 @@ function gen_julia(structs, typedefs, constants, functions, filename)
             idx = typedefs_lookup[s.name]
             t = typedefs[idx]
             name = t.name
-            jtype = arg2julia(t)
+            jtype = arg2julia(t, :struct)
             struct_output *= "const $name = $jtype\n"
             push!(typedefs_written, idx)
         end
@@ -580,10 +580,10 @@ function gen_julia(structs, typedefs, constants, functions, filename)
 
     for (i,t) in enumerate(typedefs)
         name = t.name
-        jtype = arg2julia(t)
+        jtype = arg2julia(t, :struct)
         if i in typedefs_written
             continue
-        end        
+        end
         output *= "const $name = $jtype\n"
     end
     

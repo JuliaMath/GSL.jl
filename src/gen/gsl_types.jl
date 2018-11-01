@@ -238,24 +238,24 @@ const gsl_matrix_complex_const_view = _gsl_matrix_complex_const_view
 
 #### gsl_complex.h ############################################################
 
-const gsl_complex_packed = Array{Cdouble}
-const gsl_complex_packed_float = Array{Cfloat}
-const gsl_complex_packed_long_double = Array{Cdouble}
-const gsl_const_complex_packed = Array{Cdouble}
-const gsl_const_complex_packed_float = Array{Cfloat}
-const gsl_const_complex_packed_long_double = Array{Cdouble}
-const gsl_complex_packed_array = Array{Cdouble}
-const gsl_complex_packed_array_float = Array{Cfloat}
-const gsl_complex_packed_array_long_double = Array{Cdouble}
-const gsl_const_complex_packed_array = Array{Cdouble}
-const gsl_const_complex_packed_array_float = Array{Cfloat}
-const gsl_const_complex_packed_array_long_double = Array{Cdouble}
-const gsl_complex_packed_ptr = Array{Cdouble}
-const gsl_complex_packed_float_ptr = Array{Cfloat}
-const gsl_complex_packed_long_double_ptr = Array{Cdouble}
-const gsl_const_complex_packed_ptr = Array{Cdouble}
-const gsl_const_complex_packed_float_ptr = Array{Cfloat}
-const gsl_const_complex_packed_long_double_ptr = Array{Cdouble}
+const gsl_complex_packed = Ptr{Cdouble}
+const gsl_complex_packed_float = Ptr{Cfloat}
+const gsl_complex_packed_long_double = Ptr{Cdouble}
+const gsl_const_complex_packed = Ptr{Cdouble}
+const gsl_const_complex_packed_float = Ptr{Cfloat}
+const gsl_const_complex_packed_long_double = Ptr{Cdouble}
+const gsl_complex_packed_array = Ptr{Cdouble}
+const gsl_complex_packed_array_float = Ptr{Cfloat}
+const gsl_complex_packed_array_long_double = Ptr{Cdouble}
+const gsl_const_complex_packed_array = Ptr{Cdouble}
+const gsl_const_complex_packed_array_float = Ptr{Cfloat}
+const gsl_const_complex_packed_array_long_double = Ptr{Cdouble}
+const gsl_complex_packed_ptr = Ptr{Cdouble}
+const gsl_complex_packed_float_ptr = Ptr{Cfloat}
+const gsl_complex_packed_long_double_ptr = Ptr{Cdouble}
+const gsl_const_complex_packed_ptr = Ptr{Cdouble}
+const gsl_const_complex_packed_float_ptr = Ptr{Cfloat}
+const gsl_const_complex_packed_long_double_ptr = Ptr{Cdouble}
 
 mutable struct gsl_complex_long_double
     dat::NTuple{2, Cdouble}

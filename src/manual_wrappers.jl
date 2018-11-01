@@ -3,15 +3,16 @@
 export @gsl_function, @gsl_function_fdf
 macro gsl_function(f)
     return :(
-        gsl_function( @cfunction($f, Cdouble, (Cdouble, Ptr{Cvoid})),
+        gsl_function( @cfunction( (x,p) -> $f(x), Cdouble, (Cdouble, Ptr{Cvoid})),
                       0 )
     )
 end
 macro gsl_function_fdf(f, df, fdf)
     return :(
-        gsl_function_fdf( @cfunction( $f,   Cdouble, (Cdouble, Ptr{Cvoid})),
-                          @cfunction( $df,  Cdouble, (Cdouble, Ptr{Cvoid})),
-                          @cfunction( $fdf, Cvoid, (Cdouble, Ptr{Cvoid}, Ptr{Cdouble}, Ptr{Cdouble})),
+        gsl_function_fdf( @cfunction( (x,p) -> $f(x),   Cdouble, (Cdouble, Ptr{Cvoid})),
+                          @cfunction( (x,p) -> $df(x),  Cdouble, (Cdouble, Ptr{Cvoid})),
+                          @cfunction( (x,p,f,df) -> $fdf(x,f,df), Cvoid,
+                                      (Cdouble, Ptr{Cvoid}, Ptr{Cdouble}, Ptr{Cdouble})),
                           0 )
     )
 end
