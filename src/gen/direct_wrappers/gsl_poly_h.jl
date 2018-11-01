@@ -27,6 +27,16 @@ function gsl_poly_complex_eval(c, len, z)
 end
 
 """
+    gsl_complex_poly_complex_eval(c, len, z) -> gsl_complex
+
+C signature:
+`gsl_complex gsl_complex_poly_complex_eval (const gsl_complex c [], const int len, const gsl_complex z)`
+"""
+function gsl_complex_poly_complex_eval(c, len, z)
+    ccall((:gsl_complex_poly_complex_eval, libgsl), gsl_complex, (Ref{gsl_complex}, Cint, gsl_complex), c, len, z)
+end
+
+"""
     gsl_poly_eval_derivs(c, lenc, x, res, lenres) -> Cint
 
 C signature:

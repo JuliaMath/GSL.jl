@@ -23,8 +23,7 @@ ignore_headers = ["gsl_spmatrix.h", "gsl_splinalg.h", "gsl_spblas.h"]
 ignore_header(filename) = any(endswith.(filename, ignore_headers))
 
 # List of names to ignore in export
-ignore_list = ["gsl_eigen_", "gsl_complex", "gsl_sort", "gsl_vector_", "gsl_matrix_", "gsl_blas_",
-               "cblas_", "gsl_fft_", "gsl_linalg_"]
+ignore_list = ["gsl_blas", "gsl_eigen_", "gsl_sort", "cblas_", "gsl_fft_", "gsl_linalg_"]
 ignore_this(name) = any(startswith.(name, ignore_list))
 
 type_match = Dict(

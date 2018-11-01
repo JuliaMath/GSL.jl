@@ -22,6 +22,11 @@ include("manual_wrappers.jl")
 function __init__()
     # Load library
     check_deps()
+    # Seems we need to load BLAS with this RTLD_GLOBAL
+    flags = Libdl.RTLD_LAZY | Libdl.RTLD_DEEPBIND | Libdl.RTLD_GLOBAL
+    if Libdl.dlopen_e(libgslcblas, flags) in (C_NULL, nothing)
+        error("$(libgslcblas) cannot be opened, Please re-run Pkg.build(\"GSL\"), and restart Julia.")
+    end    
     # Turn off default error handler
     gsl_set_error_handler_off()
     # Register new error handler

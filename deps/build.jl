@@ -10,6 +10,7 @@ const prefix = Prefix(get([a for a in ARGS if a != "--verbose"], 1, joinpath(@__
 products = [
     # work around for https://github.com/JuliaPackaging/BinaryProvider.jl/issues/133
     LibraryProduct(prefix, [Compat.Sys.iswindows() ? "libgsl" : "libgsl."], :libgsl),
+    LibraryProduct(prefix, [Compat.Sys.iswindows() ? "libgslcblas" : "libgslcblas."], :libgslcblas),    
 ]
 
 # Download binaries from hosted location

@@ -8,16 +8,17 @@ end
 function myfun_deriv(x)
     return 5*x^4
 end
-# Function form for gsl_function_fdf
-function myfun_fdf(x::Cdouble, f::Ptr{Cdouble}, df::Ptr{Cdouble})
-    unsafe_store!(f, myfun(x))
-    unsafe_store!(df, myfun_deriv(x))
-    return nothing
+# Combo function
+function myfun_fdf(x::Cdouble)
+    return myfun(x), myfun_deriv(x)
 end
+
 
 # Wrapping structs
 f = @gsl_function(myfun)
 fdf = @gsl_function_fdf(myfun, myfun_deriv, myfun_fdf)
+fdf2 = @gsl_function_fdf(myfun, myfun_deriv)
+
 
 @testset "RootFinding" begin
 
@@ -45,10 +46,16 @@ fdf = @gsl_function_fdf(myfun, myfun_deriv, myfun_fdf)
             gsl_root_fsolver_set(solver, f, -10, 10)
 
             status = GSL_CONTINUE
+            maxiter = 40
+            iter = 0
             while status == GSL_CONTINUE
                 gsl_root_fsolver_iterate(solver)
                 x = gsl_root_fsolver_root(solver)
                 status = gsl_root_test_residual(myfun(x), 1e-10)
+                iter += 1
+                if iter==maxiter
+                    error("No convergence")
+                end
             end
             @test status == GSL_SUCCESS
             x = gsl_root_fsolver_root(solver)
@@ -70,15 +77,44 @@ fdf = @gsl_function_fdf(myfun, myfun_deriv, myfun_fdf)
             gsl_root_fdfsolver_set(solver, fdf, 5)
 
             status = GSL_CONTINUE
+            iter, maxiter = 0,20
             while status == GSL_CONTINUE
                 gsl_root_fdfsolver_iterate(solver)
                 x = gsl_root_fdfsolver_root(solver)
                 status = gsl_root_test_residual(myfun(x), 1e-10)
+                iter += 1
+                if iter==maxiter
+                    error("No convergence")
+                end                
             end
+            @show iter
+            @test status == GSL_SUCCESS
+            x = gsl_root_fdfsolver_root(solver)
+            @test abs(myfun(x)) < 1e-10
+            gsl_root_fdfsolver_free(solver)
+        end
+
+        @testset "Solve / simplestruct" begin
+            solver = gsl_root_fdfsolver_alloc(T)
+            gsl_root_fdfsolver_set(solver, fdf2, 5)
+
+            status = GSL_CONTINUE
+            iter, maxiter = 0,20
+            while status == GSL_CONTINUE
+                gsl_root_fdfsolver_iterate(solver)
+                x = gsl_root_fdfsolver_root(solver)
+                status = gsl_root_test_residual(myfun(x), 1e-10)
+                iter += 1
+                if iter==maxiter
+                    error("No convergence")
+                end                
+            end
+            @show iter
             @test status == GSL_SUCCESS
             x = gsl_root_fdfsolver_root(solver)
             @test abs(myfun(x)) < 1e-10
             gsl_root_fdfsolver_free(solver)
         end       
+        
     end
 end

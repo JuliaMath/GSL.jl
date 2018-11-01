@@ -41,6 +41,19 @@ function interp2d_name(interp)
     return output
 end
 
+export matrix_char_const_ptr
+"""
+    matrix_char_const_ptr(m, i, j)
+
+C signature:
+`const char * gsl_matrix_char_const_ptr(const gsl_matrix_char * m, const size_t i, const size_t j)`
+"""
+function matrix_char_const_ptr(m, i, j)
+    output = gsl_matrix_char_const_ptr(m, i, j)
+    output = unsafe_string(output)
+    return output
+end
+
 export min_fminimizer_name
 """
     min_fminimizer_name(s)
@@ -4292,6 +4305,19 @@ C signature:
 """
 function spline2d_name(interp)
     output = gsl_spline2d_name(interp)
+    output = unsafe_string(output)
+    return output
+end
+
+export vector_char_const_ptr
+"""
+    vector_char_const_ptr(v, i)
+
+C signature:
+`const char * gsl_vector_char_const_ptr (const gsl_vector_char * v, const size_t i)`
+"""
+function vector_char_const_ptr(v, i)
+    output = gsl_vector_char_const_ptr(v, i)
     output = unsafe_string(output)
     return output
 end
