@@ -14,6 +14,8 @@ Giordano, intended to eventually either replace or be merged into GSL.jl.
 
 Developed for Julia 1.0+.
 
+**NOTE: This breaks compability with previous versions of GSL.jl**
+
 ## Structure
 
 The library tries as faithfully as possible to export the functions, types and symbols
@@ -27,7 +29,7 @@ convenience functions have the prefix `gsl_` dropped from their name.
 
 Parts of GSL are not interfaced to, since they provide functionality already existing in
 Julia. These are functions with prefixes `gsl_spmatrix_`, `gsl_splinalg_`, `gsl_spblas_`,
-`gsl_eigen_`, `gsl_complex`, `gsl_sort`, `gsl_vector_`, `gsl_matrix_`, `gsl_blas_`,
+`gsl_eigen_`, `gsl_sort`, `gsl_blas_`,
 `cblas_`, `gsl_fft_`, and `gsl_linalg_`.
 
 ### Examples of convenience functions
@@ -70,6 +72,7 @@ Things that seem to be working:
 * Root finding, see examples in [test/rootfinding.jl](test/rootfinding.jl).
 * Convenice functions `hypergeom` and `hypergeom_e` for the hypergeometric functions.
 * Random number generation, see [test/rng.jl](test/rng.jl).
+* All of the examples in [examples/](examples/)
 
 ## Behind the scenes
 
