@@ -6,7 +6,7 @@
 #### gsl_sf_sincos_pi.h #######################################################
 
 
-"""
+@doc md"""
     gsl_sf_sin_pi_e(x, result) -> Cint
 
 C signature:
@@ -16,7 +16,7 @@ function gsl_sf_sin_pi_e(x, result)
     ccall((:gsl_sf_sin_pi_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
-"""
+@doc md"""
     gsl_sf_sin_pi(x) -> Cdouble
 
 C signature:
@@ -26,7 +26,7 @@ function gsl_sf_sin_pi(x)
     ccall((:gsl_sf_sin_pi, libgsl), Cdouble, (Cdouble,), x)
 end
 
-"""
+@doc md"""
     gsl_sf_cos_pi_e(x, result) -> Cint
 
 C signature:
@@ -36,7 +36,7 @@ function gsl_sf_cos_pi_e(x, result)
     ccall((:gsl_sf_cos_pi_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
-"""
+@doc md"""
     gsl_sf_cos_pi(x) -> Cdouble
 
 C signature:

@@ -6,7 +6,7 @@
 #### gsl_permute_matrix_ushort.h ##############################################
 
 
-"""
+@doc md"""
     gsl_permute_matrix_ushort(p, A) -> Cint
 
 C signature:

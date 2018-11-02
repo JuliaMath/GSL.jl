@@ -6,7 +6,7 @@
 #### gsl_permute_matrix_long.h ################################################
 
 
-"""
+@doc md"""
     gsl_permute_matrix_long(p, A) -> Cint
 
 C signature:

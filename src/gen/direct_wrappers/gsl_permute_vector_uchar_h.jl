@@ -6,7 +6,7 @@
 #### gsl_permute_vector_uchar.h ###############################################
 
 
-"""
+@doc md"""
     gsl_permute_vector_uchar(p, v) -> Cint
 
 C signature:
@@ -16,7 +16,7 @@ function gsl_permute_vector_uchar(p, v)
     ccall((:gsl_permute_vector_uchar, libgsl), Cint, (Ref{gsl_permutation}, Ref{gsl_vector_uchar}), p, v)
 end
 
-"""
+@doc md"""
     gsl_permute_vector_uchar_inverse(p, v) -> Cint
 
 C signature:

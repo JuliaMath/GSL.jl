@@ -6,7 +6,7 @@
 #### gsl_eigen.h ##############################################################
 
 
-"""
+@doc md"""
     gsl_schur_gen_eigvals(A, B, wr1, wr2, wi, scale1, scale2) -> Cint
 
 C signature:
@@ -16,7 +16,7 @@ function gsl_schur_gen_eigvals(A, B, wr1, wr2, wi, scale1, scale2)
     ccall((:gsl_schur_gen_eigvals, libgsl), Cint, (Ref{gsl_matrix}, Ref{gsl_matrix}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}), A, B, wr1, wr2, wi, scale1, scale2)
 end
 
-"""
+@doc md"""
     gsl_schur_solve_equation(ca, A, z, d1, d2, b, x, s, xnorm, smin) -> Cint
 
 C signature:
@@ -26,7 +26,7 @@ function gsl_schur_solve_equation(ca, A, z, d1, d2, b, x, s, xnorm, smin)
     ccall((:gsl_schur_solve_equation, libgsl), Cint, (Cdouble, Ref{gsl_matrix}, Cdouble, Cdouble, Cdouble, Ref{gsl_vector}, Ref{gsl_vector}, Ref{Cdouble}, Ref{Cdouble}, Cdouble), ca, A, z, d1, d2, b, x, s, xnorm, smin)
 end
 
-"""
+@doc md"""
     gsl_schur_solve_equation_z(ca, A, z, d1, d2, b, x, s, xnorm, smin) -> Cint
 
 C signature:

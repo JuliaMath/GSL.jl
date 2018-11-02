@@ -6,7 +6,7 @@
 #### gsl_permute_vector_complex_double.h ######################################
 
 
-"""
+@doc md"""
     gsl_permute_vector_complex(p, v) -> Cint
 
 C signature:
@@ -16,7 +16,7 @@ function gsl_permute_vector_complex(p, v)
     ccall((:gsl_permute_vector_complex, libgsl), Cint, (Ref{gsl_permutation}, Ref{gsl_vector_complex}), p, v)
 end
 
-"""
+@doc md"""
     gsl_permute_vector_complex_inverse(p, v) -> Cint
 
 C signature:

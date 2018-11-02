@@ -6,7 +6,7 @@
 #### gsl_permute_complex_float.h ##############################################
 
 
-"""
+@doc md"""
     gsl_permute_complex_float(p, data, stride, n) -> Cint
 
 C signature:
@@ -16,7 +16,7 @@ function gsl_permute_complex_float(p, data, stride, n)
     ccall((:gsl_permute_complex_float, libgsl), Cint, (Ref{Csize_t}, Ref{Cfloat}, Csize_t, Csize_t), p, data, stride, n)
 end
 
-"""
+@doc md"""
     gsl_permute_complex_float_inverse(p, data, stride, n) -> Cint
 
 C signature:

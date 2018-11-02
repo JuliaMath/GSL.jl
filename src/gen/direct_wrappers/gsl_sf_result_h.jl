@@ -6,7 +6,7 @@
 #### gsl_sf_result.h ##########################################################
 
 
-"""
+@doc md"""
     gsl_sf_result_smash_e(re, r) -> Cint
 
 C signature:

@@ -6,7 +6,7 @@
 #### gsl_permute_matrix_int.h #################################################
 
 
-"""
+@doc md"""
     gsl_permute_matrix_int(p, A) -> Cint
 
 C signature:

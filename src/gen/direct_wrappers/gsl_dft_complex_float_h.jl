@@ -6,7 +6,7 @@
 #### gsl_dft_complex_float.h ##################################################
 
 
-"""
+@doc md"""
     gsl_dft_complex_float_forward(data, stride, n, result) -> Cint
 
 C signature:
@@ -16,7 +16,7 @@ function gsl_dft_complex_float_forward(data, stride, n, result)
     ccall((:gsl_dft_complex_float_forward, libgsl), Cint, (Ref{Cfloat}, Csize_t, Csize_t, Ref{Cfloat}), data, stride, n, result)
 end
 
-"""
+@doc md"""
     gsl_dft_complex_float_backward(data, stride, n, result) -> Cint
 
 C signature:
@@ -26,7 +26,7 @@ function gsl_dft_complex_float_backward(data, stride, n, result)
     ccall((:gsl_dft_complex_float_backward, libgsl), Cint, (Ref{Cfloat}, Csize_t, Csize_t, Ref{Cfloat}), data, stride, n, result)
 end
 
-"""
+@doc md"""
     gsl_dft_complex_float_inverse(data, stride, n, result) -> Cint
 
 C signature:
@@ -36,7 +36,7 @@ function gsl_dft_complex_float_inverse(data, stride, n, result)
     ccall((:gsl_dft_complex_float_inverse, libgsl), Cint, (Ref{Cfloat}, Csize_t, Csize_t, Ref{Cfloat}), data, stride, n, result)
 end
 
-"""
+@doc md"""
     gsl_dft_complex_float_transform(data, stride, n, result, sign) -> Cint
 
 C signature:

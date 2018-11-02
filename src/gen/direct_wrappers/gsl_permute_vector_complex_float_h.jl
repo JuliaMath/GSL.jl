@@ -6,7 +6,7 @@
 #### gsl_permute_vector_complex_float.h #######################################
 
 
-"""
+@doc md"""
     gsl_permute_vector_complex_float(p, v) -> Cint
 
 C signature:
@@ -16,7 +16,7 @@ function gsl_permute_vector_complex_float(p, v)
     ccall((:gsl_permute_vector_complex_float, libgsl), Cint, (Ref{gsl_permutation}, Ref{gsl_vector_complex_float}), p, v)
 end
 
-"""
+@doc md"""
     gsl_permute_vector_complex_float_inverse(p, v) -> Cint
 
 C signature:

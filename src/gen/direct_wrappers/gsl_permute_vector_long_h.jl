@@ -6,7 +6,7 @@
 #### gsl_permute_vector_long.h ################################################
 
 
-"""
+@doc md"""
     gsl_permute_vector_long(p, v) -> Cint
 
 C signature:
@@ -16,7 +16,7 @@ function gsl_permute_vector_long(p, v)
     ccall((:gsl_permute_vector_long, libgsl), Cint, (Ref{gsl_permutation}, Ref{gsl_vector_long}), p, v)
 end
 
-"""
+@doc md"""
     gsl_permute_vector_long_inverse(p, v) -> Cint
 
 C signature:

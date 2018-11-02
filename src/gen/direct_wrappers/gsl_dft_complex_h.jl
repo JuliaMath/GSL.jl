@@ -6,7 +6,7 @@
 #### gsl_dft_complex.h ########################################################
 
 
-"""
+@doc md"""
     gsl_dft_complex_forward(data, stride, n, result) -> Cint
 
 C signature:
@@ -16,7 +16,7 @@ function gsl_dft_complex_forward(data, stride, n, result)
     ccall((:gsl_dft_complex_forward, libgsl), Cint, (Ref{Cdouble}, Csize_t, Csize_t, Ref{Cdouble}), data, stride, n, result)
 end
 
-"""
+@doc md"""
     gsl_dft_complex_backward(data, stride, n, result) -> Cint
 
 C signature:
@@ -26,7 +26,7 @@ function gsl_dft_complex_backward(data, stride, n, result)
     ccall((:gsl_dft_complex_backward, libgsl), Cint, (Ref{Cdouble}, Csize_t, Csize_t, Ref{Cdouble}), data, stride, n, result)
 end
 
-"""
+@doc md"""
     gsl_dft_complex_inverse(data, stride, n, result) -> Cint
 
 C signature:
@@ -36,7 +36,7 @@ function gsl_dft_complex_inverse(data, stride, n, result)
     ccall((:gsl_dft_complex_inverse, libgsl), Cint, (Ref{Cdouble}, Csize_t, Csize_t, Ref{Cdouble}), data, stride, n, result)
 end
 
-"""
+@doc md"""
     gsl_dft_complex_transform(data, stride, n, result, sign) -> Cint
 
 C signature:

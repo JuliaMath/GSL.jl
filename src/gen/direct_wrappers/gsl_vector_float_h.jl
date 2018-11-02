@@ -6,7 +6,7 @@
 #### gsl_vector_float.h #######################################################
 
 
-"""
+@doc md"""
     gsl_vector_float_alloc(n) -> Ptr{gsl_vector_float}
 
 C signature:
@@ -16,7 +16,7 @@ function gsl_vector_float_alloc(n)
     ccall((:gsl_vector_float_alloc, libgsl), Ptr{gsl_vector_float}, (Csize_t,), n)
 end
 
-"""
+@doc md"""
     gsl_vector_float_calloc(n) -> Ptr{gsl_vector_float}
 
 C signature:
@@ -26,7 +26,7 @@ function gsl_vector_float_calloc(n)
     ccall((:gsl_vector_float_calloc, libgsl), Ptr{gsl_vector_float}, (Csize_t,), n)
 end
 
-"""
+@doc md"""
     gsl_vector_float_alloc_from_block(b, offset, n, stride) -> Ptr{gsl_vector_float}
 
 C signature:
@@ -36,7 +36,7 @@ function gsl_vector_float_alloc_from_block(b, offset, n, stride)
     ccall((:gsl_vector_float_alloc_from_block, libgsl), Ptr{gsl_vector_float}, (Ref{gsl_block_float}, Csize_t, Csize_t, Csize_t), b, offset, n, stride)
 end
 
-"""
+@doc md"""
     gsl_vector_float_alloc_from_vector(v, offset, n, stride) -> Ptr{gsl_vector_float}
 
 C signature:
@@ -46,7 +46,7 @@ function gsl_vector_float_alloc_from_vector(v, offset, n, stride)
     ccall((:gsl_vector_float_alloc_from_vector, libgsl), Ptr{gsl_vector_float}, (Ref{gsl_vector_float}, Csize_t, Csize_t, Csize_t), v, offset, n, stride)
 end
 
-"""
+@doc md"""
     gsl_vector_float_free(v) -> Cvoid
 
 C signature:
@@ -56,7 +56,7 @@ function gsl_vector_float_free(v)
     ccall((:gsl_vector_float_free, libgsl), Cvoid, (Ptr{gsl_vector_float},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_float_view_array(v, n) -> _gsl_vector_float_view
 
 C signature:
@@ -66,7 +66,7 @@ function gsl_vector_float_view_array(v, n)
     ccall((:gsl_vector_float_view_array, libgsl), _gsl_vector_float_view, (Ref{Cfloat}, Csize_t), v, n)
 end
 
-"""
+@doc md"""
     gsl_vector_float_view_array_with_stride(base, stride, n) -> _gsl_vector_float_view
 
 C signature:
@@ -76,7 +76,7 @@ function gsl_vector_float_view_array_with_stride(base, stride, n)
     ccall((:gsl_vector_float_view_array_with_stride, libgsl), _gsl_vector_float_view, (Ref{Cfloat}, Csize_t, Csize_t), base, stride, n)
 end
 
-"""
+@doc md"""
     gsl_vector_float_const_view_array(v, n) -> _gsl_vector_float_const_view
 
 C signature:
@@ -86,7 +86,7 @@ function gsl_vector_float_const_view_array(v, n)
     ccall((:gsl_vector_float_const_view_array, libgsl), _gsl_vector_float_const_view, (Ref{Cfloat}, Csize_t), v, n)
 end
 
-"""
+@doc md"""
     gsl_vector_float_const_view_array_with_stride(base, stride, n) -> _gsl_vector_float_const_view
 
 C signature:
@@ -96,7 +96,7 @@ function gsl_vector_float_const_view_array_with_stride(base, stride, n)
     ccall((:gsl_vector_float_const_view_array_with_stride, libgsl), _gsl_vector_float_const_view, (Ref{Cfloat}, Csize_t, Csize_t), base, stride, n)
 end
 
-"""
+@doc md"""
     gsl_vector_float_subvector(v, i, n) -> _gsl_vector_float_view
 
 C signature:
@@ -106,7 +106,7 @@ function gsl_vector_float_subvector(v, i, n)
     ccall((:gsl_vector_float_subvector, libgsl), _gsl_vector_float_view, (Ref{gsl_vector_float}, Csize_t, Csize_t), v, i, n)
 end
 
-"""
+@doc md"""
     gsl_vector_float_subvector_with_stride(v, i, stride, n) -> _gsl_vector_float_view
 
 C signature:
@@ -116,7 +116,7 @@ function gsl_vector_float_subvector_with_stride(v, i, stride, n)
     ccall((:gsl_vector_float_subvector_with_stride, libgsl), _gsl_vector_float_view, (Ref{gsl_vector_float}, Csize_t, Csize_t, Csize_t), v, i, stride, n)
 end
 
-"""
+@doc md"""
     gsl_vector_float_const_subvector(v, i, n) -> _gsl_vector_float_const_view
 
 C signature:
@@ -126,7 +126,7 @@ function gsl_vector_float_const_subvector(v, i, n)
     ccall((:gsl_vector_float_const_subvector, libgsl), _gsl_vector_float_const_view, (Ref{gsl_vector_float}, Csize_t, Csize_t), v, i, n)
 end
 
-"""
+@doc md"""
     gsl_vector_float_const_subvector_with_stride(v, i, stride, n) -> _gsl_vector_float_const_view
 
 C signature:
@@ -136,7 +136,7 @@ function gsl_vector_float_const_subvector_with_stride(v, i, stride, n)
     ccall((:gsl_vector_float_const_subvector_with_stride, libgsl), _gsl_vector_float_const_view, (Ref{gsl_vector_float}, Csize_t, Csize_t, Csize_t), v, i, stride, n)
 end
 
-"""
+@doc md"""
     gsl_vector_float_set_zero(v) -> Cvoid
 
 C signature:
@@ -146,7 +146,7 @@ function gsl_vector_float_set_zero(v)
     ccall((:gsl_vector_float_set_zero, libgsl), Cvoid, (Ptr{gsl_vector_float},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_float_set_all(v, x) -> Cvoid
 
 C signature:
@@ -156,7 +156,7 @@ function gsl_vector_float_set_all(v, x)
     ccall((:gsl_vector_float_set_all, libgsl), Cvoid, (Ref{gsl_vector_float}, Cfloat), v, x)
 end
 
-"""
+@doc md"""
     gsl_vector_float_set_basis(v, i) -> Cint
 
 C signature:
@@ -166,7 +166,7 @@ function gsl_vector_float_set_basis(v, i)
     ccall((:gsl_vector_float_set_basis, libgsl), Cint, (Ref{gsl_vector_float}, Csize_t), v, i)
 end
 
-"""
+@doc md"""
     gsl_vector_float_fread(stream, v) -> Cint
 
 C signature:
@@ -176,7 +176,7 @@ function gsl_vector_float_fread(stream, v)
     ccall((:gsl_vector_float_fread, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_vector_float}), stream, v)
 end
 
-"""
+@doc md"""
     gsl_vector_float_fwrite(stream, v) -> Cint
 
 C signature:
@@ -186,7 +186,7 @@ function gsl_vector_float_fwrite(stream, v)
     ccall((:gsl_vector_float_fwrite, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_vector_float}), stream, v)
 end
 
-"""
+@doc md"""
     gsl_vector_float_fscanf(stream, v) -> Cint
 
 C signature:
@@ -196,7 +196,7 @@ function gsl_vector_float_fscanf(stream, v)
     ccall((:gsl_vector_float_fscanf, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_vector_float}), stream, v)
 end
 
-"""
+@doc md"""
     gsl_vector_float_fprintf(stream, v, format) -> Cint
 
 C signature:
@@ -206,7 +206,7 @@ function gsl_vector_float_fprintf(stream, v, format)
     ccall((:gsl_vector_float_fprintf, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_vector_float}, Ref{Cchar}), stream, v, format)
 end
 
-"""
+@doc md"""
     gsl_vector_float_memcpy(dest, src) -> Cint
 
 C signature:
@@ -216,7 +216,7 @@ function gsl_vector_float_memcpy(dest, src)
     ccall((:gsl_vector_float_memcpy, libgsl), Cint, (Ref{gsl_vector_float}, Ref{gsl_vector_float}), dest, src)
 end
 
-"""
+@doc md"""
     gsl_vector_float_reverse(v) -> Cint
 
 C signature:
@@ -226,7 +226,7 @@ function gsl_vector_float_reverse(v)
     ccall((:gsl_vector_float_reverse, libgsl), Cint, (Ptr{gsl_vector_float},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_float_swap(v, w) -> Cint
 
 C signature:
@@ -236,7 +236,7 @@ function gsl_vector_float_swap(v, w)
     ccall((:gsl_vector_float_swap, libgsl), Cint, (Ref{gsl_vector_float}, Ref{gsl_vector_float}), v, w)
 end
 
-"""
+@doc md"""
     gsl_vector_float_swap_elements(v, i, j) -> Cint
 
 C signature:
@@ -246,7 +246,7 @@ function gsl_vector_float_swap_elements(v, i, j)
     ccall((:gsl_vector_float_swap_elements, libgsl), Cint, (Ref{gsl_vector_float}, Csize_t, Csize_t), v, i, j)
 end
 
-"""
+@doc md"""
     gsl_vector_float_max(v) -> Cfloat
 
 C signature:
@@ -256,7 +256,7 @@ function gsl_vector_float_max(v)
     ccall((:gsl_vector_float_max, libgsl), Cfloat, (Ptr{gsl_vector_float},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_float_min(v) -> Cfloat
 
 C signature:
@@ -266,7 +266,7 @@ function gsl_vector_float_min(v)
     ccall((:gsl_vector_float_min, libgsl), Cfloat, (Ptr{gsl_vector_float},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_float_minmax(v, min_out, max_out) -> Cvoid
 
 C signature:
@@ -276,7 +276,7 @@ function gsl_vector_float_minmax(v, min_out, max_out)
     ccall((:gsl_vector_float_minmax, libgsl), Cvoid, (Ref{gsl_vector_float}, Ref{Cfloat}, Ref{Cfloat}), v, min_out, max_out)
 end
 
-"""
+@doc md"""
     gsl_vector_float_max_index(v) -> Csize_t
 
 C signature:
@@ -286,7 +286,7 @@ function gsl_vector_float_max_index(v)
     ccall((:gsl_vector_float_max_index, libgsl), Csize_t, (Ptr{gsl_vector_float},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_float_min_index(v) -> Csize_t
 
 C signature:
@@ -296,7 +296,7 @@ function gsl_vector_float_min_index(v)
     ccall((:gsl_vector_float_min_index, libgsl), Csize_t, (Ptr{gsl_vector_float},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_float_minmax_index(v, imin, imax) -> Cvoid
 
 C signature:
@@ -306,7 +306,7 @@ function gsl_vector_float_minmax_index(v, imin, imax)
     ccall((:gsl_vector_float_minmax_index, libgsl), Cvoid, (Ref{gsl_vector_float}, Ref{Csize_t}, Ref{Csize_t}), v, imin, imax)
 end
 
-"""
+@doc md"""
     gsl_vector_float_add(a, b) -> Cint
 
 C signature:
@@ -316,7 +316,7 @@ function gsl_vector_float_add(a, b)
     ccall((:gsl_vector_float_add, libgsl), Cint, (Ref{gsl_vector_float}, Ref{gsl_vector_float}), a, b)
 end
 
-"""
+@doc md"""
     gsl_vector_float_sub(a, b) -> Cint
 
 C signature:
@@ -326,7 +326,7 @@ function gsl_vector_float_sub(a, b)
     ccall((:gsl_vector_float_sub, libgsl), Cint, (Ref{gsl_vector_float}, Ref{gsl_vector_float}), a, b)
 end
 
-"""
+@doc md"""
     gsl_vector_float_mul(a, b) -> Cint
 
 C signature:
@@ -336,7 +336,7 @@ function gsl_vector_float_mul(a, b)
     ccall((:gsl_vector_float_mul, libgsl), Cint, (Ref{gsl_vector_float}, Ref{gsl_vector_float}), a, b)
 end
 
-"""
+@doc md"""
     gsl_vector_float_div(a, b) -> Cint
 
 C signature:
@@ -346,7 +346,7 @@ function gsl_vector_float_div(a, b)
     ccall((:gsl_vector_float_div, libgsl), Cint, (Ref{gsl_vector_float}, Ref{gsl_vector_float}), a, b)
 end
 
-"""
+@doc md"""
     gsl_vector_float_scale(a, x) -> Cint
 
 C signature:
@@ -356,7 +356,7 @@ function gsl_vector_float_scale(a, x)
     ccall((:gsl_vector_float_scale, libgsl), Cint, (Ref{gsl_vector_float}, Cdouble), a, x)
 end
 
-"""
+@doc md"""
     gsl_vector_float_add_constant(a, x) -> Cint
 
 C signature:
@@ -366,7 +366,7 @@ function gsl_vector_float_add_constant(a, x)
     ccall((:gsl_vector_float_add_constant, libgsl), Cint, (Ref{gsl_vector_float}, Cdouble), a, x)
 end
 
-"""
+@doc md"""
     gsl_vector_float_equal(u, v) -> Cint
 
 C signature:
@@ -376,7 +376,7 @@ function gsl_vector_float_equal(u, v)
     ccall((:gsl_vector_float_equal, libgsl), Cint, (Ref{gsl_vector_float}, Ref{gsl_vector_float}), u, v)
 end
 
-"""
+@doc md"""
     gsl_vector_float_isnull(v) -> Cint
 
 C signature:
@@ -386,7 +386,7 @@ function gsl_vector_float_isnull(v)
     ccall((:gsl_vector_float_isnull, libgsl), Cint, (Ptr{gsl_vector_float},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_float_ispos(v) -> Cint
 
 C signature:
@@ -396,7 +396,7 @@ function gsl_vector_float_ispos(v)
     ccall((:gsl_vector_float_ispos, libgsl), Cint, (Ptr{gsl_vector_float},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_float_isneg(v) -> Cint
 
 C signature:
@@ -406,7 +406,7 @@ function gsl_vector_float_isneg(v)
     ccall((:gsl_vector_float_isneg, libgsl), Cint, (Ptr{gsl_vector_float},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_float_isnonneg(v) -> Cint
 
 C signature:
@@ -416,7 +416,7 @@ function gsl_vector_float_isnonneg(v)
     ccall((:gsl_vector_float_isnonneg, libgsl), Cint, (Ptr{gsl_vector_float},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_float_get(v, i) -> Cfloat
 
 C signature:
@@ -426,7 +426,7 @@ function gsl_vector_float_get(v, i)
     ccall((:gsl_vector_float_get, libgsl), Cfloat, (Ref{gsl_vector_float}, Csize_t), v, i)
 end
 
-"""
+@doc md"""
     gsl_vector_float_set(v, i, x) -> Cvoid
 
 C signature:
@@ -436,7 +436,7 @@ function gsl_vector_float_set(v, i, x)
     ccall((:gsl_vector_float_set, libgsl), Cvoid, (Ref{gsl_vector_float}, Csize_t, Cfloat), v, i, x)
 end
 
-"""
+@doc md"""
     gsl_vector_float_ptr(v, i) -> Ptr{Cfloat}
 
 C signature:
@@ -446,7 +446,7 @@ function gsl_vector_float_ptr(v, i)
     ccall((:gsl_vector_float_ptr, libgsl), Ptr{Cfloat}, (Ref{gsl_vector_float}, Csize_t), v, i)
 end
 
-"""
+@doc md"""
     gsl_vector_float_const_ptr(v, i) -> Ptr{Cfloat}
 
 C signature:

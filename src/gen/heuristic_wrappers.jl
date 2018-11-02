@@ -3,7 +3,7 @@
 #
 
 export strerror
-"""
+@doc md"""
     strerror(gsl_errno)
 
 C signature:
@@ -16,7 +16,7 @@ function strerror(gsl_errno)
 end
 
 export interp_name
-"""
+@doc md"""
     interp_name(interp)
 
 C signature:
@@ -29,7 +29,7 @@ function interp_name(interp)
 end
 
 export interp2d_name
-"""
+@doc md"""
     interp2d_name(interp)
 
 C signature:
@@ -42,7 +42,7 @@ function interp2d_name(interp)
 end
 
 export matrix_char_const_ptr
-"""
+@doc md"""
     matrix_char_const_ptr(m, i, j)
 
 C signature:
@@ -55,7 +55,7 @@ function matrix_char_const_ptr(m, i, j)
 end
 
 export min_fminimizer_name
-"""
+@doc md"""
     min_fminimizer_name(s)
 
 C signature:
@@ -68,7 +68,7 @@ function min_fminimizer_name(s)
 end
 
 export multifit_robust_name
-"""
+@doc md"""
     multifit_robust_name(w)
 
 C signature:
@@ -81,7 +81,7 @@ function multifit_robust_name(w)
 end
 
 export multifit_fsolver_name
-"""
+@doc md"""
     multifit_fsolver_name(s)
 
 C signature:
@@ -94,7 +94,7 @@ function multifit_fsolver_name(s)
 end
 
 export multifit_fdfsolver_name
-"""
+@doc md"""
     multifit_fdfsolver_name(s)
 
 C signature:
@@ -107,7 +107,7 @@ function multifit_fdfsolver_name(s)
 end
 
 export multifit_fdfridge_name
-"""
+@doc md"""
     multifit_fdfridge_name(w)
 
 C signature:
@@ -120,7 +120,7 @@ function multifit_fdfridge_name(w)
 end
 
 export multifit_nlinear_name
-"""
+@doc md"""
     multifit_nlinear_name(w)
 
 C signature:
@@ -133,7 +133,7 @@ function multifit_nlinear_name(w)
 end
 
 export multifit_nlinear_trs_name
-"""
+@doc md"""
     multifit_nlinear_trs_name(w)
 
 C signature:
@@ -146,7 +146,7 @@ function multifit_nlinear_trs_name(w)
 end
 
 export multilarge_linear_name
-"""
+@doc md"""
     multilarge_linear_name(w)
 
 C signature:
@@ -159,7 +159,7 @@ function multilarge_linear_name(w)
 end
 
 export multilarge_nlinear_name
-"""
+@doc md"""
     multilarge_nlinear_name(w)
 
 C signature:
@@ -172,7 +172,7 @@ function multilarge_nlinear_name(w)
 end
 
 export multilarge_nlinear_trs_name
-"""
+@doc md"""
     multilarge_nlinear_trs_name(w)
 
 C signature:
@@ -185,7 +185,7 @@ function multilarge_nlinear_trs_name(w)
 end
 
 export multimin_fminimizer_name
-"""
+@doc md"""
     multimin_fminimizer_name(s)
 
 C signature:
@@ -198,7 +198,7 @@ function multimin_fminimizer_name(s)
 end
 
 export multimin_fdfminimizer_name
-"""
+@doc md"""
     multimin_fdfminimizer_name(s)
 
 C signature:
@@ -211,7 +211,7 @@ function multimin_fdfminimizer_name(s)
 end
 
 export multiroot_fsolver_name
-"""
+@doc md"""
     multiroot_fsolver_name(s)
 
 C signature:
@@ -224,7 +224,7 @@ function multiroot_fsolver_name(s)
 end
 
 export multiroot_fdfsolver_name
-"""
+@doc md"""
     multiroot_fdfsolver_name(s)
 
 C signature:
@@ -237,7 +237,7 @@ function multiroot_fdfsolver_name(s)
 end
 
 export odeiv_step_name
-"""
+@doc md"""
     odeiv_step_name(s)
 
 C signature:
@@ -250,7 +250,7 @@ function odeiv_step_name(s)
 end
 
 export odeiv_control_name
-"""
+@doc md"""
     odeiv_control_name(c)
 
 C signature:
@@ -263,7 +263,7 @@ function odeiv_control_name(c)
 end
 
 export odeiv2_step_name
-"""
+@doc md"""
     odeiv2_step_name(s)
 
 C signature:
@@ -276,7 +276,7 @@ function odeiv2_step_name(s)
 end
 
 export odeiv2_control_name
-"""
+@doc md"""
     odeiv2_control_name(c)
 
 C signature:
@@ -289,7 +289,7 @@ function odeiv2_control_name(c)
 end
 
 export qrng_name
-"""
+@doc md"""
     qrng_name(q)
 
 C signature:
@@ -302,7 +302,7 @@ function qrng_name(q)
 end
 
 export rng_name
-"""
+@doc md"""
     rng_name(r)
 
 C signature:
@@ -315,7 +315,7 @@ function rng_name(r)
 end
 
 export root_fsolver_name
-"""
+@doc md"""
     root_fsolver_name(s)
 
 C signature:
@@ -328,7 +328,7 @@ function root_fsolver_name(s)
 end
 
 export root_fdfsolver_name
-"""
+@doc md"""
     root_fdfsolver_name(s)
 
 C signature:
@@ -341,7 +341,7 @@ function root_fdfsolver_name(s)
 end
 
 export sf_airy_Ai_e
-"""
+@doc md"""
     sf_airy_Ai_e(x, mode)
 
 C signature:
@@ -354,7 +354,7 @@ function sf_airy_Ai_e(x, mode)
 end
 
 export sf_airy_Bi_e
-"""
+@doc md"""
     sf_airy_Bi_e(x, mode)
 
 C signature:
@@ -367,7 +367,7 @@ function sf_airy_Bi_e(x, mode)
 end
 
 export sf_airy_Ai_scaled_e
-"""
+@doc md"""
     sf_airy_Ai_scaled_e(x, mode)
 
 C signature:
@@ -380,7 +380,7 @@ function sf_airy_Ai_scaled_e(x, mode)
 end
 
 export sf_airy_Bi_scaled_e
-"""
+@doc md"""
     sf_airy_Bi_scaled_e(x, mode)
 
 C signature:
@@ -393,7 +393,7 @@ function sf_airy_Bi_scaled_e(x, mode)
 end
 
 export sf_airy_Ai_deriv_e
-"""
+@doc md"""
     sf_airy_Ai_deriv_e(x, mode)
 
 C signature:
@@ -406,7 +406,7 @@ function sf_airy_Ai_deriv_e(x, mode)
 end
 
 export sf_airy_Bi_deriv_e
-"""
+@doc md"""
     sf_airy_Bi_deriv_e(x, mode)
 
 C signature:
@@ -419,7 +419,7 @@ function sf_airy_Bi_deriv_e(x, mode)
 end
 
 export sf_airy_Ai_deriv_scaled_e
-"""
+@doc md"""
     sf_airy_Ai_deriv_scaled_e(x, mode)
 
 C signature:
@@ -432,7 +432,7 @@ function sf_airy_Ai_deriv_scaled_e(x, mode)
 end
 
 export sf_airy_Bi_deriv_scaled_e
-"""
+@doc md"""
     sf_airy_Bi_deriv_scaled_e(x, mode)
 
 C signature:
@@ -445,7 +445,7 @@ function sf_airy_Bi_deriv_scaled_e(x, mode)
 end
 
 export sf_airy_zero_Ai_e
-"""
+@doc md"""
     sf_airy_zero_Ai_e(s)
 
 C signature:
@@ -458,7 +458,7 @@ function sf_airy_zero_Ai_e(s)
 end
 
 export sf_airy_zero_Bi_e
-"""
+@doc md"""
     sf_airy_zero_Bi_e(s)
 
 C signature:
@@ -471,7 +471,7 @@ function sf_airy_zero_Bi_e(s)
 end
 
 export sf_airy_zero_Ai_deriv_e
-"""
+@doc md"""
     sf_airy_zero_Ai_deriv_e(s)
 
 C signature:
@@ -484,7 +484,7 @@ function sf_airy_zero_Ai_deriv_e(s)
 end
 
 export sf_airy_zero_Bi_deriv_e
-"""
+@doc md"""
     sf_airy_zero_Bi_deriv_e(s)
 
 C signature:
@@ -497,7 +497,7 @@ function sf_airy_zero_Bi_deriv_e(s)
 end
 
 export sf_bessel_J0_e
-"""
+@doc md"""
     sf_bessel_J0_e(x)
 
 C signature:
@@ -510,7 +510,7 @@ function sf_bessel_J0_e(x)
 end
 
 export sf_bessel_J1_e
-"""
+@doc md"""
     sf_bessel_J1_e(x)
 
 C signature:
@@ -523,7 +523,7 @@ function sf_bessel_J1_e(x)
 end
 
 export sf_bessel_Jn_e
-"""
+@doc md"""
     sf_bessel_Jn_e(n, x)
 
 C signature:
@@ -536,7 +536,7 @@ function sf_bessel_Jn_e(n, x)
 end
 
 export sf_bessel_Jn_array
-"""
+@doc md"""
     sf_bessel_Jn_array(nmin, nmax, x)
 
 C signature:
@@ -549,7 +549,7 @@ function sf_bessel_Jn_array(nmin, nmax, x)
 end
 
 export sf_bessel_Y0_e
-"""
+@doc md"""
     sf_bessel_Y0_e(x)
 
 C signature:
@@ -562,7 +562,7 @@ function sf_bessel_Y0_e(x)
 end
 
 export sf_bessel_Y1_e
-"""
+@doc md"""
     sf_bessel_Y1_e(x)
 
 C signature:
@@ -575,7 +575,7 @@ function sf_bessel_Y1_e(x)
 end
 
 export sf_bessel_Yn_e
-"""
+@doc md"""
     sf_bessel_Yn_e(n, x)
 
 C signature:
@@ -588,7 +588,7 @@ function sf_bessel_Yn_e(n, x)
 end
 
 export sf_bessel_Yn_array
-"""
+@doc md"""
     sf_bessel_Yn_array(nmin, nmax, x)
 
 C signature:
@@ -601,7 +601,7 @@ function sf_bessel_Yn_array(nmin, nmax, x)
 end
 
 export sf_bessel_I0_e
-"""
+@doc md"""
     sf_bessel_I0_e(x)
 
 C signature:
@@ -614,7 +614,7 @@ function sf_bessel_I0_e(x)
 end
 
 export sf_bessel_I1_e
-"""
+@doc md"""
     sf_bessel_I1_e(x)
 
 C signature:
@@ -627,7 +627,7 @@ function sf_bessel_I1_e(x)
 end
 
 export sf_bessel_In_e
-"""
+@doc md"""
     sf_bessel_In_e(n, x)
 
 C signature:
@@ -640,7 +640,7 @@ function sf_bessel_In_e(n, x)
 end
 
 export sf_bessel_In_array
-"""
+@doc md"""
     sf_bessel_In_array(nmin, nmax, x)
 
 C signature:
@@ -653,7 +653,7 @@ function sf_bessel_In_array(nmin, nmax, x)
 end
 
 export sf_bessel_I0_scaled_e
-"""
+@doc md"""
     sf_bessel_I0_scaled_e(x)
 
 C signature:
@@ -666,7 +666,7 @@ function sf_bessel_I0_scaled_e(x)
 end
 
 export sf_bessel_I1_scaled_e
-"""
+@doc md"""
     sf_bessel_I1_scaled_e(x)
 
 C signature:
@@ -679,7 +679,7 @@ function sf_bessel_I1_scaled_e(x)
 end
 
 export sf_bessel_In_scaled_e
-"""
+@doc md"""
     sf_bessel_In_scaled_e(n, x)
 
 C signature:
@@ -692,7 +692,7 @@ function sf_bessel_In_scaled_e(n, x)
 end
 
 export sf_bessel_In_scaled_array
-"""
+@doc md"""
     sf_bessel_In_scaled_array(nmin, nmax, x)
 
 C signature:
@@ -705,7 +705,7 @@ function sf_bessel_In_scaled_array(nmin, nmax, x)
 end
 
 export sf_bessel_K0_e
-"""
+@doc md"""
     sf_bessel_K0_e(x)
 
 C signature:
@@ -718,7 +718,7 @@ function sf_bessel_K0_e(x)
 end
 
 export sf_bessel_K1_e
-"""
+@doc md"""
     sf_bessel_K1_e(x)
 
 C signature:
@@ -731,7 +731,7 @@ function sf_bessel_K1_e(x)
 end
 
 export sf_bessel_Kn_e
-"""
+@doc md"""
     sf_bessel_Kn_e(n, x)
 
 C signature:
@@ -744,7 +744,7 @@ function sf_bessel_Kn_e(n, x)
 end
 
 export sf_bessel_Kn_array
-"""
+@doc md"""
     sf_bessel_Kn_array(nmin, nmax, x)
 
 C signature:
@@ -757,7 +757,7 @@ function sf_bessel_Kn_array(nmin, nmax, x)
 end
 
 export sf_bessel_K0_scaled_e
-"""
+@doc md"""
     sf_bessel_K0_scaled_e(x)
 
 C signature:
@@ -770,7 +770,7 @@ function sf_bessel_K0_scaled_e(x)
 end
 
 export sf_bessel_K1_scaled_e
-"""
+@doc md"""
     sf_bessel_K1_scaled_e(x)
 
 C signature:
@@ -783,7 +783,7 @@ function sf_bessel_K1_scaled_e(x)
 end
 
 export sf_bessel_Kn_scaled_e
-"""
+@doc md"""
     sf_bessel_Kn_scaled_e(n, x)
 
 C signature:
@@ -796,7 +796,7 @@ function sf_bessel_Kn_scaled_e(n, x)
 end
 
 export sf_bessel_Kn_scaled_array
-"""
+@doc md"""
     sf_bessel_Kn_scaled_array(nmin, nmax, x)
 
 C signature:
@@ -809,7 +809,7 @@ function sf_bessel_Kn_scaled_array(nmin, nmax, x)
 end
 
 export sf_bessel_j0_e
-"""
+@doc md"""
     sf_bessel_j0_e(x)
 
 C signature:
@@ -822,7 +822,7 @@ function sf_bessel_j0_e(x)
 end
 
 export sf_bessel_j1_e
-"""
+@doc md"""
     sf_bessel_j1_e(x)
 
 C signature:
@@ -835,7 +835,7 @@ function sf_bessel_j1_e(x)
 end
 
 export sf_bessel_j2_e
-"""
+@doc md"""
     sf_bessel_j2_e(x)
 
 C signature:
@@ -848,7 +848,7 @@ function sf_bessel_j2_e(x)
 end
 
 export sf_bessel_jl_e
-"""
+@doc md"""
     sf_bessel_jl_e(l, x)
 
 C signature:
@@ -861,7 +861,7 @@ function sf_bessel_jl_e(l, x)
 end
 
 export sf_bessel_jl_array
-"""
+@doc md"""
     sf_bessel_jl_array(lmax, x)
 
 C signature:
@@ -874,7 +874,7 @@ function sf_bessel_jl_array(lmax, x)
 end
 
 export sf_bessel_y0_e
-"""
+@doc md"""
     sf_bessel_y0_e(x)
 
 C signature:
@@ -887,7 +887,7 @@ function sf_bessel_y0_e(x)
 end
 
 export sf_bessel_y1_e
-"""
+@doc md"""
     sf_bessel_y1_e(x)
 
 C signature:
@@ -900,7 +900,7 @@ function sf_bessel_y1_e(x)
 end
 
 export sf_bessel_y2_e
-"""
+@doc md"""
     sf_bessel_y2_e(x)
 
 C signature:
@@ -913,7 +913,7 @@ function sf_bessel_y2_e(x)
 end
 
 export sf_bessel_yl_e
-"""
+@doc md"""
     sf_bessel_yl_e(l, x)
 
 C signature:
@@ -926,7 +926,7 @@ function sf_bessel_yl_e(l, x)
 end
 
 export sf_bessel_yl_array
-"""
+@doc md"""
     sf_bessel_yl_array(lmax, x)
 
 C signature:
@@ -939,7 +939,7 @@ function sf_bessel_yl_array(lmax, x)
 end
 
 export sf_bessel_i0_scaled_e
-"""
+@doc md"""
     sf_bessel_i0_scaled_e(x)
 
 C signature:
@@ -952,7 +952,7 @@ function sf_bessel_i0_scaled_e(x)
 end
 
 export sf_bessel_i1_scaled_e
-"""
+@doc md"""
     sf_bessel_i1_scaled_e(x)
 
 C signature:
@@ -965,7 +965,7 @@ function sf_bessel_i1_scaled_e(x)
 end
 
 export sf_bessel_i2_scaled_e
-"""
+@doc md"""
     sf_bessel_i2_scaled_e(x)
 
 C signature:
@@ -978,7 +978,7 @@ function sf_bessel_i2_scaled_e(x)
 end
 
 export sf_bessel_il_scaled_e
-"""
+@doc md"""
     sf_bessel_il_scaled_e(l, x)
 
 C signature:
@@ -991,7 +991,7 @@ function sf_bessel_il_scaled_e(l, x)
 end
 
 export sf_bessel_il_scaled_array
-"""
+@doc md"""
     sf_bessel_il_scaled_array(lmax, x)
 
 C signature:
@@ -1004,7 +1004,7 @@ function sf_bessel_il_scaled_array(lmax, x)
 end
 
 export sf_bessel_k0_scaled_e
-"""
+@doc md"""
     sf_bessel_k0_scaled_e(x)
 
 C signature:
@@ -1017,7 +1017,7 @@ function sf_bessel_k0_scaled_e(x)
 end
 
 export sf_bessel_k1_scaled_e
-"""
+@doc md"""
     sf_bessel_k1_scaled_e(x)
 
 C signature:
@@ -1030,7 +1030,7 @@ function sf_bessel_k1_scaled_e(x)
 end
 
 export sf_bessel_k2_scaled_e
-"""
+@doc md"""
     sf_bessel_k2_scaled_e(x)
 
 C signature:
@@ -1043,7 +1043,7 @@ function sf_bessel_k2_scaled_e(x)
 end
 
 export sf_bessel_kl_scaled_e
-"""
+@doc md"""
     sf_bessel_kl_scaled_e(l, x)
 
 C signature:
@@ -1056,7 +1056,7 @@ function sf_bessel_kl_scaled_e(l, x)
 end
 
 export sf_bessel_kl_scaled_array
-"""
+@doc md"""
     sf_bessel_kl_scaled_array(lmax, x)
 
 C signature:
@@ -1069,7 +1069,7 @@ function sf_bessel_kl_scaled_array(lmax, x)
 end
 
 export sf_bessel_Jnu_e
-"""
+@doc md"""
     sf_bessel_Jnu_e(nu, x)
 
 C signature:
@@ -1082,7 +1082,7 @@ function sf_bessel_Jnu_e(nu, x)
 end
 
 export sf_bessel_Ynu_e
-"""
+@doc md"""
     sf_bessel_Ynu_e(nu, x)
 
 C signature:
@@ -1095,7 +1095,7 @@ function sf_bessel_Ynu_e(nu, x)
 end
 
 export sf_bessel_Inu_scaled_e
-"""
+@doc md"""
     sf_bessel_Inu_scaled_e(nu, x)
 
 C signature:
@@ -1108,7 +1108,7 @@ function sf_bessel_Inu_scaled_e(nu, x)
 end
 
 export sf_bessel_Inu_e
-"""
+@doc md"""
     sf_bessel_Inu_e(nu, x)
 
 C signature:
@@ -1121,7 +1121,7 @@ function sf_bessel_Inu_e(nu, x)
 end
 
 export sf_bessel_Knu_scaled_e
-"""
+@doc md"""
     sf_bessel_Knu_scaled_e(nu, x)
 
 C signature:
@@ -1134,7 +1134,7 @@ function sf_bessel_Knu_scaled_e(nu, x)
 end
 
 export sf_bessel_Knu_scaled_e10_e
-"""
+@doc md"""
     sf_bessel_Knu_scaled_e10_e(nu, x)
 
 C signature:
@@ -1147,7 +1147,7 @@ function sf_bessel_Knu_scaled_e10_e(nu, x)
 end
 
 export sf_bessel_Knu_e
-"""
+@doc md"""
     sf_bessel_Knu_e(nu, x)
 
 C signature:
@@ -1160,7 +1160,7 @@ function sf_bessel_Knu_e(nu, x)
 end
 
 export sf_bessel_lnKnu_e
-"""
+@doc md"""
     sf_bessel_lnKnu_e(nu, x)
 
 C signature:
@@ -1173,7 +1173,7 @@ function sf_bessel_lnKnu_e(nu, x)
 end
 
 export sf_bessel_zero_J0_e
-"""
+@doc md"""
     sf_bessel_zero_J0_e(s)
 
 C signature:
@@ -1186,7 +1186,7 @@ function sf_bessel_zero_J0_e(s)
 end
 
 export sf_bessel_zero_J1_e
-"""
+@doc md"""
     sf_bessel_zero_J1_e(s)
 
 C signature:
@@ -1199,7 +1199,7 @@ function sf_bessel_zero_J1_e(s)
 end
 
 export sf_bessel_zero_Jnu_e
-"""
+@doc md"""
     sf_bessel_zero_Jnu_e(nu, s)
 
 C signature:
@@ -1212,7 +1212,7 @@ function sf_bessel_zero_Jnu_e(nu, s)
 end
 
 export sf_clausen_e
-"""
+@doc md"""
     sf_clausen_e(x)
 
 C signature:
@@ -1225,7 +1225,7 @@ function sf_clausen_e(x)
 end
 
 export sf_hydrogenicR_1_e
-"""
+@doc md"""
     sf_hydrogenicR_1_e(Z, r)
 
 C signature:
@@ -1238,7 +1238,7 @@ function sf_hydrogenicR_1_e(Z, r)
 end
 
 export sf_hydrogenicR_e
-"""
+@doc md"""
     sf_hydrogenicR_e(n, l, Z, r)
 
 C signature:
@@ -1251,7 +1251,7 @@ function sf_hydrogenicR_e(n, l, Z, r)
 end
 
 export sf_coulomb_wave_FG_e
-"""
+@doc md"""
     sf_coulomb_wave_FG_e(eta, x, lam_F, k_lam_G, exp_F, exp_G)
 
 C signature:
@@ -1267,7 +1267,7 @@ function sf_coulomb_wave_FG_e(eta, x, lam_F, k_lam_G, exp_F, exp_G)
 end
 
 export sf_coulomb_CL_e
-"""
+@doc md"""
     sf_coulomb_CL_e(L, eta)
 
 C signature:
@@ -1280,7 +1280,7 @@ function sf_coulomb_CL_e(L, eta)
 end
 
 export sf_coupling_3j_e
-"""
+@doc md"""
     sf_coupling_3j_e(two_ja, two_jb, two_jc, two_ma, two_mb, two_mc)
 
 C signature:
@@ -1293,7 +1293,7 @@ function sf_coupling_3j_e(two_ja, two_jb, two_jc, two_ma, two_mb, two_mc)
 end
 
 export sf_coupling_6j_e
-"""
+@doc md"""
     sf_coupling_6j_e(two_ja, two_jb, two_jc, two_jd, two_je, two_jf)
 
 C signature:
@@ -1306,7 +1306,7 @@ function sf_coupling_6j_e(two_ja, two_jb, two_jc, two_jd, two_je, two_jf)
 end
 
 export sf_coupling_RacahW_e
-"""
+@doc md"""
     sf_coupling_RacahW_e(two_ja, two_jb, two_jc, two_jd, two_je, two_jf)
 
 C signature:
@@ -1319,7 +1319,7 @@ function sf_coupling_RacahW_e(two_ja, two_jb, two_jc, two_jd, two_je, two_jf)
 end
 
 export sf_coupling_9j_e
-"""
+@doc md"""
     sf_coupling_9j_e(two_ja, two_jb, two_jc, two_jd, two_je, two_jf, two_jg, two_jh, two_ji)
 
 C signature:
@@ -1332,7 +1332,7 @@ function sf_coupling_9j_e(two_ja, two_jb, two_jc, two_jd, two_je, two_jf, two_jg
 end
 
 export sf_coupling_6j_INCORRECT_e
-"""
+@doc md"""
     sf_coupling_6j_INCORRECT_e(two_ja, two_jb, two_jc, two_jd, two_je, two_jf)
 
 C signature:
@@ -1345,7 +1345,7 @@ function sf_coupling_6j_INCORRECT_e(two_ja, two_jb, two_jc, two_jd, two_je, two_
 end
 
 export sf_dawson_e
-"""
+@doc md"""
     sf_dawson_e(x)
 
 C signature:
@@ -1358,7 +1358,7 @@ function sf_dawson_e(x)
 end
 
 export sf_debye_1_e
-"""
+@doc md"""
     sf_debye_1_e(x)
 
 C signature:
@@ -1371,7 +1371,7 @@ function sf_debye_1_e(x)
 end
 
 export sf_debye_2_e
-"""
+@doc md"""
     sf_debye_2_e(x)
 
 C signature:
@@ -1384,7 +1384,7 @@ function sf_debye_2_e(x)
 end
 
 export sf_debye_3_e
-"""
+@doc md"""
     sf_debye_3_e(x)
 
 C signature:
@@ -1397,7 +1397,7 @@ function sf_debye_3_e(x)
 end
 
 export sf_debye_4_e
-"""
+@doc md"""
     sf_debye_4_e(x)
 
 C signature:
@@ -1410,7 +1410,7 @@ function sf_debye_4_e(x)
 end
 
 export sf_debye_5_e
-"""
+@doc md"""
     sf_debye_5_e(x)
 
 C signature:
@@ -1423,7 +1423,7 @@ function sf_debye_5_e(x)
 end
 
 export sf_debye_6_e
-"""
+@doc md"""
     sf_debye_6_e(x)
 
 C signature:
@@ -1436,7 +1436,7 @@ function sf_debye_6_e(x)
 end
 
 export sf_dilog_e
-"""
+@doc md"""
     sf_dilog_e(x)
 
 C signature:
@@ -1449,7 +1449,7 @@ function sf_dilog_e(x)
 end
 
 export sf_complex_dilog_xy_e
-"""
+@doc md"""
     sf_complex_dilog_xy_e(x, y)
 
 C signature:
@@ -1463,7 +1463,7 @@ function sf_complex_dilog_xy_e(x, y)
 end
 
 export sf_complex_dilog_e
-"""
+@doc md"""
     sf_complex_dilog_e(r, theta)
 
 C signature:
@@ -1477,7 +1477,7 @@ function sf_complex_dilog_e(r, theta)
 end
 
 export sf_complex_spence_xy_e
-"""
+@doc md"""
     sf_complex_spence_xy_e(x, y)
 
 C signature:
@@ -1491,7 +1491,7 @@ function sf_complex_spence_xy_e(x, y)
 end
 
 export sf_multiply_e
-"""
+@doc md"""
     sf_multiply_e(x, y)
 
 C signature:
@@ -1504,7 +1504,7 @@ function sf_multiply_e(x, y)
 end
 
 export sf_multiply_err_e
-"""
+@doc md"""
     sf_multiply_err_e(x, dx, y, dy)
 
 C signature:
@@ -1517,7 +1517,7 @@ function sf_multiply_err_e(x, dx, y, dy)
 end
 
 export sf_ellint_Kcomp_e
-"""
+@doc md"""
     sf_ellint_Kcomp_e(k, mode)
 
 C signature:
@@ -1530,7 +1530,7 @@ function sf_ellint_Kcomp_e(k, mode)
 end
 
 export sf_ellint_Ecomp_e
-"""
+@doc md"""
     sf_ellint_Ecomp_e(k, mode)
 
 C signature:
@@ -1543,7 +1543,7 @@ function sf_ellint_Ecomp_e(k, mode)
 end
 
 export sf_ellint_Pcomp_e
-"""
+@doc md"""
     sf_ellint_Pcomp_e(k, n, mode)
 
 C signature:
@@ -1556,7 +1556,7 @@ function sf_ellint_Pcomp_e(k, n, mode)
 end
 
 export sf_ellint_Dcomp_e
-"""
+@doc md"""
     sf_ellint_Dcomp_e(k, mode)
 
 C signature:
@@ -1569,7 +1569,7 @@ function sf_ellint_Dcomp_e(k, mode)
 end
 
 export sf_ellint_F_e
-"""
+@doc md"""
     sf_ellint_F_e(phi, k, mode)
 
 C signature:
@@ -1582,7 +1582,7 @@ function sf_ellint_F_e(phi, k, mode)
 end
 
 export sf_ellint_E_e
-"""
+@doc md"""
     sf_ellint_E_e(phi, k, mode)
 
 C signature:
@@ -1595,7 +1595,7 @@ function sf_ellint_E_e(phi, k, mode)
 end
 
 export sf_ellint_P_e
-"""
+@doc md"""
     sf_ellint_P_e(phi, k, n, mode)
 
 C signature:
@@ -1608,7 +1608,7 @@ function sf_ellint_P_e(phi, k, n, mode)
 end
 
 export sf_ellint_D_e
-"""
+@doc md"""
     sf_ellint_D_e(phi, k, mode)
 
 C signature:
@@ -1621,7 +1621,7 @@ function sf_ellint_D_e(phi, k, mode)
 end
 
 export sf_ellint_RC_e
-"""
+@doc md"""
     sf_ellint_RC_e(x, y, mode)
 
 C signature:
@@ -1634,7 +1634,7 @@ function sf_ellint_RC_e(x, y, mode)
 end
 
 export sf_ellint_RD_e
-"""
+@doc md"""
     sf_ellint_RD_e(x, y, z, mode)
 
 C signature:
@@ -1647,7 +1647,7 @@ function sf_ellint_RD_e(x, y, z, mode)
 end
 
 export sf_ellint_RF_e
-"""
+@doc md"""
     sf_ellint_RF_e(x, y, z, mode)
 
 C signature:
@@ -1660,7 +1660,7 @@ function sf_ellint_RF_e(x, y, z, mode)
 end
 
 export sf_ellint_RJ_e
-"""
+@doc md"""
     sf_ellint_RJ_e(x, y, z, p, mode)
 
 C signature:
@@ -1673,7 +1673,7 @@ function sf_ellint_RJ_e(x, y, z, p, mode)
 end
 
 export sf_erfc_e
-"""
+@doc md"""
     sf_erfc_e(x)
 
 C signature:
@@ -1686,7 +1686,7 @@ function sf_erfc_e(x)
 end
 
 export sf_log_erfc_e
-"""
+@doc md"""
     sf_log_erfc_e(x)
 
 C signature:
@@ -1699,7 +1699,7 @@ function sf_log_erfc_e(x)
 end
 
 export sf_erf_e
-"""
+@doc md"""
     sf_erf_e(x)
 
 C signature:
@@ -1712,7 +1712,7 @@ function sf_erf_e(x)
 end
 
 export sf_erf_Z_e
-"""
+@doc md"""
     sf_erf_Z_e(x)
 
 C signature:
@@ -1725,7 +1725,7 @@ function sf_erf_Z_e(x)
 end
 
 export sf_erf_Q_e
-"""
+@doc md"""
     sf_erf_Q_e(x)
 
 C signature:
@@ -1738,7 +1738,7 @@ function sf_erf_Q_e(x)
 end
 
 export sf_hazard_e
-"""
+@doc md"""
     sf_hazard_e(x)
 
 C signature:
@@ -1751,7 +1751,7 @@ function sf_hazard_e(x)
 end
 
 export sf_exp_e
-"""
+@doc md"""
     sf_exp_e(x)
 
 C signature:
@@ -1764,7 +1764,7 @@ function sf_exp_e(x)
 end
 
 export sf_exp_e10_e
-"""
+@doc md"""
     sf_exp_e10_e(x)
 
 C signature:
@@ -1777,7 +1777,7 @@ function sf_exp_e10_e(x)
 end
 
 export sf_exp_mult_e
-"""
+@doc md"""
     sf_exp_mult_e(x, y)
 
 C signature:
@@ -1790,7 +1790,7 @@ function sf_exp_mult_e(x, y)
 end
 
 export sf_exp_mult_e10_e
-"""
+@doc md"""
     sf_exp_mult_e10_e(x, y)
 
 C signature:
@@ -1803,7 +1803,7 @@ function sf_exp_mult_e10_e(x, y)
 end
 
 export sf_expm1_e
-"""
+@doc md"""
     sf_expm1_e(x)
 
 C signature:
@@ -1816,7 +1816,7 @@ function sf_expm1_e(x)
 end
 
 export sf_exprel_e
-"""
+@doc md"""
     sf_exprel_e(x)
 
 C signature:
@@ -1829,7 +1829,7 @@ function sf_exprel_e(x)
 end
 
 export sf_exprel_2_e
-"""
+@doc md"""
     sf_exprel_2_e(x)
 
 C signature:
@@ -1842,7 +1842,7 @@ function sf_exprel_2_e(x)
 end
 
 export sf_exprel_n_e
-"""
+@doc md"""
     sf_exprel_n_e(n, x)
 
 C signature:
@@ -1855,7 +1855,7 @@ function sf_exprel_n_e(n, x)
 end
 
 export sf_exprel_n_CF_e
-"""
+@doc md"""
     sf_exprel_n_CF_e(n, x)
 
 C signature:
@@ -1868,7 +1868,7 @@ function sf_exprel_n_CF_e(n, x)
 end
 
 export sf_exp_err_e
-"""
+@doc md"""
     sf_exp_err_e(x, dx)
 
 C signature:
@@ -1881,7 +1881,7 @@ function sf_exp_err_e(x, dx)
 end
 
 export sf_exp_err_e10_e
-"""
+@doc md"""
     sf_exp_err_e10_e(x, dx)
 
 C signature:
@@ -1894,7 +1894,7 @@ function sf_exp_err_e10_e(x, dx)
 end
 
 export sf_exp_mult_err_e
-"""
+@doc md"""
     sf_exp_mult_err_e(x, dx, y, dy)
 
 C signature:
@@ -1907,7 +1907,7 @@ function sf_exp_mult_err_e(x, dx, y, dy)
 end
 
 export sf_exp_mult_err_e10_e
-"""
+@doc md"""
     sf_exp_mult_err_e10_e(x, dx, y, dy)
 
 C signature:
@@ -1920,7 +1920,7 @@ function sf_exp_mult_err_e10_e(x, dx, y, dy)
 end
 
 export sf_expint_E1_e
-"""
+@doc md"""
     sf_expint_E1_e(x)
 
 C signature:
@@ -1933,7 +1933,7 @@ function sf_expint_E1_e(x)
 end
 
 export sf_expint_E2_e
-"""
+@doc md"""
     sf_expint_E2_e(x)
 
 C signature:
@@ -1946,7 +1946,7 @@ function sf_expint_E2_e(x)
 end
 
 export sf_expint_En_e
-"""
+@doc md"""
     sf_expint_En_e(n, x)
 
 C signature:
@@ -1959,7 +1959,7 @@ function sf_expint_En_e(n, x)
 end
 
 export sf_expint_E1_scaled_e
-"""
+@doc md"""
     sf_expint_E1_scaled_e(x)
 
 C signature:
@@ -1972,7 +1972,7 @@ function sf_expint_E1_scaled_e(x)
 end
 
 export sf_expint_E2_scaled_e
-"""
+@doc md"""
     sf_expint_E2_scaled_e(x)
 
 C signature:
@@ -1985,7 +1985,7 @@ function sf_expint_E2_scaled_e(x)
 end
 
 export sf_expint_En_scaled_e
-"""
+@doc md"""
     sf_expint_En_scaled_e(n, x)
 
 C signature:
@@ -1998,7 +1998,7 @@ function sf_expint_En_scaled_e(n, x)
 end
 
 export sf_expint_Ei_e
-"""
+@doc md"""
     sf_expint_Ei_e(x)
 
 C signature:
@@ -2011,7 +2011,7 @@ function sf_expint_Ei_e(x)
 end
 
 export sf_expint_Ei_scaled_e
-"""
+@doc md"""
     sf_expint_Ei_scaled_e(x)
 
 C signature:
@@ -2024,7 +2024,7 @@ function sf_expint_Ei_scaled_e(x)
 end
 
 export sf_Shi_e
-"""
+@doc md"""
     sf_Shi_e(x)
 
 C signature:
@@ -2037,7 +2037,7 @@ function sf_Shi_e(x)
 end
 
 export sf_Chi_e
-"""
+@doc md"""
     sf_Chi_e(x)
 
 C signature:
@@ -2050,7 +2050,7 @@ function sf_Chi_e(x)
 end
 
 export sf_expint_3_e
-"""
+@doc md"""
     sf_expint_3_e(x)
 
 C signature:
@@ -2063,7 +2063,7 @@ function sf_expint_3_e(x)
 end
 
 export sf_Si_e
-"""
+@doc md"""
     sf_Si_e(x)
 
 C signature:
@@ -2076,7 +2076,7 @@ function sf_Si_e(x)
 end
 
 export sf_Ci_e
-"""
+@doc md"""
     sf_Ci_e(x)
 
 C signature:
@@ -2089,7 +2089,7 @@ function sf_Ci_e(x)
 end
 
 export sf_atanint_e
-"""
+@doc md"""
     sf_atanint_e(x)
 
 C signature:
@@ -2102,7 +2102,7 @@ function sf_atanint_e(x)
 end
 
 export sf_fermi_dirac_m1_e
-"""
+@doc md"""
     sf_fermi_dirac_m1_e(x)
 
 C signature:
@@ -2115,7 +2115,7 @@ function sf_fermi_dirac_m1_e(x)
 end
 
 export sf_fermi_dirac_0_e
-"""
+@doc md"""
     sf_fermi_dirac_0_e(x)
 
 C signature:
@@ -2128,7 +2128,7 @@ function sf_fermi_dirac_0_e(x)
 end
 
 export sf_fermi_dirac_1_e
-"""
+@doc md"""
     sf_fermi_dirac_1_e(x)
 
 C signature:
@@ -2141,7 +2141,7 @@ function sf_fermi_dirac_1_e(x)
 end
 
 export sf_fermi_dirac_2_e
-"""
+@doc md"""
     sf_fermi_dirac_2_e(x)
 
 C signature:
@@ -2154,7 +2154,7 @@ function sf_fermi_dirac_2_e(x)
 end
 
 export sf_fermi_dirac_int_e
-"""
+@doc md"""
     sf_fermi_dirac_int_e(j, x)
 
 C signature:
@@ -2167,7 +2167,7 @@ function sf_fermi_dirac_int_e(j, x)
 end
 
 export sf_fermi_dirac_mhalf_e
-"""
+@doc md"""
     sf_fermi_dirac_mhalf_e(x)
 
 C signature:
@@ -2180,7 +2180,7 @@ function sf_fermi_dirac_mhalf_e(x)
 end
 
 export sf_fermi_dirac_half_e
-"""
+@doc md"""
     sf_fermi_dirac_half_e(x)
 
 C signature:
@@ -2193,7 +2193,7 @@ function sf_fermi_dirac_half_e(x)
 end
 
 export sf_fermi_dirac_3half_e
-"""
+@doc md"""
     sf_fermi_dirac_3half_e(x)
 
 C signature:
@@ -2206,7 +2206,7 @@ function sf_fermi_dirac_3half_e(x)
 end
 
 export sf_fermi_dirac_inc_0_e
-"""
+@doc md"""
     sf_fermi_dirac_inc_0_e(x, b)
 
 C signature:
@@ -2219,7 +2219,7 @@ function sf_fermi_dirac_inc_0_e(x, b)
 end
 
 export sf_lngamma_e
-"""
+@doc md"""
     sf_lngamma_e(x)
 
 C signature:
@@ -2232,7 +2232,7 @@ function sf_lngamma_e(x)
 end
 
 export sf_lngamma_sgn_e
-"""
+@doc md"""
     sf_lngamma_sgn_e(x, sgn)
 
 C signature:
@@ -2245,7 +2245,7 @@ function sf_lngamma_sgn_e(x, sgn)
 end
 
 export sf_gamma_e
-"""
+@doc md"""
     sf_gamma_e(x)
 
 C signature:
@@ -2258,7 +2258,7 @@ function sf_gamma_e(x)
 end
 
 export sf_gammastar_e
-"""
+@doc md"""
     sf_gammastar_e(x)
 
 C signature:
@@ -2271,7 +2271,7 @@ function sf_gammastar_e(x)
 end
 
 export sf_gammainv_e
-"""
+@doc md"""
     sf_gammainv_e(x)
 
 C signature:
@@ -2284,7 +2284,7 @@ function sf_gammainv_e(x)
 end
 
 export sf_lngamma_complex_e
-"""
+@doc md"""
     sf_lngamma_complex_e(zr, zi)
 
 C signature:
@@ -2298,7 +2298,7 @@ function sf_lngamma_complex_e(zr, zi)
 end
 
 export sf_taylorcoeff_e
-"""
+@doc md"""
     sf_taylorcoeff_e(n, x)
 
 C signature:
@@ -2311,7 +2311,7 @@ function sf_taylorcoeff_e(n, x)
 end
 
 export sf_fact_e
-"""
+@doc md"""
     sf_fact_e(n)
 
 C signature:
@@ -2324,7 +2324,7 @@ function sf_fact_e(n)
 end
 
 export sf_doublefact_e
-"""
+@doc md"""
     sf_doublefact_e(n)
 
 C signature:
@@ -2337,7 +2337,7 @@ function sf_doublefact_e(n)
 end
 
 export sf_lnfact_e
-"""
+@doc md"""
     sf_lnfact_e(n)
 
 C signature:
@@ -2350,7 +2350,7 @@ function sf_lnfact_e(n)
 end
 
 export sf_lndoublefact_e
-"""
+@doc md"""
     sf_lndoublefact_e(n)
 
 C signature:
@@ -2363,7 +2363,7 @@ function sf_lndoublefact_e(n)
 end
 
 export sf_lnchoose_e
-"""
+@doc md"""
     sf_lnchoose_e(n, m)
 
 C signature:
@@ -2376,7 +2376,7 @@ function sf_lnchoose_e(n, m)
 end
 
 export sf_choose_e
-"""
+@doc md"""
     sf_choose_e(n, m)
 
 C signature:
@@ -2389,7 +2389,7 @@ function sf_choose_e(n, m)
 end
 
 export sf_lnpoch_e
-"""
+@doc md"""
     sf_lnpoch_e(a, x)
 
 C signature:
@@ -2402,7 +2402,7 @@ function sf_lnpoch_e(a, x)
 end
 
 export sf_lnpoch_sgn_e
-"""
+@doc md"""
     sf_lnpoch_sgn_e(a, x, sgn)
 
 C signature:
@@ -2415,7 +2415,7 @@ function sf_lnpoch_sgn_e(a, x, sgn)
 end
 
 export sf_poch_e
-"""
+@doc md"""
     sf_poch_e(a, x)
 
 C signature:
@@ -2428,7 +2428,7 @@ function sf_poch_e(a, x)
 end
 
 export sf_pochrel_e
-"""
+@doc md"""
     sf_pochrel_e(a, x)
 
 C signature:
@@ -2441,7 +2441,7 @@ function sf_pochrel_e(a, x)
 end
 
 export sf_gamma_inc_Q_e
-"""
+@doc md"""
     sf_gamma_inc_Q_e(a, x)
 
 C signature:
@@ -2454,7 +2454,7 @@ function sf_gamma_inc_Q_e(a, x)
 end
 
 export sf_gamma_inc_P_e
-"""
+@doc md"""
     sf_gamma_inc_P_e(a, x)
 
 C signature:
@@ -2467,7 +2467,7 @@ function sf_gamma_inc_P_e(a, x)
 end
 
 export sf_gamma_inc_e
-"""
+@doc md"""
     sf_gamma_inc_e(a, x)
 
 C signature:
@@ -2480,7 +2480,7 @@ function sf_gamma_inc_e(a, x)
 end
 
 export sf_lnbeta_e
-"""
+@doc md"""
     sf_lnbeta_e(a, b)
 
 C signature:
@@ -2493,7 +2493,7 @@ function sf_lnbeta_e(a, b)
 end
 
 export sf_lnbeta_sgn_e
-"""
+@doc md"""
     sf_lnbeta_sgn_e(x, y, sgn)
 
 C signature:
@@ -2506,7 +2506,7 @@ function sf_lnbeta_sgn_e(x, y, sgn)
 end
 
 export sf_beta_e
-"""
+@doc md"""
     sf_beta_e(a, b)
 
 C signature:
@@ -2519,7 +2519,7 @@ function sf_beta_e(a, b)
 end
 
 export sf_beta_inc_e
-"""
+@doc md"""
     sf_beta_inc_e(a, b, x)
 
 C signature:
@@ -2532,7 +2532,7 @@ function sf_beta_inc_e(a, b, x)
 end
 
 export sf_gegenpoly_1_e
-"""
+@doc md"""
     sf_gegenpoly_1_e(lambda, x)
 
 C signature:
@@ -2545,7 +2545,7 @@ function sf_gegenpoly_1_e(lambda, x)
 end
 
 export sf_gegenpoly_2_e
-"""
+@doc md"""
     sf_gegenpoly_2_e(lambda, x)
 
 C signature:
@@ -2558,7 +2558,7 @@ function sf_gegenpoly_2_e(lambda, x)
 end
 
 export sf_gegenpoly_3_e
-"""
+@doc md"""
     sf_gegenpoly_3_e(lambda, x)
 
 C signature:
@@ -2571,7 +2571,7 @@ function sf_gegenpoly_3_e(lambda, x)
 end
 
 export sf_gegenpoly_n_e
-"""
+@doc md"""
     sf_gegenpoly_n_e(n, lambda, x)
 
 C signature:
@@ -2584,7 +2584,7 @@ function sf_gegenpoly_n_e(n, lambda, x)
 end
 
 export sf_gegenpoly_array
-"""
+@doc md"""
     sf_gegenpoly_array(nmax, lambda, x)
 
 C signature:
@@ -2597,7 +2597,7 @@ function sf_gegenpoly_array(nmax, lambda, x)
 end
 
 export sf_hermite_prob_e
-"""
+@doc md"""
     sf_hermite_prob_e(n, x)
 
 C signature:
@@ -2610,7 +2610,7 @@ function sf_hermite_prob_e(n, x)
 end
 
 export sf_hermite_prob_der_e
-"""
+@doc md"""
     sf_hermite_prob_der_e(m, n, x)
 
 C signature:
@@ -2623,7 +2623,7 @@ function sf_hermite_prob_der_e(m, n, x)
 end
 
 export sf_hermite_phys_e
-"""
+@doc md"""
     sf_hermite_phys_e(n, x)
 
 C signature:
@@ -2636,7 +2636,7 @@ function sf_hermite_phys_e(n, x)
 end
 
 export sf_hermite_phys_der_e
-"""
+@doc md"""
     sf_hermite_phys_der_e(m, n, x)
 
 C signature:
@@ -2649,7 +2649,7 @@ function sf_hermite_phys_der_e(m, n, x)
 end
 
 export sf_hermite_func_e
-"""
+@doc md"""
     sf_hermite_func_e(n, x)
 
 C signature:
@@ -2662,7 +2662,7 @@ function sf_hermite_func_e(n, x)
 end
 
 export sf_hermite_prob_array
-"""
+@doc md"""
     sf_hermite_prob_array(nmax, x)
 
 C signature:
@@ -2675,7 +2675,7 @@ function sf_hermite_prob_array(nmax, x)
 end
 
 export sf_hermite_prob_array_der
-"""
+@doc md"""
     sf_hermite_prob_array_der(m, nmax, x)
 
 C signature:
@@ -2688,7 +2688,7 @@ function sf_hermite_prob_array_der(m, nmax, x)
 end
 
 export sf_hermite_prob_der_array
-"""
+@doc md"""
     sf_hermite_prob_der_array(mmax, n, x)
 
 C signature:
@@ -2701,7 +2701,7 @@ function sf_hermite_prob_der_array(mmax, n, x)
 end
 
 export sf_hermite_prob_series_e
-"""
+@doc md"""
     sf_hermite_prob_series_e(n, x, a)
 
 C signature:
@@ -2714,7 +2714,7 @@ function sf_hermite_prob_series_e(n, x, a)
 end
 
 export sf_hermite_phys_array
-"""
+@doc md"""
     sf_hermite_phys_array(nmax, x)
 
 C signature:
@@ -2727,7 +2727,7 @@ function sf_hermite_phys_array(nmax, x)
 end
 
 export sf_hermite_phys_array_der
-"""
+@doc md"""
     sf_hermite_phys_array_der(m, nmax, x)
 
 C signature:
@@ -2740,7 +2740,7 @@ function sf_hermite_phys_array_der(m, nmax, x)
 end
 
 export sf_hermite_phys_der_array
-"""
+@doc md"""
     sf_hermite_phys_der_array(mmax, n, x)
 
 C signature:
@@ -2753,7 +2753,7 @@ function sf_hermite_phys_der_array(mmax, n, x)
 end
 
 export sf_hermite_phys_series_e
-"""
+@doc md"""
     sf_hermite_phys_series_e(n, x, a)
 
 C signature:
@@ -2766,7 +2766,7 @@ function sf_hermite_phys_series_e(n, x, a)
 end
 
 export sf_hermite_func_array
-"""
+@doc md"""
     sf_hermite_func_array(nmax, x)
 
 C signature:
@@ -2779,7 +2779,7 @@ function sf_hermite_func_array(nmax, x)
 end
 
 export sf_hermite_func_series_e
-"""
+@doc md"""
     sf_hermite_func_series_e(n, x, a)
 
 C signature:
@@ -2792,7 +2792,7 @@ function sf_hermite_func_series_e(n, x, a)
 end
 
 export sf_hermite_func_der_e
-"""
+@doc md"""
     sf_hermite_func_der_e(m, n, x)
 
 C signature:
@@ -2805,7 +2805,7 @@ function sf_hermite_func_der_e(m, n, x)
 end
 
 export sf_hermite_prob_zero_e
-"""
+@doc md"""
     sf_hermite_prob_zero_e(n, s)
 
 C signature:
@@ -2818,7 +2818,7 @@ function sf_hermite_prob_zero_e(n, s)
 end
 
 export sf_hermite_phys_zero_e
-"""
+@doc md"""
     sf_hermite_phys_zero_e(n, s)
 
 C signature:
@@ -2831,7 +2831,7 @@ function sf_hermite_phys_zero_e(n, s)
 end
 
 export sf_hermite_func_zero_e
-"""
+@doc md"""
     sf_hermite_func_zero_e(n, s)
 
 C signature:
@@ -2844,7 +2844,7 @@ function sf_hermite_func_zero_e(n, s)
 end
 
 export sf_hyperg_0F1_e
-"""
+@doc md"""
     sf_hyperg_0F1_e(c, x)
 
 C signature:
@@ -2857,7 +2857,7 @@ function sf_hyperg_0F1_e(c, x)
 end
 
 export sf_hyperg_1F1_int_e
-"""
+@doc md"""
     sf_hyperg_1F1_int_e(m, n, x)
 
 C signature:
@@ -2870,7 +2870,7 @@ function sf_hyperg_1F1_int_e(m, n, x)
 end
 
 export sf_hyperg_1F1_e
-"""
+@doc md"""
     sf_hyperg_1F1_e(a, b, x)
 
 C signature:
@@ -2883,7 +2883,7 @@ function sf_hyperg_1F1_e(a, b, x)
 end
 
 export sf_hyperg_U_int_e
-"""
+@doc md"""
     sf_hyperg_U_int_e(m, n, x)
 
 C signature:
@@ -2896,7 +2896,7 @@ function sf_hyperg_U_int_e(m, n, x)
 end
 
 export sf_hyperg_U_int_e10_e
-"""
+@doc md"""
     sf_hyperg_U_int_e10_e(m, n, x)
 
 C signature:
@@ -2909,7 +2909,7 @@ function sf_hyperg_U_int_e10_e(m, n, x)
 end
 
 export sf_hyperg_U_e
-"""
+@doc md"""
     sf_hyperg_U_e(a, b, x)
 
 C signature:
@@ -2922,7 +2922,7 @@ function sf_hyperg_U_e(a, b, x)
 end
 
 export sf_hyperg_U_e10_e
-"""
+@doc md"""
     sf_hyperg_U_e10_e(a, b, x)
 
 C signature:
@@ -2935,7 +2935,7 @@ function sf_hyperg_U_e10_e(a, b, x)
 end
 
 export sf_hyperg_2F1_e
-"""
+@doc md"""
     sf_hyperg_2F1_e(a, b, c, x)
 
 C signature:
@@ -2948,7 +2948,7 @@ function sf_hyperg_2F1_e(a, b, c, x)
 end
 
 export sf_hyperg_2F1_conj_e
-"""
+@doc md"""
     sf_hyperg_2F1_conj_e(aR, aI, c, x)
 
 C signature:
@@ -2961,7 +2961,7 @@ function sf_hyperg_2F1_conj_e(aR, aI, c, x)
 end
 
 export sf_hyperg_2F1_renorm_e
-"""
+@doc md"""
     sf_hyperg_2F1_renorm_e(a, b, c, x)
 
 C signature:
@@ -2974,7 +2974,7 @@ function sf_hyperg_2F1_renorm_e(a, b, c, x)
 end
 
 export sf_hyperg_2F1_conj_renorm_e
-"""
+@doc md"""
     sf_hyperg_2F1_conj_renorm_e(aR, aI, c, x)
 
 C signature:
@@ -2987,7 +2987,7 @@ function sf_hyperg_2F1_conj_renorm_e(aR, aI, c, x)
 end
 
 export sf_hyperg_2F0_e
-"""
+@doc md"""
     sf_hyperg_2F0_e(a, b, x)
 
 C signature:
@@ -3000,7 +3000,7 @@ function sf_hyperg_2F0_e(a, b, x)
 end
 
 export sf_laguerre_1_e
-"""
+@doc md"""
     sf_laguerre_1_e(a, x)
 
 C signature:
@@ -3013,7 +3013,7 @@ function sf_laguerre_1_e(a, x)
 end
 
 export sf_laguerre_2_e
-"""
+@doc md"""
     sf_laguerre_2_e(a, x)
 
 C signature:
@@ -3026,7 +3026,7 @@ function sf_laguerre_2_e(a, x)
 end
 
 export sf_laguerre_3_e
-"""
+@doc md"""
     sf_laguerre_3_e(a, x)
 
 C signature:
@@ -3039,7 +3039,7 @@ function sf_laguerre_3_e(a, x)
 end
 
 export sf_laguerre_n_e
-"""
+@doc md"""
     sf_laguerre_n_e(n, a, x)
 
 C signature:
@@ -3052,7 +3052,7 @@ function sf_laguerre_n_e(n, a, x)
 end
 
 export sf_lambert_W0_e
-"""
+@doc md"""
     sf_lambert_W0_e(x)
 
 C signature:
@@ -3065,7 +3065,7 @@ function sf_lambert_W0_e(x)
 end
 
 export sf_lambert_Wm1_e
-"""
+@doc md"""
     sf_lambert_Wm1_e(x)
 
 C signature:
@@ -3078,7 +3078,7 @@ function sf_lambert_Wm1_e(x)
 end
 
 export sf_legendre_Pl_e
-"""
+@doc md"""
     sf_legendre_Pl_e(l, x)
 
 C signature:
@@ -3091,7 +3091,7 @@ function sf_legendre_Pl_e(l, x)
 end
 
 export sf_legendre_Pl_array
-"""
+@doc md"""
     sf_legendre_Pl_array(lmax, x)
 
 C signature:
@@ -3104,7 +3104,7 @@ function sf_legendre_Pl_array(lmax, x)
 end
 
 export sf_legendre_Pl_deriv_array
-"""
+@doc md"""
     sf_legendre_Pl_deriv_array(lmax, x)
 
 C signature:
@@ -3118,7 +3118,7 @@ function sf_legendre_Pl_deriv_array(lmax, x)
 end
 
 export sf_legendre_P1_e
-"""
+@doc md"""
     sf_legendre_P1_e(x)
 
 C signature:
@@ -3131,7 +3131,7 @@ function sf_legendre_P1_e(x)
 end
 
 export sf_legendre_P2_e
-"""
+@doc md"""
     sf_legendre_P2_e(x)
 
 C signature:
@@ -3144,7 +3144,7 @@ function sf_legendre_P2_e(x)
 end
 
 export sf_legendre_P3_e
-"""
+@doc md"""
     sf_legendre_P3_e(x)
 
 C signature:
@@ -3157,7 +3157,7 @@ function sf_legendre_P3_e(x)
 end
 
 export sf_legendre_Q0_e
-"""
+@doc md"""
     sf_legendre_Q0_e(x)
 
 C signature:
@@ -3170,7 +3170,7 @@ function sf_legendre_Q0_e(x)
 end
 
 export sf_legendre_Q1_e
-"""
+@doc md"""
     sf_legendre_Q1_e(x)
 
 C signature:
@@ -3183,7 +3183,7 @@ function sf_legendre_Q1_e(x)
 end
 
 export sf_legendre_Ql_e
-"""
+@doc md"""
     sf_legendre_Ql_e(l, x)
 
 C signature:
@@ -3196,7 +3196,7 @@ function sf_legendre_Ql_e(l, x)
 end
 
 export sf_legendre_Plm_e
-"""
+@doc md"""
     sf_legendre_Plm_e(l, m, x)
 
 C signature:
@@ -3209,7 +3209,7 @@ function sf_legendre_Plm_e(l, m, x)
 end
 
 export sf_legendre_Plm_array
-"""
+@doc md"""
     sf_legendre_Plm_array(lmax, m, x)
 
 C signature:
@@ -3222,7 +3222,7 @@ function sf_legendre_Plm_array(lmax, m, x)
 end
 
 export sf_legendre_Plm_deriv_array
-"""
+@doc md"""
     sf_legendre_Plm_deriv_array(lmax, m, x)
 
 C signature:
@@ -3236,7 +3236,7 @@ function sf_legendre_Plm_deriv_array(lmax, m, x)
 end
 
 export sf_legendre_sphPlm_e
-"""
+@doc md"""
     sf_legendre_sphPlm_e(l, m, x)
 
 C signature:
@@ -3249,7 +3249,7 @@ function sf_legendre_sphPlm_e(l, m, x)
 end
 
 export sf_legendre_sphPlm_array
-"""
+@doc md"""
     sf_legendre_sphPlm_array(lmax, m, x)
 
 C signature:
@@ -3262,7 +3262,7 @@ function sf_legendre_sphPlm_array(lmax, m, x)
 end
 
 export sf_legendre_sphPlm_deriv_array
-"""
+@doc md"""
     sf_legendre_sphPlm_deriv_array(lmax, m, x)
 
 C signature:
@@ -3276,7 +3276,7 @@ function sf_legendre_sphPlm_deriv_array(lmax, m, x)
 end
 
 export sf_conicalP_half_e
-"""
+@doc md"""
     sf_conicalP_half_e(lambda, x)
 
 C signature:
@@ -3289,7 +3289,7 @@ function sf_conicalP_half_e(lambda, x)
 end
 
 export sf_conicalP_mhalf_e
-"""
+@doc md"""
     sf_conicalP_mhalf_e(lambda, x)
 
 C signature:
@@ -3302,7 +3302,7 @@ function sf_conicalP_mhalf_e(lambda, x)
 end
 
 export sf_conicalP_0_e
-"""
+@doc md"""
     sf_conicalP_0_e(lambda, x)
 
 C signature:
@@ -3315,7 +3315,7 @@ function sf_conicalP_0_e(lambda, x)
 end
 
 export sf_conicalP_1_e
-"""
+@doc md"""
     sf_conicalP_1_e(lambda, x)
 
 C signature:
@@ -3328,7 +3328,7 @@ function sf_conicalP_1_e(lambda, x)
 end
 
 export sf_conicalP_sph_reg_e
-"""
+@doc md"""
     sf_conicalP_sph_reg_e(l, lambda, x)
 
 C signature:
@@ -3341,7 +3341,7 @@ function sf_conicalP_sph_reg_e(l, lambda, x)
 end
 
 export sf_conicalP_cyl_reg_e
-"""
+@doc md"""
     sf_conicalP_cyl_reg_e(m, lambda, x)
 
 C signature:
@@ -3354,7 +3354,7 @@ function sf_conicalP_cyl_reg_e(m, lambda, x)
 end
 
 export sf_legendre_H3d_0_e
-"""
+@doc md"""
     sf_legendre_H3d_0_e(lambda, eta)
 
 C signature:
@@ -3367,7 +3367,7 @@ function sf_legendre_H3d_0_e(lambda, eta)
 end
 
 export sf_legendre_H3d_1_e
-"""
+@doc md"""
     sf_legendre_H3d_1_e(lambda, eta)
 
 C signature:
@@ -3380,7 +3380,7 @@ function sf_legendre_H3d_1_e(lambda, eta)
 end
 
 export sf_legendre_H3d_e
-"""
+@doc md"""
     sf_legendre_H3d_e(l, lambda, eta)
 
 C signature:
@@ -3393,7 +3393,7 @@ function sf_legendre_H3d_e(l, lambda, eta)
 end
 
 export sf_legendre_H3d_array
-"""
+@doc md"""
     sf_legendre_H3d_array(lmax, lambda, eta)
 
 C signature:
@@ -3406,7 +3406,7 @@ function sf_legendre_H3d_array(lmax, lambda, eta)
 end
 
 export sf_legendre_array
-"""
+@doc md"""
     sf_legendre_array(norm, lmax, x)
 
 C signature:
@@ -3419,7 +3419,7 @@ function sf_legendre_array(norm, lmax, x)
 end
 
 export sf_legendre_array_e
-"""
+@doc md"""
     sf_legendre_array_e(norm, lmax, x, csphase)
 
 C signature:
@@ -3432,7 +3432,7 @@ function sf_legendre_array_e(norm, lmax, x, csphase)
 end
 
 export sf_legendre_deriv_array
-"""
+@doc md"""
     sf_legendre_deriv_array(norm, lmax, x)
 
 C signature:
@@ -3446,7 +3446,7 @@ function sf_legendre_deriv_array(norm, lmax, x)
 end
 
 export sf_legendre_deriv_array_e
-"""
+@doc md"""
     sf_legendre_deriv_array_e(norm, lmax, x, csphase)
 
 C signature:
@@ -3460,7 +3460,7 @@ function sf_legendre_deriv_array_e(norm, lmax, x, csphase)
 end
 
 export sf_legendre_deriv_alt_array
-"""
+@doc md"""
     sf_legendre_deriv_alt_array(norm, lmax, x)
 
 C signature:
@@ -3474,7 +3474,7 @@ function sf_legendre_deriv_alt_array(norm, lmax, x)
 end
 
 export sf_legendre_deriv_alt_array_e
-"""
+@doc md"""
     sf_legendre_deriv_alt_array_e(norm, lmax, x, csphase)
 
 C signature:
@@ -3488,7 +3488,7 @@ function sf_legendre_deriv_alt_array_e(norm, lmax, x, csphase)
 end
 
 export sf_legendre_deriv2_array
-"""
+@doc md"""
     sf_legendre_deriv2_array(norm, lmax, x)
 
 C signature:
@@ -3503,7 +3503,7 @@ function sf_legendre_deriv2_array(norm, lmax, x)
 end
 
 export sf_legendre_deriv2_array_e
-"""
+@doc md"""
     sf_legendre_deriv2_array_e(norm, lmax, x, csphase)
 
 C signature:
@@ -3518,7 +3518,7 @@ function sf_legendre_deriv2_array_e(norm, lmax, x, csphase)
 end
 
 export sf_legendre_deriv2_alt_array
-"""
+@doc md"""
     sf_legendre_deriv2_alt_array(norm, lmax, x)
 
 C signature:
@@ -3533,7 +3533,7 @@ function sf_legendre_deriv2_alt_array(norm, lmax, x)
 end
 
 export sf_legendre_deriv2_alt_array_e
-"""
+@doc md"""
     sf_legendre_deriv2_alt_array_e(norm, lmax, x, csphase)
 
 C signature:
@@ -3548,7 +3548,7 @@ function sf_legendre_deriv2_alt_array_e(norm, lmax, x, csphase)
 end
 
 export sf_log_e
-"""
+@doc md"""
     sf_log_e(x)
 
 C signature:
@@ -3561,7 +3561,7 @@ function sf_log_e(x)
 end
 
 export sf_log_abs_e
-"""
+@doc md"""
     sf_log_abs_e(x)
 
 C signature:
@@ -3574,7 +3574,7 @@ function sf_log_abs_e(x)
 end
 
 export sf_complex_log_e
-"""
+@doc md"""
     sf_complex_log_e(zr, zi)
 
 C signature:
@@ -3588,7 +3588,7 @@ function sf_complex_log_e(zr, zi)
 end
 
 export sf_log_1plusx_e
-"""
+@doc md"""
     sf_log_1plusx_e(x)
 
 C signature:
@@ -3601,7 +3601,7 @@ function sf_log_1plusx_e(x)
 end
 
 export sf_log_1plusx_mx_e
-"""
+@doc md"""
     sf_log_1plusx_mx_e(x)
 
 C signature:
@@ -3614,7 +3614,7 @@ function sf_log_1plusx_mx_e(x)
 end
 
 export sf_mathieu_a_array
-"""
+@doc md"""
     sf_mathieu_a_array(order_min, order_max, qq, work)
 
 C signature:
@@ -3627,7 +3627,7 @@ function sf_mathieu_a_array(order_min, order_max, qq, work)
 end
 
 export sf_mathieu_b_array
-"""
+@doc md"""
     sf_mathieu_b_array(order_min, order_max, qq, work)
 
 C signature:
@@ -3640,7 +3640,7 @@ function sf_mathieu_b_array(order_min, order_max, qq, work)
 end
 
 export sf_mathieu_a_e
-"""
+@doc md"""
     sf_mathieu_a_e(order, qq)
 
 C signature:
@@ -3653,7 +3653,7 @@ function sf_mathieu_a_e(order, qq)
 end
 
 export sf_mathieu_b_e
-"""
+@doc md"""
     sf_mathieu_b_e(order, qq)
 
 C signature:
@@ -3666,7 +3666,7 @@ function sf_mathieu_b_e(order, qq)
 end
 
 export sf_mathieu_ce_e
-"""
+@doc md"""
     sf_mathieu_ce_e(order, qq, zz)
 
 C signature:
@@ -3679,7 +3679,7 @@ function sf_mathieu_ce_e(order, qq, zz)
 end
 
 export sf_mathieu_se_e
-"""
+@doc md"""
     sf_mathieu_se_e(order, qq, zz)
 
 C signature:
@@ -3692,7 +3692,7 @@ function sf_mathieu_se_e(order, qq, zz)
 end
 
 export sf_mathieu_ce_array
-"""
+@doc md"""
     sf_mathieu_ce_array(nmin, nmax, qq, zz, work)
 
 C signature:
@@ -3705,7 +3705,7 @@ function sf_mathieu_ce_array(nmin, nmax, qq, zz, work)
 end
 
 export sf_mathieu_se_array
-"""
+@doc md"""
     sf_mathieu_se_array(nmin, nmax, qq, zz, work)
 
 C signature:
@@ -3718,7 +3718,7 @@ function sf_mathieu_se_array(nmin, nmax, qq, zz, work)
 end
 
 export sf_mathieu_Mc_e
-"""
+@doc md"""
     sf_mathieu_Mc_e(kind, order, qq, zz)
 
 C signature:
@@ -3731,7 +3731,7 @@ function sf_mathieu_Mc_e(kind, order, qq, zz)
 end
 
 export sf_mathieu_Ms_e
-"""
+@doc md"""
     sf_mathieu_Ms_e(kind, order, qq, zz)
 
 C signature:
@@ -3744,7 +3744,7 @@ function sf_mathieu_Ms_e(kind, order, qq, zz)
 end
 
 export sf_mathieu_Mc_array
-"""
+@doc md"""
     sf_mathieu_Mc_array(kind, nmin, nmax, qq, zz, work)
 
 C signature:
@@ -3757,7 +3757,7 @@ function sf_mathieu_Mc_array(kind, nmin, nmax, qq, zz, work)
 end
 
 export sf_mathieu_Ms_array
-"""
+@doc md"""
     sf_mathieu_Ms_array(kind, nmin, nmax, qq, zz, work)
 
 C signature:
@@ -3770,7 +3770,7 @@ function sf_mathieu_Ms_array(kind, nmin, nmax, qq, zz, work)
 end
 
 export sf_pow_int_e
-"""
+@doc md"""
     sf_pow_int_e(x, n)
 
 C signature:
@@ -3783,7 +3783,7 @@ function sf_pow_int_e(x, n)
 end
 
 export sf_psi_int_e
-"""
+@doc md"""
     sf_psi_int_e(n)
 
 C signature:
@@ -3796,7 +3796,7 @@ function sf_psi_int_e(n)
 end
 
 export sf_psi_e
-"""
+@doc md"""
     sf_psi_e(x)
 
 C signature:
@@ -3809,7 +3809,7 @@ function sf_psi_e(x)
 end
 
 export sf_psi_1piy_e
-"""
+@doc md"""
     sf_psi_1piy_e(y)
 
 C signature:
@@ -3822,7 +3822,7 @@ function sf_psi_1piy_e(y)
 end
 
 export sf_complex_psi_e
-"""
+@doc md"""
     sf_complex_psi_e(x, y)
 
 C signature:
@@ -3836,7 +3836,7 @@ function sf_complex_psi_e(x, y)
 end
 
 export sf_psi_1_int_e
-"""
+@doc md"""
     sf_psi_1_int_e(n)
 
 C signature:
@@ -3849,7 +3849,7 @@ function sf_psi_1_int_e(n)
 end
 
 export sf_psi_1_e
-"""
+@doc md"""
     sf_psi_1_e(x)
 
 C signature:
@@ -3862,7 +3862,7 @@ function sf_psi_1_e(x)
 end
 
 export sf_psi_n_e
-"""
+@doc md"""
     sf_psi_n_e(n, x)
 
 C signature:
@@ -3875,7 +3875,7 @@ function sf_psi_n_e(n, x)
 end
 
 export sf_result_smash_e
-"""
+@doc md"""
     sf_result_smash_e()
 
 C signature:
@@ -3889,7 +3889,7 @@ function sf_result_smash_e()
 end
 
 export sf_sin_pi_e
-"""
+@doc md"""
     sf_sin_pi_e(x)
 
 C signature:
@@ -3902,7 +3902,7 @@ function sf_sin_pi_e(x)
 end
 
 export sf_cos_pi_e
-"""
+@doc md"""
     sf_cos_pi_e(x)
 
 C signature:
@@ -3915,7 +3915,7 @@ function sf_cos_pi_e(x)
 end
 
 export sf_synchrotron_1_e
-"""
+@doc md"""
     sf_synchrotron_1_e(x)
 
 C signature:
@@ -3928,7 +3928,7 @@ function sf_synchrotron_1_e(x)
 end
 
 export sf_synchrotron_2_e
-"""
+@doc md"""
     sf_synchrotron_2_e(x)
 
 C signature:
@@ -3941,7 +3941,7 @@ function sf_synchrotron_2_e(x)
 end
 
 export sf_transport_2_e
-"""
+@doc md"""
     sf_transport_2_e(x)
 
 C signature:
@@ -3954,7 +3954,7 @@ function sf_transport_2_e(x)
 end
 
 export sf_transport_3_e
-"""
+@doc md"""
     sf_transport_3_e(x)
 
 C signature:
@@ -3967,7 +3967,7 @@ function sf_transport_3_e(x)
 end
 
 export sf_transport_4_e
-"""
+@doc md"""
     sf_transport_4_e(x)
 
 C signature:
@@ -3980,7 +3980,7 @@ function sf_transport_4_e(x)
 end
 
 export sf_transport_5_e
-"""
+@doc md"""
     sf_transport_5_e(x)
 
 C signature:
@@ -3993,7 +3993,7 @@ function sf_transport_5_e(x)
 end
 
 export sf_sin_e
-"""
+@doc md"""
     sf_sin_e(x)
 
 C signature:
@@ -4006,7 +4006,7 @@ function sf_sin_e(x)
 end
 
 export sf_cos_e
-"""
+@doc md"""
     sf_cos_e(x)
 
 C signature:
@@ -4019,7 +4019,7 @@ function sf_cos_e(x)
 end
 
 export sf_hypot_e
-"""
+@doc md"""
     sf_hypot_e(x, y)
 
 C signature:
@@ -4032,7 +4032,7 @@ function sf_hypot_e(x, y)
 end
 
 export sf_complex_sin_e
-"""
+@doc md"""
     sf_complex_sin_e(zr, zi)
 
 C signature:
@@ -4046,7 +4046,7 @@ function sf_complex_sin_e(zr, zi)
 end
 
 export sf_complex_cos_e
-"""
+@doc md"""
     sf_complex_cos_e(zr, zi)
 
 C signature:
@@ -4060,7 +4060,7 @@ function sf_complex_cos_e(zr, zi)
 end
 
 export sf_complex_logsin_e
-"""
+@doc md"""
     sf_complex_logsin_e(zr, zi)
 
 C signature:
@@ -4074,7 +4074,7 @@ function sf_complex_logsin_e(zr, zi)
 end
 
 export sf_sinc_e
-"""
+@doc md"""
     sf_sinc_e(x)
 
 C signature:
@@ -4087,7 +4087,7 @@ function sf_sinc_e(x)
 end
 
 export sf_lnsinh_e
-"""
+@doc md"""
     sf_lnsinh_e(x)
 
 C signature:
@@ -4100,7 +4100,7 @@ function sf_lnsinh_e(x)
 end
 
 export sf_lncosh_e
-"""
+@doc md"""
     sf_lncosh_e(x)
 
 C signature:
@@ -4113,7 +4113,7 @@ function sf_lncosh_e(x)
 end
 
 export sf_polar_to_rect
-"""
+@doc md"""
     sf_polar_to_rect(r, theta)
 
 C signature:
@@ -4127,7 +4127,7 @@ function sf_polar_to_rect(r, theta)
 end
 
 export sf_rect_to_polar
-"""
+@doc md"""
     sf_rect_to_polar(x, y)
 
 C signature:
@@ -4141,7 +4141,7 @@ function sf_rect_to_polar(x, y)
 end
 
 export sf_sin_err_e
-"""
+@doc md"""
     sf_sin_err_e(x, dx)
 
 C signature:
@@ -4154,7 +4154,7 @@ function sf_sin_err_e(x, dx)
 end
 
 export sf_cos_err_e
-"""
+@doc md"""
     sf_cos_err_e(x, dx)
 
 C signature:
@@ -4167,7 +4167,7 @@ function sf_cos_err_e(x, dx)
 end
 
 export sf_angle_restrict_symm_err_e
-"""
+@doc md"""
     sf_angle_restrict_symm_err_e(theta)
 
 C signature:
@@ -4180,7 +4180,7 @@ function sf_angle_restrict_symm_err_e(theta)
 end
 
 export sf_angle_restrict_pos_err_e
-"""
+@doc md"""
     sf_angle_restrict_pos_err_e(theta)
 
 C signature:
@@ -4193,7 +4193,7 @@ function sf_angle_restrict_pos_err_e(theta)
 end
 
 export sf_zeta_int_e
-"""
+@doc md"""
     sf_zeta_int_e(n)
 
 C signature:
@@ -4206,7 +4206,7 @@ function sf_zeta_int_e(n)
 end
 
 export sf_zeta_e
-"""
+@doc md"""
     sf_zeta_e(s)
 
 C signature:
@@ -4219,7 +4219,7 @@ function sf_zeta_e(s)
 end
 
 export sf_zetam1_e
-"""
+@doc md"""
     sf_zetam1_e(s)
 
 C signature:
@@ -4232,7 +4232,7 @@ function sf_zetam1_e(s)
 end
 
 export sf_zetam1_int_e
-"""
+@doc md"""
     sf_zetam1_int_e(s)
 
 C signature:
@@ -4245,7 +4245,7 @@ function sf_zetam1_int_e(s)
 end
 
 export sf_hzeta_e
-"""
+@doc md"""
     sf_hzeta_e(s, q)
 
 C signature:
@@ -4258,7 +4258,7 @@ function sf_hzeta_e(s, q)
 end
 
 export sf_eta_int_e
-"""
+@doc md"""
     sf_eta_int_e(n)
 
 C signature:
@@ -4271,7 +4271,7 @@ function sf_eta_int_e(n)
 end
 
 export sf_eta_e
-"""
+@doc md"""
     sf_eta_e(s)
 
 C signature:
@@ -4284,7 +4284,7 @@ function sf_eta_e(s)
 end
 
 export spline_name
-"""
+@doc md"""
     spline_name(spline)
 
 C signature:
@@ -4297,7 +4297,7 @@ function spline_name(spline)
 end
 
 export spline2d_name
-"""
+@doc md"""
     spline2d_name(interp)
 
 C signature:
@@ -4310,7 +4310,7 @@ function spline2d_name(interp)
 end
 
 export vector_char_const_ptr
-"""
+@doc md"""
     vector_char_const_ptr(v, i)
 
 C signature:
@@ -4323,7 +4323,7 @@ function vector_char_const_ptr(v, i)
 end
 
 export wavelet_name
-"""
+@doc md"""
     wavelet_name(w)
 
 C signature:

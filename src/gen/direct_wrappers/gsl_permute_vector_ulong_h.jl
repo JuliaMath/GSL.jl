@@ -6,7 +6,7 @@
 #### gsl_permute_vector_ulong.h ###############################################
 
 
-"""
+@doc md"""
     gsl_permute_vector_ulong(p, v) -> Cint
 
 C signature:
@@ -16,7 +16,7 @@ function gsl_permute_vector_ulong(p, v)
     ccall((:gsl_permute_vector_ulong, libgsl), Cint, (Ref{gsl_permutation}, Ref{gsl_vector_ulong}), p, v)
 end
 
-"""
+@doc md"""
     gsl_permute_vector_ulong_inverse(p, v) -> Cint
 
 C signature:

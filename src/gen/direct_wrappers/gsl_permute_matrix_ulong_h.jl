@@ -6,7 +6,7 @@
 #### gsl_permute_matrix_ulong.h ###############################################
 
 
-"""
+@doc md"""
     gsl_permute_matrix_ulong(p, A) -> Cint
 
 C signature:

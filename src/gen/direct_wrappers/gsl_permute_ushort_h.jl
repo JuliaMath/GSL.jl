@@ -6,7 +6,7 @@
 #### gsl_permute_ushort.h #####################################################
 
 
-"""
+@doc md"""
     gsl_permute_ushort(p, data, stride, n) -> Cint
 
 C signature:
@@ -16,7 +16,7 @@ function gsl_permute_ushort(p, data, stride, n)
     ccall((:gsl_permute_ushort, libgsl), Cint, (Ref{Csize_t}, Ref{Cushort}, Csize_t, Csize_t), p, data, stride, n)
 end
 
-"""
+@doc md"""
     gsl_permute_ushort_inverse(p, data, stride, n) -> Cint
 
 C signature:

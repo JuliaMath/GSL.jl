@@ -6,7 +6,7 @@
 #### gsl_message.h ############################################################
 
 
-"""
+@doc md"""
     gsl_message(message, file, line, mask) -> Cvoid
 
 C signature:

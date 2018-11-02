@@ -6,7 +6,7 @@
 #### gsl_vector_ulong.h #######################################################
 
 
-"""
+@doc md"""
     gsl_vector_ulong_alloc(n) -> Ptr{gsl_vector_ulong}
 
 C signature:
@@ -16,7 +16,7 @@ function gsl_vector_ulong_alloc(n)
     ccall((:gsl_vector_ulong_alloc, libgsl), Ptr{gsl_vector_ulong}, (Csize_t,), n)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_calloc(n) -> Ptr{gsl_vector_ulong}
 
 C signature:
@@ -26,7 +26,7 @@ function gsl_vector_ulong_calloc(n)
     ccall((:gsl_vector_ulong_calloc, libgsl), Ptr{gsl_vector_ulong}, (Csize_t,), n)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_alloc_from_block(b, offset, n, stride) -> Ptr{gsl_vector_ulong}
 
 C signature:
@@ -36,7 +36,7 @@ function gsl_vector_ulong_alloc_from_block(b, offset, n, stride)
     ccall((:gsl_vector_ulong_alloc_from_block, libgsl), Ptr{gsl_vector_ulong}, (Ref{gsl_block_ulong}, Csize_t, Csize_t, Csize_t), b, offset, n, stride)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_alloc_from_vector(v, offset, n, stride) -> Ptr{gsl_vector_ulong}
 
 C signature:
@@ -46,7 +46,7 @@ function gsl_vector_ulong_alloc_from_vector(v, offset, n, stride)
     ccall((:gsl_vector_ulong_alloc_from_vector, libgsl), Ptr{gsl_vector_ulong}, (Ref{gsl_vector_ulong}, Csize_t, Csize_t, Csize_t), v, offset, n, stride)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_free(v) -> Cvoid
 
 C signature:
@@ -56,7 +56,7 @@ function gsl_vector_ulong_free(v)
     ccall((:gsl_vector_ulong_free, libgsl), Cvoid, (Ptr{gsl_vector_ulong},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_view_array(v, n) -> _gsl_vector_ulong_view
 
 C signature:
@@ -66,7 +66,7 @@ function gsl_vector_ulong_view_array(v, n)
     ccall((:gsl_vector_ulong_view_array, libgsl), _gsl_vector_ulong_view, (Ref{Culong}, Csize_t), v, n)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_view_array_with_stride(base, stride, n) -> _gsl_vector_ulong_view
 
 C signature:
@@ -76,7 +76,7 @@ function gsl_vector_ulong_view_array_with_stride(base, stride, n)
     ccall((:gsl_vector_ulong_view_array_with_stride, libgsl), _gsl_vector_ulong_view, (Ref{Culong}, Csize_t, Csize_t), base, stride, n)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_const_view_array(v, n) -> _gsl_vector_ulong_const_view
 
 C signature:
@@ -86,7 +86,7 @@ function gsl_vector_ulong_const_view_array(v, n)
     ccall((:gsl_vector_ulong_const_view_array, libgsl), _gsl_vector_ulong_const_view, (Ref{Culong}, Csize_t), v, n)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_const_view_array_with_stride(base, stride, n) -> _gsl_vector_ulong_const_view
 
 C signature:
@@ -96,7 +96,7 @@ function gsl_vector_ulong_const_view_array_with_stride(base, stride, n)
     ccall((:gsl_vector_ulong_const_view_array_with_stride, libgsl), _gsl_vector_ulong_const_view, (Ref{Culong}, Csize_t, Csize_t), base, stride, n)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_subvector(v, i, n) -> _gsl_vector_ulong_view
 
 C signature:
@@ -106,7 +106,7 @@ function gsl_vector_ulong_subvector(v, i, n)
     ccall((:gsl_vector_ulong_subvector, libgsl), _gsl_vector_ulong_view, (Ref{gsl_vector_ulong}, Csize_t, Csize_t), v, i, n)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_subvector_with_stride(v, i, stride, n) -> _gsl_vector_ulong_view
 
 C signature:
@@ -116,7 +116,7 @@ function gsl_vector_ulong_subvector_with_stride(v, i, stride, n)
     ccall((:gsl_vector_ulong_subvector_with_stride, libgsl), _gsl_vector_ulong_view, (Ref{gsl_vector_ulong}, Csize_t, Csize_t, Csize_t), v, i, stride, n)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_const_subvector(v, i, n) -> _gsl_vector_ulong_const_view
 
 C signature:
@@ -126,7 +126,7 @@ function gsl_vector_ulong_const_subvector(v, i, n)
     ccall((:gsl_vector_ulong_const_subvector, libgsl), _gsl_vector_ulong_const_view, (Ref{gsl_vector_ulong}, Csize_t, Csize_t), v, i, n)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_const_subvector_with_stride(v, i, stride, n) -> _gsl_vector_ulong_const_view
 
 C signature:
@@ -136,7 +136,7 @@ function gsl_vector_ulong_const_subvector_with_stride(v, i, stride, n)
     ccall((:gsl_vector_ulong_const_subvector_with_stride, libgsl), _gsl_vector_ulong_const_view, (Ref{gsl_vector_ulong}, Csize_t, Csize_t, Csize_t), v, i, stride, n)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_set_zero(v) -> Cvoid
 
 C signature:
@@ -146,7 +146,7 @@ function gsl_vector_ulong_set_zero(v)
     ccall((:gsl_vector_ulong_set_zero, libgsl), Cvoid, (Ptr{gsl_vector_ulong},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_set_all(v, x) -> Cvoid
 
 C signature:
@@ -156,7 +156,7 @@ function gsl_vector_ulong_set_all(v, x)
     ccall((:gsl_vector_ulong_set_all, libgsl), Cvoid, (Ref{gsl_vector_ulong}, Culong), v, x)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_set_basis(v, i) -> Cint
 
 C signature:
@@ -166,7 +166,7 @@ function gsl_vector_ulong_set_basis(v, i)
     ccall((:gsl_vector_ulong_set_basis, libgsl), Cint, (Ref{gsl_vector_ulong}, Csize_t), v, i)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_fread(stream, v) -> Cint
 
 C signature:
@@ -176,7 +176,7 @@ function gsl_vector_ulong_fread(stream, v)
     ccall((:gsl_vector_ulong_fread, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_vector_ulong}), stream, v)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_fwrite(stream, v) -> Cint
 
 C signature:
@@ -186,7 +186,7 @@ function gsl_vector_ulong_fwrite(stream, v)
     ccall((:gsl_vector_ulong_fwrite, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_vector_ulong}), stream, v)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_fscanf(stream, v) -> Cint
 
 C signature:
@@ -196,7 +196,7 @@ function gsl_vector_ulong_fscanf(stream, v)
     ccall((:gsl_vector_ulong_fscanf, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_vector_ulong}), stream, v)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_fprintf(stream, v, format) -> Cint
 
 C signature:
@@ -206,7 +206,7 @@ function gsl_vector_ulong_fprintf(stream, v, format)
     ccall((:gsl_vector_ulong_fprintf, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_vector_ulong}, Ref{Cchar}), stream, v, format)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_memcpy(dest, src) -> Cint
 
 C signature:
@@ -216,7 +216,7 @@ function gsl_vector_ulong_memcpy(dest, src)
     ccall((:gsl_vector_ulong_memcpy, libgsl), Cint, (Ref{gsl_vector_ulong}, Ref{gsl_vector_ulong}), dest, src)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_reverse(v) -> Cint
 
 C signature:
@@ -226,7 +226,7 @@ function gsl_vector_ulong_reverse(v)
     ccall((:gsl_vector_ulong_reverse, libgsl), Cint, (Ptr{gsl_vector_ulong},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_swap(v, w) -> Cint
 
 C signature:
@@ -236,7 +236,7 @@ function gsl_vector_ulong_swap(v, w)
     ccall((:gsl_vector_ulong_swap, libgsl), Cint, (Ref{gsl_vector_ulong}, Ref{gsl_vector_ulong}), v, w)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_swap_elements(v, i, j) -> Cint
 
 C signature:
@@ -246,7 +246,7 @@ function gsl_vector_ulong_swap_elements(v, i, j)
     ccall((:gsl_vector_ulong_swap_elements, libgsl), Cint, (Ref{gsl_vector_ulong}, Csize_t, Csize_t), v, i, j)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_max(v) -> Culong
 
 C signature:
@@ -256,7 +256,7 @@ function gsl_vector_ulong_max(v)
     ccall((:gsl_vector_ulong_max, libgsl), Culong, (Ptr{gsl_vector_ulong},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_min(v) -> Culong
 
 C signature:
@@ -266,7 +266,7 @@ function gsl_vector_ulong_min(v)
     ccall((:gsl_vector_ulong_min, libgsl), Culong, (Ptr{gsl_vector_ulong},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_minmax(v, min_out, max_out) -> Cvoid
 
 C signature:
@@ -276,7 +276,7 @@ function gsl_vector_ulong_minmax(v, min_out, max_out)
     ccall((:gsl_vector_ulong_minmax, libgsl), Cvoid, (Ref{gsl_vector_ulong}, Ref{Culong}, Ref{Culong}), v, min_out, max_out)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_max_index(v) -> Csize_t
 
 C signature:
@@ -286,7 +286,7 @@ function gsl_vector_ulong_max_index(v)
     ccall((:gsl_vector_ulong_max_index, libgsl), Csize_t, (Ptr{gsl_vector_ulong},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_min_index(v) -> Csize_t
 
 C signature:
@@ -296,7 +296,7 @@ function gsl_vector_ulong_min_index(v)
     ccall((:gsl_vector_ulong_min_index, libgsl), Csize_t, (Ptr{gsl_vector_ulong},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_minmax_index(v, imin, imax) -> Cvoid
 
 C signature:
@@ -306,7 +306,7 @@ function gsl_vector_ulong_minmax_index(v, imin, imax)
     ccall((:gsl_vector_ulong_minmax_index, libgsl), Cvoid, (Ref{gsl_vector_ulong}, Ref{Csize_t}, Ref{Csize_t}), v, imin, imax)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_add(a, b) -> Cint
 
 C signature:
@@ -316,7 +316,7 @@ function gsl_vector_ulong_add(a, b)
     ccall((:gsl_vector_ulong_add, libgsl), Cint, (Ref{gsl_vector_ulong}, Ref{gsl_vector_ulong}), a, b)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_sub(a, b) -> Cint
 
 C signature:
@@ -326,7 +326,7 @@ function gsl_vector_ulong_sub(a, b)
     ccall((:gsl_vector_ulong_sub, libgsl), Cint, (Ref{gsl_vector_ulong}, Ref{gsl_vector_ulong}), a, b)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_mul(a, b) -> Cint
 
 C signature:
@@ -336,7 +336,7 @@ function gsl_vector_ulong_mul(a, b)
     ccall((:gsl_vector_ulong_mul, libgsl), Cint, (Ref{gsl_vector_ulong}, Ref{gsl_vector_ulong}), a, b)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_div(a, b) -> Cint
 
 C signature:
@@ -346,7 +346,7 @@ function gsl_vector_ulong_div(a, b)
     ccall((:gsl_vector_ulong_div, libgsl), Cint, (Ref{gsl_vector_ulong}, Ref{gsl_vector_ulong}), a, b)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_scale(a, x) -> Cint
 
 C signature:
@@ -356,7 +356,7 @@ function gsl_vector_ulong_scale(a, x)
     ccall((:gsl_vector_ulong_scale, libgsl), Cint, (Ref{gsl_vector_ulong}, Cdouble), a, x)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_add_constant(a, x) -> Cint
 
 C signature:
@@ -366,7 +366,7 @@ function gsl_vector_ulong_add_constant(a, x)
     ccall((:gsl_vector_ulong_add_constant, libgsl), Cint, (Ref{gsl_vector_ulong}, Cdouble), a, x)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_equal(u, v) -> Cint
 
 C signature:
@@ -376,7 +376,7 @@ function gsl_vector_ulong_equal(u, v)
     ccall((:gsl_vector_ulong_equal, libgsl), Cint, (Ref{gsl_vector_ulong}, Ref{gsl_vector_ulong}), u, v)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_isnull(v) -> Cint
 
 C signature:
@@ -386,7 +386,7 @@ function gsl_vector_ulong_isnull(v)
     ccall((:gsl_vector_ulong_isnull, libgsl), Cint, (Ptr{gsl_vector_ulong},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_ispos(v) -> Cint
 
 C signature:
@@ -396,7 +396,7 @@ function gsl_vector_ulong_ispos(v)
     ccall((:gsl_vector_ulong_ispos, libgsl), Cint, (Ptr{gsl_vector_ulong},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_isneg(v) -> Cint
 
 C signature:
@@ -406,7 +406,7 @@ function gsl_vector_ulong_isneg(v)
     ccall((:gsl_vector_ulong_isneg, libgsl), Cint, (Ptr{gsl_vector_ulong},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_isnonneg(v) -> Cint
 
 C signature:
@@ -416,7 +416,7 @@ function gsl_vector_ulong_isnonneg(v)
     ccall((:gsl_vector_ulong_isnonneg, libgsl), Cint, (Ptr{gsl_vector_ulong},), v)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_get(v, i) -> Culong
 
 C signature:
@@ -426,7 +426,7 @@ function gsl_vector_ulong_get(v, i)
     ccall((:gsl_vector_ulong_get, libgsl), Culong, (Ref{gsl_vector_ulong}, Csize_t), v, i)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_set(v, i, x) -> Cvoid
 
 C signature:
@@ -436,7 +436,7 @@ function gsl_vector_ulong_set(v, i, x)
     ccall((:gsl_vector_ulong_set, libgsl), Cvoid, (Ref{gsl_vector_ulong}, Csize_t, Culong), v, i, x)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_ptr(v, i) -> Ptr{Culong}
 
 C signature:
@@ -446,7 +446,7 @@ function gsl_vector_ulong_ptr(v, i)
     ccall((:gsl_vector_ulong_ptr, libgsl), Ptr{Culong}, (Ref{gsl_vector_ulong}, Csize_t), v, i)
 end
 
-"""
+@doc md"""
     gsl_vector_ulong_const_ptr(v, i) -> Ptr{Culong}
 
 C signature:

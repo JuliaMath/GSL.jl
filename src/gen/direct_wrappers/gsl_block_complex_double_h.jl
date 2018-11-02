@@ -6,7 +6,7 @@
 #### gsl_block_complex_double.h ###############################################
 
 
-"""
+@doc md"""
     gsl_block_complex_alloc(n) -> Ptr{gsl_block_complex}
 
 C signature:
@@ -16,7 +16,7 @@ function gsl_block_complex_alloc(n)
     ccall((:gsl_block_complex_alloc, libgsl), Ptr{gsl_block_complex}, (Csize_t,), n)
 end
 
-"""
+@doc md"""
     gsl_block_complex_calloc(n) -> Ptr{gsl_block_complex}
 
 C signature:
@@ -26,7 +26,7 @@ function gsl_block_complex_calloc(n)
     ccall((:gsl_block_complex_calloc, libgsl), Ptr{gsl_block_complex}, (Csize_t,), n)
 end
 
-"""
+@doc md"""
     gsl_block_complex_free(b) -> Cvoid
 
 C signature:
@@ -36,7 +36,7 @@ function gsl_block_complex_free(b)
     ccall((:gsl_block_complex_free, libgsl), Cvoid, (Ptr{gsl_block_complex},), b)
 end
 
-"""
+@doc md"""
     gsl_block_complex_fread(stream, b) -> Cint
 
 C signature:
@@ -46,7 +46,7 @@ function gsl_block_complex_fread(stream, b)
     ccall((:gsl_block_complex_fread, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_block_complex}), stream, b)
 end
 
-"""
+@doc md"""
     gsl_block_complex_fwrite(stream, b) -> Cint
 
 C signature:
@@ -56,7 +56,7 @@ function gsl_block_complex_fwrite(stream, b)
     ccall((:gsl_block_complex_fwrite, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_block_complex}), stream, b)
 end
 
-"""
+@doc md"""
     gsl_block_complex_fscanf(stream, b) -> Cint
 
 C signature:
@@ -66,7 +66,7 @@ function gsl_block_complex_fscanf(stream, b)
     ccall((:gsl_block_complex_fscanf, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_block_complex}), stream, b)
 end
 
-"""
+@doc md"""
     gsl_block_complex_fprintf(stream, b, format) -> Cint
 
 C signature:
@@ -76,7 +76,7 @@ function gsl_block_complex_fprintf(stream, b, format)
     ccall((:gsl_block_complex_fprintf, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_block_complex}, Ref{Cchar}), stream, b, format)
 end
 
-"""
+@doc md"""
     gsl_block_complex_raw_fread(stream, b, n, stride) -> Cint
 
 C signature:
@@ -86,7 +86,7 @@ function gsl_block_complex_raw_fread(stream, b, n, stride)
     ccall((:gsl_block_complex_raw_fread, libgsl), Cint, (Ref{Cvoid}, Ref{Cdouble}, Csize_t, Csize_t), stream, b, n, stride)
 end
 
-"""
+@doc md"""
     gsl_block_complex_raw_fwrite(stream, b, n, stride) -> Cint
 
 C signature:
@@ -96,7 +96,7 @@ function gsl_block_complex_raw_fwrite(stream, b, n, stride)
     ccall((:gsl_block_complex_raw_fwrite, libgsl), Cint, (Ref{Cvoid}, Ref{Cdouble}, Csize_t, Csize_t), stream, b, n, stride)
 end
 
-"""
+@doc md"""
     gsl_block_complex_raw_fscanf(stream, b, n, stride) -> Cint
 
 C signature:
@@ -106,7 +106,7 @@ function gsl_block_complex_raw_fscanf(stream, b, n, stride)
     ccall((:gsl_block_complex_raw_fscanf, libgsl), Cint, (Ref{Cvoid}, Ref{Cdouble}, Csize_t, Csize_t), stream, b, n, stride)
 end
 
-"""
+@doc md"""
     gsl_block_complex_raw_fprintf(stream, b, n, stride, format) -> Cint
 
 C signature:
@@ -116,7 +116,7 @@ function gsl_block_complex_raw_fprintf(stream, b, n, stride, format)
     ccall((:gsl_block_complex_raw_fprintf, libgsl), Cint, (Ref{Cvoid}, Ref{Cdouble}, Csize_t, Csize_t, Ref{Cchar}), stream, b, n, stride, format)
 end
 
-"""
+@doc md"""
     gsl_block_complex_size(b) -> Csize_t
 
 C signature:
@@ -126,7 +126,7 @@ function gsl_block_complex_size(b)
     ccall((:gsl_block_complex_size, libgsl), Csize_t, (Ptr{gsl_block_complex},), b)
 end
 
-"""
+@doc md"""
     gsl_block_complex_data(b) -> Ptr{Cdouble}
 
 C signature:
