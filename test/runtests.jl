@@ -10,7 +10,9 @@ Random.seed!(1)
     include("legendre.jl")
     include("multidim_rootfinding.jl")    
     include("numdiff.jl")
+    include("quadrature.jl")
     include("rng.jl")    
     include("rootfinding.jl")
     include("specfunc.jl")
 end
+
