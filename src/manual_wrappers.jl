@@ -60,8 +60,8 @@ macro gsl_function_fdf(f, df)
                           @cfunction( (x,p) -> $df(x),  Cdouble, (Cdouble, Ptr{Cvoid})),
                           @cfunction( #(x,p,f,df) -> $fdf(x,f,df)
                                       function (x, p, f_ptr, df_ptr)
-                                      unsafe_store!(f_ptr, myfun(x))
-                                      unsafe_store!(df_ptr, myfun_deriv(x))
+                                      unsafe_store!(f_ptr, $f(x))
+                                      unsafe_store!(df_ptr, $df(x))
                                       return nothing
                                       end,
                                       Cvoid,
