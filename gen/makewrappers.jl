@@ -2,11 +2,19 @@
 #
 # Ludvig af Klinteberg, 2018
 #
+# To run this, you need:
+# - Modules PyCall and Glob
+# - pandoc
+# - Python package pypandoc
+#
+#
 # TODO:
 # - deal with variable length arguments, i.e. "splat"
 # - maybe translate enum's to @enum ?
 
+using Markdown
 using Glob
+include("readdocs.jl")
 
 OUTPUT_DIR = joinpath(@__DIR__, "..", "src", "gen")
 GSL_DIR = joinpath(@__DIR__, "..", "deps", "usr", "include", "gsl")
@@ -555,10 +563,17 @@ function gen_julia(structs, typedefs, constants, functions, filename)
     struct_output = ""
     typedefs_written = Int64[]
     for s in structs
-        struct_output *= "mutable struct $(s.name)\n"
-        struct_output *= "    "
-        struct_output *= join([a.name*"::"*arg2julia(a, :struct) for a in s.args], "\n    ")        
-        struct_output *= "\nend\n"
+        this_struct = ""
+        this_struct *= "mutable struct $(s.name)\n"
+        this_struct *= "    "
+        this_struct *= join([a.name*"::"*arg2julia(a, :struct) for a in s.args], "\n    ")        
+        this_struct *= "\nend\n"
+        # Add docs
+        structdoc = "```\n" * this_struct * "```\n"
+        gsldoc = ""
+        if haskey(docs, s.name)
+            gsldoc = "GSL documentation:\n\n### " * docs[s.name]
+        end        
         # Check if theres a typedef pointing to this struct,
         # then write it immediately if there is.
         # This helps is subsequent structs use this typedef
@@ -567,9 +582,14 @@ function gen_julia(structs, typedefs, constants, functions, filename)
             t = typedefs[idx]
             name = t.name
             jtype = arg2julia(t, :struct)
-            struct_output *= "const $name = $jtype\n"
+            this_struct *= "const $name = $jtype\n"
             push!(typedefs_written, idx)
+            if isempty(gsldoc) && haskey(docs, name)
+                gsldoc = "GSL documentation:\n\n### " * docs[name]
+            end
         end
+        struct_output *= docstr(structdoc*gsldoc)
+        struct_output *= this_struct        
         struct_output *= "\n"
     end
 
@@ -595,7 +615,13 @@ function gen_julia(structs, typedefs, constants, functions, filename)
         jret = arg2julia(f.ret, :output)
         arglist = join([a.name * (typed ? "::"*arg2julia(a) : "") for a in f.args],", ")
         head = "$(f.name)($arglist)"
-        doc = docstr("    $head -> $jret\n\nC signature:\n`$(f.decl)`")
+        # See if we have matching docs from GSL
+        gsldoc = ""
+        if haskey(docs, f.name)
+            gsldoc = "\n\nGSL documentation:\n\n### " * docs[f.name]
+        end
+        doc = docstr("    $head -> $jret\n\n" *
+                     "C signature:\n`$(f.decl)`" * gsldoc)
 
         output *= doc
         output *= "function $head\n"
@@ -660,7 +686,8 @@ function arg2julia(a, context=:julia)
 end
 
 function docstr(str)
-    return "\"\"\"\n$str\n\"\"\"\n"
+    #return "\"\"\"\n$str\n\"\"\"\n"
+    return "@doc md\"\"\"\n$str\n\"\"\"\n"
 end
 
 function gen_global_vars(global_vars)
@@ -691,6 +718,9 @@ end
 end
 
 ## RUN
+if !isdefined(Main, :docs) || isempty(docs)
+    docs = readdocs()
+end
 
 functions = create_base_wrappers()
 println("* Attempting to load direct wrappers...")

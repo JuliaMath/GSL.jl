@@ -1,5 +1,7 @@
 module GSL
 
+using Markdown
+
 # Deps
 const depsfile = joinpath(dirname(@__DIR__), "deps", "deps.jl")
 if isfile(depsfile)
