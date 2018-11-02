@@ -89,6 +89,7 @@ while abs(f(gsl_root_fdfsolver_root(solver))) > 1e-10
     gsl_root_fdfsolver_iterate(solver)
 end
 println("x = ", gsl_root_fdfsolver_root(solver))
+# Output: x = -1.0000000000104232
 ```
 
 ## Documentation
