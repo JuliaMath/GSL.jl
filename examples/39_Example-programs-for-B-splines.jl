@@ -67,7 +67,7 @@ end
 chisq = [0.0]
 gsl_multifit_wlinear(X, w, y, c, cov, chisq, mw)
 dof = n - ncoeffs
-tss = gsl_stats_wtss(gsl_vector_ptr(w,0), 1, gsl_vector_ptr(y, 0), 1, unsafe_load(y).size)
+tss = gsl_stats_wtss(gsl_vector_ptr(w,0), 1, gsl_vector_ptr(y, 0), 1, n)
 Rsq = 1.0 - chisq[] / tss
 
 @printf("chisq/dof = %e, Rsq = %f\n", chisq[] / dof, Rsq)
