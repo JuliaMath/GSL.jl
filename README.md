@@ -14,18 +14,19 @@ Giordano, intended to eventually either replace or be merged into GSL.jl.
 
 Developed for Julia 1.0+.
 
-**NOTE: This breaks compability with previous versions of GSL.jl**
+**NOTE: This version breaks compability with previous versions of GSL.jl. Most functions now have the `gsl_` prefix.**
 
 ## Structure
 
-The library tries as faithfully as possible to export the functions, types and symbols
+The library tries to provide Julia interfaces to all the functions, types and symbols
 defined in the [GSL
-documentation](https://www.gnu.org/software/gsl/doc/html/index.html). Most of these have
-the prefix `gsl_` in their name.
+documentation](https://www.gnu.org/software/gsl/doc/html/index.html). 
 
-In addition, a number convenience functions are supplied, which try to make the interface
-less cumbersome. These are created both manually and using a heuristic rule set. The
-convenience functions have the prefix `gsl_` dropped from their name.
+Two types of functions are exported:
+- _Direct wrappers_ have the prefix `gsl_`. These are meant to provide an interface to GSL that is as faithful to the headers as possible. These are all auto-generated from the headers.
+- _Convenience functions_ are added both manually and using a set of heuristics, and are without the `gsl_` prefix. These are meant to provide a more user-friendly second layer on top of the direct wrappers.
+
+Most of the type defintions, constants and symbols of GSL are also exported.
 
 Parts of GSL are not interfaced to, since they provide functionality already existing in
 Julia. These are functions with prefixes `gsl_spmatrix_`, `gsl_splinalg_`, `gsl_spblas_`,
@@ -68,11 +69,70 @@ A lot of GSL functionality is interfaced, but most of it is untested.
 
 Things that seem to be working:
 
-* A lot of the special functions `gsl_sf_*`, and convenience functions `sf_*`.
-* Root finding, see examples in [test/rootfinding.jl](test/rootfinding.jl).
+* Root finding, numerical differentiation, quadrature, splines, random numbers, permutations. See [examples/](examples/). 
+* The special functions `gsl_sf_*`, together with convenience functions `sf_*`.
 * Convenice functions `hypergeom` and `hypergeom_e` for the hypergeometric functions.
-* Random number generation, see [test/rng.jl](test/rng.jl).
-* All of the examples in [examples/](examples/)
+* Function wrapping macros `@gsl_function`, `@gsl_function_fdf`, `@gsl_multiroot_function` that are used for packaging Julia functions so that they can be passed to GSL.
+
+## Examples
+
+See examples in [examples/](examples/) and tests [test/](test/) for more examples.
+
+### Root finding
+```julia
+f = x -> x^5+1
+df = x -> 5*x^4
+fdf = @gsl_function_fdf(f, df)
+solver = gsl_root_fdfsolver_alloc(gsl_root_fdfsolver_newton)
+gsl_root_fdfsolver_set(solver, fdf, -2)
+while abs(f(gsl_root_fdfsolver_root(solver))) > 1e-10
+    gsl_root_fdfsolver_iterate(solver)
+end
+println("x = ", gsl_root_fdfsolver_root(solver))
+```
+
+## Documentation
+
+This is it, though some effort has been put into giving most types and functions proper docstrings:
+
+```
+help?> gsl_wavelet_free
+search: gsl_wavelet_free gsl_wavelet_workspace_free
+
+  gsl_wavelet_free(w) -> Cvoid
+
+  C signature: void gsl_wavelet_free (gsl_wavelet * w)
+
+  GSL documentation:
+
+  void gsl_wavelet_free (gsl_wavelet * w)
+  –––––––––––––––––––––––––––––––––––––––––
+
+  │  This function frees the wavelet object w.
+```
+```
+help?> gsl_wavelet
+search: gsl_wavelet gsl_wavelet_type gsl_wavelet_name gsl_wavelet_haar
+
+  mutable struct gsl_wavelet
+      type::Ptr{gsl_wavelet_type}
+      h1::Ptr{Cdouble}
+      g1::Ptr{Cdouble}
+      h2::Ptr{Cdouble}
+      g2::Ptr{Cdouble}
+      nc::Csize_t
+      offset::Csize_t
+  end
+
+  GSL documentation:
+
+  gsl_wavelet
+  –––––––––––––
+
+  │  This structure contains the filter coefficients defining the
+  │  wavelet and any associated offset parameters.
+```
+
 
 ## Behind the scenes
 
