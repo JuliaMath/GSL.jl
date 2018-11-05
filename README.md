@@ -33,7 +33,22 @@ Julia. These are functions with prefixes `gsl_spmatrix_`, `gsl_splinalg_`, `gsl_
 `gsl_eigen_`, `gsl_sort`, `gsl_blas_`,
 `cblas_`, `gsl_fft_`, and `gsl_linalg_`.
 
-### Examples of convenience functions
+## Functionality
+
+A lot of GSL functionality is interfaced, but most of it is untested.
+
+Things that seem to be working:
+
+* Root finding, numerical differentiation, quadrature, splines, random numbers, permutations. See [examples/](examples/). 
+* The special functions `gsl_sf_*`, together with convenience functions `sf_*`.
+* Convenice functions `hypergeom` and `hypergeom_e` for the hypergeometric functions.
+* Function wrapping macros `@gsl_function`, `@gsl_function_fdf`, `@gsl_multiroot_function` that are used for packaging Julia functions so that they can be passed to GSL.
+
+## Examples
+
+See examples in [examples/](examples/) and tests [test/](test/) for more examples.
+
+### Convenience functions
 
 **Function with result struct:**
 ```julia
@@ -44,7 +59,8 @@ gsl_sf_legendre_P3(x)
 # Direct call with structure that stores result and error:
 result = gsl_sf_result(0,0)
 gsl_sf_legendre_P3_e(0.5, result)
-# Output: gsl_sf_result_struct(-0.4375, 3.3306690738754696e-16)
+# Output: GSL_SUCCESS
+# result = gsl_sf_result_struct(-0.4375, 3.3306690738754696e-16)
 
 # Using convenience function:
 sf_legendre_P3_e(0.5)
@@ -62,21 +78,6 @@ gsl_sf_legendre_array(GSL_SF_LEGENDRE_SPHARM, lmax, x, result)
 # Equivalent using convenience function:
 result = sf_legendre_array(GSL_SF_LEGENDRE_SPHARM, lmax, x)
 ```
-
-## Functionality
-
-A lot of GSL functionality is interfaced, but most of it is untested.
-
-Things that seem to be working:
-
-* Root finding, numerical differentiation, quadrature, splines, random numbers, permutations. See [examples/](examples/). 
-* The special functions `gsl_sf_*`, together with convenience functions `sf_*`.
-* Convenice functions `hypergeom` and `hypergeom_e` for the hypergeometric functions.
-* Function wrapping macros `@gsl_function`, `@gsl_function_fdf`, `@gsl_multiroot_function` that are used for packaging Julia functions so that they can be passed to GSL.
-
-## Examples
-
-See examples in [examples/](examples/) and tests [test/](test/) for more examples.
 
 ### Root finding
 ```julia
