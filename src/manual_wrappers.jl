@@ -2,6 +2,33 @@
 # Manual wrappers for the gsl_* stuff
 # 
 
+export wrap_gsl_vector, wrap_gsl_matrix
+
+"""
+    wrap_gsl_vector(v::Ptr{gsl_vector}) -> Array{Float64}
+
+Return a Julia array wrapping the data of a gsl_vector
+"""
+@inline function wrap_gsl_vector(v::Ptr{gsl_vector})
+    V = unsafe_load(v)
+    @assert V.stride==1 "Cannot unsafe_wrap gsl_vector with stride != 1"
+    return unsafe_wrap(Array{Float64}, V.data, V.size)
+end
+
+"""
+    wrap_gsl_matrix(m::Ptr{gsl_matrix}) -> Array{Float64,2}
+
+Return a Julia matrix wrapping the data of a gsl_matrix
+
+**REMEMBER** that GSL stores matrices in row-major, so matrix will be transposed.
+"""
+@inline function wrap_gsl_matrix(m::Ptr{gsl_matrix})
+    M = unsafe_load(m)
+    @assert M.size2==M.tda "Cannot unsafe_wrap gsl_matrix with tda != size2."     
+    return unsafe_wrap(Array{Float64}, M.data, (M.size1, M.size2))
+end
+
+
 ## Root finding
 # Macros for easier creation of gsl_function and gsl_function_fdf structs
 export @gsl_function, @gsl_function_fdf
@@ -31,17 +58,20 @@ Create a `gsl_function_fdf` object.
 """
 macro gsl_function_fdf(f, df, fdf)
     return :(
-        gsl_function_fdf( @cfunction( (x,p) -> $f(x),   Cdouble, (Cdouble, Ptr{Cvoid})),
+        gsl_function_fdf( # f
+                          @cfunction( (x,p) -> $f(x),   Cdouble, (Cdouble, Ptr{Cvoid})),
+                          # df
                           @cfunction( (x,p) -> $df(x),  Cdouble, (Cdouble, Ptr{Cvoid})),
-                          @cfunction( #(x,p,f,df) -> $fdf(x,f,df)
-                                      function (x, p, f_ptr, df_ptr)
-                                      f, df = $fdf(x)
-                                      unsafe_store!(f_ptr, f)
-                                      unsafe_store!(df_ptr, df)
-                                      return nothing
+                          # fdf
+                          @cfunction( function (x, p, f_ptr, df_ptr)
+                                          f, df = $fdf(x)
+                                          unsafe_store!(f_ptr, f)
+                                          unsafe_store!(df_ptr, df)
+                                          return nothing
                                       end,
                                       Cvoid,
                                       (Cdouble, Ptr{Cvoid}, Ptr{Cdouble}, Ptr{Cdouble})),
+                          # params
                           0 )
     )
 end
@@ -56,13 +86,15 @@ Create a `gsl_function_fdf` object.
 """
 macro gsl_function_fdf(f, df)
     return :(
-        gsl_function_fdf( @cfunction( (x,p) -> $f(x),   Cdouble, (Cdouble, Ptr{Cvoid})),
+        gsl_function_fdf( # f
+                          @cfunction( (x,p) -> $f(x),   Cdouble, (Cdouble, Ptr{Cvoid})),
+                          # df
                           @cfunction( (x,p) -> $df(x),  Cdouble, (Cdouble, Ptr{Cvoid})),
-                          @cfunction( #(x,p,f,df) -> $fdf(x,f,df)
-                                      function (x, p, f_ptr, df_ptr)
-                                      unsafe_store!(f_ptr, $f(x))
-                                      unsafe_store!(df_ptr, $df(x))
-                                      return nothing
+                          # fdf that just calls f and df
+                          @cfunction( function (x, p, f_ptr, df_ptr)
+                                          unsafe_store!(f_ptr, $f(x))
+                                          unsafe_store!(df_ptr, $df(x))
+                                          return nothing
                                       end,
                                       Cvoid,
                                       (Cdouble, Ptr{Cvoid}, Ptr{Cdouble}, Ptr{Cdouble})),
@@ -71,30 +103,129 @@ macro gsl_function_fdf(f, df)
 end
 
 
-export @gsl_multiroot_function
+export @gsl_multiroot_function, @gsl_multiroot_function_fdf
 
 """
     @gsl_multiroot_function(f, n)
 
-Create a `gsl_multiroot_function` object.
+Create a `gsl_multiroot_function` object for a problem of dimension `n`.
 
-`f` is function accepting `(x::Array{Float64}, out::Array{Float64})`,
-both of dimension `n`.
+`f(x::Array{Float64}, out::Array{Float64})` stores ``f(x)`` in `out`
 """
 macro gsl_multiroot_function(f, n)
     return :(
         gsl_multiroot_function(
-            @cfunction(function (x_vec,p,y_vec)
-                           y = unsafe_wrap(Array{Float64}, unsafe_load(y_vec).data, unsafe_load(y_vec).size)
-                           x = unsafe_wrap(Array{Float64}, unsafe_load(x_vec).data, unsafe_load(x_vec).size)
-                           $f(x, y)
-                           return Cint(GSL_SUCCESS)                       
-                       end,
-                       Cint,
-                       (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_vector})),
-            $n, 0 )
+            # f
+            @cfunction(
+                function (x_vec, p, y_vec)
+                    x = GSL.wrap_gsl_vector(x_vec)
+                    y = GSL.wrap_gsl_vector(y_vec)
+                    $f(x, y)
+                    return Cint(GSL_SUCCESS)                       
+                end,
+                Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_vector})),
+            # n
+            $(esc(n)),
+            # params
+            0
+        )
     )
 end
+
+"""
+    @gsl_multiroot_function_fdf(f, df, n)
+
+Create a `gsl_multiroot_function_fdf` object for a problem of dimension `n`.
+
+`f(x::Array{Float64}, out::Array{Float64})` stores ``f(x)`` in `out`.
+
+`df(x::Array{Float64}, Jtrans::Array{Float64,2})` stores the **TRANSPOSE** of the Jacobian of ``f(x)`` in `Jtrans`.
+
+"""
+macro gsl_multiroot_function_fdf(f, df, n)
+    return :(
+        gsl_multiroot_function_fdf(
+            # f
+            @cfunction(function (x, p, f)
+                           xarr = GSL.wrap_gsl_vector(x)
+                           farr = GSL.wrap_gsl_vector(f)
+                           $f(xarr, farr)
+                           return Cint(GSL_SUCCESS)
+                       end,
+                       Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_vector})),
+            # df
+            @cfunction(function (x, p, J)
+                       xarr = GSL.wrap_gsl_vector(x)
+                       Jmat = GSL.wrap_gsl_matrix(J)
+                       $df(xarr, Jmat)
+                       return Cint(GSL_SUCCESS)
+                       end,
+                       Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_matrix})),
+            # fdf that just calls f and df
+            @cfunction(function (x, p, f, J)
+                       xarr = GSL.wrap_gsl_vector(x)
+                       farr = GSL.wrap_gsl_vector(f)
+                       Jmat = GSL.wrap_gsl_matrix(J)
+                       $f(xarr, farr)
+                       $df(xarr, Jmat)
+                       return Cint(GSL_SUCCESS)
+                       end,
+                       Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_vector}, Ptr{gsl_matrix})),
+            # n
+            $(esc(n)),
+            # params
+            0
+        )
+    )
+end
+
+"""
+    @gsl_multiroot_function_fdf(f, df, n)
+
+Create a `gsl_multiroot_function_fdf` object for a problem of dimension `n`.
+
+`f(x::Array{Float64}, out::Array{Float64})` stores ``f(x)`` in `out`.
+
+`df(x::Array{Float64}, Jtrans::Array{Float64,2})` stores the **TRANSPOSE** of the Jacobian of ``f(x)`` in `Jtrans`.
+
+`fdf(x::Array{Float64}, out::Array{Float64}), Jtrans::Array{Float64,2})` does both of the above operations.
+
+"""
+macro gsl_multiroot_function_fdf(f, df, fdf, n)
+    return :(
+        gsl_multiroot_function_fdf(
+            # f
+            @cfunction(function (x, p, f)
+                           xarr = GSL.wrap_gsl_vector(x)
+                           farr = GSL.wrap_gsl_vector(f)
+                           $f(xarr, farr)
+                           return Cint(GSL_SUCCESS)
+                       end,
+                       Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_vector})),
+            # df
+            @cfunction(function (x, p, J)
+                       xarr = GSL.wrap_gsl_vector(x)
+                       Jmat = GSL.wrap_gsl_matrix(J)
+                       $df(xarr, Jmat)
+                       return Cint(GSL_SUCCESS)
+                       end,
+                       Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_matrix})),
+            # fdf
+            @cfunction(function (x, p, f, J)
+                       xarr = GSL.wrap_gsl_vector(x)
+                       farr = GSL.wrap_gsl_vector(f)
+                       Jmat = GSL.wrap_gsl_matrix(J)
+                       $fdf(xarr, farr, Jmat)
+                       return Cint(GSL_SUCCESS)
+                       end,
+                       Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_vector}, Ptr{gsl_matrix})),
+            # n
+            $(esc(n)),
+            # params
+            0
+        )
+    )
+end   
 
 ## Hypergeometric function wrappers from original GSL.jl
 #(c) 2013 Jiahao Chen <jiahao@mit.edu>
