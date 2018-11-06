@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_deriv_central(f, x, h, result, abserr) -> Cint
+    deriv_central(f, x, h, result, abserr) -> Cint
 
 C signature:
 `int gsl_deriv_central (const gsl_function *f, double x, double h, double *result, double *abserr)`
@@ -32,12 +32,12 @@ GSL documentation:
 > actually used.
 
 """
-function gsl_deriv_central(f, x, h, result, abserr)
+function deriv_central(f, x, h, result, abserr)
     ccall((:gsl_deriv_central, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f, x, h, result, abserr)
 end
 
 @doc md"""
-    gsl_deriv_backward(f, x, h, result, abserr) -> Cint
+    deriv_backward(f, x, h, result, abserr) -> Cint
 
 C signature:
 `int gsl_deriv_backward (const gsl_function *f, double x, double h, double *result, double *abserr)`
@@ -58,12 +58,12 @@ GSL documentation:
 > negative step-size.
 
 """
-function gsl_deriv_backward(f, x, h, result, abserr)
+function deriv_backward(f, x, h, result, abserr)
     ccall((:gsl_deriv_backward, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f, x, h, result, abserr)
 end
 
 @doc md"""
-    gsl_deriv_forward(f, x, h, result, abserr) -> Cint
+    deriv_forward(f, x, h, result, abserr) -> Cint
 
 C signature:
 `int gsl_deriv_forward (const gsl_function *f, double x, double h, double *result, double *abserr)`
@@ -89,7 +89,7 @@ GSL documentation:
 > $x+h/2$, $x+h$.
 
 """
-function gsl_deriv_forward(f, x, h, result, abserr)
+function deriv_forward(f, x, h, result, abserr)
     ccall((:gsl_deriv_forward, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f, x, h, result, abserr)
 end
 

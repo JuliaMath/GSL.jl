@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_stats_mean(data, stride, n) -> Cdouble
+    stats_mean(data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_mean (const double data[], const size_t stride, const size_t n)`
@@ -27,12 +27,12 @@ GSL documentation:
 > $\sigma^2 / N$.
 
 """
-function gsl_stats_mean(data, stride, n)
+function stats_mean(data, stride, n)
     ccall((:gsl_stats_mean, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t), data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_variance(data, stride, n) -> Cdouble
+    stats_variance(data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_variance (const double data[], const size_t stride, const size_t n)`
@@ -56,12 +56,12 @@ GSL documentation:
 > gsl\_stats\_variance\_m.
 
 """
-function gsl_stats_variance(data, stride, n)
+function stats_variance(data, stride, n)
     ccall((:gsl_stats_variance, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t), data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_sd(data, stride, n) -> Cdouble
+    stats_sd(data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_sd (const double data[], const size_t stride, const size_t n)`
@@ -78,12 +78,12 @@ GSL documentation:
 > functions above.
 
 """
-function gsl_stats_sd(data, stride, n)
+function stats_sd(data, stride, n)
     ccall((:gsl_stats_sd, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t), data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_variance_with_fixed_mean(data, stride, n, mean) -> Cdouble
+    stats_variance_with_fixed_mean(data, stride, n, mean) -> Cdouble
 
 C signature:
 `double gsl_stats_variance_with_fixed_mean (const double data[], const size_t stride, const size_t n, const double mean)`
@@ -99,12 +99,12 @@ GSL documentation:
 > population mean $\mu$,
 
 """
-function gsl_stats_variance_with_fixed_mean(data, stride, n, mean)
+function stats_variance_with_fixed_mean(data, stride, n, mean)
     ccall((:gsl_stats_variance_with_fixed_mean, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Cdouble), data, stride, n, mean)
 end
 
 @doc md"""
-    gsl_stats_sd_with_fixed_mean(data, stride, n, mean) -> Cdouble
+    stats_sd_with_fixed_mean(data, stride, n, mean) -> Cdouble
 
 C signature:
 `double gsl_stats_sd_with_fixed_mean (const double data[], const size_t stride, const size_t n, const double mean)`
@@ -118,12 +118,12 @@ GSL documentation:
 > corresponding variance function.
 
 """
-function gsl_stats_sd_with_fixed_mean(data, stride, n, mean)
+function stats_sd_with_fixed_mean(data, stride, n, mean)
     ccall((:gsl_stats_sd_with_fixed_mean, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Cdouble), data, stride, n, mean)
 end
 
 @doc md"""
-    gsl_stats_tss(data, stride, n) -> Cdouble
+    stats_tss(data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_tss (const double data[], const size_t stride, const size_t n)`
@@ -140,22 +140,22 @@ GSL documentation:
 > used, and for gsl\_stats\_tss it is computed using gsl\_stats\_mean.
 
 """
-function gsl_stats_tss(data, stride, n)
+function stats_tss(data, stride, n)
     ccall((:gsl_stats_tss, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t), data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_tss_m(data, stride, n, mean) -> Cdouble
+    stats_tss_m(data, stride, n, mean) -> Cdouble
 
 C signature:
 `double gsl_stats_tss_m (const double data[], const size_t stride, const size_t n, const double mean)`
 """
-function gsl_stats_tss_m(data, stride, n, mean)
+function stats_tss_m(data, stride, n, mean)
     ccall((:gsl_stats_tss_m, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Cdouble), data, stride, n, mean)
 end
 
 @doc md"""
-    gsl_stats_absdev(data, stride, n) -> Cdouble
+    stats_absdev(data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_absdev (const double data[], const size_t stride, const size_t n)`
@@ -174,12 +174,12 @@ GSL documentation:
 > data via a call to gsl\_stats\_mean.
 
 """
-function gsl_stats_absdev(data, stride, n)
+function stats_absdev(data, stride, n)
     ccall((:gsl_stats_absdev, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t), data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_skew(data, stride, n) -> Cdouble
+    stats_skew(data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_skew (const double data[], const size_t stride, const size_t n)`
@@ -198,12 +198,12 @@ GSL documentation:
 > data via calls to gsl\_stats\_mean and gsl\_stats\_sd.
 
 """
-function gsl_stats_skew(data, stride, n)
+function stats_skew(data, stride, n)
     ccall((:gsl_stats_skew, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t), data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_kurtosis(data, stride, n) -> Cdouble
+    stats_kurtosis(data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_kurtosis (const double data[], const size_t stride, const size_t n)`
@@ -220,12 +220,12 @@ GSL documentation:
 > distribution.
 
 """
-function gsl_stats_kurtosis(data, stride, n)
+function stats_kurtosis(data, stride, n)
     ccall((:gsl_stats_kurtosis, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t), data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_lag1_autocorrelation(data, stride, n) -> Cdouble
+    stats_lag1_autocorrelation(data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_lag1_autocorrelation (const double data[], const size_t stride, const size_t n)`
@@ -237,12 +237,12 @@ GSL documentation:
 > This function computes the lag-1 autocorrelation of the dataset data.
 
 """
-function gsl_stats_lag1_autocorrelation(data, stride, n)
+function stats_lag1_autocorrelation(data, stride, n)
     ccall((:gsl_stats_lag1_autocorrelation, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t), data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_covariance(data1, stride1, data2, stride2, n) -> Cdouble
+    stats_covariance(data1, stride1, data2, stride2, n) -> Cdouble
 
 C signature:
 `double gsl_stats_covariance (const double data1[], const size_t stride1,const double data2[], const size_t stride2, const size_t n)`
@@ -255,12 +255,12 @@ GSL documentation:
 > which must both be of the same length n.
 
 """
-function gsl_stats_covariance(data1, stride1, data2, stride2, n)
+function stats_covariance(data1, stride1, data2, stride2, n)
     ccall((:gsl_stats_covariance, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t), data1, stride1, data2, stride2, n)
 end
 
 @doc md"""
-    gsl_stats_correlation(data1, stride1, data2, stride2, n) -> Cdouble
+    stats_correlation(data1, stride1, data2, stride2, n) -> Cdouble
 
 C signature:
 `double gsl_stats_correlation (const double data1[], const size_t stride1,const double data2[], const size_t stride2, const size_t n)`
@@ -274,12 +274,12 @@ GSL documentation:
 > length n.
 
 """
-function gsl_stats_correlation(data1, stride1, data2, stride2, n)
+function stats_correlation(data1, stride1, data2, stride2, n)
     ccall((:gsl_stats_correlation, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t), data1, stride1, data2, stride2, n)
 end
 
 @doc md"""
-    gsl_stats_spearman(data1, stride1, data2, stride2, n, work) -> Cdouble
+    stats_spearman(data1, stride1, data2, stride2, n, work) -> Cdouble
 
 C signature:
 `double gsl_stats_spearman (const double data1[], const size_t stride1, const double data2[], const size_t stride2, const size_t n, double work[])`
@@ -297,12 +297,12 @@ GSL documentation:
 > element in the ascending order of the values.
 
 """
-function gsl_stats_spearman(data1, stride1, data2, stride2, n, work)
+function stats_spearman(data1, stride1, data2, stride2, n, work)
     ccall((:gsl_stats_spearman, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t, Ref{Cdouble}), data1, stride1, data2, stride2, n, work)
 end
 
 @doc md"""
-    gsl_stats_variance_m(data, stride, n, mean) -> Cdouble
+    stats_variance_m(data, stride, n, mean) -> Cdouble
 
 C signature:
 `double gsl_stats_variance_m (const double data[], const size_t stride, const size_t n, const double mean)`
@@ -316,22 +316,22 @@ GSL documentation:
 > by the value of mean that you supply,
 
 """
-function gsl_stats_variance_m(data, stride, n, mean)
+function stats_variance_m(data, stride, n, mean)
     ccall((:gsl_stats_variance_m, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Cdouble), data, stride, n, mean)
 end
 
 @doc md"""
-    gsl_stats_sd_m(data, stride, n, mean) -> Cdouble
+    stats_sd_m(data, stride, n, mean) -> Cdouble
 
 C signature:
 `double gsl_stats_sd_m (const double data[], const size_t stride, const size_t n, const double mean)`
 """
-function gsl_stats_sd_m(data, stride, n, mean)
+function stats_sd_m(data, stride, n, mean)
     ccall((:gsl_stats_sd_m, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Cdouble), data, stride, n, mean)
 end
 
 @doc md"""
-    gsl_stats_absdev_m(data, stride, n, mean) -> Cdouble
+    stats_absdev_m(data, stride, n, mean) -> Cdouble
 
 C signature:
 `double gsl_stats_absdev_m (const double data[], const size_t stride, const size_t n, const double mean)`
@@ -348,12 +348,12 @@ GSL documentation:
 > deviation relative to another value (such as zero, or the median).
 
 """
-function gsl_stats_absdev_m(data, stride, n, mean)
+function stats_absdev_m(data, stride, n, mean)
     ccall((:gsl_stats_absdev_m, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Cdouble), data, stride, n, mean)
 end
 
 @doc md"""
-    gsl_stats_skew_m_sd(data, stride, n, mean, sd) -> Cdouble
+    stats_skew_m_sd(data, stride, n, mean, sd) -> Cdouble
 
 C signature:
 `double gsl_stats_skew_m_sd (const double data[], const size_t stride, const size_t n, const double mean, const double sd)`
@@ -369,12 +369,12 @@ GSL documentation:
 > standard deviation of data and want to avoid recomputing them.
 
 """
-function gsl_stats_skew_m_sd(data, stride, n, mean, sd)
+function stats_skew_m_sd(data, stride, n, mean, sd)
     ccall((:gsl_stats_skew_m_sd, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Cdouble, Cdouble), data, stride, n, mean, sd)
 end
 
 @doc md"""
-    gsl_stats_kurtosis_m_sd(data, stride, n, mean, sd) -> Cdouble
+    stats_kurtosis_m_sd(data, stride, n, mean, sd) -> Cdouble
 
 C signature:
 `double gsl_stats_kurtosis_m_sd (const double data[], const size_t stride, const size_t n, const double mean, const double sd)`
@@ -390,12 +390,12 @@ GSL documentation:
 > standard deviation of data and want to avoid recomputing them.
 
 """
-function gsl_stats_kurtosis_m_sd(data, stride, n, mean, sd)
+function stats_kurtosis_m_sd(data, stride, n, mean, sd)
     ccall((:gsl_stats_kurtosis_m_sd, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Cdouble, Cdouble), data, stride, n, mean, sd)
 end
 
 @doc md"""
-    gsl_stats_lag1_autocorrelation_m(data, stride, n, mean) -> Cdouble
+    stats_lag1_autocorrelation_m(data, stride, n, mean) -> Cdouble
 
 C signature:
 `double gsl_stats_lag1_autocorrelation_m (const double data[], const size_t stride, const size_t n, const double mean)`
@@ -408,12 +408,12 @@ GSL documentation:
 > using the given value of the mean mean.
 
 """
-function gsl_stats_lag1_autocorrelation_m(data, stride, n, mean)
+function stats_lag1_autocorrelation_m(data, stride, n, mean)
     ccall((:gsl_stats_lag1_autocorrelation_m, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Cdouble), data, stride, n, mean)
 end
 
 @doc md"""
-    gsl_stats_covariance_m(data1, stride1, data2, stride2, n, mean1, mean2) -> Cdouble
+    stats_covariance_m(data1, stride1, data2, stride2, n, mean1, mean2) -> Cdouble
 
 C signature:
 `double gsl_stats_covariance_m (const double data1[], const size_t stride1,const double data2[], const size_t stride2, const size_t n, const double mean1, const double mean2)`
@@ -428,12 +428,12 @@ GSL documentation:
 > avoid recomputing them.
 
 """
-function gsl_stats_covariance_m(data1, stride1, data2, stride2, n, mean1, mean2)
+function stats_covariance_m(data1, stride1, data2, stride2, n, mean1, mean2)
     ccall((:gsl_stats_covariance_m, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t, Cdouble, Cdouble), data1, stride1, data2, stride2, n, mean1, mean2)
 end
 
 @doc md"""
-    gsl_stats_wmean(w, wstride, data, stride, n) -> Cdouble
+    stats_wmean(w, wstride, data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_wmean (const double w[], const size_t wstride, const double data[], const size_t stride, const size_t n)`
@@ -447,12 +447,12 @@ GSL documentation:
 > wstride and length n. The weighted mean is defined as,
 
 """
-function gsl_stats_wmean(w, wstride, data, stride, n)
+function stats_wmean(w, wstride, data, stride, n)
     ccall((:gsl_stats_wmean, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t), w, wstride, data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_wvariance(w, wstride, data, stride, n) -> Cdouble
+    stats_wvariance(w, wstride, data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_wvariance (const double w[], const size_t wstride, const double data[], const size_t stride, const size_t n)`
@@ -470,12 +470,12 @@ GSL documentation:
 > familiar $1/(N-1)$ factor when there are $N$ equal non-zero weights.
 
 """
-function gsl_stats_wvariance(w, wstride, data, stride, n)
+function stats_wvariance(w, wstride, data, stride, n)
     ccall((:gsl_stats_wvariance, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t), w, wstride, data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_wsd(w, wstride, data, stride, n) -> Cdouble
+    stats_wsd(w, wstride, data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_wsd (const double w[], const size_t wstride, const double data[], const size_t stride, const size_t n)`
@@ -489,12 +489,12 @@ GSL documentation:
 > function gsl\_stats\_wvariance above.
 
 """
-function gsl_stats_wsd(w, wstride, data, stride, n)
+function stats_wsd(w, wstride, data, stride, n)
     ccall((:gsl_stats_wsd, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t), w, wstride, data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_wvariance_with_fixed_mean(w, wstride, data, stride, n, mean) -> Cdouble
+    stats_wvariance_with_fixed_mean(w, wstride, data, stride, n, mean) -> Cdouble
 
 C signature:
 `double gsl_stats_wvariance_with_fixed_mean (const double w[], const size_t wstride, const double data[], const size_t stride, const size_t n, const double mean)`
@@ -510,12 +510,12 @@ GSL documentation:
 > mean $\mu$,
 
 """
-function gsl_stats_wvariance_with_fixed_mean(w, wstride, data, stride, n, mean)
+function stats_wvariance_with_fixed_mean(w, wstride, data, stride, n, mean)
     ccall((:gsl_stats_wvariance_with_fixed_mean, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t, Cdouble), w, wstride, data, stride, n, mean)
 end
 
 @doc md"""
-    gsl_stats_wsd_with_fixed_mean(w, wstride, data, stride, n, mean) -> Cdouble
+    stats_wsd_with_fixed_mean(w, wstride, data, stride, n, mean) -> Cdouble
 
 C signature:
 `double gsl_stats_wsd_with_fixed_mean (const double w[], const size_t wstride, const double data[], const size_t stride, const size_t n, const double mean)`
@@ -529,12 +529,12 @@ GSL documentation:
 > function above.
 
 """
-function gsl_stats_wsd_with_fixed_mean(w, wstride, data, stride, n, mean)
+function stats_wsd_with_fixed_mean(w, wstride, data, stride, n, mean)
     ccall((:gsl_stats_wsd_with_fixed_mean, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t, Cdouble), w, wstride, data, stride, n, mean)
 end
 
 @doc md"""
-    gsl_stats_wtss(w, wstride, data, stride, n) -> Cdouble
+    stats_wtss(w, wstride, data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_wtss (const double w[], const size_t wstride, const double data[], const size_t stride, const size_t n)`
@@ -552,22 +552,22 @@ GSL documentation:
 > gsl\_stats\_wmean.
 
 """
-function gsl_stats_wtss(w, wstride, data, stride, n)
+function stats_wtss(w, wstride, data, stride, n)
     ccall((:gsl_stats_wtss, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t), w, wstride, data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_wtss_m(w, wstride, data, stride, n, wmean) -> Cdouble
+    stats_wtss_m(w, wstride, data, stride, n, wmean) -> Cdouble
 
 C signature:
 `double gsl_stats_wtss_m (const double w[], const size_t wstride, const double data[], const size_t stride, const size_t n, const double wmean)`
 """
-function gsl_stats_wtss_m(w, wstride, data, stride, n, wmean)
+function stats_wtss_m(w, wstride, data, stride, n, wmean)
     ccall((:gsl_stats_wtss_m, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t, Cdouble), w, wstride, data, stride, n, wmean)
 end
 
 @doc md"""
-    gsl_stats_wabsdev(w, wstride, data, stride, n) -> Cdouble
+    stats_wabsdev(w, wstride, data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_wabsdev (const double w[], const size_t wstride, const double data[], const size_t stride, const size_t n)`
@@ -581,12 +581,12 @@ GSL documentation:
 > as,
 
 """
-function gsl_stats_wabsdev(w, wstride, data, stride, n)
+function stats_wabsdev(w, wstride, data, stride, n)
     ccall((:gsl_stats_wabsdev, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t), w, wstride, data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_wskew(w, wstride, data, stride, n) -> Cdouble
+    stats_wskew(w, wstride, data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_wskew (const double w[], const size_t wstride, const double data[], const size_t stride, const size_t n)`
@@ -598,12 +598,12 @@ GSL documentation:
 > This function computes the weighted skewness of the dataset data.
 
 """
-function gsl_stats_wskew(w, wstride, data, stride, n)
+function stats_wskew(w, wstride, data, stride, n)
     ccall((:gsl_stats_wskew, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t), w, wstride, data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_wkurtosis(w, wstride, data, stride, n) -> Cdouble
+    stats_wkurtosis(w, wstride, data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_wkurtosis (const double w[], const size_t wstride, const double data[], const size_t stride, const size_t n)`
@@ -615,12 +615,12 @@ GSL documentation:
 > This function computes the weighted kurtosis of the dataset data.
 
 """
-function gsl_stats_wkurtosis(w, wstride, data, stride, n)
+function stats_wkurtosis(w, wstride, data, stride, n)
     ccall((:gsl_stats_wkurtosis, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t), w, wstride, data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_wvariance_m(w, wstride, data, stride, n, wmean) -> Cdouble
+    stats_wvariance_m(w, wstride, data, stride, n, wmean) -> Cdouble
 
 C signature:
 `double gsl_stats_wvariance_m (const double w[], const size_t wstride, const double data[], const size_t stride, const size_t n, const double wmean)`
@@ -633,12 +633,12 @@ GSL documentation:
 > data using the given weighted mean wmean.
 
 """
-function gsl_stats_wvariance_m(w, wstride, data, stride, n, wmean)
+function stats_wvariance_m(w, wstride, data, stride, n, wmean)
     ccall((:gsl_stats_wvariance_m, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t, Cdouble), w, wstride, data, stride, n, wmean)
 end
 
 @doc md"""
-    gsl_stats_wsd_m(w, wstride, data, stride, n, wmean) -> Cdouble
+    stats_wsd_m(w, wstride, data, stride, n, wmean) -> Cdouble
 
 C signature:
 `double gsl_stats_wsd_m (const double w[], const size_t wstride, const double data[], const size_t stride, const size_t n, const double wmean)`
@@ -651,12 +651,12 @@ GSL documentation:
 > function gsl\_stats\_wvariance\_m above.
 
 """
-function gsl_stats_wsd_m(w, wstride, data, stride, n, wmean)
+function stats_wsd_m(w, wstride, data, stride, n, wmean)
     ccall((:gsl_stats_wsd_m, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t, Cdouble), w, wstride, data, stride, n, wmean)
 end
 
 @doc md"""
-    gsl_stats_wabsdev_m(w, wstride, data, stride, n, wmean) -> Cdouble
+    stats_wabsdev_m(w, wstride, data, stride, n, wmean) -> Cdouble
 
 C signature:
 `double gsl_stats_wabsdev_m (const double w[], const size_t wstride, const double data[], const size_t stride, const size_t n, const double wmean)`
@@ -669,12 +669,12 @@ GSL documentation:
 > data about the given weighted mean wmean.
 
 """
-function gsl_stats_wabsdev_m(w, wstride, data, stride, n, wmean)
+function stats_wabsdev_m(w, wstride, data, stride, n, wmean)
     ccall((:gsl_stats_wabsdev_m, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t, Cdouble), w, wstride, data, stride, n, wmean)
 end
 
 @doc md"""
-    gsl_stats_wskew_m_sd(w, wstride, data, stride, n, wmean, wsd) -> Cdouble
+    stats_wskew_m_sd(w, wstride, data, stride, n, wmean, wsd) -> Cdouble
 
 C signature:
 `double gsl_stats_wskew_m_sd (const double w[], const size_t wstride, const double data[], const size_t stride, const size_t n, const double wmean, const double wsd)`
@@ -688,12 +688,12 @@ GSL documentation:
 > wmean and wsd.
 
 """
-function gsl_stats_wskew_m_sd(w, wstride, data, stride, n, wmean, wsd)
+function stats_wskew_m_sd(w, wstride, data, stride, n, wmean, wsd)
     ccall((:gsl_stats_wskew_m_sd, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t, Cdouble, Cdouble), w, wstride, data, stride, n, wmean, wsd)
 end
 
 @doc md"""
-    gsl_stats_wkurtosis_m_sd(w, wstride, data, stride, n, wmean, wsd) -> Cdouble
+    stats_wkurtosis_m_sd(w, wstride, data, stride, n, wmean, wsd) -> Cdouble
 
 C signature:
 `double gsl_stats_wkurtosis_m_sd (const double w[], const size_t wstride, const double data[], const size_t stride, const size_t n, const double wmean, const double wsd)`
@@ -707,32 +707,32 @@ GSL documentation:
 > wmean and wsd.
 
 """
-function gsl_stats_wkurtosis_m_sd(w, wstride, data, stride, n, wmean, wsd)
+function stats_wkurtosis_m_sd(w, wstride, data, stride, n, wmean, wsd)
     ccall((:gsl_stats_wkurtosis_m_sd, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Ref{Cdouble}, Csize_t, Csize_t, Cdouble, Cdouble), w, wstride, data, stride, n, wmean, wsd)
 end
 
 @doc md"""
-    gsl_stats_pvariance(data1, stride1, n1, data2, stride2, n2) -> Cdouble
+    stats_pvariance(data1, stride1, n1, data2, stride2, n2) -> Cdouble
 
 C signature:
 `double gsl_stats_pvariance (const double data1[], const size_t stride1, const size_t n1, const double data2[], const size_t stride2, const size_t n2)`
 """
-function gsl_stats_pvariance(data1, stride1, n1, data2, stride2, n2)
+function stats_pvariance(data1, stride1, n1, data2, stride2, n2)
     ccall((:gsl_stats_pvariance, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Ref{Cdouble}, Csize_t, Csize_t), data1, stride1, n1, data2, stride2, n2)
 end
 
 @doc md"""
-    gsl_stats_ttest(data1, stride1, n1, data2, stride2, n2) -> Cdouble
+    stats_ttest(data1, stride1, n1, data2, stride2, n2) -> Cdouble
 
 C signature:
 `double gsl_stats_ttest (const double data1[], const size_t stride1, const size_t n1, const double data2[], const size_t stride2, const size_t n2)`
 """
-function gsl_stats_ttest(data1, stride1, n1, data2, stride2, n2)
+function stats_ttest(data1, stride1, n1, data2, stride2, n2)
     ccall((:gsl_stats_ttest, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Ref{Cdouble}, Csize_t, Csize_t), data1, stride1, n1, data2, stride2, n2)
 end
 
 @doc md"""
-    gsl_stats_max(data, stride, n) -> Cdouble
+    stats_max(data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_max (const double data[], const size_t stride, const size_t n)`
@@ -750,12 +750,12 @@ GSL documentation:
 > calling this function.
 
 """
-function gsl_stats_max(data, stride, n)
+function stats_max(data, stride, n)
     ccall((:gsl_stats_max, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t), data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_min(data, stride, n) -> Cdouble
+    stats_min(data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_min (const double data[], const size_t stride, const size_t n)`
@@ -773,12 +773,12 @@ GSL documentation:
 > calling this function.
 
 """
-function gsl_stats_min(data, stride, n)
+function stats_min(data, stride, n)
     ccall((:gsl_stats_min, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t), data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_minmax(min, max, data, stride, n) -> Cvoid
+    stats_minmax(min, max, data, stride, n) -> Cvoid
 
 C signature:
 `void gsl_stats_minmax (double * min, double * max, const double data[], const size_t stride, const size_t n)`
@@ -791,12 +791,12 @@ GSL documentation:
 > data in a single pass.
 
 """
-function gsl_stats_minmax(min, max, data, stride, n)
+function stats_minmax(min, max, data, stride, n)
     ccall((:gsl_stats_minmax, libgsl), Cvoid, (Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Csize_t, Csize_t), min, max, data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_max_index(data, stride, n) -> Csize_t
+    stats_max_index(data, stride, n) -> Csize_t
 
 C signature:
 `size_t gsl_stats_max_index (const double data[], const size_t stride, const size_t n)`
@@ -812,12 +812,12 @@ GSL documentation:
 > one is chosen.
 
 """
-function gsl_stats_max_index(data, stride, n)
+function stats_max_index(data, stride, n)
     ccall((:gsl_stats_max_index, libgsl), Csize_t, (Ref{Cdouble}, Csize_t, Csize_t), data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_min_index(data, stride, n) -> Csize_t
+    stats_min_index(data, stride, n) -> Csize_t
 
 C signature:
 `size_t gsl_stats_min_index (const double data[], const size_t stride, const size_t n)`
@@ -833,12 +833,12 @@ GSL documentation:
 > one is chosen.
 
 """
-function gsl_stats_min_index(data, stride, n)
+function stats_min_index(data, stride, n)
     ccall((:gsl_stats_min_index, libgsl), Csize_t, (Ref{Cdouble}, Csize_t, Csize_t), data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_minmax_index(min_index, max_index, data, stride, n) -> Cvoid
+    stats_minmax_index(min_index, max_index, data, stride, n) -> Cvoid
 
 C signature:
 `void gsl_stats_minmax_index (size_t * min_index, size_t * max_index, const double data[], const size_t stride, const size_t n)`
@@ -851,12 +851,12 @@ GSL documentation:
 > minimum and maximum values in data in a single pass.
 
 """
-function gsl_stats_minmax_index(min_index, max_index, data, stride, n)
+function stats_minmax_index(min_index, max_index, data, stride, n)
     ccall((:gsl_stats_minmax_index, libgsl), Cvoid, (Ref{Csize_t}, Ref{Csize_t}, Ref{Cdouble}, Csize_t, Csize_t), min_index, max_index, data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_select(data, stride, n, k) -> Cdouble
+    stats_select(data, stride, n, k) -> Cdouble
 
 C signature:
 `double gsl_stats_select(double data[], const size_t stride, const size_t n, const size_t k)`
@@ -871,12 +871,12 @@ GSL documentation:
 > not preserved on output.
 
 """
-function gsl_stats_select(data, stride, n, k)
+function stats_select(data, stride, n, k)
     ccall((:gsl_stats_select, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Csize_t), data, stride, n, k)
 end
 
 @doc md"""
-    gsl_stats_median_from_sorted_data(sorted_data, stride, n) -> Cdouble
+    stats_median_from_sorted_data(sorted_data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_median_from_sorted_data (const double sorted_data[], const size_t stride, const size_t n)`
@@ -898,12 +898,12 @@ GSL documentation:
 > number, even for integer data types.
 
 """
-function gsl_stats_median_from_sorted_data(sorted_data, stride, n)
+function stats_median_from_sorted_data(sorted_data, stride, n)
     ccall((:gsl_stats_median_from_sorted_data, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t), sorted_data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_median(sorted_data, stride, n) -> Cdouble
+    stats_median(sorted_data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_median (double sorted_data[], const size_t stride, const size_t n)`
@@ -919,12 +919,12 @@ GSL documentation:
 > on output.
 
 """
-function gsl_stats_median(sorted_data, stride, n)
+function stats_median(sorted_data, stride, n)
     ccall((:gsl_stats_median, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t), sorted_data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_quantile_from_sorted_data(sorted_data, stride, n, f) -> Cdouble
+    stats_quantile_from_sorted_data(sorted_data, stride, n, f) -> Cdouble
 
 C signature:
 `double gsl_stats_quantile_from_sorted_data (const double sorted_data[], const size_t stride, const size_t n, const double f)`
@@ -955,12 +955,12 @@ GSL documentation:
 > returns a floating-point number, even for integer data types.
 
 """
-function gsl_stats_quantile_from_sorted_data(sorted_data, stride, n, f)
+function stats_quantile_from_sorted_data(sorted_data, stride, n, f)
     ccall((:gsl_stats_quantile_from_sorted_data, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Cdouble), sorted_data, stride, n, f)
 end
 
 @doc md"""
-    gsl_stats_trmean_from_sorted_data(trim, sorted_data, stride, n) -> Cdouble
+    stats_trmean_from_sorted_data(trim, sorted_data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_trmean_from_sorted_data (const double trim, const double sorted_data[], const size_t stride, const size_t n)`
@@ -977,12 +977,12 @@ GSL documentation:
 > the median of the input is returned.
 
 """
-function gsl_stats_trmean_from_sorted_data(trim, sorted_data, stride, n)
+function stats_trmean_from_sorted_data(trim, sorted_data, stride, n)
     ccall((:gsl_stats_trmean_from_sorted_data, libgsl), Cdouble, (Cdouble, Ref{Cdouble}, Csize_t, Csize_t), trim, sorted_data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_gastwirth_from_sorted_data(sorted_data, stride, n) -> Cdouble
+    stats_gastwirth_from_sorted_data(sorted_data, stride, n) -> Cdouble
 
 C signature:
 `double gsl_stats_gastwirth_from_sorted_data (const double sorted_data[], const size_t stride, const size_t n)`
@@ -998,12 +998,12 @@ GSL documentation:
 > always be used first.
 
 """
-function gsl_stats_gastwirth_from_sorted_data(sorted_data, stride, n)
+function stats_gastwirth_from_sorted_data(sorted_data, stride, n)
     ccall((:gsl_stats_gastwirth_from_sorted_data, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t), sorted_data, stride, n)
 end
 
 @doc md"""
-    gsl_stats_mad0(data, stride, n, work) -> Cdouble
+    stats_mad0(data, stride, n, work) -> Cdouble
 
 C signature:
 `double gsl_stats_mad0(const double data[], const size_t stride, const size_t n, double work[])`
@@ -1015,12 +1015,12 @@ GSL documentation:
 
 
 """
-function gsl_stats_mad0(data, stride, n, work)
+function stats_mad0(data, stride, n, work)
     ccall((:gsl_stats_mad0, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Ref{Cdouble}), data, stride, n, work)
 end
 
 @doc md"""
-    gsl_stats_mad(data, stride, n, work) -> Cdouble
+    stats_mad(data, stride, n, work) -> Cdouble
 
 C signature:
 `double gsl_stats_mad(const double data[], const size_t stride, const size_t n, double work[])`
@@ -1038,12 +1038,12 @@ GSL documentation:
 > provided in work.
 
 """
-function gsl_stats_mad(data, stride, n, work)
+function stats_mad(data, stride, n, work)
     ccall((:gsl_stats_mad, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Ref{Cdouble}), data, stride, n, work)
 end
 
 @doc md"""
-    gsl_stats_Sn0_from_sorted_data(sorted_data, stride, n, work) -> Cdouble
+    stats_Sn0_from_sorted_data(sorted_data, stride, n, work) -> Cdouble
 
 C signature:
 `double gsl_stats_Sn0_from_sorted_data (const double sorted_data[], const size_t stride, const size_t n, double work[])`
@@ -1055,12 +1055,12 @@ GSL documentation:
 
 
 """
-function gsl_stats_Sn0_from_sorted_data(sorted_data, stride, n, work)
+function stats_Sn0_from_sorted_data(sorted_data, stride, n, work)
     ccall((:gsl_stats_Sn0_from_sorted_data, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Ref{Cdouble}), sorted_data, stride, n, work)
 end
 
 @doc md"""
-    gsl_stats_Sn_from_sorted_data(sorted_data, stride, n, work) -> Cdouble
+    stats_Sn_from_sorted_data(sorted_data, stride, n, work) -> Cdouble
 
 C signature:
 `double gsl_stats_Sn_from_sorted_data (const double sorted_data[], const size_t stride, const size_t n, double work[])`
@@ -1080,12 +1080,12 @@ GSL documentation:
 > provided in work.
 
 """
-function gsl_stats_Sn_from_sorted_data(sorted_data, stride, n, work)
+function stats_Sn_from_sorted_data(sorted_data, stride, n, work)
     ccall((:gsl_stats_Sn_from_sorted_data, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Ref{Cdouble}), sorted_data, stride, n, work)
 end
 
 @doc md"""
-    gsl_stats_Qn0_from_sorted_data(sorted_data, stride, n, work, work_int) -> Cdouble
+    stats_Qn0_from_sorted_data(sorted_data, stride, n, work, work_int) -> Cdouble
 
 C signature:
 `double gsl_stats_Qn0_from_sorted_data (const double sorted_data[], const size_t stride, const size_t n, double work[], int work_int[])`
@@ -1109,17 +1109,17 @@ GSL documentation:
 > integer workspace of size `5n`{.sourceCode} provided in work\_int.
 
 """
-function gsl_stats_Qn0_from_sorted_data(sorted_data, stride, n, work, work_int)
+function stats_Qn0_from_sorted_data(sorted_data, stride, n, work, work_int)
     ccall((:gsl_stats_Qn0_from_sorted_data, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Ref{Cdouble}, Ref{Cint}), sorted_data, stride, n, work, work_int)
 end
 
 @doc md"""
-    gsl_stats_Qn_from_sorted_data(sorted_data, stride, n, work, work_int) -> Cdouble
+    stats_Qn_from_sorted_data(sorted_data, stride, n, work, work_int) -> Cdouble
 
 C signature:
 `double gsl_stats_Qn_from_sorted_data (const double sorted_data[], const size_t stride, const size_t n, double work[], int work_int[])`
 """
-function gsl_stats_Qn_from_sorted_data(sorted_data, stride, n, work, work_int)
+function stats_Qn_from_sorted_data(sorted_data, stride, n, work, work_int)
     ccall((:gsl_stats_Qn_from_sorted_data, libgsl), Cdouble, (Ref{Cdouble}, Csize_t, Csize_t, Ref{Cdouble}, Ref{Cint}), sorted_data, stride, n, work, work_int)
 end
 

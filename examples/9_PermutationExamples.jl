@@ -4,18 +4,18 @@
 
 #The example program below creates a random permutation(by shuffling the elements of the identity) and finds its inverse.
 
-using GSL
+import GSL
 
 N = 10
      
-p = gsl_permutation_alloc(N)
+p = GSL.permutation_alloc(N)
      
-T = gsl_rng_env_setup()
-r = gsl_rng_alloc(T)
+T = GSL.rng_env_setup()
+r = GSL.rng_alloc(T)
      
 print("initial permutation:")  
-gsl_permutation_init(p)
-#gsl_permutation_fprintf(stdout, p, " %u")
+GSL.permutation_init(p)
+#GSL.permutation_fprintf(stdout, p, " %u")
 P = unsafe_load(p)
 Pdata = unsafe_wrap(Array{UInt64}, P.data, P.size)
 for x in Pdata
@@ -24,7 +24,7 @@ end
 println()
 
 print(" random permutation:")  
-gsl_ran_shuffle(r, P.data, N, sizeof(UInt64))
+GSL.ran_shuffle(r, P.data, N, sizeof(UInt64))
 #permutation_fprintf(stdout, p, " %u")
 for x in Pdata
     print(Int(x), " ")
@@ -32,8 +32,8 @@ end
 println()
      
 print("inverse permutation:")
-q = gsl_permutation_alloc(N)
-gsl_permutation_inverse(q, p)
+q = GSL.permutation_alloc(N)
+GSL.permutation_inverse(q, p)
 Q = unsafe_load(q)
 Qdata = unsafe_wrap(Array{UInt64}, Q.data, Q.size)
 #permutation_fprintf(stdout, q, " %u")
@@ -42,9 +42,9 @@ for x in Qdata
 end
 println()
      
-gsl_permutation_free(p)
-gsl_permutation_free(q)
-gsl_rng_free(r)
+GSL.permutation_free(p)
+GSL.permutation_free(q)
+GSL.rng_free(r)
      
 #Here is the output from the program,
 #
@@ -56,8 +56,8 @@ gsl_rng_free(r)
 #
 #The next example program steps forwards through all possible third order permutations, starting from the identity,
 
-p = gsl_permutation_alloc(3)
-gsl_permutation_init(p)
+p = GSL.permutation_alloc(3)
+GSL.permutation_init(p)
 P = unsafe_load(p)
 Pdata = unsafe_wrap(Array{UInt64}, P.data, P.size)
 
@@ -68,11 +68,11 @@ while true
         print(Int(x), " ")
     end 
     println()
-    if gsl_permutation_next(p) != GSL_SUCCESS
+    if GSL.permutation_next(p) != GSL.GSL_SUCCESS
         break
     end
 end
-gsl_permutation_free(p)
+GSL.permutation_free(p)
 
 #Here is the output from the program,
 #
@@ -83,5 +83,5 @@ gsl_permutation_free(p)
 #      1 2 0
 #      2 0 1
 #      2 1 0
-#The permutations are generated in lexicographic order. To reverse the sequence, begin with the final permutation (which is the reverse of the identity) and replace permutation_next with gsl_permutation_prev.
+#The permutations are generated in lexicographic order. To reverse the sequence, begin with the final permutation (which is the reverse of the identity) and replace permutation_next with GSL.permutation_prev.
 

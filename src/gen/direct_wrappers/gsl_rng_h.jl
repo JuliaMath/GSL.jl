@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_rng_alloc(T) -> Ptr{gsl_rng}
+    rng_alloc(T) -> Ptr{gsl_rng}
 
 C signature:
 `gsl_rng *gsl_rng_alloc (const gsl_rng_type * T)`
@@ -34,12 +34,12 @@ GSL documentation:
 > this chapter.
 
 """
-function gsl_rng_alloc(T)
+function rng_alloc(T)
     ccall((:gsl_rng_alloc, libgsl), Ptr{gsl_rng}, (Ptr{gsl_rng_type},), T)
 end
 
 @doc md"""
-    gsl_rng_memcpy(dest, src) -> Cint
+    rng_memcpy(dest, src) -> Cint
 
 C signature:
 `int gsl_rng_memcpy (gsl_rng * dest, const gsl_rng * src)`
@@ -53,12 +53,12 @@ GSL documentation:
 > The two generators must be of the same type.
 
 """
-function gsl_rng_memcpy(dest, src)
+function rng_memcpy(dest, src)
     ccall((:gsl_rng_memcpy, libgsl), Cint, (Ref{gsl_rng}, Ref{gsl_rng}), dest, src)
 end
 
 @doc md"""
-    gsl_rng_clone(r) -> Ptr{gsl_rng}
+    rng_clone(r) -> Ptr{gsl_rng}
 
 C signature:
 `gsl_rng *gsl_rng_clone (const gsl_rng * r)`
@@ -71,12 +71,12 @@ GSL documentation:
 > an exact copy of the generator r.
 
 """
-function gsl_rng_clone(r)
+function rng_clone(r)
     ccall((:gsl_rng_clone, libgsl), Ptr{gsl_rng}, (Ptr{gsl_rng},), r)
 end
 
 @doc md"""
-    gsl_rng_free(r) -> Cvoid
+    rng_free(r) -> Cvoid
 
 C signature:
 `void gsl_rng_free (gsl_rng * r)`
@@ -88,12 +88,12 @@ GSL documentation:
 > This function frees all the memory associated with the generator r.
 
 """
-function gsl_rng_free(r)
+function rng_free(r)
     ccall((:gsl_rng_free, libgsl), Cvoid, (Ptr{gsl_rng},), r)
 end
 
 @doc md"""
-    gsl_rng_set(r, seed) -> Cvoid
+    rng_set(r, seed) -> Cvoid
 
 C signature:
 `void gsl_rng_set (const gsl_rng * r, unsigned long int seed)`
@@ -121,12 +121,12 @@ GSL documentation:
 > ranges the maximum seed value will typically be lower.
 
 """
-function gsl_rng_set(r, seed)
+function rng_set(r, seed)
     ccall((:gsl_rng_set, libgsl), Cvoid, (Ref{gsl_rng}, Culong), r, seed)
 end
 
 @doc md"""
-    gsl_rng_max(r) -> Culong
+    rng_max(r) -> Culong
 
 C signature:
 `unsigned long int gsl_rng_max (const gsl_rng * r)`
@@ -138,12 +138,12 @@ GSL documentation:
 > This function returns the largest value that gsl\_rng\_get can return.
 
 """
-function gsl_rng_max(r)
+function rng_max(r)
     ccall((:gsl_rng_max, libgsl), Culong, (Ptr{gsl_rng},), r)
 end
 
 @doc md"""
-    gsl_rng_min(r) -> Culong
+    rng_min(r) -> Culong
 
 C signature:
 `unsigned long int gsl_rng_min (const gsl_rng * r)`
@@ -158,12 +158,12 @@ GSL documentation:
 > minimum value is 1.
 
 """
-function gsl_rng_min(r)
+function rng_min(r)
     ccall((:gsl_rng_min, libgsl), Culong, (Ptr{gsl_rng},), r)
 end
 
 @doc md"""
-    gsl_rng_name(r) -> Ptr{Cchar}
+    rng_name(r) -> Ptr{Cchar}
 
 C signature:
 `const char *gsl_rng_name (const gsl_rng * r)`
@@ -182,12 +182,12 @@ GSL documentation:
 >     r is a 'taus' generator
 
 """
-function gsl_rng_name(r)
+function rng_name(r)
     ccall((:gsl_rng_name, libgsl), Ptr{Cchar}, (Ptr{gsl_rng},), r)
 end
 
 @doc md"""
-    gsl_rng_fread(stream, r) -> Cint
+    rng_fread(stream, r) -> Cint
 
 C signature:
 `int gsl_rng_fread (FILE * stream, gsl_rng * r)`
@@ -205,12 +205,12 @@ GSL documentation:
 > binary format on the same architecture.
 
 """
-function gsl_rng_fread(stream, r)
+function rng_fread(stream, r)
     ccall((:gsl_rng_fread, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_rng}), stream, r)
 end
 
 @doc md"""
-    gsl_rng_fwrite(stream, r) -> Cint
+    rng_fwrite(stream, r) -> Cint
 
 C signature:
 `int gsl_rng_fwrite (FILE * stream, const gsl_rng * r)`
@@ -226,22 +226,22 @@ GSL documentation:
 > be portable between different architectures.
 
 """
-function gsl_rng_fwrite(stream, r)
+function rng_fwrite(stream, r)
     ccall((:gsl_rng_fwrite, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_rng}), stream, r)
 end
 
 @doc md"""
-    gsl_rng_size(r) -> Csize_t
+    rng_size(r) -> Csize_t
 
 C signature:
 `size_t gsl_rng_size (const gsl_rng * r)`
 """
-function gsl_rng_size(r)
+function rng_size(r)
     ccall((:gsl_rng_size, libgsl), Csize_t, (Ptr{gsl_rng},), r)
 end
 
 @doc md"""
-    gsl_rng_state(r) -> Ptr{Cvoid}
+    rng_state(r) -> Ptr{Cvoid}
 
 C signature:
 `void * gsl_rng_state (const gsl_rng * r)`
@@ -262,22 +262,22 @@ GSL documentation:
 >     fwrite (state, n, 1, stream);
 
 """
-function gsl_rng_state(r)
+function rng_state(r)
     ccall((:gsl_rng_state, libgsl), Ptr{Cvoid}, (Ptr{gsl_rng},), r)
 end
 
 @doc md"""
-    gsl_rng_print_state(r) -> Cvoid
+    rng_print_state(r) -> Cvoid
 
 C signature:
 `void gsl_rng_print_state (const gsl_rng * r)`
 """
-function gsl_rng_print_state(r)
+function rng_print_state(r)
     ccall((:gsl_rng_print_state, libgsl), Cvoid, (Ptr{gsl_rng},), r)
 end
 
 @doc md"""
-    gsl_rng_env_setup() -> Ptr{gsl_rng_type}
+    rng_env_setup() -> Ptr{gsl_rng_type}
 
 C signature:
 `const gsl_rng_type * gsl_rng_env_setup (void)`
@@ -301,12 +301,12 @@ Here is a short program which shows how to create a global generator
 using the environment variables GSL\_RNG\_TYPE and GSL\_RNG\_SEED,
 
 """
-function gsl_rng_env_setup()
+function rng_env_setup()
     ccall((:gsl_rng_env_setup, libgsl), Ptr{gsl_rng_type}, (), )
 end
 
 @doc md"""
-    gsl_rng_get(r) -> Culong
+    rng_get(r) -> Culong
 
 C signature:
 `unsigned long int gsl_rng_get (const gsl_rng * r)`
@@ -322,12 +322,12 @@ GSL documentation:
 > gsl\_rng\_max and gsl\_rng\_min.
 
 """
-function gsl_rng_get(r)
+function rng_get(r)
     ccall((:gsl_rng_get, libgsl), Culong, (Ptr{gsl_rng},), r)
 end
 
 @doc md"""
-    gsl_rng_uniform(r) -> Cdouble
+    rng_uniform(r) -> Cdouble
 
 C signature:
 `double gsl_rng_uniform (const gsl_rng * r)`
@@ -347,12 +347,12 @@ GSL documentation:
 > `unsigned long int`{.sourceCode}).
 
 """
-function gsl_rng_uniform(r)
+function rng_uniform(r)
     ccall((:gsl_rng_uniform, libgsl), Cdouble, (Ptr{gsl_rng},), r)
 end
 
 @doc md"""
-    gsl_rng_uniform_pos(r) -> Cdouble
+    rng_uniform_pos(r) -> Cdouble
 
 C signature:
 `double gsl_rng_uniform_pos (const gsl_rng * r)`
@@ -368,12 +368,12 @@ GSL documentation:
 > can use this function if you need to avoid a singularity at 0.0.
 
 """
-function gsl_rng_uniform_pos(r)
+function rng_uniform_pos(r)
     ccall((:gsl_rng_uniform_pos, libgsl), Cdouble, (Ptr{gsl_rng},), r)
 end
 
 @doc md"""
-    gsl_rng_uniform_int(r, n) -> Culong
+    rng_uniform_int(r, n) -> Culong
 
 C signature:
 `unsigned long int gsl_rng_uniform_int (const gsl_rng * r, unsigned long int n)`
@@ -402,7 +402,7 @@ GSL documentation:
 > found using the auxiliary functions described in the next section.
 
 """
-function gsl_rng_uniform_int(r, n)
+function rng_uniform_int(r, n)
     ccall((:gsl_rng_uniform_int, libgsl), Culong, (Ref{gsl_rng}, Culong), r, n)
 end
 

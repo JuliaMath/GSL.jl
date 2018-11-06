@@ -10,7 +10,7 @@ const size_t = Csize_t
 
 @doc md"""
 ```
-mutable struct gsl_block_struct
+mutable struct gsl_block
     size::Csize_t
     data::Ptr{Cdouble}
 end
@@ -35,11 +35,10 @@ The functions for allocating and deallocating blocks are defined in
 gsl\_block.h.
 
 """
-mutable struct gsl_block_struct
+mutable struct gsl_block
     size::Csize_t
     data::Ptr{Cdouble}
 end
-const gsl_block = gsl_block_struct
 
 
 #### gsl_block_complex_double.h ###############################################
@@ -47,18 +46,17 @@ const gsl_block = gsl_block_struct
 
 @doc md"""
 ```
-mutable struct gsl_block_complex_struct
+mutable struct gsl_block_complex
     size::Csize_t
     data::Ptr{Cdouble}
 end
 ```
 
 """
-mutable struct gsl_block_complex_struct
+mutable struct gsl_block_complex
     size::Csize_t
     data::Ptr{Cdouble}
 end
-const gsl_block_complex = gsl_block_complex_struct
 
 
 #### gsl_vector_double.h ######################################################
@@ -829,7 +827,7 @@ const M_EULER = 0.57721566490153286060651209008
 
 @doc md"""
 ```
-mutable struct gsl_function_struct
+mutable struct gsl_function
     function_::Ptr{Cvoid}
     params::Ptr{Cvoid}
 end
@@ -880,15 +878,14 @@ The function $f(x)$ can be evaluated using the macro
 `GSL_FN_EVAL(&F,x)`{.sourceCode} defined in gsl\_math.h.
 
 """
-mutable struct gsl_function_struct
+mutable struct gsl_function
     function_::Ptr{Cvoid}
     params::Ptr{Cvoid}
 end
-const gsl_function = gsl_function_struct
 
 @doc md"""
 ```
-mutable struct gsl_function_fdf_struct
+mutable struct gsl_function_fdf
     f::Ptr{Cvoid}
     df::Ptr{Cvoid}
     fdf::Ptr{Cvoid}
@@ -965,28 +962,26 @@ $f(x)$ in its y argument and $f'(x)$ in its dy argument---both of these
 should be pointers to `double`{.sourceCode}.
 
 """
-mutable struct gsl_function_fdf_struct
+mutable struct gsl_function_fdf
     f::Ptr{Cvoid}
     df::Ptr{Cvoid}
     fdf::Ptr{Cvoid}
     params::Ptr{Cvoid}
 end
-const gsl_function_fdf = gsl_function_fdf_struct
 
 @doc md"""
 ```
-mutable struct gsl_function_vec_struct
+mutable struct gsl_function_vec
     function_::Ptr{Cvoid}
     params::Ptr{Cvoid}
 end
 ```
 
 """
-mutable struct gsl_function_vec_struct
+mutable struct gsl_function_vec
     function_::Ptr{Cvoid}
     params::Ptr{Cvoid}
 end
-const gsl_function_vec = gsl_function_vec_struct
 
 
 #### gsl_movstat.h ############################################################
@@ -994,6 +989,14 @@ const gsl_function_vec = gsl_function_vec_struct
 const GSL_MOVSTAT_END_PADZERO = 0
 const GSL_MOVSTAT_END_PADVALUE = 1
 const GSL_MOVSTAT_END_TRUNCATE = 2
+
+@doc md"""
+`gsl_movstat_end_t`
+
+> This data type specifies how to construct windows near end points and
+> can be selected from the following choices:
+
+"""
 const gsl_movstat_end_t = Cint
 
 @doc md"""
@@ -1115,18 +1118,17 @@ const CBLAS_SIDE_t = Cint
 
 @doc md"""
 ```
-mutable struct gsl_block_char_struct
+mutable struct gsl_block_char
     size::Csize_t
     data::Ptr{Cchar}
 end
 ```
 
 """
-mutable struct gsl_block_char_struct
+mutable struct gsl_block_char
     size::Csize_t
     data::Ptr{Cchar}
 end
-const gsl_block_char = gsl_block_char_struct
 
 
 #### gsl_block_complex_float.h ################################################
@@ -1134,18 +1136,17 @@ const gsl_block_char = gsl_block_char_struct
 
 @doc md"""
 ```
-mutable struct gsl_block_complex_float_struct
+mutable struct gsl_block_complex_float
     size::Csize_t
     data::Ptr{Cfloat}
 end
 ```
 
 """
-mutable struct gsl_block_complex_float_struct
+mutable struct gsl_block_complex_float
     size::Csize_t
     data::Ptr{Cfloat}
 end
-const gsl_block_complex_float = gsl_block_complex_float_struct
 
 
 #### gsl_block_complex_long_double.h ##########################################
@@ -1153,18 +1154,17 @@ const gsl_block_complex_float = gsl_block_complex_float_struct
 
 @doc md"""
 ```
-mutable struct gsl_block_complex_long_double_struct
+mutable struct gsl_block_complex_long_double
     size::Csize_t
     data::Ptr{Cdouble}
 end
 ```
 
 """
-mutable struct gsl_block_complex_long_double_struct
+mutable struct gsl_block_complex_long_double
     size::Csize_t
     data::Ptr{Cdouble}
 end
-const gsl_block_complex_long_double = gsl_block_complex_long_double_struct
 
 
 #### gsl_block_float.h ########################################################
@@ -1172,18 +1172,17 @@ const gsl_block_complex_long_double = gsl_block_complex_long_double_struct
 
 @doc md"""
 ```
-mutable struct gsl_block_float_struct
+mutable struct gsl_block_float
     size::Csize_t
     data::Ptr{Cfloat}
 end
 ```
 
 """
-mutable struct gsl_block_float_struct
+mutable struct gsl_block_float
     size::Csize_t
     data::Ptr{Cfloat}
 end
-const gsl_block_float = gsl_block_float_struct
 
 
 #### gsl_block_int.h ##########################################################
@@ -1191,18 +1190,17 @@ const gsl_block_float = gsl_block_float_struct
 
 @doc md"""
 ```
-mutable struct gsl_block_int_struct
+mutable struct gsl_block_int
     size::Csize_t
     data::Ptr{Cint}
 end
 ```
 
 """
-mutable struct gsl_block_int_struct
+mutable struct gsl_block_int
     size::Csize_t
     data::Ptr{Cint}
 end
-const gsl_block_int = gsl_block_int_struct
 
 
 #### gsl_block_long.h #########################################################
@@ -1210,18 +1208,17 @@ const gsl_block_int = gsl_block_int_struct
 
 @doc md"""
 ```
-mutable struct gsl_block_long_struct
+mutable struct gsl_block_long
     size::Csize_t
     data::Ptr{Clong}
 end
 ```
 
 """
-mutable struct gsl_block_long_struct
+mutable struct gsl_block_long
     size::Csize_t
     data::Ptr{Clong}
 end
-const gsl_block_long = gsl_block_long_struct
 
 
 #### gsl_block_long_double.h ##################################################
@@ -1229,18 +1226,17 @@ const gsl_block_long = gsl_block_long_struct
 
 @doc md"""
 ```
-mutable struct gsl_block_long_double_struct
+mutable struct gsl_block_long_double
     size::Csize_t
     data::Ptr{Cdouble}
 end
 ```
 
 """
-mutable struct gsl_block_long_double_struct
+mutable struct gsl_block_long_double
     size::Csize_t
     data::Ptr{Cdouble}
 end
-const gsl_block_long_double = gsl_block_long_double_struct
 
 
 #### gsl_block_short.h ########################################################
@@ -1248,18 +1244,17 @@ const gsl_block_long_double = gsl_block_long_double_struct
 
 @doc md"""
 ```
-mutable struct gsl_block_short_struct
+mutable struct gsl_block_short
     size::Csize_t
     data::Ptr{Cshort}
 end
 ```
 
 """
-mutable struct gsl_block_short_struct
+mutable struct gsl_block_short
     size::Csize_t
     data::Ptr{Cshort}
 end
-const gsl_block_short = gsl_block_short_struct
 
 
 #### gsl_block_uchar.h ########################################################
@@ -1267,18 +1262,17 @@ const gsl_block_short = gsl_block_short_struct
 
 @doc md"""
 ```
-mutable struct gsl_block_uchar_struct
+mutable struct gsl_block_uchar
     size::Csize_t
     data::Ptr{Cuchar}
 end
 ```
 
 """
-mutable struct gsl_block_uchar_struct
+mutable struct gsl_block_uchar
     size::Csize_t
     data::Ptr{Cuchar}
 end
-const gsl_block_uchar = gsl_block_uchar_struct
 
 
 #### gsl_block_uint.h #########################################################
@@ -1286,18 +1280,17 @@ const gsl_block_uchar = gsl_block_uchar_struct
 
 @doc md"""
 ```
-mutable struct gsl_block_uint_struct
+mutable struct gsl_block_uint
     size::Csize_t
     data::Ptr{Cuint}
 end
 ```
 
 """
-mutable struct gsl_block_uint_struct
+mutable struct gsl_block_uint
     size::Csize_t
     data::Ptr{Cuint}
 end
-const gsl_block_uint = gsl_block_uint_struct
 
 
 #### gsl_block_ulong.h ########################################################
@@ -1305,18 +1298,17 @@ const gsl_block_uint = gsl_block_uint_struct
 
 @doc md"""
 ```
-mutable struct gsl_block_ulong_struct
+mutable struct gsl_block_ulong
     size::Csize_t
     data::Ptr{Culong}
 end
 ```
 
 """
-mutable struct gsl_block_ulong_struct
+mutable struct gsl_block_ulong
     size::Csize_t
     data::Ptr{Culong}
 end
-const gsl_block_ulong = gsl_block_ulong_struct
 
 
 #### gsl_block_ushort.h #######################################################
@@ -1324,18 +1316,17 @@ const gsl_block_ulong = gsl_block_ulong_struct
 
 @doc md"""
 ```
-mutable struct gsl_block_ushort_struct
+mutable struct gsl_block_ushort
     size::Csize_t
     data::Ptr{Cushort}
 end
 ```
 
 """
-mutable struct gsl_block_ushort_struct
+mutable struct gsl_block_ushort
     size::Csize_t
     data::Ptr{Cushort}
 end
-const gsl_block_ushort = gsl_block_ushort_struct
 
 
 #### gsl_bspline.h ############################################################
@@ -1409,7 +1400,7 @@ const CBLAS_SIDE = Cint
 
 @doc md"""
 ```
-mutable struct gsl_cheb_series_struct
+mutable struct gsl_cheb_series
     c::Ptr{Cdouble}
     order::Csize_t
     a::Cdouble
@@ -1438,7 +1429,7 @@ including the coefficient $c[0]$. The series is computed using the
 following convention,
 
 """
-mutable struct gsl_cheb_series_struct
+mutable struct gsl_cheb_series
     c::Ptr{Cdouble}
     order::Csize_t
     a::Cdouble
@@ -1446,7 +1437,6 @@ mutable struct gsl_cheb_series_struct
     order_sp::Csize_t
     f::Ptr{Cdouble}
 end
-const gsl_cheb_series = gsl_cheb_series_struct
 
 
 #### gsl_check_range.h ########################################################
@@ -1458,7 +1448,7 @@ const gsl_cheb_series = gsl_cheb_series_struct
 
 @doc md"""
 ```
-mutable struct gsl_combination_struct
+mutable struct gsl_combination
     n::Csize_t
     k::Csize_t
     data::Ptr{Csize_t}
@@ -1482,12 +1472,11 @@ GSL documentation:
 >     } gsl_combination;
 
 """
-mutable struct gsl_combination_struct
+mutable struct gsl_combination
     n::Csize_t
     k::Csize_t
     data::Ptr{Csize_t}
 end
-const gsl_combination = gsl_combination_struct
 
 
 #### gsl_complex_math.h #######################################################
@@ -1500,430 +1489,22 @@ const gsl_combination = gsl_combination_struct
 
 #### gsl_const_cgs.h ##########################################################
 
-const GSL_CONST_CGS_SPEED_OF_LIGHT = 2.99792458e10
-const GSL_CONST_CGS_GRAVITATIONAL_CONSTANT = 6.673e-8
-const GSL_CONST_CGS_PLANCKS_CONSTANT_H = 6.62606896e-27
-const GSL_CONST_CGS_PLANCKS_CONSTANT_HBAR = 1.05457162825e-27
-const GSL_CONST_CGS_ASTRONOMICAL_UNIT = 1.49597870691e13
-const GSL_CONST_CGS_LIGHT_YEAR = 9.46053620707e17
-const GSL_CONST_CGS_PARSEC = 3.08567758135e18
-const GSL_CONST_CGS_GRAV_ACCEL = 9.80665e2
-const GSL_CONST_CGS_ELECTRON_VOLT = 1.602176487e-12
-const GSL_CONST_CGS_MASS_ELECTRON = 9.10938188e-28
-const GSL_CONST_CGS_MASS_MUON = 1.88353109e-25
-const GSL_CONST_CGS_MASS_PROTON = 1.67262158e-24
-const GSL_CONST_CGS_MASS_NEUTRON = 1.67492716e-24
-const GSL_CONST_CGS_RYDBERG = 2.17987196968e-11
-const GSL_CONST_CGS_BOLTZMANN = 1.3806504e-16
-const GSL_CONST_CGS_MOLAR_GAS = 8.314472e7
-const GSL_CONST_CGS_STANDARD_GAS_VOLUME = 2.2710981e4
-const GSL_CONST_CGS_MINUTE = 6e1
-const GSL_CONST_CGS_HOUR = 3.6e3
-const GSL_CONST_CGS_DAY = 8.64e4
-const GSL_CONST_CGS_WEEK = 6.048e5
-const GSL_CONST_CGS_INCH = 2.54e0
-const GSL_CONST_CGS_FOOT = 3.048e1
-const GSL_CONST_CGS_YARD = 9.144e1
-const GSL_CONST_CGS_MILE = 1.609344e5
-const GSL_CONST_CGS_NAUTICAL_MILE = 1.852e5
-const GSL_CONST_CGS_FATHOM = 1.8288e2
-const GSL_CONST_CGS_MIL = 2.54e-3
-const GSL_CONST_CGS_POINT = 3.52777777778e-2
-const GSL_CONST_CGS_TEXPOINT = 3.51459803515e-2
-const GSL_CONST_CGS_MICRON = 1e-4
-const GSL_CONST_CGS_ANGSTROM = 1e-8
-const GSL_CONST_CGS_HECTARE = 1e8
-const GSL_CONST_CGS_ACRE = 4.04685642241e7
-const GSL_CONST_CGS_BARN = 1e-24
-const GSL_CONST_CGS_LITER = 1e3
-const GSL_CONST_CGS_US_GALLON = 3.78541178402e3
-const GSL_CONST_CGS_QUART = 9.46352946004e2
-const GSL_CONST_CGS_PINT = 4.73176473002e2
-const GSL_CONST_CGS_CUP = 2.36588236501e2
-const GSL_CONST_CGS_FLUID_OUNCE = 2.95735295626e1
-const GSL_CONST_CGS_TABLESPOON = 1.47867647813e1
-const GSL_CONST_CGS_TEASPOON = 4.92892159375e0
-const GSL_CONST_CGS_CANADIAN_GALLON = 4.54609e3
-const GSL_CONST_CGS_UK_GALLON = 4.546092e3
-const GSL_CONST_CGS_MILES_PER_HOUR = 4.4704e1
-const GSL_CONST_CGS_KILOMETERS_PER_HOUR = 2.77777777778e1
-const GSL_CONST_CGS_KNOT = 5.14444444444e1
-const GSL_CONST_CGS_POUND_MASS = 4.5359237e2
-const GSL_CONST_CGS_OUNCE_MASS = 2.8349523125e1
-const GSL_CONST_CGS_TON = 9.0718474e5
-const GSL_CONST_CGS_METRIC_TON = 1e6
-const GSL_CONST_CGS_UK_TON = 1.0160469088e6
-const GSL_CONST_CGS_TROY_OUNCE = 3.1103475e1
-const GSL_CONST_CGS_CARAT = 2e-1
-const GSL_CONST_CGS_UNIFIED_ATOMIC_MASS = 1.660538782e-24
-const GSL_CONST_CGS_GRAM_FORCE = 9.80665e2
-const GSL_CONST_CGS_POUND_FORCE = 4.44822161526e5
-const GSL_CONST_CGS_KILOPOUND_FORCE = 4.44822161526e8
-const GSL_CONST_CGS_POUNDAL = 1.38255e4
-const GSL_CONST_CGS_CALORIE = 4.1868e7
-const GSL_CONST_CGS_BTU = 1.05505585262e10
-const GSL_CONST_CGS_THERM = 1.05506e15
-const GSL_CONST_CGS_HORSEPOWER = 7.457e9
-const GSL_CONST_CGS_BAR = 1e6
-const GSL_CONST_CGS_STD_ATMOSPHERE = 1.01325e6
-const GSL_CONST_CGS_TORR = 1.33322368421e3
-const GSL_CONST_CGS_METER_OF_MERCURY = 1.33322368421e6
-const GSL_CONST_CGS_INCH_OF_MERCURY = 3.38638815789e4
-const GSL_CONST_CGS_INCH_OF_WATER = 2.490889e3
-const GSL_CONST_CGS_PSI = 6.89475729317e4
-const GSL_CONST_CGS_POISE = 1e0
-const GSL_CONST_CGS_STOKES = 1e0
-const GSL_CONST_CGS_STILB = 1e0
-const GSL_CONST_CGS_LUMEN = 1e0
-const GSL_CONST_CGS_LUX = 1e-4
-const GSL_CONST_CGS_PHOT = 1e0
-const GSL_CONST_CGS_FOOTCANDLE = 1.076e-3
-const GSL_CONST_CGS_LAMBERT = 1e0
-const GSL_CONST_CGS_FOOTLAMBERT = 1.07639104e-3
-const GSL_CONST_CGS_CURIE = 3.7e10
-const GSL_CONST_CGS_ROENTGEN = 2.58e-7
-const GSL_CONST_CGS_RAD = 1e2
-const GSL_CONST_CGS_SOLAR_MASS = 1.98892e33
-const GSL_CONST_CGS_BOHR_RADIUS = 5.291772083e-9
-const GSL_CONST_CGS_NEWTON = 1e5
-const GSL_CONST_CGS_DYNE = 1e0
-const GSL_CONST_CGS_JOULE = 1e7
-const GSL_CONST_CGS_ERG = 1e0
-const GSL_CONST_CGS_STEFAN_BOLTZMANN_CONSTANT = 5.67040047374e-5
-const GSL_CONST_CGS_THOMSON_CROSS_SECTION = 6.65245893699e-25
 
 
 #### gsl_const_cgsm.h #########################################################
 
-const GSL_CONST_CGSM_SPEED_OF_LIGHT = 2.99792458e10
-const GSL_CONST_CGSM_GRAVITATIONAL_CONSTANT = 6.673e-8
-const GSL_CONST_CGSM_PLANCKS_CONSTANT_H = 6.62606896e-27
-const GSL_CONST_CGSM_PLANCKS_CONSTANT_HBAR = 1.05457162825e-27
-const GSL_CONST_CGSM_ASTRONOMICAL_UNIT = 1.49597870691e13
-const GSL_CONST_CGSM_LIGHT_YEAR = 9.46053620707e17
-const GSL_CONST_CGSM_PARSEC = 3.08567758135e18
-const GSL_CONST_CGSM_GRAV_ACCEL = 9.80665e2
-const GSL_CONST_CGSM_ELECTRON_VOLT = 1.602176487e-12
-const GSL_CONST_CGSM_MASS_ELECTRON = 9.10938188e-28
-const GSL_CONST_CGSM_MASS_MUON = 1.88353109e-25
-const GSL_CONST_CGSM_MASS_PROTON = 1.67262158e-24
-const GSL_CONST_CGSM_MASS_NEUTRON = 1.67492716e-24
-const GSL_CONST_CGSM_RYDBERG = 2.17987196968e-11
-const GSL_CONST_CGSM_BOLTZMANN = 1.3806504e-16
-const GSL_CONST_CGSM_MOLAR_GAS = 8.314472e7
-const GSL_CONST_CGSM_STANDARD_GAS_VOLUME = 2.2710981e4
-const GSL_CONST_CGSM_MINUTE = 6e1
-const GSL_CONST_CGSM_HOUR = 3.6e3
-const GSL_CONST_CGSM_DAY = 8.64e4
-const GSL_CONST_CGSM_WEEK = 6.048e5
-const GSL_CONST_CGSM_INCH = 2.54e0
-const GSL_CONST_CGSM_FOOT = 3.048e1
-const GSL_CONST_CGSM_YARD = 9.144e1
-const GSL_CONST_CGSM_MILE = 1.609344e5
-const GSL_CONST_CGSM_NAUTICAL_MILE = 1.852e5
-const GSL_CONST_CGSM_FATHOM = 1.8288e2
-const GSL_CONST_CGSM_MIL = 2.54e-3
-const GSL_CONST_CGSM_POINT = 3.52777777778e-2
-const GSL_CONST_CGSM_TEXPOINT = 3.51459803515e-2
-const GSL_CONST_CGSM_MICRON = 1e-4
-const GSL_CONST_CGSM_ANGSTROM = 1e-8
-const GSL_CONST_CGSM_HECTARE = 1e8
-const GSL_CONST_CGSM_ACRE = 4.04685642241e7
-const GSL_CONST_CGSM_BARN = 1e-24
-const GSL_CONST_CGSM_LITER = 1e3
-const GSL_CONST_CGSM_US_GALLON = 3.78541178402e3
-const GSL_CONST_CGSM_QUART = 9.46352946004e2
-const GSL_CONST_CGSM_PINT = 4.73176473002e2
-const GSL_CONST_CGSM_CUP = 2.36588236501e2
-const GSL_CONST_CGSM_FLUID_OUNCE = 2.95735295626e1
-const GSL_CONST_CGSM_TABLESPOON = 1.47867647813e1
-const GSL_CONST_CGSM_TEASPOON = 4.92892159375e0
-const GSL_CONST_CGSM_CANADIAN_GALLON = 4.54609e3
-const GSL_CONST_CGSM_UK_GALLON = 4.546092e3
-const GSL_CONST_CGSM_MILES_PER_HOUR = 4.4704e1
-const GSL_CONST_CGSM_KILOMETERS_PER_HOUR = 2.77777777778e1
-const GSL_CONST_CGSM_KNOT = 5.14444444444e1
-const GSL_CONST_CGSM_POUND_MASS = 4.5359237e2
-const GSL_CONST_CGSM_OUNCE_MASS = 2.8349523125e1
-const GSL_CONST_CGSM_TON = 9.0718474e5
-const GSL_CONST_CGSM_METRIC_TON = 1e6
-const GSL_CONST_CGSM_UK_TON = 1.0160469088e6
-const GSL_CONST_CGSM_TROY_OUNCE = 3.1103475e1
-const GSL_CONST_CGSM_CARAT = 2e-1
-const GSL_CONST_CGSM_UNIFIED_ATOMIC_MASS = 1.660538782e-24
-const GSL_CONST_CGSM_GRAM_FORCE = 9.80665e2
-const GSL_CONST_CGSM_POUND_FORCE = 4.44822161526e5
-const GSL_CONST_CGSM_KILOPOUND_FORCE = 4.44822161526e8
-const GSL_CONST_CGSM_POUNDAL = 1.38255e4
-const GSL_CONST_CGSM_CALORIE = 4.1868e7
-const GSL_CONST_CGSM_BTU = 1.05505585262e10
-const GSL_CONST_CGSM_THERM = 1.05506e15
-const GSL_CONST_CGSM_HORSEPOWER = 7.457e9
-const GSL_CONST_CGSM_BAR = 1e6
-const GSL_CONST_CGSM_STD_ATMOSPHERE = 1.01325e6
-const GSL_CONST_CGSM_TORR = 1.33322368421e3
-const GSL_CONST_CGSM_METER_OF_MERCURY = 1.33322368421e6
-const GSL_CONST_CGSM_INCH_OF_MERCURY = 3.38638815789e4
-const GSL_CONST_CGSM_INCH_OF_WATER = 2.490889e3
-const GSL_CONST_CGSM_PSI = 6.89475729317e4
-const GSL_CONST_CGSM_POISE = 1e0
-const GSL_CONST_CGSM_STOKES = 1e0
-const GSL_CONST_CGSM_STILB = 1e0
-const GSL_CONST_CGSM_LUMEN = 1e0
-const GSL_CONST_CGSM_LUX = 1e-4
-const GSL_CONST_CGSM_PHOT = 1e0
-const GSL_CONST_CGSM_FOOTCANDLE = 1.076e-3
-const GSL_CONST_CGSM_LAMBERT = 1e0
-const GSL_CONST_CGSM_FOOTLAMBERT = 1.07639104e-3
-const GSL_CONST_CGSM_CURIE = 3.7e10
-const GSL_CONST_CGSM_ROENTGEN = 2.58e-8
-const GSL_CONST_CGSM_RAD = 1e2
-const GSL_CONST_CGSM_SOLAR_MASS = 1.98892e33
-const GSL_CONST_CGSM_BOHR_RADIUS = 5.291772083e-9
-const GSL_CONST_CGSM_NEWTON = 1e5
-const GSL_CONST_CGSM_DYNE = 1e0
-const GSL_CONST_CGSM_JOULE = 1e7
-const GSL_CONST_CGSM_ERG = 1e0
-const GSL_CONST_CGSM_STEFAN_BOLTZMANN_CONSTANT = 5.67040047374e-5
-const GSL_CONST_CGSM_THOMSON_CROSS_SECTION = 6.65245893699e-25
-const GSL_CONST_CGSM_BOHR_MAGNETON = 9.27400899e-21
-const GSL_CONST_CGSM_NUCLEAR_MAGNETON = 5.05078317e-24
-const GSL_CONST_CGSM_ELECTRON_MAGNETIC_MOMENT = 9.28476362e-21
-const GSL_CONST_CGSM_PROTON_MAGNETIC_MOMENT = 1.410606633e-23
-const GSL_CONST_CGSM_FARADAY = 9.64853429775e3
-const GSL_CONST_CGSM_ELECTRON_CHARGE = 1.602176487e-20
 
 
 #### gsl_const_mks.h ##########################################################
 
-const GSL_CONST_MKS_SPEED_OF_LIGHT = 2.99792458e8
-const GSL_CONST_MKS_GRAVITATIONAL_CONSTANT = 6.673e-11
-const GSL_CONST_MKS_PLANCKS_CONSTANT_H = 6.62606896e-34
-const GSL_CONST_MKS_PLANCKS_CONSTANT_HBAR = 1.05457162825e-34
-const GSL_CONST_MKS_ASTRONOMICAL_UNIT = 1.49597870691e11
-const GSL_CONST_MKS_LIGHT_YEAR = 9.46053620707e15
-const GSL_CONST_MKS_PARSEC = 3.08567758135e16
-const GSL_CONST_MKS_GRAV_ACCEL = 9.80665e0
-const GSL_CONST_MKS_ELECTRON_VOLT = 1.602176487e-19
-const GSL_CONST_MKS_MASS_ELECTRON = 9.10938188e-31
-const GSL_CONST_MKS_MASS_MUON = 1.88353109e-28
-const GSL_CONST_MKS_MASS_PROTON = 1.67262158e-27
-const GSL_CONST_MKS_MASS_NEUTRON = 1.67492716e-27
-const GSL_CONST_MKS_RYDBERG = 2.17987196968e-18
-const GSL_CONST_MKS_BOLTZMANN = 1.3806504e-23
-const GSL_CONST_MKS_MOLAR_GAS = 8.314472e0
-const GSL_CONST_MKS_STANDARD_GAS_VOLUME = 2.2710981e-2
-const GSL_CONST_MKS_MINUTE = 6e1
-const GSL_CONST_MKS_HOUR = 3.6e3
-const GSL_CONST_MKS_DAY = 8.64e4
-const GSL_CONST_MKS_WEEK = 6.048e5
-const GSL_CONST_MKS_INCH = 2.54e-2
-const GSL_CONST_MKS_FOOT = 3.048e-1
-const GSL_CONST_MKS_YARD = 9.144e-1
-const GSL_CONST_MKS_MILE = 1.609344e3
-const GSL_CONST_MKS_NAUTICAL_MILE = 1.852e3
-const GSL_CONST_MKS_FATHOM = 1.8288e0
-const GSL_CONST_MKS_MIL = 2.54e-5
-const GSL_CONST_MKS_POINT = 3.52777777778e-4
-const GSL_CONST_MKS_TEXPOINT = 3.51459803515e-4
-const GSL_CONST_MKS_MICRON = 1e-6
-const GSL_CONST_MKS_ANGSTROM = 1e-10
-const GSL_CONST_MKS_HECTARE = 1e4
-const GSL_CONST_MKS_ACRE = 4.04685642241e3
-const GSL_CONST_MKS_BARN = 1e-28
-const GSL_CONST_MKS_LITER = 1e-3
-const GSL_CONST_MKS_US_GALLON = 3.78541178402e-3
-const GSL_CONST_MKS_QUART = 9.46352946004e-4
-const GSL_CONST_MKS_PINT = 4.73176473002e-4
-const GSL_CONST_MKS_CUP = 2.36588236501e-4
-const GSL_CONST_MKS_FLUID_OUNCE = 2.95735295626e-5
-const GSL_CONST_MKS_TABLESPOON = 1.47867647813e-5
-const GSL_CONST_MKS_TEASPOON = 4.92892159375e-6
-const GSL_CONST_MKS_CANADIAN_GALLON = 4.54609e-3
-const GSL_CONST_MKS_UK_GALLON = 4.546092e-3
-const GSL_CONST_MKS_MILES_PER_HOUR = 4.4704e-1
-const GSL_CONST_MKS_KILOMETERS_PER_HOUR = 2.77777777778e-1
-const GSL_CONST_MKS_KNOT = 5.14444444444e-1
-const GSL_CONST_MKS_POUND_MASS = 4.5359237e-1
-const GSL_CONST_MKS_OUNCE_MASS = 2.8349523125e-2
-const GSL_CONST_MKS_TON = 9.0718474e2
-const GSL_CONST_MKS_METRIC_TON = 1e3
-const GSL_CONST_MKS_UK_TON = 1.0160469088e3
-const GSL_CONST_MKS_TROY_OUNCE = 3.1103475e-2
-const GSL_CONST_MKS_CARAT = 2e-4
-const GSL_CONST_MKS_UNIFIED_ATOMIC_MASS = 1.660538782e-27
-const GSL_CONST_MKS_GRAM_FORCE = 9.80665e-3
-const GSL_CONST_MKS_POUND_FORCE = 4.44822161526e0
-const GSL_CONST_MKS_KILOPOUND_FORCE = 4.44822161526e3
-const GSL_CONST_MKS_POUNDAL = 1.38255e-1
-const GSL_CONST_MKS_CALORIE = 4.1868e0
-const GSL_CONST_MKS_BTU = 1.05505585262e3
-const GSL_CONST_MKS_THERM = 1.05506e8
-const GSL_CONST_MKS_HORSEPOWER = 7.457e2
-const GSL_CONST_MKS_BAR = 1e5
-const GSL_CONST_MKS_STD_ATMOSPHERE = 1.01325e5
-const GSL_CONST_MKS_TORR = 1.33322368421e2
-const GSL_CONST_MKS_METER_OF_MERCURY = 1.33322368421e5
-const GSL_CONST_MKS_INCH_OF_MERCURY = 3.38638815789e3
-const GSL_CONST_MKS_INCH_OF_WATER = 2.490889e2
-const GSL_CONST_MKS_PSI = 6.89475729317e3
-const GSL_CONST_MKS_POISE = 1e-1
-const GSL_CONST_MKS_STOKES = 1e-4
-const GSL_CONST_MKS_STILB = 1e4
-const GSL_CONST_MKS_LUMEN = 1e0
-const GSL_CONST_MKS_LUX = 1e0
-const GSL_CONST_MKS_PHOT = 1e4
-const GSL_CONST_MKS_FOOTCANDLE = 1.076e1
-const GSL_CONST_MKS_LAMBERT = 1e4
-const GSL_CONST_MKS_FOOTLAMBERT = 1.07639104e1
-const GSL_CONST_MKS_CURIE = 3.7e10
-const GSL_CONST_MKS_ROENTGEN = 2.58e-4
-const GSL_CONST_MKS_RAD = 1e-2
-const GSL_CONST_MKS_SOLAR_MASS = 1.98892e30
-const GSL_CONST_MKS_BOHR_RADIUS = 5.291772083e-11
-const GSL_CONST_MKS_NEWTON = 1e0
-const GSL_CONST_MKS_DYNE = 1e-5
-const GSL_CONST_MKS_JOULE = 1e0
-const GSL_CONST_MKS_ERG = 1e-7
-const GSL_CONST_MKS_STEFAN_BOLTZMANN_CONSTANT = 5.67040047374e-8
-const GSL_CONST_MKS_THOMSON_CROSS_SECTION = 6.65245893699e-29
-const GSL_CONST_MKS_BOHR_MAGNETON = 9.27400899e-24
-const GSL_CONST_MKS_NUCLEAR_MAGNETON = 5.05078317e-27
-const GSL_CONST_MKS_ELECTRON_MAGNETIC_MOMENT = 9.28476362e-24
-const GSL_CONST_MKS_PROTON_MAGNETIC_MOMENT = 1.410606633e-26
-const GSL_CONST_MKS_FARADAY = 9.64853429775e4
-const GSL_CONST_MKS_ELECTRON_CHARGE = 1.602176487e-19
-const GSL_CONST_MKS_VACUUM_PERMITTIVITY = 8.854187817e-12
-const GSL_CONST_MKS_VACUUM_PERMEABILITY = 1.25663706144e-6
-const GSL_CONST_MKS_DEBYE = 3.33564095198e-30
-const GSL_CONST_MKS_GAUSS = 1e-4
 
 
 #### gsl_const_mksa.h #########################################################
 
-const GSL_CONST_MKSA_SPEED_OF_LIGHT = 2.99792458e8
-const GSL_CONST_MKSA_GRAVITATIONAL_CONSTANT = 6.673e-11
-const GSL_CONST_MKSA_PLANCKS_CONSTANT_H = 6.62606896e-34
-const GSL_CONST_MKSA_PLANCKS_CONSTANT_HBAR = 1.05457162825e-34
-const GSL_CONST_MKSA_ASTRONOMICAL_UNIT = 1.49597870691e11
-const GSL_CONST_MKSA_LIGHT_YEAR = 9.46053620707e15
-const GSL_CONST_MKSA_PARSEC = 3.08567758135e16
-const GSL_CONST_MKSA_GRAV_ACCEL = 9.80665e0
-const GSL_CONST_MKSA_ELECTRON_VOLT = 1.602176487e-19
-const GSL_CONST_MKSA_MASS_ELECTRON = 9.10938188e-31
-const GSL_CONST_MKSA_MASS_MUON = 1.88353109e-28
-const GSL_CONST_MKSA_MASS_PROTON = 1.67262158e-27
-const GSL_CONST_MKSA_MASS_NEUTRON = 1.67492716e-27
-const GSL_CONST_MKSA_RYDBERG = 2.17987196968e-18
-const GSL_CONST_MKSA_BOLTZMANN = 1.3806504e-23
-const GSL_CONST_MKSA_MOLAR_GAS = 8.314472e0
-const GSL_CONST_MKSA_STANDARD_GAS_VOLUME = 2.2710981e-2
-const GSL_CONST_MKSA_MINUTE = 6e1
-const GSL_CONST_MKSA_HOUR = 3.6e3
-const GSL_CONST_MKSA_DAY = 8.64e4
-const GSL_CONST_MKSA_WEEK = 6.048e5
-const GSL_CONST_MKSA_INCH = 2.54e-2
-const GSL_CONST_MKSA_FOOT = 3.048e-1
-const GSL_CONST_MKSA_YARD = 9.144e-1
-const GSL_CONST_MKSA_MILE = 1.609344e3
-const GSL_CONST_MKSA_NAUTICAL_MILE = 1.852e3
-const GSL_CONST_MKSA_FATHOM = 1.8288e0
-const GSL_CONST_MKSA_MIL = 2.54e-5
-const GSL_CONST_MKSA_POINT = 3.52777777778e-4
-const GSL_CONST_MKSA_TEXPOINT = 3.51459803515e-4
-const GSL_CONST_MKSA_MICRON = 1e-6
-const GSL_CONST_MKSA_ANGSTROM = 1e-10
-const GSL_CONST_MKSA_HECTARE = 1e4
-const GSL_CONST_MKSA_ACRE = 4.04685642241e3
-const GSL_CONST_MKSA_BARN = 1e-28
-const GSL_CONST_MKSA_LITER = 1e-3
-const GSL_CONST_MKSA_US_GALLON = 3.78541178402e-3
-const GSL_CONST_MKSA_QUART = 9.46352946004e-4
-const GSL_CONST_MKSA_PINT = 4.73176473002e-4
-const GSL_CONST_MKSA_CUP = 2.36588236501e-4
-const GSL_CONST_MKSA_FLUID_OUNCE = 2.95735295626e-5
-const GSL_CONST_MKSA_TABLESPOON = 1.47867647813e-5
-const GSL_CONST_MKSA_TEASPOON = 4.92892159375e-6
-const GSL_CONST_MKSA_CANADIAN_GALLON = 4.54609e-3
-const GSL_CONST_MKSA_UK_GALLON = 4.546092e-3
-const GSL_CONST_MKSA_MILES_PER_HOUR = 4.4704e-1
-const GSL_CONST_MKSA_KILOMETERS_PER_HOUR = 2.77777777778e-1
-const GSL_CONST_MKSA_KNOT = 5.14444444444e-1
-const GSL_CONST_MKSA_POUND_MASS = 4.5359237e-1
-const GSL_CONST_MKSA_OUNCE_MASS = 2.8349523125e-2
-const GSL_CONST_MKSA_TON = 9.0718474e2
-const GSL_CONST_MKSA_METRIC_TON = 1e3
-const GSL_CONST_MKSA_UK_TON = 1.0160469088e3
-const GSL_CONST_MKSA_TROY_OUNCE = 3.1103475e-2
-const GSL_CONST_MKSA_CARAT = 2e-4
-const GSL_CONST_MKSA_UNIFIED_ATOMIC_MASS = 1.660538782e-27
-const GSL_CONST_MKSA_GRAM_FORCE = 9.80665e-3
-const GSL_CONST_MKSA_POUND_FORCE = 4.44822161526e0
-const GSL_CONST_MKSA_KILOPOUND_FORCE = 4.44822161526e3
-const GSL_CONST_MKSA_POUNDAL = 1.38255e-1
-const GSL_CONST_MKSA_CALORIE = 4.1868e0
-const GSL_CONST_MKSA_BTU = 1.05505585262e3
-const GSL_CONST_MKSA_THERM = 1.05506e8
-const GSL_CONST_MKSA_HORSEPOWER = 7.457e2
-const GSL_CONST_MKSA_BAR = 1e5
-const GSL_CONST_MKSA_STD_ATMOSPHERE = 1.01325e5
-const GSL_CONST_MKSA_TORR = 1.33322368421e2
-const GSL_CONST_MKSA_METER_OF_MERCURY = 1.33322368421e5
-const GSL_CONST_MKSA_INCH_OF_MERCURY = 3.38638815789e3
-const GSL_CONST_MKSA_INCH_OF_WATER = 2.490889e2
-const GSL_CONST_MKSA_PSI = 6.89475729317e3
-const GSL_CONST_MKSA_POISE = 1e-1
-const GSL_CONST_MKSA_STOKES = 1e-4
-const GSL_CONST_MKSA_STILB = 1e4
-const GSL_CONST_MKSA_LUMEN = 1e0
-const GSL_CONST_MKSA_LUX = 1e0
-const GSL_CONST_MKSA_PHOT = 1e4
-const GSL_CONST_MKSA_FOOTCANDLE = 1.076e1
-const GSL_CONST_MKSA_LAMBERT = 1e4
-const GSL_CONST_MKSA_FOOTLAMBERT = 1.07639104e1
-const GSL_CONST_MKSA_CURIE = 3.7e10
-const GSL_CONST_MKSA_ROENTGEN = 2.58e-4
-const GSL_CONST_MKSA_RAD = 1e-2
-const GSL_CONST_MKSA_SOLAR_MASS = 1.98892e30
-const GSL_CONST_MKSA_BOHR_RADIUS = 5.291772083e-11
-const GSL_CONST_MKSA_NEWTON = 1e0
-const GSL_CONST_MKSA_DYNE = 1e-5
-const GSL_CONST_MKSA_JOULE = 1e0
-const GSL_CONST_MKSA_ERG = 1e-7
-const GSL_CONST_MKSA_STEFAN_BOLTZMANN_CONSTANT = 5.67040047374e-8
-const GSL_CONST_MKSA_THOMSON_CROSS_SECTION = 6.65245893699e-29
-const GSL_CONST_MKSA_BOHR_MAGNETON = 9.27400899e-24
-const GSL_CONST_MKSA_NUCLEAR_MAGNETON = 5.05078317e-27
-const GSL_CONST_MKSA_ELECTRON_MAGNETIC_MOMENT = 9.28476362e-24
-const GSL_CONST_MKSA_PROTON_MAGNETIC_MOMENT = 1.410606633e-26
-const GSL_CONST_MKSA_FARADAY = 9.64853429775e4
-const GSL_CONST_MKSA_ELECTRON_CHARGE = 1.602176487e-19
-const GSL_CONST_MKSA_VACUUM_PERMITTIVITY = 8.854187817e-12
-const GSL_CONST_MKSA_VACUUM_PERMEABILITY = 1.25663706144e-6
-const GSL_CONST_MKSA_DEBYE = 3.33564095198e-30
-const GSL_CONST_MKSA_GAUSS = 1e-4
 
 
 #### gsl_const_num.h ##########################################################
 
-const GSL_CONST_NUM_FINE_STRUCTURE = 7.297352533e-3
-const GSL_CONST_NUM_AVOGADRO = 6.02214199e23
-const GSL_CONST_NUM_YOTTA = 1e24
-const GSL_CONST_NUM_ZETTA = 1e21
-const GSL_CONST_NUM_EXA = 1e18
-const GSL_CONST_NUM_PETA = 1e15
-const GSL_CONST_NUM_TERA = 1e12
-const GSL_CONST_NUM_GIGA = 1e9
-const GSL_CONST_NUM_MEGA = 1e6
-const GSL_CONST_NUM_KILO = 1e3
-const GSL_CONST_NUM_MILLI = 1e-3
-const GSL_CONST_NUM_MICRO = 1e-6
-const GSL_CONST_NUM_NANO = 1e-9
-const GSL_CONST_NUM_PICO = 1e-12
-const GSL_CONST_NUM_FEMTO = 1e-15
-const GSL_CONST_NUM_ATTO = 1e-18
-const GSL_CONST_NUM_ZEPTO = 1e-21
-const GSL_CONST_NUM_YOCTO = 1e-24
 
 
 #### gsl_deriv.h ##############################################################
@@ -1943,7 +1524,7 @@ const GSL_CONST_NUM_YOCTO = 1e-24
 
 @doc md"""
 ```
-mutable struct gsl_dht_struct
+mutable struct gsl_dht
     size::Csize_t
     nu::Cdouble
     xmax::Cdouble
@@ -1960,7 +1541,7 @@ GSL documentation:
 > Workspace for computing discrete Hankel transforms
 
 """
-mutable struct gsl_dht_struct
+mutable struct gsl_dht
     size::Csize_t
     nu::Cdouble
     xmax::Cdouble
@@ -1969,7 +1550,6 @@ mutable struct gsl_dht_struct
     Jjj::Ptr{Cdouble}
     J2::Ptr{Cdouble}
 end
-const gsl_dht = gsl_dht_struct
 
 
 #### gsl_diff.h ###############################################################
@@ -2265,11 +1845,27 @@ end
 const GSL_FILTER_END_PADZERO = GSL_MOVSTAT_END_PADZERO
 const GSL_FILTER_END_PADVALUE = GSL_MOVSTAT_END_PADVALUE
 const GSL_FILTER_END_TRUNCATE = GSL_MOVSTAT_END_TRUNCATE
+
+@doc md"""
+`gsl_filter_end_t`
+
+> This data type specifies how to construct windows near end points and
+> can be selected from the following choices:
+
+"""
 const gsl_filter_end_t = Cint
 const GSL_FILTER_SCALE_MAD = 0
 const GSL_FILTER_SCALE_IQR = 1
 const GSL_FILTER_SCALE_SN = 2
 const GSL_FILTER_SCALE_QN = 3
+
+@doc md"""
+`gsl_filter_scale_t`
+
+> This type specifies how the scale estimate $S_i$ of the window $W_i^H$
+> is calculated.
+
+"""
 const gsl_filter_scale_t = Cint
 
 @doc md"""
@@ -2380,7 +1976,7 @@ GSL documentation:
 >
 >     [ bin[0] )[ bin[1] )[ bin[2] )[ bin[3] )[ bin[4] )
 >
-> > ---|---------|---------|---------|---------|---------|--- x
+> > ------------------------ x
 > >
 > > :   r\[0\] r\[1\] r\[2\] r\[3\] r\[4\] r\[5\]
 > >
@@ -3777,7 +3373,7 @@ end
 
 @doc md"""
 ```
-mutable struct gsl_monte_function_struct
+mutable struct gsl_monte_function
     f::Ptr{Cvoid}
     dim::Csize_t
     params::Ptr{Cvoid}
@@ -3841,12 +3437,11 @@ The function $f(x)$ can be evaluated using the following macro:
         (*((F)->f))(x,(F)->dim,(F)->params)
 
 """
-mutable struct gsl_monte_function_struct
+mutable struct gsl_monte_function
     f::Ptr{Cvoid}
     dim::Csize_t
     params::Ptr{Cvoid}
 end
-const gsl_monte_function = gsl_monte_function_struct
 
 
 #### gsl_monte_miser.h ########################################################
@@ -4222,7 +3817,7 @@ end
 
 @doc md"""
 ```
-mutable struct gsl_multifit_function_struct
+mutable struct gsl_multifit_function
     f::Ptr{Cvoid}
     n::Csize_t
     p::Csize_t
@@ -4231,13 +3826,12 @@ end
 ```
 
 """
-mutable struct gsl_multifit_function_struct
+mutable struct gsl_multifit_function
     f::Ptr{Cvoid}
     n::Csize_t
     p::Csize_t
     params::Ptr{Cvoid}
 end
-const gsl_multifit_function = gsl_multifit_function_struct
 
 @doc md"""
 ```
@@ -4285,7 +3879,7 @@ end
 
 @doc md"""
 ```
-mutable struct gsl_multifit_function_fdf_struct
+mutable struct gsl_multifit_function_fdf
     f::Ptr{Cvoid}
     df::Ptr{Cvoid}
     fdf::Ptr{Cvoid}
@@ -4298,7 +3892,7 @@ end
 ```
 
 """
-mutable struct gsl_multifit_function_fdf_struct
+mutable struct gsl_multifit_function_fdf
     f::Ptr{Cvoid}
     df::Ptr{Cvoid}
     fdf::Ptr{Cvoid}
@@ -4308,7 +3902,6 @@ mutable struct gsl_multifit_function_fdf_struct
     nevalf::Csize_t
     nevaldf::Csize_t
 end
-const gsl_multifit_function_fdf = gsl_multifit_function_fdf_struct
 
 @doc md"""
 ```
@@ -4399,6 +3992,32 @@ end
 
 const GSL_MULTIFIT_NLINEAR_FWDIFF = 0
 const GSL_MULTIFIT_NLINEAR_CTRDIFF = 1
+
+@doc md"""
+`gsl_multifit_nlinear_fdtype`
+
+> The parameter fdtype specifies whether to use forward or centered
+> differences when approximating the Jacobian. This is only used when an
+> analytic Jacobian is not provided to the solver. This parameter may be
+> set to one of the following choices.
+
+`double factor_up`{.sourceCode}
+
+When a step is accepted, the trust region radius will be increased by
+this factor. The default value is $3$.
+
+`double factor_down`{.sourceCode}
+
+When a step is rejected, the trust region radius will be decreased by
+this factor. The default value is $2$.
+
+`double avmax`{.sourceCode}
+
+When using geodesic acceleration to solve a nonlinear least squares
+problem, an important parameter to monitor is the ratio of the
+acceleration term to the velocity term,
+
+"""
 const gsl_multifit_nlinear_fdtype = Cint
 
 @doc md"""
@@ -5128,7 +4747,7 @@ end
 
 @doc md"""
 ```
-mutable struct gsl_multimin_function_struct
+mutable struct gsl_multimin_function
     f::Ptr{Cvoid}
     n::Csize_t
     params::Ptr{Cvoid}
@@ -5157,16 +4776,15 @@ GSL documentation:
 > > a pointer to the parameters of the function.
 
 """
-mutable struct gsl_multimin_function_struct
+mutable struct gsl_multimin_function
     f::Ptr{Cvoid}
     n::Csize_t
     params::Ptr{Cvoid}
 end
-const gsl_multimin_function = gsl_multimin_function_struct
 
 @doc md"""
 ```
-mutable struct gsl_multimin_function_fdf_struct
+mutable struct gsl_multimin_function_fdf
     f::Ptr{Cvoid}
     df::Ptr{Cvoid}
     fdf::Ptr{Cvoid}
@@ -5212,14 +4830,13 @@ GSL documentation:
 > > a pointer to the parameters of the function.
 
 """
-mutable struct gsl_multimin_function_fdf_struct
+mutable struct gsl_multimin_function_fdf
     f::Ptr{Cvoid}
     df::Ptr{Cvoid}
     fdf::Ptr{Cvoid}
     n::Csize_t
     params::Ptr{Cvoid}
 end
-const gsl_multimin_function_fdf = gsl_multimin_function_fdf_struct
 
 @doc md"""
 ```
@@ -5340,7 +4957,7 @@ end
 
 @doc md"""
 ```
-mutable struct gsl_multiroot_function_struct
+mutable struct gsl_multiroot_function
     f::Ptr{Cvoid}
     n::Csize_t
     params::Ptr{Cvoid}
@@ -5370,12 +4987,11 @@ GSL documentation:
 Here is an example using Powell's test function,
 
 """
-mutable struct gsl_multiroot_function_struct
+mutable struct gsl_multiroot_function
     f::Ptr{Cvoid}
     n::Csize_t
     params::Ptr{Cvoid}
 end
-const gsl_multiroot_function = gsl_multiroot_function_struct
 
 @doc md"""
 ```
@@ -5435,7 +5051,7 @@ end
 
 @doc md"""
 ```
-mutable struct gsl_multiroot_function_fdf_struct
+mutable struct gsl_multiroot_function_fdf
     f::Ptr{Cvoid}
     df::Ptr{Cvoid}
     fdf::Ptr{Cvoid}
@@ -5533,14 +5149,13 @@ existing terms from the function when calculating the Jacobian, thus
 saving time.
 
 """
-mutable struct gsl_multiroot_function_fdf_struct
+mutable struct gsl_multiroot_function_fdf
     f::Ptr{Cvoid}
     df::Ptr{Cvoid}
     fdf::Ptr{Cvoid}
     n::Csize_t
     params::Ptr{Cvoid}
 end
-const gsl_multiroot_function_fdf = gsl_multiroot_function_fdf_struct
 
 @doc md"""
 ```
@@ -5606,7 +5221,7 @@ end
 
 @doc md"""
 ```
-mutable struct gsl_multiset_struct
+mutable struct gsl_multiset
     n::Csize_t
     k::Csize_t
     data::Ptr{Csize_t}
@@ -5630,12 +5245,11 @@ GSL documentation:
 >     } gsl_multiset;
 
 """
-mutable struct gsl_multiset_struct
+mutable struct gsl_multiset
     n::Csize_t
     k::Csize_t
     data::Ptr{Csize_t}
 end
-const gsl_multiset = gsl_multiset_struct
 
 
 #### gsl_nan.h ################################################################
@@ -5943,7 +5557,7 @@ end
 
 @doc md"""
 ```
-mutable struct gsl_odeiv2_step_struct
+mutable struct gsl_odeiv2_step
     type::Ptr{gsl_odeiv2_step_type}
     dimension::Csize_t
     state::Ptr{Cvoid}
@@ -5956,12 +5570,11 @@ GSL documentation:
 > This contains internal parameters for a stepping function.
 
 """
-mutable struct gsl_odeiv2_step_struct
+mutable struct gsl_odeiv2_step
     type::Ptr{gsl_odeiv2_step_type}
     dimension::Csize_t
     state::Ptr{Cvoid}
 end
-const gsl_odeiv2_step = gsl_odeiv2_step_struct
 
 @doc md"""
 ```
@@ -5994,7 +5607,7 @@ end
 
 @doc md"""
 ```
-mutable struct gsl_odeiv2_control_struct
+mutable struct gsl_odeiv2_control
     type::Ptr{gsl_odeiv2_control_type}
     state::Ptr{Cvoid}
 end
@@ -6006,15 +5619,14 @@ GSL documentation:
 > This is a workspace for controlling step size.
 
 """
-mutable struct gsl_odeiv2_control_struct
+mutable struct gsl_odeiv2_control
     type::Ptr{gsl_odeiv2_control_type}
     state::Ptr{Cvoid}
 end
-const gsl_odeiv2_control = gsl_odeiv2_control_struct
 
 @doc md"""
 ```
-mutable struct gsl_odeiv2_evolve_struct
+mutable struct gsl_odeiv2_evolve
     dimension::Csize_t
     y0::Ptr{Cdouble}
     yerr::Ptr{Cdouble}
@@ -6034,7 +5646,7 @@ GSL documentation:
 > function
 
 """
-mutable struct gsl_odeiv2_evolve_struct
+mutable struct gsl_odeiv2_evolve
     dimension::Csize_t
     y0::Ptr{Cdouble}
     yerr::Ptr{Cdouble}
@@ -6045,11 +5657,10 @@ mutable struct gsl_odeiv2_evolve_struct
     failed_steps::Culong
     driver::Ptr{Cvoid}
 end
-const gsl_odeiv2_evolve = gsl_odeiv2_evolve_struct
 
 @doc md"""
 ```
-mutable struct gsl_odeiv2_driver_struct
+mutable struct gsl_odeiv2_driver
     sys::Ptr{gsl_odeiv2_system}
     s::Ptr{gsl_odeiv2_step}
     c::Ptr{gsl_odeiv2_control}
@@ -6063,7 +5674,7 @@ end
 ```
 
 """
-mutable struct gsl_odeiv2_driver_struct
+mutable struct gsl_odeiv2_driver
     sys::Ptr{gsl_odeiv2_system}
     s::Ptr{gsl_odeiv2_step}
     c::Ptr{gsl_odeiv2_control}
@@ -6074,7 +5685,6 @@ mutable struct gsl_odeiv2_driver_struct
     n::Culong
     nmax::Culong
 end
-const gsl_odeiv2_driver = gsl_odeiv2_driver_struct
 
 
 #### gsl_permutation.h ########################################################
@@ -6082,7 +5692,7 @@ const gsl_odeiv2_driver = gsl_odeiv2_driver_struct
 
 @doc md"""
 ```
-mutable struct gsl_permutation_struct
+mutable struct gsl_permutation
     size::Csize_t
     data::Ptr{Csize_t}
 end
@@ -6103,11 +5713,10 @@ GSL documentation:
 >     } gsl_permutation;
 
 """
-mutable struct gsl_permutation_struct
+mutable struct gsl_permutation
     size::Csize_t
     data::Ptr{Csize_t}
 end
-const gsl_permutation = gsl_permutation_struct
 
 
 #### gsl_permute.h ############################################################
@@ -6721,6 +6330,20 @@ const GSL_SF_LEGENDRE_SCHMIDT = 0
 const GSL_SF_LEGENDRE_SPHARM = 1
 const GSL_SF_LEGENDRE_FULL = 2
 const GSL_SF_LEGENDRE_NONE = 3
+
+@doc md"""
+`gsl_sf_legendre_t`
+
+>   Value                                    Description
+>   ---------------------------------------- ------------------------------------------------------------------------
+>   `GSL_SF_LEGENDRE_NONE`{.sourceCode}      The unnormalized associated Legendre polynomials $P_l^m(x)$
+>   `GSL_SF_LEGENDRE_SCHMIDT`{.sourceCode}   The Schmidt semi-normalized associated Legendre polynomials $S_l^m(x)$
+>   `GSL_SF_LEGENDRE_SPHARM`{.sourceCode}    The spherical harmonic associated Legendre polynomials $Y_l^m(x)$
+>   `GSL_SF_LEGENDRE_FULL`{.sourceCode}      The fully normalized associated Legendre polynomials $N_l^m(x)$
+>
+
+
+"""
 const gsl_sf_legendre_t = Cint
 
 
@@ -6793,7 +6416,7 @@ end
 
 @doc md"""
 ```
-mutable struct gsl_sf_result_struct
+mutable struct gsl_sf_result
     val::Cdouble
     err::Cdouble
 end
@@ -6819,15 +6442,14 @@ contains value and error fields as well as an exponent field such that
 the actual result is obtained as `result * 10^(e10)`{.sourceCode}.
 
 """
-mutable struct gsl_sf_result_struct
+mutable struct gsl_sf_result
     val::Cdouble
     err::Cdouble
 end
-const gsl_sf_result = gsl_sf_result_struct
 
 @doc md"""
 ```
-mutable struct gsl_sf_result_e10_struct
+mutable struct gsl_sf_result_e10
     val::Cdouble
     err::Cdouble
     e10::Cint
@@ -6845,12 +6467,11 @@ GSL documentation:
 >     } gsl_sf_result_e10;
 
 """
-mutable struct gsl_sf_result_e10_struct
+mutable struct gsl_sf_result_e10
     val::Cdouble
     err::Cdouble
     e10::Cint
 end
-const gsl_sf_result_e10 = gsl_sf_result_e10_struct
 
 
 #### gsl_sf_sincos_pi.h #######################################################

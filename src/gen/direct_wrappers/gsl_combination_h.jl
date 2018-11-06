@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_combination_alloc(n, k) -> Ptr{gsl_combination}
+    combination_alloc(n, k) -> Ptr{gsl_combination}
 
 C signature:
 `gsl_combination *gsl_combination_alloc (const size_t n, const size_t k)`
@@ -24,12 +24,12 @@ GSL documentation:
 > is available to create the combination.
 
 """
-function gsl_combination_alloc(n, k)
+function combination_alloc(n, k)
     ccall((:gsl_combination_alloc, libgsl), Ptr{gsl_combination}, (Csize_t, Csize_t), n, k)
 end
 
 @doc md"""
-    gsl_combination_calloc(n, k) -> Ptr{gsl_combination}
+    combination_calloc(n, k) -> Ptr{gsl_combination}
 
 C signature:
 `gsl_combination *gsl_combination_calloc (const size_t n, const size_t k)`
@@ -44,12 +44,12 @@ GSL documentation:
 > the combination.
 
 """
-function gsl_combination_calloc(n, k)
+function combination_calloc(n, k)
     ccall((:gsl_combination_calloc, libgsl), Ptr{gsl_combination}, (Csize_t, Csize_t), n, k)
 end
 
 @doc md"""
-    gsl_combination_init_first(c) -> Cvoid
+    combination_init_first(c) -> Cvoid
 
 C signature:
 `void gsl_combination_init_first (gsl_combination * c)`
@@ -62,12 +62,12 @@ GSL documentation:
 > first combination, i.e. $(0, 1, 2, \dots, k - 1)$.
 
 """
-function gsl_combination_init_first(c)
+function combination_init_first(c)
     ccall((:gsl_combination_init_first, libgsl), Cvoid, (Ptr{gsl_combination},), c)
 end
 
 @doc md"""
-    gsl_combination_init_last(c) -> Cvoid
+    combination_init_last(c) -> Cvoid
 
 C signature:
 `void gsl_combination_init_last (gsl_combination * c)`
@@ -80,12 +80,12 @@ GSL documentation:
 > last combination, i.e. $(n - k, n - k + 1, \dots, n - 1)$.
 
 """
-function gsl_combination_init_last(c)
+function combination_init_last(c)
     ccall((:gsl_combination_init_last, libgsl), Cvoid, (Ptr{gsl_combination},), c)
 end
 
 @doc md"""
-    gsl_combination_free(c) -> Cvoid
+    combination_free(c) -> Cvoid
 
 C signature:
 `void gsl_combination_free (gsl_combination * c)`
@@ -97,12 +97,12 @@ GSL documentation:
 > This function frees all the memory used by the combination c.
 
 """
-function gsl_combination_free(c)
+function combination_free(c)
     ccall((:gsl_combination_free, libgsl), Cvoid, (Ptr{gsl_combination},), c)
 end
 
 @doc md"""
-    gsl_combination_memcpy(dest, src) -> Cint
+    combination_memcpy(dest, src) -> Cint
 
 C signature:
 `int gsl_combination_memcpy (gsl_combination * dest, const gsl_combination * src)`
@@ -115,12 +115,12 @@ GSL documentation:
 > combination dest. The two combinations must have the same size.
 
 """
-function gsl_combination_memcpy(dest, src)
+function combination_memcpy(dest, src)
     ccall((:gsl_combination_memcpy, libgsl), Cint, (Ref{gsl_combination}, Ref{gsl_combination}), dest, src)
 end
 
 @doc md"""
-    gsl_combination_fread(stream, c) -> Cint
+    combination_fread(stream, c) -> Cint
 
 C signature:
 `int gsl_combination_fread (FILE * stream, gsl_combination * c)`
@@ -138,12 +138,12 @@ GSL documentation:
 > architecture.
 
 """
-function gsl_combination_fread(stream, c)
+function combination_fread(stream, c)
     ccall((:gsl_combination_fread, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_combination}), stream, c)
 end
 
 @doc md"""
-    gsl_combination_fwrite(stream, c) -> Cint
+    combination_fwrite(stream, c) -> Cint
 
 C signature:
 `int gsl_combination_fwrite (FILE * stream, const gsl_combination * c)`
@@ -159,12 +159,12 @@ GSL documentation:
 > architectures.
 
 """
-function gsl_combination_fwrite(stream, c)
+function combination_fwrite(stream, c)
     ccall((:gsl_combination_fwrite, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_combination}), stream, c)
 end
 
 @doc md"""
-    gsl_combination_fscanf(stream, c) -> Cint
+    combination_fscanf(stream, c) -> Cint
 
 C signature:
 `int gsl_combination_fscanf (FILE * stream, gsl_combination * c)`
@@ -180,12 +180,12 @@ GSL documentation:
 > if there was a problem reading from the file.
 
 """
-function gsl_combination_fscanf(stream, c)
+function combination_fscanf(stream, c)
     ccall((:gsl_combination_fscanf, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_combination}), stream, c)
 end
 
 @doc md"""
-    gsl_combination_fprintf(stream, c, format) -> Cint
+    combination_fprintf(stream, c, format) -> Cint
 
 C signature:
 `int gsl_combination_fprintf (FILE * stream, const gsl_combination * c, const char *format)`
@@ -198,16 +198,16 @@ GSL documentation:
 > the stream stream using the format specifier format, which should be
 > suitable for a type of `size_t`{.sourceCode}. In ISO C99 the type
 > modifier `z`{.sourceCode} represents `size_t`{.sourceCode}, so
-> `"%zu\n"`{.sourceCode} is a suitable format \[\#f1\]\_. The function
-> returns GSL\_EFAILED if there was a problem writing to the file.
+> `"%zu\n"`{.sourceCode} is a suitable format. The function returns
+> GSL\_EFAILED if there was a problem writing to the file.
 
 """
-function gsl_combination_fprintf(stream, c, format)
+function combination_fprintf(stream, c, format)
     ccall((:gsl_combination_fprintf, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_combination}, Ref{Cchar}), stream, c, format)
 end
 
 @doc md"""
-    gsl_combination_n(c) -> Csize_t
+    combination_n(c) -> Csize_t
 
 C signature:
 `size_t gsl_combination_n (const gsl_combination * c)`
@@ -219,12 +219,12 @@ GSL documentation:
 > This function returns the range ($n$) of the combination c.
 
 """
-function gsl_combination_n(c)
+function combination_n(c)
     ccall((:gsl_combination_n, libgsl), Csize_t, (Ptr{gsl_combination},), c)
 end
 
 @doc md"""
-    gsl_combination_k(c) -> Csize_t
+    combination_k(c) -> Csize_t
 
 C signature:
 `size_t gsl_combination_k (const gsl_combination * c)`
@@ -237,12 +237,12 @@ GSL documentation:
 > c.
 
 """
-function gsl_combination_k(c)
+function combination_k(c)
     ccall((:gsl_combination_k, libgsl), Csize_t, (Ptr{gsl_combination},), c)
 end
 
 @doc md"""
-    gsl_combination_data(c) -> Ptr{Csize_t}
+    combination_data(c) -> Ptr{Csize_t}
 
 C signature:
 `size_t * gsl_combination_data (const gsl_combination * c)`
@@ -255,12 +255,12 @@ GSL documentation:
 > combination c.
 
 """
-function gsl_combination_data(c)
+function combination_data(c)
     ccall((:gsl_combination_data, libgsl), Ptr{Csize_t}, (Ptr{gsl_combination},), c)
 end
 
 @doc md"""
-    gsl_combination_valid(c) -> Cint
+    combination_valid(c) -> Cint
 
 C signature:
 `int gsl_combination_valid (gsl_combination * c)`
@@ -274,12 +274,12 @@ GSL documentation:
 > at most and in increasing order.
 
 """
-function gsl_combination_valid(c)
+function combination_valid(c)
     ccall((:gsl_combination_valid, libgsl), Cint, (Ptr{gsl_combination},), c)
 end
 
 @doc md"""
-    gsl_combination_next(c) -> Cint
+    combination_next(c) -> Cint
 
 C signature:
 `int gsl_combination_next (gsl_combination * c)`
@@ -296,12 +296,12 @@ GSL documentation:
 > of a given order.
 
 """
-function gsl_combination_next(c)
+function combination_next(c)
     ccall((:gsl_combination_next, libgsl), Cint, (Ptr{gsl_combination},), c)
 end
 
 @doc md"""
-    gsl_combination_prev(c) -> Cint
+    combination_prev(c) -> Cint
 
 C signature:
 `int gsl_combination_prev (gsl_combination * c)`
@@ -316,12 +316,12 @@ GSL documentation:
 > unmodified.
 
 """
-function gsl_combination_prev(c)
+function combination_prev(c)
     ccall((:gsl_combination_prev, libgsl), Cint, (Ptr{gsl_combination},), c)
 end
 
 @doc md"""
-    gsl_combination_get(c, i) -> Csize_t
+    combination_get(c, i) -> Csize_t
 
 C signature:
 `size_t gsl_combination_get (const gsl_combination * c, const size_t i)`
@@ -332,10 +332,10 @@ GSL documentation:
 
 > This function returns the value of the i-th element of the combination
 > c. If i lies outside the allowed range of 0 to $k - 1$ then the error
-> handler is invoked and 0 is returned. |inlinefn|
+> handler is invoked and 0 is returned.
 
 """
-function gsl_combination_get(c, i)
+function combination_get(c, i)
     ccall((:gsl_combination_get, libgsl), Csize_t, (Ref{gsl_combination}, Csize_t), c, i)
 end
 

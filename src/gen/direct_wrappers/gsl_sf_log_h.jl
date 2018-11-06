@@ -7,17 +7,17 @@
 
 
 @doc md"""
-    gsl_sf_log_e(x, result) -> Cint
+    sf_log_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_log_e(const double x, gsl_sf_result * result)`
 """
-function gsl_sf_log_e(x, result)
+function sf_log_e(x, result)
     ccall((:gsl_sf_log_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_log(x) -> Cdouble
+    sf_log(x) -> Cdouble
 
 C signature:
 `double gsl_sf_log(const double x)`
@@ -31,22 +31,22 @@ GSL documentation:
 > These routines compute the logarithm of x, $\log(x)$, for $x > 0$.
 
 """
-function gsl_sf_log(x)
+function sf_log(x)
     ccall((:gsl_sf_log, libgsl), Cdouble, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_sf_log_abs_e(x, result) -> Cint
+    sf_log_abs_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_log_abs_e(const double x, gsl_sf_result * result)`
 """
-function gsl_sf_log_abs_e(x, result)
+function sf_log_abs_e(x, result)
     ccall((:gsl_sf_log_abs_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_log_abs(x) -> Cdouble
+    sf_log_abs(x) -> Cdouble
 
 C signature:
 `double gsl_sf_log_abs(const double x)`
@@ -61,12 +61,12 @@ GSL documentation:
 > $\log(|x|)$, for $x \ne 0$.
 
 """
-function gsl_sf_log_abs(x)
+function sf_log_abs(x)
     ccall((:gsl_sf_log_abs, libgsl), Cdouble, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_sf_complex_log_e(zr, zi, lnr, theta) -> Cint
+    sf_complex_log_e(zr, zi, lnr, theta) -> Cint
 
 C signature:
 `int gsl_sf_complex_log_e(const double zr, const double zi, gsl_sf_result * lnr, gsl_sf_result * theta)`
@@ -81,22 +81,22 @@ GSL documentation:
 > $[-\pi,\pi]$.
 
 """
-function gsl_sf_complex_log_e(zr, zi, lnr, theta)
+function sf_complex_log_e(zr, zi, lnr, theta)
     ccall((:gsl_sf_complex_log_e, libgsl), Cint, (Cdouble, Cdouble, Ref{gsl_sf_result}, Ref{gsl_sf_result}), zr, zi, lnr, theta)
 end
 
 @doc md"""
-    gsl_sf_log_1plusx_e(x, result) -> Cint
+    sf_log_1plusx_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_log_1plusx_e(const double x, gsl_sf_result * result)`
 """
-function gsl_sf_log_1plusx_e(x, result)
+function sf_log_1plusx_e(x, result)
     ccall((:gsl_sf_log_1plusx_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_log_1plusx(x) -> Cdouble
+    sf_log_1plusx(x) -> Cdouble
 
 C signature:
 `double gsl_sf_log_1plusx(const double x)`
@@ -111,22 +111,22 @@ GSL documentation:
 > that is accurate for small x.
 
 """
-function gsl_sf_log_1plusx(x)
+function sf_log_1plusx(x)
     ccall((:gsl_sf_log_1plusx, libgsl), Cdouble, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_sf_log_1plusx_mx_e(x, result) -> Cint
+    sf_log_1plusx_mx_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_log_1plusx_mx_e(const double x, gsl_sf_result * result)`
 """
-function gsl_sf_log_1plusx_mx_e(x, result)
+function sf_log_1plusx_mx_e(x, result)
     ccall((:gsl_sf_log_1plusx_mx_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_log_1plusx_mx(x) -> Cdouble
+    sf_log_1plusx_mx(x) -> Cdouble
 
 C signature:
 `double gsl_sf_log_1plusx_mx(const double x)`
@@ -141,7 +141,7 @@ GSL documentation:
 > algorithm that is accurate for small x.
 
 """
-function gsl_sf_log_1plusx_mx(x)
+function sf_log_1plusx_mx(x)
     ccall((:gsl_sf_log_1plusx_mx, libgsl), Cdouble, (Cdouble,), x)
 end
 

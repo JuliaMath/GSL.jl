@@ -7,22 +7,22 @@
 
 
 @doc md"""
-    gsl_permute_complex_long_double(p, data, stride, n) -> Cint
+    permute_complex_long_double(p, data, stride, n) -> Cint
 
 C signature:
 `int gsl_permute_complex_long_double (const size_t * p, long double * data, const size_t stride, const size_t n)`
 """
-function gsl_permute_complex_long_double(p, data, stride, n)
+function permute_complex_long_double(p, data, stride, n)
     ccall((:gsl_permute_complex_long_double, libgsl), Cint, (Ref{Csize_t}, Ref{Cdouble}, Csize_t, Csize_t), p, data, stride, n)
 end
 
 @doc md"""
-    gsl_permute_complex_long_double_inverse(p, data, stride, n) -> Cint
+    permute_complex_long_double_inverse(p, data, stride, n) -> Cint
 
 C signature:
 `int gsl_permute_complex_long_double_inverse (const size_t * p, long double * data, const size_t stride, const size_t n)`
 """
-function gsl_permute_complex_long_double_inverse(p, data, stride, n)
+function permute_complex_long_double_inverse(p, data, stride, n)
     ccall((:gsl_permute_complex_long_double_inverse, libgsl), Cint, (Ref{Csize_t}, Ref{Cdouble}, Csize_t, Csize_t), p, data, stride, n)
 end
 

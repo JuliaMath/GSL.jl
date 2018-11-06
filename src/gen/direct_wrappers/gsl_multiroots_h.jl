@@ -7,17 +7,17 @@
 
 
 @doc md"""
-    gsl_multiroot_fdjacobian(F, x, f, epsrel, jacobian) -> Cint
+    multiroot_fdjacobian(F, x, f, epsrel, jacobian) -> Cint
 
 C signature:
 `int gsl_multiroot_fdjacobian (gsl_multiroot_function * F, const gsl_vector * x, const gsl_vector * f, double epsrel, gsl_matrix * jacobian)`
 """
-function gsl_multiroot_fdjacobian(F, x, f, epsrel, jacobian)
+function multiroot_fdjacobian(F, x, f, epsrel, jacobian)
     ccall((:gsl_multiroot_fdjacobian, libgsl), Cint, (Ref{gsl_multiroot_function}, Ref{gsl_vector}, Ref{gsl_vector}, Cdouble, Ref{gsl_matrix}), F, x, f, epsrel, jacobian)
 end
 
 @doc md"""
-    gsl_multiroot_fsolver_alloc(T, n) -> Ptr{gsl_multiroot_fsolver}
+    multiroot_fsolver_alloc(T, n) -> Ptr{gsl_multiroot_fsolver}
 
 C signature:
 `gsl_multiroot_fsolver * gsl_multiroot_fsolver_alloc (const gsl_multiroot_fsolver_type * T, size_t n)`
@@ -39,12 +39,12 @@ GSL documentation:
 > code of GSL\_ENOMEM.
 
 """
-function gsl_multiroot_fsolver_alloc(T, n)
+function multiroot_fsolver_alloc(T, n)
     ccall((:gsl_multiroot_fsolver_alloc, libgsl), Ptr{gsl_multiroot_fsolver}, (Ref{gsl_multiroot_fsolver_type}, Csize_t), T, n)
 end
 
 @doc md"""
-    gsl_multiroot_fsolver_free(s) -> Cvoid
+    multiroot_fsolver_free(s) -> Cvoid
 
 C signature:
 `void gsl_multiroot_fsolver_free (gsl_multiroot_fsolver * s)`
@@ -58,12 +58,12 @@ GSL documentation:
 > These functions free all the memory associated with the solver s.
 
 """
-function gsl_multiroot_fsolver_free(s)
+function multiroot_fsolver_free(s)
     ccall((:gsl_multiroot_fsolver_free, libgsl), Cvoid, (Ptr{gsl_multiroot_fsolver},), s)
 end
 
 @doc md"""
-    gsl_multiroot_fsolver_set(s, f, x) -> Cint
+    multiroot_fsolver_set(s, f, x) -> Cint
 
 C signature:
 `int gsl_multiroot_fsolver_set (gsl_multiroot_fsolver * s, gsl_multiroot_function * f, const gsl_vector * x)`
@@ -81,12 +81,12 @@ GSL documentation:
 > modified by subsequent iterations.
 
 """
-function gsl_multiroot_fsolver_set(s, f, x)
+function multiroot_fsolver_set(s, f, x)
     ccall((:gsl_multiroot_fsolver_set, libgsl), Cint, (Ref{gsl_multiroot_fsolver}, Ref{gsl_multiroot_function}, Ref{gsl_vector}), s, f, x)
 end
 
 @doc md"""
-    gsl_multiroot_fsolver_iterate(s) -> Cint
+    multiroot_fsolver_iterate(s) -> Cint
 
 C signature:
 `int gsl_multiroot_fsolver_iterate (gsl_multiroot_fsolver * s)`
@@ -118,12 +118,12 @@ times. This information can be accessed with the following auxiliary
 functions,
 
 """
-function gsl_multiroot_fsolver_iterate(s)
+function multiroot_fsolver_iterate(s)
     ccall((:gsl_multiroot_fsolver_iterate, libgsl), Cint, (Ptr{gsl_multiroot_fsolver},), s)
 end
 
 @doc md"""
-    gsl_multiroot_fsolver_name(s) -> Ptr{Cchar}
+    multiroot_fsolver_name(s) -> Ptr{Cchar}
 
 C signature:
 `const char * gsl_multiroot_fsolver_name (const gsl_multiroot_fsolver * s)`
@@ -143,12 +143,12 @@ GSL documentation:
 > would print something like `s is a 'newton' solver`{.sourceCode}.
 
 """
-function gsl_multiroot_fsolver_name(s)
+function multiroot_fsolver_name(s)
     ccall((:gsl_multiroot_fsolver_name, libgsl), Ptr{Cchar}, (Ptr{gsl_multiroot_fsolver},), s)
 end
 
 @doc md"""
-    gsl_multiroot_fsolver_root(s) -> Ptr{gsl_vector}
+    multiroot_fsolver_root(s) -> Ptr{gsl_vector}
 
 C signature:
 `gsl_vector * gsl_multiroot_fsolver_root (const gsl_multiroot_fsolver * s)`
@@ -164,12 +164,12 @@ GSL documentation:
 > s, given by `s->x`{.sourceCode}.
 
 """
-function gsl_multiroot_fsolver_root(s)
+function multiroot_fsolver_root(s)
     ccall((:gsl_multiroot_fsolver_root, libgsl), Ptr{gsl_vector}, (Ptr{gsl_multiroot_fsolver},), s)
 end
 
 @doc md"""
-    gsl_multiroot_fsolver_dx(s) -> Ptr{gsl_vector}
+    multiroot_fsolver_dx(s) -> Ptr{gsl_vector}
 
 C signature:
 `gsl_vector * gsl_multiroot_fsolver_dx (const gsl_multiroot_fsolver * s)`
@@ -185,12 +185,12 @@ GSL documentation:
 > by `s->dx`{.sourceCode}.
 
 """
-function gsl_multiroot_fsolver_dx(s)
+function multiroot_fsolver_dx(s)
     ccall((:gsl_multiroot_fsolver_dx, libgsl), Ptr{gsl_vector}, (Ptr{gsl_multiroot_fsolver},), s)
 end
 
 @doc md"""
-    gsl_multiroot_fsolver_f(s) -> Ptr{gsl_vector}
+    multiroot_fsolver_f(s) -> Ptr{gsl_vector}
 
 C signature:
 `gsl_vector * gsl_multiroot_fsolver_f (const gsl_multiroot_fsolver * s)`
@@ -206,12 +206,12 @@ GSL documentation:
 > estimate of the root for the solver s, given by `s->f`{.sourceCode}.
 
 """
-function gsl_multiroot_fsolver_f(s)
+function multiroot_fsolver_f(s)
     ccall((:gsl_multiroot_fsolver_f, libgsl), Ptr{gsl_vector}, (Ptr{gsl_multiroot_fsolver},), s)
 end
 
 @doc md"""
-    gsl_multiroot_fdfsolver_alloc(T, n) -> Ptr{gsl_multiroot_fdfsolver}
+    multiroot_fdfsolver_alloc(T, n) -> Ptr{gsl_multiroot_fdfsolver}
 
 C signature:
 `gsl_multiroot_fdfsolver * gsl_multiroot_fdfsolver_alloc (const gsl_multiroot_fdfsolver_type * T, size_t n)`
@@ -233,82 +233,82 @@ GSL documentation:
 > code of GSL\_ENOMEM.
 
 """
-function gsl_multiroot_fdfsolver_alloc(T, n)
+function multiroot_fdfsolver_alloc(T, n)
     ccall((:gsl_multiroot_fdfsolver_alloc, libgsl), Ptr{gsl_multiroot_fdfsolver}, (Ref{gsl_multiroot_fdfsolver_type}, Csize_t), T, n)
 end
 
 @doc md"""
-    gsl_multiroot_fdfsolver_set(s, fdf, x) -> Cint
+    multiroot_fdfsolver_set(s, fdf, x) -> Cint
 
 C signature:
 `int gsl_multiroot_fdfsolver_set (gsl_multiroot_fdfsolver * s, gsl_multiroot_function_fdf * fdf, const gsl_vector * x)`
 """
-function gsl_multiroot_fdfsolver_set(s, fdf, x)
+function multiroot_fdfsolver_set(s, fdf, x)
     ccall((:gsl_multiroot_fdfsolver_set, libgsl), Cint, (Ref{gsl_multiroot_fdfsolver}, Ref{gsl_multiroot_function_fdf}, Ref{gsl_vector}), s, fdf, x)
 end
 
 @doc md"""
-    gsl_multiroot_fdfsolver_iterate(s) -> Cint
+    multiroot_fdfsolver_iterate(s) -> Cint
 
 C signature:
 `int gsl_multiroot_fdfsolver_iterate (gsl_multiroot_fdfsolver * s)`
 """
-function gsl_multiroot_fdfsolver_iterate(s)
+function multiroot_fdfsolver_iterate(s)
     ccall((:gsl_multiroot_fdfsolver_iterate, libgsl), Cint, (Ptr{gsl_multiroot_fdfsolver},), s)
 end
 
 @doc md"""
-    gsl_multiroot_fdfsolver_free(s) -> Cvoid
+    multiroot_fdfsolver_free(s) -> Cvoid
 
 C signature:
 `void gsl_multiroot_fdfsolver_free (gsl_multiroot_fdfsolver * s)`
 """
-function gsl_multiroot_fdfsolver_free(s)
+function multiroot_fdfsolver_free(s)
     ccall((:gsl_multiroot_fdfsolver_free, libgsl), Cvoid, (Ptr{gsl_multiroot_fdfsolver},), s)
 end
 
 @doc md"""
-    gsl_multiroot_fdfsolver_name(s) -> Ptr{Cchar}
+    multiroot_fdfsolver_name(s) -> Ptr{Cchar}
 
 C signature:
 `const char * gsl_multiroot_fdfsolver_name (const gsl_multiroot_fdfsolver * s)`
 """
-function gsl_multiroot_fdfsolver_name(s)
+function multiroot_fdfsolver_name(s)
     ccall((:gsl_multiroot_fdfsolver_name, libgsl), Ptr{Cchar}, (Ptr{gsl_multiroot_fdfsolver},), s)
 end
 
 @doc md"""
-    gsl_multiroot_fdfsolver_root(s) -> Ptr{gsl_vector}
+    multiroot_fdfsolver_root(s) -> Ptr{gsl_vector}
 
 C signature:
 `gsl_vector * gsl_multiroot_fdfsolver_root (const gsl_multiroot_fdfsolver * s)`
 """
-function gsl_multiroot_fdfsolver_root(s)
+function multiroot_fdfsolver_root(s)
     ccall((:gsl_multiroot_fdfsolver_root, libgsl), Ptr{gsl_vector}, (Ptr{gsl_multiroot_fdfsolver},), s)
 end
 
 @doc md"""
-    gsl_multiroot_fdfsolver_dx(s) -> Ptr{gsl_vector}
+    multiroot_fdfsolver_dx(s) -> Ptr{gsl_vector}
 
 C signature:
 `gsl_vector * gsl_multiroot_fdfsolver_dx (const gsl_multiroot_fdfsolver * s)`
 """
-function gsl_multiroot_fdfsolver_dx(s)
+function multiroot_fdfsolver_dx(s)
     ccall((:gsl_multiroot_fdfsolver_dx, libgsl), Ptr{gsl_vector}, (Ptr{gsl_multiroot_fdfsolver},), s)
 end
 
 @doc md"""
-    gsl_multiroot_fdfsolver_f(s) -> Ptr{gsl_vector}
+    multiroot_fdfsolver_f(s) -> Ptr{gsl_vector}
 
 C signature:
 `gsl_vector * gsl_multiroot_fdfsolver_f (const gsl_multiroot_fdfsolver * s)`
 """
-function gsl_multiroot_fdfsolver_f(s)
+function multiroot_fdfsolver_f(s)
     ccall((:gsl_multiroot_fdfsolver_f, libgsl), Ptr{gsl_vector}, (Ptr{gsl_multiroot_fdfsolver},), s)
 end
 
 @doc md"""
-    gsl_multiroot_test_delta(dx, x, epsabs, epsrel) -> Cint
+    multiroot_test_delta(dx, x, epsabs, epsrel) -> Cint
 
 C signature:
 `int gsl_multiroot_test_delta (const gsl_vector * dx, const gsl_vector * x, double epsabs, double epsrel)`
@@ -325,12 +325,12 @@ GSL documentation:
 > for each component of x and returns GSL\_CONTINUE otherwise.
 
 """
-function gsl_multiroot_test_delta(dx, x, epsabs, epsrel)
+function multiroot_test_delta(dx, x, epsabs, epsrel)
     ccall((:gsl_multiroot_test_delta, libgsl), Cint, (Ref{gsl_vector}, Ref{gsl_vector}, Cdouble, Cdouble), dx, x, epsabs, epsrel)
 end
 
 @doc md"""
-    gsl_multiroot_test_residual(f, epsabs) -> Cint
+    multiroot_test_residual(f, epsabs) -> Cint
 
 C signature:
 `int gsl_multiroot_test_residual (const gsl_vector * f, double epsabs)`
@@ -348,7 +348,7 @@ GSL documentation:
 > provided a value can be found where the residual is small enough.
 
 """
-function gsl_multiroot_test_residual(f, epsabs)
+function multiroot_test_residual(f, epsabs)
     ccall((:gsl_multiroot_test_residual, libgsl), Cint, (Ref{gsl_vector}, Cdouble), f, epsabs)
 end
 

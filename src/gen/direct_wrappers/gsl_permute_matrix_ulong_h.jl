@@ -7,12 +7,12 @@
 
 
 @doc md"""
-    gsl_permute_matrix_ulong(p, A) -> Cint
+    permute_matrix_ulong(p, A) -> Cint
 
 C signature:
 `int gsl_permute_matrix_ulong (const gsl_permutation * p, gsl_matrix_ulong * A)`
 """
-function gsl_permute_matrix_ulong(p, A)
+function permute_matrix_ulong(p, A)
     ccall((:gsl_permute_matrix_ulong, libgsl), Cint, (Ref{gsl_permutation}, Ref{gsl_matrix_ulong}), p, A)
 end
 

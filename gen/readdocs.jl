@@ -14,14 +14,14 @@ function parse_file(docs, filename)
     while lineno < length(lines)
         l = lines[lineno]
         # Walk until we find a section
-        m = match(r"^\.\. (type|function):: (.*)$", l)
+        m = match(r"^\.\. (type|function|const|macro):: (.*)$", l)
         if m==nothing
             lineno += 1
         else
             sectype = m.captures[1]
             secdecl = replace(m.captures[2], r"(^ +| +$)" => "")
             str, lineno = glob_section(lines, lineno+1)
-            if sectype == "type"
+            if sectype == "type" || sectype == "const" || sectype == "macro"
                 # type def
                 name = secdecl
             else

@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_histogram_alloc(n) -> Ptr{gsl_histogram}
+    histogram_alloc(n) -> Ptr{gsl_histogram}
 
 C signature:
 `gsl_histogram * gsl_histogram_alloc (size_t n)`
@@ -25,32 +25,32 @@ GSL documentation:
 > for use.
 
 """
-function gsl_histogram_alloc(n)
+function histogram_alloc(n)
     ccall((:gsl_histogram_alloc, libgsl), Ptr{gsl_histogram}, (Csize_t,), n)
 end
 
 @doc md"""
-    gsl_histogram_calloc(n) -> Ptr{gsl_histogram}
+    histogram_calloc(n) -> Ptr{gsl_histogram}
 
 C signature:
 `gsl_histogram * gsl_histogram_calloc (size_t n)`
 """
-function gsl_histogram_calloc(n)
+function histogram_calloc(n)
     ccall((:gsl_histogram_calloc, libgsl), Ptr{gsl_histogram}, (Csize_t,), n)
 end
 
 @doc md"""
-    gsl_histogram_calloc_uniform(n, xmin, xmax) -> Ptr{gsl_histogram}
+    histogram_calloc_uniform(n, xmin, xmax) -> Ptr{gsl_histogram}
 
 C signature:
 `gsl_histogram * gsl_histogram_calloc_uniform (const size_t n, const double xmin, const double xmax)`
 """
-function gsl_histogram_calloc_uniform(n, xmin, xmax)
+function histogram_calloc_uniform(n, xmin, xmax)
     ccall((:gsl_histogram_calloc_uniform, libgsl), Ptr{gsl_histogram}, (Csize_t, Cdouble, Cdouble), n, xmin, xmax)
 end
 
 @doc md"""
-    gsl_histogram_free(h) -> Cvoid
+    histogram_free(h) -> Cvoid
 
 C signature:
 `void gsl_histogram_free (gsl_histogram * h)`
@@ -63,12 +63,12 @@ GSL documentation:
 > with it.
 
 """
-function gsl_histogram_free(h)
+function histogram_free(h)
     ccall((:gsl_histogram_free, libgsl), Cvoid, (Ptr{gsl_histogram},), h)
 end
 
 @doc md"""
-    gsl_histogram_increment(h, x) -> Cint
+    histogram_increment(h, x) -> Cint
 
 C signature:
 `int gsl_histogram_increment (gsl_histogram * h, double x)`
@@ -91,12 +91,12 @@ GSL documentation:
 > interest.
 
 """
-function gsl_histogram_increment(h, x)
+function histogram_increment(h, x)
     ccall((:gsl_histogram_increment, libgsl), Cint, (Ref{gsl_histogram}, Cdouble), h, x)
 end
 
 @doc md"""
-    gsl_histogram_accumulate(h, x, weight) -> Cint
+    histogram_accumulate(h, x, weight) -> Cint
 
 C signature:
 `int gsl_histogram_accumulate (gsl_histogram * h, double x, double weight)`
@@ -110,12 +110,12 @@ GSL documentation:
 > floating-point number weight.
 
 """
-function gsl_histogram_accumulate(h, x, weight)
+function histogram_accumulate(h, x, weight)
     ccall((:gsl_histogram_accumulate, libgsl), Cint, (Ref{gsl_histogram}, Cdouble, Cdouble), h, x, weight)
 end
 
 @doc md"""
-    gsl_histogram_find(h, x, i) -> Cint
+    histogram_find(h, x, i) -> Cint
 
 C signature:
 `int gsl_histogram_find (const gsl_histogram * h, const double x, size_t * i)`
@@ -134,12 +134,12 @@ GSL documentation:
 > error handler is invoked.
 
 """
-function gsl_histogram_find(h, x, i)
+function histogram_find(h, x, i)
     ccall((:gsl_histogram_find, libgsl), Cint, (Ref{gsl_histogram}, Cdouble, Ref{Csize_t}), h, x, i)
 end
 
 @doc md"""
-    gsl_histogram_get(h, i) -> Cdouble
+    histogram_get(h, i) -> Cdouble
 
 C signature:
 `double gsl_histogram_get (const gsl_histogram * h, size_t i)`
@@ -154,12 +154,12 @@ GSL documentation:
 > function returns 0.
 
 """
-function gsl_histogram_get(h, i)
+function histogram_get(h, i)
     ccall((:gsl_histogram_get, libgsl), Cdouble, (Ref{gsl_histogram}, Csize_t), h, i)
 end
 
 @doc md"""
-    gsl_histogram_get_range(h, i, lower, upper) -> Cint
+    histogram_get_range(h, i, lower, upper) -> Cint
 
 C signature:
 `int gsl_histogram_get_range (const gsl_histogram * h, size_t i, double * lower, double * upper)`
@@ -179,12 +179,12 @@ GSL documentation:
 > handler is called and the function returns an error code of GSL\_EDOM.
 
 """
-function gsl_histogram_get_range(h, i, lower, upper)
+function histogram_get_range(h, i, lower, upper)
     ccall((:gsl_histogram_get_range, libgsl), Cint, (Ref{gsl_histogram}, Csize_t, Ref{Cdouble}, Ref{Cdouble}), h, i, lower, upper)
 end
 
 @doc md"""
-    gsl_histogram_max(h) -> Cdouble
+    histogram_max(h) -> Cdouble
 
 C signature:
 `double gsl_histogram_max (const gsl_histogram * h)`
@@ -202,32 +202,32 @@ GSL documentation:
 > struct directly.
 
 """
-function gsl_histogram_max(h)
+function histogram_max(h)
     ccall((:gsl_histogram_max, libgsl), Cdouble, (Ptr{gsl_histogram},), h)
 end
 
 @doc md"""
-    gsl_histogram_min(h) -> Cdouble
+    histogram_min(h) -> Cdouble
 
 C signature:
 `double gsl_histogram_min (const gsl_histogram * h)`
 """
-function gsl_histogram_min(h)
+function histogram_min(h)
     ccall((:gsl_histogram_min, libgsl), Cdouble, (Ptr{gsl_histogram},), h)
 end
 
 @doc md"""
-    gsl_histogram_bins(h) -> Csize_t
+    histogram_bins(h) -> Csize_t
 
 C signature:
 `size_t gsl_histogram_bins (const gsl_histogram * h)`
 """
-function gsl_histogram_bins(h)
+function histogram_bins(h)
     ccall((:gsl_histogram_bins, libgsl), Csize_t, (Ptr{gsl_histogram},), h)
 end
 
 @doc md"""
-    gsl_histogram_reset(h) -> Cvoid
+    histogram_reset(h) -> Cvoid
 
 C signature:
 `void gsl_histogram_reset (gsl_histogram * h)`
@@ -239,22 +239,22 @@ GSL documentation:
 > This function resets all the bins in the histogram h to zero.
 
 """
-function gsl_histogram_reset(h)
+function histogram_reset(h)
     ccall((:gsl_histogram_reset, libgsl), Cvoid, (Ptr{gsl_histogram},), h)
 end
 
 @doc md"""
-    gsl_histogram_calloc_range(n, range) -> Ptr{gsl_histogram}
+    histogram_calloc_range(n, range) -> Ptr{gsl_histogram}
 
 C signature:
 `gsl_histogram * gsl_histogram_calloc_range(size_t n, double * range)`
 """
-function gsl_histogram_calloc_range(n, range)
+function histogram_calloc_range(n, range)
     ccall((:gsl_histogram_calloc_range, libgsl), Ptr{gsl_histogram}, (Csize_t, Ref{Cdouble}), n, range)
 end
 
 @doc md"""
-    gsl_histogram_set_ranges(h, range, size) -> Cint
+    histogram_set_ranges(h, range, size) -> Cint
 
 C signature:
 `int gsl_histogram_set_ranges (gsl_histogram * h, const double range[], size_t size)`
@@ -287,12 +287,12 @@ GSL documentation:
 > required for the upper value of the final bin.
 
 """
-function gsl_histogram_set_ranges(h, range, size)
+function histogram_set_ranges(h, range, size)
     ccall((:gsl_histogram_set_ranges, libgsl), Cint, (Ref{gsl_histogram}, Ref{Cdouble}, Csize_t), h, range, size)
 end
 
 @doc md"""
-    gsl_histogram_set_ranges_uniform(h, xmin, xmax) -> Cint
+    histogram_set_ranges_uniform(h, xmin, xmax) -> Cint
 
 C signature:
 `int gsl_histogram_set_ranges_uniform (gsl_histogram * h, double xmin, double xmax)`
@@ -308,12 +308,12 @@ GSL documentation:
 > where $d$ is the bin spacing, $d = (xmax-xmin)/n$.
 
 """
-function gsl_histogram_set_ranges_uniform(h, xmin, xmax)
+function histogram_set_ranges_uniform(h, xmin, xmax)
     ccall((:gsl_histogram_set_ranges_uniform, libgsl), Cint, (Ref{gsl_histogram}, Cdouble, Cdouble), h, xmin, xmax)
 end
 
 @doc md"""
-    gsl_histogram_memcpy(dest, source) -> Cint
+    histogram_memcpy(dest, source) -> Cint
 
 C signature:
 `int gsl_histogram_memcpy(gsl_histogram * dest, const gsl_histogram * source)`
@@ -327,12 +327,12 @@ GSL documentation:
 > be of the same size.
 
 """
-function gsl_histogram_memcpy(dest, source)
+function histogram_memcpy(dest, source)
     ccall((:gsl_histogram_memcpy, libgsl), Cint, (Ref{gsl_histogram}, Ref{gsl_histogram}), dest, source)
 end
 
 @doc md"""
-    gsl_histogram_clone(source) -> Ptr{gsl_histogram}
+    histogram_clone(source) -> Ptr{gsl_histogram}
 
 C signature:
 `gsl_histogram * gsl_histogram_clone(const gsl_histogram * source)`
@@ -345,12 +345,12 @@ GSL documentation:
 > an exact copy of the histogram src.
 
 """
-function gsl_histogram_clone(source)
+function histogram_clone(source)
     ccall((:gsl_histogram_clone, libgsl), Ptr{gsl_histogram}, (Ptr{gsl_histogram},), source)
 end
 
 @doc md"""
-    gsl_histogram_max_val(h) -> Cdouble
+    histogram_max_val(h) -> Cdouble
 
 C signature:
 `double gsl_histogram_max_val (const gsl_histogram * h)`
@@ -363,12 +363,12 @@ GSL documentation:
 > bins.
 
 """
-function gsl_histogram_max_val(h)
+function histogram_max_val(h)
     ccall((:gsl_histogram_max_val, libgsl), Cdouble, (Ptr{gsl_histogram},), h)
 end
 
 @doc md"""
-    gsl_histogram_max_bin(h) -> Csize_t
+    histogram_max_bin(h) -> Csize_t
 
 C signature:
 `size_t gsl_histogram_max_bin (const gsl_histogram * h)`
@@ -382,12 +382,12 @@ GSL documentation:
 > the smallest index is returned.
 
 """
-function gsl_histogram_max_bin(h)
+function histogram_max_bin(h)
     ccall((:gsl_histogram_max_bin, libgsl), Csize_t, (Ptr{gsl_histogram},), h)
 end
 
 @doc md"""
-    gsl_histogram_min_val(h) -> Cdouble
+    histogram_min_val(h) -> Cdouble
 
 C signature:
 `double gsl_histogram_min_val (const gsl_histogram * h)`
@@ -400,12 +400,12 @@ GSL documentation:
 > bins.
 
 """
-function gsl_histogram_min_val(h)
+function histogram_min_val(h)
     ccall((:gsl_histogram_min_val, libgsl), Cdouble, (Ptr{gsl_histogram},), h)
 end
 
 @doc md"""
-    gsl_histogram_min_bin(h) -> Csize_t
+    histogram_min_bin(h) -> Csize_t
 
 C signature:
 `size_t gsl_histogram_min_bin (const gsl_histogram * h)`
@@ -419,12 +419,12 @@ GSL documentation:
 > the smallest index is returned.
 
 """
-function gsl_histogram_min_bin(h)
+function histogram_min_bin(h)
     ccall((:gsl_histogram_min_bin, libgsl), Csize_t, (Ptr{gsl_histogram},), h)
 end
 
 @doc md"""
-    gsl_histogram_equal_bins_p(h1, h2) -> Cint
+    histogram_equal_bins_p(h1, h2) -> Cint
 
 C signature:
 `int gsl_histogram_equal_bins_p(const gsl_histogram *h1, const gsl_histogram *h2)`
@@ -437,12 +437,12 @@ GSL documentation:
 > two histograms are identical, and 0 otherwise.
 
 """
-function gsl_histogram_equal_bins_p(h1, h2)
+function histogram_equal_bins_p(h1, h2)
     ccall((:gsl_histogram_equal_bins_p, libgsl), Cint, (Ref{gsl_histogram}, Ref{gsl_histogram}), h1, h2)
 end
 
 @doc md"""
-    gsl_histogram_add(h1, h2) -> Cint
+    histogram_add(h1, h2) -> Cint
 
 C signature:
 `int gsl_histogram_add(gsl_histogram *h1, const gsl_histogram *h2)`
@@ -456,12 +456,12 @@ GSL documentation:
 > The two histograms must have identical bin ranges.
 
 """
-function gsl_histogram_add(h1, h2)
+function histogram_add(h1, h2)
     ccall((:gsl_histogram_add, libgsl), Cint, (Ref{gsl_histogram}, Ref{gsl_histogram}), h1, h2)
 end
 
 @doc md"""
-    gsl_histogram_sub(h1, h2) -> Cint
+    histogram_sub(h1, h2) -> Cint
 
 C signature:
 `int gsl_histogram_sub(gsl_histogram *h1, const gsl_histogram *h2)`
@@ -476,12 +476,12 @@ GSL documentation:
 > bin ranges.
 
 """
-function gsl_histogram_sub(h1, h2)
+function histogram_sub(h1, h2)
     ccall((:gsl_histogram_sub, libgsl), Cint, (Ref{gsl_histogram}, Ref{gsl_histogram}), h1, h2)
 end
 
 @doc md"""
-    gsl_histogram_mul(h1, h2) -> Cint
+    histogram_mul(h1, h2) -> Cint
 
 C signature:
 `int gsl_histogram_mul(gsl_histogram *h1, const gsl_histogram *h2)`
@@ -496,12 +496,12 @@ GSL documentation:
 > bin ranges.
 
 """
-function gsl_histogram_mul(h1, h2)
+function histogram_mul(h1, h2)
     ccall((:gsl_histogram_mul, libgsl), Cint, (Ref{gsl_histogram}, Ref{gsl_histogram}), h1, h2)
 end
 
 @doc md"""
-    gsl_histogram_div(h1, h2) -> Cint
+    histogram_div(h1, h2) -> Cint
 
 C signature:
 `int gsl_histogram_div(gsl_histogram *h1, const gsl_histogram *h2)`
@@ -516,12 +516,12 @@ GSL documentation:
 > bin ranges.
 
 """
-function gsl_histogram_div(h1, h2)
+function histogram_div(h1, h2)
     ccall((:gsl_histogram_div, libgsl), Cint, (Ref{gsl_histogram}, Ref{gsl_histogram}), h1, h2)
 end
 
 @doc md"""
-    gsl_histogram_scale(h, scale) -> Cint
+    histogram_scale(h, scale) -> Cint
 
 C signature:
 `int gsl_histogram_scale(gsl_histogram *h, double scale)`
@@ -534,12 +534,12 @@ GSL documentation:
 > the constant scale, i.e.
 
 """
-function gsl_histogram_scale(h, scale)
+function histogram_scale(h, scale)
     ccall((:gsl_histogram_scale, libgsl), Cint, (Ref{gsl_histogram}, Cdouble), h, scale)
 end
 
 @doc md"""
-    gsl_histogram_shift(h, shift) -> Cint
+    histogram_shift(h, shift) -> Cint
 
 C signature:
 `int gsl_histogram_shift (gsl_histogram * h, double shift)`
@@ -552,12 +552,12 @@ GSL documentation:
 > constant offset, i.e.
 
 """
-function gsl_histogram_shift(h, shift)
+function histogram_shift(h, shift)
     ccall((:gsl_histogram_shift, libgsl), Cint, (Ref{gsl_histogram}, Cdouble), h, shift)
 end
 
 @doc md"""
-    gsl_histogram_sigma(h) -> Cdouble
+    histogram_sigma(h) -> Cdouble
 
 C signature:
 `double gsl_histogram_sigma (const gsl_histogram * h)`
@@ -572,12 +572,12 @@ GSL documentation:
 > calculation. The accuracy of the result is limited by the bin width.
 
 """
-function gsl_histogram_sigma(h)
+function histogram_sigma(h)
     ccall((:gsl_histogram_sigma, libgsl), Cdouble, (Ptr{gsl_histogram},), h)
 end
 
 @doc md"""
-    gsl_histogram_mean(h) -> Cdouble
+    histogram_mean(h) -> Cdouble
 
 C signature:
 `double gsl_histogram_mean (const gsl_histogram * h)`
@@ -592,12 +592,12 @@ GSL documentation:
 > of the result is limited by the bin width.
 
 """
-function gsl_histogram_mean(h)
+function histogram_mean(h)
     ccall((:gsl_histogram_mean, libgsl), Cdouble, (Ptr{gsl_histogram},), h)
 end
 
 @doc md"""
-    gsl_histogram_sum(h) -> Cdouble
+    histogram_sum(h) -> Cdouble
 
 C signature:
 `double gsl_histogram_sum (const gsl_histogram * h)`
@@ -610,12 +610,12 @@ GSL documentation:
 > are included in the sum.
 
 """
-function gsl_histogram_sum(h)
+function histogram_sum(h)
     ccall((:gsl_histogram_sum, libgsl), Cdouble, (Ptr{gsl_histogram},), h)
 end
 
 @doc md"""
-    gsl_histogram_fwrite(stream, h) -> Cint
+    histogram_fwrite(stream, h) -> Cint
 
 C signature:
 `int gsl_histogram_fwrite (FILE * stream, const gsl_histogram * h)`
@@ -631,12 +631,12 @@ GSL documentation:
 > between different architectures.
 
 """
-function gsl_histogram_fwrite(stream, h)
+function histogram_fwrite(stream, h)
     ccall((:gsl_histogram_fwrite, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_histogram}), stream, h)
 end
 
 @doc md"""
-    gsl_histogram_fread(stream, h) -> Cint
+    histogram_fread(stream, h) -> Cint
 
 C signature:
 `int gsl_histogram_fread (FILE * stream, gsl_histogram * h)`
@@ -654,12 +654,12 @@ GSL documentation:
 > the same architecture.
 
 """
-function gsl_histogram_fread(stream, h)
+function histogram_fread(stream, h)
     ccall((:gsl_histogram_fread, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_histogram}), stream, h)
 end
 
 @doc md"""
-    gsl_histogram_fprintf(stream, h, range_format, bin_format) -> Cint
+    histogram_fprintf(stream, h, range_format, bin_format) -> Cint
 
 C signature:
 `int gsl_histogram_fprintf (FILE * stream, const gsl_histogram * h, const char * range_format, const char * bin_format)`
@@ -691,12 +691,12 @@ GSL documentation:
 > allows the histogram to be manipulated with line-oriented tools.
 
 """
-function gsl_histogram_fprintf(stream, h, range_format, bin_format)
+function histogram_fprintf(stream, h, range_format, bin_format)
     ccall((:gsl_histogram_fprintf, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_histogram}, Ref{Cchar}, Ref{Cchar}), stream, h, range_format, bin_format)
 end
 
 @doc md"""
-    gsl_histogram_fscanf(stream, h) -> Cint
+    histogram_fscanf(stream, h) -> Cint
 
 C signature:
 `int gsl_histogram_fscanf (FILE * stream, gsl_histogram * h)`
@@ -713,12 +713,12 @@ GSL documentation:
 > GSL\_EFAILED if there was a problem reading from the file.
 
 """
-function gsl_histogram_fscanf(stream, h)
+function histogram_fscanf(stream, h)
     ccall((:gsl_histogram_fscanf, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_histogram}), stream, h)
 end
 
 @doc md"""
-    gsl_histogram_pdf_alloc(n) -> Ptr{gsl_histogram_pdf}
+    histogram_pdf_alloc(n) -> Ptr{gsl_histogram_pdf}
 
 C signature:
 `gsl_histogram_pdf * gsl_histogram_pdf_alloc (const size_t n)`
@@ -733,12 +733,12 @@ GSL documentation:
 > and the error handler is invoked with an error code of GSL\_ENOMEM.
 
 """
-function gsl_histogram_pdf_alloc(n)
+function histogram_pdf_alloc(n)
     ccall((:gsl_histogram_pdf_alloc, libgsl), Ptr{gsl_histogram_pdf}, (Csize_t,), n)
 end
 
 @doc md"""
-    gsl_histogram_pdf_init(p, h) -> Cint
+    histogram_pdf_init(p, h) -> Cint
 
 C signature:
 `int gsl_histogram_pdf_init (gsl_histogram_pdf * p, const gsl_histogram * h)`
@@ -753,12 +753,12 @@ GSL documentation:
 > probability distribution cannot contain negative values.
 
 """
-function gsl_histogram_pdf_init(p, h)
+function histogram_pdf_init(p, h)
     ccall((:gsl_histogram_pdf_init, libgsl), Cint, (Ref{gsl_histogram_pdf}, Ref{gsl_histogram}), p, h)
 end
 
 @doc md"""
-    gsl_histogram_pdf_free(p) -> Cvoid
+    histogram_pdf_free(p) -> Cvoid
 
 C signature:
 `void gsl_histogram_pdf_free (gsl_histogram_pdf * p)`
@@ -771,12 +771,12 @@ GSL documentation:
 > the memory associated with it.
 
 """
-function gsl_histogram_pdf_free(p)
+function histogram_pdf_free(p)
     ccall((:gsl_histogram_pdf_free, libgsl), Cvoid, (Ptr{gsl_histogram_pdf},), p)
 end
 
 @doc md"""
-    gsl_histogram_pdf_sample(p, r) -> Cdouble
+    histogram_pdf_sample(p, r) -> Cdouble
 
 C signature:
 `double gsl_histogram_pdf_sample (const gsl_histogram_pdf * p, double r)`
@@ -794,7 +794,7 @@ GSL documentation:
 > $delta$ is $(r - sum[i])/(sum[i+1] - sum[i])$.
 
 """
-function gsl_histogram_pdf_sample(p, r)
+function histogram_pdf_sample(p, r)
     ccall((:gsl_histogram_pdf_sample, libgsl), Cdouble, (Ref{gsl_histogram_pdf}, Cdouble), p, r)
 end
 

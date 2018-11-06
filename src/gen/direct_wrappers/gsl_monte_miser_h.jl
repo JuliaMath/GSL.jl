@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_monte_miser_integrate(f, xl, xh, dim, calls, r, state, result, abserr) -> Cint
+    monte_miser_integrate(f, xl, xh, dim, calls, r, state, result, abserr) -> Cint
 
 C signature:
 `int gsl_monte_miser_integrate(gsl_monte_function * f, const double xl[], const double xh[], size_t dim, size_t calls, gsl_rng *r, gsl_monte_miser_state* state, double *result, double *abserr)`
@@ -26,12 +26,12 @@ GSL documentation:
 > abserr.
 
 """
-function gsl_monte_miser_integrate(f, xl, xh, dim, calls, r, state, result, abserr)
+function monte_miser_integrate(f, xl, xh, dim, calls, r, state, result, abserr)
     ccall((:gsl_monte_miser_integrate, libgsl), Cint, (Ref{gsl_monte_function}, Ref{Cdouble}, Ref{Cdouble}, Csize_t, Csize_t, Ref{gsl_rng}, Ref{gsl_monte_miser_state}, Ref{Cdouble}, Ref{Cdouble}), f, xl, xh, dim, calls, r, state, result, abserr)
 end
 
 @doc md"""
-    gsl_monte_miser_alloc(dim) -> Ptr{gsl_monte_miser_state}
+    monte_miser_alloc(dim) -> Ptr{gsl_monte_miser_state}
 
 C signature:
 `gsl_monte_miser_state* gsl_monte_miser_alloc(size_t dim)`
@@ -45,12 +45,12 @@ GSL documentation:
 > state of the integration.
 
 """
-function gsl_monte_miser_alloc(dim)
+function monte_miser_alloc(dim)
     ccall((:gsl_monte_miser_alloc, libgsl), Ptr{gsl_monte_miser_state}, (Csize_t,), dim)
 end
 
 @doc md"""
-    gsl_monte_miser_init(state) -> Cint
+    monte_miser_init(state) -> Cint
 
 C signature:
 `int gsl_monte_miser_init(gsl_monte_miser_state* state)`
@@ -64,12 +64,12 @@ GSL documentation:
 > integrations.
 
 """
-function gsl_monte_miser_init(state)
+function monte_miser_init(state)
     ccall((:gsl_monte_miser_init, libgsl), Cint, (Ptr{gsl_monte_miser_state},), state)
 end
 
 @doc md"""
-    gsl_monte_miser_free(state) -> Cvoid
+    monte_miser_free(state) -> Cvoid
 
 C signature:
 `void gsl_monte_miser_free(gsl_monte_miser_state* state)`
@@ -81,15 +81,15 @@ GSL documentation:
 > This function frees the memory associated with the integrator state s.
 
 The MISER algorithm has several configurable parameters which can be
-changed using the following two functions \[\#f1\]\_.
+changed using the following two functions.
 
 """
-function gsl_monte_miser_free(state)
+function monte_miser_free(state)
     ccall((:gsl_monte_miser_free, libgsl), Cvoid, (Ptr{gsl_monte_miser_state},), state)
 end
 
 @doc md"""
-    gsl_monte_miser_params_get(state, params) -> Cvoid
+    monte_miser_params_get(state, params) -> Cvoid
 
 C signature:
 `void gsl_monte_miser_params_get (const gsl_monte_miser_state * state, gsl_monte_miser_params * params)`
@@ -102,12 +102,12 @@ GSL documentation:
 > user-supplied params structure.
 
 """
-function gsl_monte_miser_params_get(state, params)
+function monte_miser_params_get(state, params)
     ccall((:gsl_monte_miser_params_get, libgsl), Cvoid, (Ref{gsl_monte_miser_state}, Ref{gsl_monte_miser_params}), state, params)
 end
 
 @doc md"""
-    gsl_monte_miser_params_set(state, params) -> Cvoid
+    monte_miser_params_set(state, params) -> Cvoid
 
 C signature:
 `void gsl_monte_miser_params_set (gsl_monte_miser_state * state, const gsl_monte_miser_params * params)`
@@ -127,7 +127,7 @@ the gsl\_monte\_miser\_params structure which contains the following
 fields:
 
 """
-function gsl_monte_miser_params_set(state, params)
+function monte_miser_params_set(state, params)
     ccall((:gsl_monte_miser_params_set, libgsl), Cvoid, (Ref{gsl_monte_miser_state}, Ref{gsl_monte_miser_params}), state, params)
 end
 

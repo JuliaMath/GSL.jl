@@ -7,17 +7,17 @@
 
 
 @doc md"""
-    gsl_sf_multiply_e(x, y, result) -> Cint
+    sf_multiply_e(x, y, result) -> Cint
 
 C signature:
 `int gsl_sf_multiply_e(const double x, const double y, gsl_sf_result * result)`
 """
-function gsl_sf_multiply_e(x, y, result)
+function sf_multiply_e(x, y, result)
     ccall((:gsl_sf_multiply_e, libgsl), Cint, (Cdouble, Cdouble, Ref{gsl_sf_result}), x, y, result)
 end
 
 @doc md"""
-    gsl_sf_multiply(x, y) -> Cdouble
+    sf_multiply(x, y) -> Cdouble
 
 C signature:
 `double gsl_sf_multiply(const double x, const double y)`
@@ -33,12 +33,12 @@ GSL documentation:
 > associated error in result.
 
 """
-function gsl_sf_multiply(x, y)
+function sf_multiply(x, y)
     ccall((:gsl_sf_multiply, libgsl), Cdouble, (Cdouble, Cdouble), x, y)
 end
 
 @doc md"""
-    gsl_sf_multiply_err_e(x, dx, y, dy, result) -> Cint
+    sf_multiply_err_e(x, dx, y, dy, result) -> Cint
 
 C signature:
 `int gsl_sf_multiply_err_e(const double x, const double dx, const double y, const double dy, gsl_sf_result * result)`
@@ -52,7 +52,7 @@ GSL documentation:
 > result.
 
 """
-function gsl_sf_multiply_err_e(x, dx, y, dy, result)
+function sf_multiply_err_e(x, dx, y, dy, result)
     ccall((:gsl_sf_multiply_err_e, libgsl), Cint, (Cdouble, Cdouble, Cdouble, Cdouble, Ref{gsl_sf_result}), x, dx, y, dy, result)
 end
 

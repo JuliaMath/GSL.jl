@@ -12,6 +12,7 @@
 # - deal with variable length arguments, i.e. "splat"
 # - maybe translate enum's to @enum ?
 
+using Revise
 using Markdown
 using Glob
 include("readdocs.jl")
@@ -31,8 +32,11 @@ ignore_headers = ["gsl_spmatrix.h", "gsl_splinalg.h", "gsl_spblas.h"]
 ignore_header(filename) = any(endswith.(filename, ignore_headers))
 
 # List of names to ignore in export
-ignore_list = ["gsl_blas", "gsl_eigen_", "gsl_sort", "cblas_", "gsl_fft_", "gsl_linalg_"]
-ignore_this(name) = any(startswith.(name, ignore_list))
+ignore_list_prefix = ["gsl_blas", "gsl_eigen_", "gsl_sort", "cblas_", "gsl_fft_", "gsl_linalg_"]
+ignore_list = ["gsl_asinh", "gsl_atanh", "gsl_error", "gsl_expm1", "gsl_frexp",
+               "gsl_hypot", "gsl_isinf", "gsl_isnan", "gsl_ldexp", "gsl_log1p",
+               "gsl_max", "gsl_min", "gsl_acosh"]
+ignore_this(name) = any(startswith.(name, ignore_list_prefix)) || (name in ignore_list)
 
 type_match = Dict(
     "int" => "Cint",
@@ -114,6 +118,7 @@ function create_base_wrappers()
     structs = Array{struct_signature}(undef, 0)
     typedefs = Array{function_argument}(undef, 0)
     constants = Array{constant_signature}(undef, 0)
+    physical_constants = Array{constant_signature}(undef, 0)
     global_vars = Array{global_var_signature}(undef, 0)                
     allfunctions = []
     # Initialize output for type file
@@ -137,8 +142,14 @@ function create_base_wrappers()
                 push!(global_vars, out)
             elseif typeof(out) <: Array{function_argument}            
                 append!(newtypedefs, out)
-            elseif typeof(out) <: Array{constant_signature}            
-                append!(newconstants, out)                
+            elseif typeof(out) <: Array{constant_signature}
+                for c in out
+                    if startswith(c.name, "GSL_CONST_")
+                        push!(physical_constants, c)
+                    else
+                        push!(newconstants, c)
+                    end
+                end
             elseif typeof(out) == function_signature
                 if !any([out.name == g.name for g in newfunctions])
                     push!(newfunctions, out)
@@ -173,6 +184,15 @@ function create_base_wrappers()
     fh = open(joinpath(OUTPUT_DIR, "gsl_types.jl"), "w")
     write(fh, HEAD*type_output)
     close(fh)
+    # Write physical constant file
+    phys_const_output = ""
+    for c in physical_constants
+        phys_const_output *= "export $(juliavarname(c.name))\n"
+    end
+    phys_const_output *= gen_julia([], [], physical_constants, [], "Physical constants")
+    fh = open(joinpath(OUTPUT_DIR, "gsl_const.jl"), "w")
+    write(fh, HEAD*phys_const_output)    
+    close(fh)    
     ## Next, function wrappers
     println("* Generating function wrappers")
     allfcnwrappers = ""
@@ -205,14 +225,21 @@ function create_base_wrappers()
     write(fh, HEAD*output)
     close(fh)
     # Export all names
-    allnames = [t.name for t in structs]
-    append!(allnames, [t.name for t in typedefs])
-    append!(allnames, [t.name for t in constants])        
-    append!(allnames, [t.name for t in functions])
+    vnames = String[]
+    append!(vnames, [t.name for t in structs])
+    append!(vnames, [t.name for t in typedefs])
+    append!(vnames, [t.name for t in constants])
+    append!(vnames, [t.name for t in global_vars])
+    fnames =  [t.name for t in functions]
     output = ""
-    for n in allnames
-        if !ignore_this(n)
-            output *= "export $n\n"
+    for n in vnames
+        if exportname(n)
+            output *= "export $(juliavarname(n))\n"
+        end
+    end
+    for n in fnames
+        if exportname(n)
+            output *= "export $(juliafuncname(n))\n"
         end
     end
     fh = open(joinpath(OUTPUT_DIR,"gsl_export.jl"), "w")
@@ -552,7 +579,6 @@ function trim_whitespace(str)
 end
 
 function gen_julia(structs, typedefs, constants, functions, filename)
-
     typedefs_lookup = Dict()
     for (i,t) in enumerate(typedefs)
         typedefs_lookup[arg2julia(t)] = i
@@ -563,8 +589,9 @@ function gen_julia(structs, typedefs, constants, functions, filename)
     struct_output = ""
     typedefs_written = Int64[]
     for s in structs
+        jname = juliavarname(s.name)
         this_struct = ""
-        this_struct *= "mutable struct $(s.name)\n"
+        this_struct *= "mutable struct $jname\n"
         this_struct *= "    "
         this_struct *= join([a.name*"::"*arg2julia(a, :struct) for a in s.args], "\n    ")        
         this_struct *= "\nend\n"
@@ -577,13 +604,16 @@ function gen_julia(structs, typedefs, constants, functions, filename)
         # Check if theres a typedef pointing to this struct,
         # then write it immediately if there is.
         # This helps is subsequent structs use this typedef
-        if haskey(typedefs_lookup, s.name)
-            idx = typedefs_lookup[s.name]
+        if haskey(typedefs_lookup, jname)
+            idx = typedefs_lookup[jname]
             t = typedefs[idx]
             name = t.name
+            jname = juliavarname(name)
             jtype = arg2julia(t, :struct)
-            this_struct *= "const $name = $jtype\n"
-            push!(typedefs_written, idx)
+            if jname != jtype
+                this_struct *= "const $jname = $jtype\n"
+                push!(typedefs_written, idx)
+            end
             if isempty(gsldoc) && haskey(docs, name)
                 gsldoc = "GSL documentation:\n\n### " * docs[name]
             end
@@ -594,16 +624,21 @@ function gen_julia(structs, typedefs, constants, functions, filename)
     end
 
     for c in constants
-        output *= "const $(c.name) = $(c.value)\n"
+        if haskey(docs, c.name)
+            output *= "\n" * docstr(docs[c.name])
+        end
+        jname = juliavarname(c.name)
+        val = c.value
+        output *= "const $jname = $val\n"
     end
 
     for (i,t) in enumerate(typedefs)
-        name = t.name
+        jname = juliavarname(t.name)
         jtype = arg2julia(t, :struct)
-        if i in typedefs_written
+        if (i in typedefs_written) || jname==jtype
             continue
         end
-        output *= "const $name = $jtype\n"
+        output *= "const $jname = $jtype\n"
     end
     
     output *= "\n"
@@ -612,9 +647,10 @@ function gen_julia(structs, typedefs, constants, functions, filename)
     for f in functions
         typed = false
         # typed = generate function signatures with typed arguments
+        jname = juliafuncname(f.name)
         jret = arg2julia(f.ret, :output)
         arglist = join([a.name * (typed ? "::"*arg2julia(a) : "") for a in f.args],", ")
-        head = "$(f.name)($arglist)"
+        head = "$jname($arglist)"
         # See if we have matching docs from GSL
         gsldoc = ""
         if haskey(docs, f.name)
@@ -642,6 +678,20 @@ function gen_julia(structs, typedefs, constants, functions, filename)
     return output
 end
 
+function juliafuncname(cname)
+    return replace(cname, r"^gsl_" => "")
+end
+
+function juliavarname(cname)
+    n = replace(cname, r"^(GSL_CONST_)" => "")    
+    n = replace(n, r"_struct$" => "")
+    return n
+end
+
+function exportname(cname)
+    return (occursin(r"^(GSL_|gsl_)", cname) && !ignore_this(cname))
+end
+
 function juliatype(ctype)
     if occursin(r"^enum", ctype)
         return "Cint"
@@ -650,7 +700,7 @@ function juliatype(ctype)
     #     return "Arrayz{$(type_match[ctype])}"
     else
         if haskey(type_match, ctype)
-            return type_match[ctype]
+            return juliavarname(type_match[ctype])
         else
             error("Unknown type $ctype")
         end
@@ -691,17 +741,15 @@ function docstr(str)
 end
 
 function gen_global_vars(global_vars)
-    header1 = ""
-    header2 = ""
+    header = ""
     loader = ""
     for v in global_vars
+        name = v.name
         jtype = juliatype(v.type)
-        header1 *= "export $(v.name)\n"
-        header2 *= "const $(v.name) = Ref{$jtype}()\n"
-        #loader *= "    $(v.name)[] = unsafe_load(unsafe_load(cglobal((:$(v.name), libgsl), Ptr{$jtype})))\n"
-        loader *= "    $(v.name)[] =  @gload_pp(:$(v.name), $jtype) \n"
+        header *= "const $name = Ref{$jtype}()\n"
+        loader *= "    $name[] =  @gload_pp(:$(v.name), $jtype) \n"
     end
-    output = header1 * "\n" * header2
+    output = header
     output *= "
 
 macro gload_pp(n, t)
@@ -723,16 +771,9 @@ if !isdefined(Main, :docs) || isempty(docs)
 end
 
 functions = create_base_wrappers()
-println("* Attempting to load direct wrappers...")
-include(joinpath(OUTPUT_DIR, "gsl_types.jl"))
-include(joinpath(OUTPUT_DIR, "gsl_direct_wrappers.jl"))
-println("Success!");
 
 println("* Generating heuristic wrappers...\n")
 include("heuristic.jl")
-secondary_wrappers(functions)
+secondary_wrappers(functions, docs)
 
-println("* Attempting to load heuristic wrappers...")
-include(joinpath(OUTPUT_DIR, "heuristic_wrappers.jl"))
-println("Success!");
 

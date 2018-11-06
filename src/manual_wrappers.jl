@@ -121,7 +121,7 @@ macro gsl_multiroot_function(f, n)
                     x = GSL.wrap_gsl_vector(x_vec)
                     y = GSL.wrap_gsl_vector(y_vec)
                     $f(x, y)
-                    return Cint(GSL_SUCCESS)                       
+                    return Cint(GSL.GSL_SUCCESS)                       
                 end,
                 Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_vector})),
             # n
@@ -150,7 +150,7 @@ macro gsl_multiroot_function_fdf(f, df, n)
                            xarr = GSL.wrap_gsl_vector(x)
                            farr = GSL.wrap_gsl_vector(f)
                            $f(xarr, farr)
-                           return Cint(GSL_SUCCESS)
+                           return Cint(GSL.GSL_SUCCESS)
                        end,
                        Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_vector})),
             # df
@@ -158,7 +158,7 @@ macro gsl_multiroot_function_fdf(f, df, n)
                        xarr = GSL.wrap_gsl_vector(x)
                        Jmat = GSL.wrap_gsl_matrix(J)
                        $df(xarr, Jmat)
-                       return Cint(GSL_SUCCESS)
+                       return Cint(GSL.GSL_SUCCESS)
                        end,
                        Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_matrix})),
             # fdf that just calls f and df
@@ -168,7 +168,7 @@ macro gsl_multiroot_function_fdf(f, df, n)
                        Jmat = GSL.wrap_gsl_matrix(J)
                        $f(xarr, farr)
                        $df(xarr, Jmat)
-                       return Cint(GSL_SUCCESS)
+                       return Cint(GSL.GSL_SUCCESS)
                        end,
                        Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_vector}, Ptr{gsl_matrix})),
             # n
@@ -199,7 +199,7 @@ macro gsl_multiroot_function_fdf(f, df, fdf, n)
                            xarr = GSL.wrap_gsl_vector(x)
                            farr = GSL.wrap_gsl_vector(f)
                            $f(xarr, farr)
-                           return Cint(GSL_SUCCESS)
+                           return Cint(GSL.GSL_SUCCESS)
                        end,
                        Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_vector})),
             # df
@@ -207,7 +207,7 @@ macro gsl_multiroot_function_fdf(f, df, fdf, n)
                        xarr = GSL.wrap_gsl_vector(x)
                        Jmat = GSL.wrap_gsl_matrix(J)
                        $df(xarr, Jmat)
-                       return Cint(GSL_SUCCESS)
+                       return Cint(GSL.GSL_SUCCESS)
                        end,
                        Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_matrix})),
             # fdf
@@ -216,7 +216,7 @@ macro gsl_multiroot_function_fdf(f, df, fdf, n)
                        farr = GSL.wrap_gsl_vector(f)
                        Jmat = GSL.wrap_gsl_matrix(J)
                        $fdf(xarr, farr, Jmat)
-                       return Cint(GSL_SUCCESS)
+                       return Cint(GSL.GSL_SUCCESS)
                        end,
                        Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_vector}, Ptr{gsl_matrix})),
             # n
@@ -235,13 +235,13 @@ function hypergeom(a, b, x)
     if n == (0, 0)
         exp(x)
     elseif n == (0, 1)
-        gsl_sf_hyperg_0F1(b[1], x)
+        sf_hyperg_0F1(b[1], x)
     elseif n == (1, 1)
-        gsl_sf_hyperg_1F1(a[1], b[1], x)
+        sf_hyperg_1F1(a[1], b[1], x)
     elseif n == (2, 0)
-        gsl_sf_hyperg_2F0(a[1], a[2], x)
+        sf_hyperg_2F0(a[1], a[2], x)
     elseif n == (2, 1)
-        gsl_sf_hyperg_2F1(a[1], a[2], b[1], x)
+        sf_hyperg_2F1(a[1], a[2], b[1], x)
     else
         error("hypergeometric function of order $n is not implemented")
     end

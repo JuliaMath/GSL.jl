@@ -38,29 +38,29 @@ fdf2 = @gsl_function_fdf(myfun, myfun_deriv)
     @testset "Secant method" begin
         T = gsl_root_fsolver_bisection
         @testset "alloc/free" begin
-            A = gsl_root_fsolver_alloc(T)
-            gsl_root_fsolver_free(A)
+            A = root_fsolver_alloc(T)
+            root_fsolver_free(A)
         end
         @testset "Solve" begin
-            solver = gsl_root_fsolver_alloc(T)
-            gsl_root_fsolver_set(solver, f, -10, 10)
+            solver = root_fsolver_alloc(T)
+            root_fsolver_set(solver, f, -10, 10)
 
             status = GSL_CONTINUE
             maxiter = 40
             iter = 0
             while status == GSL_CONTINUE
-                gsl_root_fsolver_iterate(solver)
-                x = gsl_root_fsolver_root(solver)
-                status = gsl_root_test_residual(myfun(x), 1e-10)
+                root_fsolver_iterate(solver)
+                x = root_fsolver_root(solver)
+                status = root_test_residual(myfun(x), 1e-10)
                 iter += 1
                 if iter==maxiter
                     error("No convergence")
                 end
             end
             @test status == GSL_SUCCESS
-            x = gsl_root_fsolver_root(solver)
+            x = root_fsolver_root(solver)
             @test abs(myfun(x)) < 1e-10
-            gsl_root_fsolver_free(solver)
+            root_fsolver_free(solver)
         end
     end
 
@@ -68,50 +68,50 @@ fdf2 = @gsl_function_fdf(myfun, myfun_deriv)
         T = gsl_root_fdfsolver_newton
 
         @testset "alloc/free" begin
-            A = gsl_root_fdfsolver_alloc(T)
-            gsl_root_fdfsolver_free(A)
+            A = root_fdfsolver_alloc(T)
+            root_fdfsolver_free(A)
         end
 
         @testset "Solve" begin
-            solver = gsl_root_fdfsolver_alloc(T)
-            gsl_root_fdfsolver_set(solver, fdf, 5)
+            solver = root_fdfsolver_alloc(T)
+            root_fdfsolver_set(solver, fdf, 5)
 
             status = GSL_CONTINUE
             iter, maxiter = 0,20
             while status == GSL_CONTINUE
-                gsl_root_fdfsolver_iterate(solver)
-                x = gsl_root_fdfsolver_root(solver)
-                status = gsl_root_test_residual(myfun(x), 1e-10)
+                root_fdfsolver_iterate(solver)
+                x = root_fdfsolver_root(solver)
+                status = root_test_residual(myfun(x), 1e-10)
                 iter += 1
                 if iter==maxiter
                     error("No convergence")
                 end                
             end
             @test status == GSL_SUCCESS
-            x = gsl_root_fdfsolver_root(solver)
+            x = root_fdfsolver_root(solver)
             @test abs(myfun(x)) < 1e-10
-            gsl_root_fdfsolver_free(solver)
+            root_fdfsolver_free(solver)
         end
 
         @testset "Solve / simplestruct" begin
-            solver = gsl_root_fdfsolver_alloc(T)
-            gsl_root_fdfsolver_set(solver, fdf2, 5)
+            solver = root_fdfsolver_alloc(T)
+            root_fdfsolver_set(solver, fdf2, 5)
 
             status = GSL_CONTINUE
             iter, maxiter = 0,20
             while status == GSL_CONTINUE
-                gsl_root_fdfsolver_iterate(solver)
-                x = gsl_root_fdfsolver_root(solver)
-                status = gsl_root_test_residual(myfun(x), 1e-10)
+                root_fdfsolver_iterate(solver)
+                x = root_fdfsolver_root(solver)
+                status = root_test_residual(myfun(x), 1e-10)
                 iter += 1
                 if iter==maxiter
                     error("No convergence")
                 end                
             end
             @test status == GSL_SUCCESS
-            x = gsl_root_fdfsolver_root(solver)
+            x = root_fdfsolver_root(solver)
             @test abs(myfun(x)) < 1e-10
-            gsl_root_fdfsolver_free(solver)
+            root_fdfsolver_free(solver)
         end       
         
     end

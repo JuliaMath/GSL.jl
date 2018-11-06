@@ -27,7 +27,7 @@ println("status  = ", strerror(0))
 x = 5.0
 expected = -0.17759677131433830434739701
        
-y = gsl_sf_bessel_J0(x)
+y = sf_bessel_J0(x)
      
 @printf("J0(5.0) = %.18f\n", y)
 @printf("exact   = %.18f\n", expected)

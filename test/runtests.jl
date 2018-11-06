@@ -6,6 +6,7 @@ using SpecialFunctions
 Random.seed!(1)
 
 @testset "GSL" begin
+    include("error.jl")    
     include("hypergeom.jl")
     include("legendre.jl")
     include("multidim_rootfinding.jl")    

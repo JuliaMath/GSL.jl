@@ -7,17 +7,17 @@
 
 
 @doc md"""
-    gsl_sf_erfc_e(x, result) -> Cint
+    sf_erfc_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_erfc_e(double x, gsl_sf_result * result)`
 """
-function gsl_sf_erfc_e(x, result)
+function sf_erfc_e(x, result)
     ccall((:gsl_sf_erfc_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_erfc(x) -> Cdouble
+    sf_erfc(x) -> Cdouble
 
 C signature:
 `double gsl_sf_erfc(double x)`
@@ -32,22 +32,22 @@ GSL documentation:
 > $\erfc(x) = 1 - \erf(x) = (2/\sqrt{\pi}) \int_x^\infty \exp(-t^2)$
 
 """
-function gsl_sf_erfc(x)
+function sf_erfc(x)
     ccall((:gsl_sf_erfc, libgsl), Cdouble, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_sf_log_erfc_e(x, result) -> Cint
+    sf_log_erfc_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_log_erfc_e(double x, gsl_sf_result * result)`
 """
-function gsl_sf_log_erfc_e(x, result)
+function sf_log_erfc_e(x, result)
     ccall((:gsl_sf_log_erfc_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_log_erfc(x) -> Cdouble
+    sf_log_erfc(x) -> Cdouble
 
 C signature:
 `double gsl_sf_log_erfc(double x)`
@@ -62,22 +62,22 @@ GSL documentation:
 > function $\log(\erfc(x))$.
 
 """
-function gsl_sf_log_erfc(x)
+function sf_log_erfc(x)
     ccall((:gsl_sf_log_erfc, libgsl), Cdouble, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_sf_erf_e(x, result) -> Cint
+    sf_erf_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_erf_e(double x, gsl_sf_result * result)`
 """
-function gsl_sf_erf_e(x, result)
+function sf_erf_e(x, result)
     ccall((:gsl_sf_erf_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_erf(x) -> Cdouble
+    sf_erf(x) -> Cdouble
 
 C signature:
 `double gsl_sf_erf(double x)`
@@ -92,32 +92,32 @@ GSL documentation:
 > $\erf(x) = (2/\sqrt{\pi}) \int_0^x dt \exp(-t^2)$.
 
 """
-function gsl_sf_erf(x)
+function sf_erf(x)
     ccall((:gsl_sf_erf, libgsl), Cdouble, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_sf_erf_Z_e(x, result) -> Cint
+    sf_erf_Z_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_erf_Z_e(double x, gsl_sf_result * result)`
 """
-function gsl_sf_erf_Z_e(x, result)
+function sf_erf_Z_e(x, result)
     ccall((:gsl_sf_erf_Z_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_erf_Q_e(x, result) -> Cint
+    sf_erf_Q_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_erf_Q_e(double x, gsl_sf_result * result)`
 """
-function gsl_sf_erf_Q_e(x, result)
+function sf_erf_Q_e(x, result)
     ccall((:gsl_sf_erf_Q_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_erf_Z(x) -> Cdouble
+    sf_erf_Z(x) -> Cdouble
 
 C signature:
 `double gsl_sf_erf_Z(double x)`
@@ -132,12 +132,12 @@ GSL documentation:
 > $Z(x) = (1/\sqrt{2\pi}) \exp(-x^2/2)$
 
 """
-function gsl_sf_erf_Z(x)
+function sf_erf_Z(x)
     ccall((:gsl_sf_erf_Z, libgsl), Cdouble, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_sf_erf_Q(x) -> Cdouble
+    sf_erf_Q(x) -> Cdouble
 
 C signature:
 `double gsl_sf_erf_Q(double x)`
@@ -152,22 +152,22 @@ GSL documentation:
 > function $Q(x) = (1/\sqrt{2\pi}) \int_x^\infty dt \exp(-t^2/2)$
 
 """
-function gsl_sf_erf_Q(x)
+function sf_erf_Q(x)
     ccall((:gsl_sf_erf_Q, libgsl), Cdouble, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_sf_hazard_e(x, result) -> Cint
+    sf_hazard_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_hazard_e(double x, gsl_sf_result * result)`
 """
-function gsl_sf_hazard_e(x, result)
+function sf_hazard_e(x, result)
     ccall((:gsl_sf_hazard_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_hazard(x) -> Cdouble
+    sf_hazard(x) -> Cdouble
 
 C signature:
 `double gsl_sf_hazard(double x)`
@@ -182,7 +182,7 @@ GSL documentation:
 > distribution.
 
 """
-function gsl_sf_hazard(x)
+function sf_hazard(x)
     ccall((:gsl_sf_hazard, libgsl), Cdouble, (Cdouble,), x)
 end
 

@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_integration_workspace_alloc(n) -> Ptr{gsl_integration_workspace}
+    integration_workspace_alloc(n) -> Ptr{gsl_integration_workspace}
 
 C signature:
 `gsl_integration_workspace * gsl_integration_workspace_alloc (const size_t n)`
@@ -23,12 +23,12 @@ GSL documentation:
 > routines.
 
 """
-function gsl_integration_workspace_alloc(n)
+function integration_workspace_alloc(n)
     ccall((:gsl_integration_workspace_alloc, libgsl), Ptr{gsl_integration_workspace}, (Csize_t,), n)
 end
 
 @doc md"""
-    gsl_integration_workspace_free(w) -> Cvoid
+    integration_workspace_free(w) -> Cvoid
 
 C signature:
 `void gsl_integration_workspace_free (gsl_integration_workspace * w)`
@@ -40,12 +40,12 @@ GSL documentation:
 > This function frees the memory associated with the workspace w.
 
 """
-function gsl_integration_workspace_free(w)
+function integration_workspace_free(w)
     ccall((:gsl_integration_workspace_free, libgsl), Cvoid, (Ptr{gsl_integration_workspace},), w)
 end
 
 @doc md"""
-    gsl_integration_qaws_table_alloc(alpha, beta, mu, nu) -> Ptr{gsl_integration_qaws_table}
+    integration_qaws_table_alloc(alpha, beta, mu, nu) -> Ptr{gsl_integration_qaws_table}
 
 C signature:
 `gsl_integration_qaws_table * gsl_integration_qaws_table_alloc (double alpha, double beta, int mu, int nu)`
@@ -80,12 +80,12 @@ GSL documentation:
 > case of error.
 
 """
-function gsl_integration_qaws_table_alloc(alpha, beta, mu, nu)
+function integration_qaws_table_alloc(alpha, beta, mu, nu)
     ccall((:gsl_integration_qaws_table_alloc, libgsl), Ptr{gsl_integration_qaws_table}, (Cdouble, Cdouble, Cint, Cint), alpha, beta, mu, nu)
 end
 
 @doc md"""
-    gsl_integration_qaws_table_set(t, alpha, beta, mu, nu) -> Cint
+    integration_qaws_table_set(t, alpha, beta, mu, nu) -> Cint
 
 C signature:
 `int gsl_integration_qaws_table_set (gsl_integration_qaws_table * t, double alpha, double beta, int mu, int nu)`
@@ -98,12 +98,12 @@ GSL documentation:
 > an existing gsl\_integration\_qaws\_table struct t.
 
 """
-function gsl_integration_qaws_table_set(t, alpha, beta, mu, nu)
+function integration_qaws_table_set(t, alpha, beta, mu, nu)
     ccall((:gsl_integration_qaws_table_set, libgsl), Cint, (Ref{gsl_integration_qaws_table}, Cdouble, Cdouble, Cint, Cint), t, alpha, beta, mu, nu)
 end
 
 @doc md"""
-    gsl_integration_qaws_table_free(t) -> Cvoid
+    integration_qaws_table_free(t) -> Cvoid
 
 C signature:
 `void gsl_integration_qaws_table_free (gsl_integration_qaws_table * t)`
@@ -116,12 +116,12 @@ GSL documentation:
 > gsl\_integration\_qaws\_table struct t.
 
 """
-function gsl_integration_qaws_table_free(t)
+function integration_qaws_table_free(t)
     ccall((:gsl_integration_qaws_table_free, libgsl), Cvoid, (Ptr{gsl_integration_qaws_table},), t)
 end
 
 @doc md"""
-    gsl_integration_qawo_table_alloc(omega, L, sine, n) -> Ptr{gsl_integration_qawo_table}
+    integration_qawo_table_alloc(omega, L, sine, n) -> Ptr{gsl_integration_qawo_table}
 
 C signature:
 `gsl_integration_qawo_table * gsl_integration_qawo_table_alloc (double omega, double L, enum gsl_integration_qawo_enum sine, size_t n)`
@@ -149,12 +149,12 @@ GSL documentation:
 > the requested accuracy.
 
 """
-function gsl_integration_qawo_table_alloc(omega, L, sine, n)
+function integration_qawo_table_alloc(omega, L, sine, n)
     ccall((:gsl_integration_qawo_table_alloc, libgsl), Ptr{gsl_integration_qawo_table}, (Cdouble, Cdouble, Cint, Csize_t), omega, L, sine, n)
 end
 
 @doc md"""
-    gsl_integration_qawo_table_set(t, omega, L, sine) -> Cint
+    integration_qawo_table_set(t, omega, L, sine) -> Cint
 
 C signature:
 `int gsl_integration_qawo_table_set (gsl_integration_qawo_table * t, double omega, double L, enum gsl_integration_qawo_enum sine)`
@@ -167,12 +167,12 @@ GSL documentation:
 > workspace t.
 
 """
-function gsl_integration_qawo_table_set(t, omega, L, sine)
+function integration_qawo_table_set(t, omega, L, sine)
     ccall((:gsl_integration_qawo_table_set, libgsl), Cint, (Ref{gsl_integration_qawo_table}, Cdouble, Cdouble, Cint), t, omega, L, sine)
 end
 
 @doc md"""
-    gsl_integration_qawo_table_set_length(t, L) -> Cint
+    integration_qawo_table_set_length(t, L) -> Cint
 
 C signature:
 `int gsl_integration_qawo_table_set_length (gsl_integration_qawo_table * t, double L)`
@@ -185,12 +185,12 @@ GSL documentation:
 > changed.
 
 """
-function gsl_integration_qawo_table_set_length(t, L)
+function integration_qawo_table_set_length(t, L)
     ccall((:gsl_integration_qawo_table_set_length, libgsl), Cint, (Ref{gsl_integration_qawo_table}, Cdouble), t, L)
 end
 
 @doc md"""
-    gsl_integration_qawo_table_free(t) -> Cvoid
+    integration_qawo_table_free(t) -> Cvoid
 
 C signature:
 `void gsl_integration_qawo_table_free (gsl_integration_qawo_table * t)`
@@ -202,92 +202,92 @@ GSL documentation:
 > This function frees all the memory associated with the workspace t.
 
 """
-function gsl_integration_qawo_table_free(t)
+function integration_qawo_table_free(t)
     ccall((:gsl_integration_qawo_table_free, libgsl), Cvoid, (Ptr{gsl_integration_qawo_table},), t)
 end
 
 @doc md"""
-    gsl_integration_qk15(f, a, b, result, abserr, resabs, resasc) -> Cvoid
+    integration_qk15(f, a, b, result, abserr, resabs, resasc) -> Cvoid
 
 C signature:
 `void gsl_integration_qk15 (const gsl_function * f, double a, double b, double *result, double *abserr, double *resabs, double *resasc)`
 """
-function gsl_integration_qk15(f, a, b, result, abserr, resabs, resasc)
+function integration_qk15(f, a, b, result, abserr, resabs, resasc)
     ccall((:gsl_integration_qk15, libgsl), Cvoid, (Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}), f, a, b, result, abserr, resabs, resasc)
 end
 
 @doc md"""
-    gsl_integration_qk21(f, a, b, result, abserr, resabs, resasc) -> Cvoid
+    integration_qk21(f, a, b, result, abserr, resabs, resasc) -> Cvoid
 
 C signature:
 `void gsl_integration_qk21 (const gsl_function * f, double a, double b, double *result, double *abserr, double *resabs, double *resasc)`
 """
-function gsl_integration_qk21(f, a, b, result, abserr, resabs, resasc)
+function integration_qk21(f, a, b, result, abserr, resabs, resasc)
     ccall((:gsl_integration_qk21, libgsl), Cvoid, (Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}), f, a, b, result, abserr, resabs, resasc)
 end
 
 @doc md"""
-    gsl_integration_qk31(f, a, b, result, abserr, resabs, resasc) -> Cvoid
+    integration_qk31(f, a, b, result, abserr, resabs, resasc) -> Cvoid
 
 C signature:
 `void gsl_integration_qk31 (const gsl_function * f, double a, double b, double *result, double *abserr, double *resabs, double *resasc)`
 """
-function gsl_integration_qk31(f, a, b, result, abserr, resabs, resasc)
+function integration_qk31(f, a, b, result, abserr, resabs, resasc)
     ccall((:gsl_integration_qk31, libgsl), Cvoid, (Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}), f, a, b, result, abserr, resabs, resasc)
 end
 
 @doc md"""
-    gsl_integration_qk41(f, a, b, result, abserr, resabs, resasc) -> Cvoid
+    integration_qk41(f, a, b, result, abserr, resabs, resasc) -> Cvoid
 
 C signature:
 `void gsl_integration_qk41 (const gsl_function * f, double a, double b, double *result, double *abserr, double *resabs, double *resasc)`
 """
-function gsl_integration_qk41(f, a, b, result, abserr, resabs, resasc)
+function integration_qk41(f, a, b, result, abserr, resabs, resasc)
     ccall((:gsl_integration_qk41, libgsl), Cvoid, (Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}), f, a, b, result, abserr, resabs, resasc)
 end
 
 @doc md"""
-    gsl_integration_qk51(f, a, b, result, abserr, resabs, resasc) -> Cvoid
+    integration_qk51(f, a, b, result, abserr, resabs, resasc) -> Cvoid
 
 C signature:
 `void gsl_integration_qk51 (const gsl_function * f, double a, double b, double *result, double *abserr, double *resabs, double *resasc)`
 """
-function gsl_integration_qk51(f, a, b, result, abserr, resabs, resasc)
+function integration_qk51(f, a, b, result, abserr, resabs, resasc)
     ccall((:gsl_integration_qk51, libgsl), Cvoid, (Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}), f, a, b, result, abserr, resabs, resasc)
 end
 
 @doc md"""
-    gsl_integration_qk61(f, a, b, result, abserr, resabs, resasc) -> Cvoid
+    integration_qk61(f, a, b, result, abserr, resabs, resasc) -> Cvoid
 
 C signature:
 `void gsl_integration_qk61 (const gsl_function * f, double a, double b, double *result, double *abserr, double *resabs, double *resasc)`
 """
-function gsl_integration_qk61(f, a, b, result, abserr, resabs, resasc)
+function integration_qk61(f, a, b, result, abserr, resabs, resasc)
     ccall((:gsl_integration_qk61, libgsl), Cvoid, (Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}), f, a, b, result, abserr, resabs, resasc)
 end
 
 @doc md"""
-    gsl_integration_qcheb(f, a, b, cheb12, cheb24) -> Cvoid
+    integration_qcheb(f, a, b, cheb12, cheb24) -> Cvoid
 
 C signature:
 `void gsl_integration_qcheb (gsl_function * f, double a, double b, double *cheb12, double *cheb24)`
 """
-function gsl_integration_qcheb(f, a, b, cheb12, cheb24)
+function integration_qcheb(f, a, b, cheb12, cheb24)
     ccall((:gsl_integration_qcheb, libgsl), Cvoid, (Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f, a, b, cheb12, cheb24)
 end
 
 @doc md"""
-    gsl_integration_qk(n, xgk, wg, wgk, fv1, fv2, f, a, b, result, abserr, resabs, resasc) -> Cvoid
+    integration_qk(n, xgk, wg, wgk, fv1, fv2, f, a, b, result, abserr, resabs, resasc) -> Cvoid
 
 C signature:
 `void gsl_integration_qk (const int n, const double xgk[], const double wg[], const double wgk[], double fv1[], double fv2[], const gsl_function *f, double a, double b, double * result, double * abserr, double * resabs, double * resasc)`
 """
-function gsl_integration_qk(n, xgk, wg, wgk, fv1, fv2, f, a, b, result, abserr, resabs, resasc)
+function integration_qk(n, xgk, wg, wgk, fv1, fv2, f, a, b, result, abserr, resabs, resasc)
     ccall((:gsl_integration_qk, libgsl), Cvoid, (Cint, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}), n, xgk, wg, wgk, fv1, fv2, f, a, b, result, abserr, resabs, resasc)
 end
 
 @doc md"""
-    gsl_integration_qng(f, a, b, epsabs, epsrel, result, abserr, neval) -> Cint
+    integration_qng(f, a, b, epsabs, epsrel, result, abserr, neval) -> Cint
 
 C signature:
 `int gsl_integration_qng (const gsl_function * f, double a, double b, double epsabs, double epsrel, double *result, double *abserr, size_t * neval)`
@@ -307,12 +307,12 @@ GSL documentation:
 > evaluations.
 
 """
-function gsl_integration_qng(f, a, b, epsabs, epsrel, result, abserr, neval)
+function integration_qng(f, a, b, epsabs, epsrel, result, abserr, neval)
     ccall((:gsl_integration_qng, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}, Ref{Csize_t}), f, a, b, epsabs, epsrel, result, abserr, neval)
 end
 
 @doc md"""
-    gsl_integration_qag(f, a, b, epsabs, epsrel, limit, key, workspace, result, abserr) -> Cint
+    integration_qag(f, a, b, epsabs, epsrel, limit, key, workspace, result, abserr) -> Cint
 
 C signature:
 `int gsl_integration_qag (const gsl_function * f, double a, double b, double epsabs, double epsrel, size_t limit, int key, gsl_integration_workspace * workspace, double *result, double *abserr)`
@@ -343,12 +343,12 @@ GSL documentation:
 > allocated size of the workspace.
 
 """
-function gsl_integration_qag(f, a, b, epsabs, epsrel, limit, key, workspace, result, abserr)
+function integration_qag(f, a, b, epsabs, epsrel, limit, key, workspace, result, abserr)
     ccall((:gsl_integration_qag, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Csize_t, Cint, Ref{gsl_integration_workspace}, Ref{Cdouble}, Ref{Cdouble}), f, a, b, epsabs, epsrel, limit, key, workspace, result, abserr)
 end
 
 @doc md"""
-    gsl_integration_qagi(f, epsabs, epsrel, limit, workspace, result, abserr) -> Cint
+    integration_qagi(f, epsabs, epsrel, limit, workspace, result, abserr) -> Cint
 
 C signature:
 `int gsl_integration_qagi (gsl_function * f, double epsabs, double epsrel, size_t limit, gsl_integration_workspace * workspace, double *result, double *abserr)`
@@ -369,12 +369,12 @@ GSL documentation:
 > In this case a lower-order rule is more efficient.
 
 """
-function gsl_integration_qagi(f, epsabs, epsrel, limit, workspace, result, abserr)
+function integration_qagi(f, epsabs, epsrel, limit, workspace, result, abserr)
     ccall((:gsl_integration_qagi, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Csize_t, Ref{gsl_integration_workspace}, Ref{Cdouble}, Ref{Cdouble}), f, epsabs, epsrel, limit, workspace, result, abserr)
 end
 
 @doc md"""
-    gsl_integration_qagiu(f, a, epsabs, epsrel, limit, workspace, result, abserr) -> Cint
+    integration_qagiu(f, a, epsabs, epsrel, limit, workspace, result, abserr) -> Cint
 
 C signature:
 `int gsl_integration_qagiu (gsl_function * f, double a, double epsabs, double epsrel, size_t limit, gsl_integration_workspace * workspace, double *result, double *abserr)`
@@ -392,12 +392,12 @@ GSL documentation:
 > and then integrated using the QAGS algorithm.
 
 """
-function gsl_integration_qagiu(f, a, epsabs, epsrel, limit, workspace, result, abserr)
+function integration_qagiu(f, a, epsabs, epsrel, limit, workspace, result, abserr)
     ccall((:gsl_integration_qagiu, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Csize_t, Ref{gsl_integration_workspace}, Ref{Cdouble}, Ref{Cdouble}), f, a, epsabs, epsrel, limit, workspace, result, abserr)
 end
 
 @doc md"""
-    gsl_integration_qagil(f, b, epsabs, epsrel, limit, workspace, result, abserr) -> Cint
+    integration_qagil(f, b, epsabs, epsrel, limit, workspace, result, abserr) -> Cint
 
 C signature:
 `int gsl_integration_qagil (gsl_function * f, double b, double epsabs, double epsrel, size_t limit, gsl_integration_workspace * workspace, double *result, double *abserr)`
@@ -415,12 +415,12 @@ GSL documentation:
 > and then integrated using the QAGS algorithm.
 
 """
-function gsl_integration_qagil(f, b, epsabs, epsrel, limit, workspace, result, abserr)
+function integration_qagil(f, b, epsabs, epsrel, limit, workspace, result, abserr)
     ccall((:gsl_integration_qagil, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Csize_t, Ref{gsl_integration_workspace}, Ref{Cdouble}, Ref{Cdouble}), f, b, epsabs, epsrel, limit, workspace, result, abserr)
 end
 
 @doc md"""
-    gsl_integration_qags(f, a, b, epsabs, epsrel, limit, workspace, result, abserr) -> Cint
+    integration_qags(f, a, b, epsabs, epsrel, limit, workspace, result, abserr) -> Cint
 
 C signature:
 `int gsl_integration_qags (const gsl_function * f, double a, double b, double epsabs, double epsrel, size_t limit, gsl_integration_workspace * workspace, double *result, double *abserr)`
@@ -442,12 +442,12 @@ GSL documentation:
 > size of the workspace.
 
 """
-function gsl_integration_qags(f, a, b, epsabs, epsrel, limit, workspace, result, abserr)
+function integration_qags(f, a, b, epsabs, epsrel, limit, workspace, result, abserr)
     ccall((:gsl_integration_qags, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Csize_t, Ref{gsl_integration_workspace}, Ref{Cdouble}, Ref{Cdouble}), f, a, b, epsabs, epsrel, limit, workspace, result, abserr)
 end
 
 @doc md"""
-    gsl_integration_qagp(f, pts, npts, epsabs, epsrel, limit, workspace, result, abserr) -> Cint
+    integration_qagp(f, pts, npts, epsabs, epsrel, limit, workspace, result, abserr) -> Cint
 
 C signature:
 `int gsl_integration_qagp (const gsl_function * f, double *pts, size_t npts, double epsabs, double epsrel, size_t limit, gsl_integration_workspace * workspace, double *result, double *abserr)`
@@ -476,12 +476,12 @@ GSL documentation:
 > region then this routine will be faster than gsl\_integration\_qags.
 
 """
-function gsl_integration_qagp(f, pts, npts, epsabs, epsrel, limit, workspace, result, abserr)
+function integration_qagp(f, pts, npts, epsabs, epsrel, limit, workspace, result, abserr)
     ccall((:gsl_integration_qagp, libgsl), Cint, (Ref{gsl_function}, Ref{Cdouble}, Csize_t, Cdouble, Cdouble, Csize_t, Ref{gsl_integration_workspace}, Ref{Cdouble}, Ref{Cdouble}), f, pts, npts, epsabs, epsrel, limit, workspace, result, abserr)
 end
 
 @doc md"""
-    gsl_integration_qawc(f, a, b, c, epsabs, epsrel, limit, workspace, result, abserr) -> Cint
+    integration_qawc(f, a, b, c, epsabs, epsrel, limit, workspace, result, abserr) -> Cint
 
 C signature:
 `int gsl_integration_qawc (gsl_function *f, const double a, const double b, const double c, const double epsabs, const double epsrel, const size_t limit, gsl_integration_workspace * workspace, double * result, double * abserr)`
@@ -501,12 +501,12 @@ GSL documentation:
 > ordinary 15-point Gauss-Kronrod integration rule.
 
 """
-function gsl_integration_qawc(f, a, b, c, epsabs, epsrel, limit, workspace, result, abserr)
+function integration_qawc(f, a, b, c, epsabs, epsrel, limit, workspace, result, abserr)
     ccall((:gsl_integration_qawc, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Cdouble, Csize_t, Ref{gsl_integration_workspace}, Ref{Cdouble}, Ref{Cdouble}), f, a, b, c, epsabs, epsrel, limit, workspace, result, abserr)
 end
 
 @doc md"""
-    gsl_integration_qaws(f, a, b, t, epsabs, epsrel, limit, workspace, result, abserr) -> Cint
+    integration_qaws(f, a, b, t, epsabs, epsrel, limit, workspace, result, abserr) -> Cint
 
 C signature:
 `int gsl_integration_qaws (gsl_function * f, const double a, const double b, gsl_integration_qaws_table * t, const double epsabs, const double epsrel, const size_t limit, gsl_integration_workspace * workspace, double *result, double *abserr)`
@@ -530,12 +530,12 @@ GSL documentation:
 > Gauss-Kronrod integration rule is used.
 
 """
-function gsl_integration_qaws(f, a, b, t, epsabs, epsrel, limit, workspace, result, abserr)
+function integration_qaws(f, a, b, t, epsabs, epsrel, limit, workspace, result, abserr)
     ccall((:gsl_integration_qaws, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Ref{gsl_integration_qaws_table}, Cdouble, Cdouble, Csize_t, Ref{gsl_integration_workspace}, Ref{Cdouble}, Ref{Cdouble}), f, a, b, t, epsabs, epsrel, limit, workspace, result, abserr)
 end
 
 @doc md"""
-    gsl_integration_qawo(f, a, epsabs, epsrel, limit, workspace, wf, result, abserr) -> Cint
+    integration_qawo(f, a, epsabs, epsrel, limit, workspace, wf, result, abserr) -> Cint
 
 C signature:
 `int gsl_integration_qawo (gsl_function * f, const double a, const double epsabs, const double epsrel, const size_t limit, gsl_integration_workspace * workspace, gsl_integration_qawo_table * wf, double *result, double *abserr)`
@@ -563,12 +563,12 @@ GSL documentation:
 > integration.
 
 """
-function gsl_integration_qawo(f, a, epsabs, epsrel, limit, workspace, wf, result, abserr)
+function integration_qawo(f, a, epsabs, epsrel, limit, workspace, wf, result, abserr)
     ccall((:gsl_integration_qawo, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Csize_t, Ref{gsl_integration_workspace}, Ref{gsl_integration_qawo_table}, Ref{Cdouble}, Ref{Cdouble}), f, a, epsabs, epsrel, limit, workspace, wf, result, abserr)
 end
 
 @doc md"""
-    gsl_integration_qawf(f, a, epsabs, limit, workspace, cycle_workspace, wf, result, abserr) -> Cint
+    integration_qawf(f, a, epsabs, limit, workspace, cycle_workspace, wf, result, abserr) -> Cint
 
 C signature:
 `int gsl_integration_qawf (gsl_function * f, const double a, const double epsabs, const size_t limit, gsl_integration_workspace * workspace, gsl_integration_workspace * cycle_workspace, gsl_integration_qawo_table * wf, double *result, double *abserr)`
@@ -614,12 +614,12 @@ GSL documentation:
 > cycle\_workspace as workspace for the QAWO algorithm.
 
 """
-function gsl_integration_qawf(f, a, epsabs, limit, workspace, cycle_workspace, wf, result, abserr)
+function integration_qawf(f, a, epsabs, limit, workspace, cycle_workspace, wf, result, abserr)
     ccall((:gsl_integration_qawf, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Csize_t, Ref{gsl_integration_workspace}, Ref{gsl_integration_workspace}, Ref{gsl_integration_qawo_table}, Ref{Cdouble}, Ref{Cdouble}), f, a, epsabs, limit, workspace, cycle_workspace, wf, result, abserr)
 end
 
 @doc md"""
-    gsl_integration_glfixed_table_alloc(n) -> Ptr{gsl_integration_glfixed_table}
+    integration_glfixed_table_alloc(n) -> Ptr{gsl_integration_glfixed_table}
 
 C signature:
 `gsl_integration_glfixed_table * gsl_integration_glfixed_table_alloc (size_t n)`
@@ -635,12 +635,12 @@ GSL documentation:
 > are computed on the fly.
 
 """
-function gsl_integration_glfixed_table_alloc(n)
+function integration_glfixed_table_alloc(n)
     ccall((:gsl_integration_glfixed_table_alloc, libgsl), Ptr{gsl_integration_glfixed_table}, (Csize_t,), n)
 end
 
 @doc md"""
-    gsl_integration_glfixed_table_free(t) -> Cvoid
+    integration_glfixed_table_free(t) -> Cvoid
 
 C signature:
 `void gsl_integration_glfixed_table_free (gsl_integration_glfixed_table * t)`
@@ -652,12 +652,12 @@ GSL documentation:
 > This function frees the memory associated with the table t.
 
 """
-function gsl_integration_glfixed_table_free(t)
+function integration_glfixed_table_free(t)
     ccall((:gsl_integration_glfixed_table_free, libgsl), Cvoid, (Ptr{gsl_integration_glfixed_table},), t)
 end
 
 @doc md"""
-    gsl_integration_glfixed(f, a, b, t) -> Cdouble
+    integration_glfixed(f, a, b, t) -> Cdouble
 
 C signature:
 `double gsl_integration_glfixed (const gsl_function *f, double a, double b, const gsl_integration_glfixed_table * t)`
@@ -670,12 +670,12 @@ GSL documentation:
 > table t and returns the result.
 
 """
-function gsl_integration_glfixed(f, a, b, t)
+function integration_glfixed(f, a, b, t)
     ccall((:gsl_integration_glfixed, libgsl), Cdouble, (Ref{gsl_function}, Cdouble, Cdouble, Ref{gsl_integration_glfixed_table}), f, a, b, t)
 end
 
 @doc md"""
-    gsl_integration_glfixed_point(a, b, i, xi, wi, t) -> Cint
+    integration_glfixed_point(a, b, i, xi, wi, t) -> Cint
 
 C signature:
 `int gsl_integration_glfixed_point (double a, double b, size_t i, double *xi, double *wi, const gsl_integration_glfixed_table * t)`
@@ -690,12 +690,12 @@ GSL documentation:
 > $f$ may be integrated on \[a, b\] by summing $wi * f(xi)$ over i.
 
 """
-function gsl_integration_glfixed_point(a, b, i, xi, wi, t)
+function integration_glfixed_point(a, b, i, xi, wi, t)
     ccall((:gsl_integration_glfixed_point, libgsl), Cint, (Cdouble, Cdouble, Csize_t, Ref{Cdouble}, Ref{Cdouble}, Ref{gsl_integration_glfixed_table}), a, b, i, xi, wi, t)
 end
 
 @doc md"""
-    gsl_integration_cquad_workspace_alloc(n) -> Ptr{gsl_integration_cquad_workspace}
+    integration_cquad_workspace_alloc(n) -> Ptr{gsl_integration_cquad_workspace}
 
 C signature:
 `gsl_integration_cquad_workspace * gsl_integration_cquad_workspace_alloc (const size_t n)`
@@ -712,12 +712,12 @@ GSL documentation:
 > sufficient.
 
 """
-function gsl_integration_cquad_workspace_alloc(n)
+function integration_cquad_workspace_alloc(n)
     ccall((:gsl_integration_cquad_workspace_alloc, libgsl), Ptr{gsl_integration_cquad_workspace}, (Csize_t,), n)
 end
 
 @doc md"""
-    gsl_integration_cquad_workspace_free(w) -> Cvoid
+    integration_cquad_workspace_free(w) -> Cvoid
 
 C signature:
 `void gsl_integration_cquad_workspace_free (gsl_integration_cquad_workspace * w)`
@@ -729,12 +729,12 @@ GSL documentation:
 > This function frees the memory associated with the workspace w.
 
 """
-function gsl_integration_cquad_workspace_free(w)
+function integration_cquad_workspace_free(w)
     ccall((:gsl_integration_cquad_workspace_free, libgsl), Cvoid, (Ptr{gsl_integration_cquad_workspace},), w)
 end
 
 @doc md"""
-    gsl_integration_cquad(f, a, b, epsabs, epsrel, ws, result, abserr, nevals) -> Cint
+    integration_cquad(f, a, b, epsabs, epsrel, ws, result, abserr, nevals) -> Cint
 
 C signature:
 `int gsl_integration_cquad (const gsl_function * f, double a, double b, double epsabs, double epsrel, gsl_integration_cquad_workspace * ws, double *result, double *abserr, size_t * nevals)`
@@ -745,21 +745,20 @@ GSL documentation:
 
 > This function computes the integral of $f$ over $(a,b)$ within the
 > desired absolute and relative error limits, epsabs and epsrel using
-> the |cquad| algorithm. The function returns the final approximation,
-> result, an estimate of the absolute error, abserr, and the number of
-> function evaluations required, nevals.
+> the algorithm. The function returns the final approximation, result,
+> an estimate of the absolute error, abserr, and the number of function
+> evaluations required, nevals.
 >
-> The |cquad| algorithm divides the integration region into
-> subintervals, and in each iteration, the subinterval with the largest
-> estimated error is processed. The algorithm uses Clenshaw-Curits
-> quadrature rules of degree 4, 8, 16 and 32 over 5, 9, 17 and 33 nodes
-> respectively. Each interval is initialized with the lowest-degree
-> rule. When an interval is processed, the next-higher degree rule is
-> evaluated and an error estimate is computed based on the $L_2$-norm of
-> the difference between the underlying interpolating polynomials of
-> both rules. If the highest-degree rule has already been used, or the
-> interpolatory polynomials differ significantly, the interval is
-> bisected.
+> The algorithm divides the integration region into subintervals, and in
+> each iteration, the subinterval with the largest estimated error is
+> processed. The algorithm uses Clenshaw-Curits quadrature rules of
+> degree 4, 8, 16 and 32 over 5, 9, 17 and 33 nodes respectively. Each
+> interval is initialized with the lowest-degree rule. When an interval
+> is processed, the next-higher degree rule is evaluated and an error
+> estimate is computed based on the $L_2$-norm of the difference between
+> the underlying interpolating polynomials of both rules. If the
+> highest-degree rule has already been used, or the interpolatory
+> polynomials differ significantly, the interval is bisected.
 >
 > The subintervals and their results are stored in the memory provided
 > by workspace. If the error estimate or the number of function
@@ -767,12 +766,12 @@ GSL documentation:
 > to `NULL`{.sourceCode}.
 
 """
-function gsl_integration_cquad(f, a, b, epsabs, epsrel, ws, result, abserr, nevals)
+function integration_cquad(f, a, b, epsabs, epsrel, ws, result, abserr, nevals)
     ccall((:gsl_integration_cquad, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Ref{gsl_integration_cquad_workspace}, Ref{Cdouble}, Ref{Cdouble}, Ref{Csize_t}), f, a, b, epsabs, epsrel, ws, result, abserr, nevals)
 end
 
 @doc md"""
-    gsl_integration_romberg_alloc(n) -> Ptr{gsl_integration_romberg_workspace}
+    integration_romberg_alloc(n) -> Ptr{gsl_integration_romberg_workspace}
 
 C signature:
 `gsl_integration_romberg_workspace *gsl_integration_romberg_alloc(const size_t n)`
@@ -788,12 +787,12 @@ GSL documentation:
 > prevent overflow. The size of the workspace is $O(2n)$.
 
 """
-function gsl_integration_romberg_alloc(n)
+function integration_romberg_alloc(n)
     ccall((:gsl_integration_romberg_alloc, libgsl), Ptr{gsl_integration_romberg_workspace}, (Csize_t,), n)
 end
 
 @doc md"""
-    gsl_integration_romberg_free(w) -> Cvoid
+    integration_romberg_free(w) -> Cvoid
 
 C signature:
 `void gsl_integration_romberg_free(gsl_integration_romberg_workspace * w)`
@@ -805,12 +804,12 @@ GSL documentation:
 > This function frees the memory associated with the workspace w.
 
 """
-function gsl_integration_romberg_free(w)
+function integration_romberg_free(w)
     ccall((:gsl_integration_romberg_free, libgsl), Cvoid, (Ptr{gsl_integration_romberg_workspace},), w)
 end
 
 @doc md"""
-    gsl_integration_romberg(f, a, b, epsabs, epsrel, result, neval, w) -> Cint
+    integration_romberg(f, a, b, epsabs, epsrel, result, neval, w) -> Cint
 
 C signature:
 `int gsl_integration_romberg(const gsl_function * f, const double a, const double b, const double epsabs, const double epsrel, double * result, size_t * neval, gsl_integration_romberg_workspace * w)`
@@ -833,12 +832,12 @@ GSL documentation:
 > number of function evaluations is returned in neval.
 
 """
-function gsl_integration_romberg(f, a, b, epsabs, epsrel, result, neval, w)
+function integration_romberg(f, a, b, epsabs, epsrel, result, neval, w)
     ccall((:gsl_integration_romberg, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Ref{Cdouble}, Ref{Csize_t}, Ref{gsl_integration_romberg_workspace}), f, a, b, epsabs, epsrel, result, neval, w)
 end
 
 @doc md"""
-    gsl_integration_fixed_alloc(type, n, a, b, alpha, beta) -> Ptr{gsl_integration_fixed_workspace}
+    integration_fixed_alloc(type, n, a, b, alpha, beta) -> Ptr{gsl_integration_fixed_workspace}
 
 C signature:
 `gsl_integration_fixed_workspace * gsl_integration_fixed_alloc(const gsl_integration_fixed_type * type, const size_t n, const double a, const double b, const double alpha, const double beta)`
@@ -855,12 +854,12 @@ GSL documentation:
 > parameters. The size of the workspace is $O(4n)$.
 
 """
-function gsl_integration_fixed_alloc(type, n, a, b, alpha, beta)
+function integration_fixed_alloc(type, n, a, b, alpha, beta)
     ccall((:gsl_integration_fixed_alloc, libgsl), Ptr{gsl_integration_fixed_workspace}, (Ref{gsl_integration_fixed_type}, Csize_t, Cdouble, Cdouble, Cdouble, Cdouble), type, n, a, b, alpha, beta)
 end
 
 @doc md"""
-    gsl_integration_fixed_free(w) -> Cvoid
+    integration_fixed_free(w) -> Cvoid
 
 C signature:
 `void gsl_integration_fixed_free(gsl_integration_fixed_workspace * w)`
@@ -872,12 +871,12 @@ GSL documentation:
 > This function frees the memory assocated with the workspace w
 
 """
-function gsl_integration_fixed_free(w)
+function integration_fixed_free(w)
     ccall((:gsl_integration_fixed_free, libgsl), Cvoid, (Ptr{gsl_integration_fixed_workspace},), w)
 end
 
 @doc md"""
-    gsl_integration_fixed_n(w) -> Csize_t
+    integration_fixed_n(w) -> Csize_t
 
 C signature:
 `size_t gsl_integration_fixed_n(const gsl_integration_fixed_workspace * w)`
@@ -889,12 +888,12 @@ GSL documentation:
 > This function returns the number of quadrature nodes and weights.
 
 """
-function gsl_integration_fixed_n(w)
+function integration_fixed_n(w)
     ccall((:gsl_integration_fixed_n, libgsl), Csize_t, (Ptr{gsl_integration_fixed_workspace},), w)
 end
 
 @doc md"""
-    gsl_integration_fixed_nodes(w) -> Ptr{Cdouble}
+    integration_fixed_nodes(w) -> Ptr{Cdouble}
 
 C signature:
 `double *gsl_integration_fixed_nodes(const gsl_integration_fixed_workspace * w)`
@@ -907,12 +906,12 @@ GSL documentation:
 > quadrature nodes $x_i$.
 
 """
-function gsl_integration_fixed_nodes(w)
+function integration_fixed_nodes(w)
     ccall((:gsl_integration_fixed_nodes, libgsl), Ptr{Cdouble}, (Ptr{gsl_integration_fixed_workspace},), w)
 end
 
 @doc md"""
-    gsl_integration_fixed_weights(w) -> Ptr{Cdouble}
+    integration_fixed_weights(w) -> Ptr{Cdouble}
 
 C signature:
 `double *gsl_integration_fixed_weights(const gsl_integration_fixed_workspace * w)`
@@ -925,12 +924,12 @@ GSL documentation:
 > quadrature weights $w_i$.
 
 """
-function gsl_integration_fixed_weights(w)
+function integration_fixed_weights(w)
     ccall((:gsl_integration_fixed_weights, libgsl), Ptr{Cdouble}, (Ptr{gsl_integration_fixed_workspace},), w)
 end
 
 @doc md"""
-    gsl_integration_fixed(func, result, w) -> Cint
+    integration_fixed(func, result, w) -> Cint
 
 C signature:
 `int gsl_integration_fixed(const gsl_function * func, double * result, const gsl_integration_fixed_workspace * w)`
@@ -944,7 +943,7 @@ GSL documentation:
 > approximated as
 
 """
-function gsl_integration_fixed(func, result, w)
+function integration_fixed(func, result, w)
     ccall((:gsl_integration_fixed, libgsl), Cint, (Ref{gsl_function}, Ref{Cdouble}, Ref{gsl_integration_fixed_workspace}), func, result, w)
 end
 

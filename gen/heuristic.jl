@@ -6,10 +6,10 @@
 #
 # TODO: error handler on integer output
 
-# List of functions that herustic should ignore
-heuristic_ignore_list = []
+# List of functions that herustic should ignore (original name)
+heuristic_ignore_list = ["gsl_vector_char_const_ptr", "gsl_matrix_char_const_ptr"]
 
-function secondary_wrappers(functions)
+function secondary_wrappers(functions, docs)
     ### Secondary layer of wrappers
     output = HEAD
     for f in functions
@@ -21,6 +21,7 @@ function secondary_wrappers(functions)
         allocation = ""
         outputcheck = ""
         returnlist = []
+        returntypes = []        
         write_wrapper = false
 
         # Go through args, see if any so be classified as output
@@ -51,7 +52,7 @@ function secondary_wrappers(functions)
                     if occursin("legendre_array", name) || occursin("legendre_deriv_array", name) ||
                         occursin("legendre_deriv_alt_array", name) || occursin("legendre_deriv2_array", name) ||
                         occursin("legendre_deriv2_alt_array", name)
-                        size = "gsl_sf_legendre_array_n(lmax)"
+                        size = "sf_legendre_array_n(lmax)"
                     else 
                         size = "(lmax+1)"
                     end
@@ -68,17 +69,20 @@ function secondary_wrappers(functions)
                 else
                     allocation *= "    $(a.name) = zeros(Cdouble, $size)\n"
                     push!(returnlist, a.name)
+                    push!(returntypes, "Array{Float64}")
                     write_wrapper = true
                 end
             elseif a.ctype == "gsl_sf_result" && a.ptr
                 # special function output
                 allocation *= "    $(a.name) = gsl_sf_result(0,0)\n"
                 push!(returnlist, a.name)
+                push!(returntypes, "gsl_sf_result")                
                 write_wrapper = true
             elseif a.ctype == "gsl_sf_result_e10" && a.ptr
                 # special function output
                 allocation *= "    $(a.name) = gsl_sf_result_e10(0,0,0)\n"
                 push!(returnlist, a.name)
+                push!(returntypes, "gsl_sf_result_e10")                                
                 write_wrapper = true
             else
                 push!(pass_through_args, a)
@@ -88,17 +92,29 @@ function secondary_wrappers(functions)
         if f.ret.ctype=="char" && f.ret.ptr && f.ret.constant
             # Return value is "const char*", treat as string
             outputcheck = "    output = unsafe_string(output)\n"
-            write_wrapper = true           
+            push!(returntypes, "String")
+            write_wrapper = true
         end
         
         if write_wrapper && !(f.name in heuristic_ignore_list)
             ptargs = join(map(a->a.name, pass_through_args), ", ")     
             head = "$basename($ptargs)"
             wrapfun = "export $basename\n"
-            wrapfun *= docstr("    $head\n\nC signature:\n`$(f.decl)`")
+            gsldoc = ""
+            if haskey(docs, f.name)
+                gsldoc = "\n\nGSL documentation:\n\n### " * docs[f.name]
+            end
+            if length(returntypes)==1
+                outstr = returntypes[1]
+            elseif length(returntypes)>1
+                outstr = "("*join(returntypes, ", ")*")"
+            else
+                outstr = ""
+            end
+            wrapfun *= docstr("    $head -> $outstr\n\nC signature:\n`$(f.decl)`" * gsldoc)
             wrapfun *= "function $head\n"
             wrapfun *= allocation
-            wrapfun *= "    output = $name($allargs)\n"
+            wrapfun *= "    output = C.$basename($allargs)\n"
             wrapfun *= outputcheck
             if !isempty(returnlist)
                 wrapfun *= "    return " * join(returnlist, ", ") * "\n"

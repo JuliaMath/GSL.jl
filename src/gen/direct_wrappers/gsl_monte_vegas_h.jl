@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_monte_vegas_integrate(f, xl, xu, dim, calls, r, state, result, abserr) -> Cint
+    monte_vegas_integrate(f, xl, xu, dim, calls, r, state, result, abserr) -> Cint
 
 C signature:
 `int gsl_monte_vegas_integrate(gsl_monte_function * f, double xl[], double xu[], size_t dim, size_t calls, gsl_rng * r, gsl_monte_vegas_state *state, double* result, double* abserr)`
@@ -30,12 +30,12 @@ GSL documentation:
 > weighted average to be reliable.
 
 """
-function gsl_monte_vegas_integrate(f, xl, xu, dim, calls, r, state, result, abserr)
+function monte_vegas_integrate(f, xl, xu, dim, calls, r, state, result, abserr)
     ccall((:gsl_monte_vegas_integrate, libgsl), Cint, (Ref{gsl_monte_function}, Ref{Cdouble}, Ref{Cdouble}, Csize_t, Csize_t, Ref{gsl_rng}, Ref{gsl_monte_vegas_state}, Ref{Cdouble}, Ref{Cdouble}), f, xl, xu, dim, calls, r, state, result, abserr)
 end
 
 @doc md"""
-    gsl_monte_vegas_alloc(dim) -> Ptr{gsl_monte_vegas_state}
+    monte_vegas_alloc(dim) -> Ptr{gsl_monte_vegas_state}
 
 C signature:
 `gsl_monte_vegas_state* gsl_monte_vegas_alloc(size_t dim)`
@@ -49,12 +49,12 @@ GSL documentation:
 > state of the integration.
 
 """
-function gsl_monte_vegas_alloc(dim)
+function monte_vegas_alloc(dim)
     ccall((:gsl_monte_vegas_alloc, libgsl), Ptr{gsl_monte_vegas_state}, (Csize_t,), dim)
 end
 
 @doc md"""
-    gsl_monte_vegas_init(state) -> Cint
+    monte_vegas_init(state) -> Cint
 
 C signature:
 `int gsl_monte_vegas_init(gsl_monte_vegas_state* state)`
@@ -68,12 +68,12 @@ GSL documentation:
 > integrations.
 
 """
-function gsl_monte_vegas_init(state)
+function monte_vegas_init(state)
     ccall((:gsl_monte_vegas_init, libgsl), Cint, (Ptr{gsl_monte_vegas_state},), state)
 end
 
 @doc md"""
-    gsl_monte_vegas_free(state) -> Cvoid
+    monte_vegas_free(state) -> Cvoid
 
 C signature:
 `void gsl_monte_vegas_free (gsl_monte_vegas_state* state)`
@@ -117,12 +117,12 @@ chi-squared value of the results, which is available from the following
 function:
 
 """
-function gsl_monte_vegas_free(state)
+function monte_vegas_free(state)
     ccall((:gsl_monte_vegas_free, libgsl), Cvoid, (Ptr{gsl_monte_vegas_state},), state)
 end
 
 @doc md"""
-    gsl_monte_vegas_chisq(state) -> Cdouble
+    monte_vegas_chisq(state) -> Cdouble
 
 C signature:
 `double gsl_monte_vegas_chisq (const gsl_monte_vegas_state* state)`
@@ -139,12 +139,12 @@ GSL documentation:
 > algorithm are needed to obtain reliable results.
 
 """
-function gsl_monte_vegas_chisq(state)
+function monte_vegas_chisq(state)
     ccall((:gsl_monte_vegas_chisq, libgsl), Cdouble, (Ptr{gsl_monte_vegas_state},), state)
 end
 
 @doc md"""
-    gsl_monte_vegas_runval(state, result, sigma) -> Cvoid
+    monte_vegas_runval(state, result, sigma) -> Cvoid
 
 C signature:
 `void gsl_monte_vegas_runval (const gsl_monte_vegas_state* state, double * result, double * sigma)`
@@ -161,12 +161,12 @@ The VEGAS algorithm is highly configurable. Several parameters can be
 changed using the following two functions.
 
 """
-function gsl_monte_vegas_runval(state, result, sigma)
+function monte_vegas_runval(state, result, sigma)
     ccall((:gsl_monte_vegas_runval, libgsl), Cvoid, (Ref{gsl_monte_vegas_state}, Ref{Cdouble}, Ref{Cdouble}), state, result, sigma)
 end
 
 @doc md"""
-    gsl_monte_vegas_params_get(state, params) -> Cvoid
+    monte_vegas_params_get(state, params) -> Cvoid
 
 C signature:
 `void gsl_monte_vegas_params_get (const gsl_monte_vegas_state * state, gsl_monte_vegas_params * params)`
@@ -179,12 +179,12 @@ GSL documentation:
 > user-supplied params structure.
 
 """
-function gsl_monte_vegas_params_get(state, params)
+function monte_vegas_params_get(state, params)
     ccall((:gsl_monte_vegas_params_get, libgsl), Cvoid, (Ref{gsl_monte_vegas_state}, Ref{gsl_monte_vegas_params}), state, params)
 end
 
 @doc md"""
-    gsl_monte_vegas_params_set(state, params) -> Cvoid
+    monte_vegas_params_set(state, params) -> Cvoid
 
 C signature:
 `void gsl_monte_vegas_params_set (gsl_monte_vegas_state * state, const gsl_monte_vegas_params * params)`
@@ -204,7 +204,7 @@ the gsl\_monte\_vegas\_params structure which contains the following
 fields:
 
 """
-function gsl_monte_vegas_params_set(state, params)
+function monte_vegas_params_set(state, params)
     ccall((:gsl_monte_vegas_params_set, libgsl), Cvoid, (Ref{gsl_monte_vegas_state}, Ref{gsl_monte_vegas_params}), state, params)
 end
 

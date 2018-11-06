@@ -16,7 +16,7 @@ end
 
 
     # Using new interface. Fix indexing to use hardcoded values.
-    idx = Int.(gsl_sf_legendre_array_index.(2:lmax, m+1))
+    idx = Int.(sf_legendre_array_index.(2:lmax, m+1))
     
     # these give subtly different answers on 32/64-bit.    
     @test sf_legendre_array(GSL_SF_LEGENDRE_NONE, lmax, x)[idx]         ≈ [2.25, 5.625, 4.21875, -4.921875]

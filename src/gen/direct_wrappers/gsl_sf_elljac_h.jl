@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_sf_elljac_e(u, m, sn, cn, dn) -> Cint
+    sf_elljac_e(u, m, sn, cn, dn) -> Cint
 
 C signature:
 `int gsl_sf_elljac_e(double u, double m, double * sn, double * cn, double * dn)`
@@ -20,7 +20,7 @@ GSL documentation:
 > $cn(u|m)$, $dn(u|m)$ by descending Landen transformations.
 
 """
-function gsl_sf_elljac_e(u, m, sn, cn, dn)
+function sf_elljac_e(u, m, sn, cn, dn)
     ccall((:gsl_sf_elljac_e, libgsl), Cint, (Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}), u, m, sn, cn, dn)
 end
 

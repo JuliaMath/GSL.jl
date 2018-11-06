@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_permute_matrix(p, A) -> Cint
+    permute_matrix(p, A) -> Cint
 
 C signature:
 `int gsl_permute_matrix (const gsl_permutation * p, gsl_matrix * A)`
@@ -23,7 +23,7 @@ GSL documentation:
 > number of columns of A must equal the size of the permutation p.
 
 """
-function gsl_permute_matrix(p, A)
+function permute_matrix(p, A)
     ccall((:gsl_permute_matrix, libgsl), Cint, (Ref{gsl_permutation}, Ref{gsl_matrix}), p, A)
 end
 

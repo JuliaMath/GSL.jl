@@ -10,7 +10,7 @@ func(x) = x^3
     df_dx = 3.0
     d2f_dx2 = 6.0
 
-    for deriv in [gsl_deriv_central, gsl_deriv_forward, gsl_deriv_backward]
+    for deriv in [deriv_central, deriv_forward, deriv_backward]
         df,ddf = Cdouble[0], Cdouble[0]
         deriv(@gsl_function(func), x, h, df, ddf)
         @test abs(df_dx - df[]) <= ddf[] <= d2f_dx2*h/2 + 2eps()/h

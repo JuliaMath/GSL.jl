@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_rstat_quantile_alloc(p) -> Ptr{gsl_rstat_quantile_workspace}
+    rstat_quantile_alloc(p) -> Ptr{gsl_rstat_quantile_workspace}
 
 C signature:
 `gsl_rstat_quantile_workspace *gsl_rstat_quantile_alloc(const double p)`
@@ -21,12 +21,12 @@ GSL documentation:
 > $p = 0.5$. The size of the workspace is $O(1)$.
 
 """
-function gsl_rstat_quantile_alloc(p)
+function rstat_quantile_alloc(p)
     ccall((:gsl_rstat_quantile_alloc, libgsl), Ptr{gsl_rstat_quantile_workspace}, (Cdouble,), p)
 end
 
 @doc md"""
-    gsl_rstat_quantile_free(w) -> Cvoid
+    rstat_quantile_free(w) -> Cvoid
 
 C signature:
 `void gsl_rstat_quantile_free(gsl_rstat_quantile_workspace *w)`
@@ -38,12 +38,12 @@ GSL documentation:
 > This function frees the memory associated with the workspace w.
 
 """
-function gsl_rstat_quantile_free(w)
+function rstat_quantile_free(w)
     ccall((:gsl_rstat_quantile_free, libgsl), Cvoid, (Ptr{gsl_rstat_quantile_workspace},), w)
 end
 
 @doc md"""
-    gsl_rstat_quantile_reset(w) -> Cint
+    rstat_quantile_reset(w) -> Cint
 
 C signature:
 `int gsl_rstat_quantile_reset(gsl_rstat_quantile_workspace *w)`
@@ -56,12 +56,12 @@ GSL documentation:
 > begin working on a new set of data.
 
 """
-function gsl_rstat_quantile_reset(w)
+function rstat_quantile_reset(w)
     ccall((:gsl_rstat_quantile_reset, libgsl), Cint, (Ptr{gsl_rstat_quantile_workspace},), w)
 end
 
 @doc md"""
-    gsl_rstat_quantile_add(x, w) -> Cint
+    rstat_quantile_add(x, w) -> Cint
 
 C signature:
 `int gsl_rstat_quantile_add(const double x, gsl_rstat_quantile_workspace *w)`
@@ -74,12 +74,12 @@ GSL documentation:
 > data point x.
 
 """
-function gsl_rstat_quantile_add(x, w)
+function rstat_quantile_add(x, w)
     ccall((:gsl_rstat_quantile_add, libgsl), Cint, (Cdouble, Ref{gsl_rstat_quantile_workspace}), x, w)
 end
 
 @doc md"""
-    gsl_rstat_quantile_get(w) -> Cdouble
+    rstat_quantile_get(w) -> Cdouble
 
 C signature:
 `double gsl_rstat_quantile_get(gsl_rstat_quantile_workspace *w)`
@@ -91,12 +91,12 @@ GSL documentation:
 > This function returns the current estimate of the $p$-quantile.
 
 """
-function gsl_rstat_quantile_get(w)
+function rstat_quantile_get(w)
     ccall((:gsl_rstat_quantile_get, libgsl), Cdouble, (Ptr{gsl_rstat_quantile_workspace},), w)
 end
 
 @doc md"""
-    gsl_rstat_alloc() -> Ptr{gsl_rstat_workspace}
+    rstat_alloc() -> Ptr{gsl_rstat_workspace}
 
 C signature:
 `gsl_rstat_workspace *gsl_rstat_alloc(void)`
@@ -109,12 +109,12 @@ GSL documentation:
 > The size of the workspace is $O(1)$.
 
 """
-function gsl_rstat_alloc()
+function rstat_alloc()
     ccall((:gsl_rstat_alloc, libgsl), Ptr{gsl_rstat_workspace}, (), )
 end
 
 @doc md"""
-    gsl_rstat_free(w) -> Cvoid
+    rstat_free(w) -> Cvoid
 
 C signature:
 `void gsl_rstat_free(gsl_rstat_workspace *w)`
@@ -126,12 +126,12 @@ GSL documentation:
 > This function frees the memory associated with the workspace w.
 
 """
-function gsl_rstat_free(w)
+function rstat_free(w)
     ccall((:gsl_rstat_free, libgsl), Cvoid, (Ptr{gsl_rstat_workspace},), w)
 end
 
 @doc md"""
-    gsl_rstat_n(w) -> Csize_t
+    rstat_n(w) -> Csize_t
 
 C signature:
 `size_t gsl_rstat_n(const gsl_rstat_workspace *w)`
@@ -144,12 +144,12 @@ GSL documentation:
 > accumulator.
 
 """
-function gsl_rstat_n(w)
+function rstat_n(w)
     ccall((:gsl_rstat_n, libgsl), Csize_t, (Ptr{gsl_rstat_workspace},), w)
 end
 
 @doc md"""
-    gsl_rstat_add(x, w) -> Cint
+    rstat_add(x, w) -> Cint
 
 C signature:
 `int gsl_rstat_add(const double x, gsl_rstat_workspace *w)`
@@ -163,12 +163,12 @@ GSL documentation:
 > skewness, kurtosis, and median.
 
 """
-function gsl_rstat_add(x, w)
+function rstat_add(x, w)
     ccall((:gsl_rstat_add, libgsl), Cint, (Cdouble, Ref{gsl_rstat_workspace}), x, w)
 end
 
 @doc md"""
-    gsl_rstat_min(w) -> Cdouble
+    rstat_min(w) -> Cdouble
 
 C signature:
 `double gsl_rstat_min(const gsl_rstat_workspace *w)`
@@ -180,12 +180,12 @@ GSL documentation:
 > This function returns the minimum value added to the accumulator.
 
 """
-function gsl_rstat_min(w)
+function rstat_min(w)
     ccall((:gsl_rstat_min, libgsl), Cdouble, (Ptr{gsl_rstat_workspace},), w)
 end
 
 @doc md"""
-    gsl_rstat_max(w) -> Cdouble
+    rstat_max(w) -> Cdouble
 
 C signature:
 `double gsl_rstat_max(const gsl_rstat_workspace *w)`
@@ -197,12 +197,12 @@ GSL documentation:
 > This function returns the maximum value added to the accumulator.
 
 """
-function gsl_rstat_max(w)
+function rstat_max(w)
     ccall((:gsl_rstat_max, libgsl), Cdouble, (Ptr{gsl_rstat_workspace},), w)
 end
 
 @doc md"""
-    gsl_rstat_mean(w) -> Cdouble
+    rstat_mean(w) -> Cdouble
 
 C signature:
 `double gsl_rstat_mean(const gsl_rstat_workspace *w)`
@@ -215,12 +215,12 @@ GSL documentation:
 > defined as
 
 """
-function gsl_rstat_mean(w)
+function rstat_mean(w)
     ccall((:gsl_rstat_mean, libgsl), Cdouble, (Ptr{gsl_rstat_workspace},), w)
 end
 
 @doc md"""
-    gsl_rstat_variance(w) -> Cdouble
+    rstat_variance(w) -> Cdouble
 
 C signature:
 `double gsl_rstat_variance(const gsl_rstat_workspace *w)`
@@ -233,12 +233,12 @@ GSL documentation:
 > accumulator, defined as
 
 """
-function gsl_rstat_variance(w)
+function rstat_variance(w)
     ccall((:gsl_rstat_variance, libgsl), Cdouble, (Ptr{gsl_rstat_workspace},), w)
 end
 
 @doc md"""
-    gsl_rstat_sd(w) -> Cdouble
+    rstat_sd(w) -> Cdouble
 
 C signature:
 `double gsl_rstat_sd(const gsl_rstat_workspace *w)`
@@ -251,12 +251,12 @@ GSL documentation:
 > accumulator, defined as the square root of the variance given above.
 
 """
-function gsl_rstat_sd(w)
+function rstat_sd(w)
     ccall((:gsl_rstat_sd, libgsl), Cdouble, (Ptr{gsl_rstat_workspace},), w)
 end
 
 @doc md"""
-    gsl_rstat_rms(w) -> Cdouble
+    rstat_rms(w) -> Cdouble
 
 C signature:
 `double gsl_rstat_rms(const gsl_rstat_workspace *w)`
@@ -271,12 +271,12 @@ GSL documentation:
 > $$rms = \sqrt{{1 \over N} \sum x_i^2}$$
 
 """
-function gsl_rstat_rms(w)
+function rstat_rms(w)
     ccall((:gsl_rstat_rms, libgsl), Cdouble, (Ptr{gsl_rstat_workspace},), w)
 end
 
 @doc md"""
-    gsl_rstat_sd_mean(w) -> Cdouble
+    rstat_sd_mean(w) -> Cdouble
 
 C signature:
 `double gsl_rstat_sd_mean(const gsl_rstat_workspace *w)`
@@ -288,12 +288,12 @@ GSL documentation:
 > This function returns the standard deviation of the mean, defined as
 
 """
-function gsl_rstat_sd_mean(w)
+function rstat_sd_mean(w)
     ccall((:gsl_rstat_sd_mean, libgsl), Cdouble, (Ptr{gsl_rstat_workspace},), w)
 end
 
 @doc md"""
-    gsl_rstat_median(w) -> Cdouble
+    rstat_median(w) -> Cdouble
 
 C signature:
 `double gsl_rstat_median(gsl_rstat_workspace *w)`
@@ -306,12 +306,12 @@ GSL documentation:
 > the accumulator.
 
 """
-function gsl_rstat_median(w)
+function rstat_median(w)
     ccall((:gsl_rstat_median, libgsl), Cdouble, (Ptr{gsl_rstat_workspace},), w)
 end
 
 @doc md"""
-    gsl_rstat_skew(w) -> Cdouble
+    rstat_skew(w) -> Cdouble
 
 C signature:
 `double gsl_rstat_skew(const gsl_rstat_workspace *w)`
@@ -324,12 +324,12 @@ GSL documentation:
 > accumulator, defined as
 
 """
-function gsl_rstat_skew(w)
+function rstat_skew(w)
     ccall((:gsl_rstat_skew, libgsl), Cdouble, (Ptr{gsl_rstat_workspace},), w)
 end
 
 @doc md"""
-    gsl_rstat_kurtosis(w) -> Cdouble
+    rstat_kurtosis(w) -> Cdouble
 
 C signature:
 `double gsl_rstat_kurtosis(const gsl_rstat_workspace *w)`
@@ -342,12 +342,12 @@ GSL documentation:
 > accumulator, defined as
 
 """
-function gsl_rstat_kurtosis(w)
+function rstat_kurtosis(w)
     ccall((:gsl_rstat_kurtosis, libgsl), Cdouble, (Ptr{gsl_rstat_workspace},), w)
 end
 
 @doc md"""
-    gsl_rstat_reset(w) -> Cint
+    rstat_reset(w) -> Cint
 
 C signature:
 `int gsl_rstat_reset(gsl_rstat_workspace *w)`
@@ -360,7 +360,7 @@ GSL documentation:
 > begin working on a new set of data.
 
 """
-function gsl_rstat_reset(w)
+function rstat_reset(w)
     ccall((:gsl_rstat_reset, libgsl), Cint, (Ptr{gsl_rstat_workspace},), w)
 end
 

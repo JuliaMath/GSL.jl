@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_complex_polar(r, theta) -> gsl_complex
+    complex_polar(r, theta) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_polar (double r, double theta)`
@@ -21,12 +21,12 @@ GSL documentation:
 > theta).
 
 """
-function gsl_complex_polar(r, theta)
+function complex_polar(r, theta)
     ccall((:gsl_complex_polar, libgsl), gsl_complex, (Cdouble, Cdouble), r, theta)
 end
 
 @doc md"""
-    gsl_complex_rect(x, y) -> gsl_complex
+    complex_rect(x, y) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_rect (double x, double y)`
@@ -40,12 +40,12 @@ GSL documentation:
 > function is used when HAVE\_INLINE is defined.
 
 """
-function gsl_complex_rect(x, y)
+function complex_rect(x, y)
     ccall((:gsl_complex_rect, libgsl), gsl_complex, (Cdouble, Cdouble), x, y)
 end
 
 @doc md"""
-    gsl_complex_abs(z) -> Cdouble
+    complex_abs(z) -> Cdouble
 
 C signature:
 `double gsl_complex_abs (gsl_complex z)`
@@ -57,12 +57,12 @@ GSL documentation:
 > This function returns the magnitude of the complex number z, $|z|$.
 
 """
-function gsl_complex_abs(z)
+function complex_abs(z)
     ccall((:gsl_complex_abs, libgsl), Cdouble, (gsl_complex,), z)
 end
 
 @doc md"""
-    gsl_complex_abs2(z) -> Cdouble
+    complex_abs2(z) -> Cdouble
 
 C signature:
 `double gsl_complex_abs2 (gsl_complex z)`
@@ -75,12 +75,12 @@ GSL documentation:
 > $|z|^2$.
 
 """
-function gsl_complex_abs2(z)
+function complex_abs2(z)
     ccall((:gsl_complex_abs2, libgsl), Cdouble, (gsl_complex,), z)
 end
 
 @doc md"""
-    gsl_complex_logabs(z) -> Cdouble
+    complex_logabs(z) -> Cdouble
 
 C signature:
 `double gsl_complex_logabs (gsl_complex z)`
@@ -96,12 +96,12 @@ GSL documentation:
 > precision in this case.
 
 """
-function gsl_complex_logabs(z)
+function complex_logabs(z)
     ccall((:gsl_complex_logabs, libgsl), Cdouble, (gsl_complex,), z)
 end
 
 @doc md"""
-    gsl_complex_add(a, b) -> gsl_complex
+    complex_add(a, b) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_add (gsl_complex a, gsl_complex b)`
@@ -113,12 +113,12 @@ GSL documentation:
 > This function returns the sum of the complex numbers a and b, $z=a+b$.
 
 """
-function gsl_complex_add(a, b)
+function complex_add(a, b)
     ccall((:gsl_complex_add, libgsl), gsl_complex, (gsl_complex, gsl_complex), a, b)
 end
 
 @doc md"""
-    gsl_complex_sub(a, b) -> gsl_complex
+    complex_sub(a, b) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_sub (gsl_complex a, gsl_complex b)`
@@ -131,12 +131,12 @@ GSL documentation:
 > $z=a-b$.
 
 """
-function gsl_complex_sub(a, b)
+function complex_sub(a, b)
     ccall((:gsl_complex_sub, libgsl), gsl_complex, (gsl_complex, gsl_complex), a, b)
 end
 
 @doc md"""
-    gsl_complex_mul(a, b) -> gsl_complex
+    complex_mul(a, b) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_mul (gsl_complex a, gsl_complex b)`
@@ -149,12 +149,12 @@ GSL documentation:
 > $z=ab$.
 
 """
-function gsl_complex_mul(a, b)
+function complex_mul(a, b)
     ccall((:gsl_complex_mul, libgsl), gsl_complex, (gsl_complex, gsl_complex), a, b)
 end
 
 @doc md"""
-    gsl_complex_div(a, b) -> gsl_complex
+    complex_div(a, b) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_div (gsl_complex a, gsl_complex b)`
@@ -167,12 +167,12 @@ GSL documentation:
 > $z=a/b$.
 
 """
-function gsl_complex_div(a, b)
+function complex_div(a, b)
     ccall((:gsl_complex_div, libgsl), gsl_complex, (gsl_complex, gsl_complex), a, b)
 end
 
 @doc md"""
-    gsl_complex_add_real(a, x) -> gsl_complex
+    complex_add_real(a, x) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_add_real (gsl_complex a, double x)`
@@ -185,12 +185,12 @@ GSL documentation:
 > number x, $z=a+x$.
 
 """
-function gsl_complex_add_real(a, x)
+function complex_add_real(a, x)
     ccall((:gsl_complex_add_real, libgsl), gsl_complex, (gsl_complex, Cdouble), a, x)
 end
 
 @doc md"""
-    gsl_complex_sub_real(a, x) -> gsl_complex
+    complex_sub_real(a, x) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_sub_real (gsl_complex a, double x)`
@@ -203,12 +203,12 @@ GSL documentation:
 > real number x, $z=a-x$.
 
 """
-function gsl_complex_sub_real(a, x)
+function complex_sub_real(a, x)
     ccall((:gsl_complex_sub_real, libgsl), gsl_complex, (gsl_complex, Cdouble), a, x)
 end
 
 @doc md"""
-    gsl_complex_mul_real(a, x) -> gsl_complex
+    complex_mul_real(a, x) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_mul_real (gsl_complex a, double x)`
@@ -221,12 +221,12 @@ GSL documentation:
 > number x, $z=ax$.
 
 """
-function gsl_complex_mul_real(a, x)
+function complex_mul_real(a, x)
     ccall((:gsl_complex_mul_real, libgsl), gsl_complex, (gsl_complex, Cdouble), a, x)
 end
 
 @doc md"""
-    gsl_complex_div_real(a, x) -> gsl_complex
+    complex_div_real(a, x) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_div_real (gsl_complex a, double x)`
@@ -239,12 +239,12 @@ GSL documentation:
 > real number x, $z=a/x$.
 
 """
-function gsl_complex_div_real(a, x)
+function complex_div_real(a, x)
     ccall((:gsl_complex_div_real, libgsl), gsl_complex, (gsl_complex, Cdouble), a, x)
 end
 
 @doc md"""
-    gsl_complex_add_imag(a, y) -> gsl_complex
+    complex_add_imag(a, y) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_add_imag (gsl_complex a, double y)`
@@ -257,12 +257,12 @@ GSL documentation:
 > imaginary number $iy$, $z=a+iy$.
 
 """
-function gsl_complex_add_imag(a, y)
+function complex_add_imag(a, y)
     ccall((:gsl_complex_add_imag, libgsl), gsl_complex, (gsl_complex, Cdouble), a, y)
 end
 
 @doc md"""
-    gsl_complex_sub_imag(a, y) -> gsl_complex
+    complex_sub_imag(a, y) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_sub_imag (gsl_complex a, double y)`
@@ -275,12 +275,12 @@ GSL documentation:
 > imaginary number $iy$, $z=a-iy$.
 
 """
-function gsl_complex_sub_imag(a, y)
+function complex_sub_imag(a, y)
     ccall((:gsl_complex_sub_imag, libgsl), gsl_complex, (gsl_complex, Cdouble), a, y)
 end
 
 @doc md"""
-    gsl_complex_mul_imag(a, y) -> gsl_complex
+    complex_mul_imag(a, y) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_mul_imag (gsl_complex a, double y)`
@@ -293,12 +293,12 @@ GSL documentation:
 > imaginary number $iy$, $z=a*(iy)$.
 
 """
-function gsl_complex_mul_imag(a, y)
+function complex_mul_imag(a, y)
     ccall((:gsl_complex_mul_imag, libgsl), gsl_complex, (gsl_complex, Cdouble), a, y)
 end
 
 @doc md"""
-    gsl_complex_div_imag(a, y) -> gsl_complex
+    complex_div_imag(a, y) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_div_imag (gsl_complex a, double y)`
@@ -311,12 +311,12 @@ GSL documentation:
 > imaginary number $iy$, $z=a/(iy)$.
 
 """
-function gsl_complex_div_imag(a, y)
+function complex_div_imag(a, y)
     ccall((:gsl_complex_div_imag, libgsl), gsl_complex, (gsl_complex, Cdouble), a, y)
 end
 
 @doc md"""
-    gsl_complex_conjugate(z) -> gsl_complex
+    complex_conjugate(z) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_conjugate (gsl_complex z)`
@@ -329,12 +329,12 @@ GSL documentation:
 > $z^* = x - i y$.
 
 """
-function gsl_complex_conjugate(z)
+function complex_conjugate(z)
     ccall((:gsl_complex_conjugate, libgsl), gsl_complex, (gsl_complex,), z)
 end
 
 @doc md"""
-    gsl_complex_inverse(a) -> gsl_complex
+    complex_inverse(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_inverse (gsl_complex a)`
@@ -347,12 +347,12 @@ GSL documentation:
 > number z, $1/z = (x - i y)/(x^2 + y^2)$.
 
 """
-function gsl_complex_inverse(a)
+function complex_inverse(a)
     ccall((:gsl_complex_inverse, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_negative(a) -> gsl_complex
+    complex_negative(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_negative (gsl_complex a)`
@@ -365,12 +365,12 @@ GSL documentation:
 > $-z = (-x) + i(-y)$.
 
 """
-function gsl_complex_negative(a)
+function complex_negative(a)
     ccall((:gsl_complex_negative, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_sqrt(z) -> gsl_complex
+    complex_sqrt(z) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_sqrt (gsl_complex z)`
@@ -384,12 +384,12 @@ GSL documentation:
 > lies in the right half of the complex plane.
 
 """
-function gsl_complex_sqrt(z)
+function complex_sqrt(z)
     ccall((:gsl_complex_sqrt, libgsl), gsl_complex, (gsl_complex,), z)
 end
 
 @doc md"""
-    gsl_complex_sqrt_real(x) -> gsl_complex
+    complex_sqrt_real(x) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_sqrt_real (double x)`
@@ -402,12 +402,12 @@ GSL documentation:
 > where x may be negative.
 
 """
-function gsl_complex_sqrt_real(x)
+function complex_sqrt_real(x)
     ccall((:gsl_complex_sqrt_real, libgsl), gsl_complex, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_complex_pow(a, b) -> gsl_complex
+    complex_pow(a, b) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_pow (gsl_complex a, gsl_complex b)`
@@ -421,12 +421,12 @@ GSL documentation:
 > logarithms and complex exponentials.
 
 """
-function gsl_complex_pow(a, b)
+function complex_pow(a, b)
     ccall((:gsl_complex_pow, libgsl), gsl_complex, (gsl_complex, gsl_complex), a, b)
 end
 
 @doc md"""
-    gsl_complex_pow_real(a, b) -> gsl_complex
+    complex_pow_real(a, b) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_pow_real (gsl_complex a, double b)`
@@ -439,12 +439,12 @@ GSL documentation:
 > $z^x$.
 
 """
-function gsl_complex_pow_real(a, b)
+function complex_pow_real(a, b)
     ccall((:gsl_complex_pow_real, libgsl), gsl_complex, (gsl_complex, Cdouble), a, b)
 end
 
 @doc md"""
-    gsl_complex_exp(a) -> gsl_complex
+    complex_exp(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_exp (gsl_complex a)`
@@ -457,12 +457,12 @@ GSL documentation:
 > $\exp(z)$.
 
 """
-function gsl_complex_exp(a)
+function complex_exp(a)
     ccall((:gsl_complex_exp, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_log(a) -> gsl_complex
+    complex_log(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_log (gsl_complex a)`
@@ -475,12 +475,12 @@ GSL documentation:
 > complex number z, $\log(z)$. The branch cut is the negative real axis.
 
 """
-function gsl_complex_log(a)
+function complex_log(a)
     ccall((:gsl_complex_log, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_log10(a) -> gsl_complex
+    complex_log10(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_log10 (gsl_complex a)`
@@ -493,12 +493,12 @@ GSL documentation:
 > number z, $\log_{10} (z)$.
 
 """
-function gsl_complex_log10(a)
+function complex_log10(a)
     ccall((:gsl_complex_log10, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_log_b(a, b) -> gsl_complex
+    complex_log_b(a, b) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_log_b (gsl_complex a, gsl_complex b)`
@@ -512,12 +512,12 @@ GSL documentation:
 > $\log(z)/\log(b)$.
 
 """
-function gsl_complex_log_b(a, b)
+function complex_log_b(a, b)
     ccall((:gsl_complex_log_b, libgsl), gsl_complex, (gsl_complex, gsl_complex), a, b)
 end
 
 @doc md"""
-    gsl_complex_sin(a) -> gsl_complex
+    complex_sin(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_sin (gsl_complex a)`
@@ -530,12 +530,12 @@ GSL documentation:
 > $\sin(z) = (\exp(iz) - \exp(-iz))/(2i)$.
 
 """
-function gsl_complex_sin(a)
+function complex_sin(a)
     ccall((:gsl_complex_sin, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_cos(a) -> gsl_complex
+    complex_cos(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_cos (gsl_complex a)`
@@ -548,12 +548,12 @@ GSL documentation:
 > $\cos(z) = (\exp(iz) + \exp(-iz))/2$.
 
 """
-function gsl_complex_cos(a)
+function complex_cos(a)
     ccall((:gsl_complex_cos, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_sec(a) -> gsl_complex
+    complex_sec(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_sec (gsl_complex a)`
@@ -566,12 +566,12 @@ GSL documentation:
 > $\sec(z) = 1/\cos(z)$.
 
 """
-function gsl_complex_sec(a)
+function complex_sec(a)
     ccall((:gsl_complex_sec, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_csc(a) -> gsl_complex
+    complex_csc(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_csc (gsl_complex a)`
@@ -584,12 +584,12 @@ GSL documentation:
 > $\csc(z) = 1/\sin(z)$.
 
 """
-function gsl_complex_csc(a)
+function complex_csc(a)
     ccall((:gsl_complex_csc, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_tan(a) -> gsl_complex
+    complex_tan(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_tan (gsl_complex a)`
@@ -602,12 +602,12 @@ GSL documentation:
 > $\tan(z) = \sin(z)/\cos(z)$.
 
 """
-function gsl_complex_tan(a)
+function complex_tan(a)
     ccall((:gsl_complex_tan, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_cot(a) -> gsl_complex
+    complex_cot(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_cot (gsl_complex a)`
@@ -620,12 +620,12 @@ GSL documentation:
 > $\cot(z) = 1/\tan(z)$.
 
 """
-function gsl_complex_cot(a)
+function complex_cot(a)
     ccall((:gsl_complex_cot, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_arcsin(a) -> gsl_complex
+    complex_arcsin(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arcsin (gsl_complex a)`
@@ -639,12 +639,12 @@ GSL documentation:
 > greater than $1$.
 
 """
-function gsl_complex_arcsin(a)
+function complex_arcsin(a)
     ccall((:gsl_complex_arcsin, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_arcsin_real(a) -> gsl_complex
+    complex_arcsin_real(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arcsin_real (double a)`
@@ -661,12 +661,12 @@ GSL documentation:
 > negative imaginary part.
 
 """
-function gsl_complex_arcsin_real(a)
+function complex_arcsin_real(a)
     ccall((:gsl_complex_arcsin_real, libgsl), gsl_complex, (Cdouble,), a)
 end
 
 @doc md"""
-    gsl_complex_arccos(a) -> gsl_complex
+    complex_arccos(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arccos (gsl_complex a)`
@@ -680,12 +680,12 @@ GSL documentation:
 > greater than $1$.
 
 """
-function gsl_complex_arccos(a)
+function complex_arccos(a)
     ccall((:gsl_complex_arccos, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_arccos_real(a) -> gsl_complex
+    complex_arccos_real(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arccos_real (double a)`
@@ -701,12 +701,12 @@ GSL documentation:
 > greater than $1$ the result is purely imaginary and positive.
 
 """
-function gsl_complex_arccos_real(a)
+function complex_arccos_real(a)
     ccall((:gsl_complex_arccos_real, libgsl), gsl_complex, (Cdouble,), a)
 end
 
 @doc md"""
-    gsl_complex_arcsec(a) -> gsl_complex
+    complex_arcsec(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arcsec (gsl_complex a)`
@@ -719,12 +719,12 @@ GSL documentation:
 > $\arcsec(z) = \arccos(1/z)$.
 
 """
-function gsl_complex_arcsec(a)
+function complex_arcsec(a)
     ccall((:gsl_complex_arcsec, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_arcsec_real(a) -> gsl_complex
+    complex_arcsec_real(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arcsec_real (double a)`
@@ -737,12 +737,12 @@ GSL documentation:
 > $\arcsec(z) = \arccos(1/z)$.
 
 """
-function gsl_complex_arcsec_real(a)
+function complex_arcsec_real(a)
     ccall((:gsl_complex_arcsec_real, libgsl), gsl_complex, (Cdouble,), a)
 end
 
 @doc md"""
-    gsl_complex_arccsc(a) -> gsl_complex
+    complex_arccsc(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arccsc (gsl_complex a)`
@@ -755,12 +755,12 @@ GSL documentation:
 > $\arccsc(z) = \arcsin(1/z)$.
 
 """
-function gsl_complex_arccsc(a)
+function complex_arccsc(a)
     ccall((:gsl_complex_arccsc, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_arccsc_real(a) -> gsl_complex
+    complex_arccsc_real(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arccsc_real (double a)`
@@ -773,12 +773,12 @@ GSL documentation:
 > $\arccsc(z) = \arcsin(1/z)$.
 
 """
-function gsl_complex_arccsc_real(a)
+function complex_arccsc_real(a)
     ccall((:gsl_complex_arccsc_real, libgsl), gsl_complex, (Cdouble,), a)
 end
 
 @doc md"""
-    gsl_complex_arctan(a) -> gsl_complex
+    complex_arctan(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arctan (gsl_complex a)`
@@ -792,12 +792,12 @@ GSL documentation:
 > and above $i$.
 
 """
-function gsl_complex_arctan(a)
+function complex_arctan(a)
     ccall((:gsl_complex_arctan, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_arccot(a) -> gsl_complex
+    complex_arccot(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arccot (gsl_complex a)`
@@ -810,12 +810,12 @@ GSL documentation:
 > z, $\arccot(z) = \arctan(1/z)$.
 
 """
-function gsl_complex_arccot(a)
+function complex_arccot(a)
     ccall((:gsl_complex_arccot, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_sinh(a) -> gsl_complex
+    complex_sinh(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_sinh (gsl_complex a)`
@@ -828,12 +828,12 @@ GSL documentation:
 > number z, $\sinh(z) = (\exp(z) - \exp(-z))/2$.
 
 """
-function gsl_complex_sinh(a)
+function complex_sinh(a)
     ccall((:gsl_complex_sinh, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_cosh(a) -> gsl_complex
+    complex_cosh(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_cosh (gsl_complex a)`
@@ -846,12 +846,12 @@ GSL documentation:
 > number z, $\cosh(z) = (\exp(z) + \exp(-z))/2$.
 
 """
-function gsl_complex_cosh(a)
+function complex_cosh(a)
     ccall((:gsl_complex_cosh, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_sech(a) -> gsl_complex
+    complex_sech(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_sech (gsl_complex a)`
@@ -864,12 +864,12 @@ GSL documentation:
 > number z, $\sech(z) = 1/\cosh(z)$.
 
 """
-function gsl_complex_sech(a)
+function complex_sech(a)
     ccall((:gsl_complex_sech, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_csch(a) -> gsl_complex
+    complex_csch(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_csch (gsl_complex a)`
@@ -882,12 +882,12 @@ GSL documentation:
 > number z, $\csch(z) = 1/\sinh(z)$.
 
 """
-function gsl_complex_csch(a)
+function complex_csch(a)
     ccall((:gsl_complex_csch, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_tanh(a) -> gsl_complex
+    complex_tanh(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_tanh (gsl_complex a)`
@@ -900,12 +900,12 @@ GSL documentation:
 > number z, $\tanh(z) = \sinh(z)/\cosh(z)$.
 
 """
-function gsl_complex_tanh(a)
+function complex_tanh(a)
     ccall((:gsl_complex_tanh, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_coth(a) -> gsl_complex
+    complex_coth(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_coth (gsl_complex a)`
@@ -918,12 +918,12 @@ GSL documentation:
 > number z, $\coth(z) = 1/\tanh(z)$.
 
 """
-function gsl_complex_coth(a)
+function complex_coth(a)
     ccall((:gsl_complex_coth, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_arcsinh(a) -> gsl_complex
+    complex_arcsinh(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arcsinh (gsl_complex a)`
@@ -937,12 +937,12 @@ GSL documentation:
 > below $-i$ and above $i$.
 
 """
-function gsl_complex_arcsinh(a)
+function complex_arcsinh(a)
     ccall((:gsl_complex_arcsinh, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_arccosh(a) -> gsl_complex
+    complex_arccosh(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arccosh (gsl_complex a)`
@@ -958,12 +958,12 @@ GSL documentation:
 > $\arccosh(z)=\log(z-\sqrt{z^2-1})$.
 
 """
-function gsl_complex_arccosh(a)
+function complex_arccosh(a)
     ccall((:gsl_complex_arccosh, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_arccosh_real(a) -> gsl_complex
+    complex_arccosh_real(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arccosh_real (double a)`
@@ -976,12 +976,12 @@ GSL documentation:
 > number z, $\arccosh(z)$.
 
 """
-function gsl_complex_arccosh_real(a)
+function complex_arccosh_real(a)
     ccall((:gsl_complex_arccosh_real, libgsl), gsl_complex, (Cdouble,), a)
 end
 
 @doc md"""
-    gsl_complex_arcsech(a) -> gsl_complex
+    complex_arcsech(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arcsech (gsl_complex a)`
@@ -994,12 +994,12 @@ GSL documentation:
 > number z, $\arcsech(z) = \arccosh(1/z)$.
 
 """
-function gsl_complex_arcsech(a)
+function complex_arcsech(a)
     ccall((:gsl_complex_arcsech, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_arccsch(a) -> gsl_complex
+    complex_arccsch(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arccsch (gsl_complex a)`
@@ -1012,12 +1012,12 @@ GSL documentation:
 > complex number z, $\arccsch(z) = \arcsinh(1/z)$.
 
 """
-function gsl_complex_arccsch(a)
+function complex_arccsch(a)
     ccall((:gsl_complex_arccsch, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_arctanh(a) -> gsl_complex
+    complex_arctanh(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arctanh (gsl_complex a)`
@@ -1031,12 +1031,12 @@ GSL documentation:
 > than $-1$ and greater than $1$.
 
 """
-function gsl_complex_arctanh(a)
+function complex_arctanh(a)
     ccall((:gsl_complex_arctanh, libgsl), gsl_complex, (gsl_complex,), a)
 end
 
 @doc md"""
-    gsl_complex_arctanh_real(a) -> gsl_complex
+    complex_arctanh_real(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arctanh_real (double a)`
@@ -1049,12 +1049,12 @@ GSL documentation:
 > number z, $\arctanh(z)$.
 
 """
-function gsl_complex_arctanh_real(a)
+function complex_arctanh_real(a)
     ccall((:gsl_complex_arctanh_real, libgsl), gsl_complex, (Cdouble,), a)
 end
 
 @doc md"""
-    gsl_complex_arccoth(a) -> gsl_complex
+    complex_arccoth(a) -> gsl_complex
 
 C signature:
 `gsl_complex gsl_complex_arccoth (gsl_complex a)`
@@ -1067,7 +1067,7 @@ GSL documentation:
 > complex number z, $\arccoth(z) = \arctanh(1/z)$.
 
 """
-function gsl_complex_arccoth(a)
+function complex_arccoth(a)
     ccall((:gsl_complex_arccoth, libgsl), gsl_complex, (gsl_complex,), a)
 end
 

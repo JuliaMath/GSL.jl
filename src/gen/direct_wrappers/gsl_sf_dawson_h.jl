@@ -7,17 +7,17 @@
 
 
 @doc md"""
-    gsl_sf_dawson_e(x, result) -> Cint
+    sf_dawson_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_dawson_e(double x, gsl_sf_result * result)`
 """
-function gsl_sf_dawson_e(x, result)
+function sf_dawson_e(x, result)
     ccall((:gsl_sf_dawson_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_dawson(x) -> Cdouble
+    sf_dawson(x) -> Cdouble
 
 C signature:
 `double gsl_sf_dawson(double x)`
@@ -31,7 +31,7 @@ GSL documentation:
 > These routines compute the value of Dawson's integral for x.
 
 """
-function gsl_sf_dawson(x)
+function sf_dawson(x)
     ccall((:gsl_sf_dawson, libgsl), Cdouble, (Cdouble,), x)
 end
 

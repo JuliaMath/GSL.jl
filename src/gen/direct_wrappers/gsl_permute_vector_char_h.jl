@@ -7,22 +7,22 @@
 
 
 @doc md"""
-    gsl_permute_vector_char(p, v) -> Cint
+    permute_vector_char(p, v) -> Cint
 
 C signature:
 `int gsl_permute_vector_char (const gsl_permutation * p, gsl_vector_char * v)`
 """
-function gsl_permute_vector_char(p, v)
+function permute_vector_char(p, v)
     ccall((:gsl_permute_vector_char, libgsl), Cint, (Ref{gsl_permutation}, Ref{gsl_vector_char}), p, v)
 end
 
 @doc md"""
-    gsl_permute_vector_char_inverse(p, v) -> Cint
+    permute_vector_char_inverse(p, v) -> Cint
 
 C signature:
 `int gsl_permute_vector_char_inverse (const gsl_permutation * p, gsl_vector_char * v)`
 """
-function gsl_permute_vector_char_inverse(p, v)
+function permute_vector_char_inverse(p, v)
     ccall((:gsl_permute_vector_char_inverse, libgsl), Cint, (Ref{gsl_permutation}, Ref{gsl_vector_char}), p, v)
 end
 

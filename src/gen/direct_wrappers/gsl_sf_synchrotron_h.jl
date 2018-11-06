@@ -7,17 +7,17 @@
 
 
 @doc md"""
-    gsl_sf_synchrotron_1_e(x, result) -> Cint
+    sf_synchrotron_1_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_synchrotron_1_e(const double x, gsl_sf_result * result)`
 """
-function gsl_sf_synchrotron_1_e(x, result)
+function sf_synchrotron_1_e(x, result)
     ccall((:gsl_sf_synchrotron_1_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_synchrotron_1(x) -> Cdouble
+    sf_synchrotron_1(x) -> Cdouble
 
 C signature:
 `double gsl_sf_synchrotron_1(const double x)`
@@ -32,22 +32,22 @@ GSL documentation:
 > $x \int_x^\infty dt K_{5/3}(t)$ for $x \ge 0$.
 
 """
-function gsl_sf_synchrotron_1(x)
+function sf_synchrotron_1(x)
     ccall((:gsl_sf_synchrotron_1, libgsl), Cdouble, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_sf_synchrotron_2_e(x, result) -> Cint
+    sf_synchrotron_2_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_synchrotron_2_e(const double x, gsl_sf_result * result)`
 """
-function gsl_sf_synchrotron_2_e(x, result)
+function sf_synchrotron_2_e(x, result)
     ccall((:gsl_sf_synchrotron_2_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_synchrotron_2(x) -> Cdouble
+    sf_synchrotron_2(x) -> Cdouble
 
 C signature:
 `double gsl_sf_synchrotron_2(const double x)`
@@ -62,7 +62,7 @@ GSL documentation:
 > for $x \ge 0$.
 
 """
-function gsl_sf_synchrotron_2(x)
+function sf_synchrotron_2(x)
     ccall((:gsl_sf_synchrotron_2, libgsl), Cdouble, (Cdouble,), x)
 end
 

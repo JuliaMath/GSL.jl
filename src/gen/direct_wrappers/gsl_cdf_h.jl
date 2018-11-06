@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_cdf_ugaussian_P(x) -> Cdouble
+    cdf_ugaussian_P(x) -> Cdouble
 
 C signature:
 `double gsl_cdf_ugaussian_P (const double x)`
@@ -23,45 +23,45 @@ GSL documentation:
 > These functions compute the cumulative distribution functions $P(x)$,
 > $Q(x)$ and their inverses for the unit Gaussian distribution.
 
-|newpage|
+
 
 """
-function gsl_cdf_ugaussian_P(x)
+function cdf_ugaussian_P(x)
     ccall((:gsl_cdf_ugaussian_P, libgsl), Cdouble, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_cdf_ugaussian_Q(x) -> Cdouble
+    cdf_ugaussian_Q(x) -> Cdouble
 
 C signature:
 `double gsl_cdf_ugaussian_Q (const double x)`
 """
-function gsl_cdf_ugaussian_Q(x)
+function cdf_ugaussian_Q(x)
     ccall((:gsl_cdf_ugaussian_Q, libgsl), Cdouble, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_cdf_ugaussian_Pinv(P) -> Cdouble
+    cdf_ugaussian_Pinv(P) -> Cdouble
 
 C signature:
 `double gsl_cdf_ugaussian_Pinv (const double P)`
 """
-function gsl_cdf_ugaussian_Pinv(P)
+function cdf_ugaussian_Pinv(P)
     ccall((:gsl_cdf_ugaussian_Pinv, libgsl), Cdouble, (Cdouble,), P)
 end
 
 @doc md"""
-    gsl_cdf_ugaussian_Qinv(Q) -> Cdouble
+    cdf_ugaussian_Qinv(Q) -> Cdouble
 
 C signature:
 `double gsl_cdf_ugaussian_Qinv (const double Q)`
 """
-function gsl_cdf_ugaussian_Qinv(Q)
+function cdf_ugaussian_Qinv(Q)
     ccall((:gsl_cdf_ugaussian_Qinv, libgsl), Cdouble, (Cdouble,), Q)
 end
 
 @doc md"""
-    gsl_cdf_gaussian_P(x, sigma) -> Cdouble
+    cdf_gaussian_P(x, sigma) -> Cdouble
 
 C signature:
 `double gsl_cdf_gaussian_P (const double x, const double sigma)`
@@ -79,42 +79,42 @@ GSL documentation:
 > deviation sigma.
 
 """
-function gsl_cdf_gaussian_P(x, sigma)
+function cdf_gaussian_P(x, sigma)
     ccall((:gsl_cdf_gaussian_P, libgsl), Cdouble, (Cdouble, Cdouble), x, sigma)
 end
 
 @doc md"""
-    gsl_cdf_gaussian_Q(x, sigma) -> Cdouble
+    cdf_gaussian_Q(x, sigma) -> Cdouble
 
 C signature:
 `double gsl_cdf_gaussian_Q (const double x, const double sigma)`
 """
-function gsl_cdf_gaussian_Q(x, sigma)
+function cdf_gaussian_Q(x, sigma)
     ccall((:gsl_cdf_gaussian_Q, libgsl), Cdouble, (Cdouble, Cdouble), x, sigma)
 end
 
 @doc md"""
-    gsl_cdf_gaussian_Pinv(P, sigma) -> Cdouble
+    cdf_gaussian_Pinv(P, sigma) -> Cdouble
 
 C signature:
 `double gsl_cdf_gaussian_Pinv (const double P, const double sigma)`
 """
-function gsl_cdf_gaussian_Pinv(P, sigma)
+function cdf_gaussian_Pinv(P, sigma)
     ccall((:gsl_cdf_gaussian_Pinv, libgsl), Cdouble, (Cdouble, Cdouble), P, sigma)
 end
 
 @doc md"""
-    gsl_cdf_gaussian_Qinv(Q, sigma) -> Cdouble
+    cdf_gaussian_Qinv(Q, sigma) -> Cdouble
 
 C signature:
 `double gsl_cdf_gaussian_Qinv (const double Q, const double sigma)`
 """
-function gsl_cdf_gaussian_Qinv(Q, sigma)
+function cdf_gaussian_Qinv(Q, sigma)
     ccall((:gsl_cdf_gaussian_Qinv, libgsl), Cdouble, (Cdouble, Cdouble), Q, sigma)
 end
 
 @doc md"""
-    gsl_cdf_gamma_P(x, a, b) -> Cdouble
+    cdf_gamma_P(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_gamma_P (const double x, const double a, const double b)`
@@ -131,45 +131,45 @@ GSL documentation:
 > $Q(x)$ and their inverses for the gamma distribution with parameters a
 > and b.
 
-|newpage|
+
 
 """
-function gsl_cdf_gamma_P(x, a, b)
+function cdf_gamma_P(x, a, b)
     ccall((:gsl_cdf_gamma_P, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_gamma_Q(x, a, b) -> Cdouble
+    cdf_gamma_Q(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_gamma_Q (const double x, const double a, const double b)`
 """
-function gsl_cdf_gamma_Q(x, a, b)
+function cdf_gamma_Q(x, a, b)
     ccall((:gsl_cdf_gamma_Q, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_gamma_Pinv(P, a, b) -> Cdouble
+    cdf_gamma_Pinv(P, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_gamma_Pinv (const double P, const double a, const double b)`
 """
-function gsl_cdf_gamma_Pinv(P, a, b)
+function cdf_gamma_Pinv(P, a, b)
     ccall((:gsl_cdf_gamma_Pinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), P, a, b)
 end
 
 @doc md"""
-    gsl_cdf_gamma_Qinv(Q, a, b) -> Cdouble
+    cdf_gamma_Qinv(Q, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_gamma_Qinv (const double Q, const double a, const double b)`
 """
-function gsl_cdf_gamma_Qinv(Q, a, b)
+function cdf_gamma_Qinv(Q, a, b)
     ccall((:gsl_cdf_gamma_Qinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), Q, a, b)
 end
 
 @doc md"""
-    gsl_cdf_cauchy_P(x, a) -> Cdouble
+    cdf_cauchy_P(x, a) -> Cdouble
 
 C signature:
 `double gsl_cdf_cauchy_P (const double x, const double a)`
@@ -186,45 +186,45 @@ GSL documentation:
 > $Q(x)$ and their inverses for the Cauchy distribution with scale
 > parameter a.
 
-|newpage|
+
 
 """
-function gsl_cdf_cauchy_P(x, a)
+function cdf_cauchy_P(x, a)
     ccall((:gsl_cdf_cauchy_P, libgsl), Cdouble, (Cdouble, Cdouble), x, a)
 end
 
 @doc md"""
-    gsl_cdf_cauchy_Q(x, a) -> Cdouble
+    cdf_cauchy_Q(x, a) -> Cdouble
 
 C signature:
 `double gsl_cdf_cauchy_Q (const double x, const double a)`
 """
-function gsl_cdf_cauchy_Q(x, a)
+function cdf_cauchy_Q(x, a)
     ccall((:gsl_cdf_cauchy_Q, libgsl), Cdouble, (Cdouble, Cdouble), x, a)
 end
 
 @doc md"""
-    gsl_cdf_cauchy_Pinv(P, a) -> Cdouble
+    cdf_cauchy_Pinv(P, a) -> Cdouble
 
 C signature:
 `double gsl_cdf_cauchy_Pinv (const double P, const double a)`
 """
-function gsl_cdf_cauchy_Pinv(P, a)
+function cdf_cauchy_Pinv(P, a)
     ccall((:gsl_cdf_cauchy_Pinv, libgsl), Cdouble, (Cdouble, Cdouble), P, a)
 end
 
 @doc md"""
-    gsl_cdf_cauchy_Qinv(Q, a) -> Cdouble
+    cdf_cauchy_Qinv(Q, a) -> Cdouble
 
 C signature:
 `double gsl_cdf_cauchy_Qinv (const double Q, const double a)`
 """
-function gsl_cdf_cauchy_Qinv(Q, a)
+function cdf_cauchy_Qinv(Q, a)
     ccall((:gsl_cdf_cauchy_Qinv, libgsl), Cdouble, (Cdouble, Cdouble), Q, a)
 end
 
 @doc md"""
-    gsl_cdf_laplace_P(x, a) -> Cdouble
+    cdf_laplace_P(x, a) -> Cdouble
 
 C signature:
 `double gsl_cdf_laplace_P (const double x, const double a)`
@@ -240,45 +240,45 @@ GSL documentation:
 > These functions compute the cumulative distribution functions $P(x)$,
 > $Q(x)$ and their inverses for the Laplace distribution with width a.
 
-|newpage|
+
 
 """
-function gsl_cdf_laplace_P(x, a)
+function cdf_laplace_P(x, a)
     ccall((:gsl_cdf_laplace_P, libgsl), Cdouble, (Cdouble, Cdouble), x, a)
 end
 
 @doc md"""
-    gsl_cdf_laplace_Q(x, a) -> Cdouble
+    cdf_laplace_Q(x, a) -> Cdouble
 
 C signature:
 `double gsl_cdf_laplace_Q (const double x, const double a)`
 """
-function gsl_cdf_laplace_Q(x, a)
+function cdf_laplace_Q(x, a)
     ccall((:gsl_cdf_laplace_Q, libgsl), Cdouble, (Cdouble, Cdouble), x, a)
 end
 
 @doc md"""
-    gsl_cdf_laplace_Pinv(P, a) -> Cdouble
+    cdf_laplace_Pinv(P, a) -> Cdouble
 
 C signature:
 `double gsl_cdf_laplace_Pinv (const double P, const double a)`
 """
-function gsl_cdf_laplace_Pinv(P, a)
+function cdf_laplace_Pinv(P, a)
     ccall((:gsl_cdf_laplace_Pinv, libgsl), Cdouble, (Cdouble, Cdouble), P, a)
 end
 
 @doc md"""
-    gsl_cdf_laplace_Qinv(Q, a) -> Cdouble
+    cdf_laplace_Qinv(Q, a) -> Cdouble
 
 C signature:
 `double gsl_cdf_laplace_Qinv (const double Q, const double a)`
 """
-function gsl_cdf_laplace_Qinv(Q, a)
+function cdf_laplace_Qinv(Q, a)
     ccall((:gsl_cdf_laplace_Qinv, libgsl), Cdouble, (Cdouble, Cdouble), Q, a)
 end
 
 @doc md"""
-    gsl_cdf_rayleigh_P(x, sigma) -> Cdouble
+    cdf_rayleigh_P(x, sigma) -> Cdouble
 
 C signature:
 `double gsl_cdf_rayleigh_P (const double x, const double sigma)`
@@ -295,45 +295,45 @@ GSL documentation:
 > $Q(x)$ and their inverses for the Rayleigh distribution with scale
 > parameter sigma.
 
-|newpage|
+
 
 """
-function gsl_cdf_rayleigh_P(x, sigma)
+function cdf_rayleigh_P(x, sigma)
     ccall((:gsl_cdf_rayleigh_P, libgsl), Cdouble, (Cdouble, Cdouble), x, sigma)
 end
 
 @doc md"""
-    gsl_cdf_rayleigh_Q(x, sigma) -> Cdouble
+    cdf_rayleigh_Q(x, sigma) -> Cdouble
 
 C signature:
 `double gsl_cdf_rayleigh_Q (const double x, const double sigma)`
 """
-function gsl_cdf_rayleigh_Q(x, sigma)
+function cdf_rayleigh_Q(x, sigma)
     ccall((:gsl_cdf_rayleigh_Q, libgsl), Cdouble, (Cdouble, Cdouble), x, sigma)
 end
 
 @doc md"""
-    gsl_cdf_rayleigh_Pinv(P, sigma) -> Cdouble
+    cdf_rayleigh_Pinv(P, sigma) -> Cdouble
 
 C signature:
 `double gsl_cdf_rayleigh_Pinv (const double P, const double sigma)`
 """
-function gsl_cdf_rayleigh_Pinv(P, sigma)
+function cdf_rayleigh_Pinv(P, sigma)
     ccall((:gsl_cdf_rayleigh_Pinv, libgsl), Cdouble, (Cdouble, Cdouble), P, sigma)
 end
 
 @doc md"""
-    gsl_cdf_rayleigh_Qinv(Q, sigma) -> Cdouble
+    cdf_rayleigh_Qinv(Q, sigma) -> Cdouble
 
 C signature:
 `double gsl_cdf_rayleigh_Qinv (const double Q, const double sigma)`
 """
-function gsl_cdf_rayleigh_Qinv(Q, sigma)
+function cdf_rayleigh_Qinv(Q, sigma)
     ccall((:gsl_cdf_rayleigh_Qinv, libgsl), Cdouble, (Cdouble, Cdouble), Q, sigma)
 end
 
 @doc md"""
-    gsl_cdf_chisq_P(x, nu) -> Cdouble
+    cdf_chisq_P(x, nu) -> Cdouble
 
 C signature:
 `double gsl_cdf_chisq_P (const double x, const double nu)`
@@ -350,45 +350,45 @@ GSL documentation:
 > $Q(x)$ and their inverses for the chi-squared distribution with nu
 > degrees of freedom.
 
-|newpage|
+
 
 """
-function gsl_cdf_chisq_P(x, nu)
+function cdf_chisq_P(x, nu)
     ccall((:gsl_cdf_chisq_P, libgsl), Cdouble, (Cdouble, Cdouble), x, nu)
 end
 
 @doc md"""
-    gsl_cdf_chisq_Q(x, nu) -> Cdouble
+    cdf_chisq_Q(x, nu) -> Cdouble
 
 C signature:
 `double gsl_cdf_chisq_Q (const double x, const double nu)`
 """
-function gsl_cdf_chisq_Q(x, nu)
+function cdf_chisq_Q(x, nu)
     ccall((:gsl_cdf_chisq_Q, libgsl), Cdouble, (Cdouble, Cdouble), x, nu)
 end
 
 @doc md"""
-    gsl_cdf_chisq_Pinv(P, nu) -> Cdouble
+    cdf_chisq_Pinv(P, nu) -> Cdouble
 
 C signature:
 `double gsl_cdf_chisq_Pinv (const double P, const double nu)`
 """
-function gsl_cdf_chisq_Pinv(P, nu)
+function cdf_chisq_Pinv(P, nu)
     ccall((:gsl_cdf_chisq_Pinv, libgsl), Cdouble, (Cdouble, Cdouble), P, nu)
 end
 
 @doc md"""
-    gsl_cdf_chisq_Qinv(Q, nu) -> Cdouble
+    cdf_chisq_Qinv(Q, nu) -> Cdouble
 
 C signature:
 `double gsl_cdf_chisq_Qinv (const double Q, const double nu)`
 """
-function gsl_cdf_chisq_Qinv(Q, nu)
+function cdf_chisq_Qinv(Q, nu)
     ccall((:gsl_cdf_chisq_Qinv, libgsl), Cdouble, (Cdouble, Cdouble), Q, nu)
 end
 
 @doc md"""
-    gsl_cdf_exponential_P(x, mu) -> Cdouble
+    cdf_exponential_P(x, mu) -> Cdouble
 
 C signature:
 `double gsl_cdf_exponential_P (const double x, const double mu)`
@@ -405,45 +405,45 @@ GSL documentation:
 > $Q(x)$ and their inverses for the exponential distribution with mean
 > mu.
 
-|newpage|
+
 
 """
-function gsl_cdf_exponential_P(x, mu)
+function cdf_exponential_P(x, mu)
     ccall((:gsl_cdf_exponential_P, libgsl), Cdouble, (Cdouble, Cdouble), x, mu)
 end
 
 @doc md"""
-    gsl_cdf_exponential_Q(x, mu) -> Cdouble
+    cdf_exponential_Q(x, mu) -> Cdouble
 
 C signature:
 `double gsl_cdf_exponential_Q (const double x, const double mu)`
 """
-function gsl_cdf_exponential_Q(x, mu)
+function cdf_exponential_Q(x, mu)
     ccall((:gsl_cdf_exponential_Q, libgsl), Cdouble, (Cdouble, Cdouble), x, mu)
 end
 
 @doc md"""
-    gsl_cdf_exponential_Pinv(P, mu) -> Cdouble
+    cdf_exponential_Pinv(P, mu) -> Cdouble
 
 C signature:
 `double gsl_cdf_exponential_Pinv (const double P, const double mu)`
 """
-function gsl_cdf_exponential_Pinv(P, mu)
+function cdf_exponential_Pinv(P, mu)
     ccall((:gsl_cdf_exponential_Pinv, libgsl), Cdouble, (Cdouble, Cdouble), P, mu)
 end
 
 @doc md"""
-    gsl_cdf_exponential_Qinv(Q, mu) -> Cdouble
+    cdf_exponential_Qinv(Q, mu) -> Cdouble
 
 C signature:
 `double gsl_cdf_exponential_Qinv (const double Q, const double mu)`
 """
-function gsl_cdf_exponential_Qinv(Q, mu)
+function cdf_exponential_Qinv(Q, mu)
     ccall((:gsl_cdf_exponential_Qinv, libgsl), Cdouble, (Cdouble, Cdouble), Q, mu)
 end
 
 @doc md"""
-    gsl_cdf_exppow_P(x, a, b) -> Cdouble
+    cdf_exppow_P(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_exppow_P (const double x, const double a, const double b)`
@@ -457,25 +457,25 @@ GSL documentation:
 > These functions compute the cumulative distribution functions $P(x)$,
 > $Q(x)$ for the exponential power distribution with parameters a and b.
 
-|newpage|
+
 
 """
-function gsl_cdf_exppow_P(x, a, b)
+function cdf_exppow_P(x, a, b)
     ccall((:gsl_cdf_exppow_P, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_exppow_Q(x, a, b) -> Cdouble
+    cdf_exppow_Q(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_exppow_Q (const double x, const double a, const double b)`
 """
-function gsl_cdf_exppow_Q(x, a, b)
+function cdf_exppow_Q(x, a, b)
     ccall((:gsl_cdf_exppow_Q, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_tdist_P(x, nu) -> Cdouble
+    cdf_tdist_P(x, nu) -> Cdouble
 
 C signature:
 `double gsl_cdf_tdist_P (const double x, const double nu)`
@@ -492,45 +492,45 @@ GSL documentation:
 > $Q(x)$ and their inverses for the t-distribution with nu degrees of
 > freedom.
 
-|newpage|
+
 
 """
-function gsl_cdf_tdist_P(x, nu)
+function cdf_tdist_P(x, nu)
     ccall((:gsl_cdf_tdist_P, libgsl), Cdouble, (Cdouble, Cdouble), x, nu)
 end
 
 @doc md"""
-    gsl_cdf_tdist_Q(x, nu) -> Cdouble
+    cdf_tdist_Q(x, nu) -> Cdouble
 
 C signature:
 `double gsl_cdf_tdist_Q (const double x, const double nu)`
 """
-function gsl_cdf_tdist_Q(x, nu)
+function cdf_tdist_Q(x, nu)
     ccall((:gsl_cdf_tdist_Q, libgsl), Cdouble, (Cdouble, Cdouble), x, nu)
 end
 
 @doc md"""
-    gsl_cdf_tdist_Pinv(P, nu) -> Cdouble
+    cdf_tdist_Pinv(P, nu) -> Cdouble
 
 C signature:
 `double gsl_cdf_tdist_Pinv (const double P, const double nu)`
 """
-function gsl_cdf_tdist_Pinv(P, nu)
+function cdf_tdist_Pinv(P, nu)
     ccall((:gsl_cdf_tdist_Pinv, libgsl), Cdouble, (Cdouble, Cdouble), P, nu)
 end
 
 @doc md"""
-    gsl_cdf_tdist_Qinv(Q, nu) -> Cdouble
+    cdf_tdist_Qinv(Q, nu) -> Cdouble
 
 C signature:
 `double gsl_cdf_tdist_Qinv (const double Q, const double nu)`
 """
-function gsl_cdf_tdist_Qinv(Q, nu)
+function cdf_tdist_Qinv(Q, nu)
     ccall((:gsl_cdf_tdist_Qinv, libgsl), Cdouble, (Cdouble, Cdouble), Q, nu)
 end
 
 @doc md"""
-    gsl_cdf_fdist_P(x, nu1, nu2) -> Cdouble
+    cdf_fdist_P(x, nu1, nu2) -> Cdouble
 
 C signature:
 `double gsl_cdf_fdist_P (const double x, const double nu1, const double nu2)`
@@ -547,45 +547,45 @@ GSL documentation:
 > $Q(x)$ and their inverses for the F-distribution with nu1 and nu2
 > degrees of freedom.
 
-|newpage|
+
 
 """
-function gsl_cdf_fdist_P(x, nu1, nu2)
+function cdf_fdist_P(x, nu1, nu2)
     ccall((:gsl_cdf_fdist_P, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, nu1, nu2)
 end
 
 @doc md"""
-    gsl_cdf_fdist_Q(x, nu1, nu2) -> Cdouble
+    cdf_fdist_Q(x, nu1, nu2) -> Cdouble
 
 C signature:
 `double gsl_cdf_fdist_Q (const double x, const double nu1, const double nu2)`
 """
-function gsl_cdf_fdist_Q(x, nu1, nu2)
+function cdf_fdist_Q(x, nu1, nu2)
     ccall((:gsl_cdf_fdist_Q, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, nu1, nu2)
 end
 
 @doc md"""
-    gsl_cdf_fdist_Pinv(P, nu1, nu2) -> Cdouble
+    cdf_fdist_Pinv(P, nu1, nu2) -> Cdouble
 
 C signature:
 `double gsl_cdf_fdist_Pinv (const double P, const double nu1, const double nu2)`
 """
-function gsl_cdf_fdist_Pinv(P, nu1, nu2)
+function cdf_fdist_Pinv(P, nu1, nu2)
     ccall((:gsl_cdf_fdist_Pinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), P, nu1, nu2)
 end
 
 @doc md"""
-    gsl_cdf_fdist_Qinv(Q, nu1, nu2) -> Cdouble
+    cdf_fdist_Qinv(Q, nu1, nu2) -> Cdouble
 
 C signature:
 `double gsl_cdf_fdist_Qinv (const double Q, const double nu1, const double nu2)`
 """
-function gsl_cdf_fdist_Qinv(Q, nu1, nu2)
+function cdf_fdist_Qinv(Q, nu1, nu2)
     ccall((:gsl_cdf_fdist_Qinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), Q, nu1, nu2)
 end
 
 @doc md"""
-    gsl_cdf_beta_P(x, a, b) -> Cdouble
+    cdf_beta_P(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_beta_P (const double x, const double a, const double b)`
@@ -602,45 +602,45 @@ GSL documentation:
 > $Q(x)$ and their inverses for the beta distribution with parameters a
 > and b.
 
-|newpage|
+
 
 """
-function gsl_cdf_beta_P(x, a, b)
+function cdf_beta_P(x, a, b)
     ccall((:gsl_cdf_beta_P, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_beta_Q(x, a, b) -> Cdouble
+    cdf_beta_Q(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_beta_Q (const double x, const double a, const double b)`
 """
-function gsl_cdf_beta_Q(x, a, b)
+function cdf_beta_Q(x, a, b)
     ccall((:gsl_cdf_beta_Q, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_beta_Pinv(P, a, b) -> Cdouble
+    cdf_beta_Pinv(P, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_beta_Pinv (const double P, const double a, const double b)`
 """
-function gsl_cdf_beta_Pinv(P, a, b)
+function cdf_beta_Pinv(P, a, b)
     ccall((:gsl_cdf_beta_Pinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), P, a, b)
 end
 
 @doc md"""
-    gsl_cdf_beta_Qinv(Q, a, b) -> Cdouble
+    cdf_beta_Qinv(Q, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_beta_Qinv (const double Q, const double a, const double b)`
 """
-function gsl_cdf_beta_Qinv(Q, a, b)
+function cdf_beta_Qinv(Q, a, b)
     ccall((:gsl_cdf_beta_Qinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), Q, a, b)
 end
 
 @doc md"""
-    gsl_cdf_flat_P(x, a, b) -> Cdouble
+    cdf_flat_P(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_flat_P (const double x, const double a, const double b)`
@@ -656,45 +656,45 @@ GSL documentation:
 > These functions compute the cumulative distribution functions $P(x)$,
 > $Q(x)$ and their inverses for a uniform distribution from a to b.
 
-|newpage|
+
 
 """
-function gsl_cdf_flat_P(x, a, b)
+function cdf_flat_P(x, a, b)
     ccall((:gsl_cdf_flat_P, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_flat_Q(x, a, b) -> Cdouble
+    cdf_flat_Q(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_flat_Q (const double x, const double a, const double b)`
 """
-function gsl_cdf_flat_Q(x, a, b)
+function cdf_flat_Q(x, a, b)
     ccall((:gsl_cdf_flat_Q, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_flat_Pinv(P, a, b) -> Cdouble
+    cdf_flat_Pinv(P, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_flat_Pinv (const double P, const double a, const double b)`
 """
-function gsl_cdf_flat_Pinv(P, a, b)
+function cdf_flat_Pinv(P, a, b)
     ccall((:gsl_cdf_flat_Pinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), P, a, b)
 end
 
 @doc md"""
-    gsl_cdf_flat_Qinv(Q, a, b) -> Cdouble
+    cdf_flat_Qinv(Q, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_flat_Qinv (const double Q, const double a, const double b)`
 """
-function gsl_cdf_flat_Qinv(Q, a, b)
+function cdf_flat_Qinv(Q, a, b)
     ccall((:gsl_cdf_flat_Qinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), Q, a, b)
 end
 
 @doc md"""
-    gsl_cdf_lognormal_P(x, zeta, sigma) -> Cdouble
+    cdf_lognormal_P(x, zeta, sigma) -> Cdouble
 
 C signature:
 `double gsl_cdf_lognormal_P (const double x, const double zeta, const double sigma)`
@@ -711,45 +711,45 @@ GSL documentation:
 > $Q(x)$ and their inverses for the lognormal distribution with
 > parameters zeta and sigma.
 
-|newpage|
+
 
 """
-function gsl_cdf_lognormal_P(x, zeta, sigma)
+function cdf_lognormal_P(x, zeta, sigma)
     ccall((:gsl_cdf_lognormal_P, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, zeta, sigma)
 end
 
 @doc md"""
-    gsl_cdf_lognormal_Q(x, zeta, sigma) -> Cdouble
+    cdf_lognormal_Q(x, zeta, sigma) -> Cdouble
 
 C signature:
 `double gsl_cdf_lognormal_Q (const double x, const double zeta, const double sigma)`
 """
-function gsl_cdf_lognormal_Q(x, zeta, sigma)
+function cdf_lognormal_Q(x, zeta, sigma)
     ccall((:gsl_cdf_lognormal_Q, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, zeta, sigma)
 end
 
 @doc md"""
-    gsl_cdf_lognormal_Pinv(P, zeta, sigma) -> Cdouble
+    cdf_lognormal_Pinv(P, zeta, sigma) -> Cdouble
 
 C signature:
 `double gsl_cdf_lognormal_Pinv (const double P, const double zeta, const double sigma)`
 """
-function gsl_cdf_lognormal_Pinv(P, zeta, sigma)
+function cdf_lognormal_Pinv(P, zeta, sigma)
     ccall((:gsl_cdf_lognormal_Pinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), P, zeta, sigma)
 end
 
 @doc md"""
-    gsl_cdf_lognormal_Qinv(Q, zeta, sigma) -> Cdouble
+    cdf_lognormal_Qinv(Q, zeta, sigma) -> Cdouble
 
 C signature:
 `double gsl_cdf_lognormal_Qinv (const double Q, const double zeta, const double sigma)`
 """
-function gsl_cdf_lognormal_Qinv(Q, zeta, sigma)
+function cdf_lognormal_Qinv(Q, zeta, sigma)
     ccall((:gsl_cdf_lognormal_Qinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), Q, zeta, sigma)
 end
 
 @doc md"""
-    gsl_cdf_gumbel1_P(x, a, b) -> Cdouble
+    cdf_gumbel1_P(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_gumbel1_P (const double x, const double a, const double b)`
@@ -766,45 +766,45 @@ GSL documentation:
 > $Q(x)$ and their inverses for the Type-1 Gumbel distribution with
 > parameters a and b.
 
-|newpage|
+
 
 """
-function gsl_cdf_gumbel1_P(x, a, b)
+function cdf_gumbel1_P(x, a, b)
     ccall((:gsl_cdf_gumbel1_P, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_gumbel1_Q(x, a, b) -> Cdouble
+    cdf_gumbel1_Q(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_gumbel1_Q (const double x, const double a, const double b)`
 """
-function gsl_cdf_gumbel1_Q(x, a, b)
+function cdf_gumbel1_Q(x, a, b)
     ccall((:gsl_cdf_gumbel1_Q, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_gumbel1_Pinv(P, a, b) -> Cdouble
+    cdf_gumbel1_Pinv(P, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_gumbel1_Pinv (const double P, const double a, const double b)`
 """
-function gsl_cdf_gumbel1_Pinv(P, a, b)
+function cdf_gumbel1_Pinv(P, a, b)
     ccall((:gsl_cdf_gumbel1_Pinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), P, a, b)
 end
 
 @doc md"""
-    gsl_cdf_gumbel1_Qinv(Q, a, b) -> Cdouble
+    cdf_gumbel1_Qinv(Q, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_gumbel1_Qinv (const double Q, const double a, const double b)`
 """
-function gsl_cdf_gumbel1_Qinv(Q, a, b)
+function cdf_gumbel1_Qinv(Q, a, b)
     ccall((:gsl_cdf_gumbel1_Qinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), Q, a, b)
 end
 
 @doc md"""
-    gsl_cdf_gumbel2_P(x, a, b) -> Cdouble
+    cdf_gumbel2_P(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_gumbel2_P (const double x, const double a, const double b)`
@@ -821,45 +821,45 @@ GSL documentation:
 > $Q(x)$ and their inverses for the Type-2 Gumbel distribution with
 > parameters a and b.
 
-|newpage|
+
 
 """
-function gsl_cdf_gumbel2_P(x, a, b)
+function cdf_gumbel2_P(x, a, b)
     ccall((:gsl_cdf_gumbel2_P, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_gumbel2_Q(x, a, b) -> Cdouble
+    cdf_gumbel2_Q(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_gumbel2_Q (const double x, const double a, const double b)`
 """
-function gsl_cdf_gumbel2_Q(x, a, b)
+function cdf_gumbel2_Q(x, a, b)
     ccall((:gsl_cdf_gumbel2_Q, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_gumbel2_Pinv(P, a, b) -> Cdouble
+    cdf_gumbel2_Pinv(P, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_gumbel2_Pinv (const double P, const double a, const double b)`
 """
-function gsl_cdf_gumbel2_Pinv(P, a, b)
+function cdf_gumbel2_Pinv(P, a, b)
     ccall((:gsl_cdf_gumbel2_Pinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), P, a, b)
 end
 
 @doc md"""
-    gsl_cdf_gumbel2_Qinv(Q, a, b) -> Cdouble
+    cdf_gumbel2_Qinv(Q, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_gumbel2_Qinv (const double Q, const double a, const double b)`
 """
-function gsl_cdf_gumbel2_Qinv(Q, a, b)
+function cdf_gumbel2_Qinv(Q, a, b)
     ccall((:gsl_cdf_gumbel2_Qinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), Q, a, b)
 end
 
 @doc md"""
-    gsl_cdf_weibull_P(x, a, b) -> Cdouble
+    cdf_weibull_P(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_weibull_P (const double x, const double a, const double b)`
@@ -876,45 +876,45 @@ GSL documentation:
 > $Q(x)$ and their inverses for the Weibull distribution with scale a
 > and exponent b.
 
-|newpage|
+
 
 """
-function gsl_cdf_weibull_P(x, a, b)
+function cdf_weibull_P(x, a, b)
     ccall((:gsl_cdf_weibull_P, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_weibull_Q(x, a, b) -> Cdouble
+    cdf_weibull_Q(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_weibull_Q (const double x, const double a, const double b)`
 """
-function gsl_cdf_weibull_Q(x, a, b)
+function cdf_weibull_Q(x, a, b)
     ccall((:gsl_cdf_weibull_Q, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_weibull_Pinv(P, a, b) -> Cdouble
+    cdf_weibull_Pinv(P, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_weibull_Pinv (const double P, const double a, const double b)`
 """
-function gsl_cdf_weibull_Pinv(P, a, b)
+function cdf_weibull_Pinv(P, a, b)
     ccall((:gsl_cdf_weibull_Pinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), P, a, b)
 end
 
 @doc md"""
-    gsl_cdf_weibull_Qinv(Q, a, b) -> Cdouble
+    cdf_weibull_Qinv(Q, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_weibull_Qinv (const double Q, const double a, const double b)`
 """
-function gsl_cdf_weibull_Qinv(Q, a, b)
+function cdf_weibull_Qinv(Q, a, b)
     ccall((:gsl_cdf_weibull_Qinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), Q, a, b)
 end
 
 @doc md"""
-    gsl_cdf_pareto_P(x, a, b) -> Cdouble
+    cdf_pareto_P(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_pareto_P (const double x, const double a, const double b)`
@@ -931,45 +931,45 @@ GSL documentation:
 > $Q(x)$ and their inverses for the Pareto distribution with exponent a
 > and scale b.
 
-|newpage|
+
 
 """
-function gsl_cdf_pareto_P(x, a, b)
+function cdf_pareto_P(x, a, b)
     ccall((:gsl_cdf_pareto_P, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_pareto_Q(x, a, b) -> Cdouble
+    cdf_pareto_Q(x, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_pareto_Q (const double x, const double a, const double b)`
 """
-function gsl_cdf_pareto_Q(x, a, b)
+function cdf_pareto_Q(x, a, b)
     ccall((:gsl_cdf_pareto_Q, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), x, a, b)
 end
 
 @doc md"""
-    gsl_cdf_pareto_Pinv(P, a, b) -> Cdouble
+    cdf_pareto_Pinv(P, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_pareto_Pinv (const double P, const double a, const double b)`
 """
-function gsl_cdf_pareto_Pinv(P, a, b)
+function cdf_pareto_Pinv(P, a, b)
     ccall((:gsl_cdf_pareto_Pinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), P, a, b)
 end
 
 @doc md"""
-    gsl_cdf_pareto_Qinv(Q, a, b) -> Cdouble
+    cdf_pareto_Qinv(Q, a, b) -> Cdouble
 
 C signature:
 `double gsl_cdf_pareto_Qinv (const double Q, const double a, const double b)`
 """
-function gsl_cdf_pareto_Qinv(Q, a, b)
+function cdf_pareto_Qinv(Q, a, b)
     ccall((:gsl_cdf_pareto_Qinv, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), Q, a, b)
 end
 
 @doc md"""
-    gsl_cdf_logistic_P(x, a) -> Cdouble
+    cdf_logistic_P(x, a) -> Cdouble
 
 C signature:
 `double gsl_cdf_logistic_P (const double x, const double a)`
@@ -986,45 +986,45 @@ GSL documentation:
 > $Q(x)$ and their inverses for the logistic distribution with scale
 > parameter a.
 
-|newpage|
+
 
 """
-function gsl_cdf_logistic_P(x, a)
+function cdf_logistic_P(x, a)
     ccall((:gsl_cdf_logistic_P, libgsl), Cdouble, (Cdouble, Cdouble), x, a)
 end
 
 @doc md"""
-    gsl_cdf_logistic_Q(x, a) -> Cdouble
+    cdf_logistic_Q(x, a) -> Cdouble
 
 C signature:
 `double gsl_cdf_logistic_Q (const double x, const double a)`
 """
-function gsl_cdf_logistic_Q(x, a)
+function cdf_logistic_Q(x, a)
     ccall((:gsl_cdf_logistic_Q, libgsl), Cdouble, (Cdouble, Cdouble), x, a)
 end
 
 @doc md"""
-    gsl_cdf_logistic_Pinv(P, a) -> Cdouble
+    cdf_logistic_Pinv(P, a) -> Cdouble
 
 C signature:
 `double gsl_cdf_logistic_Pinv (const double P, const double a)`
 """
-function gsl_cdf_logistic_Pinv(P, a)
+function cdf_logistic_Pinv(P, a)
     ccall((:gsl_cdf_logistic_Pinv, libgsl), Cdouble, (Cdouble, Cdouble), P, a)
 end
 
 @doc md"""
-    gsl_cdf_logistic_Qinv(Q, a) -> Cdouble
+    cdf_logistic_Qinv(Q, a) -> Cdouble
 
 C signature:
 `double gsl_cdf_logistic_Qinv (const double Q, const double a)`
 """
-function gsl_cdf_logistic_Qinv(Q, a)
+function cdf_logistic_Qinv(Q, a)
     ccall((:gsl_cdf_logistic_Qinv, libgsl), Cdouble, (Cdouble, Cdouble), Q, a)
 end
 
 @doc md"""
-    gsl_cdf_binomial_P(k, p, n) -> Cdouble
+    cdf_binomial_P(k, p, n) -> Cdouble
 
 C signature:
 `double gsl_cdf_binomial_P (const unsigned int k, const double p, const unsigned int n)`
@@ -1039,25 +1039,25 @@ GSL documentation:
 > These functions compute the cumulative distribution functions $P(k)$,
 > $Q(k)$ for the binomial distribution with parameters p and n.
 
-|newpage|
+
 
 """
-function gsl_cdf_binomial_P(k, p, n)
+function cdf_binomial_P(k, p, n)
     ccall((:gsl_cdf_binomial_P, libgsl), Cdouble, (Cuint, Cdouble, Cuint), k, p, n)
 end
 
 @doc md"""
-    gsl_cdf_binomial_Q(k, p, n) -> Cdouble
+    cdf_binomial_Q(k, p, n) -> Cdouble
 
 C signature:
 `double gsl_cdf_binomial_Q (const unsigned int k, const double p, const unsigned int n)`
 """
-function gsl_cdf_binomial_Q(k, p, n)
+function cdf_binomial_Q(k, p, n)
     ccall((:gsl_cdf_binomial_Q, libgsl), Cdouble, (Cuint, Cdouble, Cuint), k, p, n)
 end
 
 @doc md"""
-    gsl_cdf_poisson_P(k, mu) -> Cdouble
+    cdf_poisson_P(k, mu) -> Cdouble
 
 C signature:
 `double gsl_cdf_poisson_P (const unsigned int k, const double mu)`
@@ -1071,25 +1071,25 @@ GSL documentation:
 > These functions compute the cumulative distribution functions $P(k)$,
 > $Q(k)$ for the Poisson distribution with parameter mu.
 
-|newpage|
+
 
 """
-function gsl_cdf_poisson_P(k, mu)
+function cdf_poisson_P(k, mu)
     ccall((:gsl_cdf_poisson_P, libgsl), Cdouble, (Cuint, Cdouble), k, mu)
 end
 
 @doc md"""
-    gsl_cdf_poisson_Q(k, mu) -> Cdouble
+    cdf_poisson_Q(k, mu) -> Cdouble
 
 C signature:
 `double gsl_cdf_poisson_Q (const unsigned int k, const double mu)`
 """
-function gsl_cdf_poisson_Q(k, mu)
+function cdf_poisson_Q(k, mu)
     ccall((:gsl_cdf_poisson_Q, libgsl), Cdouble, (Cuint, Cdouble), k, mu)
 end
 
 @doc md"""
-    gsl_cdf_geometric_P(k, p) -> Cdouble
+    cdf_geometric_P(k, p) -> Cdouble
 
 C signature:
 `double gsl_cdf_geometric_P (const unsigned int k, const double p)`
@@ -1103,25 +1103,25 @@ GSL documentation:
 > These functions compute the cumulative distribution functions $P(k)$,
 > $Q(k)$ for the geometric distribution with parameter p.
 
-|newpage|
+
 
 """
-function gsl_cdf_geometric_P(k, p)
+function cdf_geometric_P(k, p)
     ccall((:gsl_cdf_geometric_P, libgsl), Cdouble, (Cuint, Cdouble), k, p)
 end
 
 @doc md"""
-    gsl_cdf_geometric_Q(k, p) -> Cdouble
+    cdf_geometric_Q(k, p) -> Cdouble
 
 C signature:
 `double gsl_cdf_geometric_Q (const unsigned int k, const double p)`
 """
-function gsl_cdf_geometric_Q(k, p)
+function cdf_geometric_Q(k, p)
     ccall((:gsl_cdf_geometric_Q, libgsl), Cdouble, (Cuint, Cdouble), k, p)
 end
 
 @doc md"""
-    gsl_cdf_negative_binomial_P(k, p, n) -> Cdouble
+    cdf_negative_binomial_P(k, p, n) -> Cdouble
 
 C signature:
 `double gsl_cdf_negative_binomial_P (const unsigned int k, const double p, const double n)`
@@ -1136,25 +1136,25 @@ GSL documentation:
 > These functions compute the cumulative distribution functions $P(k)$,
 > $Q(k)$ for the negative binomial distribution with parameters p and n.
 
-|newpage|
+
 
 """
-function gsl_cdf_negative_binomial_P(k, p, n)
+function cdf_negative_binomial_P(k, p, n)
     ccall((:gsl_cdf_negative_binomial_P, libgsl), Cdouble, (Cuint, Cdouble, Cdouble), k, p, n)
 end
 
 @doc md"""
-    gsl_cdf_negative_binomial_Q(k, p, n) -> Cdouble
+    cdf_negative_binomial_Q(k, p, n) -> Cdouble
 
 C signature:
 `double gsl_cdf_negative_binomial_Q (const unsigned int k, const double p, const double n)`
 """
-function gsl_cdf_negative_binomial_Q(k, p, n)
+function cdf_negative_binomial_Q(k, p, n)
     ccall((:gsl_cdf_negative_binomial_Q, libgsl), Cdouble, (Cuint, Cdouble, Cdouble), k, p, n)
 end
 
 @doc md"""
-    gsl_cdf_pascal_P(k, p, n) -> Cdouble
+    cdf_pascal_P(k, p, n) -> Cdouble
 
 C signature:
 `double gsl_cdf_pascal_P (const unsigned int k, const double p, const unsigned int n)`
@@ -1168,25 +1168,25 @@ GSL documentation:
 > These functions compute the cumulative distribution functions $P(k)$,
 > $Q(k)$ for the Pascal distribution with parameters p and n.
 
-|newpage|
+
 
 """
-function gsl_cdf_pascal_P(k, p, n)
+function cdf_pascal_P(k, p, n)
     ccall((:gsl_cdf_pascal_P, libgsl), Cdouble, (Cuint, Cdouble, Cuint), k, p, n)
 end
 
 @doc md"""
-    gsl_cdf_pascal_Q(k, p, n) -> Cdouble
+    cdf_pascal_Q(k, p, n) -> Cdouble
 
 C signature:
 `double gsl_cdf_pascal_Q (const unsigned int k, const double p, const unsigned int n)`
 """
-function gsl_cdf_pascal_Q(k, p, n)
+function cdf_pascal_Q(k, p, n)
     ccall((:gsl_cdf_pascal_Q, libgsl), Cdouble, (Cuint, Cdouble, Cuint), k, p, n)
 end
 
 @doc md"""
-    gsl_cdf_hypergeometric_P(k, n1, n2, t) -> Cdouble
+    cdf_hypergeometric_P(k, n1, n2, t) -> Cdouble
 
 C signature:
 `double gsl_cdf_hypergeometric_P (const unsigned int k, const unsigned int n1, const unsigned int n2, const unsigned int t)`
@@ -1202,20 +1202,20 @@ GSL documentation:
 > $Q(k)$ for the hypergeometric distribution with parameters n1, n2 and
 > t.
 
-|newpage|
+
 
 """
-function gsl_cdf_hypergeometric_P(k, n1, n2, t)
+function cdf_hypergeometric_P(k, n1, n2, t)
     ccall((:gsl_cdf_hypergeometric_P, libgsl), Cdouble, (Cuint, Cuint, Cuint, Cuint), k, n1, n2, t)
 end
 
 @doc md"""
-    gsl_cdf_hypergeometric_Q(k, n1, n2, t) -> Cdouble
+    cdf_hypergeometric_Q(k, n1, n2, t) -> Cdouble
 
 C signature:
 `double gsl_cdf_hypergeometric_Q (const unsigned int k, const unsigned int n1, const unsigned int n2, const unsigned int t)`
 """
-function gsl_cdf_hypergeometric_Q(k, n1, n2, t)
+function cdf_hypergeometric_Q(k, n1, n2, t)
     ccall((:gsl_cdf_hypergeometric_Q, libgsl), Cdouble, (Cuint, Cuint, Cuint, Cuint), k, n1, n2, t)
 end
 

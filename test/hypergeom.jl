@@ -14,7 +14,7 @@ using SpecialFunctions
     x = 2*rand()-1
 
     # Test definition
-    @test gsl_sf_hyperg_2F1_renorm(a, b, c, x) ≈ hypergeom([a, b], c, x)/gamma(c)
+    @test sf_hyperg_2F1_renorm(a, b, c, x) ≈ hypergeom([a, b], c, x)/gamma(c)
 
     # Test special cases
     @test log(1+complex(x)) ≈ x*hypergeom([1.0, 1.0], 2.0, -x)
@@ -23,7 +23,7 @@ using SpecialFunctions
 
     #gsl function is unstable for b=2
     #@test x*sf_hyperg_U(1.0, 2.0, x) ≈ 1.0
-    @test 1+x ≈ gsl_sf_hyperg_U(-1.0, -1.0, x)
+    @test 1+x ≈ sf_hyperg_U(-1.0, -1.0, x)
 
     #"Cancellation theorem" that reduces order of hypergeometric function
     @test hypergeom([a], [a], x) ≈ hypergeom(Float64[], Float64[], x)

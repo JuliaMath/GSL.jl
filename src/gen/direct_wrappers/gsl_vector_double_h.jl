@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_vector_alloc(n) -> Ptr{gsl_vector}
+    vector_alloc(n) -> Ptr{gsl_vector}
 
 C signature:
 `gsl_vector *gsl_vector_alloc (const size_t n)`
@@ -24,12 +24,12 @@ GSL documentation:
 > valid and return a non-null result.
 
 """
-function gsl_vector_alloc(n)
+function vector_alloc(n)
     ccall((:gsl_vector_alloc, libgsl), Ptr{gsl_vector}, (Csize_t,), n)
 end
 
 @doc md"""
-    gsl_vector_calloc(n) -> Ptr{gsl_vector}
+    vector_calloc(n) -> Ptr{gsl_vector}
 
 C signature:
 `gsl_vector *gsl_vector_calloc (const size_t n)`
@@ -42,32 +42,32 @@ GSL documentation:
 > initializes all the elements of the vector to zero.
 
 """
-function gsl_vector_calloc(n)
+function vector_calloc(n)
     ccall((:gsl_vector_calloc, libgsl), Ptr{gsl_vector}, (Csize_t,), n)
 end
 
 @doc md"""
-    gsl_vector_alloc_from_block(b, offset, n, stride) -> Ptr{gsl_vector}
+    vector_alloc_from_block(b, offset, n, stride) -> Ptr{gsl_vector}
 
 C signature:
 `gsl_vector *gsl_vector_alloc_from_block (gsl_block * b, const size_t offset, const size_t n, const size_t stride)`
 """
-function gsl_vector_alloc_from_block(b, offset, n, stride)
+function vector_alloc_from_block(b, offset, n, stride)
     ccall((:gsl_vector_alloc_from_block, libgsl), Ptr{gsl_vector}, (Ref{gsl_block}, Csize_t, Csize_t, Csize_t), b, offset, n, stride)
 end
 
 @doc md"""
-    gsl_vector_alloc_from_vector(v, offset, n, stride) -> Ptr{gsl_vector}
+    vector_alloc_from_vector(v, offset, n, stride) -> Ptr{gsl_vector}
 
 C signature:
 `gsl_vector *gsl_vector_alloc_from_vector (gsl_vector * v, const size_t offset, const size_t n, const size_t stride)`
 """
-function gsl_vector_alloc_from_vector(v, offset, n, stride)
+function vector_alloc_from_vector(v, offset, n, stride)
     ccall((:gsl_vector_alloc_from_vector, libgsl), Ptr{gsl_vector}, (Ref{gsl_vector}, Csize_t, Csize_t, Csize_t), v, offset, n, stride)
 end
 
 @doc md"""
-    gsl_vector_free(v) -> Cvoid
+    vector_free(v) -> Cvoid
 
 C signature:
 `void gsl_vector_free (gsl_vector * v)`
@@ -83,12 +83,12 @@ GSL documentation:
 > deallocated.
 
 """
-function gsl_vector_free(v)
+function vector_free(v)
     ccall((:gsl_vector_free, libgsl), Cvoid, (Ptr{gsl_vector},), v)
 end
 
 @doc md"""
-    gsl_vector_view_array(v, n) -> _gsl_vector_view
+    vector_view_array(v, n) -> _gsl_vector_view
 
 C signature:
 `_gsl_vector_view gsl_vector_view_array (double *v, size_t n)`
@@ -119,12 +119,12 @@ GSL documentation:
 > `const`{.sourceCode}.
 
 """
-function gsl_vector_view_array(v, n)
+function vector_view_array(v, n)
     ccall((:gsl_vector_view_array, libgsl), _gsl_vector_view, (Ref{Cdouble}, Csize_t), v, n)
 end
 
 @doc md"""
-    gsl_vector_view_array_with_stride(base, stride, n) -> _gsl_vector_view
+    vector_view_array_with_stride(base, stride, n) -> _gsl_vector_view
 
 C signature:
 `_gsl_vector_view gsl_vector_view_array_with_stride (double *base, size_t stride, size_t n)`
@@ -157,32 +157,32 @@ GSL documentation:
 > for arrays which are declared `const`{.sourceCode}.
 
 """
-function gsl_vector_view_array_with_stride(base, stride, n)
+function vector_view_array_with_stride(base, stride, n)
     ccall((:gsl_vector_view_array_with_stride, libgsl), _gsl_vector_view, (Ref{Cdouble}, Csize_t, Csize_t), base, stride, n)
 end
 
 @doc md"""
-    gsl_vector_const_view_array(v, n) -> _gsl_vector_const_view
+    vector_const_view_array(v, n) -> _gsl_vector_const_view
 
 C signature:
 `_gsl_vector_const_view gsl_vector_const_view_array (const double *v, size_t n)`
 """
-function gsl_vector_const_view_array(v, n)
+function vector_const_view_array(v, n)
     ccall((:gsl_vector_const_view_array, libgsl), _gsl_vector_const_view, (Ref{Cdouble}, Csize_t), v, n)
 end
 
 @doc md"""
-    gsl_vector_const_view_array_with_stride(base, stride, n) -> _gsl_vector_const_view
+    vector_const_view_array_with_stride(base, stride, n) -> _gsl_vector_const_view
 
 C signature:
 `_gsl_vector_const_view gsl_vector_const_view_array_with_stride (const double *base, size_t stride, size_t n)`
 """
-function gsl_vector_const_view_array_with_stride(base, stride, n)
+function vector_const_view_array_with_stride(base, stride, n)
     ccall((:gsl_vector_const_view_array_with_stride, libgsl), _gsl_vector_const_view, (Ref{Cdouble}, Csize_t, Csize_t), base, stride, n)
 end
 
 @doc md"""
-    gsl_vector_subvector(v, i, n) -> _gsl_vector_view
+    vector_subvector(v, i, n) -> _gsl_vector_view
 
 C signature:
 `_gsl_vector_view gsl_vector_subvector (gsl_vector *v, size_t i, size_t n)`
@@ -219,12 +219,12 @@ GSL documentation:
 > `const`{.sourceCode}.
 
 """
-function gsl_vector_subvector(v, i, n)
+function vector_subvector(v, i, n)
     ccall((:gsl_vector_subvector, libgsl), _gsl_vector_view, (Ref{gsl_vector}, Csize_t, Csize_t), v, i, n)
 end
 
 @doc md"""
-    gsl_vector_subvector_with_stride(v, i, stride, n) -> _gsl_vector_view
+    vector_subvector_with_stride(v, i, stride, n) -> _gsl_vector_view
 
 C signature:
 `_gsl_vector_view gsl_vector_subvector_with_stride (gsl_vector *v, size_t i, size_t stride, size_t n)`
@@ -269,32 +269,32 @@ GSL documentation:
 > which are declared `const`{.sourceCode}.
 
 """
-function gsl_vector_subvector_with_stride(v, i, stride, n)
+function vector_subvector_with_stride(v, i, stride, n)
     ccall((:gsl_vector_subvector_with_stride, libgsl), _gsl_vector_view, (Ref{gsl_vector}, Csize_t, Csize_t, Csize_t), v, i, stride, n)
 end
 
 @doc md"""
-    gsl_vector_const_subvector(v, i, n) -> _gsl_vector_const_view
+    vector_const_subvector(v, i, n) -> _gsl_vector_const_view
 
 C signature:
 `_gsl_vector_const_view gsl_vector_const_subvector (const gsl_vector *v, size_t i, size_t n)`
 """
-function gsl_vector_const_subvector(v, i, n)
+function vector_const_subvector(v, i, n)
     ccall((:gsl_vector_const_subvector, libgsl), _gsl_vector_const_view, (Ref{gsl_vector}, Csize_t, Csize_t), v, i, n)
 end
 
 @doc md"""
-    gsl_vector_const_subvector_with_stride(v, i, stride, n) -> _gsl_vector_const_view
+    vector_const_subvector_with_stride(v, i, stride, n) -> _gsl_vector_const_view
 
 C signature:
 `_gsl_vector_const_view gsl_vector_const_subvector_with_stride (const gsl_vector *v, size_t i, size_t stride, size_t n)`
 """
-function gsl_vector_const_subvector_with_stride(v, i, stride, n)
+function vector_const_subvector_with_stride(v, i, stride, n)
     ccall((:gsl_vector_const_subvector_with_stride, libgsl), _gsl_vector_const_view, (Ref{gsl_vector}, Csize_t, Csize_t, Csize_t), v, i, stride, n)
 end
 
 @doc md"""
-    gsl_vector_set_zero(v) -> Cvoid
+    vector_set_zero(v) -> Cvoid
 
 C signature:
 `void gsl_vector_set_zero (gsl_vector * v)`
@@ -306,12 +306,12 @@ GSL documentation:
 > This function sets all the elements of the vector v to zero.
 
 """
-function gsl_vector_set_zero(v)
+function vector_set_zero(v)
     ccall((:gsl_vector_set_zero, libgsl), Cvoid, (Ptr{gsl_vector},), v)
 end
 
 @doc md"""
-    gsl_vector_set_all(v, x) -> Cvoid
+    vector_set_all(v, x) -> Cvoid
 
 C signature:
 `void gsl_vector_set_all (gsl_vector * v, double x)`
@@ -323,12 +323,12 @@ GSL documentation:
 > This function sets all the elements of the vector v to the value x.
 
 """
-function gsl_vector_set_all(v, x)
+function vector_set_all(v, x)
     ccall((:gsl_vector_set_all, libgsl), Cvoid, (Ref{gsl_vector}, Cdouble), v, x)
 end
 
 @doc md"""
-    gsl_vector_set_basis(v, i) -> Cint
+    vector_set_basis(v, i) -> Cint
 
 C signature:
 `int gsl_vector_set_basis (gsl_vector * v, size_t i)`
@@ -341,12 +341,12 @@ GSL documentation:
 > vector v to zero except for the i-th element which is set to one.
 
 """
-function gsl_vector_set_basis(v, i)
+function vector_set_basis(v, i)
     ccall((:gsl_vector_set_basis, libgsl), Cint, (Ref{gsl_vector}, Csize_t), v, i)
 end
 
 @doc md"""
-    gsl_vector_fread(stream, v) -> Cint
+    vector_fread(stream, v) -> Cint
 
 C signature:
 `int gsl_vector_fread (FILE * stream, gsl_vector * v)`
@@ -363,12 +363,12 @@ GSL documentation:
 > been written in the native binary format on the same architecture.
 
 """
-function gsl_vector_fread(stream, v)
+function vector_fread(stream, v)
     ccall((:gsl_vector_fread, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_vector}), stream, v)
 end
 
 @doc md"""
-    gsl_vector_fwrite(stream, v) -> Cint
+    vector_fwrite(stream, v) -> Cint
 
 C signature:
 `int gsl_vector_fwrite (FILE * stream, const gsl_vector * v)`
@@ -384,12 +384,12 @@ GSL documentation:
 > architectures.
 
 """
-function gsl_vector_fwrite(stream, v)
+function vector_fwrite(stream, v)
     ccall((:gsl_vector_fwrite, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_vector}), stream, v)
 end
 
 @doc md"""
-    gsl_vector_fscanf(stream, v) -> Cint
+    vector_fscanf(stream, v) -> Cint
 
 C signature:
 `int gsl_vector_fscanf (FILE * stream, gsl_vector * v)`
@@ -405,12 +405,12 @@ GSL documentation:
 > a problem reading from the file.
 
 """
-function gsl_vector_fscanf(stream, v)
+function vector_fscanf(stream, v)
     ccall((:gsl_vector_fscanf, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_vector}), stream, v)
 end
 
 @doc md"""
-    gsl_vector_fprintf(stream, v, format) -> Cint
+    vector_fprintf(stream, v, format) -> Cint
 
 C signature:
 `int gsl_vector_fprintf (FILE * stream, const gsl_vector * v, const char *format)`
@@ -427,12 +427,12 @@ GSL documentation:
 > problem writing to the file.
 
 """
-function gsl_vector_fprintf(stream, v, format)
+function vector_fprintf(stream, v, format)
     ccall((:gsl_vector_fprintf, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_vector}, Ref{Cchar}), stream, v, format)
 end
 
 @doc md"""
-    gsl_vector_memcpy(dest, src) -> Cint
+    vector_memcpy(dest, src) -> Cint
 
 C signature:
 `int gsl_vector_memcpy (gsl_vector * dest, const gsl_vector * src)`
@@ -445,12 +445,12 @@ GSL documentation:
 > dest. The two vectors must have the same length.
 
 """
-function gsl_vector_memcpy(dest, src)
+function vector_memcpy(dest, src)
     ccall((:gsl_vector_memcpy, libgsl), Cint, (Ref{gsl_vector}, Ref{gsl_vector}), dest, src)
 end
 
 @doc md"""
-    gsl_vector_reverse(v) -> Cint
+    vector_reverse(v) -> Cint
 
 C signature:
 `int gsl_vector_reverse (gsl_vector * v)`
@@ -462,12 +462,12 @@ GSL documentation:
 > This function reverses the order of the elements of the vector v.
 
 """
-function gsl_vector_reverse(v)
+function vector_reverse(v)
     ccall((:gsl_vector_reverse, libgsl), Cint, (Ptr{gsl_vector},), v)
 end
 
 @doc md"""
-    gsl_vector_swap(v, w) -> Cint
+    vector_swap(v, w) -> Cint
 
 C signature:
 `int gsl_vector_swap (gsl_vector * v, gsl_vector * w)`
@@ -480,12 +480,12 @@ GSL documentation:
 > copying. The two vectors must have the same length.
 
 """
-function gsl_vector_swap(v, w)
+function vector_swap(v, w)
     ccall((:gsl_vector_swap, libgsl), Cint, (Ref{gsl_vector}, Ref{gsl_vector}), v, w)
 end
 
 @doc md"""
-    gsl_vector_swap_elements(v, i, j) -> Cint
+    vector_swap_elements(v, i, j) -> Cint
 
 C signature:
 `int gsl_vector_swap_elements (gsl_vector * v, const size_t i, const size_t j)`
@@ -498,12 +498,12 @@ GSL documentation:
 > in-place.
 
 """
-function gsl_vector_swap_elements(v, i, j)
+function vector_swap_elements(v, i, j)
     ccall((:gsl_vector_swap_elements, libgsl), Cint, (Ref{gsl_vector}, Csize_t, Csize_t), v, i, j)
 end
 
 @doc md"""
-    gsl_vector_max(v) -> Cdouble
+    vector_max(v) -> Cdouble
 
 C signature:
 `double gsl_vector_max (const gsl_vector * v)`
@@ -515,12 +515,12 @@ GSL documentation:
 > This function returns the maximum value in the vector v.
 
 """
-function gsl_vector_max(v)
+function vector_max(v)
     ccall((:gsl_vector_max, libgsl), Cdouble, (Ptr{gsl_vector},), v)
 end
 
 @doc md"""
-    gsl_vector_min(v) -> Cdouble
+    vector_min(v) -> Cdouble
 
 C signature:
 `double gsl_vector_min (const gsl_vector * v)`
@@ -532,12 +532,12 @@ GSL documentation:
 > This function returns the minimum value in the vector v.
 
 """
-function gsl_vector_min(v)
+function vector_min(v)
     ccall((:gsl_vector_min, libgsl), Cdouble, (Ptr{gsl_vector},), v)
 end
 
 @doc md"""
-    gsl_vector_minmax(v, min_out, max_out) -> Cvoid
+    vector_minmax(v, min_out, max_out) -> Cvoid
 
 C signature:
 `void gsl_vector_minmax (const gsl_vector * v, double * min_out, double * max_out)`
@@ -550,12 +550,12 @@ GSL documentation:
 > storing them in min\_out and max\_out.
 
 """
-function gsl_vector_minmax(v, min_out, max_out)
+function vector_minmax(v, min_out, max_out)
     ccall((:gsl_vector_minmax, libgsl), Cvoid, (Ref{gsl_vector}, Ref{Cdouble}, Ref{Cdouble}), v, min_out, max_out)
 end
 
 @doc md"""
-    gsl_vector_max_index(v) -> Csize_t
+    vector_max_index(v) -> Csize_t
 
 C signature:
 `size_t gsl_vector_max_index (const gsl_vector * v)`
@@ -569,12 +569,12 @@ GSL documentation:
 > returned.
 
 """
-function gsl_vector_max_index(v)
+function vector_max_index(v)
     ccall((:gsl_vector_max_index, libgsl), Csize_t, (Ptr{gsl_vector},), v)
 end
 
 @doc md"""
-    gsl_vector_min_index(v) -> Csize_t
+    vector_min_index(v) -> Csize_t
 
 C signature:
 `size_t gsl_vector_min_index (const gsl_vector * v)`
@@ -588,12 +588,12 @@ GSL documentation:
 > returned.
 
 """
-function gsl_vector_min_index(v)
+function vector_min_index(v)
     ccall((:gsl_vector_min_index, libgsl), Csize_t, (Ptr{gsl_vector},), v)
 end
 
 @doc md"""
-    gsl_vector_minmax_index(v, imin, imax) -> Cvoid
+    vector_minmax_index(v, imin, imax) -> Cvoid
 
 C signature:
 `void gsl_vector_minmax_index (const gsl_vector * v, size_t * imin, size_t * imax)`
@@ -608,12 +608,12 @@ GSL documentation:
 > returned.
 
 """
-function gsl_vector_minmax_index(v, imin, imax)
+function vector_minmax_index(v, imin, imax)
     ccall((:gsl_vector_minmax_index, libgsl), Cvoid, (Ref{gsl_vector}, Ref{Csize_t}, Ref{Csize_t}), v, imin, imax)
 end
 
 @doc md"""
-    gsl_vector_add(a, b) -> Cint
+    vector_add(a, b) -> Cint
 
 C signature:
 `int gsl_vector_add (gsl_vector * a, const gsl_vector * b)`
@@ -627,12 +627,12 @@ GSL documentation:
 > unchanged. The two vectors must have the same length.
 
 """
-function gsl_vector_add(a, b)
+function vector_add(a, b)
     ccall((:gsl_vector_add, libgsl), Cint, (Ref{gsl_vector}, Ref{gsl_vector}), a, b)
 end
 
 @doc md"""
-    gsl_vector_sub(a, b) -> Cint
+    vector_sub(a, b) -> Cint
 
 C signature:
 `int gsl_vector_sub (gsl_vector * a, const gsl_vector * b)`
@@ -646,12 +646,12 @@ GSL documentation:
 > remains unchanged. The two vectors must have the same length.
 
 """
-function gsl_vector_sub(a, b)
+function vector_sub(a, b)
     ccall((:gsl_vector_sub, libgsl), Cint, (Ref{gsl_vector}, Ref{gsl_vector}), a, b)
 end
 
 @doc md"""
-    gsl_vector_mul(a, b) -> Cint
+    vector_mul(a, b) -> Cint
 
 C signature:
 `int gsl_vector_mul (gsl_vector * a, const gsl_vector * b)`
@@ -665,12 +665,12 @@ GSL documentation:
 > remains unchanged. The two vectors must have the same length.
 
 """
-function gsl_vector_mul(a, b)
+function vector_mul(a, b)
     ccall((:gsl_vector_mul, libgsl), Cint, (Ref{gsl_vector}, Ref{gsl_vector}), a, b)
 end
 
 @doc md"""
-    gsl_vector_div(a, b) -> Cint
+    vector_div(a, b) -> Cint
 
 C signature:
 `int gsl_vector_div (gsl_vector * a, const gsl_vector * b)`
@@ -684,12 +684,12 @@ GSL documentation:
 > remains unchanged. The two vectors must have the same length.
 
 """
-function gsl_vector_div(a, b)
+function vector_div(a, b)
     ccall((:gsl_vector_div, libgsl), Cint, (Ref{gsl_vector}, Ref{gsl_vector}), a, b)
 end
 
 @doc md"""
-    gsl_vector_scale(a, x) -> Cint
+    vector_scale(a, x) -> Cint
 
 C signature:
 `int gsl_vector_scale (gsl_vector * a, const double x)`
@@ -702,12 +702,12 @@ GSL documentation:
 > factor x. The result $a_i \leftarrow x a_i$ is stored in a.
 
 """
-function gsl_vector_scale(a, x)
+function vector_scale(a, x)
     ccall((:gsl_vector_scale, libgsl), Cint, (Ref{gsl_vector}, Cdouble), a, x)
 end
 
 @doc md"""
-    gsl_vector_add_constant(a, x) -> Cint
+    vector_add_constant(a, x) -> Cint
 
 C signature:
 `int gsl_vector_add_constant (gsl_vector * a, const double x)`
@@ -720,12 +720,12 @@ GSL documentation:
 > a. The result $a_i \leftarrow a_i + x$ is stored in a.
 
 """
-function gsl_vector_add_constant(a, x)
+function vector_add_constant(a, x)
     ccall((:gsl_vector_add_constant, libgsl), Cint, (Ref{gsl_vector}, Cdouble), a, x)
 end
 
 @doc md"""
-    gsl_vector_equal(u, v) -> Cint
+    vector_equal(u, v) -> Cint
 
 C signature:
 `int gsl_vector_equal (const gsl_vector * u, const gsl_vector * v)`
@@ -738,12 +738,12 @@ GSL documentation:
 > comparison of element values) and 0 otherwise.
 
 """
-function gsl_vector_equal(u, v)
+function vector_equal(u, v)
     ccall((:gsl_vector_equal, libgsl), Cint, (Ref{gsl_vector}, Ref{gsl_vector}), u, v)
 end
 
 @doc md"""
-    gsl_vector_isnull(v) -> Cint
+    vector_isnull(v) -> Cint
 
 C signature:
 `int gsl_vector_isnull (const gsl_vector * v)`
@@ -761,42 +761,42 @@ GSL documentation:
 > and 0 otherwise.
 
 """
-function gsl_vector_isnull(v)
+function vector_isnull(v)
     ccall((:gsl_vector_isnull, libgsl), Cint, (Ptr{gsl_vector},), v)
 end
 
 @doc md"""
-    gsl_vector_ispos(v) -> Cint
+    vector_ispos(v) -> Cint
 
 C signature:
 `int gsl_vector_ispos (const gsl_vector * v)`
 """
-function gsl_vector_ispos(v)
+function vector_ispos(v)
     ccall((:gsl_vector_ispos, libgsl), Cint, (Ptr{gsl_vector},), v)
 end
 
 @doc md"""
-    gsl_vector_isneg(v) -> Cint
+    vector_isneg(v) -> Cint
 
 C signature:
 `int gsl_vector_isneg (const gsl_vector * v)`
 """
-function gsl_vector_isneg(v)
+function vector_isneg(v)
     ccall((:gsl_vector_isneg, libgsl), Cint, (Ptr{gsl_vector},), v)
 end
 
 @doc md"""
-    gsl_vector_isnonneg(v) -> Cint
+    vector_isnonneg(v) -> Cint
 
 C signature:
 `int gsl_vector_isnonneg (const gsl_vector * v)`
 """
-function gsl_vector_isnonneg(v)
+function vector_isnonneg(v)
     ccall((:gsl_vector_isnonneg, libgsl), Cint, (Ptr{gsl_vector},), v)
 end
 
 @doc md"""
-    gsl_vector_get(v, i) -> Cdouble
+    vector_get(v, i) -> Cdouble
 
 C signature:
 `double gsl_vector_get (const gsl_vector * v, const size_t i)`
@@ -807,15 +807,15 @@ GSL documentation:
 
 > This function returns the i-th element of a vector v. If i lies
 > outside the allowed range of 0 to `size - 1`{.sourceCode} then the
-> error handler is invoked and 0 is returned. |inlinefn|
+> error handler is invoked and 0 is returned.
 
 """
-function gsl_vector_get(v, i)
+function vector_get(v, i)
     ccall((:gsl_vector_get, libgsl), Cdouble, (Ref{gsl_vector}, Csize_t), v, i)
 end
 
 @doc md"""
-    gsl_vector_set(v, i, x) -> Cvoid
+    vector_set(v, i, x) -> Cvoid
 
 C signature:
 `void gsl_vector_set (gsl_vector * v, const size_t i, double x)`
@@ -826,15 +826,15 @@ GSL documentation:
 
 > This function sets the value of the i-th element of a vector v to x.
 > If i lies outside the allowed range of 0 to `size - 1`{.sourceCode}
-> then the error handler is invoked. |inlinefn|
+> then the error handler is invoked.
 
 """
-function gsl_vector_set(v, i, x)
+function vector_set(v, i, x)
     ccall((:gsl_vector_set, libgsl), Cvoid, (Ref{gsl_vector}, Csize_t, Cdouble), v, i, x)
 end
 
 @doc md"""
-    gsl_vector_ptr(v, i) -> Ptr{Cdouble}
+    vector_ptr(v, i) -> Ptr{Cdouble}
 
 C signature:
 `double * gsl_vector_ptr (gsl_vector * v, const size_t i)`
@@ -849,20 +849,19 @@ GSL documentation:
 > These functions return a pointer to the i-th element of a vector v. If
 > i lies outside the allowed range of 0 to `size - 1`{.sourceCode} then
 > the error handler is invoked and a null pointer is returned.
-> |inlinefns|
 
 """
-function gsl_vector_ptr(v, i)
+function vector_ptr(v, i)
     ccall((:gsl_vector_ptr, libgsl), Ptr{Cdouble}, (Ref{gsl_vector}, Csize_t), v, i)
 end
 
 @doc md"""
-    gsl_vector_const_ptr(v, i) -> Ptr{Cdouble}
+    vector_const_ptr(v, i) -> Ptr{Cdouble}
 
 C signature:
 `const double * gsl_vector_const_ptr (const gsl_vector * v, const size_t i)`
 """
-function gsl_vector_const_ptr(v, i)
+function vector_const_ptr(v, i)
     ccall((:gsl_vector_const_ptr, libgsl), Ptr{Cdouble}, (Ref{gsl_vector}, Csize_t), v, i)
 end
 

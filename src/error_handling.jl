@@ -16,7 +16,7 @@ mutable struct GSLError <: Exception
     line :: Cint
 end
 
-show(io::IO, E::GSLError) = print(io, string("GSL Error $(E.errno) (", strerror(E.errno), "): ", E.reason, " at ", E.file, ":", E.line))
+show(io::IO, E::GSLError) = print(io, string("GSL Error $(E.errno) (", unsafe_string(strerror(E.errno)), "): ", E.reason, " at ", E.file, ":", E.line))
 
 function custom_error_handler(reason::AbstractString, file::AbstractString, line::Integer, errno::Integer)
     if errno == GSL_SUCCESS; return; end

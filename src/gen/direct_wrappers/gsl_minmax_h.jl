@@ -7,26 +7,6 @@
 
 
 @doc md"""
-    gsl_max(a, b) -> Cdouble
-
-C signature:
-`double gsl_max (double a, double b)`
-"""
-function gsl_max(a, b)
-    ccall((:gsl_max, libgsl), Cdouble, (Cdouble, Cdouble), a, b)
-end
-
-@doc md"""
-    gsl_min(a, b) -> Cdouble
-
-C signature:
-`double gsl_min (double a, double b)`
-"""
-function gsl_min(a, b)
-    ccall((:gsl_min, libgsl), Cdouble, (Cdouble, Cdouble), a, b)
-end
-
-@doc md"""
     GSL_MAX_INT(a, b) -> Cint
 
 C signature:

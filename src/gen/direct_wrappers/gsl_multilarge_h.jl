@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_multilarge_linear_alloc(T, p) -> Ptr{gsl_multilarge_linear_workspace}
+    multilarge_linear_alloc(T, p) -> Ptr{gsl_multilarge_linear_workspace}
 
 C signature:
 `gsl_multilarge_linear_workspace * gsl_multilarge_linear_alloc(const gsl_multilarge_linear_type * T, const size_t p)`
@@ -21,12 +21,12 @@ GSL documentation:
 > have any number of rows.
 
 """
-function gsl_multilarge_linear_alloc(T, p)
+function multilarge_linear_alloc(T, p)
     ccall((:gsl_multilarge_linear_alloc, libgsl), Ptr{gsl_multilarge_linear_workspace}, (Ref{gsl_multilarge_linear_type}, Csize_t), T, p)
 end
 
 @doc md"""
-    gsl_multilarge_linear_free(w) -> Cvoid
+    multilarge_linear_free(w) -> Cvoid
 
 C signature:
 `void gsl_multilarge_linear_free(gsl_multilarge_linear_workspace * w)`
@@ -38,12 +38,12 @@ GSL documentation:
 > This function frees the memory associated with the workspace w.
 
 """
-function gsl_multilarge_linear_free(w)
+function multilarge_linear_free(w)
     ccall((:gsl_multilarge_linear_free, libgsl), Cvoid, (Ptr{gsl_multilarge_linear_workspace},), w)
 end
 
 @doc md"""
-    gsl_multilarge_linear_name(w) -> Ptr{Cchar}
+    multilarge_linear_name(w) -> Ptr{Cchar}
 
 C signature:
 `const char *gsl_multilarge_linear_name(const gsl_multilarge_linear_workspace * w)`
@@ -56,12 +56,12 @@ GSL documentation:
 > solver.
 
 """
-function gsl_multilarge_linear_name(w)
+function multilarge_linear_name(w)
     ccall((:gsl_multilarge_linear_name, libgsl), Ptr{Cchar}, (Ptr{gsl_multilarge_linear_workspace},), w)
 end
 
 @doc md"""
-    gsl_multilarge_linear_reset(w) -> Cint
+    multilarge_linear_reset(w) -> Cint
 
 C signature:
 `int gsl_multilarge_linear_reset(gsl_multilarge_linear_workspace * w)`
@@ -74,12 +74,12 @@ GSL documentation:
 > new least squares system.
 
 """
-function gsl_multilarge_linear_reset(w)
+function multilarge_linear_reset(w)
     ccall((:gsl_multilarge_linear_reset, libgsl), Cint, (Ptr{gsl_multilarge_linear_workspace},), w)
 end
 
 @doc md"""
-    gsl_multilarge_linear_accumulate(X, y, w) -> Cint
+    multilarge_linear_accumulate(X, y, w) -> Cint
 
 C signature:
 `int gsl_multilarge_linear_accumulate(gsl_matrix * X, gsl_vector * y, gsl_multilarge_linear_workspace * w)`
@@ -95,12 +95,12 @@ GSL documentation:
 > are both unchanged.
 
 """
-function gsl_multilarge_linear_accumulate(X, y, w)
+function multilarge_linear_accumulate(X, y, w)
     ccall((:gsl_multilarge_linear_accumulate, libgsl), Cint, (Ref{gsl_matrix}, Ref{gsl_vector}, Ref{gsl_multilarge_linear_workspace}), X, y, w)
 end
 
 @doc md"""
-    gsl_multilarge_linear_solve(lambda, c, rnorm, snorm, w) -> Cint
+    multilarge_linear_solve(lambda, c, rnorm, snorm, w) -> Cint
 
 C signature:
 `int gsl_multilarge_linear_solve(const double lambda, gsl_vector * c, double * rnorm, double * snorm, gsl_multilarge_linear_workspace * w)`
@@ -116,12 +116,12 @@ GSL documentation:
 > $||y - X c||_W$ and snorm contains the solution norm $||L c||$.
 
 """
-function gsl_multilarge_linear_solve(lambda, c, rnorm, snorm, w)
+function multilarge_linear_solve(lambda, c, rnorm, snorm, w)
     ccall((:gsl_multilarge_linear_solve, libgsl), Cint, (Cdouble, Ref{gsl_vector}, Ref{Cdouble}, Ref{Cdouble}, Ref{gsl_multilarge_linear_workspace}), lambda, c, rnorm, snorm, w)
 end
 
 @doc md"""
-    gsl_multilarge_linear_rcond(rcond, w) -> Cint
+    multilarge_linear_rcond(rcond, w) -> Cint
 
 C signature:
 `int gsl_multilarge_linear_rcond(double *rcond, gsl_multilarge_linear_workspace * w)`
@@ -139,12 +139,12 @@ GSL documentation:
 > inaccurate for ill-conditioned matrices $X$.
 
 """
-function gsl_multilarge_linear_rcond(rcond, w)
+function multilarge_linear_rcond(rcond, w)
     ccall((:gsl_multilarge_linear_rcond, libgsl), Cint, (Ref{Cdouble}, Ref{gsl_multilarge_linear_workspace}), rcond, w)
 end
 
 @doc md"""
-    gsl_multilarge_linear_lcurve(reg_param, rho, eta, w) -> Cint
+    multilarge_linear_lcurve(reg_param, rho, eta, w) -> Cint
 
 C signature:
 `int gsl_multilarge_linear_lcurve(gsl_vector * reg_param, gsl_vector * rho, gsl_vector * eta, gsl_multilarge_linear_workspace * w)`
@@ -167,22 +167,22 @@ GSL documentation:
 > $X^T X$ matrix.
 
 """
-function gsl_multilarge_linear_lcurve(reg_param, rho, eta, w)
+function multilarge_linear_lcurve(reg_param, rho, eta, w)
     ccall((:gsl_multilarge_linear_lcurve, libgsl), Cint, (Ref{gsl_vector}, Ref{gsl_vector}, Ref{gsl_vector}, Ref{gsl_multilarge_linear_workspace}), reg_param, rho, eta, w)
 end
 
 @doc md"""
-    gsl_multilarge_linear_wstdform1(L, X, w, y, Xs, ys, work) -> Cint
+    multilarge_linear_wstdform1(L, X, w, y, Xs, ys, work) -> Cint
 
 C signature:
 `int gsl_multilarge_linear_wstdform1 (const gsl_vector * L, const gsl_matrix * X, const gsl_vector * w, const gsl_vector * y, gsl_matrix * Xs, gsl_vector * ys, gsl_multilarge_linear_workspace * work)`
 """
-function gsl_multilarge_linear_wstdform1(L, X, w, y, Xs, ys, work)
+function multilarge_linear_wstdform1(L, X, w, y, Xs, ys, work)
     ccall((:gsl_multilarge_linear_wstdform1, libgsl), Cint, (Ref{gsl_vector}, Ref{gsl_matrix}, Ref{gsl_vector}, Ref{gsl_vector}, Ref{gsl_matrix}, Ref{gsl_vector}, Ref{gsl_multilarge_linear_workspace}), L, X, w, y, Xs, ys, work)
 end
 
 @doc md"""
-    gsl_multilarge_linear_stdform1(L, X, y, Xs, ys, work) -> Cint
+    multilarge_linear_stdform1(L, X, y, Xs, ys, work) -> Cint
 
 C signature:
 `int gsl_multilarge_linear_stdform1 (const gsl_vector * L, const gsl_matrix * X, const gsl_vector * y, gsl_matrix * Xs, gsl_vector * ys, gsl_multilarge_linear_workspace * work)`
@@ -209,12 +209,12 @@ GSL documentation:
 > y = ys for an in-place transform.
 
 """
-function gsl_multilarge_linear_stdform1(L, X, y, Xs, ys, work)
+function multilarge_linear_stdform1(L, X, y, Xs, ys, work)
     ccall((:gsl_multilarge_linear_stdform1, libgsl), Cint, (Ref{gsl_vector}, Ref{gsl_matrix}, Ref{gsl_vector}, Ref{gsl_matrix}, Ref{gsl_vector}, Ref{gsl_multilarge_linear_workspace}), L, X, y, Xs, ys, work)
 end
 
 @doc md"""
-    gsl_multilarge_linear_L_decomp(L, tau) -> Cint
+    multilarge_linear_L_decomp(L, tau) -> Cint
 
 C signature:
 `int gsl_multilarge_linear_L_decomp (gsl_matrix * L, gsl_vector * tau)`
@@ -230,22 +230,22 @@ GSL documentation:
 > the transformation to standard form.
 
 """
-function gsl_multilarge_linear_L_decomp(L, tau)
+function multilarge_linear_L_decomp(L, tau)
     ccall((:gsl_multilarge_linear_L_decomp, libgsl), Cint, (Ref{gsl_matrix}, Ref{gsl_vector}), L, tau)
 end
 
 @doc md"""
-    gsl_multilarge_linear_wstdform2(LQR, Ltau, X, w, y, Xs, ys, work) -> Cint
+    multilarge_linear_wstdform2(LQR, Ltau, X, w, y, Xs, ys, work) -> Cint
 
 C signature:
 `int gsl_multilarge_linear_wstdform2 (const gsl_matrix * LQR, const gsl_vector * Ltau, const gsl_matrix * X, const gsl_vector * w, const gsl_vector * y, gsl_matrix * Xs, gsl_vector * ys, gsl_multilarge_linear_workspace * work)`
 """
-function gsl_multilarge_linear_wstdform2(LQR, Ltau, X, w, y, Xs, ys, work)
+function multilarge_linear_wstdform2(LQR, Ltau, X, w, y, Xs, ys, work)
     ccall((:gsl_multilarge_linear_wstdform2, libgsl), Cint, (Ref{gsl_matrix}, Ref{gsl_vector}, Ref{gsl_matrix}, Ref{gsl_vector}, Ref{gsl_vector}, Ref{gsl_matrix}, Ref{gsl_vector}, Ref{gsl_multilarge_linear_workspace}), LQR, Ltau, X, w, y, Xs, ys, work)
 end
 
 @doc md"""
-    gsl_multilarge_linear_stdform2(LQR, Ltau, X, y, Xs, ys, work) -> Cint
+    multilarge_linear_stdform2(LQR, Ltau, X, y, Xs, ys, work) -> Cint
 
 C signature:
 `int gsl_multilarge_linear_stdform2 (const gsl_matrix * LQR, const gsl_vector * Ltau, const gsl_matrix * X, const gsl_vector * y, gsl_matrix * Xs, gsl_vector * ys, gsl_multilarge_linear_workspace * work)`
@@ -270,12 +270,12 @@ GSL documentation:
 > vector w, where $W = \diag(w)$.
 
 """
-function gsl_multilarge_linear_stdform2(LQR, Ltau, X, y, Xs, ys, work)
+function multilarge_linear_stdform2(LQR, Ltau, X, y, Xs, ys, work)
     ccall((:gsl_multilarge_linear_stdform2, libgsl), Cint, (Ref{gsl_matrix}, Ref{gsl_vector}, Ref{gsl_matrix}, Ref{gsl_vector}, Ref{gsl_matrix}, Ref{gsl_vector}, Ref{gsl_multilarge_linear_workspace}), LQR, Ltau, X, y, Xs, ys, work)
 end
 
 @doc md"""
-    gsl_multilarge_linear_genform1(L, cs, c, work) -> Cint
+    multilarge_linear_genform1(L, cs, c, work) -> Cint
 
 C signature:
 `int gsl_multilarge_linear_genform1 (const gsl_vector * L, const gsl_vector * cs, gsl_vector * c, gsl_multilarge_linear_workspace * work)`
@@ -291,12 +291,12 @@ GSL documentation:
 > the vector L. It is allowed to have c = cs for an in-place transform.
 
 """
-function gsl_multilarge_linear_genform1(L, cs, c, work)
+function multilarge_linear_genform1(L, cs, c, work)
     ccall((:gsl_multilarge_linear_genform1, libgsl), Cint, (Ref{gsl_vector}, Ref{gsl_vector}, Ref{gsl_vector}, Ref{gsl_multilarge_linear_workspace}), L, cs, c, work)
 end
 
 @doc md"""
-    gsl_multilarge_linear_genform2(LQR, Ltau, cs, c, work) -> Cint
+    multilarge_linear_genform2(LQR, Ltau, cs, c, work) -> Cint
 
 C signature:
 `int gsl_multilarge_linear_genform2 (const gsl_matrix * LQR, const gsl_vector * Ltau, const gsl_vector * cs, gsl_vector * c, gsl_multilarge_linear_workspace * work)`
@@ -311,7 +311,7 @@ GSL documentation:
 > original problem, which is stored in c, of length $p$.
 
 """
-function gsl_multilarge_linear_genform2(LQR, Ltau, cs, c, work)
+function multilarge_linear_genform2(LQR, Ltau, cs, c, work)
     ccall((:gsl_multilarge_linear_genform2, libgsl), Cint, (Ref{gsl_matrix}, Ref{gsl_vector}, Ref{gsl_vector}, Ref{gsl_vector}, Ref{gsl_multilarge_linear_workspace}), LQR, Ltau, cs, c, work)
 end
 

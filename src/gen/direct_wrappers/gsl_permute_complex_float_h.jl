@@ -7,22 +7,22 @@
 
 
 @doc md"""
-    gsl_permute_complex_float(p, data, stride, n) -> Cint
+    permute_complex_float(p, data, stride, n) -> Cint
 
 C signature:
 `int gsl_permute_complex_float (const size_t * p, float * data, const size_t stride, const size_t n)`
 """
-function gsl_permute_complex_float(p, data, stride, n)
+function permute_complex_float(p, data, stride, n)
     ccall((:gsl_permute_complex_float, libgsl), Cint, (Ref{Csize_t}, Ref{Cfloat}, Csize_t, Csize_t), p, data, stride, n)
 end
 
 @doc md"""
-    gsl_permute_complex_float_inverse(p, data, stride, n) -> Cint
+    permute_complex_float_inverse(p, data, stride, n) -> Cint
 
 C signature:
 `int gsl_permute_complex_float_inverse (const size_t * p, float * data, const size_t stride, const size_t n)`
 """
-function gsl_permute_complex_float_inverse(p, data, stride, n)
+function permute_complex_float_inverse(p, data, stride, n)
     ccall((:gsl_permute_complex_float_inverse, libgsl), Cint, (Ref{Csize_t}, Ref{Cfloat}, Csize_t, Csize_t), p, data, stride, n)
 end
 

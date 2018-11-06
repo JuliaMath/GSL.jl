@@ -7,12 +7,12 @@
 
 
 @doc md"""
-    gsl_sf_result_smash_e(re, r) -> Cint
+    sf_result_smash_e(re, r) -> Cint
 
 C signature:
 `int gsl_sf_result_smash_e(const gsl_sf_result_e10 * re, gsl_sf_result * r)`
 """
-function gsl_sf_result_smash_e(re, r)
+function sf_result_smash_e(re, r)
     ccall((:gsl_sf_result_smash_e, libgsl), Cint, (Ref{gsl_sf_result_e10}, Ref{gsl_sf_result}), re, r)
 end
 

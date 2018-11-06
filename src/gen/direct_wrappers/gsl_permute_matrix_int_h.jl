@@ -7,12 +7,12 @@
 
 
 @doc md"""
-    gsl_permute_matrix_int(p, A) -> Cint
+    permute_matrix_int(p, A) -> Cint
 
 C signature:
 `int gsl_permute_matrix_int (const gsl_permutation * p, gsl_matrix_int * A)`
 """
-function gsl_permute_matrix_int(p, A)
+function permute_matrix_int(p, A)
     ccall((:gsl_permute_matrix_int, libgsl), Cint, (Ref{gsl_permutation}, Ref{gsl_matrix_int}), p, A)
 end
 

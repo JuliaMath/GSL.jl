@@ -7,17 +7,17 @@
 
 
 @doc md"""
-    gsl_sf_lngamma_e(x, result) -> Cint
+    sf_lngamma_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_lngamma_e(double x, gsl_sf_result * result)`
 """
-function gsl_sf_lngamma_e(x, result)
+function sf_lngamma_e(x, result)
     ccall((:gsl_sf_lngamma_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_lngamma(x) -> Cdouble
+    sf_lngamma(x) -> Cdouble
 
 C signature:
 `double gsl_sf_lngamma(const double x)`
@@ -35,12 +35,12 @@ GSL documentation:
 > using the real Lanczos method.
 
 """
-function gsl_sf_lngamma(x)
+function sf_lngamma(x)
     ccall((:gsl_sf_lngamma, libgsl), Cdouble, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_sf_lngamma_sgn_e(x, result_lg, sgn) -> Cint
+    sf_lngamma_sgn_e(x, result_lg, sgn) -> Cint
 
 C signature:
 `int gsl_sf_lngamma_sgn_e(double x, gsl_sf_result * result_lg, double *sgn)`
@@ -57,22 +57,22 @@ GSL documentation:
 > two components of result\_lg.
 
 """
-function gsl_sf_lngamma_sgn_e(x, result_lg, sgn)
+function sf_lngamma_sgn_e(x, result_lg, sgn)
     ccall((:gsl_sf_lngamma_sgn_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}, Ref{Cdouble}), x, result_lg, sgn)
 end
 
 @doc md"""
-    gsl_sf_gamma_e(x, result) -> Cint
+    sf_gamma_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_gamma_e(const double x, gsl_sf_result * result)`
 """
-function gsl_sf_gamma_e(x, result)
+function sf_gamma_e(x, result)
     ccall((:gsl_sf_gamma_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_gamma(x) -> Cdouble
+    sf_gamma(x) -> Cdouble
 
 C signature:
 `double gsl_sf_gamma(const double x)`
@@ -90,22 +90,22 @@ GSL documentation:
 > GSL\_SF\_GAMMA\_XMAX and is 171.0.
 
 """
-function gsl_sf_gamma(x)
+function sf_gamma(x)
     ccall((:gsl_sf_gamma, libgsl), Cdouble, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_sf_gammastar_e(x, result) -> Cint
+    sf_gammastar_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_gammastar_e(const double x, gsl_sf_result * result)`
 """
-function gsl_sf_gammastar_e(x, result)
+function sf_gammastar_e(x, result)
     ccall((:gsl_sf_gammastar_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_gammastar(x) -> Cdouble
+    sf_gammastar(x) -> Cdouble
 
 C signature:
 `double gsl_sf_gammastar(const double x)`
@@ -122,22 +122,22 @@ GSL documentation:
 > and is a useful suggestion of Temme.
 
 """
-function gsl_sf_gammastar(x)
+function sf_gammastar(x)
     ccall((:gsl_sf_gammastar, libgsl), Cdouble, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_sf_gammainv_e(x, result) -> Cint
+    sf_gammainv_e(x, result) -> Cint
 
 C signature:
 `int gsl_sf_gammainv_e(const double x, gsl_sf_result * result)`
 """
-function gsl_sf_gammainv_e(x, result)
+function sf_gammainv_e(x, result)
     ccall((:gsl_sf_gammainv_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), x, result)
 end
 
 @doc md"""
-    gsl_sf_gammainv(x) -> Cdouble
+    sf_gammainv(x) -> Cdouble
 
 C signature:
 `double gsl_sf_gammainv(const double x)`
@@ -152,12 +152,12 @@ GSL documentation:
 > $1/\Gamma(x)$ using the real Lanczos method.
 
 """
-function gsl_sf_gammainv(x)
+function sf_gammainv(x)
     ccall((:gsl_sf_gammainv, libgsl), Cdouble, (Cdouble,), x)
 end
 
 @doc md"""
-    gsl_sf_lngamma_complex_e(zr, zi, lnr, arg) -> Cint
+    sf_lngamma_complex_e(zr, zi, lnr, arg) -> Cint
 
 C signature:
 `int gsl_sf_lngamma_complex_e(double zr, double zi, gsl_sf_result * lnr, gsl_sf_result * arg)`
@@ -176,22 +176,22 @@ GSL documentation:
 > however, never suffers from loss of precision.
 
 """
-function gsl_sf_lngamma_complex_e(zr, zi, lnr, arg)
+function sf_lngamma_complex_e(zr, zi, lnr, arg)
     ccall((:gsl_sf_lngamma_complex_e, libgsl), Cint, (Cdouble, Cdouble, Ref{gsl_sf_result}, Ref{gsl_sf_result}), zr, zi, lnr, arg)
 end
 
 @doc md"""
-    gsl_sf_taylorcoeff_e(n, x, result) -> Cint
+    sf_taylorcoeff_e(n, x, result) -> Cint
 
 C signature:
 `int gsl_sf_taylorcoeff_e(const int n, const double x, gsl_sf_result * result)`
 """
-function gsl_sf_taylorcoeff_e(n, x, result)
+function sf_taylorcoeff_e(n, x, result)
     ccall((:gsl_sf_taylorcoeff_e, libgsl), Cint, (Cint, Cdouble, Ref{gsl_sf_result}), n, x, result)
 end
 
 @doc md"""
-    gsl_sf_taylorcoeff(n, x) -> Cdouble
+    sf_taylorcoeff(n, x) -> Cdouble
 
 C signature:
 `double gsl_sf_taylorcoeff(const int n, const double x)`
@@ -207,22 +207,22 @@ GSL documentation:
 > $x \ge 0$, $n \ge 0$
 
 """
-function gsl_sf_taylorcoeff(n, x)
+function sf_taylorcoeff(n, x)
     ccall((:gsl_sf_taylorcoeff, libgsl), Cdouble, (Cint, Cdouble), n, x)
 end
 
 @doc md"""
-    gsl_sf_fact_e(n, result) -> Cint
+    sf_fact_e(n, result) -> Cint
 
 C signature:
 `int gsl_sf_fact_e(const unsigned int n, gsl_sf_result * result)`
 """
-function gsl_sf_fact_e(n, result)
+function sf_fact_e(n, result)
     ccall((:gsl_sf_fact_e, libgsl), Cint, (Cuint, Ref{gsl_sf_result}), n, result)
 end
 
 @doc md"""
-    gsl_sf_fact(n) -> Cdouble
+    sf_fact(n) -> Cdouble
 
 C signature:
 `double gsl_sf_fact(const unsigned int n)`
@@ -239,22 +239,22 @@ GSL documentation:
 > GSL\_SF\_FACT\_NMAX and is 170.
 
 """
-function gsl_sf_fact(n)
+function sf_fact(n)
     ccall((:gsl_sf_fact, libgsl), Cdouble, (Cuint,), n)
 end
 
 @doc md"""
-    gsl_sf_doublefact_e(n, result) -> Cint
+    sf_doublefact_e(n, result) -> Cint
 
 C signature:
 `int gsl_sf_doublefact_e(const unsigned int n, gsl_sf_result * result)`
 """
-function gsl_sf_doublefact_e(n, result)
+function sf_doublefact_e(n, result)
     ccall((:gsl_sf_doublefact_e, libgsl), Cint, (Cuint, Ref{gsl_sf_result}), n, result)
 end
 
 @doc md"""
-    gsl_sf_doublefact(n) -> Cdouble
+    sf_doublefact(n) -> Cdouble
 
 C signature:
 `double gsl_sf_doublefact(const unsigned int n)`
@@ -270,22 +270,22 @@ GSL documentation:
 > is given by the macro GSL\_SF\_DOUBLEFACT\_NMAX and is 297.
 
 """
-function gsl_sf_doublefact(n)
+function sf_doublefact(n)
     ccall((:gsl_sf_doublefact, libgsl), Cdouble, (Cuint,), n)
 end
 
 @doc md"""
-    gsl_sf_lnfact_e(n, result) -> Cint
+    sf_lnfact_e(n, result) -> Cint
 
 C signature:
 `int gsl_sf_lnfact_e(const unsigned int n, gsl_sf_result * result)`
 """
-function gsl_sf_lnfact_e(n, result)
+function sf_lnfact_e(n, result)
     ccall((:gsl_sf_lnfact_e, libgsl), Cint, (Cuint, Ref{gsl_sf_result}), n, result)
 end
 
 @doc md"""
-    gsl_sf_lnfact(n) -> Cdouble
+    sf_lnfact(n) -> Cdouble
 
 C signature:
 `double gsl_sf_lnfact(const unsigned int n)`
@@ -301,22 +301,22 @@ GSL documentation:
 > via gsl\_sf\_lngamma for $n < 170$, but defers for larger n.
 
 """
-function gsl_sf_lnfact(n)
+function sf_lnfact(n)
     ccall((:gsl_sf_lnfact, libgsl), Cdouble, (Cuint,), n)
 end
 
 @doc md"""
-    gsl_sf_lndoublefact_e(n, result) -> Cint
+    sf_lndoublefact_e(n, result) -> Cint
 
 C signature:
 `int gsl_sf_lndoublefact_e(const unsigned int n, gsl_sf_result * result)`
 """
-function gsl_sf_lndoublefact_e(n, result)
+function sf_lndoublefact_e(n, result)
     ccall((:gsl_sf_lndoublefact_e, libgsl), Cint, (Cuint, Ref{gsl_sf_result}), n, result)
 end
 
 @doc md"""
-    gsl_sf_lndoublefact(n) -> Cdouble
+    sf_lndoublefact(n) -> Cdouble
 
 C signature:
 `double gsl_sf_lndoublefact(const unsigned int n)`
@@ -332,22 +332,22 @@ GSL documentation:
 > $\log(n!!)$.
 
 """
-function gsl_sf_lndoublefact(n)
+function sf_lndoublefact(n)
     ccall((:gsl_sf_lndoublefact, libgsl), Cdouble, (Cuint,), n)
 end
 
 @doc md"""
-    gsl_sf_lnchoose_e(n, m, result) -> Cint
+    sf_lnchoose_e(n, m, result) -> Cint
 
 C signature:
 `int gsl_sf_lnchoose_e(unsigned int n, unsigned int m, gsl_sf_result * result)`
 """
-function gsl_sf_lnchoose_e(n, m, result)
+function sf_lnchoose_e(n, m, result)
     ccall((:gsl_sf_lnchoose_e, libgsl), Cint, (Cuint, Cuint, Ref{gsl_sf_result}), n, m, result)
 end
 
 @doc md"""
-    gsl_sf_lnchoose(n, m) -> Cdouble
+    sf_lnchoose(n, m) -> Cdouble
 
 C signature:
 `double gsl_sf_lnchoose(unsigned int n, unsigned int m)`
@@ -363,22 +363,22 @@ GSL documentation:
 > This is equivalent to the sum $\log(n!) - \log(m!) - \log((n-m)!)$.
 
 """
-function gsl_sf_lnchoose(n, m)
+function sf_lnchoose(n, m)
     ccall((:gsl_sf_lnchoose, libgsl), Cdouble, (Cuint, Cuint), n, m)
 end
 
 @doc md"""
-    gsl_sf_choose_e(n, m, result) -> Cint
+    sf_choose_e(n, m, result) -> Cint
 
 C signature:
 `int gsl_sf_choose_e(unsigned int n, unsigned int m, gsl_sf_result * result)`
 """
-function gsl_sf_choose_e(n, m, result)
+function sf_choose_e(n, m, result)
     ccall((:gsl_sf_choose_e, libgsl), Cint, (Cuint, Cuint, Ref{gsl_sf_result}), n, m, result)
 end
 
 @doc md"""
-    gsl_sf_choose(n, m) -> Cdouble
+    sf_choose(n, m) -> Cdouble
 
 C signature:
 `double gsl_sf_choose(unsigned int n, unsigned int m)`
@@ -394,22 +394,22 @@ GSL documentation:
 > `n choose m`{.sourceCode} $= n!/(m!(n-m)!)$
 
 """
-function gsl_sf_choose(n, m)
+function sf_choose(n, m)
     ccall((:gsl_sf_choose, libgsl), Cdouble, (Cuint, Cuint), n, m)
 end
 
 @doc md"""
-    gsl_sf_lnpoch_e(a, x, result) -> Cint
+    sf_lnpoch_e(a, x, result) -> Cint
 
 C signature:
 `int gsl_sf_lnpoch_e(const double a, const double x, gsl_sf_result * result)`
 """
-function gsl_sf_lnpoch_e(a, x, result)
+function sf_lnpoch_e(a, x, result)
     ccall((:gsl_sf_lnpoch_e, libgsl), Cint, (Cdouble, Cdouble, Ref{gsl_sf_result}), a, x, result)
 end
 
 @doc md"""
-    gsl_sf_lnpoch(a, x) -> Cdouble
+    sf_lnpoch(a, x) -> Cdouble
 
 C signature:
 `double gsl_sf_lnpoch(const double a, const double x)`
@@ -424,12 +424,12 @@ GSL documentation:
 > $\log((a)_x) = \log(\Gamma(a + x)/\Gamma(a))$.
 
 """
-function gsl_sf_lnpoch(a, x)
+function sf_lnpoch(a, x)
     ccall((:gsl_sf_lnpoch, libgsl), Cdouble, (Cdouble, Cdouble), a, x)
 end
 
 @doc md"""
-    gsl_sf_lnpoch_sgn_e(a, x, result, sgn) -> Cint
+    sf_lnpoch_sgn_e(a, x, result, sgn) -> Cint
 
 C signature:
 `int gsl_sf_lnpoch_sgn_e(const double a, const double x, gsl_sf_result * result, double * sgn)`
@@ -444,22 +444,22 @@ GSL documentation:
 > $sgn = \sgn((a)_x)$ where $(a)_x = \Gamma(a + x)/\Gamma(a)$.
 
 """
-function gsl_sf_lnpoch_sgn_e(a, x, result, sgn)
+function sf_lnpoch_sgn_e(a, x, result, sgn)
     ccall((:gsl_sf_lnpoch_sgn_e, libgsl), Cint, (Cdouble, Cdouble, Ref{gsl_sf_result}, Ref{Cdouble}), a, x, result, sgn)
 end
 
 @doc md"""
-    gsl_sf_poch_e(a, x, result) -> Cint
+    sf_poch_e(a, x, result) -> Cint
 
 C signature:
 `int gsl_sf_poch_e(const double a, const double x, gsl_sf_result * result)`
 """
-function gsl_sf_poch_e(a, x, result)
+function sf_poch_e(a, x, result)
     ccall((:gsl_sf_poch_e, libgsl), Cint, (Cdouble, Cdouble, Ref{gsl_sf_result}), a, x, result)
 end
 
 @doc md"""
-    gsl_sf_poch(a, x) -> Cdouble
+    sf_poch(a, x) -> Cdouble
 
 C signature:
 `double gsl_sf_poch(const double a, const double x)`
@@ -477,22 +477,22 @@ GSL documentation:
 > is returned.
 
 """
-function gsl_sf_poch(a, x)
+function sf_poch(a, x)
     ccall((:gsl_sf_poch, libgsl), Cdouble, (Cdouble, Cdouble), a, x)
 end
 
 @doc md"""
-    gsl_sf_pochrel_e(a, x, result) -> Cint
+    sf_pochrel_e(a, x, result) -> Cint
 
 C signature:
 `int gsl_sf_pochrel_e(const double a, const double x, gsl_sf_result * result)`
 """
-function gsl_sf_pochrel_e(a, x, result)
+function sf_pochrel_e(a, x, result)
     ccall((:gsl_sf_pochrel_e, libgsl), Cint, (Cdouble, Cdouble, Ref{gsl_sf_result}), a, x, result)
 end
 
 @doc md"""
-    gsl_sf_pochrel(a, x) -> Cdouble
+    sf_pochrel(a, x) -> Cdouble
 
 C signature:
 `double gsl_sf_pochrel(const double a, const double x)`
@@ -508,22 +508,22 @@ GSL documentation:
 > where $(a)_x = \Gamma(a + x)/\Gamma(a)$.
 
 """
-function gsl_sf_pochrel(a, x)
+function sf_pochrel(a, x)
     ccall((:gsl_sf_pochrel, libgsl), Cdouble, (Cdouble, Cdouble), a, x)
 end
 
 @doc md"""
-    gsl_sf_gamma_inc_Q_e(a, x, result) -> Cint
+    sf_gamma_inc_Q_e(a, x, result) -> Cint
 
 C signature:
 `int gsl_sf_gamma_inc_Q_e(const double a, const double x, gsl_sf_result * result)`
 """
-function gsl_sf_gamma_inc_Q_e(a, x, result)
+function sf_gamma_inc_Q_e(a, x, result)
     ccall((:gsl_sf_gamma_inc_Q_e, libgsl), Cint, (Cdouble, Cdouble, Ref{gsl_sf_result}), a, x, result)
 end
 
 @doc md"""
-    gsl_sf_gamma_inc_Q(a, x) -> Cdouble
+    sf_gamma_inc_Q(a, x) -> Cdouble
 
 C signature:
 `double gsl_sf_gamma_inc_Q(const double a, const double x)`
@@ -540,22 +540,22 @@ GSL documentation:
 > $a > 0$, $x \ge 0$.
 
 """
-function gsl_sf_gamma_inc_Q(a, x)
+function sf_gamma_inc_Q(a, x)
     ccall((:gsl_sf_gamma_inc_Q, libgsl), Cdouble, (Cdouble, Cdouble), a, x)
 end
 
 @doc md"""
-    gsl_sf_gamma_inc_P_e(a, x, result) -> Cint
+    sf_gamma_inc_P_e(a, x, result) -> Cint
 
 C signature:
 `int gsl_sf_gamma_inc_P_e(const double a, const double x, gsl_sf_result * result)`
 """
-function gsl_sf_gamma_inc_P_e(a, x, result)
+function sf_gamma_inc_P_e(a, x, result)
     ccall((:gsl_sf_gamma_inc_P_e, libgsl), Cint, (Cdouble, Cdouble, Ref{gsl_sf_result}), a, x, result)
 end
 
 @doc md"""
-    gsl_sf_gamma_inc_P(a, x) -> Cdouble
+    sf_gamma_inc_P(a, x) -> Cdouble
 
 C signature:
 `double gsl_sf_gamma_inc_P(const double a, const double x)`
@@ -576,22 +576,22 @@ GSL documentation:
 > function (section 6.5).
 
 """
-function gsl_sf_gamma_inc_P(a, x)
+function sf_gamma_inc_P(a, x)
     ccall((:gsl_sf_gamma_inc_P, libgsl), Cdouble, (Cdouble, Cdouble), a, x)
 end
 
 @doc md"""
-    gsl_sf_gamma_inc_e(a, x, result) -> Cint
+    sf_gamma_inc_e(a, x, result) -> Cint
 
 C signature:
 `int gsl_sf_gamma_inc_e(const double a, const double x, gsl_sf_result * result)`
 """
-function gsl_sf_gamma_inc_e(a, x, result)
+function sf_gamma_inc_e(a, x, result)
     ccall((:gsl_sf_gamma_inc_e, libgsl), Cint, (Cdouble, Cdouble, Ref{gsl_sf_result}), a, x, result)
 end
 
 @doc md"""
-    gsl_sf_gamma_inc(a, x) -> Cdouble
+    sf_gamma_inc(a, x) -> Cdouble
 
 C signature:
 `double gsl_sf_gamma_inc(const double a, const double x)`
@@ -608,22 +608,22 @@ GSL documentation:
 > $x \ge 0$.
 
 """
-function gsl_sf_gamma_inc(a, x)
+function sf_gamma_inc(a, x)
     ccall((:gsl_sf_gamma_inc, libgsl), Cdouble, (Cdouble, Cdouble), a, x)
 end
 
 @doc md"""
-    gsl_sf_lnbeta_e(a, b, result) -> Cint
+    sf_lnbeta_e(a, b, result) -> Cint
 
 C signature:
 `int gsl_sf_lnbeta_e(const double a, const double b, gsl_sf_result * result)`
 """
-function gsl_sf_lnbeta_e(a, b, result)
+function sf_lnbeta_e(a, b, result)
     ccall((:gsl_sf_lnbeta_e, libgsl), Cint, (Cdouble, Cdouble, Ref{gsl_sf_result}), a, b, result)
 end
 
 @doc md"""
-    gsl_sf_lnbeta(a, b) -> Cdouble
+    sf_lnbeta(a, b) -> Cdouble
 
 C signature:
 `double gsl_sf_lnbeta(const double a, const double b)`
@@ -638,32 +638,32 @@ GSL documentation:
 > $\log(B(a,b))$ subject to $a$ and $b$ not being negative integers.
 
 """
-function gsl_sf_lnbeta(a, b)
+function sf_lnbeta(a, b)
     ccall((:gsl_sf_lnbeta, libgsl), Cdouble, (Cdouble, Cdouble), a, b)
 end
 
 @doc md"""
-    gsl_sf_lnbeta_sgn_e(x, y, result, sgn) -> Cint
+    sf_lnbeta_sgn_e(x, y, result, sgn) -> Cint
 
 C signature:
 `int gsl_sf_lnbeta_sgn_e(const double x, const double y, gsl_sf_result * result, double * sgn)`
 """
-function gsl_sf_lnbeta_sgn_e(x, y, result, sgn)
+function sf_lnbeta_sgn_e(x, y, result, sgn)
     ccall((:gsl_sf_lnbeta_sgn_e, libgsl), Cint, (Cdouble, Cdouble, Ref{gsl_sf_result}, Ref{Cdouble}), x, y, result, sgn)
 end
 
 @doc md"""
-    gsl_sf_beta_e(a, b, result) -> Cint
+    sf_beta_e(a, b, result) -> Cint
 
 C signature:
 `int gsl_sf_beta_e(const double a, const double b, gsl_sf_result * result)`
 """
-function gsl_sf_beta_e(a, b, result)
+function sf_beta_e(a, b, result)
     ccall((:gsl_sf_beta_e, libgsl), Cint, (Cdouble, Cdouble, Ref{gsl_sf_result}), a, b, result)
 end
 
 @doc md"""
-    gsl_sf_beta(a, b) -> Cdouble
+    sf_beta(a, b) -> Cdouble
 
 C signature:
 `double gsl_sf_beta(const double a, const double b)`
@@ -679,22 +679,22 @@ GSL documentation:
 > being negative integers.
 
 """
-function gsl_sf_beta(a, b)
+function sf_beta(a, b)
     ccall((:gsl_sf_beta, libgsl), Cdouble, (Cdouble, Cdouble), a, b)
 end
 
 @doc md"""
-    gsl_sf_beta_inc_e(a, b, x, result) -> Cint
+    sf_beta_inc_e(a, b, x, result) -> Cint
 
 C signature:
 `int gsl_sf_beta_inc_e(const double a, const double b, const double x, gsl_sf_result * result)`
 """
-function gsl_sf_beta_inc_e(a, b, x, result)
+function sf_beta_inc_e(a, b, x, result)
     ccall((:gsl_sf_beta_inc_e, libgsl), Cint, (Cdouble, Cdouble, Cdouble, Ref{gsl_sf_result}), a, b, x, result)
 end
 
 @doc md"""
-    gsl_sf_beta_inc(a, b, x) -> Cdouble
+    sf_beta_inc(a, b, x) -> Cdouble
 
 C signature:
 `double gsl_sf_beta_inc(const double a, const double b, const double x)`
@@ -710,7 +710,7 @@ GSL documentation:
 > $I_x(a,b) = B_x(a,b) / B(a,b)$ where
 
 """
-function gsl_sf_beta_inc(a, b, x)
+function sf_beta_inc(a, b, x)
     ccall((:gsl_sf_beta_inc, libgsl), Cdouble, (Cdouble, Cdouble, Cdouble), a, b, x)
 end
 

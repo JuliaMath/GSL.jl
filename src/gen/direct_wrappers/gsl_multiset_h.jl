@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_multiset_alloc(n, k) -> Ptr{gsl_multiset}
+    multiset_alloc(n, k) -> Ptr{gsl_multiset}
 
 C signature:
 `gsl_multiset *gsl_multiset_alloc (const size_t n, const size_t k)`
@@ -24,12 +24,12 @@ GSL documentation:
 > create the multiset.
 
 """
-function gsl_multiset_alloc(n, k)
+function multiset_alloc(n, k)
     ccall((:gsl_multiset_alloc, libgsl), Ptr{gsl_multiset}, (Csize_t, Csize_t), n, k)
 end
 
 @doc md"""
-    gsl_multiset_calloc(n, k) -> Ptr{gsl_multiset}
+    multiset_calloc(n, k) -> Ptr{gsl_multiset}
 
 C signature:
 `gsl_multiset *gsl_multiset_calloc (const size_t n, const size_t k)`
@@ -44,12 +44,12 @@ GSL documentation:
 > the multiset.
 
 """
-function gsl_multiset_calloc(n, k)
+function multiset_calloc(n, k)
     ccall((:gsl_multiset_calloc, libgsl), Ptr{gsl_multiset}, (Csize_t, Csize_t), n, k)
 end
 
 @doc md"""
-    gsl_multiset_init_first(c) -> Cvoid
+    multiset_init_first(c) -> Cvoid
 
 C signature:
 `void gsl_multiset_init_first (gsl_multiset * c)`
@@ -62,12 +62,12 @@ GSL documentation:
 > first multiset element, i.e. $0$ repeated $k$ times.
 
 """
-function gsl_multiset_init_first(c)
+function multiset_init_first(c)
     ccall((:gsl_multiset_init_first, libgsl), Cvoid, (Ptr{gsl_multiset},), c)
 end
 
 @doc md"""
-    gsl_multiset_init_last(c) -> Cvoid
+    multiset_init_last(c) -> Cvoid
 
 C signature:
 `void gsl_multiset_init_last (gsl_multiset * c)`
@@ -80,12 +80,12 @@ GSL documentation:
 > multiset element, i.e. $n-1$ repeated $k$ times.
 
 """
-function gsl_multiset_init_last(c)
+function multiset_init_last(c)
     ccall((:gsl_multiset_init_last, libgsl), Cvoid, (Ptr{gsl_multiset},), c)
 end
 
 @doc md"""
-    gsl_multiset_free(c) -> Cvoid
+    multiset_free(c) -> Cvoid
 
 C signature:
 `void gsl_multiset_free (gsl_multiset * c)`
@@ -97,12 +97,12 @@ GSL documentation:
 > This function frees all the memory used by the multiset c.
 
 """
-function gsl_multiset_free(c)
+function multiset_free(c)
     ccall((:gsl_multiset_free, libgsl), Cvoid, (Ptr{gsl_multiset},), c)
 end
 
 @doc md"""
-    gsl_multiset_memcpy(dest, src) -> Cint
+    multiset_memcpy(dest, src) -> Cint
 
 C signature:
 `int gsl_multiset_memcpy (gsl_multiset * dest, const gsl_multiset * src)`
@@ -115,12 +115,12 @@ GSL documentation:
 > multiset dest. The two multisets must have the same size.
 
 """
-function gsl_multiset_memcpy(dest, src)
+function multiset_memcpy(dest, src)
     ccall((:gsl_multiset_memcpy, libgsl), Cint, (Ref{gsl_multiset}, Ref{gsl_multiset}), dest, src)
 end
 
 @doc md"""
-    gsl_multiset_fread(stream, c) -> Cint
+    multiset_fread(stream, c) -> Cint
 
 C signature:
 `int gsl_multiset_fread (FILE * stream, gsl_multiset * c)`
@@ -137,12 +137,12 @@ GSL documentation:
 > been written in the native binary format on the same architecture.
 
 """
-function gsl_multiset_fread(stream, c)
+function multiset_fread(stream, c)
     ccall((:gsl_multiset_fread, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_multiset}), stream, c)
 end
 
 @doc md"""
-    gsl_multiset_fwrite(stream, c) -> Cint
+    multiset_fwrite(stream, c) -> Cint
 
 C signature:
 `int gsl_multiset_fwrite (FILE * stream, const gsl_multiset * c)`
@@ -158,12 +158,12 @@ GSL documentation:
 > architectures.
 
 """
-function gsl_multiset_fwrite(stream, c)
+function multiset_fwrite(stream, c)
     ccall((:gsl_multiset_fwrite, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_multiset}), stream, c)
 end
 
 @doc md"""
-    gsl_multiset_fscanf(stream, c) -> Cint
+    multiset_fscanf(stream, c) -> Cint
 
 C signature:
 `int gsl_multiset_fscanf (FILE * stream, gsl_multiset * c)`
@@ -179,12 +179,12 @@ GSL documentation:
 > problem reading from the file.
 
 """
-function gsl_multiset_fscanf(stream, c)
+function multiset_fscanf(stream, c)
     ccall((:gsl_multiset_fscanf, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_multiset}), stream, c)
 end
 
 @doc md"""
-    gsl_multiset_fprintf(stream, c, format) -> Cint
+    multiset_fprintf(stream, c, format) -> Cint
 
 C signature:
 `int gsl_multiset_fprintf (FILE * stream, const gsl_multiset * c, const char *format)`
@@ -197,16 +197,16 @@ GSL documentation:
 > the stream stream using the format specifier format, which should be
 > suitable for a type of `size_t`{.sourceCode}. In ISO C99 the type
 > modifier `z`{.sourceCode} represents `size_t`{.sourceCode}, so
-> `"%zu\n"`{.sourceCode} is a suitable format \[\#f1\]\_. The function
-> returns GSL\_EFAILED if there was a problem writing to the file.
+> `"%zu\n"`{.sourceCode} is a suitable format. The function returns
+> GSL\_EFAILED if there was a problem writing to the file.
 
 """
-function gsl_multiset_fprintf(stream, c, format)
+function multiset_fprintf(stream, c, format)
     ccall((:gsl_multiset_fprintf, libgsl), Cint, (Ref{Cvoid}, Ref{gsl_multiset}, Ref{Cchar}), stream, c, format)
 end
 
 @doc md"""
-    gsl_multiset_n(c) -> Csize_t
+    multiset_n(c) -> Csize_t
 
 C signature:
 `size_t gsl_multiset_n (const gsl_multiset * c)`
@@ -218,12 +218,12 @@ GSL documentation:
 > This function returns the range ($n$) of the multiset c.
 
 """
-function gsl_multiset_n(c)
+function multiset_n(c)
     ccall((:gsl_multiset_n, libgsl), Csize_t, (Ptr{gsl_multiset},), c)
 end
 
 @doc md"""
-    gsl_multiset_k(c) -> Csize_t
+    multiset_k(c) -> Csize_t
 
 C signature:
 `size_t gsl_multiset_k (const gsl_multiset * c)`
@@ -235,12 +235,12 @@ GSL documentation:
 > This function returns the number of elements ($k$) in the multiset c.
 
 """
-function gsl_multiset_k(c)
+function multiset_k(c)
     ccall((:gsl_multiset_k, libgsl), Csize_t, (Ptr{gsl_multiset},), c)
 end
 
 @doc md"""
-    gsl_multiset_data(c) -> Ptr{Csize_t}
+    multiset_data(c) -> Ptr{Csize_t}
 
 C signature:
 `size_t * gsl_multiset_data (const gsl_multiset * c)`
@@ -253,12 +253,12 @@ GSL documentation:
 > multiset c.
 
 """
-function gsl_multiset_data(c)
+function multiset_data(c)
     ccall((:gsl_multiset_data, libgsl), Ptr{Csize_t}, (Ptr{gsl_multiset},), c)
 end
 
 @doc md"""
-    gsl_multiset_valid(c) -> Cint
+    multiset_valid(c) -> Cint
 
 C signature:
 `int gsl_multiset_valid (gsl_multiset * c)`
@@ -272,12 +272,12 @@ GSL documentation:
 > nondecreasing order.
 
 """
-function gsl_multiset_valid(c)
+function multiset_valid(c)
     ccall((:gsl_multiset_valid, libgsl), Cint, (Ptr{gsl_multiset},), c)
 end
 
 @doc md"""
-    gsl_multiset_next(c) -> Cint
+    multiset_next(c) -> Cint
 
 C signature:
 `int gsl_multiset_next (gsl_multiset * c)`
@@ -294,12 +294,12 @@ GSL documentation:
 > order.
 
 """
-function gsl_multiset_next(c)
+function multiset_next(c)
     ccall((:gsl_multiset_next, libgsl), Cint, (Ptr{gsl_multiset},), c)
 end
 
 @doc md"""
-    gsl_multiset_prev(c) -> Cint
+    multiset_prev(c) -> Cint
 
 C signature:
 `int gsl_multiset_prev (gsl_multiset * c)`
@@ -314,12 +314,12 @@ GSL documentation:
 > unmodified.
 
 """
-function gsl_multiset_prev(c)
+function multiset_prev(c)
     ccall((:gsl_multiset_prev, libgsl), Cint, (Ptr{gsl_multiset},), c)
 end
 
 @doc md"""
-    gsl_multiset_get(c, i) -> Csize_t
+    multiset_get(c, i) -> Csize_t
 
 C signature:
 `size_t gsl_multiset_get (const gsl_multiset * c, const size_t i)`
@@ -330,10 +330,10 @@ GSL documentation:
 
 > This function returns the value of the i-th element of the multiset c.
 > If i lies outside the allowed range of 0 to $k - 1$ then the error
-> handler is invoked and 0 is returned. |inlinefn|
+> handler is invoked and 0 is returned.
 
 """
-function gsl_multiset_get(c, i)
+function multiset_get(c, i)
     ccall((:gsl_multiset_get, libgsl), Csize_t, (Ref{gsl_multiset}, Csize_t), c, i)
 end
 

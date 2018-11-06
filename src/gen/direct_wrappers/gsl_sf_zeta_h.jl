@@ -7,17 +7,17 @@
 
 
 @doc md"""
-    gsl_sf_zeta_int_e(n, result) -> Cint
+    sf_zeta_int_e(n, result) -> Cint
 
 C signature:
 `int gsl_sf_zeta_int_e(const int n, gsl_sf_result * result)`
 """
-function gsl_sf_zeta_int_e(n, result)
+function sf_zeta_int_e(n, result)
     ccall((:gsl_sf_zeta_int_e, libgsl), Cint, (Cint, Ref{gsl_sf_result}), n, result)
 end
 
 @doc md"""
-    gsl_sf_zeta_int(n) -> Cdouble
+    sf_zeta_int(n) -> Cdouble
 
 C signature:
 `double gsl_sf_zeta_int(const int n)`
@@ -32,22 +32,22 @@ GSL documentation:
 > integer n, $n \ne 1$.
 
 """
-function gsl_sf_zeta_int(n)
+function sf_zeta_int(n)
     ccall((:gsl_sf_zeta_int, libgsl), Cdouble, (Cint,), n)
 end
 
 @doc md"""
-    gsl_sf_zeta_e(s, result) -> Cint
+    sf_zeta_e(s, result) -> Cint
 
 C signature:
 `int gsl_sf_zeta_e(const double s, gsl_sf_result * result)`
 """
-function gsl_sf_zeta_e(s, result)
+function sf_zeta_e(s, result)
     ccall((:gsl_sf_zeta_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), s, result)
 end
 
 @doc md"""
-    gsl_sf_zeta(s) -> Cdouble
+    sf_zeta(s) -> Cdouble
 
 C signature:
 `double gsl_sf_zeta(const double s)`
@@ -62,22 +62,22 @@ GSL documentation:
 > arbitrary s, $s \ne 1$.
 
 """
-function gsl_sf_zeta(s)
+function sf_zeta(s)
     ccall((:gsl_sf_zeta, libgsl), Cdouble, (Cdouble,), s)
 end
 
 @doc md"""
-    gsl_sf_zetam1_e(s, result) -> Cint
+    sf_zetam1_e(s, result) -> Cint
 
 C signature:
 `int gsl_sf_zetam1_e(const double s, gsl_sf_result * result)`
 """
-function gsl_sf_zetam1_e(s, result)
+function sf_zetam1_e(s, result)
     ccall((:gsl_sf_zetam1_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), s, result)
 end
 
 @doc md"""
-    gsl_sf_zetam1(s) -> Cdouble
+    sf_zetam1(s) -> Cdouble
 
 C signature:
 `double gsl_sf_zetam1(const double s)`
@@ -91,22 +91,22 @@ GSL documentation:
 > These routines compute $\zeta(s) - 1$ for arbitrary s, $s \ne 1$.
 
 """
-function gsl_sf_zetam1(s)
+function sf_zetam1(s)
     ccall((:gsl_sf_zetam1, libgsl), Cdouble, (Cdouble,), s)
 end
 
 @doc md"""
-    gsl_sf_zetam1_int_e(s, result) -> Cint
+    sf_zetam1_int_e(s, result) -> Cint
 
 C signature:
 `int gsl_sf_zetam1_int_e(const int s, gsl_sf_result * result)`
 """
-function gsl_sf_zetam1_int_e(s, result)
+function sf_zetam1_int_e(s, result)
     ccall((:gsl_sf_zetam1_int_e, libgsl), Cint, (Cint, Ref{gsl_sf_result}), s, result)
 end
 
 @doc md"""
-    gsl_sf_zetam1_int(s) -> Cdouble
+    sf_zetam1_int(s) -> Cdouble
 
 C signature:
 `double gsl_sf_zetam1_int(const int s)`
@@ -120,22 +120,22 @@ GSL documentation:
 > These routines compute $\zeta(n) - 1$ for integer n, $n \ne 1$.
 
 """
-function gsl_sf_zetam1_int(s)
+function sf_zetam1_int(s)
     ccall((:gsl_sf_zetam1_int, libgsl), Cdouble, (Cint,), s)
 end
 
 @doc md"""
-    gsl_sf_hzeta_e(s, q, result) -> Cint
+    sf_hzeta_e(s, q, result) -> Cint
 
 C signature:
 `int gsl_sf_hzeta_e(const double s, const double q, gsl_sf_result * result)`
 """
-function gsl_sf_hzeta_e(s, q, result)
+function sf_hzeta_e(s, q, result)
     ccall((:gsl_sf_hzeta_e, libgsl), Cint, (Cdouble, Cdouble, Ref{gsl_sf_result}), s, q, result)
 end
 
 @doc md"""
-    gsl_sf_hzeta(s, q) -> Cdouble
+    sf_hzeta(s, q) -> Cdouble
 
 C signature:
 `double gsl_sf_hzeta(const double s, const double q)`
@@ -150,22 +150,22 @@ GSL documentation:
 > $s > 1$, $q > 0$.
 
 """
-function gsl_sf_hzeta(s, q)
+function sf_hzeta(s, q)
     ccall((:gsl_sf_hzeta, libgsl), Cdouble, (Cdouble, Cdouble), s, q)
 end
 
 @doc md"""
-    gsl_sf_eta_int_e(n, result) -> Cint
+    sf_eta_int_e(n, result) -> Cint
 
 C signature:
 `int gsl_sf_eta_int_e(int n, gsl_sf_result * result)`
 """
-function gsl_sf_eta_int_e(n, result)
+function sf_eta_int_e(n, result)
     ccall((:gsl_sf_eta_int_e, libgsl), Cint, (Cint, Ref{gsl_sf_result}), n, result)
 end
 
 @doc md"""
-    gsl_sf_eta_int(n) -> Cdouble
+    sf_eta_int(n) -> Cdouble
 
 C signature:
 `double gsl_sf_eta_int(const int n)`
@@ -179,22 +179,22 @@ GSL documentation:
 > These routines compute the eta function $\eta(n)$ for integer n.
 
 """
-function gsl_sf_eta_int(n)
+function sf_eta_int(n)
     ccall((:gsl_sf_eta_int, libgsl), Cdouble, (Cint,), n)
 end
 
 @doc md"""
-    gsl_sf_eta_e(s, result) -> Cint
+    sf_eta_e(s, result) -> Cint
 
 C signature:
 `int gsl_sf_eta_e(const double s, gsl_sf_result * result)`
 """
-function gsl_sf_eta_e(s, result)
+function sf_eta_e(s, result)
     ccall((:gsl_sf_eta_e, libgsl), Cint, (Cdouble, Ref{gsl_sf_result}), s, result)
 end
 
 @doc md"""
-    gsl_sf_eta(s) -> Cdouble
+    sf_eta(s) -> Cdouble
 
 C signature:
 `double gsl_sf_eta(const double s)`
@@ -208,7 +208,7 @@ GSL documentation:
 > These routines compute the eta function $\eta(s)$ for arbitrary s.
 
 """
-function gsl_sf_eta(s)
+function sf_eta(s)
     ccall((:gsl_sf_eta, libgsl), Cdouble, (Cdouble,), s)
 end
 

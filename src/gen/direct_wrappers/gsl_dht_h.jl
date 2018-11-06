@@ -7,7 +7,7 @@
 
 
 @doc md"""
-    gsl_dht_alloc(size) -> Ptr{gsl_dht}
+    dht_alloc(size) -> Ptr{gsl_dht}
 
 C signature:
 `gsl_dht * gsl_dht_alloc(size_t size)`
@@ -20,12 +20,12 @@ GSL documentation:
 > size.
 
 """
-function gsl_dht_alloc(size)
+function dht_alloc(size)
     ccall((:gsl_dht_alloc, libgsl), Ptr{gsl_dht}, (Csize_t,), size)
 end
 
 @doc md"""
-    gsl_dht_new(size, nu, xmax) -> Ptr{gsl_dht}
+    dht_new(size, nu, xmax) -> Ptr{gsl_dht}
 
 C signature:
 `gsl_dht * gsl_dht_new(size_t size, double nu, double xmax)`
@@ -38,12 +38,12 @@ GSL documentation:
 > size and initializes it for the given values of nu and xmax.
 
 """
-function gsl_dht_new(size, nu, xmax)
+function dht_new(size, nu, xmax)
     ccall((:gsl_dht_new, libgsl), Ptr{gsl_dht}, (Csize_t, Cdouble, Cdouble), size, nu, xmax)
 end
 
 @doc md"""
-    gsl_dht_init(t, nu, xmax) -> Cint
+    dht_init(t, nu, xmax) -> Cint
 
 C signature:
 `int gsl_dht_init(gsl_dht * t, double nu, double xmax)`
@@ -56,12 +56,12 @@ GSL documentation:
 > and xmax.
 
 """
-function gsl_dht_init(t, nu, xmax)
+function dht_init(t, nu, xmax)
     ccall((:gsl_dht_init, libgsl), Cint, (Ref{gsl_dht}, Cdouble, Cdouble), t, nu, xmax)
 end
 
 @doc md"""
-    gsl_dht_x_sample(t, n) -> Cdouble
+    dht_x_sample(t, n) -> Cdouble
 
 C signature:
 `double gsl_dht_x_sample(const gsl_dht * t, int n)`
@@ -75,12 +75,12 @@ GSL documentation:
 > where the function $f(t)$ is assumed to be sampled.
 
 """
-function gsl_dht_x_sample(t, n)
+function dht_x_sample(t, n)
     ccall((:gsl_dht_x_sample, libgsl), Cdouble, (Ref{gsl_dht}, Cint), t, n)
 end
 
 @doc md"""
-    gsl_dht_k_sample(t, n) -> Cdouble
+    dht_k_sample(t, n) -> Cdouble
 
 C signature:
 `double gsl_dht_k_sample(const gsl_dht * t, int n)`
@@ -93,12 +93,12 @@ GSL documentation:
 > ${{j_{\nu,n+1}} / X}$.
 
 """
-function gsl_dht_k_sample(t, n)
+function dht_k_sample(t, n)
     ccall((:gsl_dht_k_sample, libgsl), Cdouble, (Ref{gsl_dht}, Cint), t, n)
 end
 
 @doc md"""
-    gsl_dht_free(t) -> Cvoid
+    dht_free(t) -> Cvoid
 
 C signature:
 `void gsl_dht_free(gsl_dht * t)`
@@ -110,12 +110,12 @@ GSL documentation:
 > This function frees the transform t.
 
 """
-function gsl_dht_free(t)
+function dht_free(t)
     ccall((:gsl_dht_free, libgsl), Cvoid, (Ptr{gsl_dht},), t)
 end
 
 @doc md"""
-    gsl_dht_apply(t, f_in, f_out) -> Cint
+    dht_apply(t, f_in, f_out) -> Cint
 
 C signature:
 `int gsl_dht_apply(const gsl_dht * t, double * f_in, double * f_out)`
@@ -132,7 +132,7 @@ GSL documentation:
 > multiplied by $(X^2/j_{\nu,M})^2$, up to numerical errors.
 
 """
-function gsl_dht_apply(t, f_in, f_out)
+function dht_apply(t, f_in, f_out)
     ccall((:gsl_dht_apply, libgsl), Cint, (Ref{gsl_dht}, Ref{Cdouble}, Ref{Cdouble}), t, f_in, f_out)
 end
 
