@@ -23,7 +23,7 @@ using Test
     specfun_compare("zeta", gsl_sf_zeta, zeta, x)
 
     @testset "Airy functions" begin
-        specfun_compare("airy ai", x -> gsl_sf_airy_Ai(x, GSL_PREC_DOUBLE), airyai, x, rtol=5e-15)
+        specfun_compare("airy ai", x -> gsl_sf_airy_Ai(x, GSL_PREC_DOUBLE), airyai, x, rtol=1e-14)
         specfun_compare("airy ai prime", x -> gsl_sf_airy_Ai_deriv(x, GSL_PREC_DOUBLE), airyaiprime, x, rtol=1e-14)
     end
 
