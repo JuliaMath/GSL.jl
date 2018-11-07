@@ -2,10 +2,10 @@
 # 8.2.3 Example programs for blocks #
 #####################################
 
-using GSL
+import GSL
 
-b=block_alloc(100)
-pb=unsafe_ref(b)
-println("length of block = ", int(pb.size))
+b=GSL.block_alloc(100)
+pb=unsafe_load(b)
+println("length of block = ", Int(pb.size))
 println("block data address = ", pb.data)
-block_free(b)
+GSL.block_free(b)
