@@ -27,7 +27,7 @@ GSL documentation:
 ### `gsl_multiroot_fsolver * gsl_multiroot_fsolver_alloc (const gsl_multiroot_fsolver_type * T, size_t n)`
 
 > This function returns a pointer to a newly allocated instance of a
-> solver of type T for a system of n dimensions. For example, the
+> solver of type `T` for a system of `n` dimensions. For example, the
 > following code creates an instance of a hybrid solver, to solve a
 > 3-dimensional system of equations:
 >
@@ -36,7 +36,7 @@ GSL documentation:
 >
 > If there is insufficient memory to create the solver then the function
 > returns a null pointer and the error handler is invoked with an error
-> code of GSL\_ENOMEM.
+> code of `GSL_ENOMEM`.
 
 """
 function multiroot_fsolver_alloc(T, n)
@@ -55,7 +55,7 @@ GSL documentation:
 
 > void gsl\_multiroot\_fdfsolver\_free (gsl\_multiroot\_fdfsolver \* s)
 
-> These functions free all the memory associated with the solver s.
+> These functions free all the memory associated with the solver `s`.
 
 """
 function multiroot_fsolver_free(s)
@@ -75,10 +75,10 @@ GSL documentation:
 > int gsl\_multiroot\_fdfsolver\_set (gsl\_multiroot\_fdfsolver \* s,
 > gsl\_multiroot\_function\_fdf \* fdf, const gsl\_vector \* x)
 
-> These functions set, or reset, an existing solver s to use the
-> function f or function and derivative fdf, and the initial guess x.
-> Note that the initial position is copied from x, this argument is not
-> modified by subsequent iterations.
+> These functions set, or reset, an existing solver `s` to use the
+> function `f` or function and derivative `fdf`, and the initial guess
+> `x`. Note that the initial position is copied from `x`, this argument
+> is not modified by subsequent iterations.
 
 """
 function multiroot_fsolver_set(s, f, x)
@@ -98,24 +98,23 @@ GSL documentation:
 > int gsl\_multiroot\_fdfsolver\_iterate (gsl\_multiroot\_fdfsolver \*
 > s)
 
-> These functions perform a single iteration of the solver s. If the
+> These functions perform a single iteration of the solver `s`. If the
 > iteration encounters an unexpected problem then an error code will be
 > returned,
 >
-> GSL\_EBADFUNC
+> `GSL_EBADFUNC`
 >
 > > the iteration encountered a singular point where the function or its
-> > derivative evaluated to `Inf`{.sourceCode} or `NaN`{.sourceCode}.
+> > derivative evaluated to `Inf` or `NaN`.
 >
-> GSL\_ENOPROG
+> `GSL_ENOPROG`
 >
 > > the iteration is not making any progress, preventing the algorithm
 > > from continuing.
 
-The solver maintains a current best estimate of the root
-`s->x`{.sourceCode} and its function value `s->f`{.sourceCode} at all
-times. This information can be accessed with the following auxiliary
-functions,
+The solver maintains a current best estimate of the root `s->x` and its
+function value `s->f` at all times. This information can be accessed
+with the following auxiliary functions,
 
 """
 function multiroot_fsolver_iterate(s)
@@ -140,7 +139,7 @@ GSL documentation:
 >
 >     printf ("s is a '%s' solver\n", gsl_multiroot_fdfsolver_name (s));
 >
-> would print something like `s is a 'newton' solver`{.sourceCode}.
+> would print something like `s is a 'newton' solver`.
 
 """
 function multiroot_fsolver_name(s)
@@ -161,7 +160,7 @@ GSL documentation:
 > gsl\_multiroot\_fdfsolver \* s)
 
 > These functions return the current estimate of the root for the solver
-> s, given by `s->x`{.sourceCode}.
+> `s`, given by `s->x`.
 
 """
 function multiroot_fsolver_root(s)
@@ -181,8 +180,8 @@ GSL documentation:
 > gsl\_vector \* gsl\_multiroot\_fdfsolver\_dx (const
 > gsl\_multiroot\_fdfsolver \* s)
 
-> These functions return the last step $dx$ taken by the solver s, given
-> by `s->dx`{.sourceCode}.
+> These functions return the last step $dx$ taken by the solver `s`,
+> given by `s->dx`.
 
 """
 function multiroot_fsolver_dx(s)
@@ -203,7 +202,7 @@ GSL documentation:
 > gsl\_multiroot\_fdfsolver \* s)
 
 > These functions return the function value $f(x)$ at the current
-> estimate of the root for the solver s, given by `s->f`{.sourceCode}.
+> estimate of the root for the solver `s`, given by `s->f`.
 
 """
 function multiroot_fsolver_f(s)
@@ -221,16 +220,16 @@ GSL documentation:
 ### `gsl_multiroot_fdfsolver * gsl_multiroot_fdfsolver_alloc (const gsl_multiroot_fdfsolver_type * T, size_t n)`
 
 > This function returns a pointer to a newly allocated instance of a
-> derivative solver of type T for a system of n dimensions. For example,
-> the following code creates an instance of a Newton-Raphson solver, for
-> a 2-dimensional system of equations:
+> derivative solver of type `T` for a system of `n` dimensions. For
+> example, the following code creates an instance of a Newton-Raphson
+> solver, for a 2-dimensional system of equations:
 >
 >     const gsl_multiroot_fdfsolver_type * T = gsl_multiroot_fdfsolver_newton;
 >     gsl_multiroot_fdfsolver * s = gsl_multiroot_fdfsolver_alloc (T, 2);
 >
 > If there is insufficient memory to create the solver then the function
 > returns a null pointer and the error handler is invoked with an error
-> code of GSL\_ENOMEM.
+> code of `GSL_ENOMEM`.
 
 """
 function multiroot_fdfsolver_alloc(T, n)
@@ -318,11 +317,19 @@ GSL documentation:
 ### `int gsl_multiroot_test_delta (const gsl_vector * dx, const gsl_vector * x, double epsabs, double epsrel)`
 
 > This function tests for the convergence of the sequence by comparing
-> the last step dx with the absolute error epsabs and relative error
-> epsrel to the current position x. The test returns GSL\_SUCCESS if the
-> following condition is achieved,
+> the last step `dx` with the absolute error `epsabs` and relative error
+> `epsrel` to the current position `x`. The test returns `GSL_SUCCESS`
+> if the following condition is achieved,
 >
-> for each component of x and returns GSL\_CONTINUE otherwise.
+> not texinfo
+>
+> $$|dx_i| < \hbox{\it epsabs} + \hbox{\it epsrel\/}\, |x_i|$$
+>
+> texinfo
+>
+>     |dx_i| < epsabs + epsrel |x_i|
+>
+> for each component of `x` and returns `GSL_CONTINUE` otherwise.
 
 """
 function multiroot_test_delta(dx, x, epsabs, epsrel)
@@ -339,11 +346,19 @@ GSL documentation:
 
 ### `int gsl_multiroot_test_residual (const gsl_vector * f, double epsabs)`
 
-> This function tests the residual value f against the absolute error
-> bound epsabs. The test returns GSL\_SUCCESS if the following condition
-> is achieved,
+> This function tests the residual value `f` against the absolute error
+> bound `epsabs`. The test returns `GSL_SUCCESS` if the following
+> condition is achieved,
 >
-> and returns GSL\_CONTINUE otherwise. This criterion is suitable for
+> not texinfo
+>
+> $$\sum_i |f_i| < \hbox{\it epsabs}$$
+>
+> texinfo
+>
+>     \sum_i |f_i| < epsabs
+>
+> and returns `GSL_CONTINUE` otherwise. This criterion is suitable for
 > situations where the precise location of the root, $x$, is unimportant
 > provided a value can be found where the residual is small enough.
 

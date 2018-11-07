@@ -17,7 +17,7 @@ GSL documentation:
 ### `gsl_bspline_workspace * gsl_bspline_alloc (const size_t k, const size_t nbreak)`
 
 > This function allocates a workspace for computing B-splines of order
-> k. The number of breakpoints is given by nbreak. This leads to
+> `k`. The number of breakpoints is given by `nbreak`. This leads to
 > $n = nbreak + k - 2$ basis functions. Cubic B-splines are specified by
 > $k = 4$. The size of the workspace is $O(2k^2 + 5k + nbreak)$.
 
@@ -36,7 +36,7 @@ GSL documentation:
 
 ### `void gsl_bspline_free (gsl_bspline_workspace * w)`
 
-> This function frees the memory associated with the workspace w.
+> This function frees the memory associated with the workspace `w`.
 
 """
 function bspline_free(w)
@@ -121,7 +121,7 @@ GSL documentation:
 ### `int gsl_bspline_knots (const gsl_vector * breakpts, gsl_bspline_workspace * w)`
 
 > This function computes the knots associated with the given breakpoints
-> and stores them internally in `w->knots`{.sourceCode}.
+> and stores them internally in `w->knots`.
 
 """
 function bspline_knots(breakpts, w)
@@ -140,8 +140,7 @@ GSL documentation:
 
 > This function assumes uniformly spaced breakpoints on $[a,b]$ and
 > constructs the corresponding knot vector using the previously
-> specified nbreak parameter. The knots are stored in
-> `w->knots`{.sourceCode}.
+> specified `nbreak` parameter. The knots are stored in `w->knots`.
 
 """
 function bspline_knots_uniform(a, b, w)
@@ -168,10 +167,10 @@ GSL documentation:
 
 ### `int gsl_bspline_eval (const double x, gsl_vector * B, gsl_bspline_workspace * w)`
 
-> This function evaluates all B-spline basis functions at the position x
-> and stores them in the vector B, so that the $i$-th element is
-> $B_i(x)$. The vector B must be of length $n = nbreak + k - 2$. This
-> value may also be obtained by calling gsl\_bspline\_ncoeffs. Computing
+> This function evaluates all B-spline basis functions at the position
+> `x` and stores them in the vector `B`, so that the $i$-th element is
+> $B_i(x)$. The vector `B` must be of length $n = nbreak + k - 2$. This
+> value may also be obtained by calling `gsl_bspline_ncoeffs`. Computing
 > all the basis functions at once is more efficient than computing them
 > individually, due to the nature of the defining recurrence relation.
 
@@ -191,13 +190,13 @@ GSL documentation:
 ### `int gsl_bspline_eval_nonzero (const double x, gsl_vector * Bk, size_t * istart, size_t * iend, gsl_bspline_workspace * w)`
 
 > This function evaluates all potentially nonzero B-spline basis
-> functions at the position x and stores them in the vector Bk, so that
-> the $i$-th element is $B_{(istart+i)}(x)$. The last element of Bk is
-> $B_{iend}(x)$. The vector Bk must be of length $k$. By returning only
-> the nonzero basis functions, this function allows quantities involving
-> linear combinations of the $B_i(x)$ to be computed without unnecessary
-> terms (such linear combinations occur, for example, when evaluating an
-> interpolated function).
+> functions at the position `x` and stores them in the vector `Bk`, so
+> that the $i$-th element is $B_{(istart+i)}(x)$. The last element of
+> `Bk` is $B_{iend}(x)$. The vector `Bk` must be of length $k$. By
+> returning only the nonzero basis functions, this function allows
+> quantities involving linear combinations of the $B_i(x)$ to be
+> computed without unnecessary terms (such linear combinations occur,
+> for example, when evaluating an interpolated function).
 
 """
 function bspline_eval_nonzero(x, Bk, istart, iend, w)
@@ -215,12 +214,12 @@ GSL documentation:
 ### `int gsl_bspline_deriv_eval (const double x, const size_t nderiv, gsl_matrix * dB, gsl_bspline_workspace * w)`
 
 > This function evaluates all B-spline basis function derivatives of
-> orders $0$ through nderiv (inclusive) at the position x and stores
-> them in the matrix dB. The $(i,j)$-th element of dB is
-> $d^jB_i(x)/dx^j$. The matrix dB must be of size $n = nbreak + k - 2$
+> orders $0$ through `nderiv` (inclusive) at the position `x` and stores
+> them in the matrix `dB`. The $(i,j)$-th element of `dB` is
+> $d^jB_i(x)/dx^j$. The matrix `dB` must be of size $n = nbreak + k - 2$
 > by $nderiv + 1$. The value $n$ may also be obtained by calling
-> gsl\_bspline\_ncoeffs. Note that function evaluations are included as
-> the zeroth order derivatives in dB. Computing all the basis function
+> `gsl_bspline_ncoeffs`. Note that function evaluations are included as
+> the zeroth order derivatives in `dB`. Computing all the basis function
 > derivatives at once is more efficient than computing them
 > individually, due to the nature of the defining recurrence relation.
 
@@ -240,13 +239,13 @@ GSL documentation:
 ### `int gsl_bspline_deriv_eval_nonzero (const double x, const size_t nderiv, gsl_matrix * dB, size_t * istart, size_t * iend, gsl_bspline_workspace * w)`
 
 > This function evaluates all potentially nonzero B-spline basis
-> function derivatives of orders $0$ through nderiv (inclusive) at the
-> position x and stores them in the matrix dB. The $(i,j)$-th element of
-> dB is $d^jB_{(istart+i)}(x)/dx^j$. The last row of dB contains
-> $d^jB_{iend}(x)/dx^j$. The matrix dB must be of size $k$ by at least
-> $nderiv + 1$. Note that function evaluations are included as the
-> zeroth order derivatives in dB. By returning only the nonzero basis
-> functions, this function allows quantities involving linear
+> function derivatives of orders $0$ through `nderiv` (inclusive) at the
+> position `x` and stores them in the matrix `dB`. The $(i,j)$-th
+> element of `dB` is $d^jB_{(istart+i)}(x)/dx^j$. The last row of `dB`
+> contains $d^jB_{iend}(x)/dx^j$. The matrix `dB` must be of size $k$ by
+> at least $nderiv + 1$. Note that function evaluations are included as
+> the zeroth order derivatives in `dB`. By returning only the nonzero
+> basis functions, this function allows quantities involving linear
 > combinations of the $B_i(x)$ and their derivatives to be computed
 > without unnecessary terms.
 

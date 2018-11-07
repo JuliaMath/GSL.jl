@@ -16,8 +16,8 @@ GSL documentation:
 
 ### `gsl_wavelet * gsl_wavelet_alloc (const gsl_wavelet_type * T, size_t k)`
 
-> This function allocates and initializes a wavelet object of type T.
-> The parameter k selects the specific member of the wavelet family. A
+> This function allocates and initializes a wavelet object of type `T`.
+> The parameter `k` selects the specific member of the wavelet family. A
 > null pointer is returned if insufficient memory is available or if a
 > unsupported member is selected.
 
@@ -38,7 +38,7 @@ GSL documentation:
 
 ### `void gsl_wavelet_free (gsl_wavelet * w)`
 
-> This function frees the wavelet object w.
+> This function frees the wavelet object `w`.
 
 """
 function wavelet_free(w)
@@ -56,7 +56,7 @@ GSL documentation:
 ### `const char * gsl_wavelet_name (const gsl_wavelet * w)`
 
 > This function returns a pointer to the name of the wavelet family for
-> w.
+> `w`.
 
 """
 function wavelet_name(w)
@@ -74,11 +74,11 @@ GSL documentation:
 ### `gsl_wavelet_workspace * gsl_wavelet_workspace_alloc (size_t n)`
 
 > This function allocates a workspace for the discrete wavelet
-> transform. To perform a one-dimensional transform on n elements, a
-> workspace of size n must be provided. For two-dimensional transforms
-> of n-by-n matrices it is sufficient to allocate a workspace of size n,
-> since the transform operates on individual rows and columns. A null
-> pointer is returned if insufficient memory is available.
+> transform. To perform a one-dimensional transform on `n` elements, a
+> workspace of size `n` must be provided. For two-dimensional transforms
+> of `n`-by-`n` matrices it is sufficient to allocate a workspace of
+> size `n`, since the transform operates on individual rows and columns.
+> A null pointer is returned if insufficient memory is available.
 
 """
 function wavelet_workspace_alloc(n)
@@ -95,7 +95,7 @@ GSL documentation:
 
 ### `void gsl_wavelet_workspace_free (gsl_wavelet_workspace * work)`
 
-> This function frees the allocated workspace work.
+> This function frees the allocated workspace `work`.
 
 """
 function wavelet_workspace_free(work)
@@ -118,16 +118,16 @@ GSL documentation:
 > \* data, size\_t stride, size\_t n, gsl\_wavelet\_workspace \* work)
 
 > These functions compute in-place forward and inverse discrete wavelet
-> transforms of length n with stride stride on the array data. The
-> length of the transform n is restricted to powers of two. For the
-> `transform`{.sourceCode} version of the function the argument dir can
-> be either `forward`{.sourceCode} ($+1$) or `backward`{.sourceCode}
-> ($-1$). A workspace work of length n must be provided.
+> transforms of length `n` with stride `stride` on the array `data`. The
+> length of the transform `n` is restricted to powers of two. For the
+> `transform` version of the function the argument `dir` can be either
+> `forward` ($+1$) or `backward` ($-1$). A workspace `work` of length
+> `n` must be provided.
 >
 > For the forward transform, the elements of the original array are
 > replaced by the discrete wavelet transform $f_i \rightarrow w_{j,k}$
-> in a packed triangular storage layout, where j is the index of the
-> level $j = 0 \dots J-1$ and k is the index of the coefficient within
+> in a packed triangular storage layout, where `j` is the index of the
+> level $j = 0 \dots J-1$ and `k` is the index of the coefficient within
 > each level, $k = 0 \dots 2^j - 1$. The total number of levels is
 > $J = \log_2(n)$. The output data has the following form,
 >
@@ -138,9 +138,9 @@ GSL documentation:
 > backward transform inverts these coefficients to obtain the original
 > data.
 >
-> These functions return a status of GSL\_SUCCESS upon successful
-> completion. GSL\_EINVAL is returned if n is not an integer power of 2
-> or if insufficient workspace is provided.
+> These functions return a status of `GSL_SUCCESS` upon successful
+> completion. `GSL_EINVAL` is returned if `n` is not an integer power of
+> 2 or if insufficient workspace is provided.
 
 """
 function wavelet_transform(w, data, stride, n, dir, work)

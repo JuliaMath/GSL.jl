@@ -150,11 +150,11 @@ GSL documentation:
 > gsl\_vector\_complex \* v)
 
 > These functions return a vector view of the real parts of the complex
-> vector v.
+> vector `v`.
 >
-> The function gsl\_vector\_complex\_const\_real is equivalent to
-> gsl\_vector\_complex\_real but can be used for vectors which are
-> declared `const`{.sourceCode}.
+> The function `gsl_vector_complex_const_real` is equivalent to
+> `gsl_vector_complex_real` but can be used for vectors which are
+> declared `const`.
 
 """
 function vector_complex_real(v)
@@ -175,11 +175,11 @@ GSL documentation:
 > gsl\_vector\_complex \* v)
 
 > These functions return a vector view of the imaginary parts of the
-> complex vector v.
+> complex vector `v`.
 >
-> The function gsl\_vector\_complex\_const\_imag is equivalent to
-> gsl\_vector\_complex\_imag but can be used for vectors which are
-> declared `const`{.sourceCode}.
+> The function `gsl_vector_complex_const_imag` is equivalent to
+> `gsl_vector_complex_imag` but can be used for vectors which are
+> declared `const`.
 
 """
 function vector_complex_imag(v)

@@ -16,8 +16,8 @@ GSL documentation:
 
 ### `int gsl_permute (const size_t * p, double * data, size_t stride, size_t n)`
 
-> This function applies the permutation p to the array data of size n
-> with stride stride.
+> This function applies the permutation `p` to the array `data` of size
+> `n` with stride `stride`.
 
 """
 function permute(p, data, stride, n)
@@ -34,8 +34,8 @@ GSL documentation:
 
 ### `int gsl_permute_inverse (const size_t * p, double * data, size_t stride, size_t n)`
 
-> This function applies the inverse of the permutation p to the array
-> data of size n with stride stride.
+> This function applies the inverse of the permutation `p` to the array
+> `data` of size `n` with stride `stride`.
 
 """
 function permute_inverse(p, data, stride, n)

@@ -30,7 +30,7 @@ GSL documentation:
 > gsl\_sf\_result \* result)
 
 > These routines evaluate the probabilists' Hermite polynomial $He_n(x)$
-> of order n at position x.
+> of order `n` at position `x`.
 
 """
 function sf_hermite_prob(n, x)
@@ -60,8 +60,8 @@ GSL documentation:
 > int gsl\_sf\_hermite\_prob\_der\_e (const int m, const int n, const
 > double x, gsl\_sf\_result \* result)
 
-> These routines evaluate the m-th derivative of the probabilists'
-> Hermite polynomial $He_n(x)$ of order n at position x.
+> These routines evaluate the `m`-th derivative of the probabilists'
+> Hermite polynomial $He_n(x)$ of order `n` at position `x`.
 
 """
 function sf_hermite_prob_der(m, n, x)
@@ -92,7 +92,7 @@ GSL documentation:
 > gsl\_sf\_result \* result)
 
 > These routines evaluate the physicists' Hermite polynomial $H_n(x)$ of
-> order n at position x.
+> order `n` at position `x`.
 
 """
 function sf_hermite_phys(n, x)
@@ -122,8 +122,8 @@ GSL documentation:
 > int gsl\_sf\_hermite\_phys\_der\_e (const int m, const int n, const
 > double x, gsl\_sf\_result \* result)
 
-> These routines evaluate the m-th derivative of the physicists' Hermite
-> polynomial $H_n(x)$ of order n at position x.
+> These routines evaluate the `m`-th derivative of the physicists'
+> Hermite polynomial $H_n(x)$ of order `n` at position `x`.
 
 """
 function sf_hermite_phys_der(m, n, x)
@@ -153,8 +153,8 @@ GSL documentation:
 > int gsl\_sf\_hermite\_func\_e (const int n, const double x,
 > gsl\_sf\_result \* result)
 
-> These routines evaluate the Hermite function $\psi_n(x)$ of order n at
-> position x.
+> These routines evaluate the Hermite function $\psi_n(x)$ of order `n`
+> at position `x`.
 
 """
 function sf_hermite_func(n, x)
@@ -172,8 +172,8 @@ GSL documentation:
 ### `int gsl_sf_hermite_prob_array (const int nmax, const double x, double * result_array)`
 
 > This routine evaluates all probabilists' Hermite polynomials $He_n(x)$
-> up to order nmax at position x. The results are stored in
-> result\_array.
+> up to order `nmax` at position `x`. The results are stored in
+> `result_array`.
 
 """
 function sf_hermite_prob_array(nmax, x, result_array)
@@ -190,9 +190,9 @@ GSL documentation:
 
 ### `int gsl_sf_hermite_prob_array_der (const int m, const int nmax, const double x, double * result_array)`
 
-> This routine evaluates the m-th derivative of all probabilists'
-> Hermite polynomials $He_n(x)$ up to order nmax at position x. The
-> results are stored in result\_array.
+> This routine evaluates the `m`-th derivative of all probabilists'
+> Hermite polynomials $He_n(x)$ up to order `nmax` at position `x`. The
+> results are stored in `result_array`.
 
 """
 function sf_hermite_prob_array_der(m, nmax, x, result_array)
@@ -210,8 +210,9 @@ GSL documentation:
 ### `int gsl_sf_hermite_prob_der_array (const int mmax, const int n, const double x, double * result_array)`
 
 > This routine evaluates all derivatives (starting from 0) up to the
-> mmax-th derivative of the probabilists' Hermite polynomial of order n
-> $He_n(x)$ at position x. The results are stored in result\_array.
+> `mmax`-th derivative of the probabilists' Hermite polynomial of order
+> `n` $He_n(x)$ at position `x`. The results are stored in
+> `result_array`.
 
 """
 function sf_hermite_prob_der_array(mmax, n, x, result_array)
@@ -261,7 +262,8 @@ GSL documentation:
 ### `int gsl_sf_hermite_phys_array (const int nmax, const double x, double * result_array)`
 
 > This routine evaluates all physicists' Hermite polynomials $H_n$ up to
-> order nmax at position x. The results are stored in result\_array.
+> order `nmax` at position `x`. The results are stored in
+> `result_array`.
 
 """
 function sf_hermite_phys_array(nmax, x, result_array)
@@ -278,9 +280,9 @@ GSL documentation:
 
 ### `int gsl_sf_hermite_phys_array_der (const int m, const int nmax, const double x, double * result_array)`
 
-> This routine evaluates the m-th derivative of all physicists' Hermite
-> polynomials $H_n$ up to order nmax at position x. The results are
-> stored in result\_array.
+> This routine evaluates the `m`-th derivative of all physicists'
+> Hermite polynomials $H_n$ up to order `nmax` at position `x`. The
+> results are stored in `result_array`.
 
 """
 function sf_hermite_phys_array_der(m, nmax, x, result_array)
@@ -298,8 +300,8 @@ GSL documentation:
 ### `int gsl_sf_hermite_phys_der_array (const int mmax, const int n, const double x, double * result_array)`
 
 > This routine evaluates all derivatives (starting from 0) up to the
-> mmax-th derivative of the physicists' Hermite polynomial of order n
-> $H_n$ at position x. The results are stored in result\_array.
+> `mmax`-th derivative of the physicists' Hermite polynomial of order
+> `n` $H_n$ at position `x`. The results are stored in `result_array`.
 
 """
 function sf_hermite_phys_der_array(mmax, n, x, result_array)
@@ -349,7 +351,7 @@ GSL documentation:
 ### `int gsl_sf_hermite_func_array (const int nmax, const double x, double * result_array)`
 
 > This routine evaluates all Hermite functions $\psi_n(x)$ up to order
-> nmax at position x. The results are stored in result\_array.
+> `nmax` at position `x`. The results are stored in `result_array`.
 
 """
 function sf_hermite_func_array(nmax, x, result_array)
@@ -411,8 +413,8 @@ GSL documentation:
 > int gsl\_sf\_hermite\_func\_der\_e (const int m, const int n, const
 > double x, gsl\_sf\_result \* result)
 
-> These routines evaluate the m-th derivative of the Hermite function
-> $\psi_n(x)$ of order n at position x.
+> These routines evaluate the `m`-th derivative of the Hermite function
+> $\psi_n(x)$ of order `n` at position `x`.
 
 """
 function sf_hermite_func_der(m, n, x)
@@ -442,8 +444,8 @@ GSL documentation:
 > int gsl\_sf\_hermite\_prob\_zero\_e (const int n, const int s,
 > gsl\_sf\_result \* result)
 
-> These routines evaluate the s-th zero of the probabilists' Hermite
-> polynomial $He_n(x)$ of order n.
+> These routines evaluate the `s`-th zero of the probabilists' Hermite
+> polynomial $He_n(x)$ of order `n`.
 
 """
 function sf_hermite_prob_zero(n, s)
@@ -473,8 +475,8 @@ GSL documentation:
 > int gsl\_sf\_hermite\_phys\_zero\_e (const int n, const int s,
 > gsl\_sf\_result \* result)
 
-> These routines evaluate the s-th zero of the physicists' Hermite
-> polynomial $H_n(x)$ of order n.
+> These routines evaluate the `s`-th zero of the physicists' Hermite
+> polynomial $H_n(x)$ of order `n`.
 
 """
 function sf_hermite_phys_zero(n, s)

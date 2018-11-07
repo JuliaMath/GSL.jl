@@ -17,13 +17,13 @@ GSL documentation:
 ### `int gsl_monte_miser_integrate (gsl_monte_function * f, const double xl[], const double xu[], size_t dim, size_t calls, gsl_rng * r, gsl_monte_miser_state * s, double * result, double * abserr)`
 
 > This routines uses the MISER Monte Carlo algorithm to integrate the
-> function f over the dim-dimensional hypercubic region defined by the
-> lower and upper limits in the arrays xl and xu, each of size dim. The
-> integration uses a fixed number of function calls calls, and obtains
-> random sampling points using the random number generator r. A
-> previously allocated workspace s must be supplied. The result of the
-> integration is returned in result, with an estimated absolute error
-> abserr.
+> function `f` over the `dim`-dimensional hypercubic region defined by
+> the lower and upper limits in the arrays `xl` and `xu`, each of size
+> `dim`. The integration uses a fixed number of function calls `calls`,
+> and obtains random sampling points using the random number generator
+> `r`. A previously allocated workspace `s` must be supplied. The result
+> of the integration is returned in `result`, with an estimated absolute
+> error `abserr`.
 
 """
 function monte_miser_integrate(f, xl, xh, dim, calls, r, state, result, abserr)
@@ -41,7 +41,7 @@ GSL documentation:
 ### `gsl_monte_miser_state * gsl_monte_miser_alloc (size_t dim)`
 
 > This function allocates and initializes a workspace for Monte Carlo
-> integration in dim dimensions. The workspace is used to maintain the
+> integration in `dim` dimensions. The workspace is used to maintain the
 > state of the integration.
 
 """
@@ -78,7 +78,8 @@ GSL documentation:
 
 ### `void gsl_monte_miser_free (gsl_monte_miser_state * s)`
 
-> This function frees the memory associated with the integrator state s.
+> This function frees the memory associated with the integrator state
+> `s`.
 
 The MISER algorithm has several configurable parameters which can be
 changed using the following two functions.
@@ -99,7 +100,7 @@ GSL documentation:
 ### `void gsl_monte_miser_params_get (const gsl_monte_miser_state * s, gsl_monte_miser_params * params)`
 
 > This function copies the parameters of the integrator state into the
-> user-supplied params structure.
+> user-supplied `params` structure.
 
 """
 function monte_miser_params_get(state, params)
@@ -117,13 +118,13 @@ GSL documentation:
 ### `void gsl_monte_miser_params_set (gsl_monte_miser_state * s, const gsl_monte_miser_params * params)`
 
 > This function sets the integrator parameters based on values provided
-> in the params structure.
+> in the `params` structure.
 
 Typically the values of the parameters are first read using
-gsl\_monte\_miser\_params\_get, the necessary changes are made to the
-fields of the params structure, and the values are copied back into the
-integrator state using gsl\_monte\_miser\_params\_set. The functions use
-the gsl\_monte\_miser\_params structure which contains the following
+`gsl_monte_miser_params_get`, the necessary changes are made to the
+fields of the `params` structure, and the values are copied back into
+the integrator state using `gsl_monte_miser_params_set`. The functions
+use the `gsl_monte_miser_params` structure which contains the following
 fields:
 
 """

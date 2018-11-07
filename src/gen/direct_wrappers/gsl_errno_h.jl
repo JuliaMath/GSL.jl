@@ -27,13 +27,12 @@ GSL documentation:
 ### `const char * gsl_strerror (const int gsl_errno)`
 
 > This function returns a pointer to a string describing the error code
-> gsl\_errno. For example:
+> `gsl_errno`. For example:
 >
 >     printf ("error: %s\n", gsl_strerror (status));
 >
-> would print an error message like
-> `error: output range error`{.sourceCode} for a status value of
-> GSL\_ERANGE.
+> would print an error message like `error: output range error` for a
+> status value of `GSL_ERANGE`.
 
 """
 function strerror(gsl_errno)
@@ -50,7 +49,7 @@ GSL documentation:
 
 ### `gsl_error_handler_t * gsl_set_error_handler (gsl_error_handler_t * new_handler)`
 
-> This function sets a new error handler, new\_handler, for the GSL
+> This function sets a new error handler, `new_handler`, for the GSL
 > library routines. The previous handler is returned (so that you can
 > restore it later). Note that the pointer to a user defined error
 > handler function is stored in a static variable, so there can be only
@@ -68,8 +67,8 @@ GSL documentation:
 >     /* restore original handler */
 >     gsl_set_error_handler (old_handler); 
 >
-> To use the default behavior (abort on error) set the error handler to
-> `NULL`{.sourceCode}:
+> To use the default behavior (`abort` on error) set the error handler
+> to `NULL`:
 >
 >     old_handler = gsl_set_error_handler (NULL); 
 
@@ -95,8 +94,8 @@ GSL documentation:
 > handler is returned (so that you can restore it later).
 
 The error behavior can be changed for specific applications by
-recompiling the library with a customized definition of the
-`GSL_ERROR`{.sourceCode} macro in the file gsl\_errno.h.
+recompiling the library with a customized definition of the `GSL_ERROR`
+macro in the file `gsl_errno.h`.
 
 """
 function set_error_handler_off()

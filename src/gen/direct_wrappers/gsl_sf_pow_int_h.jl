@@ -28,7 +28,7 @@ GSL documentation:
 
 > int gsl\_sf\_pow\_int\_e (double x, int n, gsl\_sf\_result \* result)
 
-> These routines compute the power $x^n$ for integer n. The power is
+> These routines compute the power $x^n$ for integer `n`. The power is
 > computed using the minimum number of multiplications. For example,
 > $x^8$ is computed as $((x^2)^2)^2$, requiring only 3 multiplications.
 > For reasons of efficiency, these functions do not check for overflow

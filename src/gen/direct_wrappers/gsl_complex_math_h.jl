@@ -17,8 +17,8 @@ GSL documentation:
 ### `gsl_complex gsl_complex_polar (double r, double theta)`
 
 > This function returns the complex number $z = r \exp(i \theta) = r
-> (\cos(\theta) + i \sin(\theta))$ from the polar representation (r,
-> theta).
+> (\cos(\theta) + i \sin(\theta))$ from the polar representation (`r`,
+> `theta`).
 
 """
 function complex_polar(r, theta)
@@ -37,7 +37,7 @@ GSL documentation:
 
 > This function uses the rectangular Cartesian components $(x,y)$ to
 > return the complex number $z = x + i y$. An inline version of this
-> function is used when HAVE\_INLINE is defined.
+> function is used when `HAVE_INLINE` is defined.
 
 """
 function complex_rect(x, y)
@@ -54,7 +54,7 @@ GSL documentation:
 
 ### `double gsl_complex_abs (gsl_complex z)`
 
-> This function returns the magnitude of the complex number z, $|z|$.
+> This function returns the magnitude of the complex number `z`, $|z|$.
 
 """
 function complex_abs(z)
@@ -71,7 +71,7 @@ GSL documentation:
 
 ### `double gsl_complex_abs2 (gsl_complex z)`
 
-> This function returns the squared magnitude of the complex number z,
+> This function returns the squared magnitude of the complex number `z`,
 > $|z|^2$.
 
 """
@@ -90,10 +90,10 @@ GSL documentation:
 ### `double gsl_complex_logabs (gsl_complex z)`
 
 > This function returns the natural logarithm of the magnitude of the
-> complex number z, $\log|z|$. It allows an accurate evaluation of
+> complex number `z`, $\log|z|$. It allows an accurate evaluation of
 > $\log|z|$ when $|z|$ is close to one. The direct evaluation of
-> `log(gsl_complex_abs(z))`{.sourceCode} would lead to a loss of
-> precision in this case.
+> `log(gsl_complex_abs(z))` would lead to a loss of precision in this
+> case.
 
 """
 function complex_logabs(z)
@@ -110,7 +110,8 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_add (gsl_complex a, gsl_complex b)`
 
-> This function returns the sum of the complex numbers a and b, $z=a+b$.
+> This function returns the sum of the complex numbers `a` and `b`,
+> $z=a+b$.
 
 """
 function complex_add(a, b)
@@ -127,8 +128,8 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_sub (gsl_complex a, gsl_complex b)`
 
-> This function returns the difference of the complex numbers a and b,
-> $z=a-b$.
+> This function returns the difference of the complex numbers `a` and
+> `b`, $z=a-b$.
 
 """
 function complex_sub(a, b)
@@ -145,7 +146,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_mul (gsl_complex a, gsl_complex b)`
 
-> This function returns the product of the complex numbers a and b,
+> This function returns the product of the complex numbers `a` and `b`,
 > $z=ab$.
 
 """
@@ -163,7 +164,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_div (gsl_complex a, gsl_complex b)`
 
-> This function returns the quotient of the complex numbers a and b,
+> This function returns the quotient of the complex numbers `a` and `b`,
 > $z=a/b$.
 
 """
@@ -181,8 +182,8 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_add_real (gsl_complex a, double x)`
 
-> This function returns the sum of the complex number a and the real
-> number x, $z=a+x$.
+> This function returns the sum of the complex number `a` and the real
+> number `x`, $z=a+x$.
 
 """
 function complex_add_real(a, x)
@@ -199,8 +200,8 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_sub_real (gsl_complex a, double x)`
 
-> This function returns the difference of the complex number a and the
-> real number x, $z=a-x$.
+> This function returns the difference of the complex number `a` and the
+> real number `x`, $z=a-x$.
 
 """
 function complex_sub_real(a, x)
@@ -217,8 +218,8 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_mul_real (gsl_complex a, double x)`
 
-> This function returns the product of the complex number a and the real
-> number x, $z=ax$.
+> This function returns the product of the complex number `a` and the
+> real number `x`, $z=ax$.
 
 """
 function complex_mul_real(a, x)
@@ -235,8 +236,8 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_div_real (gsl_complex a, double x)`
 
-> This function returns the quotient of the complex number a and the
-> real number x, $z=a/x$.
+> This function returns the quotient of the complex number `a` and the
+> real number `x`, $z=a/x$.
 
 """
 function complex_div_real(a, x)
@@ -253,7 +254,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_add_imag (gsl_complex a, double y)`
 
-> This function returns the sum of the complex number a and the
+> This function returns the sum of the complex number `a` and the
 > imaginary number $iy$, $z=a+iy$.
 
 """
@@ -271,7 +272,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_sub_imag (gsl_complex a, double y)`
 
-> This function returns the difference of the complex number a and the
+> This function returns the difference of the complex number `a` and the
 > imaginary number $iy$, $z=a-iy$.
 
 """
@@ -289,7 +290,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_mul_imag (gsl_complex a, double y)`
 
-> This function returns the product of the complex number a and the
+> This function returns the product of the complex number `a` and the
 > imaginary number $iy$, $z=a*(iy)$.
 
 """
@@ -307,7 +308,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_div_imag (gsl_complex a, double y)`
 
-> This function returns the quotient of the complex number a and the
+> This function returns the quotient of the complex number `a` and the
 > imaginary number $iy$, $z=a/(iy)$.
 
 """
@@ -325,7 +326,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_conjugate (gsl_complex z)`
 
-> This function returns the complex conjugate of the complex number z,
+> This function returns the complex conjugate of the complex number `z`,
 > $z^* = x - i y$.
 
 """
@@ -344,7 +345,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_inverse (gsl_complex z)`
 
 > This function returns the inverse, or reciprocal, of the complex
-> number z, $1/z = (x - i y)/(x^2 + y^2)$.
+> number `z`, $1/z = (x - i y)/(x^2 + y^2)$.
 
 """
 function complex_inverse(a)
@@ -361,7 +362,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_negative (gsl_complex z)`
 
-> This function returns the negative of the complex number z,
+> This function returns the negative of the complex number `z`,
 > $-z = (-x) + i(-y)$.
 
 """
@@ -379,7 +380,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_sqrt (gsl_complex z)`
 
-> This function returns the square root of the complex number z,
+> This function returns the square root of the complex number `z`,
 > $\sqrt z$. The branch cut is the negative real axis. The result always
 > lies in the right half of the complex plane.
 
@@ -398,8 +399,8 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_sqrt_real (double x)`
 
-> This function returns the complex square root of the real number x,
-> where x may be negative.
+> This function returns the complex square root of the real number `x`,
+> where `x` may be negative.
 
 """
 function complex_sqrt_real(x)
@@ -416,8 +417,8 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_pow (gsl_complex z, gsl_complex a)`
 
-> The function returns the complex number z raised to the complex power
-> a, $z^a$. This is computed as $\exp(\log(z)*a)$ using complex
+> The function returns the complex number `z` raised to the complex
+> power `a`, $z^a$. This is computed as $\exp(\log(z)*a)$ using complex
 > logarithms and complex exponentials.
 
 """
@@ -435,8 +436,8 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_pow_real (gsl_complex z, double x)`
 
-> This function returns the complex number z raised to the real power x,
-> $z^x$.
+> This function returns the complex number `z` raised to the real power
+> `x`, $z^x$.
 
 """
 function complex_pow_real(a, b)
@@ -453,8 +454,8 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_exp (gsl_complex z)`
 
-> This function returns the complex exponential of the complex number z,
-> $\exp(z)$.
+> This function returns the complex exponential of the complex number
+> `z`, $\exp(z)$.
 
 """
 function complex_exp(a)
@@ -472,7 +473,8 @@ GSL documentation:
 ### `gsl_complex gsl_complex_log (gsl_complex z)`
 
 > This function returns the complex natural logarithm (base $e$) of the
-> complex number z, $\log(z)$. The branch cut is the negative real axis.
+> complex number `z`, $\log(z)$. The branch cut is the negative real
+> axis.
 
 """
 function complex_log(a)
@@ -490,7 +492,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_log10 (gsl_complex z)`
 
 > This function returns the complex base-10 logarithm of the complex
-> number z, $\log_{10} (z)$.
+> number `z`, $\log_{10} (z)$.
 
 """
 function complex_log10(a)
@@ -507,8 +509,8 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_log_b (gsl_complex z, gsl_complex b)`
 
-> This function returns the complex base-b logarithm of the complex
-> number z, $\log_b(z)$. This quantity is computed as the ratio
+> This function returns the complex base-`b` logarithm of the complex
+> number `z`, $\log_b(z)$. This quantity is computed as the ratio
 > $\log(z)/\log(b)$.
 
 """
@@ -526,7 +528,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_sin (gsl_complex z)`
 
-> This function returns the complex sine of the complex number z,
+> This function returns the complex sine of the complex number `z`,
 > $\sin(z) = (\exp(iz) - \exp(-iz))/(2i)$.
 
 """
@@ -544,7 +546,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_cos (gsl_complex z)`
 
-> This function returns the complex cosine of the complex number z,
+> This function returns the complex cosine of the complex number `z`,
 > $\cos(z) = (\exp(iz) + \exp(-iz))/2$.
 
 """
@@ -562,7 +564,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_sec (gsl_complex z)`
 
-> This function returns the complex secant of the complex number z,
+> This function returns the complex secant of the complex number `z`,
 > $\sec(z) = 1/\cos(z)$.
 
 """
@@ -580,7 +582,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_csc (gsl_complex z)`
 
-> This function returns the complex cosecant of the complex number z,
+> This function returns the complex cosecant of the complex number `z`,
 > $\csc(z) = 1/\sin(z)$.
 
 """
@@ -598,7 +600,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_tan (gsl_complex z)`
 
-> This function returns the complex tangent of the complex number z,
+> This function returns the complex tangent of the complex number `z`,
 > $\tan(z) = \sin(z)/\cos(z)$.
 
 """
@@ -616,7 +618,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_cot (gsl_complex z)`
 
-> This function returns the complex cotangent of the complex number z,
+> This function returns the complex cotangent of the complex number `z`,
 > $\cot(z) = 1/\tan(z)$.
 
 """
@@ -634,7 +636,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_arcsin (gsl_complex z)`
 
-> This function returns the complex arcsine of the complex number z,
+> This function returns the complex arcsine of the complex number `z`,
 > $\arcsin(z)$. The branch cuts are on the real axis, less than $-1$ and
 > greater than $1$.
 
@@ -653,7 +655,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_arcsin_real (double z)`
 
-> This function returns the complex arcsine of the real number z,
+> This function returns the complex arcsine of the real number `z`,
 > $\arcsin(z)$. For $z$ between $-1$ and $1$, the function returns a
 > real value in the range $[-\pi/2,\pi/2]$. For $z$ less than $-1$ the
 > result has a real part of $-\pi/2$ and a positive imaginary part. For
@@ -675,7 +677,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_arccos (gsl_complex z)`
 
-> This function returns the complex arccosine of the complex number z,
+> This function returns the complex arccosine of the complex number `z`,
 > $\arccos(z)$. The branch cuts are on the real axis, less than $-1$ and
 > greater than $1$.
 
@@ -694,7 +696,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_arccos_real (double z)`
 
-> This function returns the complex arccosine of the real number z,
+> This function returns the complex arccosine of the real number `z`,
 > $\arccos(z)$. For $z$ between $-1$ and $1$, the function returns a
 > real value in the range $[0,\pi]$. For $z$ less than $-1$ the result
 > has a real part of $\pi$ and a negative imaginary part. For $z$
@@ -715,7 +717,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_arcsec (gsl_complex z)`
 
-> This function returns the complex arcsecant of the complex number z,
+> This function returns the complex arcsecant of the complex number `z`,
 > $\arcsec(z) = \arccos(1/z)$.
 
 """
@@ -733,7 +735,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_arcsec_real (double z)`
 
-> This function returns the complex arcsecant of the real number z,
+> This function returns the complex arcsecant of the real number `z`,
 > $\arcsec(z) = \arccos(1/z)$.
 
 """
@@ -751,8 +753,8 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_arccsc (gsl_complex z)`
 
-> This function returns the complex arccosecant of the complex number z,
-> $\arccsc(z) = \arcsin(1/z)$.
+> This function returns the complex arccosecant of the complex number
+> `z`, $\arccsc(z) = \arcsin(1/z)$.
 
 """
 function complex_arccsc(a)
@@ -769,7 +771,7 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_arccsc_real (double z)`
 
-> This function returns the complex arccosecant of the real number z,
+> This function returns the complex arccosecant of the real number `z`,
 > $\arccsc(z) = \arcsin(1/z)$.
 
 """
@@ -787,9 +789,9 @@ GSL documentation:
 
 ### `gsl_complex gsl_complex_arctan (gsl_complex z)`
 
-> This function returns the complex arctangent of the complex number z,
-> $\arctan(z)$. The branch cuts are on the imaginary axis, below $-i$
-> and above $i$.
+> This function returns the complex arctangent of the complex number
+> `z`, $\arctan(z)$. The branch cuts are on the imaginary axis, below
+> $-i$ and above $i$.
 
 """
 function complex_arctan(a)
@@ -807,7 +809,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_arccot (gsl_complex z)`
 
 > This function returns the complex arccotangent of the complex number
-> z, $\arccot(z) = \arctan(1/z)$.
+> `z`, $\arccot(z) = \arctan(1/z)$.
 
 """
 function complex_arccot(a)
@@ -825,7 +827,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_sinh (gsl_complex z)`
 
 > This function returns the complex hyperbolic sine of the complex
-> number z, $\sinh(z) = (\exp(z) - \exp(-z))/2$.
+> number `z`, $\sinh(z) = (\exp(z) - \exp(-z))/2$.
 
 """
 function complex_sinh(a)
@@ -843,7 +845,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_cosh (gsl_complex z)`
 
 > This function returns the complex hyperbolic cosine of the complex
-> number z, $\cosh(z) = (\exp(z) + \exp(-z))/2$.
+> number `z`, $\cosh(z) = (\exp(z) + \exp(-z))/2$.
 
 """
 function complex_cosh(a)
@@ -861,7 +863,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_sech (gsl_complex z)`
 
 > This function returns the complex hyperbolic secant of the complex
-> number z, $\sech(z) = 1/\cosh(z)$.
+> number `z`, $\sech(z) = 1/\cosh(z)$.
 
 """
 function complex_sech(a)
@@ -879,7 +881,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_csch (gsl_complex z)`
 
 > This function returns the complex hyperbolic cosecant of the complex
-> number z, $\csch(z) = 1/\sinh(z)$.
+> number `z`, $\csch(z) = 1/\sinh(z)$.
 
 """
 function complex_csch(a)
@@ -897,7 +899,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_tanh (gsl_complex z)`
 
 > This function returns the complex hyperbolic tangent of the complex
-> number z, $\tanh(z) = \sinh(z)/\cosh(z)$.
+> number `z`, $\tanh(z) = \sinh(z)/\cosh(z)$.
 
 """
 function complex_tanh(a)
@@ -915,7 +917,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_coth (gsl_complex z)`
 
 > This function returns the complex hyperbolic cotangent of the complex
-> number z, $\coth(z) = 1/\tanh(z)$.
+> number `z`, $\coth(z) = 1/\tanh(z)$.
 
 """
 function complex_coth(a)
@@ -933,7 +935,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_arcsinh (gsl_complex z)`
 
 > This function returns the complex hyperbolic arcsine of the complex
-> number z, $\arcsinh(z)$. The branch cuts are on the imaginary axis,
+> number `z`, $\arcsinh(z)$. The branch cuts are on the imaginary axis,
 > below $-i$ and above $i$.
 
 """
@@ -952,9 +954,9 @@ GSL documentation:
 ### `gsl_complex gsl_complex_arccosh (gsl_complex z)`
 
 > This function returns the complex hyperbolic arccosine of the complex
-> number z, $\arccosh(z)$. The branch cut is on the real axis, less than
-> $1$. Note that in this case we use the negative square root in formula
-> 4.6.21 of Abramowitz & Stegun giving
+> number `z`, $\arccosh(z)$. The branch cut is on the real axis, less
+> than $1$. Note that in this case we use the negative square root in
+> formula 4.6.21 of Abramowitz & Stegun giving
 > $\arccosh(z)=\log(z-\sqrt{z^2-1})$.
 
 """
@@ -973,7 +975,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_arccosh_real (double z)`
 
 > This function returns the complex hyperbolic arccosine of the real
-> number z, $\arccosh(z)$.
+> number `z`, $\arccosh(z)$.
 
 """
 function complex_arccosh_real(a)
@@ -991,7 +993,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_arcsech (gsl_complex z)`
 
 > This function returns the complex hyperbolic arcsecant of the complex
-> number z, $\arcsech(z) = \arccosh(1/z)$.
+> number `z`, $\arcsech(z) = \arccosh(1/z)$.
 
 """
 function complex_arcsech(a)
@@ -1009,7 +1011,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_arccsch (gsl_complex z)`
 
 > This function returns the complex hyperbolic arccosecant of the
-> complex number z, $\arccsch(z) = \arcsinh(1/z)$.
+> complex number `z`, $\arccsch(z) = \arcsinh(1/z)$.
 
 """
 function complex_arccsch(a)
@@ -1027,7 +1029,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_arctanh (gsl_complex z)`
 
 > This function returns the complex hyperbolic arctangent of the complex
-> number z, $\arctanh(z)$. The branch cuts are on the real axis, less
+> number `z`, $\arctanh(z)$. The branch cuts are on the real axis, less
 > than $-1$ and greater than $1$.
 
 """
@@ -1046,7 +1048,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_arctanh_real (double z)`
 
 > This function returns the complex hyperbolic arctangent of the real
-> number z, $\arctanh(z)$.
+> number `z`, $\arctanh(z)$.
 
 """
 function complex_arctanh_real(a)
@@ -1064,7 +1066,7 @@ GSL documentation:
 ### `gsl_complex gsl_complex_arccoth (gsl_complex z)`
 
 > This function returns the complex hyperbolic arccotangent of the
-> complex number z, $\arccoth(z) = \arctanh(1/z)$.
+> complex number `z`, $\arccoth(z) = \arctanh(1/z)$.
 
 """
 function complex_arccoth(a)

@@ -36,7 +36,7 @@ GSL documentation:
 
 ### `int gsl_interp_accel_reset (gsl_interp_accel * acc);`
 
-> This function reinitializes the accelerator object acc. It should be
+> This function reinitializes the accelerator object `acc`. It should be
 > used when the cached information is no longer applicable---for
 > example, when switching to a new dataset.
 
@@ -55,7 +55,7 @@ GSL documentation:
 
 ### `void gsl_interp_accel_free (gsl_interp_accel* acc)`
 
-> This function frees the accelerator object acc.
+> This function frees the accelerator object `acc`.
 
 """
 function interp_accel_free(a)
@@ -73,7 +73,7 @@ GSL documentation:
 ### `gsl_interp * gsl_interp_alloc (const gsl_interp_type * T, size_t size)`
 
 > This function returns a pointer to a newly allocated interpolation
-> object of type T for size data-points.
+> object of type `T` for `size` data-points.
 
 """
 function interp_alloc(T, n)
@@ -90,12 +90,13 @@ GSL documentation:
 
 ### `int gsl_interp_init (gsl_interp * interp, const double xa[], const double ya[], size_t size)`
 
-> This function initializes the interpolation object interp for the data
-> (xa, ya) where xa and ya are arrays of size size. The interpolation
-> object (gsl\_interp) does not save the data arrays xa and ya and only
-> stores the static state computed from the data. The xa data array is
-> always assumed to be strictly ordered, with increasing $x$ values; the
-> behavior for other arrangements is not defined.
+> This function initializes the interpolation object `interp` for the
+> data (`xa`, `ya`) where `xa` and `ya` are arrays of size `size`. The
+> interpolation object (`gsl_interp`) does not save the data arrays `xa`
+> and `ya` and only stores the static state computed from the data. The
+> `xa` data array is always assumed to be strictly ordered, with
+> increasing $x$ values; the behavior for other arrangements is not
+> defined.
 
 """
 function interp_init(obj, xa, ya, size)
@@ -113,7 +114,7 @@ GSL documentation:
 ### `const char * gsl_interp_name (const gsl_interp * interp)`
 
 > This function returns the name of the interpolation type used by
-> interp. For example:
+> `interp`. For example:
 >
 >     printf ("interp uses '%s' interpolation.\n", gsl_interp_name (interp));
 >
@@ -140,7 +141,7 @@ GSL documentation:
 > T)
 
 > These functions return the minimum number of points required by the
-> interpolation object interp or interpolation type T. For example,
+> interpolation object `interp` or interpolation type `T`. For example,
 > Akima spline interpolation requires a minimum of 5 points.
 
 """
@@ -182,10 +183,11 @@ GSL documentation:
 > xa\[\], const double ya\[\], double x, gsl\_interp\_accel \* acc,
 > double \* y)
 
-> These functions return the interpolated value of y for a given point
-> x, using the interpolation object interp, data arrays xa and ya and
-> the accelerator acc. When x is outside the range of xa, the error code
-> GSL\_EDOM is returned with a value of GSL\_NAN for y.
+> These functions return the interpolated value of `y` for a given point
+> `x`, using the interpolation object `interp`, data arrays `xa` and
+> `ya` and the accelerator `acc`. When `x` is outside the range of `xa`,
+> the error code `GSL_EDOM` is returned with a value of `GSL_NAN` for
+> `y`.
 
 """
 function interp_eval(obj, xa, ya, x, a)
@@ -216,9 +218,9 @@ GSL documentation:
 > double xa\[\], const double ya\[\], double x, gsl\_interp\_accel \*
 > acc, double \* d)
 
-> These functions return the derivative d of an interpolated function
-> for a given point x, using the interpolation object interp, data
-> arrays xa and ya and the accelerator acc.
+> These functions return the derivative `d` of an interpolated function
+> for a given point `x`, using the interpolation object `interp`, data
+> arrays `xa` and `ya` and the accelerator `acc`.
 
 """
 function interp_eval_deriv(obj, xa, ya, x, a)
@@ -249,9 +251,9 @@ GSL documentation:
 > double xa\[\], const double ya\[\], double x, gsl\_interp\_accel \*
 > acc, double \* d2)
 
-> These functions return the second derivative d2 of an interpolated
-> function for a given point x, using the interpolation object interp,
-> data arrays xa and ya and the accelerator acc.
+> These functions return the second derivative `d2` of an interpolated
+> function for a given point `x`, using the interpolation object
+> `interp`, data arrays `xa` and `ya` and the accelerator `acc`.
 
 """
 function interp_eval_deriv2(obj, xa, ya, x, a)
@@ -282,9 +284,10 @@ GSL documentation:
 > double xa\[\], const double ya\[\], double a, double b,
 > gsl\_interp\_accel \* acc, double \* result)
 
-> These functions return the numerical integral result of an
-> interpolated function over the range \[a, b\], using the interpolation
-> object interp, data arrays xa and ya and the accelerator acc.
+> These functions return the numerical integral `result` of an
+> interpolated function over the range \[`a`, `b`\], using the
+> interpolation object `interp`, data arrays `xa` and `ya` and the
+> accelerator `acc`.
 
 """
 function interp_eval_integ(obj, xa, ya, a, b, acc)
@@ -301,7 +304,7 @@ GSL documentation:
 
 ### `void gsl_interp_free (gsl_interp * interp)`
 
-> This function frees the interpolation object interp.
+> This function frees the interpolation object `interp`.
 
 """
 function interp_free(interp)
@@ -318,9 +321,9 @@ GSL documentation:
 
 ### `size_t gsl_interp_bsearch (const double x_array[], double x, size_t index_lo, size_t index_hi)`
 
-> This function returns the index $i$ of the array x\_array such that
-> `x_array[i] <= x < x_array[i+1]`{.sourceCode}. The index is searched
-> for in the range \[index\_lo, index\_hi\].
+> This function returns the index $i$ of the array `x_array` such that
+> `x_array[i] <= x < x_array[i+1]`. The index is searched for in the
+> range \[`index_lo`, `index_hi`\].
 
 """
 function interp_bsearch(x_array, x, index_lo, index_hi)
@@ -337,10 +340,10 @@ GSL documentation:
 
 ### `size_t gsl_interp_accel_find (gsl_interp_accel * a, const double x_array[], size_t size, double x)`
 
-> This function performs a lookup action on the data array x\_array of
-> size size, using the given accelerator a. This is how lookups are
+> This function performs a lookup action on the data array `x_array` of
+> size `size`, using the given accelerator `a`. This is how lookups are
 > performed during evaluation of an interpolation. The function returns
-> an index $i$ such that `x_array[i] <= x < x_array[i+1]`{.sourceCode}.
+> an index $i$ such that `x_array[i] <= x < x_array[i+1]`.
 
 """
 function interp_accel_find(a, x_array, size, x)

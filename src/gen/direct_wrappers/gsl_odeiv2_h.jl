@@ -17,7 +17,7 @@ GSL documentation:
 ### `gsl_odeiv2_step * gsl_odeiv2_step_alloc (const gsl_odeiv2_step_type * T, size_t dim)`
 
 > This function returns a pointer to a newly allocated instance of a
-> stepping function of type T for a system of dim dimensions. Please
+> stepping function of type `T` for a system of `dim` dimensions. Please
 > note that if you use a stepper method that requires access to a driver
 > object, it is advisable to use a driver allocation method, which
 > automatically allocates a stepper, too.
@@ -37,8 +37,8 @@ GSL documentation:
 
 ### `int gsl_odeiv2_step_reset (gsl_odeiv2_step * s)`
 
-> This function resets the stepping function s. It should be used
-> whenever the next use of s will not be a continuation of a previous
+> This function resets the stepping function `s`. It should be used
+> whenever the next use of `s` will not be a continuation of a previous
 > step.
 
 """
@@ -57,7 +57,7 @@ GSL documentation:
 ### `void gsl_odeiv2_step_free (gsl_odeiv2_step * s)`
 
 > This function frees all the memory associated with the stepping
-> function s.
+> function `s`.
 
 """
 function odeiv2_step_free(s)
@@ -79,7 +79,7 @@ GSL documentation:
 >
 >     printf ("step method is '%s'\n", gsl_odeiv2_step_name (s));
 >
-> would print something like `step method is 'rkf45'`{.sourceCode}.
+> would print something like `step method is 'rkf45'`.
 
 """
 function odeiv2_step_name(s)
@@ -115,32 +115,33 @@ GSL documentation:
 
 ### `int gsl_odeiv2_step_apply (gsl_odeiv2_step * s, double t, double h, double y[], double yerr[], const double dydt_in[], double dydt_out[], const gsl_odeiv2_system * sys)`
 
-> This function applies the stepping function s to the system of
-> equations defined by sys, using the step-size h to advance the system
-> from time t and state y to time t + h. The new state of the system is
-> stored in y on output, with an estimate of the absolute error in each
-> component stored in yerr. If the argument dydt\_in is not null it
-> should point an array containing the derivatives for the system at
-> time t on input. This is optional as the derivatives will be computed
-> internally if they are not provided, but allows the reuse of existing
-> derivative information. On output the new derivatives of the system at
-> time t + h will be stored in dydt\_out if it is not null.
+> This function applies the stepping function `s` to the system of
+> equations defined by `sys`, using the step-size `h` to advance the
+> system from time `t` and state `y` to time `t` + `h`. The new state of
+> the system is stored in `y` on output, with an estimate of the
+> absolute error in each component stored in `yerr`. If the argument
+> `dydt_in` is not null it should point an array containing the
+> derivatives for the system at time `t` on input. This is optional as
+> the derivatives will be computed internally if they are not provided,
+> but allows the reuse of existing derivative information. On output the
+> new derivatives of the system at time `t` + `h` will be stored in
+> `dydt_out` if it is not null.
 >
-> The stepping function returns GSL\_FAILURE if it is unable to compute
+> The stepping function returns `GSL_FAILURE` if it is unable to compute
 > the requested step. Also, if the user-supplied functions defined in
-> the system sys return a status other than GSL\_SUCCESS the step will
-> be aborted. In that case, the elements of y will be restored to their
-> pre-step values and the error code from the user-supplied function
-> will be returned. Failure may be due to a singularity in the system or
-> too large step-size h. In that case the step should be attempted again
-> with a smaller step-size, e.g. h / 2.
+> the system `sys` return a status other than `GSL_SUCCESS` the step
+> will be aborted. In that case, the elements of `y` will be restored to
+> their pre-step values and the error code from the user-supplied
+> function will be returned. Failure may be due to a singularity in the
+> system or too large step-size `h`. In that case the step should be
+> attempted again with a smaller step-size, e.g. `h` / 2.
 >
 > If the driver object is not appropriately set via
-> gsl\_odeiv2\_step\_set\_driver for those steppers that need it, the
-> stepping function returns GSL\_EFAULT. If the user-supplied functions
-> defined in the system sys returns GSL\_EBADFUNC, the function returns
-> immediately with the same return code. In this case the user must call
-> gsl\_odeiv2\_step\_reset before calling this function again.
+> `gsl_odeiv2_step_set_driver` for those steppers that need it, the
+> stepping function returns `GSL_EFAULT`. If the user-supplied functions
+> defined in the system `sys` returns `GSL_EBADFUNC`, the function
+> returns immediately with the same return code. In this case the user
+> must call `gsl_odeiv2_step_reset` before calling this function again.
 
 The following algorithms are available,
 
@@ -159,8 +160,8 @@ GSL documentation:
 
 ### `int gsl_odeiv2_step_set_driver (gsl_odeiv2_step * s, const gsl_odeiv2_driver * d)`
 
-> This function sets a pointer of the driver object d for stepper s, to
-> allow the stepper to access control (and evolve) object through the
+> This function sets a pointer of the driver object `d` for stepper `s`,
+> to allow the stepper to access control (and evolve) object through the
 > driver object. This is a requirement for some steppers, to get the
 > desired error level for internal iteration of stepper. Allocation of a
 > driver object calls this function automatically.
@@ -181,9 +182,9 @@ GSL documentation:
 ### `gsl_odeiv2_control * gsl_odeiv2_control_alloc (const gsl_odeiv2_control_type * T)`
 
 > This function returns a pointer to a newly allocated instance of a
-> control function of type T. This function is only needed for defining
-> new types of control functions. For most purposes the standard control
-> functions described above should be sufficient.
+> control function of type `T`. This function is only needed for
+> defining new types of control functions. For most purposes the
+> standard control functions described above should be sufficient.
 
 """
 function odeiv2_control_alloc(T)
@@ -200,9 +201,9 @@ GSL documentation:
 
 ### `int gsl_odeiv2_control_init (gsl_odeiv2_control * c, double eps_abs, double eps_rel, double a_y, double a_dydt)`
 
-> This function initializes the control function c with the parameters
-> eps\_abs (absolute error), eps\_rel (relative error), a\_y (scaling
-> factor for y) and a\_dydt (scaling factor for derivatives).
+> This function initializes the control function `c` with the parameters
+> `eps_abs` (absolute error), `eps_rel` (relative error), `a_y` (scaling
+> factor for y) and `a_dydt` (scaling factor for derivatives).
 
 """
 function odeiv2_control_init(c, eps_abs, eps_rel, a_y, a_dydt)
@@ -220,7 +221,7 @@ GSL documentation:
 ### `void gsl_odeiv2_control_free (gsl_odeiv2_control * c)`
 
 > This function frees all the memory associated with the control
-> function c.
+> function `c`.
 
 """
 function odeiv2_control_free(c)
@@ -237,16 +238,16 @@ GSL documentation:
 
 ### `int gsl_odeiv2_control_hadjust (gsl_odeiv2_control * c, gsl_odeiv2_step * s, const double y[], const double yerr[], const double dydt[], double * h)`
 
-> This function adjusts the step-size h using the control function c,
-> and the current values of y, yerr and dydt. The stepping function step
-> is also needed to determine the order of the method. If the error in
-> the y-values yerr is found to be too large then the step-size h is
-> reduced and the function returns GSL\_ODEIV\_HADJ\_DEC. If the error
-> is sufficiently small then h may be increased and
-> GSL\_ODEIV\_HADJ\_INC is returned. The function returns
-> GSL\_ODEIV\_HADJ\_NIL if the step-size is unchanged. The goal of the
-> function is to estimate the largest step-size which satisfies the
-> user-specified accuracy requirements for the current point.
+> This function adjusts the step-size `h` using the control function
+> `c`, and the current values of `y`, `yerr` and `dydt`. The stepping
+> function `step` is also needed to determine the order of the method.
+> If the error in the y-values `yerr` is found to be too large then the
+> step-size `h` is reduced and the function returns
+> `GSL_ODEIV_HADJ_DEC`. If the error is sufficiently small then `h` may
+> be increased and `GSL_ODEIV_HADJ_INC` is returned. The function
+> returns `GSL_ODEIV_HADJ_NIL` if the step-size is unchanged. The goal
+> of the function is to estimate the largest step-size which satisfies
+> the user-specified accuracy requirements for the current point.
 
 """
 function odeiv2_control_hadjust(c, s, y, yerr, dydt, h)
@@ -268,7 +269,7 @@ GSL documentation:
 >
 >     printf ("control method is '%s'\n", gsl_odeiv2_control_name (c));
 >
-> would print something like `control method is 'standard'`{.sourceCode}
+> would print something like `control method is 'standard'`
 
 """
 function odeiv2_control_name(c)
@@ -285,9 +286,9 @@ GSL documentation:
 
 ### `int gsl_odeiv2_control_errlevel (gsl_odeiv2_control * c, const double y, const double dydt, const double h, const size_t ind, double * errlev)`
 
-> This function calculates the desired error level of the ind-th
-> component to errlev. It requires the value (y) and value of the
-> derivative (dydt) of the component, and the current step size h.
+> This function calculates the desired error level of the `ind`-th
+> component to `errlev`. It requires the value (`y`) and value of the
+> derivative (`dydt`) of the component, and the current step size `h`.
 
 """
 function odeiv2_control_errlevel(c, y, dydt, h, ind, errlev)
@@ -304,8 +305,8 @@ GSL documentation:
 
 ### `int gsl_odeiv2_control_set_driver (gsl_odeiv2_control * c, const gsl_odeiv2_driver * d)`
 
-> This function sets a pointer of the driver object d for control object
-> c.
+> This function sets a pointer of the driver object `d` for control
+> object `c`.
 
 """
 function odeiv2_control_set_driver(c, d)
@@ -323,16 +324,24 @@ GSL documentation:
 ### `gsl_odeiv2_control * gsl_odeiv2_control_standard_new (double eps_abs, double eps_rel, double a_y, double a_dydt)`
 
 > The standard control object is a four parameter heuristic based on
-> absolute and relative errors eps\_abs and eps\_rel, and scaling
-> factors a\_y and a\_dydt for the system state $y(t)$ and derivatives
+> absolute and relative errors `eps_abs` and `eps_rel`, and scaling
+> factors `a_y` and `a_dydt` for the system state $y(t)$ and derivatives
 > $y'(t)$ respectively.
 >
 > The step-size adjustment procedure for this method begins by computing
 > the desired error level $D_i$ for each component,
 >
+> not texinfo
+>
+> $$D_i = \epsilon_{abs} + \epsilon_{rel} * (a_{y} |y_i| + a_{dydt} h |y\prime_i|)$$
+>
+> texinfo
+>
+>     D_i = eps_abs + eps_rel * (a_y |y_i| + a_dydt h |y\prime_i|)
+>
 > and comparing it with the observed error $E_i = |yerr_i|$. If the
-> observed error E exceeds the desired error level D by more than 10%
-> for any component then the method reduces the step-size by an
+> observed error `E` exceeds the desired error level `D` by more than
+> 10% for any component then the method reduces the step-size by an
 > appropriate factor,
 >
 > $$h_{new} = h_{old} * S * (E/D)^{-1/q}$$
@@ -342,7 +351,7 @@ GSL documentation:
 > taken to be the maximum of the ratios $E_i/D_i$.
 >
 > If the observed error $E$ is less than 50% of the desired error level
-> D for the maximum ratio $E_i/D_i$ then the algorithm takes the
+> `D` for the maximum ratio $E_i/D_i$ then the algorithm takes the
 > opportunity to increase the step-size to bring the error in line with
 > the desired level,
 >
@@ -368,10 +377,10 @@ GSL documentation:
 ### `gsl_odeiv2_control * gsl_odeiv2_control_y_new (double eps_abs, double eps_rel)`
 
 > This function creates a new control object which will keep the local
-> error on each step within an absolute error of eps\_abs and relative
-> error of eps\_rel with respect to the solution $y_i(t)$. This is
-> equivalent to the standard control object with a\_y = 1 and a\_dydt =
-> 0.
+> error on each step within an absolute error of `eps_abs` and relative
+> error of `eps_rel` with respect to the solution $y_i(t)$. This is
+> equivalent to the standard control object with `a_y` = 1 and `a_dydt`
+> = 0.
 
 """
 function odeiv2_control_y_new(eps_abs, eps_rel)
@@ -389,10 +398,10 @@ GSL documentation:
 ### `gsl_odeiv2_control * gsl_odeiv2_control_yp_new (double eps_abs, double eps_rel)`
 
 > This function creates a new control object which will keep the local
-> error on each step within an absolute error of eps\_abs and relative
-> error of eps\_rel with respect to the derivatives of the solution
-> $y'_i(t)$. This is equivalent to the standard control object with a\_y
-> = 0 and a\_dydt = 1.
+> error on each step within an absolute error of `eps_abs` and relative
+> error of `eps_rel` with respect to the derivatives of the solution
+> $y'_i(t)$. This is equivalent to the standard control object with
+> `a_y` = 0 and `a_dydt` = 1.
 
 """
 function odeiv2_control_yp_new(eps_abs, eps_rel)
@@ -410,11 +419,19 @@ GSL documentation:
 ### `gsl_odeiv2_control * gsl_odeiv2_control_scaled_new (double eps_abs, double eps_rel, double a_y, double a_dydt, const double scale_abs[], size_t dim)`
 
 > This function creates a new control object which uses the same
-> algorithm as gsl\_odeiv2\_control\_standard\_new but with an absolute
-> error which is scaled for each component by the array scale\_abs. The
+> algorithm as `gsl_odeiv2_control_standard_new` but with an absolute
+> error which is scaled for each component by the array `scale_abs`. The
 > formula for $D_i$ for this control object is,
 >
-> where $s_i$ is the $i$-th component of the array scale\_abs. The same
+> not texinfo
+>
+> $$D_i = \epsilon_{abs} s_i + \epsilon_{rel} * (a_{y} |y_i| + a_{dydt} h |y\prime_i|)$$
+>
+> texinfo
+>
+>     D_i = eps_abs * s_i + eps_rel * (a_y |y_i| + a_dydt h |y\prime_i|)
+>
+> where $s_i$ is the $i$-th component of the array `scale_abs`. The same
 > error control heuristic is used by the Matlab ODE suite.
 
 """
@@ -433,7 +450,7 @@ GSL documentation:
 ### `gsl_odeiv2_evolve * gsl_odeiv2_evolve_alloc (size_t dim)`
 
 > This function returns a pointer to a newly allocated instance of an
-> evolution function for a system of dim dimensions.
+> evolution function for a system of `dim` dimensions.
 
 """
 function odeiv2_evolve_alloc(dim)
@@ -450,36 +467,36 @@ GSL documentation:
 
 ### `int gsl_odeiv2_evolve_apply (gsl_odeiv2_evolve * e, gsl_odeiv2_control * con, gsl_odeiv2_step * step, const gsl_odeiv2_system * sys, double * t, double t1, double * h, double y[])`
 
-> This function advances the system (e, sys) from time t and position y
-> using the stepping function step. The new time and position are stored
-> in t and y on output.
+> This function advances the system (`e`, `sys`) from time `t` and
+> position `y` using the stepping function `step`. The new time and
+> position are stored in `t` and `y` on output.
 >
-> The initial step-size is taken as h. The control function con is
+> The initial step-size is taken as `h`. The control function `con` is
 > applied to check whether the local error estimated by the stepping
-> function step using step-size h exceeds the required error tolerance.
-> If the error is too high, the step is retried by calling step with a
-> decreased step-size. This process is continued until an acceptable
-> step-size is found. An estimate of the local error for the step can be
-> obtained from the components of the array `e->yerr[]`{.sourceCode}.
+> function `step` using step-size `h` exceeds the required error
+> tolerance. If the error is too high, the step is retried by calling
+> `step` with a decreased step-size. This process is continued until an
+> acceptable step-size is found. An estimate of the local error for the
+> step can be obtained from the components of the array `e->yerr[]`.
 >
-> If the user-supplied functions defined in the system sys returns
-> GSL\_EBADFUNC, the function returns immediately with the same return
-> code. In this case the user must call gsl\_odeiv2\_step\_reset and
-> gsl\_odeiv2\_evolve\_reset before calling this function again.
+> If the user-supplied functions defined in the system `sys` returns
+> `GSL_EBADFUNC`, the function returns immediately with the same return
+> code. In this case the user must call `gsl_odeiv2_step_reset` and
+> `gsl_odeiv2_evolve_reset` before calling this function again.
 >
-> Otherwise, if the user-supplied functions defined in the system sys or
-> the stepping function step return a status other than GSL\_SUCCESS,
-> the step is retried with a decreased step-size. If the step-size
-> decreases below machine precision, a status of GSL\_FAILURE is
-> returned if the user functions returned GSL\_SUCCESS. Otherwise the
-> value returned by user function is returned. If no acceptable step can
-> be made, t and y will be restored to their pre-step values and h
-> contains the final attempted step-size.
+> Otherwise, if the user-supplied functions defined in the system `sys`
+> or the stepping function `step` return a status other than
+> `GSL_SUCCESS`, the step is retried with a decreased step-size. If the
+> step-size decreases below machine precision, a status of `GSL_FAILURE`
+> is returned if the user functions returned `GSL_SUCCESS`. Otherwise
+> the value returned by user function is returned. If no acceptable step
+> can be made, `t` and `y` will be restored to their pre-step values and
+> `h` contains the final attempted step-size.
 >
 > If the step is successful the function returns a suggested step-size
-> for the next step in h. The maximum time t1 is guaranteed not to be
-> exceeded by the time-step. On the final time-step the value of t will
-> be set to t1 exactly.
+> for the next step in `h`. The maximum time `t1` is guaranteed not to
+> be exceeded by the time-step. On the final time-step the value of `t`
+> will be set to `t1` exactly.
 
 """
 function odeiv2_evolve_apply(e, con, step, dydt, t, t1, h, y)
@@ -496,12 +513,12 @@ GSL documentation:
 
 ### `int gsl_odeiv2_evolve_apply_fixed_step (gsl_odeiv2_evolve * e, gsl_odeiv2_control * con, gsl_odeiv2_step * step, const gsl_odeiv2_system * sys, double * t, const double h, double y[])`
 
-> This function advances the ODE-system (e, sys, con) from time t and
-> position y using the stepping function step by a specified step size
-> h. If the local error estimated by the stepping function exceeds the
-> desired error level, the step is not taken and the function returns
-> GSL\_FAILURE. Otherwise the value returned by user function is
-> returned.
+> This function advances the ODE-system (`e`, `sys`, `con`) from time
+> `t` and position `y` using the stepping function `step` by a specified
+> step size `h`. If the local error estimated by the stepping function
+> exceeds the desired error level, the step is not taken and the
+> function returns `GSL_FAILURE`. Otherwise the value returned by user
+> function is returned.
 
 """
 function odeiv2_evolve_apply_fixed_step(e, con, step, dydt, t, h0, y)
@@ -518,8 +535,8 @@ GSL documentation:
 
 ### `int gsl_odeiv2_evolve_reset (gsl_odeiv2_evolve * e)`
 
-> This function resets the evolution function e. It should be used
-> whenever the next use of e will not be a continuation of a previous
+> This function resets the evolution function `e`. It should be used
+> whenever the next use of `e` will not be a continuation of a previous
 > step.
 
 """
@@ -538,7 +555,7 @@ GSL documentation:
 ### `void gsl_odeiv2_evolve_free (gsl_odeiv2_evolve * e)`
 
 > This function frees all the memory associated with the evolution
-> function e.
+> function `e`.
 
 """
 function odeiv2_evolve_free(e)
@@ -555,8 +572,8 @@ GSL documentation:
 
 ### `int gsl_odeiv2_evolve_set_driver (gsl_odeiv2_evolve * e, const gsl_odeiv2_driver * d)`
 
-> This function sets a pointer of the driver object d for evolve object
-> e.
+> This function sets a pointer of the driver object `d` for evolve
+> object `e`.
 
 """
 function odeiv2_evolve_set_driver(e, d)
@@ -587,10 +604,10 @@ GSL documentation:
 
 > These functions return a pointer to a newly allocated instance of a
 > driver object. The functions automatically allocate and initialise the
-> evolve, control and stepper objects for ODE system sys using stepper
-> type T. The initial step size is given in hstart. The rest of the
+> evolve, control and stepper objects for ODE system `sys` using stepper
+> type `T`. The initial step size is given in `hstart`. The rest of the
 > arguments follow the syntax and semantics of the control functions
-> with same name (`gsl_odeiv2_control_*_new`{.sourceCode}).
+> with same name (`gsl_odeiv2_control_*_new`).
 
 """
 function odeiv2_driver_alloc_y_new(sys, T, hstart, epsabs, epsrel)
@@ -637,8 +654,8 @@ GSL documentation:
 
 ### `int gsl_odeiv2_driver_set_hmin (gsl_odeiv2_driver * d, const double hmin)`
 
-> The function sets a minimum for allowed step size hmin for driver d.
-> Default value is 0.
+> The function sets a minimum for allowed step size `hmin` for driver
+> `d`. Default value is 0.
 
 """
 function odeiv2_driver_set_hmin(d, hmin)
@@ -655,8 +672,8 @@ GSL documentation:
 
 ### `int gsl_odeiv2_driver_set_hmax (gsl_odeiv2_driver * d, const double hmax)`
 
-> The function sets a maximum for allowed step size hmax for driver d.
-> Default value is GSL\_DBL\_MAX.
+> The function sets a maximum for allowed step size `hmax` for driver
+> `d`. Default value is `GSL_DBL_MAX`.
 
 """
 function odeiv2_driver_set_hmax(d, hmax)
@@ -673,8 +690,8 @@ GSL documentation:
 
 ### `int gsl_odeiv2_driver_set_nmax (gsl_odeiv2_driver * d, const unsigned long int nmax)`
 
-> The function sets a maximum for allowed number of steps nmax for
-> driver d. Default value of 0 sets no limit for steps.
+> The function sets a maximum for allowed number of steps `nmax` for
+> driver `d`. Default value of 0 sets no limit for steps.
 
 """
 function odeiv2_driver_set_nmax(d, nmax)
@@ -691,18 +708,18 @@ GSL documentation:
 
 ### `int gsl_odeiv2_driver_apply (gsl_odeiv2_driver * d, double * t, const double t1, double y[])`
 
-> This function evolves the driver system d from t to t1. Initially
-> vector y should contain the values of dependent variables at point t.
-> If the function is unable to complete the calculation, an error code
-> from gsl\_odeiv2\_evolve\_apply is returned, and t and y contain the
-> values from last successful step.
+> This function evolves the driver system `d` from `t` to `t1`.
+> Initially vector `y` should contain the values of dependent variables
+> at point `t`. If the function is unable to complete the calculation,
+> an error code from `gsl_odeiv2_evolve_apply` is returned, and `t` and
+> `y` contain the values from last successful step.
 >
-> If maximum number of steps is reached, a value of GSL\_EMAXITER is
+> If maximum number of steps is reached, a value of `GSL_EMAXITER` is
 > returned. If the step size drops below minimum value, the function
-> returns with GSL\_ENOPROG. If the user-supplied functions defined in
-> the system sys returns GSL\_EBADFUNC, the function returns immediately
-> with the same return code. In this case the user must call
-> gsl\_odeiv2\_driver\_reset before calling this function again.
+> returns with `GSL_ENOPROG`. If the user-supplied functions defined in
+> the system `sys` returns `GSL_EBADFUNC`, the function returns
+> immediately with the same return code. In this case the user must call
+> `gsl_odeiv2_driver_reset` before calling this function again.
 
 """
 function odeiv2_driver_apply(d, t, t1, y)
@@ -719,10 +736,10 @@ GSL documentation:
 
 ### `int gsl_odeiv2_driver_apply_fixed_step (gsl_odeiv2_driver * d, double * t, const double h, const unsigned long int n, double y[])`
 
-> This function evolves the driver system d from t with n steps of size
-> h. If the function is unable to complete the calculation, an error
-> code from gsl\_odeiv2\_evolve\_apply\_fixed\_step is returned, and t
-> and y contain the values from last successful step.
+> This function evolves the driver system `d` from `t` with `n` steps of
+> size `h`. If the function is unable to complete the calculation, an
+> error code from `gsl_odeiv2_evolve_apply_fixed_step` is returned, and
+> `t` and `y` contain the values from last successful step.
 
 """
 function odeiv2_driver_apply_fixed_step(d, t, h, n, y)
@@ -757,8 +774,8 @@ GSL documentation:
 ### `int gsl_odeiv2_driver_reset_hstart (gsl_odeiv2_driver * d, const double hstart)`
 
 > The routine resets the evolution and stepper objects and sets new
-> initial step size to hstart. This function can be used e.g. to change
-> the direction of integration.
+> initial step size to `hstart`. This function can be used e.g. to
+> change the direction of integration.
 
 """
 function odeiv2_driver_reset_hstart(d, hstart)

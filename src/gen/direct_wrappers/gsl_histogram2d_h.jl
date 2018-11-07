@@ -16,13 +16,13 @@ GSL documentation:
 
 ### `gsl_histogram2d * gsl_histogram2d_alloc (size_t nx, size_t ny)`
 
-> This function allocates memory for a two-dimensional histogram with nx
-> bins in the x direction and ny bins in the y direction. The function
-> returns a pointer to a newly created gsl\_histogram2d struct. If
-> insufficient memory is available a null pointer is returned and the
-> error handler is invoked with an error code of GSL\_ENOMEM. The bins
-> and ranges must be initialized with one of the functions below before
-> the histogram is ready for use.
+> This function allocates memory for a two-dimensional histogram with
+> `nx` bins in the x direction and `ny` bins in the y direction. The
+> function returns a pointer to a newly created `gsl_histogram2d`
+> struct. If insufficient memory is available a null pointer is returned
+> and the error handler is invoked with an error code of `GSL_ENOMEM`.
+> The bins and ranges must be initialized with one of the functions
+> below before the histogram is ready for use.
 
 """
 function histogram2d_alloc(nx, ny)
@@ -59,7 +59,7 @@ GSL documentation:
 
 ### `void gsl_histogram2d_free (gsl_histogram2d * h)`
 
-> This function frees the 2D histogram h and all of the memory
+> This function frees the 2D histogram `h` and all of the memory
 > associated with it.
 
 """
@@ -77,16 +77,16 @@ GSL documentation:
 
 ### `int gsl_histogram2d_increment (gsl_histogram2d * h, double x, double y)`
 
-> This function updates the histogram h by adding one (1.0) to the bin
-> whose x and y ranges contain the coordinates (x, y).
+> This function updates the histogram `h` by adding one (1.0) to the bin
+> whose x and y ranges contain the coordinates (`x`, `y`).
 >
 > If the point $(x,y)$ lies inside the valid ranges of the histogram
 > then the function returns zero to indicate success. If $(x,y)$ lies
 > outside the limits of the histogram then the function returns
-> GSL\_EDOM, and none of the bins are modified. The error handler is not
-> called, since it is often necessary to compute histograms for a small
-> range of a larger dataset, ignoring any coordinates outside the range
-> of interest.
+> `GSL_EDOM`, and none of the bins are modified. The error handler is
+> not called, since it is often necessary to compute histograms for a
+> small range of a larger dataset, ignoring any coordinates outside the
+> range of interest.
 
 """
 function histogram2d_increment(h, x, y)
@@ -103,9 +103,9 @@ GSL documentation:
 
 ### `int gsl_histogram2d_accumulate (gsl_histogram2d * h, double x, double y, double weight)`
 
-> This function is similar to gsl\_histogram2d\_increment but increases
-> the value of the appropriate bin in the histogram h by the
-> floating-point number weight.
+> This function is similar to `gsl_histogram2d_increment` but increases
+> the value of the appropriate bin in the histogram `h` by the
+> floating-point number `weight`.
 
 """
 function histogram2d_accumulate(h, x, y, weight)
@@ -122,14 +122,14 @@ GSL documentation:
 
 ### `int gsl_histogram2d_find (const gsl_histogram2d * h, double x, double y, size_t * i, size_t * j)`
 
-> This function finds and sets the indices i and j to the bin which
-> covers the coordinates (x, y). The bin is located using a binary
+> This function finds and sets the indices `i` and `j` to the bin which
+> covers the coordinates (`x`, `y`). The bin is located using a binary
 > search. The search includes an optimization for histograms with
 > uniform ranges, and will return the correct bin immediately in this
-> case. If $(x,y)$ is found then the function sets the indices (i, j)
-> and returns GSL\_SUCCESS. If $(x,y)$ lies outside the valid range of
-> the histogram then the function returns GSL\_EDOM and the error
-> handler is invoked.
+> case. If $(x,y)$ is found then the function sets the indices (`i`,
+> `j`) and returns `GSL_SUCCESS`. If $(x,y)$ lies outside the valid
+> range of the histogram then the function returns `GSL_EDOM` and the
+> error handler is invoked.
 
 """
 function histogram2d_find(h, x, y, i, j)
@@ -146,10 +146,10 @@ GSL documentation:
 
 ### `double gsl_histogram2d_get (const gsl_histogram2d * h, size_t i, size_t j)`
 
-> This function returns the contents of the (i, j)-th bin of the
-> histogram h. If (i, j) lies outside the valid range of indices for the
-> histogram then the error handler is called with an error code of
-> GSL\_EDOM and the function returns 0.
+> This function returns the contents of the (`i`, `j`)-th bin of the
+> histogram `h`. If (`i`, `j`) lies outside the valid range of indices
+> for the histogram then the error handler is called with an error code
+> of `GSL_EDOM` and the function returns 0.
 
 """
 function histogram2d_get(h, i, j)
@@ -169,15 +169,16 @@ GSL documentation:
 > int gsl\_histogram2d\_get\_yrange (const gsl\_histogram2d \* h,
 > size\_t j, double \* ylower, double \* yupper)
 
-> These functions find the upper and lower range limits of the i-th and
-> j-th bins in the x and y directions of the histogram h. The range
-> limits are stored in xlower and xupper or ylower and yupper. The lower
-> limits are inclusive (i.e. events with these coordinates are included
-> in the bin) and the upper limits are exclusive (i.e. events with the
-> value of the upper limit are not included and fall in the neighboring
-> higher bin, if it exists). The functions return 0 to indicate success.
-> If i or j lies outside the valid range of indices for the histogram
-> then the error handler is called with an error code of GSL\_EDOM.
+> These functions find the upper and lower range limits of the `i`-th
+> and `j`-th bins in the x and y directions of the histogram `h`. The
+> range limits are stored in `xlower` and `xupper` or `ylower` and
+> `yupper`. The lower limits are inclusive (i.e. events with these
+> coordinates are included in the bin) and the upper limits are
+> exclusive (i.e. events with the value of the upper limit are not
+> included and fall in the neighboring higher bin, if it exists). The
+> functions return 0 to indicate success. If `i` or `j` lies outside the
+> valid range of indices for the histogram then the error handler is
+> called with an error code of `GSL_EDOM`.
 
 """
 function histogram2d_get_xrange(h, i, xlower, xupper)
@@ -212,8 +213,8 @@ GSL documentation:
 
 > These functions return the maximum upper and minimum lower range
 > limits and the number of bins for the x and y directions of the
-> histogram h. They provide a way of determining these values without
-> accessing the gsl\_histogram2d struct directly.
+> histogram `h`. They provide a way of determining these values without
+> accessing the `gsl_histogram2d` struct directly.
 
 """
 function histogram2d_xmax(h)
@@ -280,7 +281,7 @@ GSL documentation:
 
 ### `void gsl_histogram2d_reset (gsl_histogram2d * h)`
 
-> This function resets all the bins of the histogram h to zero.
+> This function resets all the bins of the histogram `h` to zero.
 
 """
 function histogram2d_reset(h)
@@ -307,9 +308,9 @@ GSL documentation:
 
 ### `int gsl_histogram2d_set_ranges_uniform (gsl_histogram2d * h, double xmin, double xmax, double ymin, double ymax)`
 
-> This function sets the ranges of the existing histogram h to cover the
-> ranges xmin to xmax and ymin to ymax uniformly. The values of the
-> histogram bins are reset to zero.
+> This function sets the ranges of the existing histogram `h` to cover
+> the ranges `xmin` to `xmax` and `ymin` to `ymax` uniformly. The values
+> of the histogram bins are reset to zero.
 
 """
 function histogram2d_set_ranges_uniform(h, xmin, xmax, ymin, ymax)
@@ -326,9 +327,9 @@ GSL documentation:
 
 ### `int gsl_histogram2d_set_ranges (gsl_histogram2d * h,  const double xrange[], size_t xsize, const double yrange[], size_t ysize)`
 
-> This function sets the ranges of the existing histogram h using the
-> arrays xrange and yrange of size xsize and ysize respectively. The
-> values of the histogram bins are reset to zero.
+> This function sets the ranges of the existing histogram `h` using the
+> arrays `xrange` and `yrange` of size `xsize` and `ysize` respectively.
+> The values of the histogram bins are reset to zero.
 
 """
 function histogram2d_set_ranges(h, xrange, xsize, yrange, ysize)
@@ -345,9 +346,9 @@ GSL documentation:
 
 ### `int gsl_histogram2d_memcpy (gsl_histogram2d * dest, const gsl_histogram2d * src)`
 
-> This function copies the histogram src into the pre-existing histogram
-> dest, making dest into an exact copy of src. The two histograms must
-> be of the same size.
+> This function copies the histogram `src` into the pre-existing
+> histogram `dest`, making `dest` into an exact copy of `src`. The two
+> histograms must be of the same size.
 
 """
 function histogram2d_memcpy(dest, source)
@@ -365,7 +366,7 @@ GSL documentation:
 ### `gsl_histogram2d * gsl_histogram2d_clone (const gsl_histogram2d * src)`
 
 > This function returns a pointer to a newly created histogram which is
-> an exact copy of the histogram src.
+> an exact copy of the histogram `src`.
 
 """
 function histogram2d_clone(source)
@@ -401,9 +402,9 @@ GSL documentation:
 ### `void gsl_histogram2d_max_bin (const gsl_histogram2d * h, size_t * i, size_t * j)`
 
 > This function finds the indices of the bin containing the maximum
-> value in the histogram h and stores the result in (i, j). In the case
-> where several bins contain the same maximum value the first bin found
-> is returned.
+> value in the histogram `h` and stores the result in (`i`, `j`). In the
+> case where several bins contain the same maximum value the first bin
+> found is returned.
 
 """
 function histogram2d_max_bin(h, i, j)
@@ -439,9 +440,9 @@ GSL documentation:
 ### `void gsl_histogram2d_min_bin (const gsl_histogram2d * h, size_t * i, size_t * j)`
 
 > This function finds the indices of the bin containing the minimum
-> value in the histogram h and stores the result in (i, j). In the case
-> where several bins contain the same maximum value the first bin found
-> is returned.
+> value in the histogram `h` and stores the result in (`i`, `j`). In the
+> case where several bins contain the same maximum value the first bin
+> found is returned.
 
 """
 function histogram2d_min_bin(h, i, j)
@@ -592,8 +593,8 @@ GSL documentation:
 
 ### `int gsl_histogram2d_add (gsl_histogram2d * h1, const gsl_histogram2d * h2)`
 
-> This function adds the contents of the bins in histogram h2 to the
-> corresponding bins of histogram h1, i.e.
+> This function adds the contents of the bins in histogram `h2` to the
+> corresponding bins of histogram `h1`, i.e.
 > $h'_1(i,j) = h_1(i,j) + h_2(i,j)$. The two histograms must have
 > identical bin ranges.
 
@@ -612,8 +613,8 @@ GSL documentation:
 
 ### `int gsl_histogram2d_sub (gsl_histogram2d * h1, const gsl_histogram2d * h2)`
 
-> This function subtracts the contents of the bins in histogram h2 from
-> the corresponding bins of histogram h1, i.e.
+> This function subtracts the contents of the bins in histogram `h2`
+> from the corresponding bins of histogram `h1`, i.e.
 > $h'_1(i,j) = h_1(i,j) - h_2(i,j)$. The two histograms must have
 > identical bin ranges.
 
@@ -632,8 +633,8 @@ GSL documentation:
 
 ### `int gsl_histogram2d_mul (gsl_histogram2d * h1, const gsl_histogram2d * h2)`
 
-> This function multiplies the contents of the bins of histogram h1 by
-> the contents of the corresponding bins in histogram h2, i.e.
+> This function multiplies the contents of the bins of histogram `h1` by
+> the contents of the corresponding bins in histogram `h2`, i.e.
 > $h'_1(i,j) = h_1(i,j) * h_2(i,j)$. The two histograms must have
 > identical bin ranges.
 
@@ -652,8 +653,8 @@ GSL documentation:
 
 ### `int gsl_histogram2d_div (gsl_histogram2d * h1, const gsl_histogram2d * h2)`
 
-> This function divides the contents of the bins of histogram h1 by the
-> contents of the corresponding bins in histogram h2, i.e.
+> This function divides the contents of the bins of histogram `h1` by
+> the contents of the corresponding bins in histogram `h2`, i.e.
 > $h'_1(i,j) = h_1(i,j) / h_2(i,j)$. The two histograms must have
 > identical bin ranges.
 
@@ -672,8 +673,8 @@ GSL documentation:
 
 ### `int gsl_histogram2d_scale (gsl_histogram2d * h, double scale)`
 
-> This function multiplies the contents of the bins of histogram h by
-> the constant scale, i.e.
+> This function multiplies the contents of the bins of histogram `h` by
+> the constant `scale`, i.e.
 
 """
 function histogram2d_scale(h, scale)
@@ -690,8 +691,8 @@ GSL documentation:
 
 ### `int gsl_histogram2d_shift (gsl_histogram2d * h, double offset)`
 
-> This function shifts the contents of the bins of histogram h by the
-> constant offset, i.e.
+> This function shifts the contents of the bins of histogram `h` by the
+> constant `offset`, i.e.
 
 """
 function histogram2d_shift(h, shift)
@@ -708,10 +709,10 @@ GSL documentation:
 
 ### `int gsl_histogram2d_fwrite (FILE * stream, const gsl_histogram2d * h)`
 
-> This function writes the ranges and bins of the histogram h to the
-> stream stream in binary format. The return value is 0 for success and
-> GSL\_EFAILED if there was a problem writing to the file. Since the
-> data is written in the native binary format it may not be portable
+> This function writes the ranges and bins of the histogram `h` to the
+> stream `stream` in binary format. The return value is 0 for success
+> and `GSL_EFAILED` if there was a problem writing to the file. Since
+> the data is written in the native binary format it may not be portable
 > between different architectures.
 
 """
@@ -729,11 +730,11 @@ GSL documentation:
 
 ### `int gsl_histogram2d_fread (FILE * stream, gsl_histogram2d * h)`
 
-> This function reads into the histogram h from the stream stream in
-> binary format. The histogram h must be preallocated with the correct
-> size since the function uses the number of x and y bins in h to
+> This function reads into the histogram `h` from the stream `stream` in
+> binary format. The histogram `h` must be preallocated with the correct
+> size since the function uses the number of x and y bins in `h` to
 > determine how many bytes to read. The return value is 0 for success
-> and GSL\_EFAILED if there was a problem reading from the file. The
+> and `GSL_EFAILED` if there was a problem reading from the file. The
 > data is assumed to have been written in the native binary format on
 > the same architecture.
 
@@ -752,14 +753,13 @@ GSL documentation:
 
 ### `int gsl_histogram2d_fprintf (FILE * stream, const gsl_histogram2d * h, const char * range_format, const char * bin_format)`
 
-> This function writes the ranges and bins of the histogram h
-> line-by-line to the stream stream using the format specifiers
-> range\_format and bin\_format. These should be one of the
-> `%g`{.sourceCode}, `%e`{.sourceCode} or `%f`{.sourceCode} formats for
-> floating point numbers. The function returns 0 for success and
-> GSL\_EFAILED if there was a problem writing to the file. The histogram
-> output is formatted in five columns, and the columns are separated by
-> spaces, like this:
+> This function writes the ranges and bins of the histogram `h`
+> line-by-line to the stream `stream` using the format specifiers
+> `range_format` and `bin_format`. These should be one of the `%g`, `%e`
+> or `%f` formats for floating point numbers. The function returns 0 for
+> success and `GSL_EFAILED` if there was a problem writing to the file.
+> The histogram output is formatted in five columns, and the columns are
+> separated by spaces, like this:
 >
 >     xrange[0] xrange[1] yrange[0] yrange[1] bin(0,0)
 >     xrange[0] xrange[1] yrange[1] yrange[2] bin(0,1)
@@ -802,12 +802,13 @@ GSL documentation:
 
 ### `int gsl_histogram2d_fscanf (FILE * stream, gsl_histogram2d * h)`
 
-> This function reads formatted data from the stream stream into the
-> histogram h. The data is assumed to be in the five-column format used
-> by gsl\_histogram2d\_fprintf. The histogram h must be preallocated
-> with the correct lengths since the function uses the sizes of h to
-> determine how many numbers to read. The function returns 0 for success
-> and GSL\_EFAILED if there was a problem reading from the file.
+> This function reads formatted data from the stream `stream` into the
+> histogram `h`. The data is assumed to be in the five-column format
+> used by `gsl_histogram2d_fprintf`. The histogram `h` must be
+> preallocated with the correct lengths since the function uses the
+> sizes of `h` to determine how many numbers to read. The function
+> returns 0 for success and `GSL_EFAILED` if there was a problem reading
+> from the file.
 
 """
 function histogram2d_fscanf(stream, h)
@@ -825,10 +826,10 @@ GSL documentation:
 ### `gsl_histogram2d_pdf * gsl_histogram2d_pdf_alloc (size_t nx, size_t ny)`
 
 > This function allocates memory for a two-dimensional probability
-> distribution of size nx-by-ny and returns a pointer to a newly
-> initialized gsl\_histogram2d\_pdf struct. If insufficient memory is
+> distribution of size `nx`-by-`ny` and returns a pointer to a newly
+> initialized `gsl_histogram2d_pdf` struct. If insufficient memory is
 > available a null pointer is returned and the error handler is invoked
-> with an error code of GSL\_ENOMEM.
+> with an error code of `GSL_ENOMEM`.
 
 """
 function histogram2d_pdf_alloc(nx, ny)
@@ -846,9 +847,9 @@ GSL documentation:
 ### `int gsl_histogram2d_pdf_init (gsl_histogram2d_pdf * p, const gsl_histogram2d * h)`
 
 > This function initializes the two-dimensional probability distribution
-> calculated p from the histogram h. If any of the bins of h are
+> calculated `p` from the histogram `h`. If any of the bins of `h` are
 > negative then the error handler is invoked with an error code of
-> GSL\_EDOM because a probability distribution cannot contain negative
+> `GSL_EDOM` because a probability distribution cannot contain negative
 > values.
 
 """
@@ -867,7 +868,7 @@ GSL documentation:
 ### `void gsl_histogram2d_pdf_free (gsl_histogram2d_pdf * p)`
 
 > This function frees the two-dimensional probability distribution
-> function p and all of the memory associated with it.
+> function `p` and all of the memory associated with it.
 
 """
 function histogram2d_pdf_free(p)
@@ -884,9 +885,9 @@ GSL documentation:
 
 ### `int gsl_histogram2d_pdf_sample (const gsl_histogram2d_pdf * p, double r1, double r2, double * x, double * y)`
 
-> This function uses two uniform random numbers between zero and one, r1
-> and r2, to compute a single random sample from the two-dimensional
-> probability distribution p.
+> This function uses two uniform random numbers between zero and one,
+> `r1` and `r2`, to compute a single random sample from the
+> two-dimensional probability distribution `p`.
 
 """
 function histogram2d_pdf_sample(p, r1, r2, x, y)

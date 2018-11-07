@@ -54,7 +54,7 @@ GSL documentation:
 > The function is computed using the real Lanczos method. The value of
 > the gamma function and its error can be reconstructed using the
 > relation $\Gamma(x) = sgn * \exp(result\_lg)$, taking into account the
-> two components of result\_lg.
+> two components of `result_lg`.
 
 """
 function sf_lngamma_sgn_e(x, result_lg, sgn)
@@ -87,7 +87,7 @@ GSL documentation:
 > not being a negative integer or zero. The function is computed using
 > the real Lanczos method. The maximum value of $x$ such that
 > $\Gamma(x)$ is not considered an overflow is given by the macro
-> GSL\_SF\_GAMMA\_XMAX and is 171.0.
+> `GSL_SF_GAMMA_XMAX` and is 171.0.
 
 """
 function sf_gamma(x)
@@ -118,6 +118,16 @@ GSL documentation:
 
 > These routines compute the regulated Gamma Function $\Gamma^*(x)$ for
 > $x > 0$. The regulated gamma function is given by,
+>
+> not texinfo
+>
+> $$\Gamma^*(x) &= \Gamma(x)/(\sqrt{2\pi} x^{(x-1/2)} \exp(-x))\cr
+>             &= \left(1 + {1 \over 12x} + ...\right) \quad\hbox{for~} x\to \infty\cr$$
+>
+> texinfo
+>
+>     \Gamma^*(x) = \Gamma(x)/(\sqrt{2\pi} x^{(x-1/2)} \exp(-x))
+>                 = (1 + (1/12x) + ...)  for x \to \infty
 >
 > and is a useful suggestion of Temme.
 
@@ -170,10 +180,10 @@ GSL documentation:
 > and $z$ not a negative integer or zero, using the complex Lanczos
 > method. The returned parameters are $lnr = \log|\Gamma(z)|$ and
 > $arg = \arg(\Gamma(z))$ in $(-\pi,\pi]$. Note that the phase part
-> (arg) is not well-determined when $|z|$ is very large, due to
+> (`arg`) is not well-determined when $|z|$ is very large, due to
 > inevitable roundoff in restricting to $(-\pi,\pi]$. This will result
-> in a GSL\_ELOSS error when it occurs. The absolute value part (lnr),
-> however, never suffers from loss of precision.
+> in a `GSL_ELOSS` error when it occurs. The absolute value part
+> (`lnr`), however, never suffers from loss of precision.
 
 """
 function sf_lngamma_complex_e(zr, zi, lnr, arg)
@@ -236,7 +246,7 @@ GSL documentation:
 > These routines compute the factorial $n!$. The factorial is related to
 > the Gamma function by $n! = \Gamma(n+1)$. The maximum value of $n$
 > such that $n!$ is not considered an overflow is given by the macro
-> GSL\_SF\_FACT\_NMAX and is 170.
+> `GSL_SF_FACT_NMAX` and is 170.
 
 """
 function sf_fact(n)
@@ -267,7 +277,7 @@ GSL documentation:
 
 > These routines compute the double factorial $n!! = n(n-2)(n-4) \dots$.
 > The maximum value of $n$ such that $n!!$ is not considered an overflow
-> is given by the macro GSL\_SF\_DOUBLEFACT\_NMAX and is 297.
+> is given by the macro `GSL_SF_DOUBLEFACT_NMAX` and is 297.
 
 """
 function sf_doublefact(n)
@@ -296,9 +306,9 @@ GSL documentation:
 
 > int gsl\_sf\_lnfact\_e (unsigned int n, gsl\_sf\_result \* result)
 
-> These routines compute the logarithm of the factorial of n,
+> These routines compute the logarithm of the factorial of `n`,
 > $\log(n!)$. The algorithm is faster than computing $\ln(\Gamma(n+1))$
-> via gsl\_sf\_lngamma for $n < 170$, but defers for larger n.
+> via `gsl_sf_lngamma` for $n < 170$, but defers for larger `n`.
 
 """
 function sf_lnfact(n)
@@ -328,7 +338,7 @@ GSL documentation:
 > int gsl\_sf\_lndoublefact\_e (unsigned int n, gsl\_sf\_result \*
 > result)
 
-> These routines compute the logarithm of the double factorial of n,
+> These routines compute the logarithm of the double factorial of `n`,
 > $\log(n!!)$.
 
 """
@@ -359,8 +369,8 @@ GSL documentation:
 > int gsl\_sf\_lnchoose\_e (unsigned int n, unsigned int m,
 > gsl\_sf\_result \* result)
 
-> These routines compute the logarithm of `n choose m`{.sourceCode}.
-> This is equivalent to the sum $\log(n!) - \log(m!) - \log((n-m)!)$.
+> These routines compute the logarithm of `n choose m`. This is
+> equivalent to the sum $\log(n!) - \log(m!) - \log((n-m)!)$.
 
 """
 function sf_lnchoose(n, m)
@@ -390,8 +400,8 @@ GSL documentation:
 > int gsl\_sf\_choose\_e (unsigned int n, unsigned int m,
 > gsl\_sf\_result \* result)
 
-> These routines compute the combinatorial factor
-> `n choose m`{.sourceCode} $= n!/(m!(n-m)!)$
+> These routines compute the combinatorial factor `n choose m`
+> $= n!/(m!(n-m)!)$
 
 """
 function sf_choose(n, m)

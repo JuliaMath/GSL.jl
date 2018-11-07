@@ -91,7 +91,7 @@ GSL documentation:
 > int gsl\_sf\_expint\_En\_e (int n, double x, gsl\_sf\_result \*
 > result)
 
-> These routines compute the exponential integral $E_n(x)$ of order n,
+> These routines compute the exponential integral $E_n(x)$ of order `n`,
 >
 > $$E_n(x) := \Re \int_1^\infty dt \exp(-xt)/t^n.$$
 
@@ -183,6 +183,14 @@ GSL documentation:
 > int gsl\_sf\_expint\_Ei\_e (double x, gsl\_sf\_result \* result)
 
 > These routines compute the exponential integral $Ei(x)$,
+>
+> not texinfo
+>
+> $$\hbox{Ei}(x) = - PV \left( \int_{-x}^\infty dt \exp(-t)/t \right)$$
+>
+> texinfo
+>
+>     Ei(x) = - PV(\int_{-x}^\infty dt \exp(-t)/t)
 >
 > where $PV$ denotes the principal value of the integral.
 

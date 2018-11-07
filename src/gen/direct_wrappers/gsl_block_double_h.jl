@@ -16,10 +16,10 @@ GSL documentation:
 
 ### `gsl_block * gsl_block_alloc (size_t n)`
 
-> This function allocates memory for a block of n double-precision
+> This function allocates memory for a block of `n` double-precision
 > elements, returning a pointer to the block struct. The block is not
 > initialized and so the values of its elements are undefined. Use the
-> function gsl\_block\_calloc if you want to ensure that all the
+> function `gsl_block_calloc` if you want to ensure that all the
 > elements are initialized to zero.
 >
 > Zero-sized requests are valid and return a non-null result. A null
@@ -59,8 +59,8 @@ GSL documentation:
 
 ### `void gsl_block_free (gsl_block * b)`
 
-> This function frees the memory used by a block b previously allocated
-> with gsl\_block\_alloc or gsl\_block\_calloc.
+> This function frees the memory used by a block `b` previously
+> allocated with `gsl_block_alloc` or `gsl_block_calloc`.
 
 """
 function block_free(b)
@@ -77,10 +77,10 @@ GSL documentation:
 
 ### `int gsl_block_fread (FILE * stream, gsl_block * b)`
 
-> This function reads into the block b from the open stream stream in
-> binary format. The block b must be preallocated with the correct
-> length since the function uses the size of b to determine how many
-> bytes to read. The return value is 0 for success and GSL\_EFAILED if
+> This function reads into the block `b` from the open stream `stream`
+> in binary format. The block `b` must be preallocated with the correct
+> length since the function uses the size of `b` to determine how many
+> bytes to read. The return value is 0 for success and `GSL_EFAILED` if
 > there was a problem reading from the file. The data is assumed to have
 > been written in the native binary format on the same architecture.
 
@@ -99,11 +99,11 @@ GSL documentation:
 
 ### `int gsl_block_fwrite (FILE * stream, const gsl_block * b)`
 
-> This function writes the elements of the block b to the stream stream
-> in binary format. The return value is 0 for success and GSL\_EFAILED
-> if there was a problem writing to the file. Since the data is written
-> in the native binary format it may not be portable between different
-> architectures.
+> This function writes the elements of the block `b` to the stream
+> `stream` in binary format. The return value is 0 for success and
+> `GSL_EFAILED` if there was a problem writing to the file. Since the
+> data is written in the native binary format it may not be portable
+> between different architectures.
 
 """
 function block_fwrite(stream, b)
@@ -120,11 +120,11 @@ GSL documentation:
 
 ### `int gsl_block_fscanf (FILE * stream, gsl_block * b)`
 
-> This function reads formatted data from the stream stream into the
-> block b. The block b must be preallocated with the correct length
-> since the function uses the size of b to determine how many numbers to
-> read. The function returns 0 for success and GSL\_EFAILED if there was
-> a problem reading from the file.
+> This function reads formatted data from the stream `stream` into the
+> block `b`. The block `b` must be preallocated with the correct length
+> since the function uses the size of `b` to determine how many numbers
+> to read. The function returns 0 for success and `GSL_EFAILED` if there
+> was a problem reading from the file.
 
 """
 function block_fscanf(stream, b)
@@ -141,12 +141,11 @@ GSL documentation:
 
 ### `int gsl_block_fprintf (FILE * stream, const gsl_block * b, const char * format)`
 
-> This function writes the elements of the block b line-by-line to the
-> stream stream using the format specifier format, which should be one
-> of the `%g`{.sourceCode}, `%e`{.sourceCode} or `%f`{.sourceCode}
-> formats for floating point numbers and `%d`{.sourceCode} for integers.
-> The function returns 0 for success and GSL\_EFAILED if there was a
-> problem writing to the file.
+> This function writes the elements of the block `b` line-by-line to the
+> stream `stream` using the format specifier `format`, which should be
+> one of the `%g`, `%e` or `%f` formats for floating point numbers and
+> `%d` for integers. The function returns 0 for success and
+> `GSL_EFAILED` if there was a problem writing to the file.
 
 """
 function block_fprintf(stream, b, format)

@@ -30,7 +30,7 @@ GSL documentation:
 > gsl\_sf\_result \* result)
 
 > These routines compute the complete elliptic integral $K(k)$ to the
-> accuracy specified by the mode variable mode. Note that Abramowitz &
+> accuracy specified by the mode variable `mode`. Note that Abramowitz &
 > Stegun define this function in terms of the parameter $m = k^2$.
 
 """
@@ -62,7 +62,7 @@ GSL documentation:
 > gsl\_sf\_result \* result)
 
 > These routines compute the complete elliptic integral $E(k)$ to the
-> accuracy specified by the mode variable mode. Note that Abramowitz &
+> accuracy specified by the mode variable `mode`. Note that Abramowitz &
 > Stegun define this function in terms of the parameter $m = k^2$.
 
 """
@@ -94,9 +94,10 @@ GSL documentation:
 > gsl\_sf\_result \* result)
 
 > These routines compute the complete elliptic integral $\Pi(k,n)$ to
-> the accuracy specified by the mode variable mode. Note that Abramowitz
-> & Stegun define this function in terms of the parameters $m = k^2$ and
-> $\sin^2(\alpha) = k^2$, with the change of sign $n \to -n$.
+> the accuracy specified by the mode variable `mode`. Note that
+> Abramowitz & Stegun define this function in terms of the parameters
+> $m = k^2$ and $\sin^2(\alpha) = k^2$, with the change of sign
+> $n \to -n$.
 
 """
 function sf_ellint_Pcomp(k, n, mode)
@@ -147,8 +148,9 @@ GSL documentation:
 > gsl\_sf\_result \* result)
 
 > These routines compute the incomplete elliptic integral $F(\phi,k)$ to
-> the accuracy specified by the mode variable mode. Note that Abramowitz
-> & Stegun define this function in terms of the parameter $m = k^2$.
+> the accuracy specified by the mode variable `mode`. Note that
+> Abramowitz & Stegun define this function in terms of the parameter
+> $m = k^2$.
 
 """
 function sf_ellint_F(phi, k, mode)
@@ -179,8 +181,9 @@ GSL documentation:
 > gsl\_sf\_result \* result)
 
 > These routines compute the incomplete elliptic integral $E(\phi,k)$ to
-> the accuracy specified by the mode variable mode. Note that Abramowitz
-> & Stegun define this function in terms of the parameter $m = k^2$.
+> the accuracy specified by the mode variable `mode`. Note that
+> Abramowitz & Stegun define this function in terms of the parameter
+> $m = k^2$.
 
 """
 function sf_ellint_E(phi, k, mode)
@@ -211,7 +214,7 @@ GSL documentation:
 > gsl\_mode\_t mode, gsl\_sf\_result \* result)
 
 > These routines compute the incomplete elliptic integral
-> $\Pi(\phi,k,n)$ to the accuracy specified by the mode variable mode.
+> $\Pi(\phi,k,n)$ to the accuracy specified by the mode variable `mode`.
 > Note that Abramowitz & Stegun define this function in terms of the
 > parameters $m = k^2$ and $\sin^2(\alpha) = k^2$, with the change of
 > sign $n \to -n$.
@@ -247,6 +250,14 @@ GSL documentation:
 > These functions compute the incomplete elliptic integral $D(\phi,k)$
 > which is defined through the Carlson form $RD(x,y,z)$ by the following
 > relation,
+>
+> not texinfo
+>
+> $$D(\phi,k) = {1 \over 3} (\sin \phi)^3 RD (1-\sin^2(\phi), 1-k^2 \sin^2(\phi), 1)$$
+>
+> texinfo
+>
+>     D(\phi,k) = (1/3)(\sin(\phi))^3 RD (1-\sin^2(\phi), 1-k^2 \sin^2(\phi), 1).
 
 """
 function sf_ellint_D(phi, k, mode)
@@ -277,7 +288,7 @@ GSL documentation:
 > gsl\_sf\_result \* result)
 
 > These routines compute the incomplete elliptic integral $RC(x,y)$ to
-> the accuracy specified by the mode variable mode.
+> the accuracy specified by the mode variable `mode`.
 
 """
 function sf_ellint_RC(x, y, mode)
@@ -308,7 +319,7 @@ GSL documentation:
 > mode, gsl\_sf\_result \* result)
 
 > These routines compute the incomplete elliptic integral $RD(x,y,z)$ to
-> the accuracy specified by the mode variable mode.
+> the accuracy specified by the mode variable `mode`.
 
 """
 function sf_ellint_RD(x, y, z, mode)
@@ -339,7 +350,7 @@ GSL documentation:
 > mode, gsl\_sf\_result \* result)
 
 > These routines compute the incomplete elliptic integral $RF(x,y,z)$ to
-> the accuracy specified by the mode variable mode.
+> the accuracy specified by the mode variable `mode`.
 
 """
 function sf_ellint_RF(x, y, z, mode)
@@ -370,7 +381,7 @@ GSL documentation:
 > gsl\_mode\_t mode, gsl\_sf\_result \* result)
 
 > These routines compute the incomplete elliptic integral $RJ(x,y,z,p)$
-> to the accuracy specified by the mode variable mode.
+> to the accuracy specified by the mode variable `mode`.
 
 """
 function sf_ellint_RJ(x, y, z, p, mode)

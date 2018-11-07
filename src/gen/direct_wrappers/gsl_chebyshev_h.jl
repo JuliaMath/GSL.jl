@@ -16,8 +16,8 @@ GSL documentation:
 
 ### `gsl_cheb_series * gsl_cheb_alloc (const size_t n)`
 
-> This function allocates space for a Chebyshev series of order n and
-> returns a pointer to a new gsl\_cheb\_series struct.
+> This function allocates space for a Chebyshev series of order `n` and
+> returns a pointer to a new `gsl_cheb_series` struct.
 
 """
 function cheb_alloc(order)
@@ -34,7 +34,7 @@ GSL documentation:
 
 ### `void gsl_cheb_free (gsl_cheb_series * cs)`
 
-> This function frees a previously allocated Chebyshev series cs.
+> This function frees a previously allocated Chebyshev series `cs`.
 
 """
 function cheb_free(cs)
@@ -51,10 +51,10 @@ GSL documentation:
 
 ### `int gsl_cheb_init (gsl_cheb_series * cs, const gsl_function * f, const double a, const double b)`
 
-> This function computes the Chebyshev approximation cs for the function
-> f over the range $(a,b)$ to the previously specified order. The
-> computation of the Chebyshev approximation is an $O(n^2)$ process, and
-> requires $n$ function evaluations.
+> This function computes the Chebyshev approximation `cs` for the
+> function `f` over the range $(a,b)$ to the previously specified order.
+> The computation of the Chebyshev approximation is an $O(n^2)$ process,
+> and requires $n$ function evaluations.
 
 """
 function cheb_init(cs, func, a, b)
@@ -71,7 +71,7 @@ GSL documentation:
 
 ### `size_t gsl_cheb_order (const gsl_cheb_series * cs)`
 
-> This function returns the order of Chebyshev series cs.
+> This function returns the order of Chebyshev series `cs`.
 
 """
 function cheb_order(cs)
@@ -91,8 +91,8 @@ GSL documentation:
 > double \* gsl\_cheb\_coeffs (const gsl\_cheb\_series \* cs)
 
 > These functions return the size of the Chebyshev coefficient array
-> `c[]`{.sourceCode} and a pointer to its location in memory for the
-> Chebyshev series cs.
+> `c[]` and a pointer to its location in memory for the Chebyshev series
+> `cs`.
 
 """
 function cheb_size(cs)
@@ -119,7 +119,8 @@ GSL documentation:
 
 ### `double gsl_cheb_eval (const gsl_cheb_series * cs, double x)`
 
-> This function evaluates the Chebyshev series cs at a given point x.
+> This function evaluates the Chebyshev series `cs` at a given point
+> `x`.
 
 """
 function cheb_eval(cs, x)
@@ -136,9 +137,10 @@ GSL documentation:
 
 ### `int gsl_cheb_eval_err (const gsl_cheb_series * cs, const double x, double * result, double * abserr)`
 
-> This function computes the Chebyshev series cs at a given point x,
-> estimating both the series result and its absolute error abserr. The
-> error estimate is made from the first neglected term in the series.
+> This function computes the Chebyshev series `cs` at a given point `x`,
+> estimating both the series `result` and its absolute error `abserr`.
+> The error estimate is made from the first neglected term in the
+> series.
 
 """
 function cheb_eval_err(cs, x, result, abserr)
@@ -155,8 +157,8 @@ GSL documentation:
 
 ### `double gsl_cheb_eval_n (const gsl_cheb_series * cs, size_t order, double x)`
 
-> This function evaluates the Chebyshev series cs at a given point x, to
-> (at most) the given order order.
+> This function evaluates the Chebyshev series `cs` at a given point
+> `x`, to (at most) the given order `order`.
 
 """
 function cheb_eval_n(cs, order, x)
@@ -173,10 +175,10 @@ GSL documentation:
 
 ### `int gsl_cheb_eval_n_err (const gsl_cheb_series * cs, const size_t order, const double x, double * result, double * abserr)`
 
-> This function evaluates a Chebyshev series cs at a given point x,
-> estimating both the series result and its absolute error abserr, to
-> (at most) the given order order. The error estimate is made from the
-> first neglected term in the series.
+> This function evaluates a Chebyshev series `cs` at a given point `x`,
+> estimating both the series `result` and its absolute error `abserr`,
+> to (at most) the given order `order`. The error estimate is made from
+> the first neglected term in the series.
 
 """
 function cheb_eval_n_err(cs, order, x, result, abserr)
@@ -213,9 +215,9 @@ GSL documentation:
 
 ### `int gsl_cheb_calc_deriv (gsl_cheb_series * deriv, const gsl_cheb_series * cs)`
 
-> This function computes the derivative of the series cs, storing the
-> derivative coefficients in the previously allocated deriv. The two
-> series cs and deriv must have been allocated with the same order.
+> This function computes the derivative of the series `cs`, storing the
+> derivative coefficients in the previously allocated `deriv`. The two
+> series `cs` and `deriv` must have been allocated with the same order.
 
 """
 function cheb_calc_deriv(deriv, cs)
@@ -232,11 +234,11 @@ GSL documentation:
 
 ### `int gsl_cheb_calc_integ (gsl_cheb_series * integ, const gsl_cheb_series * cs)`
 
-> This function computes the integral of the series cs, storing the
-> integral coefficients in the previously allocated integ. The two
-> series cs and integ must have been allocated with the same order. The
-> lower limit of the integration is taken to be the left hand end of the
-> range a.
+> This function computes the integral of the series `cs`, storing the
+> integral coefficients in the previously allocated `integ`. The two
+> series `cs` and `integ` must have been allocated with the same order.
+> The lower limit of the integration is taken to be the left hand end of
+> the range `a`.
 
 """
 function cheb_calc_integ(integ, cs)

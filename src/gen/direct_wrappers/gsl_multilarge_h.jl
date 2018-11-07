@@ -17,7 +17,7 @@ GSL documentation:
 ### `gsl_multilarge_linear_workspace * gsl_multilarge_linear_alloc (const gsl_multilarge_linear_type * T, const size_t p)`
 
 > This function allocates a workspace for solving large linear least
-> squares systems. The least squares matrix $X$ has p columns, but may
+> squares systems. The least squares matrix $X$ has `p` columns, but may
 > have any number of rows.
 
 """
@@ -35,7 +35,7 @@ GSL documentation:
 
 ### `void gsl_multilarge_linear_free (gsl_multilarge_linear_workspace * w)`
 
-> This function frees the memory associated with the workspace w.
+> This function frees the memory associated with the workspace `w`.
 
 """
 function multilarge_linear_free(w)
@@ -70,7 +70,7 @@ GSL documentation:
 
 ### `int gsl_multilarge_linear_reset (gsl_multilarge_linear_workspace * w)`
 
-> This function resets the workspace w so it can begin to accumulate a
+> This function resets the workspace `w` so it can begin to accumulate a
 > new least squares system.
 
 """
@@ -89,10 +89,10 @@ GSL documentation:
 ### `int gsl_multilarge_linear_accumulate (gsl_matrix * X, gsl_vector * y, gsl_multilarge_linear_workspace * w)`
 
 > This function accumulates the standard form block ($X,y$) into the
-> current least squares system. X and y have the same number of rows,
-> which can be arbitrary. X must have $p$ columns. For the TSQR method,
-> X and y are destroyed on output. For the normal equations method, they
-> are both unchanged.
+> current least squares system. `X` and `y` have the same number of
+> rows, which can be arbitrary. `X` must have $p$ columns. For the TSQR
+> method, `X` and `y` are destroyed on output. For the normal equations
+> method, they are both unchanged.
 
 """
 function multilarge_linear_accumulate(X, y, w)
@@ -111,9 +111,10 @@ GSL documentation:
 
 > After all blocks ($X_i,y_i$) have been accumulated into the large
 > least squares system, this function will compute the solution vector
-> which is stored in c on output. The regularization parameter $\lambda$
-> is provided in lambda. On output, rnorm contains the residual norm
-> $||y - X c||_W$ and snorm contains the solution norm $||L c||$.
+> which is stored in `c` on output. The regularization parameter
+> $\lambda$ is provided in `lambda`. On output, `rnorm` contains the
+> residual norm $||y - X c||_W$ and `snorm` contains the solution norm
+> $||L c||$.
 
 """
 function multilarge_linear_solve(lambda, c, rnorm, snorm, w)
@@ -131,12 +132,12 @@ GSL documentation:
 ### `int gsl_multilarge_linear_rcond (double * rcond, gsl_multilarge_linear_workspace * work)`
 
 > This function computes the reciprocal condition number, stored in
-> rcond, of the least squares matrix after it has been accumulated into
-> the workspace work. For the TSQR algorithm, this is accomplished by
-> calculating the SVD of the $R$ factor, which has the same singular
-> values as the matrix $X$. For the normal equations method, this is
-> done by computing the eigenvalues of $X^T X$, which could be
-> inaccurate for ill-conditioned matrices $X$.
+> `rcond`, of the least squares matrix after it has been accumulated
+> into the workspace `work`. For the TSQR algorithm, this is
+> accomplished by calculating the SVD of the $R$ factor, which has the
+> same singular values as the matrix $X$. For the normal equations
+> method, this is done by computing the eigenvalues of $X^T X$, which
+> could be inaccurate for ill-conditioned matrices $X$.
 
 """
 function multilarge_linear_rcond(rcond, w)
@@ -154,17 +155,17 @@ GSL documentation:
 ### `int gsl_multilarge_linear_lcurve (gsl_vector * reg_param, gsl_vector * rho, gsl_vector * eta, gsl_multilarge_linear_workspace * work)`
 
 > This function computes the L-curve for a large least squares system
-> after it has been fully accumulated into the workspace work. The
-> output vectors reg\_param, rho, and eta must all be the same size, and
-> will contain the regularization parameters $\lambda_i$, residual norms
-> $||y - X c_i||$, and solution norms $|| L c_i ||$ which compose the
-> L-curve, where $c_i$ is the regularized solution vector corresponding
-> to $\lambda_i$. The user may determine the number of points on the
-> L-curve by adjusting the size of these input arrays. For the TSQR
-> method, the regularization parameters $\lambda_i$ are estimated from
-> the singular values of the triangular $R$ factor. For the normal
-> equations method, they are estimated from the eigenvalues of the
-> $X^T X$ matrix.
+> after it has been fully accumulated into the workspace `work`. The
+> output vectors `reg_param`, `rho`, and `eta` must all be the same
+> size, and will contain the regularization parameters $\lambda_i$,
+> residual norms $||y - X c_i||$, and solution norms $|| L c_i ||$ which
+> compose the L-curve, where $c_i$ is the regularized solution vector
+> corresponding to $\lambda_i$. The user may determine the number of
+> points on the L-curve by adjusting the size of these input arrays. For
+> the TSQR method, the regularization parameters $\lambda_i$ are
+> estimated from the singular values of the triangular $R$ factor. For
+> the normal equations method, they are estimated from the eigenvalues
+> of the $X^T X$ matrix.
 
 """
 function multilarge_linear_lcurve(reg_param, rho, eta, w)
@@ -198,15 +199,16 @@ GSL documentation:
 
 > These functions define a regularization matrix
 > $L = \diag(l_0,l_1,...,l_{p-1})$. The diagonal matrix element $l_i$ is
-> provided by the $i$-th element of the input vector L. The block (X, y)
-> is converted to standard form and the parameters ($\tilde{X}$,
-> $\tilde{y}$) are stored in Xs and ys on output. Xs and ys have the
-> same dimensions as X and y. Optional data weights may be supplied in
-> the vector w. In order to apply this transformation, $L^{-1}$ must
-> exist and so none of the $l_i$ may be zero. After the standard form
-> system has been solved, use gsl\_multilarge\_linear\_genform1 to
-> recover the original solution vector. It is allowed to have X = Xs and
-> y = ys for an in-place transform.
+> provided by the $i$-th element of the input vector `L`. The block
+> (`X`, `y`) is converted to standard form and the parameters
+> ($\tilde{X}$, $\tilde{y}$) are stored in `Xs` and `ys` on output. `Xs`
+> and `ys` have the same dimensions as `X` and `y`. Optional data
+> weights may be supplied in the vector `w`. In order to apply this
+> transformation, $L^{-1}$ must exist and so none of the $l_i$ may be
+> zero. After the standard form system has been solved, use
+> `gsl_multilarge_linear_genform1` to recover the original solution
+> vector. It is allowed to have `X` = `Xs` and `y` = `ys` for an
+> in-place transform.
 
 """
 function multilarge_linear_stdform1(L, X, y, Xs, ys, work)
@@ -224,9 +226,9 @@ GSL documentation:
 ### `int gsl_multilarge_linear_L_decomp (gsl_matrix * L, gsl_vector * tau)`
 
 > This function calculates the QR decomposition of the $m$-by-$p$
-> regularization matrix L. L must have $m \ge p$. On output, the
-> Householder scalars are stored in the vector tau of size $p$. These
-> outputs will be used by gsl\_multilarge\_linear\_wstdform2 to complete
+> regularization matrix `L`. `L` must have $m \ge p$. On output, the
+> Householder scalars are stored in the vector `tau` of size $p$. These
+> outputs will be used by `gsl_multilarge_linear_wstdform2` to complete
 > the transformation to standard form.
 
 """
@@ -259,15 +261,16 @@ GSL documentation:
 > \* w, const gsl\_vector \* y, gsl\_matrix \* Xs, gsl\_vector \* ys,
 > gsl\_multilarge\_linear\_workspace \* work)
 
-> These functions convert a block of rows (X, y, w) to standard form
-> ($\tilde{X}$, $\tilde{y}$) which are stored in Xs and ys respectively.
-> X, y, and w must all have the same number of rows. The $m$-by-$p$
-> regularization matrix L is specified by the inputs LQR and Ltau, which
-> are outputs from gsl\_multilarge\_linear\_L\_decomp. Xs and ys have
-> the same dimensions as X and y. After the standard form system has
-> been solved, use gsl\_multilarge\_linear\_genform2 to recover the
-> original solution vector. Optional data weights may be supplied in the
-> vector w, where $W = \diag(w)$.
+> These functions convert a block of rows (`X`, `y`, `w`) to standard
+> form ($\tilde{X}$, $\tilde{y}$) which are stored in `Xs` and `ys`
+> respectively. `X`, `y`, and `w` must all have the same number of rows.
+> The $m$-by-$p$ regularization matrix `L` is specified by the inputs
+> `LQR` and `Ltau`, which are outputs from
+> `gsl_multilarge_linear_L_decomp`. `Xs` and `ys` have the same
+> dimensions as `X` and `y`. After the standard form system has been
+> solved, use `gsl_multilarge_linear_genform2` to recover the original
+> solution vector. Optional data weights may be supplied in the vector
+> `w`, where $W = \diag(w)$.
 
 """
 function multilarge_linear_stdform2(LQR, Ltau, X, y, Xs, ys, work)
@@ -286,9 +289,10 @@ GSL documentation:
 
 > After a regularized system has been solved with
 > $L = \diag(\l_0,\l_1,...,\l_{p-1})$, this function backtransforms the
-> standard form solution vector cs to recover the solution vector of the
-> original problem c. The diagonal matrix elements $l_i$ are provided in
-> the vector L. It is allowed to have c = cs for an in-place transform.
+> standard form solution vector `cs` to recover the solution vector of
+> the original problem `c`. The diagonal matrix elements $l_i$ are
+> provided in the vector `L`. It is allowed to have `c` = `cs` for an
+> in-place transform.
 
 """
 function multilarge_linear_genform1(L, cs, c, work)
@@ -306,9 +310,9 @@ GSL documentation:
 ### `int gsl_multilarge_linear_genform2 (const gsl_matrix * LQR, const gsl_vector * Ltau, const gsl_vector * cs, gsl_vector * c, gsl_multilarge_linear_workspace * work)`
 
 > After a regularized system has been solved with a regularization
-> matrix $L$, specified by (LQR, Ltau), this function backtransforms the
-> standard form solution cs to recover the solution vector of the
-> original problem, which is stored in c, of length $p$.
+> matrix $L$, specified by (`LQR`, `Ltau`), this function backtransforms
+> the standard form solution `cs` to recover the solution vector of the
+> original problem, which is stored in `c`, of length $p$.
 
 """
 function multilarge_linear_genform2(LQR, Ltau, cs, c, work)

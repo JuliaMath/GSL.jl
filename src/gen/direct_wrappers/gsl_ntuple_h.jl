@@ -16,10 +16,10 @@ GSL documentation:
 
 ### `gsl_ntuple * gsl_ntuple_open (char * filename, void * ntuple_data, size_t size)`
 
-> This function opens an existing ntuple file filename for reading and
+> This function opens an existing ntuple file `filename` for reading and
 > returns a pointer to a corresponding ntuple struct. The ntuples in the
-> file must have size size. A pointer to memory for the current ntuple
-> row ntuple\_data must be supplied---this is used to copy ntuples in
+> file must have size `size`. A pointer to memory for the current ntuple
+> row `ntuple_data` must be supplied---this is used to copy ntuples in
 > and out of the file.
 
 """
@@ -37,12 +37,12 @@ GSL documentation:
 
 ### `gsl_ntuple * gsl_ntuple_create (char * filename, void * ntuple_data, size_t size)`
 
-> This function creates a new write-only ntuple file filename for
-> ntuples of size size and returns a pointer to the newly created ntuple
-> struct. Any existing file with the same name is truncated to zero
-> length and overwritten. A pointer to memory for the current ntuple row
-> ntuple\_data must be supplied---this is used to copy ntuples in and
-> out of the file.
+> This function creates a new write-only ntuple file `filename` for
+> ntuples of size `size` and returns a pointer to the newly created
+> ntuple struct. Any existing file with the same name is truncated to
+> zero length and overwritten. A pointer to memory for the current
+> ntuple row `ntuple_data` must be supplied---this is used to copy
+> ntuples in and out of the file.
 
 """
 function ntuple_create(filename, ntuple_data, size)
@@ -59,9 +59,8 @@ GSL documentation:
 
 ### `int gsl_ntuple_write (gsl_ntuple * ntuple)`
 
-> This function writes the current ntuple
-> `ntuple->ntuple_data`{.sourceCode} of size `ntuple->size`{.sourceCode}
-> to the corresponding file.
+> This function writes the current ntuple `ntuple->ntuple_data` of size
+> `ntuple->size` to the corresponding file.
 
 """
 function ntuple_write(ntuple)
@@ -78,8 +77,8 @@ GSL documentation:
 
 ### `int gsl_ntuple_read (gsl_ntuple * ntuple)`
 
-> This function reads the current row of the ntuple file for ntuple and
-> stores the values in `ntuple->data`{.sourceCode}.
+> This function reads the current row of the ntuple file for `ntuple`
+> and stores the values in `ntuple->data`.
 
 """
 function ntuple_read(ntuple)
@@ -96,7 +95,7 @@ GSL documentation:
 
 ### `int gsl_ntuple_bookdata (gsl_ntuple * ntuple)`
 
-> This function is a synonym for gsl\_ntuple\_write.
+> This function is a synonym for `gsl_ntuple_write`.
 
 """
 function ntuple_bookdata(ntuple)
@@ -113,13 +112,14 @@ GSL documentation:
 
 ### `int gsl_ntuple_project (gsl_histogram * h, gsl_ntuple * ntuple, gsl_ntuple_value_fn * value_func, gsl_ntuple_select_fn * select_func)`
 
-> This function updates the histogram h from the ntuple ntuple using the
-> functions value\_func and select\_func. For each ntuple row where the
-> selection function select\_func is non-zero the corresponding value of
-> that row is computed using the function value\_func and added to the
-> histogram. Those ntuple rows where select\_func returns zero are
-> ignored. New entries are added to the histogram, so subsequent calls
-> can be used to accumulate further data in the same histogram.
+> This function updates the histogram `h` from the ntuple `ntuple` using
+> the functions `value_func` and `select_func`. For each ntuple row
+> where the selection function `select_func` is non-zero the
+> corresponding value of that row is computed using the function
+> `value_func` and added to the histogram. Those ntuple rows where
+> `select_func` returns zero are ignored. New entries are added to the
+> histogram, so subsequent calls can be used to accumulate further data
+> in the same histogram.
 
 """
 function ntuple_project(h, ntuple, value_func, select_func)
@@ -136,7 +136,7 @@ GSL documentation:
 
 ### `int gsl_ntuple_close (gsl_ntuple * ntuple)`
 
-> This function closes the ntuple file ntuple and frees its associated
+> This function closes the ntuple file `ntuple` and frees its associated
 > allocated memory.
 
 """

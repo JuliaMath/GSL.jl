@@ -17,8 +17,20 @@ GSL documentation:
 ### `unsigned int gsl_ran_bernoulli (const gsl_rng * r, double p)`
 
 > This function returns either 0 or 1, the result of a Bernoulli trial
-> with probability p. The probability distribution for a Bernoulli trial
-> is,
+> with probability `p`. The probability distribution for a Bernoulli
+> trial is,
+>
+> not texinfo
+>
+> $$\begin{aligned}
+> p(0) & = 1 - p \\
+> p(1) & = p
+> \end{aligned}$$
+>
+> texinfo
+>
+>     p(0) = 1 - p
+>     p(1) = p
 
 """
 function ran_bernoulli(r, p)
@@ -35,13 +47,11 @@ GSL documentation:
 
 ### `double gsl_ran_bernoulli_pdf (unsigned int k, double p)`
 
-> This function computes the probability $p(k)$ of obtaining k from a
-> Bernoulli distribution with probability parameter p, using the formula
-> given above.
+> This function computes the probability $p(k)$ of obtaining `k` from a
+> Bernoulli distribution with probability parameter `p`, using the
+> formula given above.
 >
 > ![image](/images/rand-bernoulli.png)
-
-
 
 """
 function ran_bernoulli_pdf(k, p)
@@ -80,8 +90,9 @@ GSL documentation:
 
 ### `double gsl_ran_beta_pdf (double x, double a, double b)`
 
-> This function computes the probability density $p(x)$ at x for a beta
-> distribution with parameters a and b, using the formula given above.
+> This function computes the probability density $p(x)$ at `x` for a
+> beta distribution with parameters `a` and `b`, using the formula given
+> above.
 >
 > ![image](/images/rand-beta.png)
 
@@ -101,8 +112,8 @@ GSL documentation:
 ### `unsigned int gsl_ran_binomial (const gsl_rng * r, double p, unsigned int n)`
 
 > This function returns a random integer from the binomial distribution,
-> the number of successes in n independent trials with probability p.
-> The probability distribution for binomial variates is,
+> the number of successes in `n` independent trials with probability
+> `p`. The probability distribution for binomial variates is,
 >
 > $$p(k) = {n! \over k! (n-k)!} p^k (1-p)^{n-k}$$
 >
@@ -143,9 +154,9 @@ GSL documentation:
 
 ### `double gsl_ran_binomial_pdf (unsigned int k, double p, unsigned int n)`
 
-> This function computes the probability $p(k)$ of obtaining k from a
-> binomial distribution with parameters p and n, using the formula given
-> above.
+> This function computes the probability $p(k)$ of obtaining `k` from a
+> binomial distribution with parameters `p` and `n`, using the formula
+> given above.
 >
 > ![image](/images/rand-binomial.png)
 
@@ -165,7 +176,7 @@ GSL documentation:
 ### `double gsl_ran_exponential (const gsl_rng * r, double mu)`
 
 > This function returns a random variate from the exponential
-> distribution with mean mu. The distribution is,
+> distribution with mean `mu`. The distribution is,
 >
 > $$p(x) dx = {1 \over \mu} \exp(-x/\mu) dx$$
 >
@@ -186,8 +197,9 @@ GSL documentation:
 
 ### `double gsl_ran_exponential_pdf (double x, double mu)`
 
-> This function computes the probability density $p(x)$ at x for an
-> exponential distribution with mean mu, using the formula given above.
+> This function computes the probability density $p(x)$ at `x` for an
+> exponential distribution with mean `mu`, using the formula given
+> above.
 >
 > ![image](/images/rand-exponential.png)
 
@@ -207,8 +219,8 @@ GSL documentation:
 ### `double gsl_ran_exppow (const gsl_rng * r, double a, double b)`
 
 > This function returns a random variate from the exponential power
-> distribution with scale parameter a and exponent b. The distribution
-> is,
+> distribution with scale parameter `a` and exponent `b`. The
+> distribution is,
 >
 > $$p(x) dx = {1 \over 2 a \Gamma(1+1/b)} \exp(-|x/a|^b) dx$$
 >
@@ -231,9 +243,9 @@ GSL documentation:
 
 ### `double gsl_ran_exppow_pdf (double x, double a, double b)`
 
-> This function computes the probability density $p(x)$ at x for an
-> exponential power distribution with scale parameter a and exponent b,
-> using the formula given above.
+> This function computes the probability density $p(x)$ at `x` for an
+> exponential power distribution with scale parameter `a` and exponent
+> `b`, using the formula given above.
 >
 > ![image](/images/rand-exppow.png)
 
@@ -253,8 +265,8 @@ GSL documentation:
 ### `double gsl_ran_cauchy (const gsl_rng * r, double a)`
 
 > This function returns a random variate from the Cauchy distribution
-> with scale parameter a. The probability distribution for Cauchy random
-> variates is,
+> with scale parameter `a`. The probability distribution for Cauchy
+> random variates is,
 >
 > $$p(x) dx = {1 \over a\pi (1 + (x/a)^2) } dx$$
 >
@@ -276,8 +288,8 @@ GSL documentation:
 
 ### `double gsl_ran_cauchy_pdf (double x, double a)`
 
-> This function computes the probability density $p(x)$ at x for a
-> Cauchy distribution with scale parameter a, using the formula given
+> This function computes the probability density $p(x)$ at `x` for a
+> Cauchy distribution with scale parameter `a`, using the formula given
 > above.
 >
 > ![image](/images/rand-cauchy.png)
@@ -298,7 +310,8 @@ GSL documentation:
 ### `double gsl_ran_chisq (const gsl_rng * r, double nu)`
 
 > This function returns a random variate from the chi-squared
-> distribution with nu degrees of freedom. The distribution function is,
+> distribution with `nu` degrees of freedom. The distribution function
+> is,
 >
 > $$p(x) dx = {1 \over 2 \Gamma(\nu/2) } (x/2)^{\nu/2 - 1} \exp(-x/2) dx$$
 >
@@ -319,9 +332,9 @@ GSL documentation:
 
 ### `double gsl_ran_chisq_pdf (double x, double nu)`
 
-> This function computes the probability density $p(x)$ at x for a
-> chi-squared distribution with nu degrees of freedom, using the formula
-> given above.
+> This function computes the probability density $p(x)$ at `x` for a
+> chi-squared distribution with `nu` degrees of freedom, using the
+> formula given above.
 >
 > ![image](/images/rand-chisq.png)
 
@@ -340,15 +353,26 @@ GSL documentation:
 
 ### `void gsl_ran_dirichlet (const gsl_rng * r, size_t K, const double alpha[], double theta[])`
 
-> This function returns an array of K random variates from a Dirichlet
-> distribution of order K-1. The distribution function is
+> This function returns an array of `K` random variates from a Dirichlet
+> distribution of order `K`-1. The distribution function is
+>
+> not texinfo
+>
+> $$p(\theta_1,\ldots,\theta_K) \, d\theta_1 \cdots d\theta_K = 
+>         {1 \over Z} \prod_{i=1}^{K} \theta_i^{\alpha_i - 1} 
+>           \; \delta(1 -\sum_{i=1}^K \theta_i) d\theta_1 \cdots d\theta_K$$
+>
+> texinfo
+>
+>     p(\theta_1, ..., \theta_K) d\theta_1 ... d\theta_K = 
+>       (1/Z) \prod_{i=1}^K \theta_i^{\alpha_i - 1} \delta(1 -\sum_{i=1}^K \theta_i) d\theta_1 ... d\theta_K
 >
 > for $\theta_i \ge 0$ and $\alpha_i > 0$. The delta function ensures
 > that $\sum \theta_i = 1$. The normalization factor $Z$ is
 >
 > $$Z = {\prod_{i=1}^K \Gamma(\alpha_i) \over \Gamma( \sum_{i=1}^K \alpha_i)}$$
 >
-> The random variates are generated by sampling K values from gamma
+> The random variates are generated by sampling `K` values from gamma
 > distributions with parameters $a=\alpha_i$, $b=1$, and renormalizing.
 > See A.M. Law, W.D. Kelton, *Simulation Modeling and Analysis* (1991).
 
@@ -368,9 +392,9 @@ GSL documentation:
 ### `double gsl_ran_dirichlet_pdf (size_t K, const double alpha[], const double theta[])`
 
 > This function computes the probability density
-> $p(\theta_1, \ldots , \theta_K)$ at `theta[K]`{.sourceCode} for a
-> Dirichlet distribution with parameters `alpha[K]`{.sourceCode}, using
-> the formula given above.
+> $p(\theta_1, \ldots , \theta_K)$ at `theta[K]` for a Dirichlet
+> distribution with parameters `alpha[K]`, using the formula given
+> above.
 
 """
 function ran_dirichlet_pdf(K, alpha, theta)
@@ -389,9 +413,7 @@ GSL documentation:
 
 > This function computes the logarithm of the probability density
 > $p(\theta_1, \ldots , \theta_K)$ for a Dirichlet distribution with
-> parameters `alpha[K]`{.sourceCode}.
-
-
+> parameters `alpha[K]`.
 
 """
 function ran_dirichlet_lnpdf(K, alpha, theta)
@@ -429,7 +451,23 @@ GSL documentation:
 ### `double gsl_ran_fdist (const gsl_rng * r, double nu1, double nu2)`
 
 > This function returns a random variate from the F-distribution with
-> degrees of freedom nu1 and nu2. The distribution function is,
+> degrees of freedom `nu1` and `nu2`. The distribution function is,
+>
+> not texinfo
+>
+> $$p(x) dx = 
+>    { \Gamma((\nu_1 + \nu_2)/2)
+>         \over \Gamma(\nu_1/2) \Gamma(\nu_2/2) } 
+>    \nu_1^{\nu_1/2} \nu_2^{\nu_2/2} 
+>    x^{\nu_1/2 - 1} (\nu_2 + \nu_1 x)^{-\nu_1/2 -\nu_2/2}$$
+>
+> texinfo
+>
+>     p(x) dx = 
+>        { \Gamma((\nu_1 + \nu_2)/2)
+>             \over \Gamma(\nu_1/2) \Gamma(\nu_2/2) } 
+>        \nu_1^{\nu_1/2} \nu_2^{\nu_2/2} 
+>        x^{\nu_1/2 - 1} (\nu_2 + \nu_1 x)^{-\nu_1/2 -\nu_2/2}
 >
 > for $x \ge 0$.
 
@@ -448,9 +486,9 @@ GSL documentation:
 
 ### `double gsl_ran_fdist_pdf (double x, double nu1, double nu2)`
 
-> This function computes the probability density $p(x)$ at x for an
-> F-distribution with nu1 and nu2 degrees of freedom, using the formula
-> given above.
+> This function computes the probability density $p(x)$ at `x` for an
+> F-distribution with `nu1` and `nu2` degrees of freedom, using the
+> formula given above.
 >
 > ![image](/images/rand-fdist.png)
 
@@ -470,7 +508,7 @@ GSL documentation:
 ### `double gsl_ran_flat (const gsl_rng * r, double a, double b)`
 
 > This function returns a random variate from the flat (uniform)
-> distribution from a to b. The distribution is,
+> distribution from `a` to `b`. The distribution is,
 >
 > $$p(x) dx = {1 \over (b-a)} dx$$
 >
@@ -491,8 +529,8 @@ GSL documentation:
 
 ### `double gsl_ran_flat_pdf (double x, double a, double b)`
 
-> This function computes the probability density $p(x)$ at x for a
-> uniform distribution from a to b, using the formula given above.
+> This function computes the probability density $p(x)$ at `x` for a
+> uniform distribution from `a` to `b`, using the formula given above.
 >
 > ![image](/images/rand-flat.png)
 
@@ -518,12 +556,12 @@ GSL documentation:
 >
 > for $x > 0$.
 >
-> The gamma distribution with an integer parameter a is known as the
+> The gamma distribution with an integer parameter `a` is known as the
 > Erlang distribution.
 >
 > The variates are computed using the Marsaglia-Tsang fast gamma method.
-> This function for this method was previously called
-> gsl\_ran\_gamma\_mt and can still be accessed using this name.
+> This function for this method was previously called `gsl_ran_gamma_mt`
+> and can still be accessed using this name.
 
 """
 function ran_gamma(r, a, b)
@@ -550,8 +588,9 @@ GSL documentation:
 
 ### `double gsl_ran_gamma_pdf (double x, double a, double b)`
 
-> This function computes the probability density $p(x)$ at x for a gamma
-> distribution with parameters a and b, using the formula given above.
+> This function computes the probability density $p(x)$ at `x` for a
+> gamma distribution with parameters `a` and `b`, using the formula
+> given above.
 >
 > ![image](/images/rand-gamma.png)
 
@@ -599,16 +638,16 @@ GSL documentation:
 ### `double gsl_ran_gaussian (const gsl_rng * r, double sigma)`
 
 > This function returns a Gaussian random variate, with mean zero and
-> standard deviation sigma. The probability distribution for Gaussian
+> standard deviation `sigma`. The probability distribution for Gaussian
 > random variates is,
 >
 > $$p(x) dx = {1 \over \sqrt{2 \pi \sigma^2}} \exp (-x^2 / 2\sigma^2) dx$$
 >
 > for $x$ in the range $-\infty$ to $+\infty$. Use the transformation
-> $z = \mu + x$ on the numbers returned by gsl\_ran\_gaussian to obtain
+> $z = \mu + x$ on the numbers returned by `gsl_ran_gaussian` to obtain
 > a Gaussian distribution with mean $\mu$. This function uses the
 > Box-Muller algorithm which requires two calls to the random number
-> generator r.
+> generator `r`.
 
 """
 function ran_gaussian(r, sigma)
@@ -657,9 +696,9 @@ GSL documentation:
 
 ### `double gsl_ran_gaussian_pdf (double x, double sigma)`
 
-> This function computes the probability density $p(x)$ at x for a
-> Gaussian distribution with standard deviation sigma, using the formula
-> given above.
+> This function computes the probability density $p(x)$ at `x` for a
+> Gaussian distribution with standard deviation `sigma`, using the
+> formula given above.
 >
 > ![image](/images/rand-gaussian.png)
 
@@ -683,7 +722,7 @@ GSL documentation:
 
 > These functions compute results for the unit Gaussian distribution.
 > They are equivalent to the functions above with a standard deviation
-> of one, sigma = 1.
+> of one, `sigma` = 1.
 
 """
 function ran_ugaussian(r)
@@ -721,8 +760,8 @@ GSL documentation:
 ### `double gsl_ran_gaussian_tail (const gsl_rng * r, double a, double sigma)`
 
 > This function provides random variates from the upper tail of a
-> Gaussian distribution with standard deviation sigma. The values
-> returned are larger than the lower limit a, which must be positive.
+> Gaussian distribution with standard deviation `sigma`. The values
+> returned are larger than the lower limit `a`, which must be positive.
 > The method is based on Marsaglia's famous rectangle-wedge-tail
 > algorithm (Ann. Math. Stat. 32, 894--899 (1961)), with this aspect
 > explained in Knuth, v2, 3rd ed, p139,586 (exercise 11).
@@ -732,6 +771,14 @@ GSL documentation:
 > $$p(x) dx = {1 \over N(a;\sigma) \sqrt{2 \pi \sigma^2}} \exp (- x^2 / 2\sigma^2) dx$$
 >
 > for $x > a$ where $N(a;\sigma)$ is the normalization constant,
+>
+> not texinfo
+>
+> $$N(a;\sigma) = {1 \over 2} \hbox{erfc}\left({a \over \sqrt{2 \sigma^2}}\right).$$
+>
+> texinfo
+>
+>     N(a;\sigma) = (1/2) erfc(a / sqrt(2 sigma^2)).
 
 """
 function ran_gaussian_tail(r, a, sigma)
@@ -748,9 +795,9 @@ GSL documentation:
 
 ### `double gsl_ran_gaussian_tail_pdf (double x, double a, double sigma)`
 
-> This function computes the probability density $p(x)$ at x for a
-> Gaussian tail distribution with standard deviation sigma and lower
-> limit a, using the formula given above.
+> This function computes the probability density $p(x)$ at `x` for a
+> Gaussian tail distribution with standard deviation `sigma` and lower
+> limit `a`, using the formula given above.
 >
 > ![image](/images/rand-gaussian-tail.png)
 
@@ -769,13 +816,11 @@ GSL documentation:
 
 ### `double gsl_ran_ugaussian_tail (const gsl_rng * r, double a)`
 
-> double gsl\_ran\_ugaussian\_tail\_pdf (double x, double a)
+> double gsl\_ran\_ugaussian\_tail\_pdf (double `x`, double `a`)
 
 > These functions compute results for the tail of a unit Gaussian
 > distribution. They are equivalent to the functions above with a
-> standard deviation of one, sigma = 1.
-
-
+> standard deviation of one, `sigma` = 1.
 
 """
 function ran_ugaussian_tail(r, a)
@@ -803,12 +848,20 @@ GSL documentation:
 ### `void gsl_ran_bivariate_gaussian (const gsl_rng * r, double sigma_x, double sigma_y, double rho, double * x, double * y)`
 
 > This function generates a pair of correlated Gaussian variates, with
-> mean zero, correlation coefficient rho and standard deviations
-> sigma\_x and sigma\_y in the $x$ and $y$ directions. The probability
+> mean zero, correlation coefficient `rho` and standard deviations
+> `sigma_x` and `sigma_y` in the $x$ and $y$ directions. The probability
 > distribution for bivariate Gaussian random variates is,
 >
+> not texinfo
+>
+> $$p(x,y) dx dy = {1 \over 2 \pi \sigma_x \sigma_y \sqrt{1-\rho^2}} \exp \left(-{(x^2/\sigma_x^2 + y^2/\sigma_y^2 - 2 \rho x y/(\sigma_x\sigma_y)) \over 2(1-\rho^2)}\right) dx dy$$
+>
+> texinfo
+>
+>     p(x,y) dx dy = {1 \over 2 \pi \sigma_x \sigma_y \sqrt{1-\rho^2}} \exp (-(x^2/\sigma_x^2 + y^2/\sigma_y^2 - 2 \rho x y/(\sigma_x\sigma_y))/2(1-\rho^2)) dx dy
+>
 > for $x,y$ in the range $-\infty$ to $+\infty$. The correlation
-> coefficient rho should lie between $1$ and $-1$.
+> coefficient `rho` should lie between $1$ and $-1$.
 
 """
 function ran_bivariate_gaussian(r, sigma_x, sigma_y, rho, x, y)
@@ -825,14 +878,12 @@ GSL documentation:
 
 ### `double gsl_ran_bivariate_gaussian_pdf (double x, double y, double sigma_x, double sigma_y, double rho)`
 
-> This function computes the probability density $p(x,y)$ at (x, y) for
-> a bivariate Gaussian distribution with standard deviations sigma\_x,
-> sigma\_y and correlation coefficient rho, using the formula given
-> above.
+> This function computes the probability density $p(x,y)$ at (`x`, `y`)
+> for a bivariate Gaussian distribution with standard deviations
+> `sigma_x`, `sigma_y` and correlation coefficient `rho`, using the
+> formula given above.
 >
 > ![image](/images/rand-bivariate-gaussian.png)
-
-
 
 """
 function ran_bivariate_gaussian_pdf(x, y, sigma_x, sigma_y, rho)
@@ -852,11 +903,19 @@ GSL documentation:
 > This function generates a random vector satisfying the $k$-dimensional
 > multivariate Gaussian distribution with mean $\mu$ and
 > variance-covariance matrix $\Sigma$. On input, the $k$-vector $\mu$ is
-> given in mu, and the Cholesky factor of the $k$-by-$k$ matrix
-> $\Sigma = L L^T$ is given in the lower triangle of L, as output from
-> gsl\_linalg\_cholesky\_decomp. The random vector is stored in result
+> given in `mu`, and the Cholesky factor of the $k$-by-$k$ matrix
+> $\Sigma = L L^T$ is given in the lower triangle of `L`, as output from
+> `gsl_linalg_cholesky_decomp`. The random vector is stored in `result`
 > on output. The probability distribution for multivariate Gaussian
 > random variates is
+>
+> not texinfo
+>
+> $$p(x_1,\dots,x_k) dx_1 \dots dx_k = {1 \over \sqrt{(2 \pi)^k |\Sigma|}} \exp \left(-{1 \over 2} (x - \mu)^T \Sigma^{-1} (x - \mu)\right) dx_1 \dots dx_k$$
+>
+> texinfo
+>
+>     p(x_1,...,x_k) dx_1 ... dx_k = 1 / ( \sqrt{(2 \pi)^k |\Sigma| ) \exp (-1/2 (x - \mu)^T \Sigma^{-1} (x - \mu)) dx_1 ... dx_k
 
 """
 function ran_multivariate_gaussian(r, mu, L, result)
@@ -887,10 +946,10 @@ GSL documentation:
 > x, const gsl\_vector \* mu, const gsl\_matrix \* L, double \* result,
 > gsl\_vector \* work)
 
-> These functions compute $p(x)$ or $\log{p(x)}$ at the point x, using
-> mean vector mu and variance-covariance matrix specified by its
-> Cholesky factor L using the formula above. Additional workspace of
-> length $k$ is required in work.
+> These functions compute $p(x)$ or $\log{p(x)}$ at the point `x`, using
+> mean vector `mu` and variance-covariance matrix specified by its
+> Cholesky factor `L` using the formula above. Additional workspace of
+> length $k$ is required in `work`.
 
 """
 function ran_multivariate_gaussian_pdf(x, mu, L, result, work)
@@ -913,9 +972,9 @@ GSL documentation:
 >
 > $$\Hat{\mu} = {1 \over n} \sum_{j=1}^n X_j$$
 >
-> The samples $X_1,X_2,\dots,X_n$ are given in the $n$-by-$k$ matrix X,
-> and the maximum likelihood estimate of the mean is stored in mu\_hat
-> on output.
+> The samples $X_1,X_2,\dots,X_n$ are given in the $n$-by-$k$ matrix
+> `X`, and the maximum likelihood estimate of the mean is stored in
+> `mu_hat` on output.
 
 """
 function ran_multivariate_gaussian_mean(X, mu_hat)
@@ -937,11 +996,17 @@ GSL documentation:
 > estimate of the variance-covariance matrix of the distribution, given
 > by
 >
-> The samples $X_1,X_2,\dots,X_n$ are given in the $n$-by-$k$ matrix X
+> not texinfo
+>
+> $$\Hat{\Sigma} = {1 \over n} \sum_{j=1}^n \left( X_j - \Hat{\mu} \right) \left( X_j - \Hat{\mu} \right)^T$$
+>
+> texinfo
+>
+>     \Hat{\Sigma} = (1 / n) \sum_{j=1}^n ( X_j - \Hat{\mu} ) ( X_j - \Hat{\mu} )^T
+>
+> The samples $X_1,X_2,\dots,X_n$ are given in the $n$-by-$k$ matrix `X`
 > and the maximum likelihood estimate of the variance-covariance matrix
-> is stored in sigma\_hat on output.
-
-
+> is stored in `sigma_hat` on output.
 
 """
 function ran_multivariate_gaussian_vcov(X, sigma_hat)
@@ -962,10 +1027,18 @@ GSL documentation:
 > Wishart distribution. The probability distribution for Wishart random
 > variates is,
 >
+> not texinfo
+>
+> $$p(X) = \frac{|X|^{(n-p-1)/2} e^{-\textrm{tr}\left( V^{-1} X\right)/2}}{2^{\frac{np}{2}} \left| V \right|^{n/2} \Gamma_p(\frac{n}{2})}$$
+>
+> texinfo
+>
+> $$p(X) = \frac{|X|^{(n-p-1)/2} e^{-tr( V^{-1} X)/2}}{2^{(np)/2} |V|^{n/2} \Gamma_p(n/2)}$$
+>
 > Here, $n > p - 1$ is the number of degrees of freedom, $V$ is a
 > symmetric positive definite $p$-by-$p$ scale matrix, whose Cholesky
-> factor is specified by L, and work is $p$-by-$p$ workspace. The
-> $p$-by-$p$ Wishart distributed matrix $X$ is stored in result on
+> factor is specified by `L`, and `work` is $p$-by-$p$ workspace. The
+> $p$-by-$p$ Wishart distributed matrix $X$ is stored in `result` on
 > output.
 
 """
@@ -998,12 +1071,10 @@ GSL documentation:
 > result, gsl\_matrix \* work)
 
 > These functions compute $p(X)$ or $\log{p(X)}$ for the $p$-by-$p$
-> matrix X, whose Cholesky factor is specified in L\_X. The degrees of
-> freedom is given by n, the Cholesky factor of the scale matrix $V$ is
-> specified in L, and work is $p$-by-$p$ workspace. The probably density
-> value is returned in result.
-
-
+> matrix `X`, whose Cholesky factor is specified in `L_X`. The degrees
+> of freedom is given by `n`, the Cholesky factor of the scale matrix
+> $V$ is specified in `L`, and `work` is $p$-by-$p$ workspace. The
+> probably density value is returned in `result`.
 
 """
 function ran_wishart_pdf(X, L_X, df, L, result, work)
@@ -1023,6 +1094,14 @@ GSL documentation:
 > This function returns a random variate from the Landau distribution.
 > The probability distribution for Landau random variates is defined
 > analytically by the complex integral,
+>
+> not texinfo
+>
+> $$p(x) = {1 \over {2 \pi i}} \int_{c-i\infty}^{c+i\infty} ds\, \exp(s \log(s) + x s)$$
+>
+> texinfo
+>
+>     p(x) = (1/(2 \pi i)) \int_{c-i\infty}^{c+i\infty} ds exp(s log(s) + x s) 
 >
 > For numerical purposes it is more convenient to use the following
 > equivalent form of the integral,
@@ -1044,12 +1123,10 @@ GSL documentation:
 
 ### `double gsl_ran_landau_pdf (double x)`
 
-> This function computes the probability density $p(x)$ at x for the
+> This function computes the probability density $p(x)$ at `x` for the
 > Landau distribution using an approximation to the formula given above.
 >
 > ![image](/images/rand-landau.png)
-
-
 
 """
 function ran_landau_pdf(x)
@@ -1067,7 +1144,7 @@ GSL documentation:
 ### `unsigned int gsl_ran_geometric (const gsl_rng * r, double p)`
 
 > This function returns a random integer from the geometric
-> distribution, the number of independent trials with probability p
+> distribution, the number of independent trials with probability `p`
 > until the first success. The probability distribution for geometric
 > variates is,
 >
@@ -1092,9 +1169,9 @@ GSL documentation:
 
 ### `double gsl_ran_geometric_pdf (unsigned int k, double p)`
 
-> This function computes the probability $p(k)$ of obtaining k from a
-> geometric distribution with probability parameter p, using the formula
-> given above.
+> This function computes the probability $p(k)$ of obtaining `k` from a
+> geometric distribution with probability parameter `p`, using the
+> formula given above.
 >
 > ![image](/images/rand-geometric.png)
 
@@ -1142,8 +1219,8 @@ GSL documentation:
 
 ### `double gsl_ran_hypergeometric_pdf (unsigned int k, unsigned int n1, unsigned int n2, unsigned int t)`
 
-> This function computes the probability $p(k)$ of obtaining k from a
-> hypergeometric distribution with parameters n1, n2, t, using the
+> This function computes the probability $p(k)$ of obtaining `k` from a
+> hypergeometric distribution with parameters `n1`, `n2`, `t`, using the
 > formula given above.
 >
 > ![image](/images/rand-hypergeometric.png)
@@ -1185,9 +1262,9 @@ GSL documentation:
 
 ### `double gsl_ran_gumbel1_pdf (double x, double a, double b)`
 
-> This function computes the probability density $p(x)$ at x for a
-> Type-1 Gumbel distribution with parameters a and b, using the formula
-> given above.
+> This function computes the probability density $p(x)$ at `x` for a
+> Type-1 Gumbel distribution with parameters `a` and `b`, using the
+> formula given above.
 >
 > ![image](/images/rand-gumbel1.png)
 
@@ -1228,9 +1305,9 @@ GSL documentation:
 
 ### `double gsl_ran_gumbel2_pdf (double x, double a, double b)`
 
-> This function computes the probability density $p(x)$ at x for a
-> Type-2 Gumbel distribution with parameters a and b, using the formula
-> given above.
+> This function computes the probability density $p(x)$ at `x` for a
+> Type-2 Gumbel distribution with parameters `a` and `b`, using the
+> formula given above.
 >
 > ![image](/images/rand-gumbel2.png)
 
@@ -1271,9 +1348,9 @@ GSL documentation:
 
 ### `double gsl_ran_logistic_pdf (double x, double a)`
 
-> This function computes the probability density $p(x)$ at x for a
-> logistic distribution with scale parameter a, using the formula given
-> above.
+> This function computes the probability density $p(x)$ at `x` for a
+> logistic distribution with scale parameter `a`, using the formula
+> given above.
 >
 > ![image](/images/rand-logistic.png)
 
@@ -1314,8 +1391,8 @@ GSL documentation:
 
 ### `double gsl_ran_lognormal_pdf (double x, double zeta, double sigma)`
 
-> This function computes the probability density $p(x)$ at x for a
-> lognormal distribution with parameters zeta and sigma, using the
+> This function computes the probability density $p(x)$ at `x` for a
+> lognormal distribution with parameters `zeta` and `sigma`, using the
 > formula given above.
 >
 > ![image](/images/rand-lognormal.png)
@@ -1338,6 +1415,12 @@ GSL documentation:
 > This function returns a random integer from the logarithmic
 > distribution. The probability distribution for logarithmic random
 > variates is,
+>
+> not texinfo
+>
+> $$p(k) = {-1 \over \log(1-p)} {\left( p^k \over k \right)}$$
+>
+> texinfo
 
 """
 function ran_logarithmic(r, p)
@@ -1354,13 +1437,11 @@ GSL documentation:
 
 ### `double gsl_ran_logarithmic_pdf (unsigned int k, double p)`
 
-> This function computes the probability $p(k)$ of obtaining k from a
-> logarithmic distribution with probability parameter p, using the
+> This function computes the probability $p(k)$ of obtaining `k` from a
+> logarithmic distribution with probability parameter `p`, using the
 > formula given above.
 >
 > ![image](/images/rand-logarithmic.png)
-
-
 
 """
 function ran_logarithmic_pdf(k, p)
@@ -1377,20 +1458,30 @@ GSL documentation:
 
 ### `void gsl_ran_multinomial (const gsl_rng * r, size_t K, unsigned int N, const double p[], unsigned int n[])`
 
-> This function computes a random sample n from the multinomial
-> distribution formed by N trials from an underlying distribution
-> p\[K\]. The distribution function for n is,
+> This function computes a random sample `n` from the multinomial
+> distribution formed by `N` trials from an underlying distribution
+> `p[K]`. The distribution function for `n` is,
+>
+> not texinfo
+>
+> $$P(n_1, n_2,\cdots, n_K) = {{ N!}\over{n_1 ! n_2 ! \cdots n_K !}} \,
+>   p_1^{n_1} p_2^{n_2} \cdots p_K^{n_K}$$
+>
+> texinfo
+>
+>     P(n_1, n_2, ..., n_K) = 
+>       (N!/(n_1! n_2! ... n_K!)) p_1^n_1 p_2^n_2 ... p_K^n_K
 >
 > where $(n_1, n_2, \ldots, n_K)$ are nonnegative integers with
 > $\sum_{k=1}^{K} n_k = N$, and $(p_1, p_2, \ldots, p_K)$ is a
-> probability distribution with $\sum p_i = 1$. If the array
-> `p[K]`{.sourceCode} is not normalized then its entries will be treated
-> as weights and normalized appropriately. The arrays n and p must both
-> be of length K.
+> probability distribution with $\sum p_i = 1$. If the array `p[K]` is
+> not normalized then its entries will be treated as weights and
+> normalized appropriately. The arrays `n` and `p` must both be of
+> length `K`.
 >
 > Random variates are generated using the conditional binomial method
-> (see C.S. Davis, *The computer generation of multinomial random
-> variates*, Comp. Stat. Data Anal. 16 (1993) 205--217 for details).
+> (see C.S. Davis, \*The computer generation of multinomial random
+> variates\*, Comp. Stat. Data Anal. 16 (1993) 205--217 for details).
 
 """
 function ran_multinomial(r, K, N, p, n)
@@ -1408,8 +1499,8 @@ GSL documentation:
 ### `double gsl_ran_multinomial_pdf (size_t K, const double p[], const unsigned int n[])`
 
 > This function computes the probability $P(n_1, n_2, \ldots, n_K)$ of
-> sampling `n[K]`{.sourceCode} from a multinomial distribution with
-> parameters `p[K]`{.sourceCode}, using the formula given above.
+> sampling `n[K]` from a multinomial distribution with parameters
+> `p[K]`, using the formula given above.
 
 """
 function ran_multinomial_pdf(K, p, n)
@@ -1428,9 +1519,7 @@ GSL documentation:
 
 > This function returns the logarithm of the probability for the
 > multinomial distribution $P(n_1, n_2, \ldots, n_K)$ with parameters
-> `p[K]`{.sourceCode}.
-
-
+> `p[K]`.
 
 """
 function ran_multinomial_lnpdf(K, p, n)
@@ -1448,8 +1537,8 @@ GSL documentation:
 ### `unsigned int gsl_ran_negative_binomial (const gsl_rng * r, double p, double n)`
 
 > This function returns a random integer from the negative binomial
-> distribution, the number of failures occurring before n successes in
-> independent trials with probability p of success. The probability
+> distribution, the number of failures occurring before `n` successes in
+> independent trials with probability `p` of success. The probability
 > distribution for negative binomial variates is,
 >
 > $$p(k) = {\Gamma(n + k) \over \Gamma(k+1) \Gamma(n) } p^n (1-p)^k$$
@@ -1471,8 +1560,8 @@ GSL documentation:
 
 ### `double gsl_ran_negative_binomial_pdf (unsigned int k, double p, double  n)`
 
-> This function computes the probability $p(k)$ of obtaining k from a
-> negative binomial distribution with parameters p and n, using the
+> This function computes the probability $p(k)$ of obtaining `k` from a
+> negative binomial distribution with parameters `p` and `n`, using the
 > formula given above.
 >
 > ![image](/images/rand-nbinomial.png)
@@ -1515,9 +1604,9 @@ GSL documentation:
 
 ### `double gsl_ran_pascal_pdf (unsigned int k, double p, unsigned int n)`
 
-> This function computes the probability $p(k)$ of obtaining k from a
-> Pascal distribution with parameters p and n, using the formula given
-> above.
+> This function computes the probability $p(k)$ of obtaining `k` from a
+> Pascal distribution with parameters `p` and `n`, using the formula
+> given above.
 >
 > ![image](/images/rand-pascal.png)
 
@@ -1537,7 +1626,7 @@ GSL documentation:
 ### `double gsl_ran_pareto (const gsl_rng * r, double a, double b)`
 
 > This function returns a random variate from the Pareto distribution of
-> order a. The distribution function is,
+> order `a`. The distribution function is,
 >
 > $$p(x) dx = (a/b) / (x/b)^{a+1} dx$$
 >
@@ -1558,8 +1647,8 @@ GSL documentation:
 
 ### `double gsl_ran_pareto_pdf (double x, double a, double b)`
 
-> This function computes the probability density $p(x)$ at x for a
-> Pareto distribution with exponent a and scale b, using the formula
+> This function computes the probability density $p(x)$ at `x` for a
+> Pareto distribution with exponent `a` and scale `b`, using the formula
 > given above.
 >
 > ![image](/images/rand-pareto.png)
@@ -1580,7 +1669,7 @@ GSL documentation:
 ### `unsigned int gsl_ran_poisson (const gsl_rng * r, double mu)`
 
 > This function returns a random integer from the Poisson distribution
-> with mean mu. The probability distribution for Poisson variates is,
+> with mean `mu`. The probability distribution for Poisson variates is,
 >
 > $$p(k) = {\mu^k \over k!} \exp(-\mu)$$
 >
@@ -1611,8 +1700,8 @@ GSL documentation:
 
 ### `double gsl_ran_poisson_pdf (unsigned int k, double mu)`
 
-> This function computes the probability $p(k)$ of obtaining k from a
-> Poisson distribution with mean mu, using the formula given above.
+> This function computes the probability $p(k)$ of obtaining `k` from a
+> Poisson distribution with mean `mu`, using the formula given above.
 >
 > ![image](/images/rand-poisson.png)
 
@@ -1632,7 +1721,7 @@ GSL documentation:
 ### `double gsl_ran_rayleigh (const gsl_rng * r, double sigma)`
 
 > This function returns a random variate from the Rayleigh distribution
-> with scale parameter sigma. The distribution is,
+> with scale parameter `sigma`. The distribution is,
 >
 > $$p(x) dx = {x \over \sigma^2} \exp(- x^2/(2 \sigma^2)) dx$$
 >
@@ -1653,8 +1742,8 @@ GSL documentation:
 
 ### `double gsl_ran_rayleigh_pdf (double x, double sigma)`
 
-> This function computes the probability density $p(x)$ at x for a
-> Rayleigh distribution with scale parameter sigma, using the formula
+> This function computes the probability density $p(x)$ at `x` for a
+> Rayleigh distribution with scale parameter `sigma`, using the formula
 > given above.
 >
 > ![image](/images/rand-rayleigh.png)
@@ -1675,8 +1764,8 @@ GSL documentation:
 ### `double gsl_ran_rayleigh_tail (const gsl_rng * r, double a, double sigma)`
 
 > This function returns a random variate from the tail of the Rayleigh
-> distribution with scale parameter sigma and a lower limit of a. The
-> distribution is,
+> distribution with scale parameter `sigma` and a lower limit of `a`.
+> The distribution is,
 >
 > $$p(x) dx = {x \over \sigma^2} \exp ((a^2 - x^2) /(2 \sigma^2)) dx$$
 >
@@ -1697,13 +1786,11 @@ GSL documentation:
 
 ### `double gsl_ran_rayleigh_tail_pdf (double x, double a, double sigma)`
 
-> This function computes the probability density $p(x)$ at x for a
-> Rayleigh tail distribution with scale parameter sigma and lower limit
-> a, using the formula given above.
+> This function computes the probability density $p(x)$ at `x` for a
+> Rayleigh tail distribution with scale parameter `sigma` and lower
+> limit `a`, using the formula given above.
 >
 > ![image](/images/rand-rayleigh-tail.png)
-
-
 
 """
 function ran_rayleigh_tail_pdf(x, a, sigma)
@@ -1743,8 +1830,8 @@ GSL documentation:
 
 ### `double gsl_ran_tdist_pdf (double x, double nu)`
 
-> This function computes the probability density $p(x)$ at x for a
-> t-distribution with nu degrees of freedom, using the formula given
+> This function computes the probability density $p(x)$ at `x` for a
+> t-distribution with `nu` degrees of freedom, using the formula given
 > above.
 >
 > ![image](/images/rand-tdist.png)
@@ -1765,7 +1852,7 @@ GSL documentation:
 ### `double gsl_ran_laplace (const gsl_rng * r, double a)`
 
 > This function returns a random variate from the Laplace distribution
-> with width a. The distribution is,
+> with width `a`. The distribution is,
 >
 > $$p(x) dx = {1 \over 2 a}  \exp(-|x/a|) dx$$
 >
@@ -1786,8 +1873,8 @@ GSL documentation:
 
 ### `double gsl_ran_laplace_pdf (double x, double a)`
 
-> This function computes the probability density $p(x)$ at x for a
-> Laplace distribution with width a, using the formula given above.
+> This function computes the probability density $p(x)$ at `x` for a
+> Laplace distribution with width `a`, using the formula given above.
 >
 > ![image](/images/rand-laplace.png)
 
@@ -1807,20 +1894,26 @@ GSL documentation:
 ### `double gsl_ran_levy (const gsl_rng * r, double c, double alpha)`
 
 > This function returns a random variate from the Levy symmetric stable
-> distribution with scale c and exponent alpha. The symmetric stable
+> distribution with scale `c` and exponent `alpha`. The symmetric stable
 > probability distribution is defined by a Fourier transform,
 >
+> not texinfo
+>
+> $$p(x) = {1 \over 2 \pi} \int_{-\infty}^{+\infty} dt \exp(-it x - |c t|^\alpha)$$
+>
+> texinfo
+>
+>     p(x) = 1 / (2 \pi) \int_{-\infty}^{+\infty} dt \exp(-it x - |c t|^alpha)
+>
 > There is no explicit solution for the form of $p(x)$ and the library
-> does not define a corresponding `pdf`{.sourceCode} function. For
-> $\alpha = 1$ the distribution reduces to the Cauchy distribution. For
-> $\alpha = 2$ it is a Gaussian distribution with $\sigma = \sqrt{2} c$.
-> For $\alpha < 1$ the tails of the distribution become extremely wide.
+> does not define a corresponding `pdf` function. For $\alpha = 1$ the
+> distribution reduces to the Cauchy distribution. For $\alpha = 2$ it
+> is a Gaussian distribution with $\sigma = \sqrt{2} c$. For
+> $\alpha < 1$ the tails of the distribution become extremely wide.
 >
 > The algorithm only works for $0 < \alpha \le 2$.
 >
 > ![image](/images/rand-levy.png)
-
-
 
 """
 function ran_levy(r, c, alpha)
@@ -1838,18 +1931,26 @@ GSL documentation:
 ### `double gsl_ran_levy_skew (const gsl_rng * r, double c, double alpha, double beta)`
 
 > This function returns a random variate from the Levy skew stable
-> distribution with scale c, exponent alpha and skewness parameter beta.
-> The skewness parameter must lie in the range $[-1,1]$. The Levy skew
-> stable probability distribution is defined by a Fourier transform,
+> distribution with scale `c`, exponent `alpha` and skewness parameter
+> `beta`. The skewness parameter must lie in the range $[-1,1]$. The
+> Levy skew stable probability distribution is defined by a Fourier
+> transform,
+>
+> not texinfo
+>
+> $$p(x) = {1 \over 2 \pi} \int_{-\infty}^{+\infty} dt \exp(-it x - |c t|^\alpha (1-i \beta \sgn(t) \tan(\pi\alpha/2)))$$
+>
+> texinfo
+>
+>     p(x) = 1 / (2 \pi) \int_{-\infty}^{+\infty} dt \exp(-it x - |c t|^alpha (1-i beta sign(t) tan(pi alpha/2)))
 >
 > When $\alpha = 1$ the term $\tan(\pi \alpha/2)$ is replaced by
 > $-(2/\pi)\log|t|$. There is no explicit solution for the form of
-> $p(x)$ and the library does not define a corresponding
-> `pdf`{.sourceCode} function. For $\alpha = 2$ the distribution reduces
-> to a Gaussian distribution with $\sigma = \sqrt{2} c$ and the skewness
-> parameter has no effect. For $\alpha < 1$ the tails of the
-> distribution become extremely wide. The symmetric distribution
-> corresponds to $\beta = 0$.
+> $p(x)$ and the library does not define a corresponding `pdf` function.
+> For $\alpha = 2$ the distribution reduces to a Gaussian distribution
+> with $\sigma = \sqrt{2} c$ and the skewness parameter has no effect.
+> For $\alpha < 1$ the tails of the distribution become extremely wide.
+> The symmetric distribution corresponds to $\beta = 0$.
 >
 > The algorithm only works for $0 < \alpha \le 2$.
 
@@ -1896,9 +1997,9 @@ GSL documentation:
 
 ### `double gsl_ran_weibull_pdf (double x, double a, double b)`
 
-> This function computes the probability density $p(x)$ at x for a
-> Weibull distribution with scale a and exponent b, using the formula
-> given above.
+> This function computes the probability density $p(x)$ at `x` for a
+> Weibull distribution with scale `a` and exponent `b`, using the
+> formula given above.
 >
 > ![image](/images/rand-weibull.png)
 
@@ -1920,22 +2021,22 @@ GSL documentation:
 > void gsl\_ran\_dir\_2d\_trig\_method (const gsl\_rng \* r, double \*
 > x, double \* y)
 
-> This function returns a random direction vector $v$ = (x, y) in two
-> dimensions. The vector is normalized such that
+> This function returns a random direction vector $v$ = (`x`, `y`) in
+> two dimensions. The vector is normalized such that
 > $|v|^2 = x^2 + y^2 = 1$. The obvious way to do this is to take a
-> uniform random number between 0 and $2\pi$ and let x and y be the sine
-> and cosine respectively. Two trig functions would have been expensive
-> in the old days, but with modern hardware implementations, this is
-> sometimes the fastest way to go. This is the case for the Pentium (but
-> not the case for the Sun Sparcstation). One can avoid the trig
-> evaluations by choosing x and y in the interior of a unit circle
-> (choose them at random from the interior of the enclosing square, and
-> then reject those that are outside the unit circle), and then dividing
-> by $\sqrt{x^2 + y^2}$. A much cleverer approach, attributed to von
-> Neumann (See Knuth, v2, 3rd ed, p140, exercise 23), requires neither
-> trig nor a square root. In this approach, u and v are chosen at random
-> from the interior of a unit circle, and then $x=(u^2-v^2)/(u^2+v^2)$
-> and $y=2uv/(u^2+v^2)$.
+> uniform random number between 0 and $2\pi$ and let `x` and `y` be the
+> sine and cosine respectively. Two trig functions would have been
+> expensive in the old days, but with modern hardware implementations,
+> this is sometimes the fastest way to go. This is the case for the
+> Pentium (but not the case for the Sun Sparcstation). One can avoid the
+> trig evaluations by choosing `x` and `y` in the interior of a unit
+> circle (choose them at random from the interior of the enclosing
+> square, and then reject those that are outside the unit circle), and
+> then dividing by $\sqrt{x^2 + y^2}$. A much cleverer approach,
+> attributed to von Neumann (See Knuth, v2, 3rd ed, p140, exercise 23),
+> requires neither trig nor a square root. In this approach, `u` and `v`
+> are chosen at random from the interior of a unit circle, and then
+> $x=(u^2-v^2)/(u^2+v^2)$ and $y=2uv/(u^2+v^2)$.
 
 """
 function ran_dir_2d(r, x, y)
@@ -1962,8 +2063,8 @@ GSL documentation:
 
 ### `void gsl_ran_dir_3d (const gsl_rng * r, double * x, double * y, double * z)`
 
-> This function returns a random direction vector $v$ = (x, y, z) in
-> three dimensions. The vector is normalized such that
+> This function returns a random direction vector $v$ = (`x`, `y`, `z`)
+> in three dimensions. The vector is normalized such that
 > $|v|^2 = x^2 + y^2 + z^2 = 1$. The method employed is due to Robert E.
 > Knop (CACM 13, 326 (1970)), and explained in Knuth, v2, 3rd ed, p136.
 > It uses the surprising fact that the distribution projected along any
@@ -1985,15 +2086,13 @@ GSL documentation:
 ### `void gsl_ran_dir_nd (const gsl_rng * r, size_t n, double * x)`
 
 > This function returns a random direction vector
-> $v = (x_1,x_2,\ldots,x_n)$ in n dimensions. The vector is normalized
+> $v = (x_1,x_2,\ldots,x_n)$ in `n` dimensions. The vector is normalized
 > such that $|v|^2 = x_1^2 + x_2^2 + \cdots + x_n^2 = 1$. The method
 > uses the fact that a multivariate Gaussian distribution is spherically
 > symmetric. Each component is generated to have a Gaussian
 > distribution, and then the components are normalized. The method is
 > described by Knuth, v2, 3rd ed, p135--136, and attributed to G. W.
 > Brown, Modern Mathematics for the Engineer (1956).
-
-
 
 """
 function ran_dir_nd(r, n, x)
@@ -2010,11 +2109,11 @@ GSL documentation:
 
 ### `void gsl_ran_shuffle (const gsl_rng * r, void * base, size_t n, size_t size)`
 
-> This function randomly shuffles the order of n objects, each of size
-> size, stored in the array `base[0..n-1]`{.sourceCode}. The output of
-> the random number generator r is used to produce the permutation. The
-> algorithm generates all possible $n!$ permutations with equal
-> probability, assuming a perfect source of random numbers.
+> This function randomly shuffles the order of `n` objects, each of size
+> `size`, stored in the array `base[0..n-1]`. The output of the random
+> number generator `r` is used to produce the permutation. The algorithm
+> generates all possible $n!$ permutations with equal probability,
+> assuming a perfect source of random numbers.
 >
 > The following code shows how to shuffle the numbers from 0 to 51:
 >
@@ -2042,19 +2141,18 @@ GSL documentation:
 
 ### `int gsl_ran_choose (const gsl_rng * r, void * dest, size_t k, void * src, size_t n, size_t size)`
 
-> This function fills the array `dest[k]`{.sourceCode} with k objects
-> taken randomly from the n elements of the array
-> `src[0..n-1]`{.sourceCode}. The objects are each of size size. The
-> output of the random number generator r is used to make the selection.
-> The algorithm ensures all possible samples are equally likely,
-> assuming a perfect source of randomness.
+> This function fills the array `dest[k]` with `k` objects taken
+> randomly from the `n` elements of the array `src[0..n-1]`. The objects
+> are each of size `size`. The output of the random number generator `r`
+> is used to make the selection. The algorithm ensures all possible
+> samples are equally likely, assuming a perfect source of randomness.
 >
 > The objects are sampled **without** replacement, thus each object can
-> only appear once in dest. It is required that k be less than or equal
-> to n. The objects in dest will be in the same relative order as those
-> in src. You will need to call
-> `gsl_ran_shuffle(r, dest, n, size)`{.sourceCode} if you want to
-> randomize the order.
+> only appear once in `dest`. It is required that `k` be less than or
+> equal to `n`. The objects in `dest` will be in the same relative order
+> as those in `src`. You will need to call
+> `gsl_ran_shuffle(r, dest, n, size)` if you want to randomize the
+> order.
 >
 > The following code shows how to select a random sample of three unique
 > numbers from the set 0 to 99:
@@ -2083,10 +2181,10 @@ GSL documentation:
 
 ### `void gsl_ran_sample (const gsl_rng * r, void * dest, size_t k, void * src, size_t n, size_t size)`
 
-> This function is like gsl\_ran\_choose but samples k items from the
-> original array of n items src with replacement, so the same object can
-> appear more than once in the output sequence dest. There is no
-> requirement that k be less than n in this case.
+> This function is like `gsl_ran_choose` but samples `k` items from the
+> original array of `n` items `src` with replacement, so the same object
+> can appear more than once in the output sequence `dest`. There is no
+> requirement that `k` be less than `n` in this case.
 
 """
 function ran_sample(r, dest, k, src, n, size)
@@ -2104,12 +2202,12 @@ GSL documentation:
 ### `gsl_ran_discrete_t * gsl_ran_discrete_preproc (size_t K, const double * P)`
 
 > This function returns a pointer to a structure that contains the
-> lookup table for the discrete random number generator. The array P
+> lookup table for the discrete random number generator. The array `P`
 > contains the probabilities of the discrete events; these array
 > elements must all be positive, but they needn't add up to one (so you
 > can think of them more generally as "weights")---the preprocessor will
 > normalize appropriately. This return value is used as an argument for
-> the gsl\_ran\_discrete function below.
+> the `gsl_ran_discrete` function below.
 
 """
 function ran_discrete_preproc(K, P)
@@ -2126,9 +2224,7 @@ GSL documentation:
 
 ### `void gsl_ran_discrete_free (gsl_ran_discrete_t * g)`
 
-> De-allocates the lookup table pointed to by g.
-
-
+> De-allocates the lookup table pointed to by `g`.
 
 """
 function ran_discrete_free(g)
@@ -2163,9 +2259,9 @@ GSL documentation:
 
 ### `double gsl_ran_discrete_pdf (size_t k, const gsl_ran_discrete_t * g)`
 
-> Returns the probability $P[k]$ of observing the variable k. Since
+> Returns the probability $P[k]$ of observing the variable `k`. Since
 > $P[k]$ is not stored as part of the lookup table, it must be
-> recomputed; this computation takes $O(K)$, so if K is large and you
+> recomputed; this computation takes $O(K)$, so if `K` is large and you
 > care about the original array $P[k]$ used to create the lookup table,
 > then you should just keep this original array $P[k]$ around.
 

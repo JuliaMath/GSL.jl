@@ -16,7 +16,7 @@ GSL documentation:
 
 ### `gsl_sum_levin_u_workspace * gsl_sum_levin_u_alloc (size_t n)`
 
-> This function allocates a workspace for a Levin $u$-transform of n
+> This function allocates a workspace for a Levin $u$-transform of `n`
 > terms. The size of the workspace is $O(2n^2 + 3n)$.
 
 """
@@ -34,7 +34,7 @@ GSL documentation:
 
 ### `void gsl_sum_levin_u_free (gsl_sum_levin_u_workspace * w)`
 
-> This function frees the memory associated with the workspace w.
+> This function frees the memory associated with the workspace `w`.
 
 """
 function sum_levin_u_free(w)
@@ -51,16 +51,16 @@ GSL documentation:
 
 ### `int gsl_sum_levin_u_accel (const double * array, size_t array_size, gsl_sum_levin_u_workspace * w, double * sum_accel, double * abserr)`
 
-> This function takes the terms of a series in array of size array\_size
-> and computes the extrapolated limit of the series using a Levin
-> $u$-transform. Additional working space must be provided in w. The
-> extrapolated sum is stored in sum\_accel, with an estimate of the
-> absolute error stored in abserr. The actual term-by-term sum is
-> returned in `w->sum_plain`{.sourceCode}. The algorithm calculates the
-> truncation error (the difference between two successive
-> extrapolations) and round-off error (propagated from the individual
-> terms) to choose an optimal number of terms for the extrapolation. All
-> the terms of the series passed in through array should be non-zero.
+> This function takes the terms of a series in `array` of size
+> `array_size` and computes the extrapolated limit of the series using a
+> Levin $u$-transform. Additional working space must be provided in `w`.
+> The extrapolated sum is stored in `sum_accel`, with an estimate of the
+> absolute error stored in `abserr`. The actual term-by-term sum is
+> returned in `w->sum_plain`. The algorithm calculates the truncation
+> error (the difference between two successive extrapolations) and
+> round-off error (propagated from the individual terms) to choose an
+> optimal number of terms for the extrapolation. All the terms of the
+> series passed in through `array` should be non-zero.
 
 """
 function sum_levin_u_accel(array, n, w, sum_accel, abserr)
@@ -97,7 +97,7 @@ GSL documentation:
 
 ### `gsl_sum_levin_utrunc_workspace * gsl_sum_levin_utrunc_alloc (size_t n)`
 
-> This function allocates a workspace for a Levin $u$-transform of n
+> This function allocates a workspace for a Levin $u$-transform of `n`
 > terms, without error estimation. The size of the workspace is $O(3n)$.
 
 """
@@ -115,7 +115,7 @@ GSL documentation:
 
 ### `void gsl_sum_levin_utrunc_free (gsl_sum_levin_utrunc_workspace * w)`
 
-> This function frees the memory associated with the workspace w.
+> This function frees the memory associated with the workspace `w`.
 
 """
 function sum_levin_utrunc_free(w)
@@ -132,17 +132,17 @@ GSL documentation:
 
 ### `int gsl_sum_levin_utrunc_accel (const double * array, size_t array_size, gsl_sum_levin_utrunc_workspace * w, double * sum_accel, double * abserr_trunc)`
 
-> This function takes the terms of a series in array of size array\_size
-> and computes the extrapolated limit of the series using a Levin
-> $u$-transform. Additional working space must be provided in w. The
-> extrapolated sum is stored in sum\_accel. The actual term-by-term sum
-> is returned in `w->sum_plain`{.sourceCode}. The algorithm terminates
-> when the difference between two successive extrapolations reaches a
-> minimum or is sufficiently small. The difference between these two
-> values is used as estimate of the error and is stored in
-> abserr\_trunc. To improve the reliability of the algorithm the
-> extrapolated values are replaced by moving averages when calculating
-> the truncation error, smoothing out any fluctuations.
+> This function takes the terms of a series in `array` of size
+> `array_size` and computes the extrapolated limit of the series using a
+> Levin $u$-transform. Additional working space must be provided in `w`.
+> The extrapolated sum is stored in `sum_accel`. The actual term-by-term
+> sum is returned in `w->sum_plain`. The algorithm terminates when the
+> difference between two successive extrapolations reaches a minimum or
+> is sufficiently small. The difference between these two values is used
+> as estimate of the error and is stored in `abserr_trunc`. To improve
+> the reliability of the algorithm the extrapolated values are replaced
+> by moving averages when calculating the truncation error, smoothing
+> out any fluctuations.
 
 """
 function sum_levin_utrunc_accel(array, n, w, sum_accel, abserr_trunc)

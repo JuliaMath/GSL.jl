@@ -19,7 +19,7 @@ GSL documentation:
 > void gsl\_ieee\_printf\_double (const double \* x)
 
 > These functions output a formatted version of the IEEE floating-point
-> number pointed to by x to the stream `stdout`{.sourceCode}.
+> number pointed to by `x` to the stream `stdout`.
 
 The following program demonstrates the use of the functions by printing
 the single and double precision representations of the fraction $1/3$.
@@ -54,33 +54,32 @@ GSL documentation:
 > void gsl\_ieee\_fprintf\_double (FILE \* stream, const double \* x)
 
 > These functions output a formatted version of the IEEE floating-point
-> number pointed to by x to the stream stream. A pointer is used to pass
-> the number indirectly, to avoid any undesired promotion from
-> `float`{.sourceCode} to `double`{.sourceCode}. The output takes one of
-> the following forms,
+> number pointed to by `x` to the stream `stream`. A pointer is used to
+> pass the number indirectly, to avoid any undesired promotion from
+> `float` to `double`. The output takes one of the following forms,
 >
-> `NaN`{.sourceCode}
+> `NaN`
 >
 > > the Not-a-Number symbol
 >
-> `Inf, -Inf`{.sourceCode}
+> `Inf, -Inf`
 >
 > > positive or negative infinity
 >
-> `1.fffff...*2^E, -1.fffff...*2^E`{.sourceCode}
+> `1.fffff...*2^E, -1.fffff...*2^E`
 >
 > > a normalized floating point number
 >
-> `0.fffff...*2^E, -0.fffff...*2^E`{.sourceCode}
+> `0.fffff...*2^E, -0.fffff...*2^E`
 >
 > > a denormalized floating point number
 >
-> `0, -0`{.sourceCode}
+> `0, -0`
 >
 > > positive or negative zero
 >
 > The output can be used directly in GNU Emacs Calc mode by preceding it
-> with `2#`{.sourceCode} to indicate binary.
+> with `2#` to indicate binary.
 
 """
 function ieee_fprintf_float(stream, x)
@@ -127,14 +126,14 @@ GSL documentation:
 
 ### `void gsl_ieee_env_setup ()`
 
-> This function reads the environment variable GSL\_IEEE\_MODE and
+> This function reads the environment variable `GSL_IEEE_MODE` and
 > attempts to set up the corresponding specified IEEE modes. The
 > environment variable should be a list of keywords, separated by
 > commas, like this:
 >
 >     GSL_IEEE_MODE = "keyword, keyword, ..."
 >
-> where keyword is one of the following mode-names:
+> where `keyword` is one of the following mode-names:
 >
 >     single-precision
 >     double-precision
@@ -152,15 +151,15 @@ GSL documentation:
 >     trap-inexact
 >     trap-common
 >
-> If GSL\_IEEE\_MODE is empty or undefined then the function returns
+> If `GSL_IEEE_MODE` is empty or undefined then the function returns
 > immediately and no attempt is made to change the system's IEEE mode.
-> When the modes from GSL\_IEEE\_MODE are turned on the function prints
+> When the modes from `GSL_IEEE_MODE` are turned on the function prints
 > a short message showing the new settings to remind you that the
 > results of the program will be affected.
 >
 > If the requested modes are not supported by the platform being used
 > then the function calls the error handler and returns an error code of
-> GSL\_EUNSUP.
+> `GSL_EUNSUP`.
 >
 > When options are specified using this method, the resulting mode is
 > based on a default setting of the highest available precision (double
@@ -170,9 +169,8 @@ GSL documentation:
 > rounding occurs, so it must generally be disabled in typical
 > scientific calculations. All other floating-point exceptions are
 > enabled by default, including underflows and the use of denormalized
-> numbers, for safety. They can be disabled with the individual
-> `mask-`{.sourceCode} settings or together using
-> `mask-all`{.sourceCode}.
+> numbers, for safety. They can be disabled with the individual `mask-`
+> settings or together using `mask-all`.
 >
 > The following adjusted combination of modes is convenient for many
 > purposes:

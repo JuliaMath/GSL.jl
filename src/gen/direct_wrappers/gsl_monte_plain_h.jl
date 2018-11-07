@@ -17,13 +17,13 @@ GSL documentation:
 ### `int gsl_monte_plain_integrate (gsl_monte_function * f, const double xl[], const double xu[], size_t dim, size_t calls, gsl_rng * r, gsl_monte_plain_state * s, double * result, double * abserr)`
 
 > This routines uses the plain Monte Carlo algorithm to integrate the
-> function f over the dim-dimensional hypercubic region defined by the
-> lower and upper limits in the arrays xl and xu, each of size dim. The
-> integration uses a fixed number of function calls calls, and obtains
-> random sampling points using the random number generator r. A
-> previously allocated workspace s must be supplied. The result of the
-> integration is returned in result, with an estimated absolute error
-> abserr.
+> function `f` over the `dim`-dimensional hypercubic region defined by
+> the lower and upper limits in the arrays `xl` and `xu`, each of size
+> `dim`. The integration uses a fixed number of function calls `calls`,
+> and obtains random sampling points using the random number generator
+> `r`. A previously allocated workspace `s` must be supplied. The result
+> of the integration is returned in `result`, with an estimated absolute
+> error `abserr`.
 
 """
 function monte_plain_integrate(f, xl, xu, dim, calls, r, state, result, abserr)
@@ -41,7 +41,7 @@ GSL documentation:
 ### `gsl_monte_plain_state * gsl_monte_plain_alloc (size_t dim)`
 
 > This function allocates and initializes a workspace for Monte Carlo
-> integration in dim dimensions.
+> integration in `dim` dimensions.
 
 """
 function monte_plain_alloc(dim)
@@ -77,7 +77,8 @@ GSL documentation:
 
 ### `void gsl_monte_plain_free (gsl_monte_plain_state * s)`
 
-> This function frees the memory associated with the integrator state s.
+> This function frees the memory associated with the integrator state
+> `s`.
 
 """
 function monte_plain_free(state)

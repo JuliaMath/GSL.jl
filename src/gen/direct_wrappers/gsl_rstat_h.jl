@@ -17,8 +17,8 @@ GSL documentation:
 ### `gsl_rstat_quantile_workspace * gsl_rstat_quantile_alloc (const double p)`
 
 > This function allocates a workspace for the dynamic estimation of
-> p-quantiles, where p is between $0$ and $1$. The median corresponds to
-> $p = 0.5$. The size of the workspace is $O(1)$.
+> `p`-quantiles, where `p` is between $0$ and $1$. The median
+> corresponds to $p = 0.5$. The size of the workspace is $O(1)$.
 
 """
 function rstat_quantile_alloc(p)
@@ -35,7 +35,7 @@ GSL documentation:
 
 ### `void gsl_rstat_quantile_free (gsl_rstat_quantile_workspace * w)`
 
-> This function frees the memory associated with the workspace w.
+> This function frees the memory associated with the workspace `w`.
 
 """
 function rstat_quantile_free(w)
@@ -52,7 +52,7 @@ GSL documentation:
 
 ### `int gsl_rstat_quantile_reset (gsl_rstat_quantile_workspace * w)`
 
-> This function resets the workspace w to its initial state, so it can
+> This function resets the workspace `w` to its initial state, so it can
 > begin working on a new set of data.
 
 """
@@ -71,7 +71,7 @@ GSL documentation:
 ### `int gsl_rstat_quantile_add (const double x, gsl_rstat_quantile_workspace * w)`
 
 > This function updates the estimate of the $p$-quantile with the new
-> data point x.
+> data point `x`.
 
 """
 function rstat_quantile_add(x, w)
@@ -123,7 +123,7 @@ GSL documentation:
 
 ### `void gsl_rstat_free (gsl_rstat_workspace * w)`
 
-> This function frees the memory associated with the workspace w.
+> This function frees the memory associated with the workspace `w`.
 
 """
 function rstat_free(w)
@@ -158,7 +158,7 @@ GSL documentation:
 
 ### `int gsl_rstat_add (const double x, gsl_rstat_workspace * w)`
 
-> This function adds the data point x to the statistical accumulator,
+> This function adds the data point `x` to the statistical accumulator,
 > updating calculations of the mean, variance, standard deviation,
 > skewness, kurtosis, and median.
 
@@ -213,6 +213,14 @@ GSL documentation:
 
 > This function returns the mean of all data added to the accumulator,
 > defined as
+>
+> not texinfo
+>
+> $${\Hat\mu} = {1 \over N} \sum x_i$$
+>
+> texinfo
+>
+>     \Hat\mu = (1/N) \sum x_i
 
 """
 function rstat_mean(w)
@@ -231,6 +239,14 @@ GSL documentation:
 
 > This function returns the variance of all data added to the
 > accumulator, defined as
+>
+> not texinfo
+>
+> $${\Hat\sigma}^2 = {1 \over (N-1)} \sum (x_i - {\Hat\mu})^2$$
+>
+> texinfo
+>
+>     \Hat\sigma^2 = (1/(N-1)) \sum (x_i - \Hat\mu)^2
 
 """
 function rstat_variance(w)
@@ -286,6 +302,14 @@ GSL documentation:
 ### `double gsl_rstat_sd_mean (const gsl_rstat_workspace * w)`
 
 > This function returns the standard deviation of the mean, defined as
+>
+> not texinfo
+>
+> $$\Hat\sigma_{\Hat\mu} = {\Hat\sigma \over \sqrt{N}}$$
+>
+> texinfo
+>
+>     sd_mean = \Hat\sigma / \sqrt{N}
 
 """
 function rstat_sd_mean(w)
@@ -322,6 +346,15 @@ GSL documentation:
 
 > This function returns the skewness of all data added to the
 > accumulator, defined as
+>
+> not texinfo
+>
+> $$skew = {1 \over N} \sum 
+>  {\left( x_i - {\Hat\mu} \over {\Hat\sigma} \right)}^3$$
+>
+> texinfo
+>
+>     skew = (1/N) \sum ((x_i - \Hat\mu)/\Hat\sigma)^3
 
 """
 function rstat_skew(w)
@@ -340,6 +373,17 @@ GSL documentation:
 
 > This function returns the kurtosis of all data added to the
 > accumulator, defined as
+>
+> not texinfo
+>
+> $$kurtosis = \left( {1 \over N} \sum 
+>  {\left(x_i - {\Hat\mu} \over {\Hat\sigma} \right)}^4 
+>  \right) 
+>  - 3$$
+>
+> texinfo
+>
+>     kurtosis = ((1/N) \sum ((x_i - \Hat\mu)/\Hat\sigma)^4)  - 3
 
 """
 function rstat_kurtosis(w)
@@ -356,7 +400,7 @@ GSL documentation:
 
 ### `int gsl_rstat_reset (gsl_rstat_workspace * w)`
 
-> This function resets the workspace w to its initial state, so it can
+> This function resets the workspace `w` to its initial state, so it can
 > begin working on a new set of data.
 
 """

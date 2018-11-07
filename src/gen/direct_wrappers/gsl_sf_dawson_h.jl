@@ -28,7 +28,7 @@ GSL documentation:
 
 > int gsl\_sf\_dawson\_e (double x, gsl\_sf\_result \* result)
 
-> These routines compute the value of Dawson's integral for x.
+> These routines compute the value of Dawson's integral for `x`.
 
 """
 function sf_dawson(x)

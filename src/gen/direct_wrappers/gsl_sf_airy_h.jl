@@ -30,7 +30,7 @@ GSL documentation:
 > \* result)
 
 > These routines compute the Airy function $Ai(x)$ with an accuracy
-> specified by mode.
+> specified by `mode`.
 
 """
 function sf_airy_Ai(x, mode)
@@ -61,7 +61,7 @@ GSL documentation:
 > \* result)
 
 > These routines compute the Airy function $Bi(x)$ with an accuracy
-> specified by mode.
+> specified by `mode`.
 
 """
 function sf_airy_Bi(x, mode)
@@ -156,7 +156,7 @@ GSL documentation:
 > gsl\_sf\_result \* result)
 
 > These routines compute the Airy function derivative $Ai'(x)$ with an
-> accuracy specified by mode.
+> accuracy specified by `mode`.
 
 """
 function sf_airy_Ai_deriv(x, mode)
@@ -187,7 +187,7 @@ GSL documentation:
 > gsl\_sf\_result \* result)
 
 > These routines compute the Airy function derivative $Bi'(x)$ with an
-> accuracy specified by mode.
+> accuracy specified by `mode`.
 
 """
 function sf_airy_Bi_deriv(x, mode)
@@ -281,7 +281,7 @@ GSL documentation:
 > int gsl\_sf\_airy\_zero\_Ai\_e (unsigned int s, gsl\_sf\_result \*
 > result)
 
-> These routines compute the location of the s-th zero of the Airy
+> These routines compute the location of the `s`-th zero of the Airy
 > function $Ai(x)$.
 
 """
@@ -312,7 +312,7 @@ GSL documentation:
 > int gsl\_sf\_airy\_zero\_Bi\_e (unsigned int s, gsl\_sf\_result \*
 > result)
 
-> These routines compute the location of the s-th zero of the Airy
+> These routines compute the location of the `s`-th zero of the Airy
 > function $Bi(x)$.
 
 """
@@ -343,7 +343,7 @@ GSL documentation:
 > int gsl\_sf\_airy\_zero\_Ai\_deriv\_e (unsigned int s, gsl\_sf\_result
 > \* result)
 
-> These routines compute the location of the s-th zero of the Airy
+> These routines compute the location of the `s`-th zero of the Airy
 > function derivative $Ai'(x)$.
 
 """
@@ -374,7 +374,7 @@ GSL documentation:
 > int gsl\_sf\_airy\_zero\_Bi\_deriv\_e (unsigned int s, gsl\_sf\_result
 > \* result)
 
-> These routines compute the location of the s-th zero of the Airy
+> These routines compute the location of the `s`-th zero of the Airy
 
 """
 function sf_airy_zero_Bi_deriv(s)

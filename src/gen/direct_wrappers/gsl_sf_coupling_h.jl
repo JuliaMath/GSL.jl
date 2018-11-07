@@ -31,8 +31,24 @@ GSL documentation:
 
 > These routines compute the Wigner 3-j coefficient,
 >
-> where the arguments are given in half-integer units, $ja$ = two\_ja/2,
-> $ma$ = two\_ma/2, etc.
+> not texinfo
+>
+> $$\begin{aligned}
+> \left(
+> \begin{array}{ccc}
+>   ja & jb & jc \\
+>   ma & mb & mc
+> \end{array}
+> \right)
+> \end{aligned}$$
+>
+> texinfo
+>
+> ( ja jb jc )  
+> ( ma mb mc )
+>
+> where the arguments are given in half-integer units, $ja$ =
+> `two_ja`/2, $ma$ = `two_ma`/2, etc.
 
 """
 function sf_coupling_3j(two_ja, two_jb, two_jc, two_ma, two_mb, two_mc)
@@ -64,8 +80,24 @@ GSL documentation:
 
 > These routines compute the Wigner 6-j coefficient,
 >
-> where the arguments are given in half-integer units, $ja$ = two\_ja/2,
-> $ma$ = two\_ma/2, etc.
+> not texinfo
+>
+> $$\begin{aligned}
+> \left\{
+> \begin{array}{ccc}
+>   ja & jb & jc \\
+>   jd & je & jf
+> \end{array}
+> \right\}
+> \end{aligned}$$
+>
+> texinfo
+>
+> { ja jb jc }  
+> { jd je jf }
+>
+> where the arguments are given in half-integer units, $ja$ =
+> `two_ja`/2, $ma$ = `two_ma`/2, etc.
 
 """
 function sf_coupling_6j(two_ja, two_jb, two_jc, two_jd, two_je, two_jf)
@@ -118,8 +150,26 @@ GSL documentation:
 
 > These routines compute the Wigner 9-j coefficient,
 >
-> where the arguments are given in half-integer units, $ja$ = two\_ja/2,
-> $ma$ = two\_ma/2, etc.
+> not texinfo
+>
+> $$\begin{aligned}
+> \left\{
+> \begin{array}{ccc}
+>   ja & jb & jc \\
+>   jd & je & jf \\
+>   jg & jh & ji
+> \end{array}
+> \right\}
+> \end{aligned}$$
+>
+> texinfo
+>
+> { ja jb jc }  
+> { jd je jf }  
+> { jg jh ji }
+>
+> where the arguments are given in half-integer units, $ja$ =
+> `two_ja`/2, $ma$ = `two_ma`/2, etc.
 
 """
 function sf_coupling_9j(two_ja, two_jb, two_jc, two_jd, two_je, two_jf, two_jg, two_jh, two_ji)
