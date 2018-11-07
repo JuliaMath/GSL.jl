@@ -230,6 +230,18 @@ end
 ## Hypergeometric function wrappers from original GSL.jl
 #(c) 2013 Jiahao Chen <jiahao@mit.edu>
 export hypergeom, hypergeom_e
+
+"""
+    hypergeom(a, b, x::Float64) -> Float64
+
+Computes the appropriate hypergeometric ``{}_p F_q`` function, 
+where ``p`` and ``p`` are the lengths of the input vectors `a` and `b` respectively.  
+
+Singleton `a` and/or `b` may be specified as scalars, 
+and length-0 `a` and/or `b` may be input as simply `[]`.
+
+Supported values of ``(p, q)`` are ``(0, 0)``, ``(0, 1)``, ``(1, 1)``, ``(2, 0)`` and ``(2, 1)``.
+"""
 function hypergeom(a, b, x)
     n = length(a), length(b)
     if n == (0, 0)
@@ -246,6 +258,18 @@ function hypergeom(a, b, x)
         error("hypergeometric function of order $n is not implemented")
     end
 end
+
+"""
+    hypergeom_e(a, b, x::Float64) -> gsl_sf_result
+
+Computes the appropriate hypergeometric ``{}_p F_q`` function, 
+where ``p`` and ``p`` are the lengths of the input vectors `a` and `b` respectively.  
+
+Singleton `a` and/or `b` may be specified as scalars, 
+and length-0 `a` and/or `b` may be input as simply `[]`.
+
+Supported values of ``(p, q)`` are ``(0, 0)``, ``(0, 1)``, ``(1, 1)``, ``(2, 0)`` and ``(2, 1)``.
+"""
 function hypergeom_e(a, b, x)
     n = length(a), length(b)
     if n == (0, 0)
