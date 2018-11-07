@@ -1,49 +1,62 @@
-VERSION < v"0.7.0-beta2.199" && __precompile__()
-
 module GSL
 
-using Compat
+using Markdown
 
-if isfile(joinpath(dirname(@__FILE__),"..","deps","deps.jl"))
-    include("../deps/deps.jl")
+
+# BEGIN MODULE C
+# low-level interface
+module C
+# Deps
+const depsfile = joinpath(dirname(@__DIR__), "deps", "deps.jl")
+if isfile(depsfile)
+    include(depsfile)
 else
-    error("GSL not properly installed. Please run Pkg.build(\"GSL\")")
+    error("GSL is not properly installed. Please build it first.")
 end
 
-include("__FILELIST.jl")
-include("ConvertGSL.jl")
-include("Constants.jl")
-include("6_3_QuadraticEquations.jl")
-include("6_4_CubicEquations.jl")
-include("6_5_GeneralPolynomialEquations.jl")
-include("7_5_Bessel_Functions.jl")
-include("7_21_HypergeometricFunctions.jl")
-include("20_23_SphericalVectorDistributions.jl")
-include("23_2_Creating_ntuples.jl")
-include("23_3_Opening_an_existing_ntuple_file.jl")
-include("28_1_NumericalDifferentiationfunctions.jl")
+using Markdown
+# Generated code
+include("gen/gsl_export.jl")
+include("gen/gsl_types.jl")
+include("gen/gsl_direct_wrappers.jl")
+include("gen/gsl_global_vars.jl")
+# Hand-written code
+include("error_handling.jl")
 
 function __init__()
-    try
-        # Turn off GSL's default error handler so that Julia doesn't segfault
-        # on error
-        custom_gsl_error_handler[] = try
-            convert(Ptr{gsl_error_handler_t},
-                    @cfunction(custom_error_handler, Cvoid,
-                               (Ptr{UInt8}, Ptr{UInt8}, Cint, Cint)
-                               ))
-        catch
-            error("""Could not find the GNU Scientific Library.
-                  Please ensure that libgsl is installed on your system and is available on the system path.""")
-        end
-        set_error_handler_off()
-        set_error_handler(custom_gsl_error_handler[])
-        sf_hyperg_U(-1.0, -1.0, rand())
-    catch
-        error("The GNU Scientific Library does not appear to be installed.")
-    end
-    function_callback_ptr[] = @cfunction(function_callback, Cdouble,
-                                         (Cdouble, Ptr{Cvoid}))
+    # Load library
+    check_deps()
+    # Seems we need to load BLAS with this RTLD_GLOBAL
+    flags = Libdl.RTLD_LAZY | Libdl.RTLD_DEEPBIND | Libdl.RTLD_GLOBAL
+    if Libdl.dlopen_e(libgslcblas, flags) in (C_NULL, nothing)
+        error("$(libgslcblas) cannot be opened, Please re-run Pkg.build(\"GSL\"), and restart Julia.")
+    end    
+    # # Turn off default error handler
+    set_error_handler_off()
+    # Register new error handler
+    set_error_handler(@cfunction(custom_error_handler, Cvoid,
+                                 (Ptr{UInt8}, Ptr{UInt8}, Cint, Cint)
+                                 )
+                      )
+    # Other things that need loading
+    init_global_vars()
 end
 
-end #module
+end
+# END MODULE C
+
+# BEGIN MODULE Const
+# Phsyical constants
+module Const
+using Markdown
+include("gen/gsl_const.jl")
+end
+# END MODULE Const
+
+# Import low-level interface, re-export symbols and add secondary wrappers
+using .C
+include("gen/gsl_export.jl")
+include("gen/heuristic_wrappers.jl")
+include("manual_wrappers.jl")
+
+end

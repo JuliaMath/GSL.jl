@@ -4,22 +4,24 @@
 
 #The program below shows how to allocate, initialize and read from a matrix using the functions matrix_alloc, gsl_matrix_set and gsl_matrix_get.
 
-using GSL
-m = matrix_alloc(10, 3)
+import GSL
+using Printf
+
+m = GSL.matrix_alloc(10, 3)
 
 for i=0:9
     for j=0:2
-        matrix_set(m, i, j, 0.23 + 100i + j)
+        GSL.matrix_set(m, i, j, 0.23 + 100i + j)
     end
 end
 
 for i=0:9
     for j=0:2
         @printf("m(%d,%d) = %f\n", i, j, 
-            matrix_get(m, i, j))
+            GSL.matrix_get(m, i, j))
     end
 end
-matrix_free(m)
+GSL.matrix_free(m)
 
 #Here is the output from the program.
 #
