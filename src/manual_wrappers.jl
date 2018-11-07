@@ -180,7 +180,7 @@ macro gsl_multiroot_function_fdf(f, df, n)
 end
 
 """
-    @gsl_multiroot_function_fdf(f, df, n)
+    @gsl_multiroot_function_fdf(f, df, fdf, n)
 
 Create a `gsl_multiroot_function_fdf` object for a problem of dimension `n`.
 

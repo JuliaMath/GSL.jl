@@ -6,15 +6,9 @@ GSL.jl
 [![codecov.io](http://codecov.io/github/JuliaMath/GSL.jl/coverage.svg?branch=master)](http://codecov.io/github/JuliaMath/GSL.jl?branch=master)
 
 Julia wrapper for the [Gnu Scientific
-Library](https://www.gnu.org/software/gsl/doc/html/index.html) (GSL).
+Library](https://www.gnu.org/software/gsl/doc/html/index.html) (GSL), for Julia v1.0+.
 
-This is a redevelopment of [GSL.jl](https://github.com/JuliaMath/GSL.jl) by Jiahao Chen,
-using GSL 2.5 through [GSLBuilder.jl](https://github.com/giordano/GSLBuilder.jl) by Mosè
-Giordano, intended to eventually either replace or be merged into GSL.jl.
-
-Developed for Julia 1.0+.
-
-**NOTE: This version breaks compability with previous versions of GSL.jl. Most functions now have the `gsl_` prefix.**
+**NOTE: There have been major changes to this package since v0.4, which are likely to have introduced compability breaks.**
 
 ## Structure
 
@@ -22,61 +16,56 @@ The library tries to provide Julia interfaces to all the functions, types and sy
 defined in the [GSL
 documentation](https://www.gnu.org/software/gsl/doc/html/index.html). 
 
-Two types of functions are exported:
-- _Direct wrappers_ have the prefix `gsl_`. These are meant to provide an interface to GSL that is as faithful to the headers as possible. These are all auto-generated from the headers.
-- _Convenience functions_ are added both manually and using a set of heuristics, and are without the `gsl_` prefix. These are meant to provide a more user-friendly second layer on top of the direct wrappers.
+- Functions are interfaced without the `gsl_` prefix, e.g. `sf_legendre_Pl` and `vector_alloc`.
+- Types, global variables and most constants are interfaced using their original GSL name, e.g. `gsl_vector`, `gsl_root_fdfsolver_newton` and `GSL_SUCCESS`.
+- The physical constants `GSL_CONST_*` can be found under the namespace `GSL.Const`, e.g. `GSL.Const.MKSA_ANGSTROM`.
 
-Most of the type defintions, constants and symbols of GSL are also exported.
+
+Some functions have a secondary wrapper on top of the GSL interface, to make Julia usage more convenient, for example by allocating the output array. The low-level C interface to GSL can still be accessed under the namespace `GSL.C`. Some examples of functions that are different in the low-level interface:
+```julia
+GSL.strerror(gsl_errno) -> String
+GSL.C.strerror(gsl_errno) -> Ptr{Cchar}
+and
+GSL.sf_legendre_array(norm, lmax, x) -> Array{Float64}
+GSL.C.sf_legendre_array(norm, lmax, x, result_array) -> Cint
+```
 
 Parts of GSL are not interfaced to, since they provide functionality already existing in
 Julia. These are functions with prefixes `gsl_spmatrix_`, `gsl_splinalg_`, `gsl_spblas_`,
 `gsl_eigen_`, `gsl_sort`, `gsl_blas_`,
 `cblas_`, `gsl_fft_`, and `gsl_linalg_`.
 
-## Functionality
-
-A lot of GSL functionality is interfaced, but most of it is untested.
-
-Things that seem to be working:
-
-* Root finding, numerical differentiation, quadrature, splines, random numbers, permutations. See [examples/](examples/). 
-* The special functions `gsl_sf_*`, together with convenience functions `sf_*`.
-* Convenice functions `hypergeom` and `hypergeom_e` for the hypergeometric functions.
-* Function wrapping macros `@gsl_function`, `@gsl_function_fdf`, `@gsl_multiroot_function` that are used for packaging Julia functions so that they can be passed to GSL.
-
 ## Examples
 
 See examples in [examples/](examples/) and tests [test/](test/) for more examples.
 
-### Convenience functions
-
-**Function with result struct:**
+### Special function with result struct
 ```julia
 # Direct call
-gsl_sf_legendre_P3(x)
+sf_legendre_P3(0.5)
 # Output: -0.4375
 
-# Direct call with structure that stores result and error:
-result = gsl_sf_result(0,0)
-gsl_sf_legendre_P3_e(0.5, result)
-# Output: GSL_SUCCESS
-# result = gsl_sf_result_struct(-0.4375, 3.3306690738754696e-16)
-
-# Using convenience function:
+# With result struct that stores value and error:
 sf_legendre_P3_e(0.5)
 # Output: gsl_sf_result_struct(-0.4375, 3.3306690738754696e-16)
+
+# Low-level call with result struct as argument:
+result = gsl_sf_result(0,0)
+GSL.C.sf_legendre_P3_e(0.5, result)
+# Output: GSL_SUCCESS
+# result = gsl_sf_result_struct(-0.4375, 3.3306690738754696e-16)
 ```
 
-**Function with array output:**
+### Special function with array output
 ```julia
 x = 0.5
 lmax = 4
-# Direct call:
-n = gsl_sf_legendre_array_n(lmax)
-result = Array{Float64}(undef, n)
-gsl_sf_legendre_array(GSL_SF_LEGENDRE_SPHARM, lmax, x, result)
-# Equivalent using convenience function:
 result = sf_legendre_array(GSL_SF_LEGENDRE_SPHARM, lmax, x)
+# Equivalent using low-level interface:
+n = sf_legendre_array_n(lmax)
+result = Array{Float64}(undef, n)
+GSL.C.sf_legendre_array(GSL_SF_LEGENDRE_SPHARM, lmax, x, result)
+
 ```
 
 ### Root finding
@@ -84,24 +73,28 @@ result = sf_legendre_array(GSL_SF_LEGENDRE_SPHARM, lmax, x)
 f = x -> x^5+1
 df = x -> 5*x^4
 fdf = @gsl_function_fdf(f, df)
-solver = gsl_root_fdfsolver_alloc(gsl_root_fdfsolver_newton)
-gsl_root_fdfsolver_set(solver, fdf, -2)
-while abs(f(gsl_root_fdfsolver_root(solver))) > 1e-10
-    gsl_root_fdfsolver_iterate(solver)
+solver = root_fdfsolver_alloc(gsl_root_fdfsolver_newton)
+root_fdfsolver_set(solver, fdf, -2)
+while abs(f(root_fdfsolver_root(solver))) > 1e-10
+    root_fdfsolver_iterate(solver)
 end
-println("x = ", gsl_root_fdfsolver_root(solver))
+println("x = ", root_fdfsolver_root(solver))
 # Output: x = -1.0000000000104232
 ```
 
 ## Documentation
 
-This is it, though some effort has been put into giving most types and functions proper docstrings:
+Extra functionality defined in this package:
+
+* Convenice functions `hypergeom` and `hypergeom_e` for the hypergeometric functions.
+* Function wrapping macros `@gsl_function`, `@gsl_function_fdf`, `@gsl_multiroot_function` and `@gsl_multiroot_function_fdf` that are used for packaging Julia functions so that they can be passed to GSL.
+* Functions `wrap_gsl_vector` and `wrap_gsl_matrix` that return a Julia array or matrix pointing to the data in a `gsl_vector` or `gsl_matrix`.
+
+In addition, some effort has been put into giving most types and functions proper docstrings, e.g.
 
 ```
-help?> gsl_wavelet_free
-search: gsl_wavelet_free gsl_wavelet_workspace_free
-
-  gsl_wavelet_free(w) -> Cvoid
+help?> GSL.wavelet_free
+  wavelet_free(w) -> Cvoid
 
   C signature: void gsl_wavelet_free (gsl_wavelet * w)
 
@@ -113,9 +106,7 @@ search: gsl_wavelet_free gsl_wavelet_workspace_free
   │  This function frees the wavelet object w.
 ```
 ```
-help?> gsl_wavelet
-search: gsl_wavelet gsl_wavelet_type gsl_wavelet_name gsl_wavelet_haar
-
+help?> GSL.gsl_wavelet
   mutable struct gsl_wavelet
       type::Ptr{gsl_wavelet_type}
       h1::Ptr{Cdouble}
@@ -131,8 +122,7 @@ search: gsl_wavelet gsl_wavelet_type gsl_wavelet_name gsl_wavelet_haar
   gsl_wavelet
   –––––––––––––
 
-  │  This structure contains the filter coefficients defining the
-  │  wavelet and any associated offset parameters.
+  │  This structure contains the filter coefficients defining the wavelet and any associated offset parameters.
 ```
 
 
@@ -143,5 +133,7 @@ search: gsl_wavelet gsl_wavelet_type gsl_wavelet_name gsl_wavelet_haar
   using regular expressions.
 * Heuristics for creating convenience functions are in
   [gen/heuristic.jl](gen/heuristic.jl).
-* Hand-written convenience functions are in
+* Docstrings are created from the GSL docs in 
+* Hand-written convenience functions are in [gen/readdocs.jl](gen/readdocs.jl)
   [src/manual_wrappers.jl](src/manual_wrappers.jl).
+
