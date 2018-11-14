@@ -133,7 +133,6 @@ help?> GSL.gsl_wavelet
   using regular expressions.
 * Heuristics for creating convenience functions are in
   [gen/heuristic.jl](gen/heuristic.jl).
-* Docstrings are created from the GSL docs in 
-* Hand-written convenience functions are in [gen/readdocs.jl](gen/readdocs.jl)
-  [src/manual_wrappers.jl](src/manual_wrappers.jl).
+* Docstrings are created from the GSL docs in [gen/readdocs.jl](gen/readdocs.jl).
+* Hand-written convenience functions are in [src/manual_wrappers.jl](src/manual_wrappers.jl).
 
