@@ -3730,45 +3730,6 @@ function sf_legendre_Plm_e(l, m, x)
     return result
 end
 
-export sf_legendre_Plm_array
-@doc md"""
-    sf_legendre_Plm_array(lmax, m, x) -> Array{Float64}
-
-C signature:
-`int gsl_sf_legendre_Plm_array( const int lmax, const int m, const double x, double * result_array )`
-
-GSL documentation:
-
-### `int gsl_sf_legendre_Plm_array (int lmax, int m, double x, double result_array[])`
-
-> int gsl\_sf\_legendre\_Plm\_deriv\_array (int lmax, int m, double x,
-> double result\_array\[\], double result\_deriv\_array\[\])
-
-> These functions are now deprecated and will be removed in a future
-> release; see `gsl_sf_legendre_array` and
-> `gsl_sf_legendre_deriv_array`.
-
-"""
-function sf_legendre_Plm_array(lmax, m, x)
-    result_array = zeros(Cdouble, (lmax+1))
-    output = C.sf_legendre_Plm_array(lmax, m, x, result_array)
-    return result_array
-end
-
-export sf_legendre_Plm_deriv_array
-@doc md"""
-    sf_legendre_Plm_deriv_array(lmax, m, x) -> (Array{Float64}, Array{Float64})
-
-C signature:
-`int gsl_sf_legendre_Plm_deriv_array( const int lmax, const int m, const double x, double * result_array, double * result_deriv_array )`
-"""
-function sf_legendre_Plm_deriv_array(lmax, m, x)
-    result_array = zeros(Cdouble, (lmax+1))
-    result_deriv_array = zeros(Cdouble, (lmax+1))
-    output = C.sf_legendre_Plm_deriv_array(lmax, m, x, result_array, result_deriv_array)
-    return result_array, result_deriv_array
-end
-
 export sf_legendre_sphPlm_e
 @doc md"""
     sf_legendre_sphPlm_e(l, m, x) -> gsl_sf_result
