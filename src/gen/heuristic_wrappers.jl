@@ -14,13 +14,12 @@ GSL documentation:
 ### `const char * gsl_strerror (const int gsl_errno)`
 
 > This function returns a pointer to a string describing the error code
-> gsl\_errno. For example:
+> `gsl_errno`. For example:
 >
 >     printf ("error: %s\n", gsl_strerror (status));
 >
-> would print an error message like
-> `error: output range error`{.sourceCode} for a status value of
-> GSL\_ERANGE.
+> would print an error message like `error: output range error` for a
+> status value of `GSL_ERANGE`.
 
 """
 function strerror(gsl_errno)
@@ -41,7 +40,7 @@ GSL documentation:
 ### `const char * gsl_interp_name (const gsl_interp * interp)`
 
 > This function returns the name of the interpolation type used by
-> interp. For example:
+> `interp`. For example:
 >
 >     printf ("interp uses '%s' interpolation.\n", gsl_interp_name (interp));
 >
@@ -68,7 +67,7 @@ GSL documentation:
 ### `const char * gsl_interp2d_name (const gsl_interp2d * interp)`
 
 > This function returns the name of the interpolation type used by
-> interp. For example:
+> `interp`. For example:
 >
 >     printf ("interp uses '%s' interpolation.\n", gsl_interp2d_name (interp));
 >
@@ -99,7 +98,7 @@ GSL documentation:
 >
 >     printf ("s is a '%s' minimizer\n", gsl_min_fminimizer_name (s));
 >
-> would print something like `s is a 'brent' minimizer`{.sourceCode}.
+> would print something like `s is a 'brent' minimizer`.
 
 """
 function min_fminimizer_name(s)
@@ -119,8 +118,8 @@ GSL documentation:
 
 ### `const char * gsl_multifit_robust_name (const gsl_multifit_robust_workspace * w)`
 
-> This function returns the name of the robust type T specified to
-> gsl\_multifit\_robust\_alloc.
+> This function returns the name of the robust type `T` specified to
+> `gsl_multifit_robust_alloc`.
 
 """
 function multifit_robust_name(w)
@@ -187,8 +186,7 @@ GSL documentation:
 >
 >     printf ("w is a '%s' solver\n", gsl_multifit_nlinear_name (w));
 >
-> would print something like
-> `w is a 'trust-region' solver`{.sourceCode}.
+> would print something like `w is a 'trust-region' solver`.
 
 """
 function multifit_nlinear_name(w)
@@ -216,8 +214,7 @@ GSL documentation:
 >
 >     printf ("w is a '%s' solver\n", gsl_multifit_nlinear_trs_name (w));
 >
-> would print something like
-> `w is a 'levenberg-marquardt' solver`{.sourceCode}.
+> would print something like `w is a 'levenberg-marquardt' solver`.
 
 """
 function multifit_nlinear_trs_name(w)
@@ -305,8 +302,7 @@ GSL documentation:
 >
 >     printf ("s is a '%s' minimizer\n", gsl_multimin_fdfminimizer_name (s));
 >
-> would print something like
-> `s is a 'conjugate_pr' minimizer`{.sourceCode}.
+> would print something like `s is a 'conjugate_pr' minimizer`.
 
 """
 function multimin_fdfminimizer_name(s)
@@ -334,7 +330,7 @@ GSL documentation:
 >
 >     printf ("s is a '%s' solver\n", gsl_multiroot_fdfsolver_name (s));
 >
-> would print something like `s is a 'newton' solver`{.sourceCode}.
+> would print something like `s is a 'newton' solver`.
 
 """
 function multiroot_fsolver_name(s)
@@ -398,7 +394,7 @@ GSL documentation:
 >
 >     printf ("step method is '%s'\n", gsl_odeiv2_step_name (s));
 >
-> would print something like `step method is 'rkf45'`{.sourceCode}.
+> would print something like `step method is 'rkf45'`.
 
 """
 function odeiv2_step_name(s)
@@ -423,7 +419,7 @@ GSL documentation:
 >
 >     printf ("control method is '%s'\n", gsl_odeiv2_control_name (c));
 >
-> would print something like `control method is 'standard'`{.sourceCode}
+> would print something like `control method is 'standard'`
 
 """
 function odeiv2_control_name(c)
@@ -498,7 +494,7 @@ GSL documentation:
 >
 >     printf ("s is a '%s' solver\n", gsl_root_fsolver_name (s));
 >
-> would print something like `s is a 'bisection' solver`{.sourceCode}.
+> would print something like `s is a 'bisection' solver`.
 
 """
 function root_fsolver_name(s)
@@ -727,8 +723,8 @@ GSL documentation:
 ### `int gsl_sf_bessel_Jn_array (int nmin, int nmax, double x, double result_array[])`
 
 > This routine computes the values of the regular cylindrical Bessel
-> functions $J_n(x)$ for $n$ from nmin to nmax inclusive, storing the
-> results in the array result\_array. The values are computed using
+> functions $J_n(x)$ for $n$ from `nmin` to `nmax` inclusive, storing
+> the results in the array `result_array`. The values are computed using
 > recurrence relations for efficiency, and therefore may differ slightly
 > from the exact values.
 
@@ -790,8 +786,8 @@ GSL documentation:
 ### `int gsl_sf_bessel_Yn_array (int nmin, int nmax, double x, double result_array[])`
 
 > This routine computes the values of the irregular cylindrical Bessel
-> functions $Y_n(x)$ for $n$ from nmin to nmax inclusive, storing the
-> results in the array result\_array. The domain of the function is
+> functions $Y_n(x)$ for $n$ from `nmin` to `nmax` inclusive, storing
+> the results in the array `result_array`. The domain of the function is
 > $x>0$. The values are computed using recurrence relations for
 > efficiency, and therefore may differ slightly from the exact values.
 
@@ -853,11 +849,11 @@ GSL documentation:
 ### `int gsl_sf_bessel_In_array (int nmin, int nmax, double x, double result_array[])`
 
 > This routine computes the values of the regular modified cylindrical
-> Bessel functions $I_n(x)$ for $n$ from nmin to nmax inclusive, storing
-> the results in the array result\_array. The start of the range nmin
-> must be positive or zero. The values are computed using recurrence
-> relations for efficiency, and therefore may differ slightly from the
-> exact values.
+> Bessel functions $I_n(x)$ for $n$ from `nmin` to `nmax` inclusive,
+> storing the results in the array `result_array`. The start of the
+> range `nmin` must be positive or zero. The values are computed using
+> recurrence relations for efficiency, and therefore may differ slightly
+> from the exact values.
 
 """
 function sf_bessel_In_array(nmin, nmax, x)
@@ -917,9 +913,9 @@ GSL documentation:
 ### `int gsl_sf_bessel_In_scaled_array (int nmin, int nmax, double x, double result_array[])`
 
 > This routine computes the values of the scaled regular cylindrical
-> Bessel functions $\exp(-|x|) I_n(x)$ for $n$ from nmin to nmax
-> inclusive, storing the results in the array result\_array. The start
-> of the range nmin must be positive or zero. The values are computed
+> Bessel functions $\exp(-|x|) I_n(x)$ for $n$ from `nmin` to `nmax`
+> inclusive, storing the results in the array `result_array`. The start
+> of the range `nmin` must be positive or zero. The values are computed
 > using recurrence relations for efficiency, and therefore may differ
 > slightly from the exact values.
 
@@ -981,11 +977,11 @@ GSL documentation:
 ### `int gsl_sf_bessel_Kn_array (int nmin, int nmax, double x, double result_array[])`
 
 > This routine computes the values of the irregular modified cylindrical
-> Bessel functions $K_n(x)$ for $n$ from nmin to nmax inclusive, storing
-> the results in the array result\_array. The start of the range nmin
-> must be positive or zero. The domain of the function is $x>0$. The
-> values are computed using recurrence relations for efficiency, and
-> therefore may differ slightly from the exact values.
+> Bessel functions $K_n(x)$ for $n$ from `nmin` to `nmax` inclusive,
+> storing the results in the array `result_array`. The start of the
+> range `nmin` must be positive or zero. The domain of the function is
+> $x>0$. The values are computed using recurrence relations for
+> efficiency, and therefore may differ slightly from the exact values.
 
 """
 function sf_bessel_Kn_array(nmin, nmax, x)
@@ -1045,11 +1041,12 @@ GSL documentation:
 ### `int gsl_sf_bessel_Kn_scaled_array (int nmin, int nmax, double x, double result_array[])`
 
 > This routine computes the values of the scaled irregular cylindrical
-> Bessel functions $\exp(x) K_n(x)$ for $n$ from nmin to nmax inclusive,
-> storing the results in the array result\_array. The start of the range
-> nmin must be positive or zero. The domain of the function is $x>0$.
-> The values are computed using recurrence relations for efficiency, and
-> therefore may differ slightly from the exact values.
+> Bessel functions $\exp(x) K_n(x)$ for $n$ from `nmin` to `nmax`
+> inclusive, storing the results in the array `result_array`. The start
+> of the range `nmin` must be positive or zero. The domain of the
+> function is $x>0$. The values are computed using recurrence relations
+> for efficiency, and therefore may differ slightly from the exact
+> values.
 
 """
 function sf_bessel_Kn_scaled_array(nmin, nmax, x)
@@ -1122,10 +1119,10 @@ GSL documentation:
 ### `int gsl_sf_bessel_jl_array (int lmax, double x, double result_array[])`
 
 > This routine computes the values of the regular spherical Bessel
-> functions $j_l(x)$ for $l$ from 0 to lmax inclusive for $lmax \geq 0$
-> and $x \geq 0$, storing the results in the array result\_array. The
-> values are computed using recurrence relations for efficiency, and
-> therefore may differ slightly from the exact values.
+> functions $j_l(x)$ for $l$ from 0 to `lmax` inclusive for
+> $lmax \geq 0$ and $x \geq 0$, storing the results in the array
+> `result_array`. The values are computed using recurrence relations for
+> efficiency, and therefore may differ slightly from the exact values.
 
 """
 function sf_bessel_jl_array(lmax, x)
@@ -1198,10 +1195,10 @@ GSL documentation:
 ### `int gsl_sf_bessel_yl_array (int lmax, double x, double result_array[])`
 
 > This routine computes the values of the irregular spherical Bessel
-> functions $y_l(x)$ for $l$ from 0 to lmax inclusive for $lmax \geq 0$,
-> storing the results in the array result\_array. The values are
-> computed using recurrence relations for efficiency, and therefore may
-> differ slightly from the exact values.
+> functions $y_l(x)$ for $l$ from 0 to `lmax` inclusive for
+> $lmax \geq 0$, storing the results in the array `result_array`. The
+> values are computed using recurrence relations for efficiency, and
+> therefore may differ slightly from the exact values.
 
 """
 function sf_bessel_yl_array(lmax, x)
@@ -1274,9 +1271,9 @@ GSL documentation:
 ### `int gsl_sf_bessel_il_scaled_array (int lmax, double x, double result_array[])`
 
 > This routine computes the values of the scaled regular modified
-> spherical Bessel functions $\exp(-|x|) i_l(x)$ for $l$ from 0 to lmax
-> inclusive for $lmax \geq 0$, storing the results in the array
-> result\_array. The values are computed using recurrence relations for
+> spherical Bessel functions $\exp(-|x|) i_l(x)$ for $l$ from 0 to
+> `lmax` inclusive for $lmax \geq 0$, storing the results in the array
+> `result_array`. The values are computed using recurrence relations for
 > efficiency, and therefore may differ slightly from the exact values.
 
 """
@@ -1350,9 +1347,9 @@ GSL documentation:
 ### `int gsl_sf_bessel_kl_scaled_array (int lmax, double x, double result_array[])`
 
 > This routine computes the values of the scaled irregular modified
-> spherical Bessel functions $\exp(x) k_l(x)$ for $l$ from 0 to lmax
+> spherical Bessel functions $\exp(x) k_l(x)$ for $l$ from 0 to `lmax`
 > inclusive for $lmax \geq 0$ and $x>0$, storing the results in the
-> array result\_array. The values are computed using recurrence
+> array `result_array`. The values are computed using recurrence
 > relations for efficiency, and therefore may differ slightly from the
 > exact values.
 
@@ -1561,10 +1558,10 @@ GSL documentation:
 > $G'_{L-k}(\eta,x)$ with respect to $x$. The parameters are restricted
 > to $L, L-k > -1/2$, $x > 0$ and integer $k$. Note that $L$ itself is
 > not restricted to being an integer. The results are stored in the
-> parameters F, G for the function values and Fp, Gp for the derivative
-> values. If an overflow occurs, `GSL_EOVRFLW`{.sourceCode} is returned
-> and scaling exponents are stored in the modifiable parameters exp\_F,
-> exp\_G.
+> parameters F, G for the function values and `Fp`, `Gp` for the
+> derivative values. If an overflow occurs, `GSL_EOVRFLW` is returned
+> and scaling exponents are stored in the modifiable parameters `exp_F`,
+> `exp_G`.
 
 """
 function sf_coulomb_wave_FG_e(eta, x, lam_F, k_lam_G, exp_F, exp_G)
@@ -1840,9 +1837,9 @@ GSL documentation:
 
 ### `int gsl_sf_multiply_err_e (double x, double dx, double y, double dy, gsl_sf_result * result)`
 
-> This function multiplies x and y with associated absolute errors dx
-> and dy. The product $xy \pm xy \sqrt{(dx/x)^2 +(dy/y)^2}$ is stored in
-> result.
+> This function multiplies `x` and `y` with associated absolute errors
+> `dx` and `dy`. The product $xy \pm xy \sqrt{(dx/x)^2 +(dy/y)^2}$ is
+> stored in `result`.
 
 """
 function sf_multiply_err_e(x, dx, y, dy)
@@ -2110,9 +2107,9 @@ GSL documentation:
 ### `int gsl_sf_exp_e10_e (double x, gsl_sf_result_e10 * result)`
 
 > This function computes the exponential $\exp(x)$ using the
-> gsl\_sf\_result\_e10 type to return a result with extended range. This
+> `gsl_sf_result_e10` type to return a result with extended range. This
 > function may be useful if the value of $\exp(x)$ would overflow the
-> numeric range of `double`{.sourceCode}.
+> numeric range of `double`.
 
 """
 function sf_exp_e10_e(x)
@@ -2146,7 +2143,7 @@ GSL documentation:
 ### `int gsl_sf_exp_mult_e10_e (const double x, const double y, gsl_sf_result_e10 * result)`
 
 > This function computes the product $y \exp(x)$ using the
-> gsl\_sf\_result\_e10 type to return a result with extended numeric
+> `gsl_sf_result_e10` type to return a result with extended numeric
 > range.
 
 """
@@ -2232,7 +2229,8 @@ GSL documentation:
 
 ### `int gsl_sf_exp_err_e (double x, double dx, gsl_sf_result * result)`
 
-> This function exponentiates x with an associated absolute error dx.
+> This function exponentiates `x` with an associated absolute error
+> `dx`.
 
 """
 function sf_exp_err_e(x, dx)
@@ -2252,8 +2250,8 @@ GSL documentation:
 
 ### `int gsl_sf_exp_err_e10_e (double x, double dx, gsl_sf_result_e10 * result)`
 
-> This function exponentiates a quantity x with an associated absolute
-> error dx using the gsl\_sf\_result\_e10 type to return a result with
+> This function exponentiates a quantity `x` with an associated absolute
+> error `dx` using the `gsl_sf_result_e10` type to return a result with
 > extended range.
 
 """
@@ -2274,8 +2272,8 @@ GSL documentation:
 
 ### `int gsl_sf_exp_mult_err_e (double x, double dx, double y, double dy, gsl_sf_result * result)`
 
-> This routine computes the product $y \exp(x)$ for the quantities x, y
-> with associated absolute errors dx, dy.
+> This routine computes the product $y \exp(x)$ for the quantities `x`,
+> `y` with associated absolute errors `dx`, `dy`.
 
 """
 function sf_exp_mult_err_e(x, dx, y, dy)
@@ -2295,9 +2293,9 @@ GSL documentation:
 
 ### `int gsl_sf_exp_mult_err_e10_e (double x, double dx, double y, double dy, gsl_sf_result_e10 * result)`
 
-> This routine computes the product $y \exp(x)$ for the quantities x, y
-> with associated absolute errors dx, dy using the gsl\_sf\_result\_e10
-> type to return a result with extended range.
+> This routine computes the product $y \exp(x)$ for the quantities `x`,
+> `y` with associated absolute errors `dx`, `dy` using the
+> `gsl_sf_result_e10` type to return a result with extended range.
 
 """
 function sf_exp_mult_err_e10_e(x, dx, y, dy)
@@ -2634,7 +2632,7 @@ GSL documentation:
 > The function is computed using the real Lanczos method. The value of
 > the gamma function and its error can be reconstructed using the
 > relation $\Gamma(x) = sgn * \exp(result\_lg)$, taking into account the
-> two components of result\_lg.
+> two components of `result_lg`.
 
 """
 function sf_lngamma_sgn_e(x, sgn)
@@ -2697,10 +2695,10 @@ GSL documentation:
 > and $z$ not a negative integer or zero, using the complex Lanczos
 > method. The returned parameters are $lnr = \log|\Gamma(z)|$ and
 > $arg = \arg(\Gamma(z))$ in $(-\pi,\pi]$. Note that the phase part
-> (arg) is not well-determined when $|z|$ is very large, due to
+> (`arg`) is not well-determined when $|z|$ is very large, due to
 > inevitable roundoff in restricting to $(-\pi,\pi]$. This will result
-> in a GSL\_ELOSS error when it occurs. The absolute value part (lnr),
-> however, never suffers from loss of precision.
+> in a `GSL_ELOSS` error when it occurs. The absolute value part
+> (`lnr`), however, never suffers from loss of precision.
 
 """
 function sf_lngamma_complex_e(zr, zi)
@@ -3105,8 +3103,8 @@ GSL documentation:
 ### `int gsl_sf_hermite_prob_array (const int nmax, const double x, double * result_array)`
 
 > This routine evaluates all probabilists' Hermite polynomials $He_n(x)$
-> up to order nmax at position x. The results are stored in
-> result\_array.
+> up to order `nmax` at position `x`. The results are stored in
+> `result_array`.
 
 """
 function sf_hermite_prob_array(nmax, x)
@@ -3126,9 +3124,9 @@ GSL documentation:
 
 ### `int gsl_sf_hermite_prob_array_der (const int m, const int nmax, const double x, double * result_array)`
 
-> This routine evaluates the m-th derivative of all probabilists'
-> Hermite polynomials $He_n(x)$ up to order nmax at position x. The
-> results are stored in result\_array.
+> This routine evaluates the `m`-th derivative of all probabilists'
+> Hermite polynomials $He_n(x)$ up to order `nmax` at position `x`. The
+> results are stored in `result_array`.
 
 """
 function sf_hermite_prob_array_der(m, nmax, x)
@@ -3149,8 +3147,9 @@ GSL documentation:
 ### `int gsl_sf_hermite_prob_der_array (const int mmax, const int n, const double x, double * result_array)`
 
 > This routine evaluates all derivatives (starting from 0) up to the
-> mmax-th derivative of the probabilists' Hermite polynomial of order n
-> $He_n(x)$ at position x. The results are stored in result\_array.
+> `mmax`-th derivative of the probabilists' Hermite polynomial of order
+> `n` $He_n(x)$ at position `x`. The results are stored in
+> `result_array`.
 
 """
 function sf_hermite_prob_der_array(mmax, n, x)
@@ -3184,7 +3183,8 @@ GSL documentation:
 ### `int gsl_sf_hermite_phys_array (const int nmax, const double x, double * result_array)`
 
 > This routine evaluates all physicists' Hermite polynomials $H_n$ up to
-> order nmax at position x. The results are stored in result\_array.
+> order `nmax` at position `x`. The results are stored in
+> `result_array`.
 
 """
 function sf_hermite_phys_array(nmax, x)
@@ -3204,9 +3204,9 @@ GSL documentation:
 
 ### `int gsl_sf_hermite_phys_array_der (const int m, const int nmax, const double x, double * result_array)`
 
-> This routine evaluates the m-th derivative of all physicists' Hermite
-> polynomials $H_n$ up to order nmax at position x. The results are
-> stored in result\_array.
+> This routine evaluates the `m`-th derivative of all physicists'
+> Hermite polynomials $H_n$ up to order `nmax` at position `x`. The
+> results are stored in `result_array`.
 
 """
 function sf_hermite_phys_array_der(m, nmax, x)
@@ -3227,8 +3227,8 @@ GSL documentation:
 ### `int gsl_sf_hermite_phys_der_array (const int mmax, const int n, const double x, double * result_array)`
 
 > This routine evaluates all derivatives (starting from 0) up to the
-> mmax-th derivative of the physicists' Hermite polynomial of order n
-> $H_n$ at position x. The results are stored in result\_array.
+> `mmax`-th derivative of the physicists' Hermite polynomial of order
+> `n` $H_n$ at position `x`. The results are stored in `result_array`.
 
 """
 function sf_hermite_phys_der_array(mmax, n, x)
@@ -3262,7 +3262,7 @@ GSL documentation:
 ### `int gsl_sf_hermite_func_array (const int nmax, const double x, double * result_array)`
 
 > This routine evaluates all Hermite functions $\psi_n(x)$ up to order
-> nmax at position x. The results are stored in result\_array.
+> `nmax` at position `x`. The results are stored in `result_array`.
 
 """
 function sf_hermite_func_array(nmax, x)
@@ -3400,7 +3400,7 @@ GSL documentation:
 ### `int gsl_sf_hyperg_U_int_e10_e (int m, int n, double x, gsl_sf_result_e10 * result)`
 
 > This routine computes the confluent hypergeometric function $U(m,n,x)$
-> for integer parameters m, n using the gsl\_sf\_result\_e10 type to
+> for integer parameters `m`, `n` using the `gsl_sf_result_e10` type to
 > return a result with extended range.
 
 """
@@ -3435,7 +3435,7 @@ GSL documentation:
 ### `int gsl_sf_hyperg_U_e10_e (double a, double b, double x, gsl_sf_result_e10 * result)`
 
 > This routine computes the confluent hypergeometric function $U(a,b,x)$
-> using the gsl\_sf\_result\_e10 type to return a result with extended
+> using the `gsl_sf_result_e10` type to return a result with extended
 > range.
 
 """
@@ -3745,8 +3745,8 @@ GSL documentation:
 > double result\_array\[\], double result\_deriv\_array\[\])
 
 > These functions are now deprecated and will be removed in a future
-> release; see gsl\_sf\_legendre\_array and
-> gsl\_sf\_legendre\_deriv\_array.
+> release; see `gsl_sf_legendre_array` and
+> `gsl_sf_legendre_deriv_array`.
 
 """
 function sf_legendre_Plm_array(lmax, m, x)
@@ -3797,8 +3797,8 @@ GSL documentation:
 > x, double result\_array\[\], double result\_deriv\_array\[\])
 
 > These functions are now deprecated and will be removed in a future
-> release; see gsl\_sf\_legendre\_array and
-> gsl\_sf\_legendre\_deriv\_array.
+> release; see `gsl_sf_legendre_array` and
+> `gsl_sf_legendre_deriv_array`.
 
 """
 function sf_legendre_sphPlm_array(lmax, m, x)
@@ -3976,14 +3976,14 @@ GSL documentation:
 
 > These functions calculate all normalized associated Legendre
 > polynomials for $0 \le l \le lmax$ and $0 \le m \le l$ for
-> $|x| \le 1$. The norm parameter specifies which normalization is used.
-> The normalized $P_l^m(x)$ values are stored in result\_array, whose
-> minimum size can be obtained from calling gsl\_sf\_legendre\_array\_n.
-> The array index of $P_l^m(x)$ is obtained from calling
-> `gsl_sf_legendre_array_index(l, m)`{.sourceCode}. To include or
+> $|x| \le 1$. The `norm` parameter specifies which normalization is
+> used. The normalized $P_l^m(x)$ values are stored in `result_array`,
+> whose minimum size can be obtained from calling
+> `gsl_sf_legendre_array_n`. The array index of $P_l^m(x)$ is obtained
+> from calling `gsl_sf_legendre_array_index(l, m)`. To include or
 > exclude the Condon-Shortley phase factor of $(-1)^m$, set the
-> parameter csphase to either $-1$ or $1$ respectively in the
-> `_e`{.sourceCode} function. This factor is excluded by default.
+> parameter `csphase` to either $-1$ or $1$ respectively in the `_e`
+> function. This factor is excluded by default.
 
 """
 function sf_legendre_array(norm, lmax, x)
@@ -4021,13 +4021,13 @@ GSL documentation:
 > result\_array\[\], double result\_deriv\_array\[\])
 
 > These functions calculate all normalized associated Legendre functions
-> and their first derivatives up to degree lmax for $|x| < 1$. The
-> parameter norm specifies the normalization used. The normalized
+> and their first derivatives up to degree `lmax` for $|x| < 1$. The
+> parameter `norm` specifies the normalization used. The normalized
 > $P_l^m(x)$ values and their derivatives $dP_l^m(x)/dx$ are stored in
-> result\_array and result\_deriv\_array respectively. To include or
+> `result_array` and `result_deriv_array` respectively. To include or
 > exclude the Condon-Shortley phase factor of $(-1)^m$, set the
-> parameter csphase to either $-1$ or $1$ respectively in the
-> `_e`{.sourceCode} function. This factor is excluded by default.
+> parameter `csphase` to either $-1$ or $1$ respectively in the `_e`
+> function. This factor is excluded by default.
 
 """
 function sf_legendre_deriv_array(norm, lmax, x)
@@ -4068,13 +4068,13 @@ GSL documentation:
 > result\_deriv\_array\[\])
 
 > These functions calculate all normalized associated Legendre functions
-> and their (alternate) first derivatives up to degree lmax for
+> and their (alternate) first derivatives up to degree `lmax` for
 > $|x| < 1$. The normalized $P_l^m(x)$ values and their derivatives
-> $dP_l^m(\cos{\theta})/d\theta$ are stored in result\_array and
-> result\_deriv\_array respectively. To include or exclude the
-> Condon-Shortley phase factor of $(-1)^m$, set the parameter csphase to
-> either $-1$ or $1$ respectively in the `_e`{.sourceCode} function.
-> This factor is excluded by default.
+> $dP_l^m(\cos{\theta})/d\theta$ are stored in `result_array` and
+> `result_deriv_array` respectively. To include or exclude the
+> Condon-Shortley phase factor of $(-1)^m$, set the parameter `csphase`
+> to either $-1$ or $1$ respectively in the `_e` function. This factor
+> is excluded by default.
 
 """
 function sf_legendre_deriv_alt_array(norm, lmax, x)
@@ -4115,15 +4115,14 @@ GSL documentation:
 > result\_deriv2\_array\[\])
 
 > These functions calculate all normalized associated Legendre functions
-> and their first and second derivatives up to degree lmax for
-> $|x| < 1$. The parameter norm specifies the normalization used. The
+> and their first and second derivatives up to degree `lmax` for
+> $|x| < 1$. The parameter `norm` specifies the normalization used. The
 > normalized $P_l^m(x)$, their first derivatives $dP_l^m(x)/dx$, and
 > their second derivatives $d^2 P_l^m(x)/dx^2$ are stored in
-> result\_array, result\_deriv\_array, and result\_deriv2\_array
+> `result_array`, `result_deriv_array`, and `result_deriv2_array`
 > respectively. To include or exclude the Condon-Shortley phase factor
-> of $(-1)^m$, set the parameter csphase to either $-1$ or $1$
-> respectively in the `_e`{.sourceCode} function. This factor is
-> excluded by default.
+> of $(-1)^m$, set the parameter `csphase` to either $-1$ or $1$
+> respectively in the `_e` function. This factor is excluded by default.
 
 """
 function sf_legendre_deriv2_array(norm, lmax, x)
@@ -4166,15 +4165,15 @@ GSL documentation:
 > result\_deriv\_array\[\], double result\_deriv2\_array\[\])
 
 > These functions calculate all normalized associated Legendre functions
-> and their (alternate) first and second derivatives up to degree lmax
-> for $|x| < 1$. The parameter norm specifies the normalization used.
+> and their (alternate) first and second derivatives up to degree `lmax`
+> for $|x| < 1$. The parameter `norm` specifies the normalization used.
 > The normalized $P_l^m(x)$, their first derivatives
 > $dP_l^m(\cos{\theta})/d\theta$, and their second derivatives
-> $d^2 P_l^m(\cos{\theta})/d\theta^2$ are stored in result\_array,
-> result\_deriv\_array, and result\_deriv2\_array respectively. To
+> $d^2 P_l^m(\cos{\theta})/d\theta^2$ are stored in `result_array`,
+> `result_deriv_array`, and `result_deriv2_array` respectively. To
 > include or exclude the Condon-Shortley phase factor of $(-1)^m$, set
-> the parameter csphase to either $-1$ or $1$ respectively in the
-> `_e`{.sourceCode} function. This factor is excluded by default.
+> the parameter `csphase` to either $-1$ or $1$ respectively in the `_e`
+> function. This factor is excluded by default.
 
 """
 function sf_legendre_deriv2_alt_array(norm, lmax, x)
@@ -4238,7 +4237,7 @@ GSL documentation:
 ### `int gsl_sf_complex_log_e (double zr, double zi, gsl_sf_result * lnr, gsl_sf_result * theta)`
 
 > This routine computes the complex logarithm of $z = z_r + i z_i$. The
-> results are returned as lnr, theta such that
+> results are returned as `lnr`, `theta` such that
 > $\exp(lnr + i \theta) = z_r + i z_i$, where $\theta$ lies in the range
 > $[-\pi,\pi]$.
 
@@ -4291,8 +4290,8 @@ GSL documentation:
 > q, gsl\_sf\_mathieu\_workspace \* work, double result\_array\[\])
 
 > These routines compute a series of Mathieu characteristic values
-> $a_n(q)$, $b_n(q)$ for $n$ from order\_min to order\_max inclusive,
-> storing the results in the array result\_array.
+> $a_n(q)$, $b_n(q)$ for $n$ from `order_min` to `order_max` inclusive,
+> storing the results in the array `result_array`.
 
 """
 function sf_mathieu_a_array(order_min, order_max, qq, work)
@@ -4381,8 +4380,8 @@ GSL documentation:
 > x, gsl\_sf\_mathieu\_workspace \* work, double result\_array\[\])
 
 > These routines compute a series of the angular Mathieu functions
-> $ce_n(q,x)$ and $se_n(q,x)$ of order $n$ from nmin to nmax inclusive,
-> storing the results in the array result\_array.
+> $ce_n(q,x)$ and $se_n(q,x)$ of order $n$ from `nmin` to `nmax`
+> inclusive, storing the results in the array `result_array`.
 
 """
 function sf_mathieu_ce_array(nmin, nmax, qq, zz, work)
@@ -4446,7 +4445,7 @@ GSL documentation:
 > result\_array\[\])
 
 > These routines compute a series of the radial Mathieu functions of
-> kind j, with order from nmin to nmax inclusive, storing the
+> kind `j`, with order from `nmin` to `nmax` inclusive, storing the
 
 """
 function sf_mathieu_Mc_array(kind, nmin, nmax, qq, zz, work)
@@ -4742,7 +4741,7 @@ GSL documentation:
 ### `int gsl_sf_complex_sin_e (double zr, double zi, gsl_sf_result * szr, gsl_sf_result * szi)`
 
 > This function computes the complex sine, $\sin(z_r + i z_i)$ storing
-> the real and imaginary parts in szr, szi.
+> the real and imaginary parts in `szr`, `szi`.
 
 """
 function sf_complex_sin_e(zr, zi)
@@ -4764,7 +4763,7 @@ GSL documentation:
 ### `int gsl_sf_complex_cos_e (double zr, double zi, gsl_sf_result * czr, gsl_sf_result * czi)`
 
 > This function computes the complex cosine, $\cos(z_r + i z_i)$ storing
-> the real and imaginary parts in czr, czi.
+> the real and imaginary parts in `czr`, `czi`.
 
 """
 function sf_complex_cos_e(zr, zi)
@@ -4787,7 +4786,7 @@ GSL documentation:
 
 > This function computes the logarithm of the complex sine,
 > $\log(\sin(z_r + i z_i))$ storing the real and imaginary parts in
-> lszr, lszi.
+> `lszr`, `lszi`.
 
 """
 function sf_complex_logsin_e(zr, zi)
@@ -4847,8 +4846,9 @@ GSL documentation:
 
 ### `int gsl_sf_polar_to_rect (double r, double theta, gsl_sf_result * x, gsl_sf_result * y)`
 
-> This function converts the polar coordinates (r, theta) to rectilinear
-> coordinates (x, y), $x = r\cos(\theta)$, $y = r\sin(\theta)$.
+> This function converts the polar coordinates (`r`, `theta`) to
+> rectilinear coordinates (`x`, `y`), $x = r\cos(\theta)$,
+> $y = r\sin(\theta)$.
 
 """
 function sf_polar_to_rect(r, theta)
@@ -4869,9 +4869,9 @@ GSL documentation:
 
 ### `int gsl_sf_rect_to_polar (double x, double y, gsl_sf_result * r, gsl_sf_result * theta)`
 
-> This function converts the rectilinear coordinates (x, y) to polar
-> coordinates (r, theta), such that $x = r\cos(\theta)$,
-> $y = r\sin(\theta)$. The argument theta lies in the range
+> This function converts the rectilinear coordinates (`x`, `y`) to polar
+> coordinates (`r`, `theta`), such that $x = r\cos(\theta)$,
+> $y = r\sin(\theta)$. The argument `theta` lies in the range
 > $[-\pi, \pi]$.
 
 """
@@ -4893,8 +4893,8 @@ GSL documentation:
 
 ### `int gsl_sf_sin_err_e (double x, double dx, gsl_sf_result * result)`
 
-> This routine computes the sine of an angle x with an associated
-> absolute error dx, $\sin(x \pm dx)$. Note that this function is
+> This routine computes the sine of an angle `x` with an associated
+> absolute error `dx`, $\sin(x \pm dx)$. Note that this function is
 > provided in the error-handling form only since its purpose is to
 > compute the propagated error.
 
@@ -4916,8 +4916,8 @@ GSL documentation:
 
 ### `int gsl_sf_cos_err_e (double x, double dx, gsl_sf_result * result)`
 
-> This routine computes the cosine of an angle x with an associated
-> absolute error dx, $\cos(x \pm dx)$. Note that this function is
+> This routine computes the cosine of an angle `x` with an associated
+> absolute error `dx`, $\cos(x \pm dx)$. Note that this function is
 > provided in the error-handling form only since
 
 """
@@ -5096,7 +5096,7 @@ GSL documentation:
 ### `const char * gsl_wavelet_name (const gsl_wavelet * w)`
 
 > This function returns a pointer to the name of the wavelet family for
-> w.
+> `w`.
 
 """
 function wavelet_name(w)

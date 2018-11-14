@@ -24,19 +24,19 @@ GSL documentation:
 > gsl\_wavelet\_workspace \* work)
 
 > These functions compute two-dimensional in-place forward and inverse
-> discrete wavelet transforms in standard form on the array data stored
-> in row-major form with dimensions size1 and size2 and physical row
-> length tda. The dimensions must be equal (square matrix) and are
-> restricted to powers of two. For the `transform`{.sourceCode} version
-> of the function the argument dir can be either `forward`{.sourceCode}
-> ($+1$) or `backward`{.sourceCode} ($-1$). A workspace work of the
-> appropriate size must be provided. On exit, the appropriate elements
-> of the array data are replaced by their two-dimensional wavelet
-> transform.
+> discrete wavelet transforms in standard form on the array `data`
+> stored in row-major form with dimensions `size1` and `size2` and
+> physical row length `tda`. The dimensions must be equal (square
+> matrix) and are restricted to powers of two. For the `transform`
+> version of the function the argument `dir` can be either `forward`
+> ($+1$) or `backward` ($-1$). A workspace `work` of the appropriate
+> size must be provided. On exit, the appropriate elements of the array
+> `data` are replaced by their two-dimensional wavelet transform.
 >
-> The functions return a status of GSL\_SUCCESS upon successful
-> completion. GSL\_EINVAL is returned if size1 and size2 are not equal
-> and integer powers of 2, or if insufficient workspace is provided.
+> The functions return a status of `GSL_SUCCESS` upon successful
+> completion. `GSL_EINVAL` is returned if `size1` and `size2` are not
+> equal and integer powers of 2, or if insufficient workspace is
+> provided.
 
 """
 function wavelet2d_transform(w, data, tda, size1, size2, dir, work)
@@ -124,7 +124,7 @@ GSL documentation:
 > gsl\_matrix \* m, gsl\_wavelet\_workspace \* work)
 
 > These functions compute the two-dimensional in-place wavelet transform
-> on a matrix m.
+> on a matrix `m`.
 
 """
 function wavelet2d_transform_matrix(w, a, dir, work)
@@ -167,7 +167,7 @@ GSL documentation:
 > gsl\_matrix \* m, gsl\_wavelet\_workspace \* work)
 
 > These functions compute the non-standard form of the two-dimensional
-> in-place wavelet transform on a matrix m.
+> in-place wavelet transform on a matrix `m`.
 
 """
 function wavelet2d_nstransform_matrix(w, a, dir, work)

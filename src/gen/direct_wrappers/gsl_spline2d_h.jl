@@ -292,8 +292,8 @@ GSL documentation:
 
 ### `double gsl_spline2d_get (const gsl_spline2d * spline, const double za[], const size_t i, const size_t j)`
 
-> This function returns the value $z_{ij}$ for grid point (i, j) stored
-> in the array za.
+> This function returns the value $z_{ij}$ for grid point (`i`, `j`)
+> stored in the array `za`.
 
 """
 function spline2d_get(interp, zarr, i, j)

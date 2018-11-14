@@ -17,10 +17,10 @@ GSL documentation:
 ### `gsl_qrng * gsl_qrng_alloc (const gsl_qrng_type * T, unsigned int d)`
 
 > This function returns a pointer to a newly-created instance of a
-> quasi-random sequence generator of type T and dimension d. If there is
-> insufficient memory to create the generator then the function returns
-> a null pointer and the error handler is invoked with an error code of
-> GSL\_ENOMEM.
+> quasi-random sequence generator of type `T` and dimension `d`. If
+> there is insufficient memory to create the generator then the function
+> returns a null pointer and the error handler is invoked with an error
+> code of `GSL_ENOMEM`.
 
 """
 function qrng_alloc(T, dimension)
@@ -37,9 +37,9 @@ GSL documentation:
 
 ### `int gsl_qrng_memcpy (gsl_qrng * dest, const gsl_qrng * src)`
 
-> This function copies the quasi-random sequence generator src into the
-> pre-existing generator dest, making dest into an exact copy of src.
-> The two generators must be of the same type.
+> This function copies the quasi-random sequence generator `src` into
+> the pre-existing generator `dest`, making `dest` into an exact copy of
+> `src`. The two generators must be of the same type.
 
 """
 function qrng_memcpy(dest, src)
@@ -57,7 +57,7 @@ GSL documentation:
 ### `gsl_qrng * gsl_qrng_clone (const gsl_qrng * q)`
 
 > This function returns a pointer to a newly created generator which is
-> an exact copy of the generator q.
+> an exact copy of the generator `q`.
 
 """
 function qrng_clone(q)
@@ -74,7 +74,7 @@ GSL documentation:
 
 ### `void gsl_qrng_free (gsl_qrng * q)`
 
-> This function frees all the memory associated with the generator q.
+> This function frees all the memory associated with the generator `q`.
 
 """
 function qrng_free(q)
@@ -91,7 +91,7 @@ GSL documentation:
 
 ### `void gsl_qrng_init (gsl_qrng * q)`
 
-> This function reinitializes the generator q to its starting point.
+> This function reinitializes the generator `q` to its starting point.
 > Note that quasi-random sequences do not use a seed and always produce
 > the same set of values.
 
@@ -129,7 +129,7 @@ GSL documentation:
 
 > void \* gsl\_qrng\_state (const gsl\_qrng \* q)
 
-> These functions return a pointer to the state of generator r and its
+> These functions return a pointer to the state of generator `r` and its
 > size. You can use this information to access the state directly. For
 > example, the following code will write the state of a generator to a
 > stream:
@@ -163,10 +163,10 @@ GSL documentation:
 
 ### `int gsl_qrng_get (const gsl_qrng * q, double x[])`
 
-> This function stores the next point from the sequence generator q in
-> the array x. The space available for x must match the dimension of the
-> generator. The point x will lie in the range $0 < x_i < 1$ for each
-> $x_i$.
+> This function stores the next point from the sequence generator `q` in
+> the array `x`. The space available for `x` must match the dimension of
+> the generator. The point `x` will lie in the range $0 < x_i < 1$ for
+> each $x_i$.
 
 """
 function qrng_get(q, x)

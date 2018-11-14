@@ -36,11 +36,11 @@ GSL documentation:
 
 ### `extern inline double GSL_MAX_DBL (double a, double b)`
 
-> This function returns the maximum of the double precision numbers a
-> and b using an inline function. The use of a function allows for type
-> checking of the arguments as an extra safety feature. On platforms
-> where inline functions are not available the macro GSL\_MAX will be
-> automatically substituted.
+> This function returns the maximum of the double precision numbers `a`
+> and `b` using an inline function. The use of a function allows for
+> type checking of the arguments as an extra safety feature. On
+> platforms where inline functions are not available the macro `GSL_MAX`
+> will be automatically substituted.
 
 """
 function GSL_MAX_DBL(a, b)
@@ -57,11 +57,11 @@ GSL documentation:
 
 ### `extern inline double GSL_MIN_DBL (double a, double b)`
 
-> This function returns the minimum of the double precision numbers a
-> and b using an inline function. The use of a function allows for type
-> checking of the arguments as an extra safety feature. On platforms
-> where inline functions are not available the macro GSL\_MIN will be
-> automatically substituted.
+> This function returns the minimum of the double precision numbers `a`
+> and `b` using an inline function. The use of a function allows for
+> type checking of the arguments as an extra safety feature. On
+> platforms where inline functions are not available the macro `GSL_MIN`
+> will be automatically substituted.
 
 """
 function GSL_MIN_DBL(a, b)

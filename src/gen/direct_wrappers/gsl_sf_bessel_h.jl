@@ -90,7 +90,7 @@ GSL documentation:
 > result)
 
 > These routines compute the regular cylindrical Bessel function of
-> order n, $J_n(x)$.
+> order `n`, $J_n(x)$.
 
 """
 function sf_bessel_Jn(n, x)
@@ -108,8 +108,8 @@ GSL documentation:
 ### `int gsl_sf_bessel_Jn_array (int nmin, int nmax, double x, double result_array[])`
 
 > This routine computes the values of the regular cylindrical Bessel
-> functions $J_n(x)$ for $n$ from nmin to nmax inclusive, storing the
-> results in the array result\_array. The values are computed using
+> functions $J_n(x)$ for $n$ from `nmin` to `nmax` inclusive, storing
+> the results in the array `result_array`. The values are computed using
 > recurrence relations for efficiency, and therefore may differ slightly
 > from the exact values.
 
@@ -202,7 +202,7 @@ GSL documentation:
 > result)
 
 > These routines compute the irregular cylindrical Bessel function of
-> order n, $Y_n(x)$, for $x>0$.
+> order `n`, $Y_n(x)$, for $x>0$.
 
 """
 function sf_bessel_Yn(n, x)
@@ -220,8 +220,8 @@ GSL documentation:
 ### `int gsl_sf_bessel_Yn_array (int nmin, int nmax, double x, double result_array[])`
 
 > This routine computes the values of the irregular cylindrical Bessel
-> functions $Y_n(x)$ for $n$ from nmin to nmax inclusive, storing the
-> results in the array result\_array. The domain of the function is
+> functions $Y_n(x)$ for $n$ from `nmin` to `nmax` inclusive, storing
+> the results in the array `result_array`. The domain of the function is
 > $x>0$. The values are computed using recurrence relations for
 > efficiency, and therefore may differ slightly from the exact values.
 
@@ -314,7 +314,7 @@ GSL documentation:
 > result)
 
 > These routines compute the regular modified cylindrical Bessel
-> function of order n, $I_n(x)$.
+> function of order `n`, $I_n(x)$.
 
 """
 function sf_bessel_In(n, x)
@@ -332,11 +332,11 @@ GSL documentation:
 ### `int gsl_sf_bessel_In_array (int nmin, int nmax, double x, double result_array[])`
 
 > This routine computes the values of the regular modified cylindrical
-> Bessel functions $I_n(x)$ for $n$ from nmin to nmax inclusive, storing
-> the results in the array result\_array. The start of the range nmin
-> must be positive or zero. The values are computed using recurrence
-> relations for efficiency, and therefore may differ slightly from the
-> exact values.
+> Bessel functions $I_n(x)$ for $n$ from `nmin` to `nmax` inclusive,
+> storing the results in the array `result_array`. The start of the
+> range `nmin` must be positive or zero. The values are computed using
+> recurrence relations for efficiency, and therefore may differ slightly
+> from the exact values.
 
 """
 function sf_bessel_In_array(nmin, nmax, x, result_array)
@@ -429,7 +429,7 @@ GSL documentation:
 > \* result)
 
 > These routines compute the scaled regular modified cylindrical Bessel
-> function of order n, $\exp(-|x|) I_n(x)$
+> function of order `n`, $\exp(-|x|) I_n(x)$
 
 """
 function sf_bessel_In_scaled(n, x)
@@ -447,9 +447,9 @@ GSL documentation:
 ### `int gsl_sf_bessel_In_scaled_array (int nmin, int nmax, double x, double result_array[])`
 
 > This routine computes the values of the scaled regular cylindrical
-> Bessel functions $\exp(-|x|) I_n(x)$ for $n$ from nmin to nmax
-> inclusive, storing the results in the array result\_array. The start
-> of the range nmin must be positive or zero. The values are computed
+> Bessel functions $\exp(-|x|) I_n(x)$ for $n$ from `nmin` to `nmax`
+> inclusive, storing the results in the array `result_array`. The start
+> of the range `nmin` must be positive or zero. The values are computed
 > using recurrence relations for efficiency, and therefore may differ
 > slightly from the exact values.
 
@@ -542,7 +542,7 @@ GSL documentation:
 > result)
 
 > These routines compute the irregular modified cylindrical Bessel
-> function of order n, $K_n(x)$, for $x > 0$.
+> function of order `n`, $K_n(x)$, for $x > 0$.
 
 """
 function sf_bessel_Kn(n, x)
@@ -560,11 +560,11 @@ GSL documentation:
 ### `int gsl_sf_bessel_Kn_array (int nmin, int nmax, double x, double result_array[])`
 
 > This routine computes the values of the irregular modified cylindrical
-> Bessel functions $K_n(x)$ for $n$ from nmin to nmax inclusive, storing
-> the results in the array result\_array. The start of the range nmin
-> must be positive or zero. The domain of the function is $x>0$. The
-> values are computed using recurrence relations for efficiency, and
-> therefore may differ slightly from the exact values.
+> Bessel functions $K_n(x)$ for $n$ from `nmin` to `nmax` inclusive,
+> storing the results in the array `result_array`. The start of the
+> range `nmin` must be positive or zero. The domain of the function is
+> $x>0$. The values are computed using recurrence relations for
+> efficiency, and therefore may differ slightly from the exact values.
 
 """
 function sf_bessel_Kn_array(nmin, nmax, x, result_array)
@@ -657,7 +657,7 @@ GSL documentation:
 > \* result)
 
 > These routines compute the scaled irregular modified cylindrical
-> Bessel function of order n, $\exp(x) K_n(x)$, for $x>0$.
+> Bessel function of order `n`, $\exp(x) K_n(x)$, for $x>0$.
 
 """
 function sf_bessel_Kn_scaled(n, x)
@@ -675,11 +675,12 @@ GSL documentation:
 ### `int gsl_sf_bessel_Kn_scaled_array (int nmin, int nmax, double x, double result_array[])`
 
 > This routine computes the values of the scaled irregular cylindrical
-> Bessel functions $\exp(x) K_n(x)$ for $n$ from nmin to nmax inclusive,
-> storing the results in the array result\_array. The start of the range
-> nmin must be positive or zero. The domain of the function is $x>0$.
-> The values are computed using recurrence relations for efficiency, and
-> therefore may differ slightly from the exact values.
+> Bessel functions $\exp(x) K_n(x)$ for $n$ from `nmin` to `nmax`
+> inclusive, storing the results in the array `result_array`. The start
+> of the range `nmin` must be positive or zero. The domain of the
+> function is $x>0$. The values are computed using recurrence relations
+> for efficiency, and therefore may differ slightly from the exact
+> values.
 
 """
 function sf_bessel_Kn_scaled_array(nmin, nmax, x, result_array)
@@ -800,7 +801,7 @@ GSL documentation:
 > result)
 
 > These routines compute the regular spherical Bessel function of order
-> l, $j_l(x)$, for $l \geq 0$ and $x \geq 0$.
+> `l`, $j_l(x)$, for $l \geq 0$ and $x \geq 0$.
 
 """
 function sf_bessel_jl(l, x)
@@ -818,10 +819,10 @@ GSL documentation:
 ### `int gsl_sf_bessel_jl_array (int lmax, double x, double result_array[])`
 
 > This routine computes the values of the regular spherical Bessel
-> functions $j_l(x)$ for $l$ from 0 to lmax inclusive for $lmax \geq 0$
-> and $x \geq 0$, storing the results in the array result\_array. The
-> values are computed using recurrence relations for efficiency, and
-> therefore may differ slightly from the exact values.
+> functions $j_l(x)$ for $l$ from 0 to `lmax` inclusive for
+> $lmax \geq 0$ and $x \geq 0$, storing the results in the array
+> `result_array`. The values are computed using recurrence relations for
+> efficiency, and therefore may differ slightly from the exact values.
 
 """
 function sf_bessel_jl_array(lmax, x, result_array)
@@ -839,10 +840,10 @@ GSL documentation:
 ### `int gsl_sf_bessel_jl_steed_array (int lmax, double x, double * result_array)`
 
 > This routine uses Steed's method to compute the values of the regular
-> spherical Bessel functions $j_l(x)$ for $l$ from 0 to lmax inclusive
+> spherical Bessel functions $j_l(x)$ for $l$ from 0 to `lmax` inclusive
 > for $lmax \geq 0$ and $x \geq 0$, storing the results in the array
-> result\_array. The Steed/Barnett algorithm is described in Comp. Phys.
-> Comm. 21, 297 (1981). Steed's method is more stable than the
+> `result_array`. The Steed/Barnett algorithm is described in Comp.
+> Phys. Comm. 21, 297 (1981). Steed's method is more stable than the
 > recurrence used in the other functions but is also slower.
 
 """
@@ -964,7 +965,7 @@ GSL documentation:
 > result)
 
 > These routines compute the irregular spherical Bessel function of
-> order l, $y_l(x)$, for $l \geq 0$.
+> order `l`, $y_l(x)$, for $l \geq 0$.
 
 """
 function sf_bessel_yl(l, x)
@@ -982,10 +983,10 @@ GSL documentation:
 ### `int gsl_sf_bessel_yl_array (int lmax, double x, double result_array[])`
 
 > This routine computes the values of the irregular spherical Bessel
-> functions $y_l(x)$ for $l$ from 0 to lmax inclusive for $lmax \geq 0$,
-> storing the results in the array result\_array. The values are
-> computed using recurrence relations for efficiency, and therefore may
-> differ slightly from the exact values.
+> functions $y_l(x)$ for $l$ from 0 to `lmax` inclusive for
+> $lmax \geq 0$, storing the results in the array `result_array`. The
+> values are computed using recurrence relations for efficiency, and
+> therefore may differ slightly from the exact values.
 
 """
 function sf_bessel_yl_array(lmax, x, result_array)
@@ -1109,7 +1110,7 @@ GSL documentation:
 > \* result)
 
 > These routines compute the scaled regular modified spherical Bessel
-> function of order l, $\exp(-|x|) i_l(x)$
+> function of order `l`, $\exp(-|x|) i_l(x)$
 
 """
 function sf_bessel_il_scaled(l, x)
@@ -1127,9 +1128,9 @@ GSL documentation:
 ### `int gsl_sf_bessel_il_scaled_array (int lmax, double x, double result_array[])`
 
 > This routine computes the values of the scaled regular modified
-> spherical Bessel functions $\exp(-|x|) i_l(x)$ for $l$ from 0 to lmax
-> inclusive for $lmax \geq 0$, storing the results in the array
-> result\_array. The values are computed using recurrence relations for
+> spherical Bessel functions $\exp(-|x|) i_l(x)$ for $l$ from 0 to
+> `lmax` inclusive for $lmax \geq 0$, storing the results in the array
+> `result_array`. The values are computed using recurrence relations for
 > efficiency, and therefore may differ slightly from the exact values.
 
 """
@@ -1254,7 +1255,7 @@ GSL documentation:
 > \* result)
 
 > These routines compute the scaled irregular modified spherical Bessel
-> function of order l, $\exp(x) k_l(x)$, for $x>0$.
+> function of order `l`, $\exp(x) k_l(x)$, for $x>0$.
 
 """
 function sf_bessel_kl_scaled(l, x)
@@ -1272,9 +1273,9 @@ GSL documentation:
 ### `int gsl_sf_bessel_kl_scaled_array (int lmax, double x, double result_array[])`
 
 > This routine computes the values of the scaled irregular modified
-> spherical Bessel functions $\exp(x) k_l(x)$ for $l$ from 0 to lmax
+> spherical Bessel functions $\exp(x) k_l(x)$ for $l$ from 0 to `lmax`
 > inclusive for $lmax \geq 0$ and $x>0$, storing the results in the
-> array result\_array. The values are computed using recurrence
+> array `result_array`. The values are computed using recurrence
 > relations for efficiency, and therefore may differ slightly from the
 > exact values.
 
@@ -1357,9 +1358,9 @@ GSL documentation:
 
 > This function computes the regular cylindrical Bessel function of
 > fractional order $\nu$, $J_\nu(x)$, evaluated at a series of $x$
-> values. The array v of length size contains the $x$ values. They are
-> assumed to be strictly ordered and positive. The array is over-written
-> with the values of $J_\nu(x_i)$.
+> values. The array `v` of length `size` contains the $x$ values. They
+> are assumed to be strictly ordered and positive. The array is
+> over-written with the values of $J_\nu(x_i)$.
 
 """
 function sf_bessel_sequence_Jnu_e(nu, mode, size, v)
@@ -1555,7 +1556,7 @@ GSL documentation:
 > int gsl\_sf\_bessel\_zero\_J0\_e (unsigned int s, gsl\_sf\_result \*
 > result)
 
-> These routines compute the location of the s-th positive zero of the
+> These routines compute the location of the `s`-th positive zero of the
 > Bessel function $J_0(x)$.
 
 """
@@ -1586,7 +1587,7 @@ GSL documentation:
 > int gsl\_sf\_bessel\_zero\_J1\_e (unsigned int s, gsl\_sf\_result \*
 > result)
 
-> These routines compute the location of the s-th positive zero of the
+> These routines compute the location of the `s`-th positive zero of the
 > Bessel function $J_1(x)$.
 
 """
@@ -1617,9 +1618,9 @@ GSL documentation:
 > int gsl\_sf\_bessel\_zero\_Jnu\_e (double nu, unsigned int s,
 > gsl\_sf\_result \* result)
 
-> These routines compute the location of the s-th positive zero of the
+> These routines compute the location of the `s`-th positive zero of the
 > Bessel function $J_\nu(x)$. The current implementation does not
-> support negative values of nu.
+> support negative values of `nu`.
 
 """
 function sf_bessel_zero_Jnu(nu, s)

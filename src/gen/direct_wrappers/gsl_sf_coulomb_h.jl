@@ -60,11 +60,20 @@ GSL documentation:
 > int gsl\_sf\_hydrogenicR\_e (int n, int l, double Z, double r,
 > gsl\_sf\_result \* result)
 
-> These routines compute the n-th normalized hydrogenic bound state
+> These routines compute the `n`-th normalized hydrogenic bound state
 > radial wavefunction,
 >
+> not texinfo
+>
+> $$R_n := {2 Z^{3/2} \over n^2}  \left({2Z r \over n}\right)^l  \sqrt{(n-l-1)! \over (n+l)!} \exp(-Z r/n) L^{2l+1}_{n-l-1}(2Z r / n).$$
+>
+> texinfo
+>
+> R\_n := 2 (Z^{3/2}/n^2) sqrt{(n-l-1)!/(n+l)!} exp(-Z r/n) (2Zr/n)^l  
+>           L^{2l+1}\_{n-l-1}(2Zr/n).
+>
 > where $L^a_b(x)$ is the
-> generalized Laguerre polynomial &lt;laguerre-functions&gt;. The
+> `generalized Laguerre polynomial <laguerre-functions>`. The
 > normalization is chosen such that the wavefunction $\psi$ is given by
 > $\psi(n,l,r) = R_n Y_{lm}$.
 
@@ -88,10 +97,10 @@ GSL documentation:
 > $G'_{L-k}(\eta,x)$ with respect to $x$. The parameters are restricted
 > to $L, L-k > -1/2$, $x > 0$ and integer $k$. Note that $L$ itself is
 > not restricted to being an integer. The results are stored in the
-> parameters F, G for the function values and Fp, Gp for the derivative
-> values. If an overflow occurs, `GSL_EOVRFLW`{.sourceCode} is returned
-> and scaling exponents are stored in the modifiable parameters exp\_F,
-> exp\_G.
+> parameters F, G for the function values and `Fp`, `Gp` for the
+> derivative values. If an overflow occurs, `GSL_EOVRFLW` is returned
+> and scaling exponents are stored in the modifiable parameters `exp_F`,
+> `exp_G`.
 
 """
 function sf_coulomb_wave_FG_e(eta, x, lam_F, k_lam_G, F, Fp, G, Gp, exp_F, exp_G)
@@ -109,8 +118,8 @@ GSL documentation:
 ### `int gsl_sf_coulomb_wave_F_array (double L_min, int kmax, double eta, double x, double fc_array[], double * F_exponent)`
 
 > This function computes the Coulomb wave function $F_L(\eta,x)$ for
-> $L = Lmin \dots Lmin + kmax$, storing the results in fc\_array. In the
-> case of overflow the exponent is stored in F\_exponent.
+> $L = Lmin \dots Lmin + kmax$, storing the results in `fc_array`. In
+> the case of overflow the exponent is stored in `F_exponent`.
 
 """
 function sf_coulomb_wave_F_array(lam_min, kmax, eta, x, fc_array, F_exponent)
@@ -128,9 +137,9 @@ GSL documentation:
 ### `int gsl_sf_coulomb_wave_FG_array (double L_min, int kmax, double eta, double x, double fc_array[], double gc_array[], double * F_exponent, double * G_exponent)`
 
 > This function computes the functions $F_L(\eta,x)$, $G_L(\eta,x)$ for
-> $L = Lmin \dots Lmin + kmax$ storing the results in fc\_array and
-> gc\_array. In the case of overflow the exponents are stored in
-> F\_exponent and G\_exponent.
+> $L = Lmin \dots Lmin + kmax$ storing the results in `fc_array` and
+> `gc_array`. In the case of overflow the exponents are stored in
+> `F_exponent` and `G_exponent`.
 
 """
 function sf_coulomb_wave_FG_array(lam_min, kmax, eta, x, fc_array, gc_array, F_exponent, G_exponent)
@@ -149,9 +158,9 @@ GSL documentation:
 
 > This function computes the functions $F_L(\eta,x)$, $G_L(\eta,x)$ and
 > their derivatives $F'_L(\eta,x)$, $G'_L(\eta,x)$ for
-> $L = Lmin \dots Lmin + kmax$ storing the results in fc\_array,
-> gc\_array, fcp\_array and gcp\_array. In the case of overflow the
-> exponents are stored in F\_exponent and G\_exponent.
+> $L = Lmin \dots Lmin + kmax$ storing the results in `fc_array`,
+> `gc_array`, `fcp_array` and `gcp_array`. In the case of overflow the
+> exponents are stored in `F_exponent` and `G_exponent`.
 
 """
 function sf_coulomb_wave_FGp_array(lam_min, kmax, eta, x, fc_array, fcp_array, gc_array, gcp_array, F_exponent, G_exponent)
@@ -170,8 +179,8 @@ GSL documentation:
 
 > This function computes the Coulomb wave function divided by the
 > argument $F_L(\eta, x)/x$ for $L = Lmin \dots Lmin + kmax$, storing
-> the results in fc\_array. In the case of overflow the exponent is
-> stored in F\_exponent. This function reduces to spherical Bessel
+> the results in `fc_array`. In the case of overflow the exponent is
+> stored in `F_exponent`. This function reduces to spherical Bessel
 > functions in the limit $\eta \to 0$.
 
 """

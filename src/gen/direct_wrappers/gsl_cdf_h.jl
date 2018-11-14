@@ -23,8 +23,6 @@ GSL documentation:
 > These functions compute the cumulative distribution functions $P(x)$,
 > $Q(x)$ and their inverses for the unit Gaussian distribution.
 
-
-
 """
 function cdf_ugaussian_P(x)
     ccall((:gsl_cdf_ugaussian_P, libgsl), Cdouble, (Cdouble,), x)
@@ -76,7 +74,7 @@ GSL documentation:
 
 > These functions compute the cumulative distribution functions $P(x)$,
 > $Q(x)$ and their inverses for the Gaussian distribution with standard
-> deviation sigma.
+> deviation `sigma`.
 
 """
 function cdf_gaussian_P(x, sigma)
@@ -128,10 +126,8 @@ GSL documentation:
 > gsl\_cdf\_gamma\_Qinv (double Q, double a, double b)
 
 > These functions compute the cumulative distribution functions $P(x)$,
-> $Q(x)$ and their inverses for the gamma distribution with parameters a
-> and b.
-
-
+> $Q(x)$ and their inverses for the gamma distribution with parameters
+> `a` and `b`.
 
 """
 function cdf_gamma_P(x, a, b)
@@ -184,9 +180,7 @@ GSL documentation:
 
 > These functions compute the cumulative distribution functions $P(x)$,
 > $Q(x)$ and their inverses for the Cauchy distribution with scale
-> parameter a.
-
-
+> parameter `a`.
 
 """
 function cdf_cauchy_P(x, a)
@@ -238,9 +232,7 @@ GSL documentation:
 > gsl\_cdf\_laplace\_Qinv (double Q, double a)
 
 > These functions compute the cumulative distribution functions $P(x)$,
-> $Q(x)$ and their inverses for the Laplace distribution with width a.
-
-
+> $Q(x)$ and their inverses for the Laplace distribution with width `a`.
 
 """
 function cdf_laplace_P(x, a)
@@ -293,9 +285,7 @@ GSL documentation:
 
 > These functions compute the cumulative distribution functions $P(x)$,
 > $Q(x)$ and their inverses for the Rayleigh distribution with scale
-> parameter sigma.
-
-
+> parameter `sigma`.
 
 """
 function cdf_rayleigh_P(x, sigma)
@@ -347,10 +337,8 @@ GSL documentation:
 > gsl\_cdf\_chisq\_Qinv (double Q, double nu)
 
 > These functions compute the cumulative distribution functions $P(x)$,
-> $Q(x)$ and their inverses for the chi-squared distribution with nu
+> $Q(x)$ and their inverses for the chi-squared distribution with `nu`
 > degrees of freedom.
-
-
 
 """
 function cdf_chisq_P(x, nu)
@@ -403,9 +391,7 @@ GSL documentation:
 
 > These functions compute the cumulative distribution functions $P(x)$,
 > $Q(x)$ and their inverses for the exponential distribution with mean
-> mu.
-
-
+> `mu`.
 
 """
 function cdf_exponential_P(x, mu)
@@ -455,9 +441,8 @@ GSL documentation:
 > double gsl\_cdf\_exppow\_Q (double x, double a, double b)
 
 > These functions compute the cumulative distribution functions $P(x)$,
-> $Q(x)$ for the exponential power distribution with parameters a and b.
-
-
+> $Q(x)$ for the exponential power distribution with parameters `a` and
+> `b`.
 
 """
 function cdf_exppow_P(x, a, b)
@@ -489,10 +474,8 @@ GSL documentation:
 > gsl\_cdf\_tdist\_Qinv (double Q, double nu)
 
 > These functions compute the cumulative distribution functions $P(x)$,
-> $Q(x)$ and their inverses for the t-distribution with nu degrees of
+> $Q(x)$ and their inverses for the t-distribution with `nu` degrees of
 > freedom.
-
-
 
 """
 function cdf_tdist_P(x, nu)
@@ -544,10 +527,8 @@ GSL documentation:
 > gsl\_cdf\_fdist\_Qinv (double Q, double nu1, double nu2)
 
 > These functions compute the cumulative distribution functions $P(x)$,
-> $Q(x)$ and their inverses for the F-distribution with nu1 and nu2
+> $Q(x)$ and their inverses for the F-distribution with `nu1` and `nu2`
 > degrees of freedom.
-
-
 
 """
 function cdf_fdist_P(x, nu1, nu2)
@@ -599,10 +580,8 @@ GSL documentation:
 > gsl\_cdf\_beta\_Qinv (double Q, double a, double b)
 
 > These functions compute the cumulative distribution functions $P(x)$,
-> $Q(x)$ and their inverses for the beta distribution with parameters a
-> and b.
-
-
+> $Q(x)$ and their inverses for the beta distribution with parameters
+> `a` and `b`.
 
 """
 function cdf_beta_P(x, a, b)
@@ -654,9 +633,7 @@ GSL documentation:
 > gsl\_cdf\_flat\_Qinv (double Q, double a, double b)
 
 > These functions compute the cumulative distribution functions $P(x)$,
-> $Q(x)$ and their inverses for a uniform distribution from a to b.
-
-
+> $Q(x)$ and their inverses for a uniform distribution from `a` to `b`.
 
 """
 function cdf_flat_P(x, a, b)
@@ -709,9 +686,7 @@ GSL documentation:
 
 > These functions compute the cumulative distribution functions $P(x)$,
 > $Q(x)$ and their inverses for the lognormal distribution with
-> parameters zeta and sigma.
-
-
+> parameters `zeta` and `sigma`.
 
 """
 function cdf_lognormal_P(x, zeta, sigma)
@@ -764,9 +739,7 @@ GSL documentation:
 
 > These functions compute the cumulative distribution functions $P(x)$,
 > $Q(x)$ and their inverses for the Type-1 Gumbel distribution with
-> parameters a and b.
-
-
+> parameters `a` and `b`.
 
 """
 function cdf_gumbel1_P(x, a, b)
@@ -819,9 +792,7 @@ GSL documentation:
 
 > These functions compute the cumulative distribution functions $P(x)$,
 > $Q(x)$ and their inverses for the Type-2 Gumbel distribution with
-> parameters a and b.
-
-
+> parameters `a` and `b`.
 
 """
 function cdf_gumbel2_P(x, a, b)
@@ -873,10 +844,8 @@ GSL documentation:
 > gsl\_cdf\_weibull\_Qinv (double Q, double a, double b)
 
 > These functions compute the cumulative distribution functions $P(x)$,
-> $Q(x)$ and their inverses for the Weibull distribution with scale a
-> and exponent b.
-
-
+> $Q(x)$ and their inverses for the Weibull distribution with scale `a`
+> and exponent `b`.
 
 """
 function cdf_weibull_P(x, a, b)
@@ -928,10 +897,8 @@ GSL documentation:
 > gsl\_cdf\_pareto\_Qinv (double Q, double a, double b)
 
 > These functions compute the cumulative distribution functions $P(x)$,
-> $Q(x)$ and their inverses for the Pareto distribution with exponent a
-> and scale b.
-
-
+> $Q(x)$ and their inverses for the Pareto distribution with exponent
+> `a` and scale `b`.
 
 """
 function cdf_pareto_P(x, a, b)
@@ -984,9 +951,7 @@ GSL documentation:
 
 > These functions compute the cumulative distribution functions $P(x)$,
 > $Q(x)$ and their inverses for the logistic distribution with scale
-> parameter a.
-
-
+> parameter `a`.
 
 """
 function cdf_logistic_P(x, a)
@@ -1037,9 +1002,7 @@ GSL documentation:
 > n)
 
 > These functions compute the cumulative distribution functions $P(k)$,
-> $Q(k)$ for the binomial distribution with parameters p and n.
-
-
+> $Q(k)$ for the binomial distribution with parameters `p` and `n`.
 
 """
 function cdf_binomial_P(k, p, n)
@@ -1069,9 +1032,7 @@ GSL documentation:
 > double gsl\_cdf\_poisson\_Q (unsigned int k, double mu)
 
 > These functions compute the cumulative distribution functions $P(k)$,
-> $Q(k)$ for the Poisson distribution with parameter mu.
-
-
+> $Q(k)$ for the Poisson distribution with parameter `mu`.
 
 """
 function cdf_poisson_P(k, mu)
@@ -1101,9 +1062,7 @@ GSL documentation:
 > double gsl\_cdf\_geometric\_Q (unsigned int k, double p)
 
 > These functions compute the cumulative distribution functions $P(k)$,
-> $Q(k)$ for the geometric distribution with parameter p.
-
-
+> $Q(k)$ for the geometric distribution with parameter `p`.
 
 """
 function cdf_geometric_P(k, p)
@@ -1134,9 +1093,8 @@ GSL documentation:
 > double n)
 
 > These functions compute the cumulative distribution functions $P(k)$,
-> $Q(k)$ for the negative binomial distribution with parameters p and n.
-
-
+> $Q(k)$ for the negative binomial distribution with parameters `p` and
+> `n`.
 
 """
 function cdf_negative_binomial_P(k, p, n)
@@ -1166,9 +1124,7 @@ GSL documentation:
 > double gsl\_cdf\_pascal\_Q (unsigned int k, double p, unsigned int n)
 
 > These functions compute the cumulative distribution functions $P(k)$,
-> $Q(k)$ for the Pascal distribution with parameters p and n.
-
-
+> $Q(k)$ for the Pascal distribution with parameters `p` and `n`.
 
 """
 function cdf_pascal_P(k, p, n)
@@ -1199,10 +1155,8 @@ GSL documentation:
 > unsigned int n2, unsigned int t)
 
 > These functions compute the cumulative distribution functions $P(k)$,
-> $Q(k)$ for the hypergeometric distribution with parameters n1, n2 and
-> t.
-
-
+> $Q(k)$ for the hypergeometric distribution with parameters `n1`, `n2`
+> and `t`.
 
 """
 function cdf_hypergeometric_P(k, n1, n2, t)

@@ -22,14 +22,14 @@ GSL documentation:
 > size\_t p)
 
 > These functions return a pointer to a newly allocated instance of a
-> derivative solver of type T for n observations and p parameters. The
-> params input specifies a tunable set of parameters which will affect
-> important details in each iteration of the trust region subproblem
-> algorithm. It is recommended to start with the suggested default
-> parameters (see gsl\_multifit\_nlinear\_default\_parameters and
-> gsl\_multilarge\_nlinear\_default\_parameters) and then tune the
+> derivative solver of type `T` for `n` observations and `p` parameters.
+> The `params` input specifies a tunable set of parameters which will
+> affect important details in each iteration of the trust region
+> subproblem algorithm. It is recommended to start with the suggested
+> default parameters (see `gsl_multifit_nlinear_default_parameters` and
+> `gsl_multilarge_nlinear_default_parameters`) and then tune the
 > parameters once the code is working correctly. See
-> sec\_tunable-parameters. for descriptions of the various parameters.
+> `sec_tunable-parameters`. for descriptions of the various parameters.
 > For example, the following code creates an instance of a
 > Levenberg-Marquardt solver for 100 data points and 3 parameters, using
 > suggested defaults:
@@ -38,12 +38,12 @@ GSL documentation:
 >     gsl_multifit_nlinear_parameters params = gsl_multifit_nlinear_default_parameters();
 >     gsl_multifit_nlinear_workspace * w = gsl_multifit_nlinear_alloc (T, &params, 100, 3);
 >
-> The number of observations n must be greater than or equal to
-> parameters p.
+> The number of observations `n` must be greater than or equal to
+> parameters `p`.
 >
 > If there is insufficient memory to create the solver then the function
 > returns a null pointer and the error handler is invoked with an error
-> code of GSL\_ENOMEM.
+> code of `GSL_ENOMEM`.
 
 """
 function multifit_nlinear_alloc(T, params, n, p)
@@ -63,7 +63,7 @@ GSL documentation:
 > void gsl\_multilarge\_nlinear\_free
 > (gsl\_multilarge\_nlinear\_workspace \* w)
 
-> These functions free all the memory associated with the workspace w.
+> These functions free all the memory associated with the workspace `w`.
 
 """
 function multifit_nlinear_free(w)
@@ -86,7 +86,7 @@ GSL documentation:
 > These functions return a set of recommended default parameters for use
 > in solving nonlinear least squares problems. The user can tune each
 > parameter to improve the performance on their particular problem, see
-> sec\_tunable-parameters.
+> `sec_tunable-parameters`.
 
 """
 function multifit_nlinear_default_parameters()
@@ -110,12 +110,12 @@ GSL documentation:
 > gsl\_multilarge\_nlinear\_fdf \* fdf,
 > gsl\_multilarge\_nlinear\_workspace \* w)
 
-> These functions initialize, or reinitialize, an existing workspace w
-> to use the system fdf and the initial guess x. See
-> sec\_providing-function-minimized for a description of the fdf
+> These functions initialize, or reinitialize, an existing workspace `w`
+> to use the system `fdf` and the initial guess `x`. See
+> `sec_providing-function-minimized` for a description of the `fdf`
 > structure.
 >
-> Optionally, a weight vector wts can be given to perform a weighted
+> Optionally, a weight vector `wts` can be given to perform a weighted
 > nonlinear regression. Here, the weighting matrix is
 > $W = \diag(w_1,w_2,...,w_n)$.
 
@@ -147,29 +147,29 @@ GSL documentation:
 > int gsl\_multilarge\_nlinear\_iterate
 > (gsl\_multilarge\_nlinear\_workspace \* w)
 
-> These functions perform a single iteration of the solver w. If the
+> These functions perform a single iteration of the solver `w`. If the
 > iteration encounters an unexpected problem then an error code will be
 > returned. The solver workspace maintains a current estimate of the
 > best-fit parameters at all times.
 
-The solver workspace w contains the following entries, which can be used
-to track the progress of the solution:
+The solver workspace `w` contains the following entries, which can be
+used to track the progress of the solution:
 
-`gsl_vector * x`{.sourceCode}
+`gsl_vector * x`
 
 > The current position, length $p$.
 
-`gsl_vector * f`{.sourceCode}
+`gsl_vector * f`
 
 > The function residual vector at the current position $f(x)$, length
 > $n$.
 
-`gsl_matrix * J`{.sourceCode}
+`gsl_matrix * J`
 
 > The Jacobian matrix at the current position $J(x)$, size $n$-by-$p$
-> (only for `gsl_multifit_nlinear`{.sourceCode} interface).
+> (only for `gsl_multifit_nlinear` interface).
 
-`gsl_vector * dx`{.sourceCode}
+`gsl_vector * dx`
 
 > The difference between the current position and the previous position,
 > i.e. the last step $\delta$, taken as a vector, length $p$.
@@ -197,8 +197,8 @@ GSL documentation:
 > This function returns the current ratio $|a| / |v|$ of the
 > acceleration correction term to the velocity step term. The
 > acceleration term is computed only by the
-> gsl\_multifit\_nlinear\_trs\_lmaccel and
-> gsl\_multilarge\_nlinear\_trs\_lmaccel methods, so this ratio will be
+> `gsl_multifit_nlinear_trs_lmaccel` and
+> `gsl_multilarge_nlinear_trs_lmaccel` methods, so this ratio will be
 > zero for other TRS methods.
 
 """
@@ -217,8 +217,8 @@ GSL documentation:
 ### `gsl_matrix * gsl_multifit_nlinear_jac (const gsl_multifit_nlinear_workspace * w)`
 
 > This function returns a pointer to the $n$-by-$p$ Jacobian matrix for
-> the current iteration of the solver w. This function is available only
-> for the `gsl_multifit_nlinear`{.sourceCode} interface.
+> the current iteration of the solver `w`. This function is available
+> only for the `gsl_multifit_nlinear` interface.
 
 """
 function multifit_nlinear_jac(w)
@@ -243,8 +243,7 @@ GSL documentation:
 >
 >     printf ("w is a '%s' solver\n", gsl_multifit_nlinear_name (w));
 >
-> would print something like
-> `w is a 'trust-region' solver`{.sourceCode}.
+> would print something like `w is a 'trust-region' solver`.
 
 """
 function multifit_nlinear_name(w)
@@ -265,7 +264,7 @@ GSL documentation:
 > gsl\_multilarge\_nlinear\_workspace \* w)
 
 > These functions return the current position $x$ (i.e. best-fit
-> parameters) of the solver w.
+> parameters) of the solver `w`.
 
 """
 function multifit_nlinear_position(w)
@@ -286,7 +285,7 @@ GSL documentation:
 > gsl\_multilarge\_nlinear\_workspace \* w)
 
 > These functions return the current residual vector $f(x)$ of the
-> solver w. For weighted systems, the residual vector includes the
+> solver `w`. For weighted systems, the residual vector includes the
 > weighting factor $\sqrt{W}$.
 
 """
@@ -308,9 +307,8 @@ GSL documentation:
 > gsl\_multilarge\_nlinear\_workspace \* w)
 
 > These functions return the number of iterations performed so far. The
-> iteration counter is updated on each call to the
-> `_iterate`{.sourceCode} functions above, and reset to 0 in the
-> `_init`{.sourceCode} functions.
+> iteration counter is updated on each call to the `_iterate` functions
+> above, and reset to 0 in the `_init` functions.
 
 """
 function multifit_nlinear_niter(w)
@@ -331,7 +329,7 @@ GSL documentation:
 > gsl\_multilarge\_nlinear\_workspace \* w)
 
 > This function estimates the reciprocal condition number of the
-> Jacobian matrix at the current position $x$ and stores it in rcond.
+> Jacobian matrix at the current position $x$ and stores it in `rcond`.
 > The computed value is only an estimate to give the user a guideline as
 > to the conditioning of their particular problem. Its calculation is
 > based on which factorization method is used (Cholesky, QR, or SVD).
@@ -350,9 +348,8 @@ GSL documentation:
 >     $J$ itself. The resulting singular values are used to provide the
 >     2-norm reciprocal condition number, as
 >     $rcond = \sigma_{min} / \sigma_{max}$. Note that when using
->     scaling, $D \ne I$ and the resulting rcond estimate may be
->     significantly different from the true rcond of $J$ itself.
-
+>     scaling, $D \ne I$ and the resulting `rcond` estimate may be
+>     significantly different from the true `rcond` of $J$ itself.
 
 """
 function multifit_nlinear_rcond(rcond, w)
@@ -377,8 +374,7 @@ GSL documentation:
 >
 >     printf ("w is a '%s' solver\n", gsl_multifit_nlinear_trs_name (w));
 >
-> would print something like
-> `w is a 'levenberg-marquardt' solver`{.sourceCode}.
+> would print something like `w is a 'levenberg-marquardt' solver`.
 
 """
 function multifit_nlinear_trs_name(w)
@@ -429,8 +425,8 @@ GSL documentation:
 > gsl\_multilarge\_nlinear\_workspace \* w)
 
 > This function computes the covariance matrix of best-fit parameters
-> using the Jacobian matrix J and stores it in covar. The parameter
-> epsrel is used to remove linear-dependent columns when J is rank
+> using the Jacobian matrix `J` and stores it in `covar`. The parameter
+> `epsrel` is used to remove linear-dependent columns when `J` is rank
 > deficient.
 >
 > The covariance matrix is given by,
@@ -487,10 +483,10 @@ GSL documentation:
 >
 >     for each $0 <= i < p$. Each element of the step vector $\delta$ is
 >     tested individually in case the different parameters have widely
->     different scales. Adding xtol to $|x_i|$ helps the test avoid
+>     different scales. Adding `xtol` to $|x_i|$ helps the test avoid
 >     breaking down in situations where the true solution value
->     $x_i = 0$. If this test succeeds, info is set to 1 and the
->     function returns GSL\_SUCCESS.
+>     $x_i = 0$. If this test succeeds, `info` is set to 1 and the
+>     function returns `GSL_SUCCESS`.
 >
 >     A general guideline for selecting the step tolerance is to choose
 >     $xtol = 10^{-d}$ where $d$ is the number of accurate decimal
@@ -500,21 +496,29 @@ GSL documentation:
 > -   Testing for a small gradient ($g = \nabla \Phi(x) = J^T f$)
 >     indicating a local function minimum:
 >
+>     not texinfo
+>
+>     $$\max_i |g_i \times \max(x_i, 1)| \le gtol \times \max(\Phi(x), 1)$$
+>
+>     texinfo
+>
+>         ||g||_inf <= gtol
+>
 >     This expression tests whether the ratio
 >     $(\nabla \Phi)_i x_i / \Phi$ is small. Testing this scaled
 >     gradient is a better than $\nabla \Phi$ alone since it is a
 >     dimensionless quantity and so independent of the scale of the
->     problem. The `max`{.sourceCode} arguments help ensure the test
->     doesn't break down in regions where $x_i$ or $\Phi(x)$ are close
->     to 0. If this test succeeds, info is set to 2 and the function
->     returns GSL\_SUCCESS.
+>     problem. The `max` arguments help ensure the test doesn't break
+>     down in regions where $x_i$ or $\Phi(x)$ are close to 0. If this
+>     test succeeds, `info` is set to 2 and the function returns
+>     `GSL_SUCCESS`.
 >
 >     A general guideline for choosing the gradient tolerance is to set
->     `gtol = GSL_DBL_EPSILON^(1/3)`{.sourceCode}. See Dennis and
->     Schnabel for more information.
+>     `gtol = GSL_DBL_EPSILON^(1/3)`. See Dennis and Schnabel for more
+>     information.
 >
-> If none of the tests succeed, info is set to 0 and the function
-> returns GSL\_CONTINUE, indicating further iterations are required.
+> If none of the tests succeed, `info` is set to 0 and the function
+> returns `GSL_CONTINUE`, indicating further iterations are required.
 
 """
 function multifit_nlinear_test(xtol, gtol, ftol, info, w)

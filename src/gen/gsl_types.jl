@@ -32,7 +32,7 @@ column index represents the row-length. The step-size for a vector is
 known as the *stride*.
 
 The functions for allocating and deallocating blocks are defined in
-gsl\_block.h.
+`gsl_block.h`.
 
 """
 mutable struct gsl_block
@@ -85,20 +85,19 @@ GSL documentation:
 >       int owner;
 >     } gsl_vector;
 
-The size is simply the number of vector elements. The range of valid
-indices runs from 0 to `size-1`{.sourceCode}. The stride is the
-step-size from one element to the next in physical memory, measured in
-units of the appropriate datatype. The pointer data gives the location
-of the first element of the vector in memory. The pointer block stores
-the location of the memory block in which the vector elements are
-located (if any). If the vector owns this block then the owner field is
-set to one and the block will be deallocated when the vector is freed.
-If the vector points to a block owned by another object then the owner
-field is zero and any underlying block will not be deallocated with the
-vector.
+The `size` is simply the number of vector elements. The range of valid
+indices runs from 0 to `size-1`. The `stride` is the step-size from one
+element to the next in physical memory, measured in units of the
+appropriate datatype. The pointer `data` gives the location of the first
+element of the vector in memory. The pointer `block` stores the location
+of the memory block in which the vector elements are located (if any).
+If the vector owns this block then the `owner` field is set to one and
+the block will be deallocated when the vector is freed. If the vector
+points to a block owned by another object then the `owner` field is zero
+and any underlying block will not be deallocated with the vector.
 
 The functions for allocating and accessing vectors are defined in
-gsl\_vector.h.
+`gsl_vector.h`.
 
 """
 mutable struct gsl_vector
@@ -125,18 +124,17 @@ GSL documentation:
 > used to operate on a subset of vector elements. Vector views can be
 > defined for both constant and non-constant vectors, using separate
 > types that preserve constness. A vector view has the type
-> gsl\_vector\_view and a constant vector view has the type
-> gsl\_vector\_const\_view. In both cases the elements of the view can
-> be accessed as a gsl\_vector using the `vector`{.sourceCode} component
-> of the view object. A pointer to a vector of type
-> `gsl_vector *`{.sourceCode} or `const gsl_vector *`{.sourceCode} can
-> be obtained by taking the address of this component with the
-> `&`{.sourceCode} operator.
+> `gsl_vector_view` and a constant vector view has the type
+> `gsl_vector_const_view`. In both cases the elements of the view can be
+> accessed as a `gsl_vector` using the `vector` component of the view
+> object. A pointer to a vector of type `gsl_vector *` or
+> `const gsl_vector *` can be obtained by taking the address of this
+> component with the `&` operator.
 >
 > When using this pointer it is important to ensure that the view itself
 > remains in scope---the simplest way to do so is by always writing the
-> pointer as `&view.vector`{.sourceCode}, and never storing this value
-> in another variable.
+> pointer as `&view.vector`, and never storing this value in another
+> variable.
 
 """
 mutable struct _gsl_vector_view
@@ -226,13 +224,13 @@ GSL documentation:
 
 ### `gsl_matrix`
 
-> The gsl\_matrix structure contains six components, the two dimensions
+> The `gsl_matrix` structure contains six components, the two dimensions
 > of the matrix, a physical dimension, a pointer to the memory where the
-> elements of the matrix are stored, data, a pointer to the block owned
-> by the matrix block, if any, and an ownership flag, owner. The
-> physical dimension determines the memory layout and can differ from
-> the matrix dimension to allow the use of submatrices. The gsl\_matrix
-> structure is very simple and looks like this:
+> elements of the matrix are stored, `data`, a pointer to the block
+> owned by the matrix `block`, if any, and an ownership flag, `owner`.
+> The physical dimension determines the memory layout and can differ
+> from the matrix dimension to allow the use of submatrices. The
+> `gsl_matrix` structure is very simple and looks like this:
 >
 >     typedef struct
 >     {
@@ -247,32 +245,32 @@ GSL documentation:
 Matrices are stored in row-major order, meaning that each row of
 elements forms a contiguous block in memory. This is the standard
 "C-language ordering" of two-dimensional arrays. Note that Fortran
-stores arrays in column-major order. The number of rows is size1. The
-range of valid row indices runs from 0 to `size1 - 1`{.sourceCode}.
-Similarly size2 is the number of columns. The range of valid column
-indices runs from 0 to `size2 - 1`{.sourceCode}. The physical row
-dimension tda, or *trailing dimension*, specifies the size of a row of
-the matrix as laid out in memory.
+stores arrays in column-major order. The number of rows is `size1`. The
+range of valid row indices runs from 0 to `size1 - 1`. Similarly `size2`
+is the number of columns. The range of valid column indices runs from 0
+to `size2 - 1`. The physical row dimension `tda`, or *trailing
+dimension*, specifies the size of a row of the matrix as laid out in
+memory.
 
-For example, in the following matrix size1 is 3, size2 is 4, and tda is
-8. The physical memory layout of the matrix begins in the top left
-hand-corner and proceeds from left to right along each row in turn.
+For example, in the following matrix `size1` is 3, `size2` is 4, and
+`tda` is 8. The physical memory layout of the matrix begins in the top
+left hand-corner and proceeds from left to right along each row in turn.
 
     00 01 02 03 XX XX XX XX
     10 11 12 13 XX XX XX XX
     20 21 22 23 XX XX XX XX
 
-Each unused memory location is represented by "`XX`{.sourceCode}". The
-pointer data gives the location of the first element of the matrix in
-memory. The pointer block stores the location of the memory block in
-which the elements of the matrix are located (if any). If the matrix
-owns this block then the owner field is set to one and the block will be
+Each unused memory location is represented by "`XX`". The pointer `data`
+gives the location of the first element of the matrix in memory. The
+pointer `block` stores the location of the memory block in which the
+elements of the matrix are located (if any). If the matrix owns this
+block then the `owner` field is set to one and the block will be
 deallocated when the matrix is freed. If the matrix is only a slice of a
-block owned by another object then the owner field is zero and any
+block owned by another object then the `owner` field is zero and any
 underlying block will not be freed.
 
 The functions for allocating and accessing matrices are defined in
-gsl\_matrix.h.
+`gsl_matrix.h`.
 
 """
 mutable struct gsl_matrix
@@ -300,15 +298,13 @@ GSL documentation:
 > used to operate on a subset of matrix elements. Matrix views can be
 > defined for both constant and non-constant matrices using separate
 > types that preserve constness. A matrix view has the type
-> gsl\_matrix\_view and a constant matrix view has the type
-> gsl\_matrix\_const\_view. In both cases the elements of the view can
-> by accessed using the `matrix`{.sourceCode} component of the view
-> object. A pointer `gsl_matrix *`{.sourceCode} or
-> `const gsl_matrix *`{.sourceCode} can be obtained by taking the
-> address of the `matrix`{.sourceCode} component with the
-> `&`{.sourceCode} operator. In addition to matrix views it is also
-> possible to create vector views of a matrix, such as row or column
-> views.
+> `gsl_matrix_view` and a constant matrix view has the type
+> `gsl_matrix_const_view`. In both cases the elements of the view can by
+> accessed using the `matrix` component of the view object. A pointer
+> `gsl_matrix *` or `const gsl_matrix *` can be obtained by taking the
+> address of the `matrix` component with the `&` operator. In addition
+> to matrix views it is also possible to create vector views of a
+> matrix, such as row or column views.
 
 """
 mutable struct _gsl_matrix_view
@@ -838,12 +834,12 @@ GSL documentation:
 
 > This data type defines a general function with parameters.
 >
-> `double (* function) (double x, void * params)`{.sourceCode}
+> `double (* function) (double x, void * params)`
 >
-> > this function should return the value $f(x,params)$ for argument x
-> > and parameters params
+> > this function should return the value $f(x,params)$ for argument `x`
+> > and parameters `params`
 >
-> `void * params`{.sourceCode}
+> `void * params`
 >
 > > a pointer to the parameters of the function
 
@@ -852,8 +848,8 @@ Here is an example for the general quadratic function,
 $$f(x) = a x^2 + b x + c$$
 
 with $a = 3$, $b = 2$, $c = 1$. The following code defines a
-gsl\_function `F`{.sourceCode} which you could pass to a root finder as
-a function pointer:
+`gsl_function` `F` which you could pass to a root finder as a function
+pointer:
 
     struct my_f_params { double a; double b; double c; };
 
@@ -874,8 +870,8 @@ a function pointer:
     F.function = &my_f;
     F.params = &params;
 
-The function $f(x)$ can be evaluated using the macro
-`GSL_FN_EVAL(&F,x)`{.sourceCode} defined in gsl\_math.h.
+The function $f(x)$ can be evaluated using the macro `GSL_FN_EVAL(&F,x)`
+defined in `gsl_math.h`.
 
 """
 mutable struct gsl_function
@@ -899,25 +895,26 @@ GSL documentation:
 > This data type defines a general function with parameters and its
 > first derivative.
 >
-> `double (* f) (double x, void * params)`{.sourceCode}
+> `double (* f) (double x, void * params)`
 >
 > > this function should return the value of $f(x,params)$ for argument
-> > x and parameters params
+> > `x` and parameters `params`
 >
-> `double (* df) (double x, void * params)`{.sourceCode}
+> `double (* df) (double x, void * params)`
 >
-> > this function should return the value of the derivative of f with
-> > respect to x, $f'(x,params)$, for argument x and parameters params
+> > this function should return the value of the derivative of `f` with
+> > respect to `x`, $f'(x,params)$, for argument `x` and parameters
+> > `params`
 >
-> `void (* fdf) (double x, void * params, double * f, double * df)`{.sourceCode}
+> `void (* fdf) (double x, void * params, double * f, double * df)`
 >
-> > this function should set the values of the function f to
-> > $f(x,params)$ and its derivative df to $f'(x,params)$ for argument x
-> > and parameters params. This function provides an optimization of the
-> > separate functions for $f(x)$ and $f'(x)$---it is always faster to
-> > compute the function and its derivative at the same time.
+> > this function should set the values of the function `f` to
+> > $f(x,params)$ and its derivative `df` to $f'(x,params)$ for argument
+> > `x` and parameters `params`. This function provides an optimization
+> > of the separate functions for $f(x)$ and $f'(x)$---it is always
+> > faster to compute the function and its derivative at the same time.
 >
-> `void * params`{.sourceCode}
+> `void * params`
 >
 > > a pointer to the parameters of the function
 
@@ -953,13 +950,12 @@ Here is an example where $f(x) = \exp(2x)$:
     FDF.params = 0;
 
 The function $f(x)$ can be evaluated using the macro
-`GSL_FN_FDF_EVAL_F(&FDF,x)`{.sourceCode} and the derivative $f'(x)$ can
-be evaluated using the macro `GSL_FN_FDF_EVAL_DF(&FDF,x)`{.sourceCode}.
-Both the function $y = f(x)$ and its derivative $dy = f'(x)$ can be
-evaluated at the same time using the macro
-`GSL_FN_FDF_EVAL_F_DF(&FDF,x,y,dy)`{.sourceCode}. The macro stores
-$f(x)$ in its y argument and $f'(x)$ in its dy argument---both of these
-should be pointers to `double`{.sourceCode}.
+`GSL_FN_FDF_EVAL_F(&FDF,x)` and the derivative $f'(x)$ can be evaluated
+using the macro `GSL_FN_FDF_EVAL_DF(&FDF,x)`. Both the function
+$y = f(x)$ and its derivative $dy = f'(x)$ can be evaluated at the same
+time using the macro `GSL_FN_FDF_EVAL_F_DF(&FDF,x,y,dy)`. The macro
+stores $f(x)$ in its `y` argument and $f'(x)$ in its `dy`
+argument---both of these should be pointers to `double`.
 
 """
 mutable struct gsl_function_fdf
@@ -995,6 +991,41 @@ const GSL_MOVSTAT_END_TRUNCATE = 2
 
 > This data type specifies how to construct windows near end points and
 > can be selected from the following choices:
+>
+> GSL\_MOVSTAT\_END\_PADZERO
+>
+> With this option, a full window of length $K$ will be constructed by
+> inserting zeros into the window near the signal end points.
+> Effectively, the input signal is modified to
+>
+> not texinfo
+>
+> $$\tilde{x} = \{ \underbrace{0, \dots, 0}_{H \textrm{ zeros}}, x_1, x_2, \dots, x_{n-1}, x_n, \underbrace{0, \dots, 0}_{J \textrm{ zeros} } \}$$
+>
+> texinfo
+>
+>     x~ = {0, ..., 0, x_1, x_2, ..., x_{n-1}, x_n, 0, ..., 0}
+>
+> to ensure a well-defined window for all $x_i$.
+>
+> GSL\_MOVSTAT\_END\_PADVALUE
+>
+> With this option, a full window of length $K$ will be constructed by
+> padding the window with the first and last sample in the input signal.
+> Effectively, the input signal is modified to
+>
+> not texinfo
+>
+> $$\tilde{x} = \{ \underbrace{x_1, \dots, x_1}_{H}, x_1, x_2, \dots, x_{n-1}, x_n, \underbrace{x_n, \dots, x_n}_{J} \}$$
+>
+> texinfo
+>
+>     x~ = {x_1, ..., x_1, x_1, x_2, ..., x_{n-1}, x_n, x_n, ..., x_n}
+>
+> GSL\_MOVSTAT\_END\_TRUNCATE
+>
+> With this option, no padding is performed, and the windows are simply
+> truncated as the end points are approached.
 
 """
 const gsl_movstat_end_t = Cint
@@ -1026,8 +1057,36 @@ GSL documentation:
 >
 > The structure contains function pointers responsible for performing
 > different tasks for the accumulator.
+>
+> size\_t (\* size) (const size\_t n)
+>
+> This function returns the size of the workspace (in bytes) needed by
+> the accumulator for a moving window of length `n`.
+>
+> int (\* init) (const size\_t n, void \* vstate)
+>
+> This function initializes the workspace `vstate` for a moving window
+> of length `n`.
+>
+> int (\* insert) (const double x, void \* vstate)
+>
+> This function inserts a single sample `x` into the accumulator,
+> updating internal calculations of the desired statistic. If the
+> accumulator is full (i.e. $n$ samples have already been inserted),
+> then the oldest sample is deleted from the accumulator.
+>
+> int (\* delete) (void \* vstate)
+>
+> This function deletes the oldest sample from the accumulator, updating
+> internal calculations of the desired statistic.
+>
+> int (\* get) (void \* params, double \* result, const void \* vstate)
+>
+> This function stores the desired statistic for the current window in
+> `result`. The input `params` specifies optional parameters for
+> calculating the statistic.
 
-The following accumulators of type gsl\_movstat\_accum are defined by
+The following accumulators of type `gsl_movstat_accum` are defined by
 GSL to perform moving window statistics calculations.
 
 """
@@ -1060,6 +1119,16 @@ GSL documentation:
 >
 > This structure contains a pointer to the user-defined function as well
 > as possible parameters to pass to the function.
+>
+> double (\* function) (const size\_t n, double x\[\], void \* params)
+>
+> This function returns the user-defined statistic of the array `x` of
+> length `n`. User-specified parameters are passed in via `params`. It
+> is allowed to modify the array `x`.
+>
+> void \* params
+>
+> User-specified parameters to be passed into the function.
 
 """
 mutable struct gsl_movstat_function
@@ -1424,9 +1493,9 @@ GSL documentation:
 >       ...
 >     } gsl_cheb_series
 
-The approximation is made over the range $[a,b]$ using order + 1 terms,
-including the coefficient $c[0]$. The series is computed using the
-following convention,
+The approximation is made over the range $[a,b]$ using `order` + 1
+terms, including the coefficient $c[0]$. The series is computed using
+the following convention,
 
 """
 mutable struct gsl_cheb_series
@@ -1460,9 +1529,9 @@ GSL documentation:
 
 > A combination is defined by a structure containing three components,
 > the values of $n$ and $k$, and a pointer to the combination array. The
-> elements of the combination array are all of type
-> `size_t`{.sourceCode}, and are stored in increasing order. The
-> gsl\_combination structure looks like this:
+> elements of the combination array are all of type `size_t`, and are
+> stored in increasing order. The `gsl_combination` structure looks like
+> this:
 >
 >     typedef struct
 >     {
@@ -1625,15 +1694,30 @@ GSL documentation:
 > lookup tables for the mixed radix fft algorithm. It has the following
 > components:
 >
->   ------------------------------------------ ------------------------------------------------------------------------------------------------------
->   `size_t n`{.sourceCode}                    This is the number of complex data points
->   `size_t nf`{.sourceCode}                   This is the number of factors that the length `n`{.sourceCode} was decomposed into.
->   `size_t factor[64]`{.sourceCode}           This is the array of factors. Only the first `nf`{.sourceCode} elements are used.
->   `gsl_complex * trig`{.sourceCode}          This is a pointer to a preallocated trigonometric lookup table of `n`{.sourceCode} complex elements.
->   `gsl_complex * twiddle[64]`{.sourceCode}   This is an array of pointers into `trig`{.sourceCode}, giving the twiddle factors for each pass.
->   ------------------------------------------ ------------------------------------------------------------------------------------------------------
->
-
+> <table>
+> <tbody>
+> <tr class="odd">
+> <td><code class="sourceCode">size_t n</code></td>
+> <td>This is the number of complex data points</td>
+> </tr>
+> <tr class="even">
+> <td><code class="sourceCode">size_t nf</code></td>
+> <td>This is the number of factors that the length <code class="sourceCode">n</code> was decomposed into.</td>
+> </tr>
+> <tr class="odd">
+> <td><code class="sourceCode">size_t factor[64]</code></td>
+> <td>This is the array of factors. Only the first <code class="sourceCode">nf</code> elements are used.</td>
+> </tr>
+> <tr class="even">
+> <td><code class="sourceCode">gsl_complex * trig</code></td>
+> <td>This is a pointer to a preallocated trigonometric lookup table of <code class="sourceCode">n</code> complex elements.</td>
+> </tr>
+> <tr class="odd">
+> <td><code class="sourceCode">gsl_complex * twiddle[64]</code></td>
+> <td>This is an array of pointers into <code class="sourceCode">trig</code>, giving the twiddle factors for each pass.</td>
+> </tr>
+> </tbody>
+> </table>
 
 """
 mutable struct gsl_fft_complex_wavetable
@@ -1851,6 +1935,41 @@ const GSL_FILTER_END_TRUNCATE = GSL_MOVSTAT_END_TRUNCATE
 
 > This data type specifies how to construct windows near end points and
 > can be selected from the following choices:
+>
+> GSL\_FILTER\_END\_PADZERO
+>
+> With this option, a full window of length $K$ will be constructed by
+> inserting zeros into the window near the signal end points.
+> Effectively, the input signal is modified to
+>
+> not texinfo
+>
+> $$\tilde{x} = \{ \underbrace{0, \dots, 0}_{H \textrm{ zeros}}, x_1, x_2, \dots, x_{n-1}, x_n, \underbrace{0, \dots, 0}_{H \textrm{ zeros} } \}$$
+>
+> texinfo
+>
+>     x~ = { 0, ..., 0, x_1, x_2, ..., x_{n-1}, x_n, 0, ..., 0 }
+>
+> to ensure a well-defined window for all $x_i$.
+>
+> GSL\_FILTER\_END\_PADVALUE
+>
+> With this option, a full window of length $K$ will be constructed by
+> padding the window with the first and last sample in the input signal.
+> Effectively, the input signal is modified to
+>
+> not texinfo
+>
+> $$\tilde{x} = \{ \underbrace{x_1, \dots, x_1}_{H}, x_1, x_2, \dots, x_{n-1}, x_n, \underbrace{x_n, \dots, x_n}_{H} \}$$
+>
+> texinfo
+>
+>     x~ = { x_1, ..., x_1, x_1, x_2, ..., x_{n-1}, x_n, x_n, ..., x_n }
+>
+> GSL\_FILTER\_END\_TRUNCATE
+>
+> With this option, no padding is performed, and the windows are simply
+> truncated as the end points are approached.
 
 """
 const gsl_filter_end_t = Cint
@@ -1864,6 +1983,53 @@ const GSL_FILTER_SCALE_QN = 3
 
 > This type specifies how the scale estimate $S_i$ of the window $W_i^H$
 > is calculated.
+>
+> GSL\_FILTER\_SCALE\_MAD
+>
+> This option specifies the median absolute deviation (MAD) scale
+> estimate, defined by
+>
+> not texinfo
+>
+> $$S_i = 1.4826 \times \textrm{median} \left\{ | W_i^H - m_i | \right\}$$
+>
+> texinfo
+>
+>     S_i = 1.4826 median { | W_i^H - m_i | }
+>
+> This choice of scale estimate is also known as the *Hampel filter* in
+> the statistical literature. See `here <sec_mad-statistic>` for more
+> information.
+>
+> GSL\_FILTER\_SCALE\_IQR
+>
+> This option specifies the interquartile range (IQR) scale estimate,
+> defined as the difference between the 75th and 25th percentiles of the
+> window $W_i^H$,
+>
+> not texinfo
+>
+> $$S_i = 0.7413 \left( Q_{0.75} - Q_{0.25} \right)$$
+>
+> texinfo
+>
+>     S_i = 0.7413 ( Q_{0.75} - Q_{0.25} )
+>
+> where $Q_p$ is the p-quantile of the window $W_i^H$. The idea is to
+> throw away the largest and smallest 25% of the window samples (where
+> the outliers would be), and estimate a scale from the middle 50%. The
+> factor $0.7413$ provides an unbiased estimate of the standard
+> deviation for Gaussian data.
+>
+> GSL\_FILTER\_SCALE\_SN
+>
+> This option specifies the so-called $S_n$ statistic proposed by Croux
+> and Rousseeuw. See `here <sec_Sn-statistic>` for more information.
+>
+> GSL\_FILTER\_SCALE\_QN
+>
+> This option specifies the so-called $Q_n$ statistic proposed by Croux
+> and Rousseeuw. See `here <sec_Qn-statistic>` for more information.
 
 """
 const gsl_filter_scale_t = Cint
@@ -1955,42 +2121,55 @@ GSL documentation:
 
 ### `gsl_histogram`
 
->   ----------------- ------------------------------------------------------------------------------
->   size\_t n         This is the number of histogram bins
->   double \* range   The ranges of the bins are stored in an array of `n+1`{.sourceCode} elements
->                     pointed to by range.
->   double \* bin     The counts for each bin are stored in an array of n elements
->                     pointed to by bin. The bins are floating-point numbers, so you can
->                     increment them by non-integer values if necessary.
->   ----------------- ------------------------------------------------------------------------------
+> <table>
+> <tbody>
+> <tr class="odd">
+> <td>size_t n</td>
+> <td>This is the number of histogram bins</td>
+> </tr>
+> <tr class="even">
+> <td><p>double * range</p></td>
+> <td><p>The ranges of the bins are stored in an array of <code class="sourceCode">n+1</code> elements pointed to by range.</p></td>
+> </tr>
+> <tr class="odd">
+> <td><p>double * bin</p></td>
+> <td><p>The counts for each bin are stored in an array of <code class="interpreted-text" data-role="data">n</code> elements pointed to by <code class="interpreted-text" data-role="data">bin</code>. The bins are floating-point numbers, so you can increment them by non-integer values if necessary.</p></td>
+> </tr>
+> </tbody>
+> </table>
 >
-> The range for `bin[i]`{.sourceCode} is given by
-> `range[i]`{.sourceCode} to `range[i+1]`{.sourceCode}. For $n$ bins
-> there are `n+1`{.sourceCode} entries in the array range. Each bin is
+> The range for `bin[i]` is given by `range[i]` to `range[i+1]`. For $n$
+> bins there are `n+1` entries in the array `range`. Each bin is
 > inclusive at the lower end and exclusive at the upper end.
 > Mathematically this means that the bins are defined by the following
 > inequality,
+>
+> not texinfo
+>
+> $$\hbox{bin[i] corresponds to range[i]} \le x < \hbox{range[i+1]}$$
+>
+> texinfo
+>
+>     bin[i] corresponds to range[i] <= x < range[i+1]
 >
 > Here is a diagram of the correspondence between ranges and bins on the
 > number-line for $x$:
 >
 >     [ bin[0] )[ bin[1] )[ bin[2] )[ bin[3] )[ bin[4] )
 >
-> > ------------------------ x
-> >
-> > :   r\[0\] r\[1\] r\[2\] r\[3\] r\[4\] r\[5\]
-> >
-> In this picture the values of the range array are denoted by $r$. On
-> the left-hand side of each bin the square bracket `[`{.sourceCode}
-> denotes an inclusive lower bound ($r \le x$), and the round
-> parentheses `)`{.sourceCode} on the right-hand side denote an
-> exclusive upper bound ($x < r$). Thus any samples which fall on the
-> upper end of the histogram are excluded. If you want to include this
-> value for the last bin you will need to add an extra bin to your
-> histogram.
+> > ------------------------ x  
+> > r\[0\] r\[1\] r\[2\] r\[3\] r\[4\] r\[5\]
 >
-> The gsl\_histogram struct and its associated functions are defined in
-> the header file gsl\_histogram.h.
+> In this picture the values of the `range` array are denoted by $r$. On
+> the left-hand side of each bin the square bracket `[` denotes an
+> inclusive lower bound ($r \le x$), and the round parentheses `)` on
+> the right-hand side denote an exclusive upper bound ($x < r$). Thus
+> any samples which fall on the upper end of the histogram are excluded.
+> If you want to include this value for the last bin you will need to
+> add an extra bin to your histogram.
+>
+> The `gsl_histogram` struct and its associated functions are defined in
+> the header file `gsl_histogram.h`.
 
 """
 mutable struct gsl_histogram
@@ -2011,16 +2190,24 @@ GSL documentation:
 
 ### `gsl_histogram_pdf`
 
->   ------------------------------- ------------------------------------------------------------------
->   `size_t n`{.sourceCode}         This is the number of bins used to approximate the probability
->                                   distribution function.
->   `double * range`{.sourceCode}   The ranges of the bins are stored in an array of $n + 1$
->                                   elements pointed to by range.
->   `double * sum`{.sourceCode}     The cumulative probability for the bins is stored in an array of
->                                   n elements pointed to by sum.
->   ------------------------------- ------------------------------------------------------------------
+> <table>
+> <tbody>
+> <tr class="odd">
+> <td><p><code class="sourceCode">size_t n</code></p></td>
+> <td><p>This is the number of bins used to approximate the probability distribution function.</p></td>
+> </tr>
+> <tr class="even">
+> <td><p><code class="sourceCode">double * range</code></p></td>
+> <td><p>The ranges of the bins are stored in an array of <span class="math inline"><em>n</em> + 1</span> elements pointed to by <code class="interpreted-text" data-role="data">range</code>.</p></td>
+> </tr>
+> <tr class="odd">
+> <td><p><code class="sourceCode">double * sum</code></p></td>
+> <td><p>The cumulative probability for the bins is stored in an array of <code class="interpreted-text" data-role="data">n</code> elements pointed to by <code class="interpreted-text" data-role="data">sum</code>.</p></td>
+> </tr>
+> </tbody>
+> </table>
 >
-The following functions allow you to create a gsl\_histogram\_pdf struct
+The following functions allow you to create a `gsl_histogram_pdf` struct
 which represents this probability distribution and generate random
 samples from it.
 
@@ -2049,25 +2236,32 @@ GSL documentation:
 
 ### `gsl_histogram2d`
 
->   -------------------------------- ------------------------------------------------------------------------
->   `size_t nx, ny`{.sourceCode}     This is the number of histogram bins in the x and y directions.
->   `double * xrange`{.sourceCode}   The ranges of the bins in the x-direction are stored in an array of
->                                    `nx + 1`{.sourceCode} elements pointed to by xrange.
->   `double * yrange`{.sourceCode}   The ranges of the bins in the y-direction are stored in an array of
->                                    `ny + 1`{.sourceCode} elements pointed to by yrange.
->   `double * bin`{.sourceCode}      The counts for each bin are stored in an array pointed to by bin.
->                                    The bins are floating-point numbers, so you can increment them by
->                                    non-integer values if necessary. The array bin stores the two
->                                    dimensional array of bins in a single block of memory according to the
->                                    mapping `bin(i,j)`{.sourceCode} = `bin[i * ny + j]`{.sourceCode}.
->   -------------------------------- ------------------------------------------------------------------------
+> <table>
+> <tbody>
+> <tr class="odd">
+> <td><code class="sourceCode">size_t nx, ny</code></td>
+> <td>This is the number of histogram bins in the x and y directions.</td>
+> </tr>
+> <tr class="even">
+> <td><p><code class="sourceCode">double * xrange</code></p></td>
+> <td><p>The ranges of the bins in the x-direction are stored in an array of <code class="sourceCode">nx + 1</code> elements pointed to by <code class="interpreted-text" data-role="data">xrange</code>.</p></td>
+> </tr>
+> <tr class="odd">
+> <td><p><code class="sourceCode">double * yrange</code></p></td>
+> <td><p>The ranges of the bins in the y-direction are stored in an array of <code class="sourceCode">ny + 1</code> elements pointed to by <code class="interpreted-text" data-role="data">yrange</code>.</p></td>
+> </tr>
+> <tr class="even">
+> <td><p><code class="sourceCode">double * bin</code></p></td>
+> <td><p>The counts for each bin are stored in an array pointed to by <code class="interpreted-text" data-role="data">bin</code>. The bins are floating-point numbers, so you can increment them by non-integer values if necessary. The array <code class="interpreted-text" data-role="data">bin</code> stores the two dimensional array of bins in a single block of memory according to the mapping <code class="sourceCode">bin(i,j)</code> = <code class="sourceCode">bin[i * ny + j]</code>.</p></td>
+> </tr>
+> </tbody>
+> </table>
 >
-The range for `bin(i,j)`{.sourceCode} is given by
-`xrange[i]`{.sourceCode} to `xrange[i+1]`{.sourceCode} in the
-x-direction and `yrange[j]`{.sourceCode} to `yrange[j+1]`{.sourceCode}
-in the y-direction. Each bin is inclusive at the lower end and exclusive
-at the upper end. Mathematically this means that the bins are defined by
-the following inequality,
+The range for `bin(i,j)` is given by `xrange[i]` to `xrange[i+1]` in the
+x-direction and `yrange[j]` to `yrange[j+1]` in the y-direction. Each
+bin is inclusive at the lower end and exclusive at the upper end.
+Mathematically this means that the bins are defined by the following
+inequality,
 
 """
 mutable struct gsl_histogram2d
@@ -2092,18 +2286,28 @@ GSL documentation:
 
 ### `gsl_histogram2d_pdf`
 
->   -------------------------------- --------------------------------------------------------------------------
->   `size_t nx, ny`{.sourceCode}     This is the number of histogram bins used to approximate the probability
->                                    distribution function in the x and y directions.
->   `double * xrange`{.sourceCode}   The ranges of the bins in the x-direction are stored in an array of
->                                    `nx + 1`{.sourceCode} elements pointed to by xrange.
->   `double * yrange`{.sourceCode}   The ranges of the bins in the y-direction are stored in an array of
->                                    `ny + 1`{.sourceCode} pointed to by yrange.
->   `double * sum`{.sourceCode}      The cumulative probability for the bins is stored in an array of
->                                    nx \* ny elements pointed to by sum.
->   -------------------------------- --------------------------------------------------------------------------
+> <table>
+> <tbody>
+> <tr class="odd">
+> <td><p><code class="sourceCode">size_t nx, ny</code></p></td>
+> <td><p>This is the number of histogram bins used to approximate the probability distribution function in the x and y directions.</p></td>
+> </tr>
+> <tr class="even">
+> <td><p><code class="sourceCode">double * xrange</code></p></td>
+> <td><p>The ranges of the bins in the x-direction are stored in an array of <code class="sourceCode">nx + 1</code> elements pointed to by <code class="interpreted-text" data-role="data">xrange</code>.</p></td>
+> </tr>
+> <tr class="odd">
+> <td><p><code class="sourceCode">double * yrange</code></p></td>
+> <td><p>The ranges of the bins in the y-direction are stored in an array of <code class="sourceCode">ny + 1</code> pointed to by <code class="interpreted-text" data-role="data">yrange</code>.</p></td>
+> </tr>
+> <tr class="even">
+> <td><p><code class="sourceCode">double * sum</code></p></td>
+> <td><p>The cumulative probability for the bins is stored in an array of <code class="interpreted-text" data-role="data">nx</code> * <code class="interpreted-text" data-role="data">ny</code> elements pointed to by <code class="interpreted-text" data-role="data">sum</code>.</p></td>
+> </tr>
+> </tbody>
+> </table>
 >
-The following functions allow you to create a gsl\_histogram2d\_pdf
+The following functions allow you to create a `gsl_histogram2d_pdf`
 struct which represents a two dimensional probability distribution and
 generate random samples from it.
 
@@ -2487,6 +2691,63 @@ GSL documentation:
 
 ### `gsl_interp_type`
 
+> linear interpolation
+>
+> gsl\_interp\_linear
+>
+> Linear interpolation. This interpolation method does not require any
+> additional memory.
+>
+> polynomial interpolation
+>
+> gsl\_interp\_polynomial
+>
+> Polynomial interpolation. This method should only be used for
+> interpolating small numbers of points because polynomial interpolation
+> introduces large oscillations, even for well-behaved datasets. The
+> number of terms in the interpolating polynomial is equal to the number
+> of points.
+>
+> cubic splines
+>
+> gsl\_interp\_cspline
+>
+> Cubic spline with natural boundary conditions. The resulting curve is
+> piecewise cubic on each interval, with matching first and second
+> derivatives at the supplied data-points. The second derivative is
+> chosen to be zero at the first point and last point.
+>
+> gsl\_interp\_cspline\_periodic
+>
+> Cubic spline with periodic boundary conditions. The resulting curve is
+> piecewise cubic on each interval, with matching first and second
+> derivatives at the supplied data-points. The derivatives at the first
+> and last points are also matched. Note that the last point in the data
+> must have the same y-value as the first point, otherwise the resulting
+> periodic interpolation will have a discontinuity at the boundary.
+>
+> Akima splines
+>
+> gsl\_interp\_akima
+>
+> Non-rounded Akima spline with natural boundary conditions. This method
+> uses the non-rounded corner algorithm of Wodicka.
+>
+> gsl\_interp\_akima\_periodic
+>
+> Non-rounded Akima spline with periodic boundary conditions. This
+> method uses the non-rounded corner algorithm of Wodicka.
+>
+> gsl\_interp\_steffen
+>
+> Steffen's method guarantees the monotonicity of the interpolating
+> function between the given data points. Therefore, minima and maxima
+> can only occur exactly at the data points, and there can never be
+> spurious oscillations between data points. The interpolated function
+> is piecewise cubic in each interval. The resulting curve and its first
+> derivative are guaranteed to be continuous, but the second derivative
+> may be discontinuous.
+
 The following related functions are available:
 
 """
@@ -2553,6 +2814,19 @@ GSL documentation:
 
 > The interpolation library provides the following 2D interpolation
 > types:
+>
+> bilinear interpolation
+>
+> gsl\_interp2d\_bilinear
+>
+> Bilinear interpolation. This interpolation method does not require any
+> additional memory.
+>
+> bicubic interpolation
+>
+> gsl\_interp2d\_bicubic
+>
+> Bicubic interpolation.
 
 """
 mutable struct gsl_interp2d_type
@@ -3320,7 +3594,51 @@ GSL documentation:
 
 ### `gsl_min_fminimizer_type`
 
-
+> single: golden section algorithm for finding minima single: minimum
+> finding, golden section algorithm
+>
+> gsl\_min\_fminimizer\_goldensection
+>
+> The *golden section algorithm* is the simplest method of bracketing
+> the minimum of a function. It is the slowest algorithm provided by the
+> library, with linear convergence.
+>
+> On each iteration, the algorithm first compares the subintervals from
+> the endpoints to the current minimum. The larger subinterval is
+> divided in a golden section (using the famous ratio
+> $(3-\sqrt 5)/2 \approx 0.3819660$ and the value of the function at
+> this new point is calculated. The new value is used with the
+> constraint $f(a') > f(x') < f(b')$ to a select new interval containing
+> the minimum, by discarding the least useful point. This procedure can
+> be continued indefinitely until the interval is sufficiently small.
+> Choosing the golden section as the bisection ratio can be shown to
+> provide the fastest convergence for this type of algorithm.
+>
+> single: Brent's method for finding minima single: minimum finding,
+> Brent's method
+>
+> gsl\_min\_fminimizer\_brent
+>
+> The *Brent minimization algorithm* combines a parabolic interpolation
+> with the golden section algorithm. This produces a fast algorithm
+> which is still robust.
+>
+> The outline of the algorithm can be summarized as follows: on each
+> iteration Brent's method approximates the function using an
+> interpolating parabola through three existing points. The minimum of
+> the parabola is taken as a guess for the minimum. If it lies within
+> the bounds of the current interval then the interpolating point is
+> accepted, and used to generate a smaller interval. If the
+> interpolating point is not accepted then the algorithm falls back to
+> an ordinary golden section step. The full details of Brent's method
+> include some additional checks to improve convergence.
+>
+> safeguarded step-length algorithm
+>
+> gsl\_min\_fminimizer\_quad\_golden
+>
+> This is a variant of Brent's algorithm which uses the safeguarded
+> step-length algorithm of Gill and Murray.
 
 """
 mutable struct gsl_min_fminimizer_type
@@ -3386,26 +3704,29 @@ GSL documentation:
 > This data type defines a general function with parameters for Monte
 > Carlo integration.
 >
->   --------------------------------------------------------------------- ---------------------------------------
->   `double (* f) (double * x, size_t dim, void * params)`{.sourceCode}   this function should return the value
->                                                                         $f(x,params)$ for the argument
->                                                                         x and parameters params,
->                                                                         where x is an array of size
->                                                                         dim giving the coordinates of the
->                                                                         point where the function is to be
->                                                                         evaluated.
->   `size_t dim`{.sourceCode}                                             the number of dimensions for x.
->   `void * params`{.sourceCode}                                          a pointer to the parameters of the
->                                                                         function.
->   --------------------------------------------------------------------- ---------------------------------------
+> <table>
+> <tbody>
+> <tr class="odd">
+> <td><p><code class="sourceCode">double (* f) (double * x, size_t dim, void * params)</code></p></td>
+> <td><p>this function should return the value <span class="math inline"><em>f</em>(<em>x</em>, <em>p</em><em>a</em><em>r</em><em>a</em><em>m</em><em>s</em>)</span> for the argument <code class="interpreted-text" data-role="data">x</code> and parameters <code class="interpreted-text" data-role="data">params</code>, where <code class="interpreted-text" data-role="data">x</code> is an array of size <code class="interpreted-text" data-role="data">dim</code> giving the coordinates of the point where the function is to be evaluated.</p></td>
+> </tr>
+> <tr class="even">
+> <td><code class="sourceCode">size_t dim</code></td>
+> <td>the number of dimensions for <code class="interpreted-text" data-role="data">x</code>.</td>
+> </tr>
+> <tr class="odd">
+> <td><p><code class="sourceCode">void * params</code></p></td>
+> <td><p>a pointer to the parameters of the function.</p></td>
+> </tr>
+> </tbody>
+> </table>
 >
 Here is an example for a quadratic function in two dimensions,
 
 $$f(x,y) = a x^2 + b x y + c y^2$$
 
 with $a = 3$, $b = 2$, $c = 1$. The following code defines a
-gsl\_monte\_function `F`{.sourceCode} which you could pass to an
-integrator:
+`gsl_monte_function` `F` which you could pass to an integrator:
 
     struct my_f_params { double a; double b; double c; };
 
@@ -3522,7 +3843,60 @@ GSL documentation:
 
 ### `gsl_monte_miser_params`
 
-
+> double estimate\_frac
+>
+> This parameter specifies the fraction of the currently available
+> number of function calls which are allocated to estimating the
+> variance at each recursive step. The default value is 0.1.
+>
+> size\_t min\_calls
+>
+> This parameter specifies the minimum number of function calls required
+> for each estimate of the variance. If the number of function calls
+> allocated to the estimate using `estimate_frac` falls below
+> `min_calls` then `min_calls` are used instead. This ensures that each
+> estimate maintains a reasonable level of accuracy. The default value
+> of `min_calls` is `16 * dim`.
+>
+> size\_t min\_calls\_per\_bisection
+>
+> This parameter specifies the minimum number of function calls required
+> to proceed with a bisection step. When a recursive step has fewer
+> calls available than `min_calls_per_bisection` it performs a plain
+> Monte Carlo estimate of the current sub-region and terminates its
+> branch of the recursion. The default value of this parameter is
+> `32 * min_calls`.
+>
+> double alpha
+>
+> This parameter controls how the estimated variances for the two
+> sub-regions of a bisection are combined when allocating points. With
+> recursive sampling the overall variance should scale better than
+> $1/N$, since the values from the sub-regions will be obtained using a
+> procedure which explicitly minimizes their variance. To accommodate
+> this behavior the MISER algorithm allows the total variance to depend
+> on a scaling parameter $\alpha$,
+>
+> not texinfo
+>
+> $$\Var(f) = {\sigma_a \over N_a^\alpha} + {\sigma_b \over N_b^\alpha}.$$
+>
+> texinfo
+>
+>     \Var(f) = {\sigma_a \over N_a^\alpha} + {\sigma_b \over N_b^\alpha}.
+>
+> The authors of the original paper describing MISER recommend the value
+> $\alpha = 2$ as a good choice, obtained from numerical experiments,
+> and this is used as the default value in this implementation.
+>
+> double dither
+>
+> This parameter introduces a random fractional variation of size
+> `dither` into each bisection, which can be used to break the symmetry
+> of integrands which are concentrated near the exact center of the
+> hypercubic integration region. The default value of dither is zero, so
+> no variation is introduced. If needed, a typical value of `dither` is
+> 0.1.
 
 """
 mutable struct gsl_monte_miser_params
@@ -3653,8 +4027,52 @@ GSL documentation:
 
 ### `gsl_monte_vegas_params`
 
-The above fields and the chisq value can also be accessed directly in
-the gsl\_monte\_vegas\_state but such use is deprecated.
+> double alpha
+>
+> The parameter `alpha` controls the stiffness of the rebinning
+> algorithm. It is typically set between one and two. A value of zero
+> prevents rebinning of the grid. The default value is 1.5.
+>
+> size\_t iterations
+>
+> The number of iterations to perform for each call to the routine. The
+> default value is 5 iterations.
+>
+> int stage
+>
+> Setting this determines the *stage* of the calculation. Normally,
+> `stage = 0` which begins with a new uniform grid and empty weighted
+> average. Calling VEGAS with `stage = 1` retains the grid from the
+> previous run but discards the weighted average, so that one can "tune"
+> the grid using a relatively small number of points and then do a large
+> run with `stage = 1` on the optimized grid. Setting `stage = 2` keeps
+> the grid and the weighted average from the previous run, but may
+> increase (or decrease) the number of histogram bins in the grid
+> depending on the number of calls available. Choosing `stage = 3`
+> enters at the main loop, so that nothing is changed, and is equivalent
+> to performing additional iterations in a previous call.
+>
+> int mode
+>
+> The possible choices are `GSL_VEGAS_MODE_IMPORTANCE`,
+> `GSL_VEGAS_MODE_STRATIFIED`, `GSL_VEGAS_MODE_IMPORTANCE_ONLY`. This
+> determines whether VEGAS will use importance sampling or stratified
+> sampling, or whether it can pick on its own. In low dimensions VEGAS
+> uses strict stratified sampling (more precisely, stratified sampling
+> is chosen if there are fewer than 2 bins per box).
+>
+> int verbose FILE \* ostream
+>
+> These parameters set the level of information printed by VEGAS. All
+> information is written to the stream `ostream`. The default setting of
+> `verbose` is `-1`, which turns off all output. A `verbose` value of
+> `0` prints summary information about the weighted average and final
+> result, while a value of `1` also displays the grid coordinates. A
+> value of `2` prints information from the rebinning procedure for each
+> iteration.
+
+The above fields and the `chisq` value can also be accessed directly in
+the `gsl_monte_vegas_state` but such use is deprecated.
 
 """
 mutable struct gsl_monte_vegas_params
@@ -3996,22 +4414,62 @@ const GSL_MULTIFIT_NLINEAR_CTRDIFF = 1
 @doc md"""
 `gsl_multifit_nlinear_fdtype`
 
-> The parameter fdtype specifies whether to use forward or centered
+> The parameter `fdtype` specifies whether to use forward or centered
 > differences when approximating the Jacobian. This is only used when an
 > analytic Jacobian is not provided to the solver. This parameter may be
 > set to one of the following choices.
+>
+> GSL\_MULTIFIT\_NLINEAR\_FWDIFF
+>
+> This specifies a forward finite difference to approximate the Jacobian
+> matrix. The Jacobian matrix will be calculated as
+>
+> not texinfo
+>
+> $$J_{ij} = {1 \over \Delta_j} \left( f_i(x + \Delta_j e_j) - f_i(x) \right)$$
+>
+> texinfo
+>
+>     J_ij = 1 / \Delta_j ( f_i(x + \Delta_j e_j) - f_i(x) )
+>
+> where $\Delta_j = h |x_j|$ and $e_j$ is the standard $j$-th Cartesian
+> unit basis vector so that $x + \Delta_j e_j$ represents a small
+> (forward) perturbation of the $j$-th parameter by an amount
+> $\Delta_j$. The perturbation $\Delta_j$ is proportional to the current
+> value $|x_j|$ which helps to calculate an accurate Jacobian when the
+> various parameters have different scale sizes. The value of $h$ is
+> specified by the `h_df` parameter. The accuracy of this method is
+> $O(h)$, and evaluating this matrix requires an additional $p$ function
+> evaluations.
+>
+> GSL\_MULTIFIT\_NLINEAR\_CTRDIFF
+>
+> This specifies a centered finite difference to approximate the
+> Jacobian matrix. The Jacobian matrix will be calculated as
+>
+> not texinfo
+>
+> $$J_{ij} = {1 \over \Delta_j} \left( f_i(x + {1 \over 2} \Delta_j e_j) - f_i(x - {1 \over 2} \Delta_j e_j) \right)$$
+>
+> texinfo
+>
+>     J_ij = 1 / \Delta_j ( f_i(x + 1/2 \Delta_j e_j) - f_i(x - 1/2 \Delta_j e_j) )
+>
+> See above for a description of $\Delta_j$. The accuracy of this method
+> is $O(h^2)$, but evaluating this matrix requires an additional $2p$
+> function evaluations.
 
-`double factor_up`{.sourceCode}
+`double factor_up`
 
 When a step is accepted, the trust region radius will be increased by
 this factor. The default value is $3$.
 
-`double factor_down`{.sourceCode}
+`double factor_down`
 
 When a step is rejected, the trust region radius will be decreased by
 this factor. The default value is $2$.
 
-`double avmax`{.sourceCode}
+`double avmax`
 
 When using geodesic acceleration to solve a nonlinear least squares
 problem, an important parameter to monitor is the ratio of the
@@ -4043,68 +4501,73 @@ GSL documentation:
 > optionally the second directional derivative of the functions for
 > geodesic acceleration.
 >
-> `int (* f) (const gsl_vector * x, void * params, gsl_vector * f)`{.sourceCode}
+> `int (* f) (const gsl_vector * x, void * params, gsl_vector * f)`
 >
 > > This function should store the $n$ components of the vector $f(x)$
-> > in f for argument x and arbitrary parameters params, returning an
-> > appropriate error code if the function cannot be computed.
+> > in `f` for argument `x` and arbitrary parameters `params`, returning
+> > an appropriate error code if the function cannot be computed.
 >
-> `int (* df) (const gsl_vector * x, void * params, gsl_matrix * J)`{.sourceCode}
+> `int (* df) (const gsl_vector * x, void * params, gsl_matrix * J)`
 >
-> > This function should store the n-by-p matrix result
+> > This function should store the `n`-by-`p` matrix result
 > >
-> > in J for argument x and arbitrary parameters params, returning an
-> > appropriate error code if the matrix cannot be computed. If an
+> > not texinfo
+> >
+> > $$J_{ij} = \partial f_i(x) / \partial x_j$$
+> >
+> > texinfo
+> >
+> >     J_ij = d f_i(x) / d x_j
+> >
+> > in `J` for argument `x` and arbitrary parameters `params`, returning
+> > an appropriate error code if the matrix cannot be computed. If an
 > > analytic Jacobian is unavailable, or too expensive to compute, this
-> > function pointer may be set to `NULL`{.sourceCode}, in which case
-> > the Jacobian will be internally computed using finite difference
-> > approximations of the function f.
+> > function pointer may be set to `NULL`, in which case the Jacobian
+> > will be internally computed using finite difference approximations
+> > of the function `f`.
 >
-> `int (* fvv) (const gsl_vector * x, const gsl_vector * v, void * params, gsl_vector * fvv)`{.sourceCode}
+> `int (* fvv) (const gsl_vector * x, const gsl_vector * v, void * params, gsl_vector * fvv)`
 >
 > > When geodesic acceleration is enabled, this function should store
 > > the $n$ components of the vector
 > > $f_{vv}(x) = \sum_{\alpha\beta} v_{\alpha} v_{\beta} {\partial \over \partial x_{\alpha}} {\partial \over \partial x_{\beta}} f(x)$,
 > > representing second directional derivatives of the function to be
-> > minimized, into the output fvv. The parameter vector is provided in
-> > x and the velocity vector is provided in v, both of which have $p$
-> > components. The arbitrary parameters are given in params. If
-> > analytic expressions for $f_{vv}(x)$ are unavailable or too
-> > difficult to compute, this function pointer may be set to
-> > `NULL`{.sourceCode}, in which case $f_{vv}(x)$ will be computed
-> > internally using a finite difference approximation.
+> > minimized, into the output `fvv`. The parameter vector is provided
+> > in `x` and the velocity vector is provided in `v`, both of which
+> > have $p$ components. The arbitrary parameters are given in `params`.
+> > If analytic expressions for $f_{vv}(x)$ are unavailable or too
+> > difficult to compute, this function pointer may be set to `NULL`, in
+> > which case $f_{vv}(x)$ will be computed internally using a finite
+> > difference approximation.
 >
-> `size_t n`{.sourceCode}
+> `size_t n`
 >
 > > the number of functions, i.e. the number of components of the vector
-> > f.
+> > `f`.
 >
-> `size_t p`{.sourceCode}
+> `size_t p`
 >
 > > the number of independent variables, i.e. the number of components
-> > of the vector x.
+> > of the vector `x`.
 >
-> `void * params`{.sourceCode}
+> `void * params`
 >
 > > a pointer to the arbitrary parameters of the function.
 >
-> `size_t nevalf`{.sourceCode}
+> `size_t nevalf`
 >
 > > This does not need to be set by the user. It counts the number of
-> > function evaluations and is initialized by the `_init`{.sourceCode}
-> > function.
+> > function evaluations and is initialized by the `_init` function.
 >
-> `size_t nevaldf`{.sourceCode}
->
-> > This does not need to be set by the user. It counts the number of
-> > Jacobian evaluations and is initialized by the `_init`{.sourceCode}
-> > function.
->
-> `size_t nevalfvv`{.sourceCode}
+> `size_t nevaldf`
 >
 > > This does not need to be set by the user. It counts the number of
-> > $f_{vv}(x)$ evaluations and is initialized by the
-> > `_init`{.sourceCode} function.
+> > Jacobian evaluations and is initialized by the `_init` function.
+>
+> `size_t nevalfvv`
+>
+> > This does not need to be set by the user. It counts the number of
+> > $f_{vv}(x)$ evaluations and is initialized by the `_init` function.
 
 """
 mutable struct gsl_multifit_nlinear_fdf
@@ -4137,8 +4600,38 @@ GSL documentation:
 
 > gsl\_multilarge\_nlinear\_trs
 
-> The parameter trs determines the method used to solve the trust region
-> subproblem, and may be selected from the following choices,
+> The parameter `trs` determines the method used to solve the trust
+> region subproblem, and may be selected from the following choices,
+>
+> gsl\_multifit\_nlinear\_trs\_lm gsl\_multilarge\_nlinear\_trs\_lm
+>
+> This selects the Levenberg-Marquardt algorithm.
+>
+> gsl\_multifit\_nlinear\_trs\_lmaccel
+> gsl\_multilarge\_nlinear\_trs\_lmaccel
+>
+> This selects the Levenberg-Marquardt algorithm with geodesic
+> acceleration.
+>
+> gsl\_multifit\_nlinear\_trs\_dogleg
+> gsl\_multilarge\_nlinear\_trs\_dogleg
+>
+> This selects the dogleg algorithm.
+>
+> gsl\_multifit\_nlinear\_trs\_ddogleg
+> gsl\_multilarge\_nlinear\_trs\_ddogleg
+>
+> This selects the double dogleg algorithm.
+>
+> gsl\_multifit\_nlinear\_trs\_subspace2D
+> gsl\_multilarge\_nlinear\_trs\_subspace2D
+>
+> This selects the 2D subspace algorithm.
+>
+> gsl\_multilarge\_nlinear\_trs\_cgst
+>
+> This selects the Steihaug-Toint conjugate gradient algorithm. This
+> method is available only for large systems.
 
 """
 mutable struct gsl_multifit_nlinear_trs
@@ -4165,8 +4658,42 @@ GSL documentation:
 
 > gsl\_multilarge\_nlinear\_scale
 
-> The parameter scale determines the diagonal scaling matrix $D$ and may
-> be selected from the following choices,
+> The parameter `scale` determines the diagonal scaling matrix $D$ and
+> may be selected from the following choices,
+>
+> gsl\_multifit\_nlinear\_scale\_more
+> gsl\_multilarge\_nlinear\_scale\_more
+>
+> This damping strategy was suggested by , and corresponds to
+> $D^T D = \max(\diag(J^T J))$, in other words the maximum elements of
+> $\diag(J^T J)$ encountered thus far in the iteration. This choice of
+> $D$ makes the problem scale-invariant, so that if the model parameters
+> $x_i$ are each scaled by an arbitrary constant,
+> $\tilde{x}_i = a_i x_i$, then the sequence of iterates produced by the
+> algorithm would be unchanged. This method can work very well in cases
+> where the model parameters have widely different scales (ie: if some
+> parameters are measured in nanometers, while others are measured in
+> degrees Kelvin). This strategy has been proven effective on a large
+> class of problems and so it is the library default, but it may not be
+> the best choice for all problems.
+>
+> gsl\_multifit\_nlinear\_scale\_levenberg
+> gsl\_multilarge\_nlinear\_scale\_levenberg
+>
+> This damping strategy was originally suggested by Levenberg, and
+> corresponds to $D^T D = I$. This method has also proven effective on a
+> large class of problems, but is not scale-invariant. However, some
+> authors (e.g. Transtrum and Sethna 2012) argue that this choice is
+> better for problems which are susceptible to parameter evaporation
+> (ie: parameters go to infinity)
+>
+> gsl\_multifit\_nlinear\_scale\_marquardt
+> gsl\_multilarge\_nlinear\_scale\_marquardt
+>
+> This damping strategy was suggested by Marquardt, and corresponds to
+> $D^T D = \diag(J^T J)$. This method is scale-invariant, but it is
+> generally considered inferior to both the Levenberg and strategies,
+> though may work well on certain classes of problems.
 
 """
 mutable struct gsl_multifit_nlinear_scale
@@ -4196,8 +4723,67 @@ GSL documentation:
 > Solving the trust region subproblem on each iteration almost always
 > requires the solution of the following linear least squares system
 >
-> The solver parameter determines how the system is solved and can be
+> not texinfo
+>
+> $$\begin{aligned}
+> \left[
+>   \begin{array}{c}
+>     J \\
+>     \sqrt{\mu} D
+>   \end{array}
+> \right]
+> \delta =
+> -
+> \left[
+>   \begin{array}{c}
+>     f \\
+>     0
+>   \end{array}
+> \right]
+> \end{aligned}$$
+>
+> texinfo
+>
+>     [J; sqrt(mu) D] \delta = - [f; 0]
+>
+> The `solver` parameter determines how the system is solved and can be
 > selected from the following choices:
+>
+> gsl\_multifit\_nlinear\_solver\_qr
+>
+> This method solves the system using a rank revealing QR decomposition
+> of the Jacobian $J$. This method will produce reliable solutions in
+> cases where the Jacobian is rank deficient or near-singular but does
+> require about twice as many operations as the Cholesky method
+> discussed below.
+>
+> gsl\_multifit\_nlinear\_solver\_cholesky
+> gsl\_multilarge\_nlinear\_solver\_cholesky
+>
+> This method solves the alternate normal equations problem
+>
+> not texinfo
+>
+> $$\left( J^T J + \mu D^T D \right) \delta = -J^T f$$
+>
+> texinfo
+>
+>     ( J^T J + \mu D^T D ) \delta = -J^T f
+>
+> by using a Cholesky decomposition of the matrix $J^T J + \mu D^T D$.
+> This method is faster than the QR approach, however it is susceptible
+> to numerical instabilities if the Jacobian matrix is rank deficient or
+> near-singular. In these cases, an attempt is made to reduce the
+> condition number of the matrix using Jacobi preconditioning, but for
+> highly ill-conditioned problems the QR approach is better. If it is
+> known that the Jacobian matrix is well conditioned, this method is
+> accurate and will perform faster than the QR approach.
+>
+> gsl\_multifit\_nlinear\_solver\_svd
+>
+> This method solves the system using a singular value decomposition of
+> the Jacobian $J$. This method will produce the most reliable solutions
+> for ill-conditioned Jacobians but is also the slowest solver method.
 
 """
 mutable struct gsl_multifit_nlinear_solver
@@ -4241,9 +4827,9 @@ GSL documentation:
 >       double h_fvv;                               /* step size for finite difference fvv */
 >     } gsl_multifit_nlinear_parameters;
 
-For the `gsl_multilarge_nlinear`{.sourceCode} interface, the user may
-modify the gsl\_multilarge\_nlinear\_parameters structure, which is
-defined as follows:
+For the `gsl_multilarge_nlinear` interface, the user may modify the
+`gsl_multilarge_nlinear_parameters` structure, which is defined as
+follows:
 
 """
 mutable struct gsl_multifit_nlinear_parameters
@@ -4277,6 +4863,11 @@ GSL documentation:
 > This structure specifies the type of algorithm which will be used to
 > solve a nonlinear least squares problem. It may be selected from the
 > following choices,
+>
+> gsl\_multifit\_nlinear\_trust
+>
+> This specifies a trust region method. It is currently the only
+> implemented nonlinear least squares method.
 
 """
 mutable struct gsl_multifit_nlinear_type
@@ -4438,80 +5029,76 @@ GSL documentation:
 > $u$, the normal equations matrix $J^T J$, and optionally the second
 > directional derivative of the functions for geodesic acceleration.
 >
-> `int (* f) (const gsl_vector * x, void * params, gsl_vector * f)`{.sourceCode}
+> `int (* f) (const gsl_vector * x, void * params, gsl_vector * f)`
 >
 > > This function should store the $n$ components of the vector $f(x)$
-> > in f for argument x and arbitrary parameters params, returning an
-> > appropriate error code if the function cannot be computed.
+> > in `f` for argument `x` and arbitrary parameters `params`, returning
+> > an appropriate error code if the function cannot be computed.
 >
-> `int (* df) (CBLAS_TRANSPOSE_t TransJ, const gsl_vector * x, const gsl_vector * u, void * params, gsl_vector * v, gsl_matrix * JTJ)`{.sourceCode}
+> `int (* df) (CBLAS_TRANSPOSE_t TransJ, const gsl_vector * x, const gsl_vector * u, void * params, gsl_vector * v, gsl_matrix * JTJ)`
 >
-> > If TransJ is equal to `CblasNoTrans`{.sourceCode}, then this
-> > function should compute the matrix-vector product $J u$ and store
-> > the result in v. If TransJ is equal to `CblasTrans`{.sourceCode},
-> > then this function should compute the matrix-vector product $J^T u$
-> > and store the result in v. Additionally, the normal equations matrix
-> > $J^T J$ should be stored in the lower half of JTJ. The input matrix
-> > JTJ could be set to `NULL`{.sourceCode}, for example by iterative
-> > methods which do not require this matrix, so the user should check
-> > for this prior to constructing the matrix. The input params contains
-> > the arbitrary parameters.
+> > If `TransJ` is equal to `CblasNoTrans`, then this function should
+> > compute the matrix-vector product $J u$ and store the result in `v`.
+> > If `TransJ` is equal to `CblasTrans`, then this function should
+> > compute the matrix-vector product $J^T u$ and store the result in
+> > `v`. Additionally, the normal equations matrix $J^T J$ should be
+> > stored in the lower half of `JTJ`. The input matrix `JTJ` could be
+> > set to `NULL`, for example by iterative methods which do not require
+> > this matrix, so the user should check for this prior to constructing
+> > the matrix. The input `params` contains the arbitrary parameters.
 >
-> `int (* fvv) (const gsl_vector * x, const gsl_vector * v, void * params, gsl_vector * fvv)`{.sourceCode}
+> `int (* fvv) (const gsl_vector * x, const gsl_vector * v, void * params, gsl_vector * fvv)`
 >
 > > When geodesic acceleration is enabled, this function should store
 > > the $n$ components of the vector
 > > $f_{vv}(x) = \sum_{\alpha\beta} v_{\alpha} v_{\beta} {\partial \over \partial x_{\alpha}} {\partial \over \partial x_{\beta}} f(x)$,
 > > representing second directional derivatives of the function to be
-> > minimized, into the output fvv. The parameter vector is provided in
-> > x and the velocity vector is provided in v, both of which have $p$
-> > components. The arbitrary parameters are given in params. If
-> > analytic expressions for $f_{vv}(x)$ are unavailable or too
-> > difficult to compute, this function pointer may be set to
-> > `NULL`{.sourceCode}, in which case $f_{vv}(x)$ will be computed
-> > internally using a finite difference approximation.
+> > minimized, into the output `fvv`. The parameter vector is provided
+> > in `x` and the velocity vector is provided in `v`, both of which
+> > have $p$ components. The arbitrary parameters are given in `params`.
+> > If analytic expressions for $f_{vv}(x)$ are unavailable or too
+> > difficult to compute, this function pointer may be set to `NULL`, in
+> > which case $f_{vv}(x)$ will be computed internally using a finite
+> > difference approximation.
 >
-> `size_t n`{.sourceCode}
+> `size_t n`
 >
 > > the number of functions, i.e. the number of components of the vector
-> > f.
+> > `f`.
 >
-> `size_t p`{.sourceCode}
+> `size_t p`
 >
 > > the number of independent variables, i.e. the number of components
-> > of the vector x.
+> > of the vector `x`.
 >
-> `void * params`{.sourceCode}
+> `void * params`
 >
 > > a pointer to the arbitrary parameters of the function.
 >
-> `size_t nevalf`{.sourceCode}
+> `size_t nevalf`
 >
 > > This does not need to be set by the user. It counts the number of
-> > function evaluations and is initialized by the `_init`{.sourceCode}
-> > function.
+> > function evaluations and is initialized by the `_init` function.
 >
-> `size_t nevaldfu`{.sourceCode}
+> `size_t nevaldfu`
 >
 > > This does not need to be set by the user. It counts the number of
 > > Jacobian matrix-vector evaluations ($J u$ or $J^T u$) and is
-> > initialized by the `_init`{.sourceCode} function.
+> > initialized by the `_init` function.
 >
-> `size_t nevaldf2`{.sourceCode}
->
-> > This does not need to be set by the user. It counts the number of
-> > $J^T J$ evaluations and is initialized by the `_init`{.sourceCode}
-> > function.
->
-> `size_t nevalfvv`{.sourceCode}
+> `size_t nevaldf2`
 >
 > > This does not need to be set by the user. It counts the number of
-> > $f_{vv}(x)$ evaluations and is initialized by the
-> > `_init`{.sourceCode} function.
+> > $J^T J$ evaluations and is initialized by the `_init` function.
+>
+> `size_t nevalfvv`
+>
+> > This does not need to be set by the user. It counts the number of
+> > $f_{vv}(x)$ evaluations and is initialized by the `_init` function.
 
 Note that when fitting a non-linear model against experimental data, the
-data is passed to the functions above using the params argument and the
-trial best-fit parameters through the x argument.
+data is passed to the functions above using the `params` argument and
+the trial best-fit parameters through the `x` argument.
 
 """
 mutable struct gsl_multilarge_nlinear_fdf
@@ -4760,18 +5347,18 @@ GSL documentation:
 > This data type defines a general function of $n$ variables with
 > parameters,
 >
-> `double (* f) (const gsl_vector * x, void * params)`{.sourceCode}
+> `double (* f) (const gsl_vector * x, void * params)`
 >
-> > this function should return the result $f(x,params)$ for argument x
-> > and parameters params. If the function cannot be computed, an error
-> > value of GSL\_NAN should be returned.
+> > this function should return the result $f(x,params)$ for argument
+> > `x` and parameters `params`. If the function cannot be computed, an
+> > error value of `GSL_NAN` should be returned.
 >
-> `size_t n`{.sourceCode}
+> `size_t n`
 >
 > > the dimension of the system, i.e. the number of components of the
-> > vectors x.
+> > vectors `x`.
 >
-> `void * params`{.sourceCode}
+> `void * params`
 >
 > > a pointer to the parameters of the function.
 
@@ -4799,33 +5386,42 @@ GSL documentation:
 > This data type defines a general function of $n$ variables with
 > parameters and the corresponding gradient vector of derivatives,
 >
-> `double (* f) (const gsl_vector * x, void * params)`{.sourceCode}
+> `double (* f) (const gsl_vector * x, void * params)`
 >
-> > this function should return the result $f(x,params)$ for argument x
-> > and parameters params. If the function cannot be computed, an error
-> > value of GSL\_NAN should be returned.
+> > this function should return the result $f(x,params)$ for argument
+> > `x` and parameters `params`. If the function cannot be computed, an
+> > error value of `GSL_NAN` should be returned.
 >
-> `void (* df) (const gsl_vector * x, void * params, gsl_vector * g)`{.sourceCode}
+> `void (* df) (const gsl_vector * x, void * params, gsl_vector * g)`
 >
-> > this function should store the n-dimensional gradient
+> > this function should store the `n`-dimensional gradient
 > >
-> > in the vector g for argument x and parameters params, returning an
-> > appropriate error code if the function cannot be computed.
+> > not texinfo
+> >
+> > $$g_i = \partial f(x,\hbox{\it params}) / \partial x_i$$
+> >
+> > texinfo
+> >
+> >     g_i = d f(x,params) / d x_i
+> >
+> > in the vector `g` for argument `x` and parameters `params`,
+> > returning an appropriate error code if the function cannot be
+> > computed.
 >
-> `void (* fdf) (const gsl_vector * x, void * params, double * f, gsl_vector * g)`{.sourceCode}
+> `void (* fdf) (const gsl_vector * x, void * params, double * f, gsl_vector * g)`
 >
-> > This function should set the values of the f and g as above, for
-> > arguments x and parameters params. This function provides an
+> > This function should set the values of the `f` and `g` as above, for
+> > arguments `x` and parameters `params`. This function provides an
 > > optimization of the separate functions for $f(x)$ and $g(x)$---it is
 > > always faster to compute the function and its derivative at the same
 > > time.
 >
-> `size_t n`{.sourceCode}
+> `size_t n`
 >
 > > the dimension of the system, i.e. the number of components of the
-> > vectors x.
+> > vectors `x`.
 >
-> `void * params`{.sourceCode}
+> `void * params`
 >
 > > a pointer to the parameters of the function.
 
@@ -4855,6 +5451,74 @@ GSL documentation:
 
 > This type specifies minimization algorithms which do not use
 > gradients.
+>
+> single: Nelder-Mead simplex algorithm for minimization single: simplex
+> algorithm, minimization single: minimization, simplex algorithm
+>
+> gsl\_multimin\_fminimizer\_nmsimplex2
+> gsl\_multimin\_fminimizer\_nmsimplex
+>
+> These methods use the Simplex algorithm of Nelder and Mead. Starting
+> from the initial vector $x = p_0$, the algorithm constructs an
+> additional $n$ vectors $p_i$ using the step size vector
+> $s = step\_size$ as follows:
+>
+> not texinfo
+>
+> $$\begin{aligned}
+> p_0 & = (x_0, x_1, \cdots , x_n) \\
+> p_1 & = (x_0 + s_0, x_1, \cdots , x_n) \\
+> p_2 & = (x_0, x_1 + s_1, \cdots , x_n) \\
+> \dots &= \dots \\
+> p_n & = (x_0, x_1, \cdots , x_n + s_n)
+> \end{aligned}$$
+>
+> texinfo
+>
+>     p_0 = (x_0, x_1, ... , x_n) 
+>     p_1 = (x_0 + s_0, x_1, ... , x_n) 
+>     p_2 = (x_0, x_1 + s_1, ... , x_n) 
+>     ... = ...
+>     p_n = (x_0, x_1, ... , x_n + s_n)
+>
+> These vectors form the $n+1$ vertices of a simplex in $n$ dimensions.
+> On each iteration the algorithm uses simple geometrical
+> transformations to update the vector corresponding to the highest
+> function value. The geometric transformations are reflection,
+> reflection followed by expansion, contraction and multiple
+> contraction. Using these transformations the simplex moves through the
+> space towards the minimum, where it contracts itself.
+>
+> After each iteration, the best vertex is returned. Note, that due to
+> the nature of the algorithm not every step improves the current best
+> parameter vector. Usually several iterations are required.
+>
+> The minimizer-specific characteristic size is calculated as the
+> average distance from the geometrical center of the simplex to all its
+> vertices. This size can be used as a stopping criteria, as the simplex
+> contracts itself near the minimum. The size is returned by the
+> function `gsl_multimin_fminimizer_size`.
+>
+> The `gsl_multimin_fminimizer_nmsimplex2` version of this minimiser is
+> a new $O(N)$ operations implementation of the earlier $O(N^2)$
+> operations `gsl_multimin_fminimizer_nmsimplex` minimiser. It uses the
+> same underlying algorithm, but the simplex updates are computed more
+> efficiently for high-dimensional problems. In addition, the size of
+> simplex is calculated as the RMS distance of each vertex from the
+> center rather than the mean distance, allowing a linear update of this
+> quantity on each step. The memory usage is $O(N^2)$ for both
+> algorithms.
+>
+> gsl\_multimin\_fminimizer\_nmsimplex2rand
+>
+> This method is a variant of `gsl_multimin_fminimizer_nmsimplex2` which
+> initialises the simplex around the starting point `x` using a
+> randomly-oriented set of basis vectors instead of the fixed coordinate
+> axes. The final dimensions of the simplex are scaled along the
+> coordinate axes by the vector `step_size`. The randomisation uses a
+> simple deterministic generator so that repeated calls to
+> `gsl_multimin_fminimizer_set` for a given solver object will vary the
+> orientation in a well-defined way.
 
 """
 mutable struct gsl_multimin_fminimizer_type
@@ -4910,6 +5574,75 @@ GSL documentation:
 ### `gsl_multimin_fdfminimizer_type`
 
 > This type specifies a minimization algorithm using gradients.
+>
+> single: Fletcher-Reeves conjugate gradient algorithm, minimization
+> single: Conjugate gradient algorithm, minimization single:
+> minimization, conjugate gradient algorithm
+>
+> gsl\_multimin\_fdfminimizer\_conjugate\_fr
+>
+> This is the Fletcher-Reeves conjugate gradient algorithm. The
+> conjugate gradient algorithm proceeds as a succession of line
+> minimizations. The sequence of search directions is used to build up
+> an approximation to the curvature of the function in the neighborhood
+> of the minimum.
+>
+> An initial search direction `p` is chosen using the gradient, and line
+> minimization is carried out in that direction. The accuracy of the
+> line minimization is specified by the parameter `tol`. The minimum
+> along this line occurs when the function gradient `g` and the search
+> direction `p` are orthogonal. The line minimization terminates when
+> $p\cdot g < tol |p| |g|$. The search direction is updated using the
+> Fletcher-Reeves formula $p' = g' - \beta g$ where
+> $\beta=-|g'|^2/|g|^2$, and the line minimization is then repeated for
+> the new search direction.
+>
+> single: Polak-Ribiere algorithm, minimization single: minimization,
+> Polak-Ribiere algorithm
+>
+> gsl\_multimin\_fdfminimizer\_conjugate\_pr
+>
+> This is the Polak-Ribiere conjugate gradient algorithm. It is similar
+> to the Fletcher-Reeves method, differing only in the choice of the
+> coefficient $\beta$. Both methods work well when the evaluation point
+> is close enough to the minimum of the objective function that it is
+> well approximated by a quadratic hypersurface.
+>
+> single: BFGS algorithm, minimization single: minimization, BFGS
+> algorithm
+>
+> gsl\_multimin\_fdfminimizer\_vector\_bfgs2
+> gsl\_multimin\_fdfminimizer\_vector\_bfgs
+>
+> These methods use the vector Broyden-Fletcher-Goldfarb-Shanno (BFGS)
+> algorithm. This is a quasi-Newton method which builds up an
+> approximation to the second derivatives of the function $f$ using the
+> difference between successive gradient vectors. By combining the first
+> and second derivatives the algorithm is able to take Newton-type steps
+> towards the function minimum, assuming quadratic behavior in that
+> region.
+>
+> The `bfgs2` version of this minimizer is the most efficient version
+> available, and is a faithful implementation of the line minimization
+> scheme described in Fletcher's \*Practical Methods of Optimization\*,
+> Algorithms 2.6.2 and 2.6.4. It supersedes the original `bfgs` routine
+> and requires substantially fewer function and gradient evaluations.
+> The user-supplied tolerance `tol` corresponds to the parameter
+> $\sigma$ used by Fletcher. A value of 0.1 is recommended for typical
+> use (larger values correspond to less accurate line searches).
+>
+> single: steepest descent algorithm, minimization single: minimization,
+> steepest descent algorithm
+>
+> gsl\_multimin\_fdfminimizer\_steepest\_descent
+>
+> The steepest descent algorithm follows the downhill gradient of the
+> function at each step. When a downhill step is successful the
+> step-size is increased by a factor of two. If the downhill step leads
+> to a higher function value then the algorithm backtracks and the step
+> size is decreased using the parameter `tol`. A suitable value of `tol`
+> for most applications is 0.1. The steepest descent method is
+> inefficient and is included only for demonstration purposes.
 
 """
 mutable struct gsl_multimin_fdfminimizer_type
@@ -4969,18 +5702,18 @@ GSL documentation:
 
 > This data type defines a general system of functions with parameters.
 >
-> `int (* f) (const gsl_vector * x, void * params, gsl_vector * f)`{.sourceCode}
+> `int (* f) (const gsl_vector * x, void * params, gsl_vector * f)`
 >
-> > this function should store the vector result $f(x,params)$ in f for
-> > argument x and parameters params, returning an appropriate error
-> > code if the function cannot be computed.
+> > this function should store the vector result $f(x,params)$ in `f`
+> > for argument `x` and parameters `params`, returning an appropriate
+> > error code if the function cannot be computed.
 >
-> `size_t n`{.sourceCode}
+> `size_t n`
 >
 > > the dimension of the system, i.e. the number of components of the
-> > vectors x and f.
+> > vectors `x` and `f`.
 >
-> `void * params`{.sourceCode}
+> `void * params`
 >
 > > a pointer to the parameters of the function.
 
@@ -5010,6 +5743,78 @@ GSL documentation:
 
 > The following are available algorithms for minimizing functions
 > without derivatives.
+>
+> single: HYBRIDS algorithm, scaled without derivatives
+>
+> gsl\_multiroot\_fsolver\_hybrids
+>
+> This is a version of the Hybrid algorithm which replaces calls to the
+> Jacobian function by its finite difference approximation. The finite
+> difference approximation is computed using `gsl_multiroots_fdjac` with
+> a relative step size of `GSL_SQRT_DBL_EPSILON`. Note that this step
+> size will not be suitable for all problems.
+>
+> single: HYBRID algorithm, unscaled without derivatives
+>
+> gsl\_multiroot\_fsolver\_hybrid
+>
+> This is a finite difference version of the Hybrid algorithm without
+> internal scaling.
+>
+> single: Discrete Newton algorithm for multidimensional roots single:
+> Newton algorithm, discrete
+>
+> gsl\_multiroot\_fsolver\_dnewton
+>
+> The *discrete Newton algorithm* is the simplest method of solving a
+> multidimensional system. It uses the Newton iteration
+>
+> not texinfo
+>
+> $$x \to x - J^{-1} f(x)$$
+>
+> texinfo
+>
+>     x -> x - J^{-1} f(x)
+>
+> where the Jacobian matrix $J$ is approximated by taking finite
+> differences of the function `f`. The approximation scheme used by this
+> implementation is,
+>
+> $$J_{ij} = (f_i(x + \delta_j) - f_i(x)) /  \delta_j$$
+>
+> where $\delta_j$ is a step of size $\sqrt\epsilon |x_j|$ with
+> $\epsilon$ being the machine precision
+> ($\epsilon \approx 2.22 \times 10^{-16}$). The order of convergence of
+> Newton's algorithm is quadratic, but the finite differences require
+> $n^2$ function evaluations on each iteration. The algorithm may become
+> unstable if the finite differences are not a good approximation to the
+> true derivatives.
+>
+> single: Broyden algorithm for multidimensional roots single:
+> multidimensional root finding, Broyden algorithm
+>
+> gsl\_multiroot\_fsolver\_broyden
+>
+> The *Broyden algorithm* is a version of the discrete Newton algorithm
+> which attempts to avoids the expensive update of the Jacobian matrix
+> on each iteration. The changes to the Jacobian are also approximated,
+> using a rank-1 update,
+>
+> $$J^{-1} \to J^{-1} - (J^{-1} df - dx) dx^T J^{-1} / dx^T J^{-1} df$$
+>
+> where the vectors $dx$ and $df$ are the changes in $x$ and $f$. On the
+> first iteration the inverse Jacobian is estimated using finite
+> differences, as in the discrete Newton algorithm.
+>
+> This approximation gives a fast update but is unreliable if the
+> changes are not small, and the estimate of the inverse Jacobian
+> becomes worse as time passes. The algorithm has a tendency to become
+> unstable unless it starts close to the root. The Jacobian is refreshed
+> if this instability is detected (consult the source for details).
+>
+> This algorithm is included only for demonstration purposes, and is not
+> recommended for serious use.
 
 """
 mutable struct gsl_multiroot_fsolver_type
@@ -5066,33 +5871,41 @@ GSL documentation:
 > This data type defines a general system of functions with parameters
 > and the corresponding Jacobian matrix of derivatives,
 >
-> `int (* f) (const gsl_vector * x, void * params, gsl_vector * f)`{.sourceCode}
+> `int (* f) (const gsl_vector * x, void * params, gsl_vector * f)`
 >
-> > this function should store the vector result $f(x,params)$ in f for
-> > argument x and parameters params, returning an appropriate error
-> > code if the function cannot be computed.
->
-> `int (* df) (const gsl_vector * x, void * params, gsl_matrix * J)`{.sourceCode}
->
-> > this function should store the n-by-n matrix result
-> >
-> > in J for argument x and parameters params, returning an appropriate
+> > this function should store the vector result $f(x,params)$ in `f`
+> > for argument `x` and parameters `params`, returning an appropriate
 > > error code if the function cannot be computed.
 >
-> `int (* fdf) (const gsl_vector * x, void * params, gsl_vector * f, gsl_matrix * J)`{.sourceCode}
+> `int (* df) (const gsl_vector * x, void * params, gsl_matrix * J)`
 >
-> > This function should set the values of the f and J as above, for
-> > arguments x and parameters params. This function provides an
+> > this function should store the `n`-by-`n` matrix result
+> >
+> > not texinfo
+> >
+> > $$J_{ij} = \partial f_i(x,\hbox{\it params}) / \partial x_j$$
+> >
+> > texinfo
+> >
+> >     J_ij = d f_i(x,params) / d x_j
+> >
+> > in `J` for argument `x` and parameters `params`, returning an
+> > appropriate error code if the function cannot be computed.
+>
+> `int (* fdf) (const gsl_vector * x, void * params, gsl_vector * f, gsl_matrix * J)`
+>
+> > This function should set the values of the `f` and `J` as above, for
+> > arguments `x` and parameters `params`. This function provides an
 > > optimization of the separate functions for $f(x)$ and $J(x)$---it is
 > > always faster to compute the function and its derivative at the same
 > > time.
 >
-> `size_t n`{.sourceCode}
+> `size_t n`
 >
 > > the dimension of the system, i.e. the number of components of the
-> > vectors x and f.
+> > vectors `x` and `f`.
 >
-> `void * params`{.sourceCode}
+> `void * params`
 >
 > > a pointer to the parameters of the function.
 
@@ -5144,9 +5957,8 @@ include analytic derivatives using the following code:
     FDF.n = 2;
     FDF.params = 0;
 
-Note that the function `powell_fdf`{.sourceCode} is able to reuse
-existing terms from the function when calculating the Jacobian, thus
-saving time.
+Note that the function `powell_fdf` is able to reuse existing terms from
+the function when calculating the Jacobian, thus saving time.
 
 """
 mutable struct gsl_multiroot_function_fdf
@@ -5174,6 +5986,113 @@ GSL documentation:
 
 > The following are available algorithms for minimizing functions using
 > derivatives.
+>
+> HYBRID algorithms for nonlinear systems
+>
+> single: HYBRIDSJ algorithm single: MINPACK, minimization algorithms
+>
+> gsl\_multiroot\_fdfsolver\_hybridsj
+>
+> This is a modified version of Powell's Hybrid method as implemented in
+> the HYBRJ algorithm in . Minpack was written by Jorge J. , Burton S.
+> Garbow and Kenneth E. Hillstrom. The Hybrid algorithm retains the fast
+> convergence of Newton's method but will also reduce the residual when
+> Newton's method is unreliable.
+>
+> The algorithm uses a generalized trust region to keep each step under
+> control. In order to be accepted a proposed new position $x'$ must
+> satisfy the condition $|D (x' - x)| < \delta$, where $D$ is a diagonal
+> scaling matrix and $\delta$ is the size of the trust region. The
+> components of $D$ are computed internally, using the column norms of
+> the Jacobian to estimate the sensitivity of the residual to each
+> component of $x$. This improves the behavior of the algorithm for
+> badly scaled functions.
+>
+> On each iteration the algorithm first determines the standard Newton
+> step by solving the system $J dx = - f$. If this step falls inside the
+> trust region it is used as a trial step in the next stage. If not, the
+> algorithm uses the linear combination of the Newton and gradient
+> directions which is predicted to minimize the norm of the function
+> while staying inside the trust region,
+>
+> $$dx = - \alpha J^{-1} f(x) - \beta \nabla |f(x)|^2$$
+>
+> This combination of Newton and gradient directions is referred to as a
+> *dogleg step*.
+>
+> The proposed step is now tested by evaluating the function at the
+> resulting point, $x'$. If the step reduces the norm of the function
+> sufficiently then it is accepted and size of the trust region is
+> increased. If the proposed step fails to improve the solution then the
+> size of the trust region is decreased and another trial step is
+> computed.
+>
+> The speed of the algorithm is increased by computing the changes to
+> the Jacobian approximately, using a rank-1 update. If two successive
+> attempts fail to reduce the residual then the full Jacobian is
+> recomputed. The algorithm also monitors the progress of the solution
+> and returns an error if several steps fail to make any improvement,
+>
+> `GSL_ENOPROG`
+>
+> > the iteration is not making any progress, preventing the algorithm
+> > from continuing.
+>
+> `GSL_ENOPROGJ`
+>
+> > re-evaluations of the Jacobian indicate that the iteration is not
+> > making any progress, preventing the algorithm from continuing.
+>
+> HYBRIDJ algorithm
+>
+> gsl\_multiroot\_fdfsolver\_hybridj
+>
+> This algorithm is an unscaled version of HYBRIDSJ. The steps are
+> controlled by a spherical trust region $|x' - x| < \delta$, instead of
+> a generalized region. This can be useful if the generalized region
+> estimated by HYBRIDSJ is inappropriate.
+>
+> Newton's method for systems of nonlinear equations
+>
+> gsl\_multiroot\_fdfsolver\_newton
+>
+> Newton's Method is the standard root-polishing algorithm. The
+> algorithm begins with an initial guess for the location of the
+> solution. On each iteration a linear approximation to the function $F$
+> is used to estimate the step which will zero all the components of the
+> residual. The iteration is defined by the following sequence,
+>
+> not texinfo
+>
+> $$x \to x' = x - J^{-1} f(x)$$
+>
+> texinfo
+>
+>     x -> x' = x - J^{-1} f(x)
+>
+> where the Jacobian matrix $J$ is computed from the derivative
+> functions provided by `f`. The step $dx$ is obtained by solving the
+> linear system,
+>
+> $$J dx = - f(x)$$
+>
+> using LU decomposition. If the Jacobian matrix is singular, an error
+> code of `GSL_EDOM` is returned.
+>
+> single: Modified Newton's method for nonlinear systems single: Newton
+> algorithm, globally convergent
+>
+> gsl\_multiroot\_fdfsolver\_gnewton
+>
+> This is a modified version of Newton's method which attempts to
+> improve global convergence by requiring every step to reduce the
+> Euclidean norm of the residual, $|f(x)|$. If the Newton step leads to
+> an increase in the norm then a reduced step of relative size,
+>
+> $$t = (\sqrt{1 + 6 r} - 1) / (3 r)$$
+>
+> is proposed, with $r$ being the ratio of norms $|f(x')|^2/|f(x)|^2$.
+> This procedure is repeated until a suitable step size is found.
 
 """
 mutable struct gsl_multiroot_fdfsolver_type
@@ -5233,9 +6152,9 @@ GSL documentation:
 
 > A multiset is defined by a structure containing three components, the
 > values of $n$ and $k$, and a pointer to the multiset array. The
-> elements of the multiset array are all of type `size_t`{.sourceCode},
-> and are stored in increasing order. The gsl\_multiset structure looks
-> like this:
+> elements of the multiset array are all of type `size_t`, and are
+> stored in increasing order. The `gsl_multiset` structure looks like
+> this:
 >
 >     typedef struct
 >     {
@@ -5271,7 +6190,7 @@ GSL documentation:
 
 ### `gsl_ntuple`
 
-> Ntuples are manipulated using the gsl\_ntuple struct. This struct
+> Ntuples are manipulated using the `gsl_ntuple` struct. This struct
 > contains information on the file where the ntuple data is stored, a
 > pointer to the current ntuple data row and the size of the
 > user-defined ntuple data struct:
@@ -5310,8 +6229,8 @@ GSL documentation:
 >         void * params;
 >       } gsl_ntuple_select_fn;
 >
-> The struct component function should return a non-zero value for each
-> ntuple row that is to be included in the histogram.
+> The struct component `function` should return a non-zero value for
+> each ntuple row that is to be included in the histogram.
 
 """
 mutable struct gsl_ntuple_select_fn
@@ -5339,8 +6258,8 @@ GSL documentation:
 >         void * params;
 >       } gsl_ntuple_value_fn;
 >
-> In this case the struct component function should return the value to
-> be added to the histogram for the ntuple row.
+> In this case the struct component `function` should return the value
+> to be added to the histogram for the ntuple row.
 
 """
 mutable struct gsl_ntuple_value_fn
@@ -5495,24 +6414,30 @@ GSL documentation:
 
 > This data type defines a general ODE system with arbitrary parameters.
 >
-> `int (* function) (double t, const double y[], double dydt[], void * params)`{.sourceCode}
+> `int (* function) (double t, const double y[], double dydt[], void * params)`
 >
 > > This function should store the vector elements $f_i(t,y,params)$ in
-> > the array dydt, for arguments (t, y) and parameters params.
+> > the array `dydt`, for arguments (`t`, `y`) and parameters `params`.
 > >
-> > The function should return GSL\_SUCCESS if the calculation was
+> > The function should return `GSL_SUCCESS` if the calculation was
 > > completed successfully. Any other return value indicates an error. A
-> > special return value GSL\_EBADFUNC causes `gsl_odeiv2`{.sourceCode}
-> > routines to immediately stop and return. If `function`{.sourceCode}
-> > is modified (for example contents of params), the user must call an
-> > appropriate reset function (gsl\_odeiv2\_driver\_reset,
-> > gsl\_odeiv2\_evolve\_reset or gsl\_odeiv2\_step\_reset) before
-> > continuing. Use return values distinct from standard GSL error codes
-> > to distinguish your function as the source of the error.
+> > special return value `GSL_EBADFUNC` causes `gsl_odeiv2` routines to
+> > immediately stop and return. If `function` is modified (for example
+> > contents of `params`), the user must call an appropriate reset
+> > function (`gsl_odeiv2_driver_reset`, `gsl_odeiv2_evolve_reset` or
+> > `gsl_odeiv2_step_reset`) before continuing. Use return values
+> > distinct from standard GSL error codes to distinguish your function
+> > as the source of the error.
 >
-> `int (* jacobian) (double t, const double y[], double * dfdy, double dfdt[], void * params)`{.sourceCode}
+> single: Jacobian matrix, ODEs
+>
+> `int (* jacobian) (double t, const double y[], double * dfdy, double dfdt[], void * params)`
 >
 > > This function should store the vector of derivative elements
+> >
+> > not texinfo
+> >
+> > $$\partial f_i(t,y,params) / \partial t$$
 
 """
 mutable struct gsl_odeiv2_system
@@ -5540,7 +6465,101 @@ GSL documentation:
 
 ### `gsl_odeiv2_step_type`
 
-
+> single: RK2, Runge-Kutta method single: Runge-Kutta methods, ordinary
+> differential equations
+>
+> gsl\_odeiv2\_step\_rk2
+>
+> Explicit embedded Runge-Kutta (2, 3) method.
+>
+> single: RK4, Runge-Kutta method
+>
+> gsl\_odeiv2\_step\_rk4
+>
+> Explicit 4th order (classical) Runge-Kutta. Error estimation is
+> carried out by the step doubling method. For more efficient estimate
+> of the error, use the embedded methods described below.
+>
+> single: Fehlberg method, differential equations single: RKF45,
+> Runge-Kutta-Fehlberg method
+>
+> gsl\_odeiv2\_step\_rkf45
+>
+> Explicit embedded Runge-Kutta-Fehlberg (4, 5) method. This method is a
+> good general-purpose integrator.
+>
+> single: Runge-Kutta Cash-Karp method single: Cash-Karp, Runge-Kutta
+> method
+>
+> gsl\_odeiv2\_step\_rkck
+>
+> Explicit embedded Runge-Kutta Cash-Karp (4, 5) method.
+>
+> single: Runge-Kutta Prince-Dormand method single: Prince-Dormand,
+> Runge-Kutta method
+>
+> gsl\_odeiv2\_step\_rk8pd
+>
+> Explicit embedded Runge-Kutta Prince-Dormand (8, 9) method.
+>
+> Implicit Euler method
+>
+> gsl\_odeiv2\_step\_rk1imp
+>
+> Implicit Gaussian first order Runge-Kutta. Also known as implicit
+> Euler or backward Euler method. Error estimation is carried out by the
+> step doubling method. This algorithm requires the Jacobian and access
+> to the driver object via `gsl_odeiv2_step_set_driver`.
+>
+> Implicit Runge-Kutta method
+>
+> gsl\_odeiv2\_step\_rk2imp
+>
+> Implicit Gaussian second order Runge-Kutta. Also known as implicit
+> mid-point rule. Error estimation is carried out by the step doubling
+> method. This stepper requires the Jacobian and access to the driver
+> object via `gsl_odeiv2_step_set_driver`.
+>
+> gsl\_odeiv2\_step\_rk4imp
+>
+> Implicit Gaussian 4th order Runge-Kutta. Error estimation is carried
+> out by the step doubling method. This algorithm requires the Jacobian
+> and access to the driver object via `gsl_odeiv2_step_set_driver`.
+>
+> single: Bulirsch-Stoer method single: Bader and Deuflhard,
+> Bulirsch-Stoer method. single: Deuflhard and Bader, Bulirsch-Stoer
+> method.
+>
+> gsl\_odeiv2\_step\_bsimp
+>
+> Implicit Bulirsch-Stoer method of Bader and Deuflhard. The method is
+> generally suitable for stiff problems. This stepper requires the
+> Jacobian.
+>
+> single: Adams method single: multistep methods, ODEs single:
+> predictor-corrector method, ODEs single: Nordsieck form
+>
+> gsl\_odeiv2\_step\_msadams
+>
+> A variable-coefficient linear multistep Adams method in Nordsieck
+> form. This stepper uses explicit Adams-Bashforth (predictor) and
+> implicit Adams-Moulton (corrector) methods in $P(EC)^m$ functional
+> iteration mode. Method order varies dynamically between 1 and 12. This
+> stepper requires the access to the driver object via
+> `gsl_odeiv2_step_set_driver`.
+>
+> BDF method
+>
+> gsl\_odeiv2\_step\_msbdf
+>
+> A variable-coefficient linear multistep backward differentiation
+> formula (BDF) method in Nordsieck form. This stepper uses the explicit
+> BDF formula as predictor and implicit BDF formula as corrector. A
+> modified Newton iteration method is used to solve the system of
+> non-linear equations. Method order varies dynamically between 1 and 5.
+> The method is generally suitable for stiff problems. This stepper
+> requires the Jacobian and the access to the driver object via
+> `gsl_odeiv2_step_set_driver`.
 
 """
 mutable struct gsl_odeiv2_step_type
@@ -5703,8 +6722,8 @@ GSL documentation:
 
 > A permutation is defined by a structure containing two components, the
 > size of the permutation and a pointer to the permutation array. The
-> elements of the permutation array are all of type
-> `size_t`{.sourceCode}. The gsl\_permutation structure looks like this:
+> elements of the permutation array are all of type `size_t`. The
+> `gsl_permutation` structure looks like this:
 >
 >     typedef struct
 >     {
@@ -5950,7 +6969,24 @@ GSL documentation:
 
 ### `gsl_qrng_type`
 
-
+> gsl\_qrng\_niederreiter\_2
+>
+> This generator uses the algorithm described in Bratley, Fox,
+> Niederreiter, ACM Trans. Model. Comp. Sim. 2, 195 (1992). It is valid
+> up to 12 dimensions.
+>
+> gsl\_qrng\_sobol
+>
+> This generator uses the Sobol sequence described in Antonov, Saleev,
+> USSR Comput. Maths. Math. Phys. 19, 252 (1980). It is valid up to 40
+> dimensions.
+>
+> gsl\_qrng\_halton gsl\_qrng\_reversehalton
+>
+> These generators use the Halton and reverse Halton sequences described
+> in J.H. Halton, Numerische Mathematik, 2, 84-90 (1960) and B.
+> Vandewoestyne and R. Cools Computational and Applied Mathematics, 189,
+> 1&2, 341-361 (2006). They are valid up to 1229 dimensions.
 
 """
 mutable struct gsl_qrng_type
@@ -6033,12 +7069,12 @@ GSL documentation:
 > gsl\_rng
 
 > The random number generator library uses two special structs,
-> gsl\_rng\_type which holds static information about each type of
-> generator and gsl\_rng which describes an instance of a generator
-> created from a given gsl\_rng\_type.
+> `gsl_rng_type` which holds static information about each type of
+> generator and `gsl_rng` which describes an instance of a generator
+> created from a given `gsl_rng_type`.
 
 The functions described in this section are declared in the header file
-gsl\_rng.h.
+`gsl_rng.h`.
 
 """
 mutable struct gsl_rng_type
@@ -6082,7 +7118,67 @@ GSL documentation:
 
 ### `gsl_root_fsolver_type`
 
-
+> single: bisection algorithm for finding roots single: root finding,
+> bisection algorithm
+>
+> gsl\_root\_fsolver\_bisection
+>
+> The *bisection algorithm* is the simplest method of bracketing the
+> roots of a function. It is the slowest algorithm provided by the
+> library, with linear convergence.
+>
+> On each iteration, the interval is bisected and the value of the
+> function at the midpoint is calculated. The sign of this value is used
+> to determine which half of the interval does not contain a root. That
+> half is discarded to give a new, smaller interval containing the root.
+> This procedure can be continued indefinitely until the interval is
+> sufficiently small.
+>
+> At any time the current estimate of the root is taken as the midpoint
+> of the interval.
+>
+> single: false position algorithm for finding roots single: root
+> finding, false position algorithm
+>
+> gsl\_root\_fsolver\_falsepos
+>
+> The *false position algorithm* is a method of finding roots based on
+> linear interpolation. Its convergence is linear, but it is usually
+> faster than bisection.
+>
+> On each iteration a line is drawn between the endpoints $(a,f(a))$ and
+> $(b,f(b))$ and the point where this line crosses the $x$-axis taken as
+> a "midpoint". The value of the function at this point is calculated
+> and its sign is used to determine which side of the interval does not
+> contain a root. That side is discarded to give a new, smaller interval
+> containing the root. This procedure can be continued indefinitely
+> until the interval is sufficiently small.
+>
+> The best estimate of the root is taken from the linear interpolation
+> of the interval on the current iteration.
+>
+> single: Brent's method for finding roots single: root finding, Brent's
+> method
+>
+> gsl\_root\_fsolver\_brent
+>
+> The *Brent-Dekker method* (referred to here as *Brent's method*)
+> combines an interpolation strategy with the bisection algorithm. This
+> produces a fast algorithm which is still robust.
+>
+> On each iteration Brent's method approximates the function using an
+> interpolating curve. On the first iteration this is a linear
+> interpolation of the two endpoints. For subsequent iterations the
+> algorithm uses an inverse quadratic fit to the last three points, for
+> higher accuracy. The intercept of the interpolating curve with the
+> $x$-axis is taken as a guess for the root. If it lies within the
+> bounds of the current interval then the interpolating point is
+> accepted, and used to generate a smaller interval. If the
+> interpolating point is not accepted then the algorithm falls back to
+> an ordinary bisection step.
+>
+> The best estimate of the root is taken from the most recent
+> interpolation or bisection.
 
 """
 mutable struct gsl_root_fsolver_type
@@ -6133,7 +7229,102 @@ GSL documentation:
 
 ### `gsl_root_fdfsolver_type`
 
-
+> single: Newton's method for finding roots single: root finding,
+> Newton's method
+>
+> gsl\_root\_fdfsolver\_newton
+>
+> Newton's Method is the standard root-polishing algorithm. The
+> algorithm begins with an initial guess for the location of the root.
+> On each iteration, a line tangent to the function $f$ is drawn at that
+> position. The point where this line crosses the $x$-axis becomes the
+> new guess. The iteration is defined by the following sequence,
+>
+> not texinfo
+>
+> $$x_{i+1} = x_i - {f(x_i) \over f'(x_i)}$$
+>
+> texinfo
+>
+>     x_{i+1} = x_i - f(x_i)/f'(x_i)
+>
+> Newton's method converges quadratically for single roots, and linearly
+> for multiple roots.
+>
+> single: secant method for finding roots single: root finding, secant
+> method
+>
+> gsl\_root\_fdfsolver\_secant
+>
+> The *secant method* is a simplified version of Newton's method which
+> does not require the computation of the derivative on every step.
+>
+> On its first iteration the algorithm begins with Newton's method,
+> using the derivative to compute a first step,
+>
+> not texinfo
+>
+> $$x_1 = x_0 - {f(x_0) \over f'(x_0)}$$
+>
+> texinfo
+>
+>     x_1 = x_0 - f(x_0)/f'(x_0)
+>
+> Subsequent iterations avoid the evaluation of the derivative by
+> replacing it with a numerical estimate, the slope of the line through
+> the previous two points,
+>
+> not texinfo
+>
+> $$x_{i+1} = x_i - {f(x_i) \over f'_{est}}
+>  ~\hbox{where}~
+>  f'_{est} =  {f(x_{i}) - f(x_{i-1}) \over x_i - x_{i-1}}$$
+>
+> texinfo
+>
+>     x_{i+1} = x_i f(x_i) / f'_{est} where
+>      f'_{est} = (f(x_i) - f(x_{i-1})/(x_i - x_{i-1})
+>
+> When the derivative does not change significantly in the vicinity of
+> the root the secant method gives a useful saving. Asymptotically the
+> secant method is faster than Newton's method whenever the cost of
+> evaluating the derivative is more than 0.44 times the cost of
+> evaluating the function itself. As with all methods of computing a
+> numerical derivative the estimate can suffer from cancellation errors
+> if the separation of the points becomes too small.
+>
+> On single roots, the method has a convergence of order $(1 + \sqrt
+> 5)/2$ (approximately $1.62$). It converges linearly for multiple
+> roots.
+>
+> single: Steffenson's method for finding roots single: root finding,
+> Steffenson's method
+>
+> gsl\_root\_fdfsolver\_steffenson
+>
+> The *Steffenson Method* provides the fastest convergence of all the
+> routines. It combines the basic Newton algorithm with an Aitken
+> "delta-squared" acceleration. If the Newton iterates are $x_i$ then
+> the acceleration procedure generates a new sequence $R_i$,
+>
+> not texinfo
+>
+> $$R_i = x_i - {(x_{i+1} - x_i)^2 \over (x_{i+2} - 2 x_{i+1} + x_i)}$$
+>
+> texinfo
+>
+>     R_i = x_i - (x_{i+1} - x_i)^2 / (x_{i+2} - 2 x_{i+1} + x_{i})
+>
+> which converges faster than the original sequence under reasonable
+> conditions. The new sequence requires three terms before it can
+> produce its first value so the method returns accelerated values on
+> the second and subsequent iterations. On the first iteration it
+> returns the ordinary Newton estimate. The Newton iterate is also
+> returned if the denominator of the acceleration term ever becomes
+> zero.
+>
+> As with all acceleration procedures this method can become unstable if
+> the function is not well-behaved.
 
 """
 mutable struct gsl_root_fdfsolver_type
@@ -6334,14 +7525,32 @@ const GSL_SF_LEGENDRE_NONE = 3
 @doc md"""
 `gsl_sf_legendre_t`
 
->   Value                                    Description
->   ---------------------------------------- ------------------------------------------------------------------------
->   `GSL_SF_LEGENDRE_NONE`{.sourceCode}      The unnormalized associated Legendre polynomials $P_l^m(x)$
->   `GSL_SF_LEGENDRE_SCHMIDT`{.sourceCode}   The Schmidt semi-normalized associated Legendre polynomials $S_l^m(x)$
->   `GSL_SF_LEGENDRE_SPHARM`{.sourceCode}    The spherical harmonic associated Legendre polynomials $Y_l^m(x)$
->   `GSL_SF_LEGENDRE_FULL`{.sourceCode}      The fully normalized associated Legendre polynomials $N_l^m(x)$
->
-
+> <table>
+> <thead>
+> <tr class="header">
+> <th>Value</th>
+> <th>Description</th>
+> </tr>
+> </thead>
+> <tbody>
+> <tr class="odd">
+> <td><code class="sourceCode">GSL_SF_LEGENDRE_NONE</code></td>
+> <td>The unnormalized associated Legendre polynomials <span class="math inline"><em>P</em><sub><em>l</em></sub><sup><em>m</em></sup>(<em>x</em>)</span></td>
+> </tr>
+> <tr class="even">
+> <td><code class="sourceCode">GSL_SF_LEGENDRE_SCHMIDT</code></td>
+> <td>The Schmidt semi-normalized associated Legendre polynomials <span class="math inline"><em>S</em><sub><em>l</em></sub><sup><em>m</em></sup>(<em>x</em>)</span></td>
+> </tr>
+> <tr class="odd">
+> <td><code class="sourceCode">GSL_SF_LEGENDRE_SPHARM</code></td>
+> <td>The spherical harmonic associated Legendre polynomials <span class="math inline"><em>Y</em><sub><em>l</em></sub><sup><em>m</em></sup>(<em>x</em>)</span></td>
+> </tr>
+> <tr class="even">
+> <td><code class="sourceCode">GSL_SF_LEGENDRE_FULL</code></td>
+> <td>The fully normalized associated Legendre polynomials <span class="math inline"><em>N</em><sub><em>l</em></sub><sup><em>m</em></sup>(<em>x</em>)</span></td>
+> </tr>
+> </tbody>
+> </table>
 
 """
 const gsl_sf_legendre_t = Cint
@@ -6431,7 +7640,7 @@ GSL documentation:
 >       double err;
 >     } gsl_sf_result;
 >
-> The field val contains the value and the field err contains an
+> The field `val` contains the value and the field `err` contains an
 > estimate of the absolute error in the value.
 
 In some cases, an overflow or underflow can be detected and handled by a
@@ -6439,7 +7648,7 @@ function. In this case, it may be possible to return a scaling exponent
 as well as an error/value pair in order to save the result from
 exceeding the dynamic range of the built-in types. The following struct
 contains value and error fields as well as an exponent field such that
-the actual result is obtained as `result * 10^(e10)`{.sourceCode}.
+the actual result is obtained as `result * 10^(e10)`.
 
 """
 mutable struct gsl_sf_result
@@ -6520,19 +7729,30 @@ GSL documentation:
 
 ### `gsl_siman_params_t`
 
-> These are the parameters that control a run of gsl\_siman\_solve. This
+> These are the parameters that control a run of `gsl_siman_solve`. This
 > structure contains all the information needed to control the search,
 > beyond the energy function, the step function and the initial guess.
 >
->   ------------------------------------------------- ----------------------------------------------------------
->   `int n_tries`{.sourceCode}                        The number of points to try for each step.
->   `int iters_fixed_T`{.sourceCode}                  The number of iterations at each temperature.
->   `double step_size`{.sourceCode}                   The maximum step size in the random walk.
->   `double k, t_initial, mu_t, t_min`{.sourceCode}   The parameters of the Boltzmann distribution and cooling
->                                                     schedule.
->   ------------------------------------------------- ----------------------------------------------------------
->
-
+> <table>
+> <tbody>
+> <tr class="odd">
+> <td><code class="sourceCode">int n_tries</code></td>
+> <td>The number of points to try for each step.</td>
+> </tr>
+> <tr class="even">
+> <td><code class="sourceCode">int iters_fixed_T</code></td>
+> <td>The number of iterations at each temperature.</td>
+> </tr>
+> <tr class="odd">
+> <td><code class="sourceCode">double step_size</code></td>
+> <td>The maximum step size in the random walk.</td>
+> </tr>
+> <tr class="even">
+> <td><p><code class="sourceCode">double k, t_initial, mu_t, t_min</code></p></td>
+> <td><p>The parameters of the Boltzmann distribution and cooling schedule.</p></td>
+> </tr>
+> </tbody>
+> </table>
 
 """
 mutable struct gsl_siman_params_t
@@ -6662,7 +7882,7 @@ GSL documentation:
 
 ### `gsl_spline`
 
-> This workspace provides a higher level interface for the gsl\_interp
+> This workspace provides a higher level interface for the `gsl_interp`
 > object
 
 """
@@ -6690,8 +7910,8 @@ GSL documentation:
 
 ### `gsl_spline2d`
 
-> This workspace provides a higher level interface for the gsl\_interp2d
-> object
+> This workspace provides a higher level interface for the
+> `gsl_interp2d` object
 
 """
 mutable struct gsl_spline2d
@@ -7458,6 +8678,29 @@ end
 GSL documentation:
 
 ### `gsl_wavelet_type`
+
+> single: Daubechies wavelets single: maximal phase, Daubechies wavelets
+>
+> gsl\_wavelet\_daubechies gsl\_wavelet\_daubechies\_centered
+>
+> This is the Daubechies wavelet family of maximum phase with $k/2$
+> vanishing moments. The implemented wavelets are $k=4, 6, \dots, 20$,
+> with `k` even.
+>
+> Haar wavelets
+>
+> gsl\_wavelet\_haar gsl\_wavelet\_haar\_centered
+>
+> This is the Haar wavelet. The only valid choice of $k$ for the Haar
+> wavelet is $k=2$.
+>
+> single: biorthogonal wavelets single: B-spline wavelets
+>
+> gsl\_wavelet\_bspline gsl\_wavelet\_bspline\_centered
+>
+> This is the biorthogonal B-spline wavelet family of order $(i,j)$. The
+> implemented values of $k = 100*i + j$ are 103, 105, 202, 204, 206,
+> 208, 301, 303, 305 307, 309.
 
 The centered forms of the wavelets align the coefficients of the various
 sub-bands on edges. Thus the resulting visualization of the coefficients

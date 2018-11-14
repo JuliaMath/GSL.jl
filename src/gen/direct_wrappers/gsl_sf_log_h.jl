@@ -28,7 +28,7 @@ GSL documentation:
 
 > int gsl\_sf\_log\_e (double x, gsl\_sf\_result \* result)
 
-> These routines compute the logarithm of x, $\log(x)$, for $x > 0$.
+> These routines compute the logarithm of `x`, $\log(x)$, for $x > 0$.
 
 """
 function sf_log(x)
@@ -57,7 +57,7 @@ GSL documentation:
 
 > int gsl\_sf\_log\_abs\_e (double x, gsl\_sf\_result \* result)
 
-> These routines compute the logarithm of the magnitude of x,
+> These routines compute the logarithm of the magnitude of `x`,
 > $\log(|x|)$, for $x \ne 0$.
 
 """
@@ -76,7 +76,7 @@ GSL documentation:
 ### `int gsl_sf_complex_log_e (double zr, double zi, gsl_sf_result * lnr, gsl_sf_result * theta)`
 
 > This routine computes the complex logarithm of $z = z_r + i z_i$. The
-> results are returned as lnr, theta such that
+> results are returned as `lnr`, `theta` such that
 > $\exp(lnr + i \theta) = z_r + i z_i$, where $\theta$ lies in the range
 > $[-\pi,\pi]$.
 
@@ -108,7 +108,7 @@ GSL documentation:
 > int gsl\_sf\_log\_1plusx\_e (double x, gsl\_sf\_result \* result)
 
 > These routines compute $\log(1 + x)$ for $x > -1$ using an algorithm
-> that is accurate for small x.
+> that is accurate for small `x`.
 
 """
 function sf_log_1plusx(x)
@@ -138,7 +138,7 @@ GSL documentation:
 > int gsl\_sf\_log\_1plusx\_mx\_e (double x, gsl\_sf\_result \* result)
 
 > These routines compute $\log(1 + x) - x$ for $x > -1$ using an
-> algorithm that is accurate for small x.
+> algorithm that is accurate for small `x`.
 
 """
 function sf_log_1plusx_mx(x)

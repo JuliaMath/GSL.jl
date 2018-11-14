@@ -29,8 +29,8 @@ GSL documentation:
 > int gsl\_sf\_multiply\_e (double x, double y, gsl\_sf\_result \*
 > result)
 
-> This function multiplies x and y storing the product and its
-> associated error in result.
+> This function multiplies `x` and `y` storing the product and its
+> associated error in `result`.
 
 """
 function sf_multiply(x, y)
@@ -47,9 +47,9 @@ GSL documentation:
 
 ### `int gsl_sf_multiply_err_e (double x, double dx, double y, double dy, gsl_sf_result * result)`
 
-> This function multiplies x and y with associated absolute errors dx
-> and dy. The product $xy \pm xy \sqrt{(dx/x)^2 +(dy/y)^2}$ is stored in
-> result.
+> This function multiplies `x` and `y` with associated absolute errors
+> `dx` and `dy`. The product $xy \pm xy \sqrt{(dx/x)^2 +(dy/y)^2}$ is
+> stored in `result`.
 
 """
 function sf_multiply_err_e(x, dx, y, dy, result)

@@ -29,7 +29,7 @@ GSL documentation:
 > int gsl\_sf\_psi\_int\_e (int n, gsl\_sf\_result \* result)
 
 > These routines compute the digamma function $\psi(n)$ for positive
-> integer n. The digamma function is also called the Psi function.
+> integer `n`. The digamma function is also called the Psi function.
 
 """
 function sf_psi_int(n)
@@ -58,7 +58,7 @@ GSL documentation:
 
 > int gsl\_sf\_psi\_e (double x, gsl\_sf\_result \* result)
 
-> These routines compute the digamma function $\psi(x)$ for general x,
+> These routines compute the digamma function $\psi(x)$ for general `x`,
 > $x \ne 0$.
 
 """
@@ -158,7 +158,8 @@ GSL documentation:
 
 > int gsl\_sf\_psi\_1\_e (double x, gsl\_sf\_result \* result)
 
-> These routines compute the Trigamma function $\psi'(x)$ for general x.
+> These routines compute the Trigamma function $\psi'(x)$ for general
+> `x`.
 
 """
 function sf_psi_1(x)

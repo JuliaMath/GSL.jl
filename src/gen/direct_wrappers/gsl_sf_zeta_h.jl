@@ -29,7 +29,7 @@ GSL documentation:
 > int gsl\_sf\_zeta\_int\_e (int n, gsl\_sf\_result \* result)
 
 > These routines compute the Riemann zeta function $\zeta(n)$ for
-> integer n, $n \ne 1$.
+> integer `n`, $n \ne 1$.
 
 """
 function sf_zeta_int(n)
@@ -59,7 +59,7 @@ GSL documentation:
 > int gsl\_sf\_zeta\_e (double s, gsl\_sf\_result \* result)
 
 > These routines compute the Riemann zeta function $\zeta(s)$ for
-> arbitrary s, $s \ne 1$.
+> arbitrary `s`, $s \ne 1$.
 
 """
 function sf_zeta(s)
@@ -88,7 +88,7 @@ GSL documentation:
 
 > int gsl\_sf\_zetam1\_e (double s, gsl\_sf\_result \* result)
 
-> These routines compute $\zeta(s) - 1$ for arbitrary s, $s \ne 1$.
+> These routines compute $\zeta(s) - 1$ for arbitrary `s`, $s \ne 1$.
 
 """
 function sf_zetam1(s)
@@ -117,7 +117,7 @@ GSL documentation:
 
 > int gsl\_sf\_zetam1\_int\_e (int n, gsl\_sf\_result \* result)
 
-> These routines compute $\zeta(n) - 1$ for integer n, $n \ne 1$.
+> These routines compute $\zeta(n) - 1$ for integer `n`, $n \ne 1$.
 
 """
 function sf_zetam1_int(s)
@@ -176,7 +176,7 @@ GSL documentation:
 
 > int gsl\_sf\_eta\_int\_e (int n, gsl\_sf\_result \* result)
 
-> These routines compute the eta function $\eta(n)$ for integer n.
+> These routines compute the eta function $\eta(n)$ for integer `n`.
 
 """
 function sf_eta_int(n)
@@ -205,7 +205,7 @@ GSL documentation:
 
 > int gsl\_sf\_eta\_e (double s, gsl\_sf\_result \* result)
 
-> These routines compute the eta function $\eta(s)$ for arbitrary s.
+> These routines compute the eta function $\eta(s)$ for arbitrary `s`.
 
 """
 function sf_eta(s)

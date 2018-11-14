@@ -17,7 +17,7 @@ GSL documentation:
 ### `gsl_min_fminimizer * gsl_min_fminimizer_alloc (const gsl_min_fminimizer_type * T)`
 
 > This function returns a pointer to a newly allocated instance of a
-> minimizer of type T. For example, the following code creates an
+> minimizer of type `T`. For example, the following code creates an
 > instance of a golden section minimizer:
 >
 >     const gsl_min_fminimizer_type * T = gsl_min_fminimizer_goldensection;
@@ -25,7 +25,7 @@ GSL documentation:
 >
 > If there is insufficient memory to create the minimizer then the
 > function returns a null pointer and the error handler is invoked with
-> an error code of GSL\_ENOMEM.
+> an error code of `GSL_ENOMEM`.
 
 """
 function min_fminimizer_alloc(T)
@@ -42,7 +42,7 @@ GSL documentation:
 
 ### `void gsl_min_fminimizer_free (gsl_min_fminimizer * s)`
 
-> This function frees all the memory associated with the minimizer s.
+> This function frees all the memory associated with the minimizer `s`.
 
 """
 function min_fminimizer_free(s)
@@ -59,12 +59,12 @@ GSL documentation:
 
 ### `int gsl_min_fminimizer_set (gsl_min_fminimizer * s, gsl_function * f, double x_minimum, double x_lower, double x_upper)`
 
-> This function sets, or resets, an existing minimizer s to use the
-> function f and the initial search interval \[x\_lower, x\_upper\],
-> with a guess for the location of the minimum x\_minimum.
+> This function sets, or resets, an existing minimizer `s` to use the
+> function `f` and the initial search interval \[`x_lower`, `x_upper`\],
+> with a guess for the location of the minimum `x_minimum`.
 >
 > If the interval given does not contain a minimum, then the function
-> returns an error code of GSL\_EINVAL.
+> returns an error code of `GSL_EINVAL`.
 
 """
 function min_fminimizer_set(s, f, x_minimum, x_lower, x_upper)
@@ -81,10 +81,9 @@ GSL documentation:
 
 ### `int gsl_min_fminimizer_set_with_values (gsl_min_fminimizer * s, gsl_function * f, double x_minimum, double f_minimum, double x_lower, double f_lower, double x_upper, double f_upper)`
 
-> This function is equivalent to gsl\_min\_fminimizer\_set but uses the
-> values f\_minimum, f\_lower and f\_upper instead of computing
-> `f(x_minimum)`{.sourceCode}, `f(x_lower)`{.sourceCode} and
-> `f(x_upper)`{.sourceCode}.
+> This function is equivalent to `gsl_min_fminimizer_set` but uses the
+> values `f_minimum`, `f_lower` and `f_upper` instead of computing
+> `f(x_minimum)`, `f(x_lower)` and `f(x_upper)`.
 
 """
 function min_fminimizer_set_with_values(s, f, x_minimum, f_minimum, x_lower, f_lower, x_upper, f_upper)
@@ -101,16 +100,16 @@ GSL documentation:
 
 ### `int gsl_min_fminimizer_iterate (gsl_min_fminimizer * s)`
 
-> This function performs a single iteration of the minimizer s. If the
+> This function performs a single iteration of the minimizer `s`. If the
 > iteration encounters an unexpected problem then an error code will be
 > returned,
 >
-> GSL\_EBADFUNC
+> `GSL_EBADFUNC`
 >
 > > the iteration encountered a singular point where the function
-> > evaluated to `Inf`{.sourceCode} or `NaN`{.sourceCode}.
+> > evaluated to `Inf` or `NaN`.
 >
-> GSL\_FAILURE
+> `GSL_FAILURE`
 >
 > > the algorithm could not improve the current best approximation or
 > > bounding interval.
@@ -139,7 +138,7 @@ GSL documentation:
 >
 >     printf ("s is a '%s' minimizer\n", gsl_min_fminimizer_name (s));
 >
-> would print something like `s is a 'brent' minimizer`{.sourceCode}.
+> would print something like `s is a 'brent' minimizer`.
 
 """
 function min_fminimizer_name(s)
@@ -157,7 +156,7 @@ GSL documentation:
 ### `double gsl_min_fminimizer_x_minimum (const gsl_min_fminimizer * s)`
 
 > This function returns the current estimate of the position of the
-> minimum for the minimizer s.
+> minimum for the minimizer `s`.
 
 """
 function min_fminimizer_x_minimum(s)
@@ -188,7 +187,7 @@ GSL documentation:
 > s)
 
 > These functions return the current upper and lower bound of the
-> interval for the minimizer s.
+> interval for the minimizer `s`.
 
 """
 function min_fminimizer_x_upper(s)
@@ -211,7 +210,7 @@ GSL documentation:
 
 > These functions return the value of the function at the current
 > estimate of the minimum and at the upper and lower bounds of the
-> interval for the minimizer s.
+> interval for the minimizer `s`.
 
 """
 function min_fminimizer_f_minimum(s)
@@ -258,9 +257,17 @@ GSL documentation:
 
 ### `int gsl_min_test_interval (double x_lower, double x_upper,  double epsabs, double epsrel)`
 
-> This function tests for the convergence of the interval \[x\_lower,
-> x\_upper\] with absolute error epsabs and relative error epsrel. The
-> test returns GSL\_SUCCESS if the following condition is achieved,
+> This function tests for the convergence of the interval \[`x_lower`,
+> `x_upper`\] with absolute error `epsabs` and relative error `epsrel`.
+> The test returns `GSL_SUCCESS` if the following condition is achieved,
+>
+> not texinfo
+>
+> $$|a - b| < \hbox{\it epsabs} + \hbox{\it epsrel\/}\, \min(|a|,|b|)$$
+>
+> texinfo
+>
+>     |a - b| < epsabs + epsrel min(|a|,|b|) 
 >
 > when the interval $x = [a,b]$ does not include the origin. If the
 > interval includes the origin then $\min(|a|,|b|)$ is replaced by zero
@@ -271,6 +278,14 @@ GSL documentation:
 > This condition on the interval also implies that any estimate of the
 > minimum $x_m$ in the interval satisfies the same condition with
 > respect to the true minimum $x_m^*$,
+>
+> not texinfo
+>
+> $$|x_m - x_m^*| < \hbox{\it epsabs} + \hbox{\it epsrel\/}\, x_m^*$$
+>
+> texinfo
+>
+>     |x_m - x_m^*| < epsabs + epsrel x_m^*
 >
 > assuming that the true minimum $x_m^*$ is contained within the
 > interval.

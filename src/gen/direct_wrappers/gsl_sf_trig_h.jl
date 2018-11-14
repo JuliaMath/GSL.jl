@@ -105,7 +105,7 @@ GSL documentation:
 ### `int gsl_sf_complex_sin_e (double zr, double zi, gsl_sf_result * szr, gsl_sf_result * szi)`
 
 > This function computes the complex sine, $\sin(z_r + i z_i)$ storing
-> the real and imaginary parts in szr, szi.
+> the real and imaginary parts in `szr`, `szi`.
 
 """
 function sf_complex_sin_e(zr, zi, szr, szi)
@@ -123,7 +123,7 @@ GSL documentation:
 ### `int gsl_sf_complex_cos_e (double zr, double zi, gsl_sf_result * czr, gsl_sf_result * czi)`
 
 > This function computes the complex cosine, $\cos(z_r + i z_i)$ storing
-> the real and imaginary parts in czr, czi.
+> the real and imaginary parts in `czr`, `czi`.
 
 """
 function sf_complex_cos_e(zr, zi, czr, czi)
@@ -142,7 +142,7 @@ GSL documentation:
 
 > This function computes the logarithm of the complex sine,
 > $\log(\sin(z_r + i z_i))$ storing the real and imaginary parts in
-> lszr, lszi.
+> `lszr`, `lszi`.
 
 """
 function sf_complex_logsin_e(zr, zi, lszr, lszi)
@@ -172,7 +172,7 @@ GSL documentation:
 > int gsl\_sf\_sinc\_e (double x, gsl\_sf\_result \* result)
 
 > These routines compute $\sinc(x) = \sin(\pi x) / (\pi x)$ for any
-> value of x.
+> value of `x`.
 
 """
 function sf_sinc(x)
@@ -230,7 +230,7 @@ GSL documentation:
 
 > int gsl\_sf\_lncosh\_e (double x, gsl\_sf\_result \* result)
 
-> These routines compute $\log(\cosh(x))$ for any x.
+> These routines compute $\log(\cosh(x))$ for any `x`.
 
 """
 function sf_lncosh(x)
@@ -247,8 +247,9 @@ GSL documentation:
 
 ### `int gsl_sf_polar_to_rect (double r, double theta, gsl_sf_result * x, gsl_sf_result * y)`
 
-> This function converts the polar coordinates (r, theta) to rectilinear
-> coordinates (x, y), $x = r\cos(\theta)$, $y = r\sin(\theta)$.
+> This function converts the polar coordinates (`r`, `theta`) to
+> rectilinear coordinates (`x`, `y`), $x = r\cos(\theta)$,
+> $y = r\sin(\theta)$.
 
 """
 function sf_polar_to_rect(r, theta, x, y)
@@ -265,9 +266,9 @@ GSL documentation:
 
 ### `int gsl_sf_rect_to_polar (double x, double y, gsl_sf_result * r, gsl_sf_result * theta)`
 
-> This function converts the rectilinear coordinates (x, y) to polar
-> coordinates (r, theta), such that $x = r\cos(\theta)$,
-> $y = r\sin(\theta)$. The argument theta lies in the range
+> This function converts the rectilinear coordinates (`x`, `y`) to polar
+> coordinates (`r`, `theta`), such that $x = r\cos(\theta)$,
+> $y = r\sin(\theta)$. The argument `theta` lies in the range
 > $[-\pi, \pi]$.
 
 """
@@ -285,8 +286,8 @@ GSL documentation:
 
 ### `int gsl_sf_sin_err_e (double x, double dx, gsl_sf_result * result)`
 
-> This routine computes the sine of an angle x with an associated
-> absolute error dx, $\sin(x \pm dx)$. Note that this function is
+> This routine computes the sine of an angle `x` with an associated
+> absolute error `dx`, $\sin(x \pm dx)$. Note that this function is
 > provided in the error-handling form only since its purpose is to
 > compute the propagated error.
 
@@ -305,8 +306,8 @@ GSL documentation:
 
 ### `int gsl_sf_cos_err_e (double x, double dx, gsl_sf_result * result)`
 
-> This routine computes the cosine of an angle x with an associated
-> absolute error dx, $\cos(x \pm dx)$. Note that this function is
+> This routine computes the cosine of an angle `x` with an associated
+> absolute error `dx`, $\cos(x \pm dx)$. Note that this function is
 > provided in the error-handling form only since
 
 """
@@ -336,10 +337,11 @@ GSL documentation:
 
 > int gsl\_sf\_angle\_restrict\_symm\_e (double \* theta)
 
-> These routines force the angle theta to lie in the range $(-\pi,\pi]$.
+> These routines force the angle `theta` to lie in the range
+> $(-\pi,\pi]$.
 >
 > Note that the mathematical value of $\pi$ is slightly greater than
-> M\_PI, so the machine numbers M\_PI and -M\_PI are included in the
+> `M_PI`, so the machine numbers `M_PI` and `-M_PI` are included in the
 > range.
 
 """
@@ -369,11 +371,11 @@ GSL documentation:
 
 > int gsl\_sf\_angle\_restrict\_pos\_e (double \* theta)
 
-> These routines force the angle theta to lie in the range $[0, 2\pi)$.
+> These routines force the angle `theta` to lie in the range
+> $[0, 2\pi)$.
 >
 > Note that the mathematical value of $2\pi$ is slightly greater than
-> `2*M_PI`{.sourceCode}, so the machine number `2*M_PI`{.sourceCode} is
-> included in the range.
+> `2*M_PI`, so the machine number `2*M_PI` is included in the range.
 
 """
 function sf_angle_restrict_pos(theta)

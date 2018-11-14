@@ -105,8 +105,8 @@ GSL documentation:
 > gsl\_sf\_result \* result)
 
 > These functions evaluate the Gegenbauer polynomial
-> $C^{(\lambda)}_n(x)$ for a specific value of n, lambda, x subject to
-> $\lambda > -1/2$, $n \ge 0$.
+> $C^{(\lambda)}_n(x)$ for a specific value of `n`, `lambda`, `x`
+> subject to $\lambda > -1/2$, $n \ge 0$.
 
 """
 function sf_gegenpoly_n(n, lambda, x)

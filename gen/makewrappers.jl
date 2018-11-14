@@ -3,16 +3,14 @@
 # Ludvig af Klinteberg, 2018
 #
 # To run this, you need:
-# - Modules PyCall and Glob
+# - Modules Glob
 # - pandoc
-# - Python package pypandoc
 #
 #
 # TODO:
 # - deal with variable length arguments, i.e. "splat"
 # - maybe translate enum's to @enum ?
 
-using Revise
 using Markdown
 using Glob
 include("readdocs.jl")
@@ -160,7 +158,7 @@ function create_base_wrappers()
         if !isempty(newfunctions)
             push!(allfunctions, (filename, newfunctions))
         else
-            #println("No functions to export from here")
+            #@info("No functions to export from here")
         end
         # Add new types to list of known types
         for s in newstructs
@@ -194,7 +192,7 @@ function create_base_wrappers()
     write(fh, HEAD*phys_const_output)    
     close(fh)    
     ## Next, function wrappers
-    println("* Generating function wrappers")
+    @info("Generating function wrappers")
     allfcnwrappers = ""
     functions = Array{function_signature}(undef, 0)        
     # One file per header
@@ -258,7 +256,7 @@ function load_and_clean_file(filename)
     # Regular expressions
     ml_comment = r"/\*(\*(?!/)|[^*])*\*/"s
     sl_comment = r"//.*$"m
-    println("* Parsing $filename")
+    @info("Parsing $filename")
     fh = open(filename)
     l = readlines(fh)
     close(fh)
@@ -293,7 +291,7 @@ function load_and_clean_file(filename)
     filestr = replace(filestr, r"\n+"m=>"\n")
     filestr = replace(filestr, r" +"=>" ")    
     # Hope everything looks good now!
-    #println(filestr)
+    #@info(filestr)
     return filestr
 end
 
@@ -772,7 +770,7 @@ end
 
 functions = create_base_wrappers()
 
-println("* Generating heuristic wrappers...\n")
+@info("Generating heuristic wrappers...\n")
 include("heuristic.jl")
 secondary_wrappers(functions, docs)
 

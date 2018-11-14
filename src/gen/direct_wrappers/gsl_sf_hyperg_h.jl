@@ -61,7 +61,15 @@ GSL documentation:
 
 > These routines compute the confluent hypergeometric function
 >
-> for integer parameters m, n.
+> not texinfo
+>
+> $${}_1F_1(m,n,x) = M(m,n,x)$$
+>
+> texinfo
+>
+> $$1F1(m,n,x) = M(m,n,x)$$
+>
+> for integer parameters `m`, `n`.
 
 """
 function sf_hyperg_1F1_int(m, n, x)
@@ -93,7 +101,15 @@ GSL documentation:
 
 > These routines compute the confluent hypergeometric function
 >
-> for general parameters a, b.
+> not texinfo
+>
+> $${}_1F_1(a,b,x) = M(a,b,x)$$
+>
+> texinfo
+>
+> $$1F1(a,b,x) = M(a,b,x)$$
+>
+> for general parameters `a`, `b`.
 
 """
 function sf_hyperg_1F1(a, b, x)
@@ -124,7 +140,7 @@ GSL documentation:
 > gsl\_sf\_result \* result)
 
 > These routines compute the confluent hypergeometric function
-> $U(m,n,x)$ for integer parameters m, n.
+> $U(m,n,x)$ for integer parameters `m`, `n`.
 
 """
 function sf_hyperg_U_int(m, n, x)
@@ -142,7 +158,7 @@ GSL documentation:
 ### `int gsl_sf_hyperg_U_int_e10_e (int m, int n, double x, gsl_sf_result_e10 * result)`
 
 > This routine computes the confluent hypergeometric function $U(m,n,x)$
-> for integer parameters m, n using the gsl\_sf\_result\_e10 type to
+> for integer parameters `m`, `n` using the `gsl_sf_result_e10` type to
 > return a result with extended range.
 
 """
@@ -192,7 +208,7 @@ GSL documentation:
 ### `int gsl_sf_hyperg_U_e10_e (double a, double b, double x, gsl_sf_result_e10 * result)`
 
 > This routine computes the confluent hypergeometric function $U(a,b,x)$
-> using the gsl\_sf\_result\_e10 type to return a result with extended
+> using the `gsl_sf_result_e10` type to return a result with extended
 > range.
 
 """
@@ -225,8 +241,16 @@ GSL documentation:
 
 > These routines compute the Gauss hypergeometric function
 >
+> not texinfo
+>
+> $${}_2F_1(a,b,c,x) = F(a,b,c,x)$$
+>
+> texinfo
+>
+> $$2F1(a,b,c,x) = F(a,b,c,x)$$
+>
 > for $|x| < 1$. If the arguments $(a,b,c,x)$ are too close to a
-> singularity then the function can return the error code GSL\_EMAXITER
+> singularity then the function can return the error code `GSL_EMAXITER`
 > when the series approximation converges too slowly. This occurs in the
 > region of $x = 1$, $c - a - b = m$ for integer m.
 
@@ -260,6 +284,14 @@ GSL documentation:
 
 > These routines compute the Gauss hypergeometric function
 >
+> not texinfo
+>
+> $${}_2F_1(a_R + i a_I, aR - i aI, c, x)$$
+>
+> texinfo
+>
+> $$2F1(a_R + i a_I, aR - i aI, c, x)$$
+>
 > with complex parameters for $|x| < 1$.
 
 """
@@ -292,6 +324,14 @@ GSL documentation:
 
 > These routines compute the renormalized Gauss hypergeometric function
 >
+> not texinfo
+>
+> $${}_2F_1(a,b,c,x) / \Gamma(c)$$
+>
+> texinfo
+>
+> $$2F1(a,b,c,x) / \Gamma(c)$$
+>
 > for $|x| < 1$.
 
 """
@@ -323,6 +363,14 @@ GSL documentation:
 > double c, double x, gsl\_sf\_result \* result)
 
 > These routines compute the renormalized Gauss hypergeometric function
+>
+> not texinfo
+>
+> $${}_2F_1(a_R + i a_I, a_R - i a_I, c, x) / \Gamma(c)$$
+>
+> texinfo
+>
+> $$2F1(a_R + i a_I, a_R - i a_I, c, x) / \Gamma(c)$$
 >
 > for $|x| < 1$.
 

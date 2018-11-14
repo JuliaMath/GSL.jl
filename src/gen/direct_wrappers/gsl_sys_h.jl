@@ -34,8 +34,8 @@ GSL documentation:
 
 ### `int gsl_finite (const double x)`
 
-> This function returns 1 if x is a real number, and 0 if it is infinite
-> or not-a-number.
+> This function returns 1 if `x` is a real number, and 0 if it is
+> infinite or not-a-number.
 
 """
 function finite(x)
@@ -122,12 +122,12 @@ GSL documentation:
 
 ### `int gsl_fcmp (double x, double y, double epsilon)`
 
-> This function determines whether x and y are approximately equal to a
-> relative accuracy epsilon.
+> This function determines whether `x` and `y` are approximately equal
+> to a relative accuracy `epsilon`.
 >
 > The relative accuracy is measured using an interval of size $2
 > \delta$, where $\delta = 2^k \epsilon$ and $k$ is the maximum base-2
-> exponent of $x$ and $y$ as computed by the function frexp.
+> exponent of $x$ and $y$ as computed by the function `frexp`.
 >
 > If $x$ and $y$ lie within this interval, they are considered
 > approximately equal and the function returns 0. Otherwise if $x <
@@ -138,8 +138,7 @@ GSL documentation:
 > function is not suitable for testing whether a value is approximately
 > zero.
 >
-> The implementation is based on the package `fcmp`{.sourceCode} by T.C.
-> Belding.
+> The implementation is based on the package `fcmp` by T.C. Belding.
 
 """
 function fcmp(x1, x2, epsilon)

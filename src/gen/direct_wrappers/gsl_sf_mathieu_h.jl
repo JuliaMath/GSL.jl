@@ -20,8 +20,8 @@ GSL documentation:
 > q, gsl\_sf\_mathieu\_workspace \* work, double result\_array\[\])
 
 > These routines compute a series of Mathieu characteristic values
-> $a_n(q)$, $b_n(q)$ for $n$ from order\_min to order\_max inclusive,
-> storing the results in the array result\_array.
+> $a_n(q)$, $b_n(q)$ for $n$ from `order_min` to `order_max` inclusive,
+> storing the results in the array `result_array`.
 
 """
 function sf_mathieu_a_array(order_min, order_max, qq, work, result_array)
@@ -121,7 +121,7 @@ GSL documentation:
 ### `gsl_sf_mathieu_workspace * gsl_sf_mathieu_alloc (size_t n, double qmax)`
 
 > This function returns a workspace for the array versions of the
-> Mathieu routines. The arguments n and qmax specify the maximum order
+> Mathieu routines. The arguments n and `qmax` specify the maximum order
 > and $q$-value of Mathieu functions which can be computed with this
 > workspace.
 
@@ -140,7 +140,7 @@ GSL documentation:
 
 ### `void gsl_sf_mathieu_free (gsl_sf_mathieu_workspace * work)`
 
-> This function frees the workspace work.
+> This function frees the workspace `work`.
 
 """
 function sf_mathieu_free(workspace)
@@ -214,8 +214,8 @@ GSL documentation:
 > x, gsl\_sf\_mathieu\_workspace \* work, double result\_array\[\])
 
 > These routines compute a series of the angular Mathieu functions
-> $ce_n(q,x)$ and $se_n(q,x)$ of order $n$ from nmin to nmax inclusive,
-> storing the results in the array result\_array.
+> $ce_n(q,x)$ and $se_n(q,x)$ of order $n$ from `nmin` to `nmax`
+> inclusive, storing the results in the array `result_array`.
 
 """
 function sf_mathieu_ce_array(nmin, nmax, qq, zz, work, result_array)
@@ -257,10 +257,10 @@ GSL documentation:
 > double q, double x) int gsl\_sf\_mathieu\_Ms\_e (int j, int n, double
 > q, double x, gsl\_sf\_result \* result)
 
-> These routines compute the radial j-th kind Mathieu functions
-> $Mc_n^{(j)}(q,x)$ and $Ms_n^{(j)}(q,x)$ of order n.
+> These routines compute the radial `j`-th kind Mathieu functions
+> $Mc_n^{(j)}(q,x)$ and $Ms_n^{(j)}(q,x)$ of order `n`.
 >
-> The allowed values of j are 1 and 2. The functions for $j = 3,4$ can
+> The allowed values of `j` are 1 and 2. The functions for $j = 3,4$ can
 > be computed as $M_n^{(3)} = M_n^{(1)} + iM_n^{(2)}$ and
 > $M_n^{(4)} = M_n^{(1)} - iM_n^{(2)}$, where $M_n^{(j)} = Mc_n^{(j)}$
 > or $Ms_n^{(j)}$.
@@ -305,7 +305,7 @@ GSL documentation:
 > result\_array\[\])
 
 > These routines compute a series of the radial Mathieu functions of
-> kind j, with order from nmin to nmax inclusive, storing the
+> kind `j`, with order from `nmin` to `nmax` inclusive, storing the
 
 """
 function sf_mathieu_Mc_array(kind, nmin, nmax, qq, zz, work, result_array)

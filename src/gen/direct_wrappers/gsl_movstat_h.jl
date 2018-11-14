@@ -66,7 +66,7 @@ GSL documentation:
 
 ### `void * gsl_movstat_free(gsl_movstat_workspace * w)`
 
-> This function frees the memory associated with w.
+> This function frees the memory associated with `w`.
 
 """
 function movstat_free(w)
@@ -94,10 +94,10 @@ GSL documentation:
 ### `int gsl_movstat_apply(const gsl_movstat_end_t endtype, const gsl_movstat_function * F, const gsl_vector * x, gsl_vector * y, gsl_movstat_workspace * w)`
 
 > This function applies the user-defined moving window statistic
-> specified in F to the input vector x, storing the output in y. The
-> parameter endtype specifies how windows near the ends of the input
-> should be handled. It is allowed for x = y for an in-place moving
-> window calculation.
+> specified in `F` to the input vector `x`, storing the output in `y`.
+> The parameter `endtype` specifies how windows near the ends of the
+> input should be handled. It is allowed for `x` = `y` for an in-place
+> moving window calculation.
 
 """
 function movstat_apply(endtype, F, x, y, w)
@@ -115,11 +115,12 @@ GSL documentation:
 ### `size_t gsl_movstat_fill(const gsl_movstat_end_t endtype, const gsl_vector * x, const size_t idx, const size_t H, const size_t J, double * window)`
 
 > This function explicitly constructs the sliding window for the input
-> vector x which is centered on the sample idx. On output, the array
-> window will contain $W_{idx}^{H,J}$. The number of samples to the left
-> and right of the sample idx are specified by H and J respectively. The
-> parameter endtype specifies how windows near the ends of the input
-> should be handled. The function returns the size of the window.
+> vector `x` which is centered on the sample `idx`. On output, the array
+> `window` will contain $W_{idx}^{H,J}$. The number of samples to the
+> left and right of the sample `idx` are specified by `H` and `J`
+> respectively. The parameter `endtype` specifies how windows near the
+> ends of the input should be handled. The function returns the size of
+> the window.
 
 """
 function movstat_fill(endtype, x, idx, H, J, window)
@@ -136,10 +137,10 @@ GSL documentation:
 
 ### `int gsl_movstat_mean(const gsl_movstat_end_t endtype, const gsl_vector * x, gsl_vector * y, gsl_movstat_workspace * w)`
 
-> This function computes the moving window mean of the input vector x,
-> storing the output in y. The parameter endtype specifies how windows
-> near the ends of the input should be handled. It is allowed to have x
-> = y for an in-place moving mean.
+> This function computes the moving window mean of the input vector `x`,
+> storing the output in `y`. The parameter `endtype` specifies how
+> windows near the ends of the input should be handled. It is allowed to
+> have `x` = `y` for an in-place moving mean.
 
 """
 function movstat_mean(endtype, x, y, w)
@@ -157,9 +158,9 @@ GSL documentation:
 ### `int gsl_movstat_variance(const gsl_movstat_end_t endtype, const gsl_vector * x, gsl_vector * y, gsl_movstat_workspace * w)`
 
 > This function computes the moving window variance of the input vector
-> x, storing the output in y. The parameter endtype specifies how
+> `x`, storing the output in `y`. The parameter `endtype` specifies how
 > windows near the ends of the input should be handled. It is allowed to
-> have x = y for an in-place moving variance.
+> have `x` = `y` for an in-place moving variance.
 
 """
 function movstat_variance(endtype, x, y, w)
@@ -177,9 +178,10 @@ GSL documentation:
 ### `int gsl_movstat_sd(const gsl_movstat_end_t endtype, const gsl_vector * x, gsl_vector * y, gsl_movstat_workspace * w)`
 
 > This function computes the moving window standard deviation of the
-> input vector x, storing the output in y. The parameter endtype
+> input vector `x`, storing the output in `y`. The parameter `endtype`
 > specifies how windows near the ends of the input should be handled. It
-> is allowed to have x = y for an in-place moving standard deviation.
+> is allowed to have `x` = `y` for an in-place moving standard
+> deviation.
 
 """
 function movstat_sd(endtype, x, y, w)
@@ -196,10 +198,10 @@ GSL documentation:
 
 ### `int gsl_movstat_median(const gsl_movstat_end_t endtype, const gsl_vector * x, gsl_vector * y, gsl_movstat_workspace * w)`
 
-> This function computes the moving median of the input vector x,
-> storing the output in y. The parameter endtype specifies how windows
-> near the ends of the input should be handled. It is allowed for x = y
-> for an in-place moving window median.
+> This function computes the moving median of the input vector `x`,
+> storing the output in `y`. The parameter `endtype` specifies how
+> windows near the ends of the input should be handled. It is allowed
+> for `x` = `y` for an in-place moving window median.
 
 """
 function movstat_median(endtype, x, y, w)
@@ -216,10 +218,10 @@ GSL documentation:
 
 ### `int gsl_movstat_min(const gsl_movstat_end_t endtype, const gsl_vector * x, gsl_vector * y, gsl_movstat_workspace * w)`
 
-> This function computes the moving minimum of the input vector x,
-> storing the result in y. The parameter endtype specifies how windows
-> near the ends of the input should be handled. It is allowed to have x
-> = y for an in-place moving minimum.
+> This function computes the moving minimum of the input vector `x`,
+> storing the result in `y`. The parameter `endtype` specifies how
+> windows near the ends of the input should be handled. It is allowed to
+> have `x` = `y` for an in-place moving minimum.
 
 """
 function movstat_min(endtype, x, y, w)
@@ -236,10 +238,10 @@ GSL documentation:
 
 ### `int gsl_movstat_max(const gsl_movstat_end_t endtype, const gsl_vector * x, gsl_vector * y, gsl_movstat_workspace * w)`
 
-> This function computes the moving maximum of the input vector x,
-> storing the result in y. The parameter endtype specifies how windows
-> near the ends of the input should be handled. It is allowed to have x
-> = y for an in-place moving maximum.
+> This function computes the moving maximum of the input vector `x`,
+> storing the result in `y`. The parameter `endtype` specifies how
+> windows near the ends of the input should be handled. It is allowed to
+> have `x` = `y` for an in-place moving maximum.
 
 """
 function movstat_max(endtype, x, y, w)
@@ -257,9 +259,9 @@ GSL documentation:
 ### `int gsl_movstat_minmax(const gsl_movstat_end_t endtype, const gsl_vector * x, gsl_vector * y_min, gsl_vector * y_max, gsl_movstat_workspace * w)`
 
 > This function computes the moving minimum and maximum of the input
-> vector x, storing the window minimums in y\_min and the window
-> maximums in y\_max. The parameter endtype specifies how windows near
-> the ends of the input should be handled.
+> vector `x`, storing the window minimums in `y_min` and the window
+> maximums in `y_max`. The parameter `endtype` specifies how windows
+> near the ends of the input should be handled.
 
 """
 function movstat_minmax(endtype, x, y_min, y_max, w)
@@ -280,13 +282,13 @@ GSL documentation:
 > gsl\_vector \* x, gsl\_vector \* xmedian, gsl\_vector \* xmad,
 > gsl\_movstat\_workspace \* w)
 
-> These functions compute the moving MAD of the input vector x and store
-> the result in xmad. The medians of each window $W_i^{H,J}$ are stored
-> in xmedian on output. The inputs x, xmedian, and xmad must all be the
-> same length. The parameter endtype specifies how windows near the ends
-> of the input should be handled. The function `mad0`{.sourceCode} does
-> not include the scale factor of $1.4826$, while the function
-> `mad`{.sourceCode} does include this factor.
+> These functions compute the moving MAD of the input vector `x` and
+> store the result in `xmad`. The medians of each window $W_i^{H,J}$ are
+> stored in `xmedian` on output. The inputs `x`, `xmedian`, and `xmad`
+> must all be the same length. The parameter `endtype` specifies how
+> windows near the ends of the input should be handled. The function
+> `mad0` does not include the scale factor of $1.4826$, while the
+> function `mad` does include this factor.
 
 """
 function movstat_mad0(endtype, x, xmedian, xmad, w)
@@ -313,12 +315,12 @@ GSL documentation:
 
 ### `int gsl_movstat_qqr(const gsl_movstat_end_t endtype, const gsl_vector * x, const double q, gsl_vector * xqqr, gsl_movstat_workspace * w)`
 
-> This function computes the moving QQR of the input vector x and stores
-> the q-quantile ranges of each window $W_i^{H,J}$ in xqqr. The quantile
-> parameter q must be between $0$ and $0.5$. The input $q = 0.25$
-> corresponds to the IQR. The inputs x and xqqr must be the same length.
-> The parameter endtype specifies how windows near the ends of the input
-> should be handled.
+> This function computes the moving QQR of the input vector `x` and
+> stores the q-quantile ranges of each window $W_i^{H,J}$ in `xqqr`. The
+> quantile parameter `q` must be between $0$ and $0.5$. The input
+> $q = 0.25$ corresponds to the IQR. The inputs `x` and `xqqr` must be
+> the same length. The parameter `endtype` specifies how windows near
+> the ends of the input should be handled.
 
 """
 function movstat_qqr(endtype, x, q, xqqr, w)
@@ -335,11 +337,11 @@ GSL documentation:
 
 ### `int gsl_movstat_Sn(const gsl_movstat_end_t endtype, const gsl_vector * x, gsl_vector * xscale, gsl_movstat_workspace * w)`
 
-> This function computes the moving $S_n$ of the input vector x and
-> stores the output in xscale. The inputs x and xscale must be the same
-> length. The parameter endtype specifies how windows near the ends of
-> the input should be handled. It is allowed for x = xscale for an
-> in-place moving window $S_n$.
+> This function computes the moving $S_n$ of the input vector `x` and
+> stores the output in `xscale`. The inputs `x` and `xscale` must be the
+> same length. The parameter `endtype` specifies how windows near the
+> ends of the input should be handled. It is allowed for `x` = `xscale`
+> for an in-place moving window $S_n$.
 
 """
 function movstat_Sn(endtype, x, xscale, w)
@@ -356,11 +358,11 @@ GSL documentation:
 
 ### `int gsl_movstat_Qn(const gsl_movstat_end_t endtype, const gsl_vector * x, gsl_vector * xscale, gsl_movstat_workspace * w)`
 
-> This function computes the moving $Q_n$ of the input vector x and
-> stores the output in xscale. The inputs x and xscale must be the same
-> length. The parameter endtype specifies how windows near the ends of
-> the input should be handled. It is allowed for x = xscale for an
-> in-place moving window $Q_n$.
+> This function computes the moving $Q_n$ of the input vector `x` and
+> stores the output in `xscale`. The inputs `x` and `xscale` must be the
+> same length. The parameter `endtype` specifies how windows near the
+> ends of the input should be handled. It is allowed for `x` = `xscale`
+> for an in-place moving window $Q_n$.
 
 """
 function movstat_Qn(endtype, x, xscale, w)
@@ -377,10 +379,10 @@ GSL documentation:
 
 ### `int gsl_movstat_sum(const gsl_movstat_end_t endtype, const gsl_vector * x, gsl_vector * y, gsl_movstat_workspace * w)`
 
-> This function computes the moving window sum of the input vector x,
-> storing the output in y. The parameter endtype specifies how windows
-> near the ends of the input should be handled. It is allowed to have x
-> = y for an in-place moving sum.
+> This function computes the moving window sum of the input vector `x`,
+> storing the output in `y`. The parameter `endtype` specifies how
+> windows near the ends of the input should be handled. It is allowed to
+> have `x` = `y` for an in-place moving sum.
 
 """
 function movstat_sum(endtype, x, y, w)

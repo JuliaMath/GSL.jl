@@ -17,8 +17,8 @@ GSL documentation:
 ### `gsl_interp2d * gsl_interp2d_alloc (const gsl_interp2d_type * T, const size_t xsize, const size_t ysize)`
 
 > This function returns a pointer to a newly allocated interpolation
-> object of type T for xsize grid points in the $x$ direction and ysize
-> grid points in the $y$ direction.
+> object of type `T` for `xsize` grid points in the $x$ direction and
+> `ysize` grid points in the $y$ direction.
 
 """
 function interp2d_alloc(T, xsize, ysize)
@@ -36,7 +36,7 @@ GSL documentation:
 ### `const char * gsl_interp2d_name (const gsl_interp2d * interp)`
 
 > This function returns the name of the interpolation type used by
-> interp. For example:
+> `interp`. For example:
 >
 >     printf ("interp uses '%s' interpolation.\n", gsl_interp2d_name (interp));
 >
@@ -63,7 +63,7 @@ GSL documentation:
 > \* T)
 
 > These functions return the minimum number of points required by the
-> interpolation object interp or interpolation type T. For example,
+> interpolation object `interp` or interpolation type `T`. For example,
 > bicubic interpolation requires a minimum of 4 points.
 
 """
@@ -91,8 +91,8 @@ GSL documentation:
 
 ### `int gsl_interp2d_set (const gsl_interp2d * interp, double za[], const size_t i, const size_t j, const double z)`
 
-> This function sets the value $z_{ij}$ for grid point (i, j) of the
-> array za to z.
+> This function sets the value $z_{ij}$ for grid point (`i`, `j`) of the
+> array `za` to `z`.
 
 """
 function interp2d_set(interp, zarr, i, j, z)
@@ -109,8 +109,8 @@ GSL documentation:
 
 ### `double gsl_interp2d_get (const gsl_interp2d * interp, const double za[], const size_t i, const size_t j)`
 
-> This function returns the value $z_{ij}$ for grid point (i, j) stored
-> in the array za.
+> This function returns the value $z_{ij}$ for grid point (`i`, `j`)
+> stored in the array `za`.
 
 """
 function interp2d_get(interp, zarr, i, j)
@@ -127,8 +127,8 @@ GSL documentation:
 
 ### `size_t gsl_interp2d_idx (const gsl_interp2d * interp, const size_t i, const size_t j)`
 
-> This function returns the index corresponding to the grid point (i,
-> j). The index is given by $j*xsize + i$.
+> This function returns the index corresponding to the grid point (`i`,
+> `j`). The index is given by $j*xsize + i$.
 
 """
 function interp2d_idx(interp, i, j)
@@ -145,14 +145,15 @@ GSL documentation:
 
 ### `int gsl_interp2d_init (gsl_interp2d * interp, const double xa[], const double ya[], const double za[], const size_t xsize, const size_t ysize)`
 
-> This function initializes the interpolation object interp for the data
-> (xa, ya, za) where xa and ya are arrays of the $x$ and $y$ grid points
-> of size xsize and ysize respectively, and za is an array of function
-> values of size xsize \* ysize. The interpolation object
-> (gsl\_interp2d) does not save the data arrays xa, ya, and za and only
-> stores the static state computed from the data. The xa and ya data
-> arrays are always assumed to be strictly ordered, with increasing
-> $x,y$ values; the behavior for other arrangements is not defined.
+> This function initializes the interpolation object `interp` for the
+> data (`xa`, `ya`, `za`) where `xa` and `ya` are arrays of the $x$ and
+> $y$ grid points of size `xsize` and `ysize` respectively, and `za` is
+> an array of function values of size `xsize` \* `ysize`. The
+> interpolation object (`gsl_interp2d`) does not save the data arrays
+> `xa`, `ya`, and `za` and only stores the static state computed from
+> the data. The `xa` and `ya` data arrays are always assumed to be
+> strictly ordered, with increasing $x,y$ values; the behavior for other
+> arrangements is not defined.
 
 """
 function interp2d_init(interp, xa, ya, za, xsize, ysize)
@@ -169,7 +170,7 @@ GSL documentation:
 
 ### `void gsl_interp2d_free (gsl_interp2d * interp)`
 
-> This function frees the interpolation object interp.
+> This function frees the interpolation object `interp`.
 
 """
 function interp2d_free(interp)
@@ -191,11 +192,11 @@ GSL documentation:
 > x, const double y, gsl\_interp\_accel \* xacc, gsl\_interp\_accel \*
 > yacc, double \* z)
 
-> These functions return the interpolated value of z for a given point
-> (x, y), using the interpolation object interp, data arrays xa, ya, and
-> za and the accelerators xacc and yacc. When x is outside the range of
-> xa or y is outside the range of ya, the error code GSL\_EDOM is
-> returned.
+> These functions return the interpolated value of `z` for a given point
+> (`x`, `y`), using the interpolation object `interp`, data arrays `xa`,
+> `ya`, and `za` and the accelerators `xacc` and `yacc`. When `x` is
+> outside the range of `xa` or `y` is outside the range of `ya`, the
+> error code `GSL_EDOM` is returned.
 
 """
 function interp2d_eval(interp, xarr, yarr, zarr, x, y, xa, ya)
@@ -217,11 +218,11 @@ GSL documentation:
 > double x, const double y, gsl\_interp\_accel \* xacc,
 > gsl\_interp\_accel \* yacc, double \* z)
 
-> These functions return the interpolated value of z for a given point
-> (x, y), using the interpolation object interp, data arrays xa, ya, and
-> za and the accelerators xacc and yacc. The functions perform no bounds
-> checking, so when x is outside the range of xa or y is outside the
-> range of ya, extrapolation is performed.
+> These functions return the interpolated value of `z` for a given point
+> (`x`, `y`), using the interpolation object `interp`, data arrays `xa`,
+> `ya`, and `za` and the accelerators `xacc` and `yacc`. The functions
+> perform no bounds checking, so when `x` is outside the range of `xa`
+> or `y` is outside the range of `ya`, extrapolation is performed.
 
 """
 function interp2d_eval_extrap(interp, xarr, yarr, zarr, x, y, xa, ya)
@@ -263,11 +264,12 @@ GSL documentation:
 > double x, const double y, gsl\_interp\_accel \* xacc,
 > gsl\_interp\_accel \* yacc, double \* d)
 
-> These functions return the interpolated value d
-> $= \partial z / \partial x$ for a given point (x, y), using the
-> interpolation object interp, data arrays xa, ya, and za and the
-> accelerators xacc and yacc. When x is outside the range of xa or y is
-> outside the range of ya, the error code GSL\_EDOM is returned.
+> These functions return the interpolated value `d`
+> $= \partial z / \partial x$ for a given point (`x`, `y`), using the
+> interpolation object `interp`, data arrays `xa`, `ya`, and `za` and
+> the accelerators `xacc` and `yacc`. When `x` is outside the range of
+> `xa` or `y` is outside the range of `ya`, the error code `GSL_EDOM` is
+> returned.
 
 """
 function interp2d_eval_deriv_x(interp, xarr, yarr, zarr, x, y, xa, ya)
@@ -299,11 +301,12 @@ GSL documentation:
 > double x, const double y, gsl\_interp\_accel \* xacc,
 > gsl\_interp\_accel \* yacc, double \* d)
 
-> These functions return the interpolated value d
-> $= \partial z / \partial y$ for a given point (x, y), using the
-> interpolation object interp, data arrays xa, ya, and za and the
-> accelerators xacc and yacc. When x is outside the range of xa or y is
-> outside the range of ya, the error code GSL\_EDOM is returned.
+> These functions return the interpolated value `d`
+> $= \partial z / \partial y$ for a given point (`x`, `y`), using the
+> interpolation object `interp`, data arrays `xa`, `ya`, and `za` and
+> the accelerators `xacc` and `yacc`. When `x` is outside the range of
+> `xa` or `y` is outside the range of `ya`, the error code `GSL_EDOM` is
+> returned.
 
 """
 function interp2d_eval_deriv_y(interp, xarr, yarr, zarr, x, y, xa, ya)
@@ -335,11 +338,12 @@ GSL documentation:
 > double x, const double y, gsl\_interp\_accel \* xacc,
 > gsl\_interp\_accel \* yacc, double \* d)
 
-> These functions return the interpolated value d
-> $= \partial^2 z / \partial x^2$ for a given point (x, y), using the
-> interpolation object interp, data arrays xa, ya, and za and the
-> accelerators xacc and yacc. When x is outside the range of xa or y is
-> outside the range of ya, the error code GSL\_EDOM is returned.
+> These functions return the interpolated value `d`
+> $= \partial^2 z / \partial x^2$ for a given point (`x`, `y`), using
+> the interpolation object `interp`, data arrays `xa`, `ya`, and `za`
+> and the accelerators `xacc` and `yacc`. When `x` is outside the range
+> of `xa` or `y` is outside the range of `ya`, the error code `GSL_EDOM`
+> is returned.
 
 """
 function interp2d_eval_deriv_xx(interp, xarr, yarr, zarr, x, y, xa, ya)
@@ -371,11 +375,12 @@ GSL documentation:
 > double x, const double y, gsl\_interp\_accel \* xacc,
 > gsl\_interp\_accel \* yacc, double \* d)
 
-> These functions return the interpolated value d
-> $= \partial^2 z / \partial y^2$ for a given point (x, y), using the
-> interpolation object interp, data arrays xa, ya, and za and the
-> accelerators xacc and yacc. When x is outside the range of xa or y is
-> outside the range of ya, the error code GSL\_EDOM is returned.
+> These functions return the interpolated value `d`
+> $= \partial^2 z / \partial y^2$ for a given point (`x`, `y`), using
+> the interpolation object `interp`, data arrays `xa`, `ya`, and `za`
+> and the accelerators `xacc` and `yacc`. When `x` is outside the range
+> of `xa` or `y` is outside the range of `ya`, the error code `GSL_EDOM`
+> is returned.
 
 """
 function interp2d_eval_deriv_yy(interp, xarr, yarr, zarr, x, y, xa, ya)
@@ -407,11 +412,12 @@ GSL documentation:
 > double x, const double y, gsl\_interp\_accel \* xacc,
 > gsl\_interp\_accel \* yacc, double \* d)
 
-> These functions return the interpolated value d
-> $= \partial^2 z / \partial x \partial y$ for a given point (x, y),
-> using the interpolation object interp, data arrays xa, ya, and za and
-> the accelerators xacc and yacc. When x is outside the range of xa or y
-> is outside the range of ya, the error code GSL\_EDOM is returned.
+> These functions return the interpolated value `d`
+> $= \partial^2 z / \partial x \partial y$ for a given point (`x`, `y`),
+> using the interpolation object `interp`, data arrays `xa`, `ya`, and
+> `za` and the accelerators `xacc` and `yacc`. When `x` is outside the
+> range of `xa` or `y` is outside the range of `ya`, the error code
+> `GSL_EDOM` is returned.
 
 """
 function interp2d_eval_deriv_xy(interp, xarr, yarr, zarr, x, y, xa, ya)

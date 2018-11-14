@@ -106,15 +106,23 @@ GSL documentation:
 
 ### `int gsl_multimin_test_gradient (const gsl_vector * g, double epsabs)`
 
-> This function tests the norm of the gradient g against the absolute
-> tolerance epsabs. The gradient of a multidimensional function goes to
-> zero at a minimum. The test returns GSL\_SUCCESS if the following
+> This function tests the norm of the gradient `g` against the absolute
+> tolerance `epsabs`. The gradient of a multidimensional function goes
+> to zero at a minimum. The test returns `GSL_SUCCESS` if the following
 > condition is achieved,
 >
-> and returns GSL\_CONTINUE otherwise. A suitable choice of epsabs can
-> be made from the desired accuracy in the function for small variations
-> in $x$. The relationship between these quantities is given by
-> $\delta{f} = g\,\delta{x}$.
+> not texinfo
+>
+> $$|g| < \hbox{\it epsabs}$$
+>
+> texinfo
+>
+>     |g| < epsabs
+>
+> and returns `GSL_CONTINUE` otherwise. A suitable choice of `epsabs`
+> can be made from the desired accuracy in the function for small
+> variations in $x$. The relationship between these quantities is given
+> by $\delta{f} = g\,\delta{x}$.
 
 """
 function multimin_test_gradient(g, epsabs)
@@ -132,9 +140,9 @@ GSL documentation:
 ### `int gsl_multimin_test_size (const double size, double epsabs)`
 
 > This function tests the minimizer specific characteristic size (if
-> applicable to the used minimizer) against absolute tolerance epsabs.
-> The test returns GSL\_SUCCESS if the size is smaller than tolerance,
-> otherwise GSL\_CONTINUE is returned.
+> applicable to the used minimizer) against absolute tolerance `epsabs`.
+> The test returns `GSL_SUCCESS` if the size is smaller than tolerance,
+> otherwise `GSL_CONTINUE` is returned.
 
 """
 function multimin_test_size(size, epsabs)
@@ -155,10 +163,10 @@ GSL documentation:
 > gsl\_multimin\_fminimizer\_type \* T, size\_t n)
 
 > This function returns a pointer to a newly allocated instance of a
-> minimizer of type T for an n-dimension function. If there is
+> minimizer of type `T` for an `n`-dimension function. If there is
 > insufficient memory to create the minimizer then the function returns
 > a null pointer and the error handler is invoked with an error code of
-> GSL\_ENOMEM.
+> `GSL_ENOMEM`.
 
 """
 function multimin_fdfminimizer_alloc(T, n)
@@ -179,23 +187,23 @@ GSL documentation:
 > gsl\_multimin\_function \* f, const gsl\_vector \* x, const
 > gsl\_vector \* step\_size)
 
-> The function gsl\_multimin\_fdfminimizer\_set initializes the
-> minimizer s to minimize the function fdf starting from the initial
-> point x. The size of the first trial step is given by step\_size. The
-> accuracy of the line minimization is specified by tol. The precise
+> The function `gsl_multimin_fdfminimizer_set` initializes the minimizer
+> `s` to minimize the function `fdf` starting from the initial point
+> `x`. The size of the first trial step is given by `step_size`. The
+> accuracy of the line minimization is specified by `tol`. The precise
 > meaning of this parameter depends on the method used. Typically the
 > line minimization is considered successful if the gradient of the
 > function $g$ is orthogonal to the current search direction $p$ to a
-> relative accuracy of tol, where $p \cdot g < tol |p| |g|$. A tol value
-> of 0.1 is suitable for most purposes, since line minimization only
-> needs to be carried out approximately. Note that setting tol to zero
-> will force the use of "exact" line-searches, which are extremely
+> relative accuracy of `tol`, where $p \cdot g < tol |p| |g|$. A `tol`
+> value of 0.1 is suitable for most purposes, since line minimization
+> only needs to be carried out approximately. Note that setting `tol` to
+> zero will force the use of "exact" line-searches, which are extremely
 > expensive.
 >
-> The function gsl\_multimin\_fminimizer\_set initializes the minimizer
-> s to minimize the function f, starting from the initial point x. The
-> size of the initial trial steps is given in vector step\_size. The
-> precise meaning of this parameter depends on the method used.
+> The function `gsl_multimin_fminimizer_set` initializes the minimizer
+> `s` to minimize the function `f`, starting from the initial point `x`.
+> The size of the initial trial steps is given in vector `step_size`.
+> The precise meaning of this parameter depends on the method used.
 
 """
 function multimin_fdfminimizer_set(s, fdf, x, step_size, tol)
@@ -214,7 +222,7 @@ GSL documentation:
 
 > void gsl\_multimin\_fminimizer\_free (gsl\_multimin\_fminimizer \* s)
 
-> This function frees all the memory associated with the minimizer s.
+> This function frees all the memory associated with the minimizer `s`.
 
 """
 function multimin_fdfminimizer_free(s)
@@ -239,8 +247,7 @@ GSL documentation:
 >
 >     printf ("s is a '%s' minimizer\n", gsl_multimin_fdfminimizer_name (s));
 >
-> would print something like
-> `s is a 'conjugate_pr' minimizer`{.sourceCode}.
+> would print something like `s is a 'conjugate_pr' minimizer`.
 
 """
 function multimin_fdfminimizer_name(s)
@@ -260,10 +267,10 @@ GSL documentation:
 > int gsl\_multimin\_fminimizer\_iterate (gsl\_multimin\_fminimizer \*
 > s)
 
-> These functions perform a single iteration of the minimizer s. If the
-> iteration encounters an unexpected problem then an error code will be
-> returned. The error code GSL\_ENOPROG signifies that the minimizer is
-> unable to improve on its current estimate, either due to numerical
+> These functions perform a single iteration of the minimizer `s`. If
+> the iteration encounters an unexpected problem then an error code will
+> be returned. The error code `GSL_ENOPROG` signifies that the minimizer
+> is unable to improve on its current estimate, either due to numerical
 > difficulty or because a genuine local minimum has been reached.
 
 The minimizer maintains a current best estimate of the minimum at all
@@ -285,8 +292,8 @@ GSL documentation:
 
 ### `int gsl_multimin_fdfminimizer_restart (gsl_multimin_fdfminimizer * s)`
 
-> This function resets the minimizer s to use the current point as a new
-> starting point.
+> This function resets the minimizer `s` to use the current point as a
+> new starting point.
 
 """
 function multimin_fdfminimizer_restart(s)
@@ -317,7 +324,7 @@ GSL documentation:
 > These functions return the current best estimate of the location of
 > the minimum, the value of the function at that point, its gradient,
 > the last step increment of the estimate, and minimizer specific
-> characteristic size for the minimizer s.
+> characteristic size for the minimizer `s`.
 
 """
 function multimin_fdfminimizer_x(s)

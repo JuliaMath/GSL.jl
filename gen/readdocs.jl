@@ -1,8 +1,17 @@
 using Glob
 
-using PyCall
-pandoc = pyimport("pypandoc")
-convert_text = pandoc[:convert_text]
+using Conda
+const PANDOC = joinpath(Conda.ROOTENV, "bin", "pandoc")
+if !isfile(PANDOC)
+    Conda.add("pandoc")
+end
+
+function convert_text(str; from, to)
+    f = open(`$PANDOC --from=$from --to=$to`, "r+")
+    write(f, str)
+    close(f.in)
+    read(f, String)
+end
 
 DOC_DIR = joinpath(@__DIR__, "gsl-2.5", "doc")
 
@@ -25,7 +34,7 @@ function parse_file(docs, filename)
                 # type def
                 name = secdecl
             else
-                # function 
+                # function
                 m = match(r"(^| )(\w+) *\(", secdecl)
                 if m==nothing
                     error("Failed to match function declaration:\n$secdecl")
@@ -33,7 +42,7 @@ function parse_file(docs, filename)
                 name = m.captures[2]
             end
             # convert RST to Markdown
-            docstr = convert_text(str, "md", format="rst")
+            docstr = convert_text(str, from="rst", to="markdown_strict+tex_math_dollars")
             docs[name] = "`$secdecl`\n\n" * docstr
         end
     end
@@ -63,16 +72,16 @@ end
 
 function readdocs()
     if !isdir(DOC_DIR)
-        println("* Downloading GSL docs")
+        @info "Downloading GSL docs"
         run(`wget http://ftp.gnu.org/gnu/gsl/gsl-2.5.tar.gz`)
-        println("* Unpacking")
+        @info "Unpacking"
         run(`tar -zxf gsl-2.5.tar.gz`)
-    end    
-    println("* Reading the docs and converting to Markdown")    
+    end
+    @info "Reading the docs and converting to Markdown"
     docs = Dict()
     docfiles = glob("*.rst", DOC_DIR)
     for filename in docfiles
-        println(filename)
+        @info("Parsing $filename")
         parse_file(docs, filename)
     end
     return docs

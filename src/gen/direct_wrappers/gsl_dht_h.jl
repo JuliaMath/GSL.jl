@@ -17,7 +17,7 @@ GSL documentation:
 ### `gsl_dht * gsl_dht_alloc (size_t size)`
 
 > This function allocates a Discrete Hankel transform object of size
-> size.
+> `size`.
 
 """
 function dht_alloc(size)
@@ -35,7 +35,7 @@ GSL documentation:
 ### `gsl_dht * gsl_dht_new (size_t size, double nu, double xmax)`
 
 > This function allocates a Discrete Hankel transform object of size
-> size and initializes it for the given values of nu and xmax.
+> `size` and initializes it for the given values of `nu` and `xmax`.
 
 """
 function dht_new(size, nu, xmax)
@@ -52,8 +52,8 @@ GSL documentation:
 
 ### `int gsl_dht_init (gsl_dht * t, double nu, double xmax)`
 
-> This function initializes the transform t for the given values of nu
-> and xmax.
+> This function initializes the transform `t` for the given values of
+> `nu` and `xmax`.
 
 """
 function dht_init(t, nu, xmax)
@@ -70,7 +70,7 @@ GSL documentation:
 
 ### `double gsl_dht_x_sample (const gsl_dht * t, int n)`
 
-> This function returns the value of the n-th sample point in the unit
+> This function returns the value of the `n`-th sample point in the unit
 > interval, ${({j_{\nu,n+1}} / {j_{\nu,M}}}) X$. These are the points
 > where the function $f(t)$ is assumed to be sampled.
 
@@ -89,8 +89,8 @@ GSL documentation:
 
 ### `double gsl_dht_k_sample (const gsl_dht * t, int n)`
 
-> This function returns the value of the n-th sample point in "k-space",
-> ${{j_{\nu,n+1}} / X}$.
+> This function returns the value of the `n`-th sample point in
+> "k-space", ${{j_{\nu,n+1}} / X}$.
 
 """
 function dht_k_sample(t, n)
@@ -107,7 +107,7 @@ GSL documentation:
 
 ### `void gsl_dht_free (gsl_dht * t)`
 
-> This function frees the transform t.
+> This function frees the transform `t`.
 
 """
 function dht_free(t)
@@ -124,9 +124,9 @@ GSL documentation:
 
 ### `int gsl_dht_apply (const gsl_dht * t, double * f_in, double * f_out)`
 
-> This function applies the transform t to the array f\_in whose size is
-> equal to the size of the transform. The result is stored in the array
-> f\_out which must be of the same length.
+> This function applies the transform `t` to the array `f_in` whose size
+> is equal to the size of the transform. The result is stored in the
+> array `f_out` which must be of the same length.
 >
 > Applying this function to its output gives the original data
 > multiplied by $(X^2/j_{\nu,M})^2$, up to numerical errors.

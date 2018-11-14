@@ -30,7 +30,7 @@ GSL documentation:
 > result)
 
 > These functions evaluate the Legendre polynomial $P_l(x)$ for a
-> specific value of l, x subject to $l \ge 0$ and $|x| \le 1$.
+> specific value of `l`, `x` subject to $l \ge 0$ and $|x| \le 1$.
 
 """
 function sf_legendre_Pl(l, x)
@@ -278,8 +278,8 @@ GSL documentation:
 > double result\_array\[\], double result\_deriv\_array\[\])
 
 > These functions are now deprecated and will be removed in a future
-> release; see gsl\_sf\_legendre\_array and
-> gsl\_sf\_legendre\_deriv\_array.
+> release; see `gsl_sf_legendre_array` and
+> `gsl_sf_legendre_deriv_array`.
 
 """
 function sf_legendre_Plm_array(lmax, m, x, result_array)
@@ -344,8 +344,8 @@ GSL documentation:
 > x, double result\_array\[\], double result\_deriv\_array\[\])
 
 > These functions are now deprecated and will be removed in a future
-> release; see gsl\_sf\_legendre\_array and
-> gsl\_sf\_legendre\_deriv\_array.
+> release; see `gsl_sf_legendre_array` and
+> `gsl_sf_legendre_deriv_array`.
 
 """
 function sf_legendre_sphPlm_array(lmax, m, x, result_array)
@@ -661,9 +661,9 @@ GSL documentation:
 > int gsl\_sf\_legendre\_H3d\_e (int l, double lambda, double eta,
 > gsl\_sf\_result \* result)
 
-> These routines compute the l-th radial eigenfunction of the Laplacian
-> on the 3-dimensional hyperbolic space $\eta \ge 0$ and $l \ge 0$. In
-> the flat limit this takes the form
+> These routines compute the `l`-th radial eigenfunction of the
+> Laplacian on the 3-dimensional hyperbolic space $\eta \ge 0$ and
+> $l \ge 0$. In the flat limit this takes the form
 > $L^{H3d}_l(\lambda,\eta) = j_l(\lambda\eta)$.
 
 """
@@ -705,14 +705,14 @@ GSL documentation:
 
 > These functions calculate all normalized associated Legendre
 > polynomials for $0 \le l \le lmax$ and $0 \le m \le l$ for
-> $|x| \le 1$. The norm parameter specifies which normalization is used.
-> The normalized $P_l^m(x)$ values are stored in result\_array, whose
-> minimum size can be obtained from calling gsl\_sf\_legendre\_array\_n.
-> The array index of $P_l^m(x)$ is obtained from calling
-> `gsl_sf_legendre_array_index(l, m)`{.sourceCode}. To include or
+> $|x| \le 1$. The `norm` parameter specifies which normalization is
+> used. The normalized $P_l^m(x)$ values are stored in `result_array`,
+> whose minimum size can be obtained from calling
+> `gsl_sf_legendre_array_n`. The array index of $P_l^m(x)$ is obtained
+> from calling `gsl_sf_legendre_array_index(l, m)`. To include or
 > exclude the Condon-Shortley phase factor of $(-1)^m$, set the
-> parameter csphase to either $-1$ or $1$ respectively in the
-> `_e`{.sourceCode} function. This factor is excluded by default.
+> parameter `csphase` to either $-1$ or $1$ respectively in the `_e`
+> function. This factor is excluded by default.
 
 """
 function sf_legendre_array(norm, lmax, x, result_array)
@@ -744,13 +744,13 @@ GSL documentation:
 > result\_array\[\], double result\_deriv\_array\[\])
 
 > These functions calculate all normalized associated Legendre functions
-> and their first derivatives up to degree lmax for $|x| < 1$. The
-> parameter norm specifies the normalization used. The normalized
+> and their first derivatives up to degree `lmax` for $|x| < 1$. The
+> parameter `norm` specifies the normalization used. The normalized
 > $P_l^m(x)$ values and their derivatives $dP_l^m(x)/dx$ are stored in
-> result\_array and result\_deriv\_array respectively. To include or
+> `result_array` and `result_deriv_array` respectively. To include or
 > exclude the Condon-Shortley phase factor of $(-1)^m$, set the
-> parameter csphase to either $-1$ or $1$ respectively in the
-> `_e`{.sourceCode} function. This factor is excluded by default.
+> parameter `csphase` to either $-1$ or $1$ respectively in the `_e`
+> function. This factor is excluded by default.
 
 """
 function sf_legendre_deriv_array(norm, lmax, x, result_array, result_deriv_array)
@@ -783,13 +783,13 @@ GSL documentation:
 > result\_deriv\_array\[\])
 
 > These functions calculate all normalized associated Legendre functions
-> and their (alternate) first derivatives up to degree lmax for
+> and their (alternate) first derivatives up to degree `lmax` for
 > $|x| < 1$. The normalized $P_l^m(x)$ values and their derivatives
-> $dP_l^m(\cos{\theta})/d\theta$ are stored in result\_array and
-> result\_deriv\_array respectively. To include or exclude the
-> Condon-Shortley phase factor of $(-1)^m$, set the parameter csphase to
-> either $-1$ or $1$ respectively in the `_e`{.sourceCode} function.
-> This factor is excluded by default.
+> $dP_l^m(\cos{\theta})/d\theta$ are stored in `result_array` and
+> `result_deriv_array` respectively. To include or exclude the
+> Condon-Shortley phase factor of $(-1)^m$, set the parameter `csphase`
+> to either $-1$ or $1$ respectively in the `_e` function. This factor
+> is excluded by default.
 
 """
 function sf_legendre_deriv_alt_array(norm, lmax, x, result_array, result_deriv_array)
@@ -822,15 +822,14 @@ GSL documentation:
 > result\_deriv2\_array\[\])
 
 > These functions calculate all normalized associated Legendre functions
-> and their first and second derivatives up to degree lmax for
-> $|x| < 1$. The parameter norm specifies the normalization used. The
+> and their first and second derivatives up to degree `lmax` for
+> $|x| < 1$. The parameter `norm` specifies the normalization used. The
 > normalized $P_l^m(x)$, their first derivatives $dP_l^m(x)/dx$, and
 > their second derivatives $d^2 P_l^m(x)/dx^2$ are stored in
-> result\_array, result\_deriv\_array, and result\_deriv2\_array
+> `result_array`, `result_deriv_array`, and `result_deriv2_array`
 > respectively. To include or exclude the Condon-Shortley phase factor
-> of $(-1)^m$, set the parameter csphase to either $-1$ or $1$
-> respectively in the `_e`{.sourceCode} function. This factor is
-> excluded by default.
+> of $(-1)^m$, set the parameter `csphase` to either $-1$ or $1$
+> respectively in the `_e` function. This factor is excluded by default.
 
 """
 function sf_legendre_deriv2_array(norm, lmax, x, result_array, result_deriv_array, result_deriv2_array)
@@ -863,15 +862,15 @@ GSL documentation:
 > result\_deriv\_array\[\], double result\_deriv2\_array\[\])
 
 > These functions calculate all normalized associated Legendre functions
-> and their (alternate) first and second derivatives up to degree lmax
-> for $|x| < 1$. The parameter norm specifies the normalization used.
+> and their (alternate) first and second derivatives up to degree `lmax`
+> for $|x| < 1$. The parameter `norm` specifies the normalization used.
 > The normalized $P_l^m(x)$, their first derivatives
 > $dP_l^m(\cos{\theta})/d\theta$, and their second derivatives
-> $d^2 P_l^m(\cos{\theta})/d\theta^2$ are stored in result\_array,
-> result\_deriv\_array, and result\_deriv2\_array respectively. To
+> $d^2 P_l^m(\cos{\theta})/d\theta^2$ are stored in `result_array`,
+> `result_deriv_array`, and `result_deriv2_array` respectively. To
 > include or exclude the Condon-Shortley phase factor of $(-1)^m$, set
-> the parameter csphase to either $-1$ or $1$ respectively in the
-> `_e`{.sourceCode} function. This factor is excluded by default.
+> the parameter `csphase` to either $-1$ or $1$ respectively in the `_e`
+> function. This factor is excluded by default.
 
 """
 function sf_legendre_deriv2_alt_array(norm, lmax, x, result_array, result_deriv_array, result_deriv2_array)
@@ -898,7 +897,7 @@ GSL documentation:
 
 ### `size_t gsl_sf_legendre_array_n (const size_t lmax)`
 
-> This function returns the minimum array size for maximum degree lmax
+> This function returns the minimum array size for maximum degree `lmax`
 > needed for the array versions of the associated Legendre functions.
 > Size is calculated as the total number of $P_l^m(x)$ functions, plus
 > extra space for precomputing multiplicative factors used in the
@@ -919,8 +918,8 @@ GSL documentation:
 
 ### `size_t gsl_sf_legendre_array_index (const size_t l, const size_t m)`
 
-> This function returns the index into result\_array,
-> result\_deriv\_array, or result\_deriv2\_array corresponding to
+> This function returns the index into `result_array`,
+> `result_deriv_array`, or `result_deriv2_array` corresponding to
 > $P_l^m(x)$, $P_l^{'m}(x)$, or $P_l^{''m}(x)$. The index is given by
 > $l(l+1)/2 + m$.
 
