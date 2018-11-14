@@ -5,7 +5,7 @@ GSL.jl
 [![Appveyor Build status](https://ci.appveyor.com/api/projects/status/7049flml50cs65mu/branch/master?svg=true)](https://ci.appveyor.com/project/simonbyrne/gsl-jl/branch/master)
 [![codecov.io](http://codecov.io/github/JuliaMath/GSL.jl/coverage.svg?branch=master)](http://codecov.io/github/JuliaMath/GSL.jl?branch=master)
 
-Julia wrapper for the [Gnu Scientific
+Julia wrapper for the [GNU Scientific
 Library](https://www.gnu.org/software/gsl/doc/html/index.html) (GSL), for Julia v1.0+.
 
 **NOTE: There have been major changes to this package since v0.4, which are likely to have introduced compability breaks.**
@@ -133,7 +133,6 @@ help?> GSL.gsl_wavelet
   using regular expressions.
 * Heuristics for creating convenience functions are in
   [gen/heuristic.jl](gen/heuristic.jl).
-* Docstrings are created from the GSL docs in 
-* Hand-written convenience functions are in [gen/readdocs.jl](gen/readdocs.jl)
-  [src/manual_wrappers.jl](src/manual_wrappers.jl).
+* Docstrings are created from the GSL docs in [gen/readdocs.jl](gen/readdocs.jl).
+* Hand-written convenience functions are in [src/manual_wrappers.jl](src/manual_wrappers.jl).
 
