@@ -265,38 +265,6 @@ function sf_legendre_Plm(l, m, x)
 end
 
 @doc md"""
-    sf_legendre_Plm_array(lmax, m, x, result_array) -> Cint
-
-C signature:
-`int gsl_sf_legendre_Plm_array( const int lmax, const int m, const double x, double * result_array )`
-
-GSL documentation:
-
-### `int gsl_sf_legendre_Plm_array (int lmax, int m, double x, double result_array[])`
-
-> int gsl\_sf\_legendre\_Plm\_deriv\_array (int lmax, int m, double x,
-> double result\_array\[\], double result\_deriv\_array\[\])
-
-> These functions are now deprecated and will be removed in a future
-> release; see `gsl_sf_legendre_array` and
-> `gsl_sf_legendre_deriv_array`.
-
-"""
-function sf_legendre_Plm_array(lmax, m, x, result_array)
-    ccall((:gsl_sf_legendre_Plm_array, libgsl), Cint, (Cint, Cint, Cdouble, Ref{Cdouble}), lmax, m, x, result_array)
-end
-
-@doc md"""
-    sf_legendre_Plm_deriv_array(lmax, m, x, result_array, result_deriv_array) -> Cint
-
-C signature:
-`int gsl_sf_legendre_Plm_deriv_array( const int lmax, const int m, const double x, double * result_array, double * result_deriv_array )`
-"""
-function sf_legendre_Plm_deriv_array(lmax, m, x, result_array, result_deriv_array)
-    ccall((:gsl_sf_legendre_Plm_deriv_array, libgsl), Cint, (Cint, Cint, Cdouble, Ref{Cdouble}, Ref{Cdouble}), lmax, m, x, result_array, result_deriv_array)
-end
-
-@doc md"""
     sf_legendre_sphPlm_e(l, m, x, result) -> Cint
 
 C signature:

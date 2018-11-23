@@ -3365,8 +3365,6 @@ export sf_legendre_Ql_e
 export sf_legendre_Ql
 export sf_legendre_Plm_e
 export sf_legendre_Plm
-export sf_legendre_Plm_array
-export sf_legendre_Plm_deriv_array
 export sf_legendre_sphPlm_e
 export sf_legendre_sphPlm
 export sf_legendre_sphPlm_array

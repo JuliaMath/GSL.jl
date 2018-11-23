@@ -33,7 +33,8 @@ ignore_header(filename) = any(endswith.(filename, ignore_headers))
 ignore_list_prefix = ["gsl_blas", "gsl_eigen_", "gsl_sort", "cblas_", "gsl_fft_", "gsl_linalg_"]
 ignore_list = ["gsl_asinh", "gsl_atanh", "gsl_error", "gsl_expm1", "gsl_frexp",
                "gsl_hypot", "gsl_isinf", "gsl_isnan", "gsl_ldexp", "gsl_log1p",
-               "gsl_max", "gsl_min", "gsl_acosh"]
+               "gsl_max", "gsl_min", "gsl_acosh",
+               "gsl_sf_legendre_Plm_array", "gsl_sf_legendre_Plm_deriv_array"]
 ignore_this(name) = any(startswith.(name, ignore_list_prefix)) || (name in ignore_list)
 
 type_match = Dict(
