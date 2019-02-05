@@ -32,10 +32,10 @@ using Test
         specfun_compare("besselI0", x -> besseli(0, x), sf_bessel_I0, x )
         specfun_compare("besselI1", x -> besseli(1, x), sf_bessel_I1, x )
         for i=0:10
-            specfun_compare("besselIn($i)", x -> besseli(i, x), x -> sf_bessel_In(i, x), x )        
+            specfun_compare("besselIn($i)", x -> besseli(i, x), x -> sf_bessel_In(i, x), x, rtol=15*eps() )        
         end
         for i=0:10
-            specfun_compare("besselInu($i)", x -> besselix(i, x), x -> sf_bessel_Inu_scaled(i, x), x )        
+            specfun_compare("besselInu($i)", x -> besselix(i, x), x -> sf_bessel_Inu_scaled(i, x), x, rtol=15*eps() )        
         end
 
         specfun_compare("besselJ0", besselj0, sf_bessel_J0, x )
@@ -44,7 +44,7 @@ using Test
             specfun_compare("besselJn($i)", x -> besselj(i, x), x -> sf_bessel_Jn(i, x), x )        
         end
         for i=0:10
-            specfun_compare("besselJnu($i)", x -> besseljx(i, x), x -> sf_bessel_Jnu(i, x), x )        
+            specfun_compare("besselJnu($i)", x -> besseljx(i, x), x -> sf_bessel_Jnu(i, x), x, rtol=15*eps() )        
         end
 
         specfun_compare("besselK0", x -> besselk(0, x), sf_bessel_K0, x )
