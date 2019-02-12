@@ -231,6 +231,9 @@ end
 #(c) 2013 Jiahao Chen <jiahao@mit.edu>
 export hypergeom, hypergeom_e
 
+# NaN values not handled correctly by GSL, see GSL.jl issue #96
+@inline _hypergeom_any_nan(a,b,x) = any(isnan,a) || any(isnan,b) || isnan(x)
+
 """
     hypergeom(a, b, x::Float64) -> Float64
 
@@ -243,6 +246,7 @@ and length-0 `a` and/or `b` may be input as simply `[]`.
 Supported values of ``(p, q)`` are ``(0, 0)``, ``(0, 1)``, ``(1, 1)``, ``(2, 0)`` and ``(2, 1)``.
 """
 function hypergeom(a, b, x)
+    _hypergeom_any_nan(a,b,x) && return NaN
     n = length(a), length(b)
     if n == (0, 0)
         exp(x)
@@ -271,6 +275,7 @@ and length-0 `a` and/or `b` may be input as simply `[]`.
 Supported values of ``(p, q)`` are ``(0, 0)``, ``(0, 1)``, ``(1, 1)``, ``(2, 0)`` and ``(2, 1)``.
 """
 function hypergeom_e(a, b, x)
+    _hypergeom_any_nan(a,b,x) && return (val=NaN, err=NaN)
     n = length(a), length(b)
     if n == (0, 0)
         sf_exp_err_e(x,0.0)
