@@ -20,6 +20,8 @@ using SpecialFunctions
     @test log(1+complex(x)) ≈ x*hypergeom([1.0, 1.0], 2.0, -x)
     @test (1-x)^-a ≈ hypergeom([a, 1.0], 1.0, x)
     @test asin(x) ≈ x*hypergeom([0.5, 0.5], 1.5, x^2)
+    @test (exp(x)-1)/x ≈ hypergeom(1.0, 2.0, x)
+    @test (1+x)*exp(x) ≈ hypergeom(2.0, 1.0, x)
 
     #gsl function is unstable for b=2
     #@test x*sf_hyperg_U(1.0, 2.0, x) ≈ 1.0
@@ -35,6 +37,10 @@ using SpecialFunctions
     res = hypergeom_e([a, b], 1+a-b, -1.0)
     @test isapprox(res.val, (gamma(1+a-b)*gamma(1+a/2)/(gamma(1+a)*gamma(1+a/2-b))), atol=res.err)
 
+    #Kummer's transformation
+    @test hypergeom(a,b,x) ≈ exp(x)*hypergeom(b-a,b,-x)
+    @test hypergeom(a,b,-x) ≈ exp(-x)*hypergeom(b-a,b,x)
+    
     #NaN handling
     for (h, condition) in ((hypergeom, isnan), (hypergeom_e, r->isnan(r.val)))
         @test all(condition,
