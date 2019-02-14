@@ -34,5 +34,15 @@ using SpecialFunctions
     #Kummer's theorem
     res = hypergeom_e([a, b], 1+a-b, -1.0)
     @test isapprox(res.val, (gamma(1+a-b)*gamma(1+a/2)/(gamma(1+a)*gamma(1+a/2-b))), atol=res.err)
-    
+
+    #NaN handling
+    for (h, condition) in ((hypergeom, isnan), (hypergeom_e, r->isnan(r.val)))
+        @test all(condition,
+                (h((),(),NaN),
+                 h((),NaN,x), h((),c,NaN),
+                 h(NaN,c,x), h(a,NaN,x), h(a,c,NaN),
+                 h((NaN,b),(),x), h((a,NaN),(),x), h((a,b),(),NaN),
+                 h((NaN,b),c,x), h((a,NaN),c,x), h((a,b),NaN,x), h((a,b),c,NaN)
+                ))
+    end
 end
