@@ -275,7 +275,7 @@ and length-0 `a` and/or `b` may be input as simply `[]`.
 Supported values of ``(p, q)`` are ``(0, 0)``, ``(0, 1)``, ``(1, 1)``, ``(2, 0)`` and ``(2, 1)``.
 """
 function hypergeom_e(a, b, x)
-    _hypergeom_any_nan(a,b,x) && return (val=NaN, err=NaN)
+    _hypergeom_any_nan(a,b,x) && return gsl_sf_result(NaN, NaN)
     n = length(a), length(b)
     if n == (0, 0)
         sf_exp_err_e(x,0.0)
