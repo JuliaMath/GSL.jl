@@ -39,7 +39,6 @@ using SpecialFunctions
 
     #Kummer's transformation
     @test hypergeom(a,b,x) ≈ exp(x)*hypergeom(b-a,b,-x)
-    @test hypergeom(a,b,-x) ≈ exp(-x)*hypergeom(b-a,b,x)
     
     #NaN handling
     for (h, condition) in ((hypergeom, isnan), (hypergeom_e, r->isnan(r.val)))
