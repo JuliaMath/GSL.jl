@@ -1,5 +1,4 @@
 using GSL
-using Compat
 
 try
     # Replace with `@isdefined` check on 0.7

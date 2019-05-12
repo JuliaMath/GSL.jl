@@ -2,15 +2,14 @@
 # https://github.com/giordano/GSLBuilder.jl
 
 using BinaryProvider # requires BinaryProvider 0.3.0 or later
-using Compat
 
 # Parse some basic command-line arguments
 const verbose = "--verbose" in ARGS
 const prefix = Prefix(get([a for a in ARGS if a != "--verbose"], 1, joinpath(@__DIR__, "usr")))
 products = [
     # work around for https://github.com/JuliaPackaging/BinaryProvider.jl/issues/133
-    LibraryProduct(prefix, [Compat.Sys.iswindows() ? "libgsl" : "libgsl."], :libgsl),
-    LibraryProduct(prefix, [Compat.Sys.iswindows() ? "libgslcblas" : "libgslcblas."], :libgslcblas),    
+    LibraryProduct(prefix, [Sys.iswindows() ? "libgsl" : "libgsl."], :libgsl),
+    LibraryProduct(prefix, [Sys.iswindows() ? "libgslcblas" : "libgslcblas."], :libgslcblas),
 ]
 
 # Download binaries from hosted location

@@ -1,5 +1,4 @@
-using Compat.Test
-using Compat
+using Test
 
 #Tests GSL special functions and their error-propagating _e variants
 macro sf_test(sf, args...)
