@@ -11,6 +11,8 @@
 # - deal with variable length arguments, i.e. "splat"
 # - maybe translate enum's to @enum ?
 
+GSL_VERSION = "2.6" # Version of documentation to read
+
 using Markdown
 using Glob
 include("readdocs.jl")
@@ -26,7 +28,29 @@ HEAD = "#
 
 # List of header files to ignore
 # no sparse types supported right now
-ignore_headers = ["gsl_spmatrix.h", "gsl_splinalg.h", "gsl_spblas.h"]
+ignore_headers = ["gsl_spmatrix.h", "gsl_splinalg.h", "gsl_spblas.h",
+                  # GSL 2.6 new ignores:
+                  # The gsl_bst* files currently don't parse (and also
+                  # complicate things by using C unions), and the
+                  # gsl_spmatrix_* files depend on them.
+                  # So ignore for now.
+                  "gsl_bst.h", "gsl_bst_types.h",
+                  "gsl_bst_avl.h", "gsl_bst_rb.h",
+                  "gsl_spmatrix_char.h",
+                  "gsl_spmatrix_complex_double.h",
+                  "gsl_spmatrix_complex_float.h",
+                  "gsl_spmatrix_complex_long_double.h",
+                  "gsl_spmatrix_double.h",
+                  "gsl_spmatrix_float.h",
+                  "gsl_spmatrix_int.h",
+                  "gsl_spmatrix_long_double.h",
+                  "gsl_spmatrix_long.h",
+                  "gsl_spmatrix_short.h",
+                  "gsl_spmatrix_uchar.h",
+                  "gsl_spmatrix_uint.h",
+                  "gsl_spmatrix_ulong.h",
+                  "gsl_spmatrix_ushort.h",
+                  ]
 ignore_header(filename) = any(endswith.(filename, ignore_headers))
 
 # List of names to ignore in export
