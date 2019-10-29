@@ -350,10 +350,10 @@ end
     vector_float_scale(a, x) -> Cint
 
 C signature:
-`int gsl_vector_float_scale (gsl_vector_float * a, const double x)`
+`int gsl_vector_float_scale (gsl_vector_float * a, const float x)`
 """
 function vector_float_scale(a, x)
-    ccall((:gsl_vector_float_scale, libgsl), Cint, (Ref{gsl_vector_float}, Cdouble), a, x)
+    ccall((:gsl_vector_float_scale, libgsl), Cint, (Ref{gsl_vector_float}, Cfloat), a, x)
 end
 
 @doc md"""
@@ -364,6 +364,16 @@ C signature:
 """
 function vector_float_add_constant(a, x)
     ccall((:gsl_vector_float_add_constant, libgsl), Cint, (Ref{gsl_vector_float}, Cdouble), a, x)
+end
+
+@doc md"""
+    vector_float_axpby(alpha, x, beta, y) -> Cint
+
+C signature:
+`int gsl_vector_float_axpby (const float alpha, const gsl_vector_float * x, const float beta, gsl_vector_float * y)`
+"""
+function vector_float_axpby(alpha, x, beta, y)
+    ccall((:gsl_vector_float_axpby, libgsl), Cint, (Cfloat, Ref{gsl_vector_float}, Cfloat, Ref{gsl_vector_float}), alpha, x, beta, y)
 end
 
 @doc md"""

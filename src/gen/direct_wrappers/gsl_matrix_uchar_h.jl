@@ -407,13 +407,13 @@ function matrix_uchar_swap(m1, m2)
 end
 
 @doc md"""
-    matrix_uchar_tricpy(uplo_src, copy_diag, dest, src) -> Cint
+    matrix_uchar_tricpy(Uplo, Diag, dest, src) -> Cint
 
 C signature:
-`int gsl_matrix_uchar_tricpy(const char uplo_src, const int copy_diag, gsl_matrix_uchar * dest, const gsl_matrix_uchar * src)`
+`int gsl_matrix_uchar_tricpy(CBLAS_UPLO_t Uplo, CBLAS_DIAG_t Diag, gsl_matrix_uchar * dest, const gsl_matrix_uchar * src)`
 """
-function matrix_uchar_tricpy(uplo_src, copy_diag, dest, src)
-    ccall((:gsl_matrix_uchar_tricpy, libgsl), Cint, (Cchar, Cint, Ref{gsl_matrix_uchar}, Ref{gsl_matrix_uchar}), uplo_src, copy_diag, dest, src)
+function matrix_uchar_tricpy(Uplo, Diag, dest, src)
+    ccall((:gsl_matrix_uchar_tricpy, libgsl), Cint, (CBLAS_UPLO_t, CBLAS_DIAG_t, Ref{gsl_matrix_uchar}, Ref{gsl_matrix_uchar}), Uplo, Diag, dest, src)
 end
 
 @doc md"""
@@ -467,13 +467,13 @@ function matrix_uchar_transpose_memcpy(dest, src)
 end
 
 @doc md"""
-    matrix_uchar_transpose_tricpy(uplo_src, copy_diag, dest, src) -> Cint
+    matrix_uchar_transpose_tricpy(Uplo_src, Diag, dest, src) -> Cint
 
 C signature:
-`int gsl_matrix_uchar_transpose_tricpy (const char uplo_src, const int copy_diag, gsl_matrix_uchar * dest, const gsl_matrix_uchar * src)`
+`int gsl_matrix_uchar_transpose_tricpy (CBLAS_UPLO_t Uplo_src, CBLAS_DIAG_t Diag, gsl_matrix_uchar * dest, const gsl_matrix_uchar * src)`
 """
-function matrix_uchar_transpose_tricpy(uplo_src, copy_diag, dest, src)
-    ccall((:gsl_matrix_uchar_transpose_tricpy, libgsl), Cint, (Cchar, Cint, Ref{gsl_matrix_uchar}, Ref{gsl_matrix_uchar}), uplo_src, copy_diag, dest, src)
+function matrix_uchar_transpose_tricpy(Uplo_src, Diag, dest, src)
+    ccall((:gsl_matrix_uchar_transpose_tricpy, libgsl), Cint, (CBLAS_UPLO_t, CBLAS_DIAG_t, Ref{gsl_matrix_uchar}, Ref{gsl_matrix_uchar}), Uplo_src, Diag, dest, src)
 end
 
 @doc md"""

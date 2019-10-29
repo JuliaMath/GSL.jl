@@ -407,13 +407,13 @@ function matrix_long_double_swap(m1, m2)
 end
 
 @doc md"""
-    matrix_long_double_tricpy(uplo_src, copy_diag, dest, src) -> Cint
+    matrix_long_double_tricpy(Uplo, Diag, dest, src) -> Cint
 
 C signature:
-`int gsl_matrix_long_double_tricpy(const char uplo_src, const int copy_diag, gsl_matrix_long_double * dest, const gsl_matrix_long_double * src)`
+`int gsl_matrix_long_double_tricpy(CBLAS_UPLO_t Uplo, CBLAS_DIAG_t Diag, gsl_matrix_long_double * dest, const gsl_matrix_long_double * src)`
 """
-function matrix_long_double_tricpy(uplo_src, copy_diag, dest, src)
-    ccall((:gsl_matrix_long_double_tricpy, libgsl), Cint, (Cchar, Cint, Ref{gsl_matrix_long_double}, Ref{gsl_matrix_long_double}), uplo_src, copy_diag, dest, src)
+function matrix_long_double_tricpy(Uplo, Diag, dest, src)
+    ccall((:gsl_matrix_long_double_tricpy, libgsl), Cint, (CBLAS_UPLO_t, CBLAS_DIAG_t, Ref{gsl_matrix_long_double}, Ref{gsl_matrix_long_double}), Uplo, Diag, dest, src)
 end
 
 @doc md"""
@@ -467,13 +467,13 @@ function matrix_long_double_transpose_memcpy(dest, src)
 end
 
 @doc md"""
-    matrix_long_double_transpose_tricpy(uplo_src, copy_diag, dest, src) -> Cint
+    matrix_long_double_transpose_tricpy(Uplo_src, Diag, dest, src) -> Cint
 
 C signature:
-`int gsl_matrix_long_double_transpose_tricpy (const char uplo_src, const int copy_diag, gsl_matrix_long_double * dest, const gsl_matrix_long_double * src)`
+`int gsl_matrix_long_double_transpose_tricpy (CBLAS_UPLO_t Uplo_src, CBLAS_DIAG_t Diag, gsl_matrix_long_double * dest, const gsl_matrix_long_double * src)`
 """
-function matrix_long_double_transpose_tricpy(uplo_src, copy_diag, dest, src)
-    ccall((:gsl_matrix_long_double_transpose_tricpy, libgsl), Cint, (Cchar, Cint, Ref{gsl_matrix_long_double}, Ref{gsl_matrix_long_double}), uplo_src, copy_diag, dest, src)
+function matrix_long_double_transpose_tricpy(Uplo_src, Diag, dest, src)
+    ccall((:gsl_matrix_long_double_transpose_tricpy, libgsl), Cint, (CBLAS_UPLO_t, CBLAS_DIAG_t, Ref{gsl_matrix_long_double}, Ref{gsl_matrix_long_double}), Uplo_src, Diag, dest, src)
 end
 
 @doc md"""

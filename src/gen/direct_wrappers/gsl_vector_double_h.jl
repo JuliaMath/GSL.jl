@@ -724,6 +724,25 @@ function vector_add_constant(a, x)
 end
 
 @doc md"""
+    vector_axpby(alpha, x, beta, y) -> Cint
+
+C signature:
+`int gsl_vector_axpby (const double alpha, const gsl_vector * x, const double beta, gsl_vector * y)`
+
+GSL documentation:
+
+### `int gsl_vector_axpby (const double alpha, const gsl_vector * x, const double beta, gsl_vector * y)`
+
+> This function performs the operation
+> $y \leftarrow \alpha x + \beta y$. The vectors `x` and `y` must have
+> the same length.
+
+"""
+function vector_axpby(alpha, x, beta, y)
+    ccall((:gsl_vector_axpby, libgsl), Cint, (Cdouble, Ref{gsl_vector}, Cdouble, Ref{gsl_vector}), alpha, x, beta, y)
+end
+
+@doc md"""
     vector_equal(u, v) -> Cint
 
 C signature:

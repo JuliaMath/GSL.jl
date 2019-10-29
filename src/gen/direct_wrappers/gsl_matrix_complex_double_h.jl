@@ -407,13 +407,13 @@ function matrix_complex_swap(m1, m2)
 end
 
 @doc md"""
-    matrix_complex_tricpy(uplo_src, copy_diag, dest, src) -> Cint
+    matrix_complex_tricpy(Uplo, Diag, dest, src) -> Cint
 
 C signature:
-`int gsl_matrix_complex_tricpy(const char uplo_src, const int copy_diag, gsl_matrix_complex * dest, const gsl_matrix_complex * src)`
+`int gsl_matrix_complex_tricpy(CBLAS_UPLO_t Uplo, CBLAS_DIAG_t Diag, gsl_matrix_complex * dest, const gsl_matrix_complex * src)`
 """
-function matrix_complex_tricpy(uplo_src, copy_diag, dest, src)
-    ccall((:gsl_matrix_complex_tricpy, libgsl), Cint, (Cchar, Cint, Ref{gsl_matrix_complex}, Ref{gsl_matrix_complex}), uplo_src, copy_diag, dest, src)
+function matrix_complex_tricpy(Uplo, Diag, dest, src)
+    ccall((:gsl_matrix_complex_tricpy, libgsl), Cint, (CBLAS_UPLO_t, CBLAS_DIAG_t, Ref{gsl_matrix_complex}, Ref{gsl_matrix_complex}), Uplo, Diag, dest, src)
 end
 
 @doc md"""
@@ -467,13 +467,13 @@ function matrix_complex_transpose_memcpy(dest, src)
 end
 
 @doc md"""
-    matrix_complex_transpose_tricpy(uplo_src, copy_diag, dest, src) -> Cint
+    matrix_complex_transpose_tricpy(Uplo_src, Diag, dest, src) -> Cint
 
 C signature:
-`int gsl_matrix_complex_transpose_tricpy(const char uplo_src, const int copy_diag, gsl_matrix_complex * dest, const gsl_matrix_complex * src)`
+`int gsl_matrix_complex_transpose_tricpy(CBLAS_UPLO_t Uplo_src, CBLAS_DIAG_t Diag, gsl_matrix_complex * dest, const gsl_matrix_complex * src)`
 """
-function matrix_complex_transpose_tricpy(uplo_src, copy_diag, dest, src)
-    ccall((:gsl_matrix_complex_transpose_tricpy, libgsl), Cint, (Cchar, Cint, Ref{gsl_matrix_complex}, Ref{gsl_matrix_complex}), uplo_src, copy_diag, dest, src)
+function matrix_complex_transpose_tricpy(Uplo_src, Diag, dest, src)
+    ccall((:gsl_matrix_complex_transpose_tricpy, libgsl), Cint, (CBLAS_UPLO_t, CBLAS_DIAG_t, Ref{gsl_matrix_complex}, Ref{gsl_matrix_complex}), Uplo_src, Diag, dest, src)
 end
 
 @doc md"""

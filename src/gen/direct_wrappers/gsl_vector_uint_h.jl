@@ -350,10 +350,10 @@ end
     vector_uint_scale(a, x) -> Cint
 
 C signature:
-`int gsl_vector_uint_scale (gsl_vector_uint * a, const double x)`
+`int gsl_vector_uint_scale (gsl_vector_uint * a, const unsigned int x)`
 """
 function vector_uint_scale(a, x)
-    ccall((:gsl_vector_uint_scale, libgsl), Cint, (Ref{gsl_vector_uint}, Cdouble), a, x)
+    ccall((:gsl_vector_uint_scale, libgsl), Cint, (Ref{gsl_vector_uint}, Cuint), a, x)
 end
 
 @doc md"""
@@ -364,6 +364,16 @@ C signature:
 """
 function vector_uint_add_constant(a, x)
     ccall((:gsl_vector_uint_add_constant, libgsl), Cint, (Ref{gsl_vector_uint}, Cdouble), a, x)
+end
+
+@doc md"""
+    vector_uint_axpby(alpha, x, beta, y) -> Cint
+
+C signature:
+`int gsl_vector_uint_axpby (const unsigned int alpha, const gsl_vector_uint * x, const unsigned int beta, gsl_vector_uint * y)`
+"""
+function vector_uint_axpby(alpha, x, beta, y)
+    ccall((:gsl_vector_uint_axpby, libgsl), Cint, (Cuint, Ref{gsl_vector_uint}, Cuint, Ref{gsl_vector_uint}), alpha, x, beta, y)
 end
 
 @doc md"""

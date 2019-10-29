@@ -816,7 +816,7 @@ GSL documentation:
 
 ### `double gsl_ran_ugaussian_tail (const gsl_rng * r, double a)`
 
-> double gsl\_ran\_ugaussian\_tail\_pdf (double `x`, double `a`)
+> double gsl\_ran\_ugaussian\_tail\_pdf (double x, double a)
 
 > These functions compute results for the tail of a unit Gaussian
 > distribution. They are equivalent to the functions above with a

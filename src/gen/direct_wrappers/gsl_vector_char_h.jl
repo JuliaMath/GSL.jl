@@ -350,10 +350,10 @@ end
     vector_char_scale(a, x) -> Cint
 
 C signature:
-`int gsl_vector_char_scale (gsl_vector_char * a, const double x)`
+`int gsl_vector_char_scale (gsl_vector_char * a, const char x)`
 """
 function vector_char_scale(a, x)
-    ccall((:gsl_vector_char_scale, libgsl), Cint, (Ref{gsl_vector_char}, Cdouble), a, x)
+    ccall((:gsl_vector_char_scale, libgsl), Cint, (Ref{gsl_vector_char}, Cchar), a, x)
 end
 
 @doc md"""
@@ -364,6 +364,16 @@ C signature:
 """
 function vector_char_add_constant(a, x)
     ccall((:gsl_vector_char_add_constant, libgsl), Cint, (Ref{gsl_vector_char}, Cdouble), a, x)
+end
+
+@doc md"""
+    vector_char_axpby(alpha, x, beta, y) -> Cint
+
+C signature:
+`int gsl_vector_char_axpby (const char alpha, const gsl_vector_char * x, const char beta, gsl_vector_char * y)`
+"""
+function vector_char_axpby(alpha, x, beta, y)
+    ccall((:gsl_vector_char_axpby, libgsl), Cint, (Cchar, Ref{gsl_vector_char}, Cchar, Ref{gsl_vector_char}), alpha, x, beta, y)
 end
 
 @doc md"""

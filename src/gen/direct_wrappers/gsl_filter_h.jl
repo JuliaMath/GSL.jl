@@ -203,16 +203,6 @@ function filter_rmedian(arg0, x, y, w)
 end
 
 @doc md"""
-    filter_rmedian2(x, y, w) -> Cint
-
-C signature:
-`int gsl_filter_rmedian2(const gsl_vector * x, gsl_vector * y, gsl_filter_rmedian_workspace * w)`
-"""
-function filter_rmedian2(x, y, w)
-    ccall((:gsl_filter_rmedian2, libgsl), Cint, (Ref{gsl_vector}, Ref{gsl_vector}, Ref{gsl_filter_rmedian_workspace}), x, y, w)
-end
-
-@doc md"""
     filter_impulse_alloc(K) -> Ptr{gsl_filter_impulse_workspace}
 
 C signature:
