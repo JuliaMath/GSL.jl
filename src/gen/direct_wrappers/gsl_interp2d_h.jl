@@ -250,6 +250,16 @@ function interp2d_eval_e_extrap(interp, xarr, yarr, zarr, x, y, xa, ya, z)
 end
 
 @doc md"""
+    interp2d_eval_extrap_e(interp, xarr, yarr, zarr, x, y, xa, ya, z) -> Cint
+
+C signature:
+`int gsl_interp2d_eval_extrap_e(const gsl_interp2d * interp, const double xarr[], const double yarr[], const double zarr[], const double x, const double y, gsl_interp_accel * xa, gsl_interp_accel * ya, double * z)`
+"""
+function interp2d_eval_extrap_e(interp, xarr, yarr, zarr, x, y, xa, ya, z)
+    ccall((:gsl_interp2d_eval_extrap_e, libgsl), Cint, (Ref{gsl_interp2d}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Cdouble, Cdouble, Ref{gsl_interp_accel}, Ref{gsl_interp_accel}, Ref{Cdouble}), interp, xarr, yarr, zarr, x, y, xa, ya, z)
+end
+
+@doc md"""
     interp2d_eval_deriv_x(interp, xarr, yarr, zarr, x, y, xa, ya) -> Cdouble
 
 C signature:

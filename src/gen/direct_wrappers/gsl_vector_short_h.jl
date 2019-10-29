@@ -350,10 +350,10 @@ end
     vector_short_scale(a, x) -> Cint
 
 C signature:
-`int gsl_vector_short_scale (gsl_vector_short * a, const double x)`
+`int gsl_vector_short_scale (gsl_vector_short * a, const short x)`
 """
 function vector_short_scale(a, x)
-    ccall((:gsl_vector_short_scale, libgsl), Cint, (Ref{gsl_vector_short}, Cdouble), a, x)
+    ccall((:gsl_vector_short_scale, libgsl), Cint, (Ref{gsl_vector_short}, Cshort), a, x)
 end
 
 @doc md"""
@@ -364,6 +364,16 @@ C signature:
 """
 function vector_short_add_constant(a, x)
     ccall((:gsl_vector_short_add_constant, libgsl), Cint, (Ref{gsl_vector_short}, Cdouble), a, x)
+end
+
+@doc md"""
+    vector_short_axpby(alpha, x, beta, y) -> Cint
+
+C signature:
+`int gsl_vector_short_axpby (const short alpha, const gsl_vector_short * x, const short beta, gsl_vector_short * y)`
+"""
+function vector_short_axpby(alpha, x, beta, y)
+    ccall((:gsl_vector_short_axpby, libgsl), Cint, (Cshort, Ref{gsl_vector_short}, Cshort, Ref{gsl_vector_short}), alpha, x, beta, y)
 end
 
 @doc md"""

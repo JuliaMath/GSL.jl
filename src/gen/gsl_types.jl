@@ -1036,7 +1036,7 @@ mutable struct gsl_movstat_accum
     size::Ptr{Cvoid}
     init::Ptr{Cvoid}
     insert::Ptr{Cvoid}
-    delete::Ptr{Cvoid}
+    delete_oldest::Ptr{Cvoid}
     get::Ptr{Cvoid}
 end
 ```
@@ -1094,7 +1094,7 @@ mutable struct gsl_movstat_accum
     size::Ptr{Cvoid}
     init::Ptr{Cvoid}
     insert::Ptr{Cvoid}
-    delete::Ptr{Cvoid}
+    delete_oldest::Ptr{Cvoid}
     get::Ptr{Cvoid}
 end
 
@@ -4778,6 +4778,27 @@ GSL documentation:
 > highly ill-conditioned problems the QR approach is better. If it is
 > known that the Jacobian matrix is well conditioned, this method is
 > accurate and will perform faster than the QR approach.
+>
+> gsl\_multifit\_nlinear\_solver\_mcholesky
+> gsl\_multilarge\_nlinear\_solver\_mcholesky
+>
+> This method solves the alternate normal equations problem
+>
+> not texinfo
+>
+> $$\left( J^T J + \mu D^T D \right) \delta = -J^T f$$
+>
+> texinfo
+>
+>     ( J^T J + \mu D^T D ) \delta = -J^T f
+>
+> by using a modified Cholesky decomposition of the matrix
+> $J^T J + \mu D^T D$. This is more suitable for the dogleg methods
+> where the parameter $\mu = 0$, and the matrix $J^T J$ may be
+> ill-conditioned or indefinite causing the standard Cholesky
+> decomposition to fail. This method is based on Level 2 BLAS and is
+> thus slower than the standard Cholesky decomposition, which is based
+> on Level 3 BLAS.
 >
 > gsl\_multifit\_nlinear\_solver\_svd
 >
@@ -8659,7 +8680,7 @@ const gsl_vector_ushort_const_view = _gsl_vector_ushort_const_view
 #### gsl_version.h ############################################################
 
 const GSL_MAJOR_VERSION = 2
-const GSL_MINOR_VERSION = 5
+const GSL_MINOR_VERSION = 6
 
 
 #### gsl_wavelet.h ############################################################

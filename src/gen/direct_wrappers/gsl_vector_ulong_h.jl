@@ -350,10 +350,10 @@ end
     vector_ulong_scale(a, x) -> Cint
 
 C signature:
-`int gsl_vector_ulong_scale (gsl_vector_ulong * a, const double x)`
+`int gsl_vector_ulong_scale (gsl_vector_ulong * a, const unsigned long x)`
 """
 function vector_ulong_scale(a, x)
-    ccall((:gsl_vector_ulong_scale, libgsl), Cint, (Ref{gsl_vector_ulong}, Cdouble), a, x)
+    ccall((:gsl_vector_ulong_scale, libgsl), Cint, (Ref{gsl_vector_ulong}, Culong), a, x)
 end
 
 @doc md"""
@@ -364,6 +364,16 @@ C signature:
 """
 function vector_ulong_add_constant(a, x)
     ccall((:gsl_vector_ulong_add_constant, libgsl), Cint, (Ref{gsl_vector_ulong}, Cdouble), a, x)
+end
+
+@doc md"""
+    vector_ulong_axpby(alpha, x, beta, y) -> Cint
+
+C signature:
+`int gsl_vector_ulong_axpby (const unsigned long alpha, const gsl_vector_ulong * x, const unsigned long beta, gsl_vector_ulong * y)`
+"""
+function vector_ulong_axpby(alpha, x, beta, y)
+    ccall((:gsl_vector_ulong_axpby, libgsl), Cint, (Culong, Ref{gsl_vector_ulong}, Culong, Ref{gsl_vector_ulong}), alpha, x, beta, y)
 end
 
 @doc md"""

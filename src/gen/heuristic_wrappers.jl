@@ -3039,42 +3039,42 @@ function sf_hermite_prob_e(n, x)
     return result
 end
 
-export sf_hermite_prob_der_e
+export sf_hermite_prob_deriv_e
 @doc md"""
-    sf_hermite_prob_der_e(m, n, x) -> gsl_sf_result
+    sf_hermite_prob_deriv_e(m, n, x) -> gsl_sf_result
 
 C signature:
-`int gsl_sf_hermite_prob_der_e(const int m, const int n, const double x, gsl_sf_result * result)`
+`int gsl_sf_hermite_prob_deriv_e(const int m, const int n, const double x, gsl_sf_result * result)`
 """
-function sf_hermite_prob_der_e(m, n, x)
+function sf_hermite_prob_deriv_e(m, n, x)
     result = gsl_sf_result(0,0)
-    output = C.sf_hermite_prob_der_e(m, n, x, result)
+    output = C.sf_hermite_prob_deriv_e(m, n, x, result)
     return result
 end
 
-export sf_hermite_phys_e
+export sf_hermite_e
 @doc md"""
-    sf_hermite_phys_e(n, x) -> gsl_sf_result
+    sf_hermite_e(n, x) -> gsl_sf_result
 
 C signature:
-`int gsl_sf_hermite_phys_e(const int n, const double x, gsl_sf_result * result)`
+`int gsl_sf_hermite_e(const int n, const double x, gsl_sf_result * result)`
 """
-function sf_hermite_phys_e(n, x)
+function sf_hermite_e(n, x)
     result = gsl_sf_result(0,0)
-    output = C.sf_hermite_phys_e(n, x, result)
+    output = C.sf_hermite_e(n, x, result)
     return result
 end
 
-export sf_hermite_phys_der_e
+export sf_hermite_deriv_e
 @doc md"""
-    sf_hermite_phys_der_e(m, n, x) -> gsl_sf_result
+    sf_hermite_deriv_e(m, n, x) -> gsl_sf_result
 
 C signature:
-`int gsl_sf_hermite_phys_der_e(const int m, const int n, const double x, gsl_sf_result * result)`
+`int gsl_sf_hermite_deriv_e(const int m, const int n, const double x, gsl_sf_result * result)`
 """
-function sf_hermite_phys_der_e(m, n, x)
+function sf_hermite_deriv_e(m, n, x)
     result = gsl_sf_result(0,0)
-    output = C.sf_hermite_phys_der_e(m, n, x, result)
+    output = C.sf_hermite_deriv_e(m, n, x, result)
     return result
 end
 
@@ -3091,6 +3091,19 @@ function sf_hermite_func_e(n, x)
     return result
 end
 
+export sf_hermite_func_fast_e
+@doc md"""
+    sf_hermite_func_fast_e(n, x) -> gsl_sf_result
+
+C signature:
+`int gsl_sf_hermite_func_fast_e(const int n, const double x, gsl_sf_result * result)`
+"""
+function sf_hermite_func_fast_e(n, x)
+    result = gsl_sf_result(0,0)
+    output = C.sf_hermite_func_fast_e(n, x, result)
+    return result
+end
+
 export sf_hermite_prob_array
 @doc md"""
     sf_hermite_prob_array(nmax, x) -> Array{Float64}
@@ -3102,7 +3115,7 @@ GSL documentation:
 
 ### `int gsl_sf_hermite_prob_array (const int nmax, const double x, double * result_array)`
 
-> This routine evaluates all probabilists' Hermite polynomials $He_n(x)$
+> This routine evaluates all probabilist Hermite polynomials $He_n(x)$
 > up to order `nmax` at position `x`. The results are stored in
 > `result_array`.
 
@@ -3113,48 +3126,51 @@ function sf_hermite_prob_array(nmax, x)
     return result_array
 end
 
-export sf_hermite_prob_array_der
+export sf_hermite_prob_array_deriv
 @doc md"""
-    sf_hermite_prob_array_der(m, nmax, x) -> Array{Float64}
+    sf_hermite_prob_array_deriv(m, nmax, x) -> Array{Float64}
 
 C signature:
-`int gsl_sf_hermite_prob_array_der(const int m, const int nmax, const double x, double * result_array)`
+`int gsl_sf_hermite_prob_array_deriv(const int m, const int nmax, const double x, double * result_array)`
 
 GSL documentation:
 
-### `int gsl_sf_hermite_prob_array_der (const int m, const int nmax, const double x, double * result_array)`
+### `int gsl_sf_hermite_prob_array_deriv (const int m, const int nmax, const double x, double * result_array)`
 
-> This routine evaluates the `m`-th derivative of all probabilists'
-> Hermite polynomials $He_n(x)$ up to order `nmax` at position `x`. The
-> results are stored in `result_array`.
+> This routine evaluates the `m`-th derivative of all probabilist
+> Hermite polynomials $He_n(x)$ from orders $0, \dots, \text{nmax}$ at
+> position `x`. The result $d^m/dx^m He_n(x)$ is stored in
+> `result_array[n]`. The output `result_array` must have length at least
+> `nmax + 1`.
 
 """
-function sf_hermite_prob_array_der(m, nmax, x)
+function sf_hermite_prob_array_deriv(m, nmax, x)
     result_array = zeros(Cdouble, (nmax + 1))
-    output = C.sf_hermite_prob_array_der(m, nmax, x, result_array)
+    output = C.sf_hermite_prob_array_deriv(m, nmax, x, result_array)
     return result_array
 end
 
-export sf_hermite_prob_der_array
+export sf_hermite_prob_deriv_array
 @doc md"""
-    sf_hermite_prob_der_array(mmax, n, x) -> Array{Float64}
+    sf_hermite_prob_deriv_array(mmax, n, x) -> Array{Float64}
 
 C signature:
-`int gsl_sf_hermite_prob_der_array(const int mmax, const int n, const double x, double * result_array)`
+`int gsl_sf_hermite_prob_deriv_array(const int mmax, const int n, const double x, double * result_array)`
 
 GSL documentation:
 
-### `int gsl_sf_hermite_prob_der_array (const int mmax, const int n, const double x, double * result_array)`
+### `int gsl_sf_hermite_prob_deriv_array (const int mmax, const int n, const double x, double * result_array)`
 
-> This routine evaluates all derivatives (starting from 0) up to the
-> `mmax`-th derivative of the probabilists' Hermite polynomial of order
-> `n` $He_n(x)$ at position `x`. The results are stored in
-> `result_array`.
+> This routine evaluates all derivative orders from
+> $0, \dots, \text{mmax}$ of the probabilist Hermite polynomial of order
+> `n`, $He_n$, at position `x`. The result $d^m/dx^m He_n(x)$ is stored
+> in `result_array[m]`. The output `result_array` must have length at
+> least `mmax + 1`.
 
 """
-function sf_hermite_prob_der_array(mmax, n, x)
+function sf_hermite_prob_deriv_array(mmax, n, x)
     result_array = zeros(Cdouble, mmax)
-    output = C.sf_hermite_prob_der_array(mmax, n, x, result_array)
+    output = C.sf_hermite_prob_deriv_array(mmax, n, x, result_array)
     return result_array
 end
 
@@ -3171,82 +3187,85 @@ function sf_hermite_prob_series_e(n, x, a)
     return result
 end
 
-export sf_hermite_phys_array
+export sf_hermite_array
 @doc md"""
-    sf_hermite_phys_array(nmax, x) -> Array{Float64}
+    sf_hermite_array(nmax, x) -> Array{Float64}
 
 C signature:
-`int gsl_sf_hermite_phys_array(const int nmax, const double x, double * result_array)`
+`int gsl_sf_hermite_array(const int nmax, const double x, double * result_array)`
 
 GSL documentation:
 
-### `int gsl_sf_hermite_phys_array (const int nmax, const double x, double * result_array)`
+### `int gsl_sf_hermite_array (const int nmax, const double x, double * result_array)`
 
-> This routine evaluates all physicists' Hermite polynomials $H_n$ up to
+> This routine evaluates all physicist Hermite polynomials $H_n$ up to
 > order `nmax` at position `x`. The results are stored in
 > `result_array`.
 
 """
-function sf_hermite_phys_array(nmax, x)
+function sf_hermite_array(nmax, x)
     result_array = zeros(Cdouble, (nmax + 1))
-    output = C.sf_hermite_phys_array(nmax, x, result_array)
+    output = C.sf_hermite_array(nmax, x, result_array)
     return result_array
 end
 
-export sf_hermite_phys_array_der
+export sf_hermite_array_deriv
 @doc md"""
-    sf_hermite_phys_array_der(m, nmax, x) -> Array{Float64}
+    sf_hermite_array_deriv(m, nmax, x) -> Array{Float64}
 
 C signature:
-`int gsl_sf_hermite_phys_array_der(const int m, const int nmax, const double x, double * result_array)`
+`int gsl_sf_hermite_array_deriv(const int m, const int nmax, const double x, double * result_array)`
 
 GSL documentation:
 
-### `int gsl_sf_hermite_phys_array_der (const int m, const int nmax, const double x, double * result_array)`
+### `int gsl_sf_hermite_array_deriv (const int m, const int nmax, const double x, double * result_array)`
 
-> This routine evaluates the `m`-th derivative of all physicists'
-> Hermite polynomials $H_n$ up to order `nmax` at position `x`. The
-> results are stored in `result_array`.
+> This routine evaluates the `m`-th derivative of all physicist Hermite
+> polynomials $H_n(x)$ from orders $0, \dots, \text{nmax}$ at position
+> `x`. The result $d^m/dx^m H_n(x)$ is stored in `result_array[n]`. The
+> output `result_array` must have length at least `nmax + 1`.
 
 """
-function sf_hermite_phys_array_der(m, nmax, x)
+function sf_hermite_array_deriv(m, nmax, x)
     result_array = zeros(Cdouble, (nmax + 1))
-    output = C.sf_hermite_phys_array_der(m, nmax, x, result_array)
+    output = C.sf_hermite_array_deriv(m, nmax, x, result_array)
     return result_array
 end
 
-export sf_hermite_phys_der_array
+export sf_hermite_deriv_array
 @doc md"""
-    sf_hermite_phys_der_array(mmax, n, x) -> Array{Float64}
+    sf_hermite_deriv_array(mmax, n, x) -> Array{Float64}
 
 C signature:
-`int gsl_sf_hermite_phys_der_array(const int mmax, const int n, const double x, double * result_array)`
+`int gsl_sf_hermite_deriv_array(const int mmax, const int n, const double x, double * result_array)`
 
 GSL documentation:
 
-### `int gsl_sf_hermite_phys_der_array (const int mmax, const int n, const double x, double * result_array)`
+### `int gsl_sf_hermite_deriv_array (const int mmax, const int n, const double x, double * result_array)`
 
-> This routine evaluates all derivatives (starting from 0) up to the
-> `mmax`-th derivative of the physicists' Hermite polynomial of order
-> `n` $H_n$ at position `x`. The results are stored in `result_array`.
+> This routine evaluates all derivative orders from
+> $0, \dots, \text{mmax}$ of the physicist Hermite polynomial of order
+> `n`, $H_n$, at position `x`. The result $d^m/dx^m H_n(x)$ is stored in
+> `result_array[m]`. The output `result_array` must have length at least
+> `mmax + 1`.
 
 """
-function sf_hermite_phys_der_array(mmax, n, x)
+function sf_hermite_deriv_array(mmax, n, x)
     result_array = zeros(Cdouble, mmax)
-    output = C.sf_hermite_phys_der_array(mmax, n, x, result_array)
+    output = C.sf_hermite_deriv_array(mmax, n, x, result_array)
     return result_array
 end
 
-export sf_hermite_phys_series_e
+export sf_hermite_series_e
 @doc md"""
-    sf_hermite_phys_series_e(n, x, a) -> gsl_sf_result
+    sf_hermite_series_e(n, x, a) -> gsl_sf_result
 
 C signature:
-`int gsl_sf_hermite_phys_series_e(const int n, const double x, const double * a, gsl_sf_result * result)`
+`int gsl_sf_hermite_series_e(const int n, const double x, const double * a, gsl_sf_result * result)`
 """
-function sf_hermite_phys_series_e(n, x, a)
+function sf_hermite_series_e(n, x, a)
     result = gsl_sf_result(0,0)
-    output = C.sf_hermite_phys_series_e(n, x, a, result)
+    output = C.sf_hermite_series_e(n, x, a, result)
     return result
 end
 
@@ -3261,8 +3280,10 @@ GSL documentation:
 
 ### `int gsl_sf_hermite_func_array (const int nmax, const double x, double * result_array)`
 
-> This routine evaluates all Hermite functions $\psi_n(x)$ up to order
-> `nmax` at position `x`. The results are stored in `result_array`.
+> This routine evaluates all Hermite functions $\psi_n(x)$ for orders
+> $n = 0, \dots, \textrm{nmax}$ at position `x`, using the recurrence
+> relation algorithm. The results are stored in `result_array` which has
+> length at least `nmax + 1`.
 
 """
 function sf_hermite_func_array(nmax, x)
@@ -3310,16 +3331,16 @@ function sf_hermite_prob_zero_e(n, s)
     return result
 end
 
-export sf_hermite_phys_zero_e
+export sf_hermite_zero_e
 @doc md"""
-    sf_hermite_phys_zero_e(n, s) -> gsl_sf_result
+    sf_hermite_zero_e(n, s) -> gsl_sf_result
 
 C signature:
-`int gsl_sf_hermite_phys_zero_e(const int n, const int s, gsl_sf_result * result)`
+`int gsl_sf_hermite_zero_e(const int n, const int s, gsl_sf_result * result)`
 """
-function sf_hermite_phys_zero_e(n, s)
+function sf_hermite_zero_e(n, s)
     result = gsl_sf_result(0,0)
-    output = C.sf_hermite_phys_zero_e(n, s, result)
+    output = C.sf_hermite_zero_e(n, s, result)
     return result
 end
 
@@ -3333,6 +3354,136 @@ C signature:
 function sf_hermite_func_zero_e(n, s)
     result = gsl_sf_result(0,0)
     output = C.sf_hermite_func_zero_e(n, s, result)
+    return result
+end
+
+export sf_hermite_phys_e
+@doc md"""
+    sf_hermite_phys_e(n, x) -> gsl_sf_result
+
+C signature:
+`int gsl_sf_hermite_phys_e(const int n, const double x, gsl_sf_result * result)`
+"""
+function sf_hermite_phys_e(n, x)
+    result = gsl_sf_result(0,0)
+    output = C.sf_hermite_phys_e(n, x, result)
+    return result
+end
+
+export sf_hermite_phys_der_e
+@doc md"""
+    sf_hermite_phys_der_e(m, n, x) -> gsl_sf_result
+
+C signature:
+`int gsl_sf_hermite_phys_der_e(const int m, const int n, const double x, gsl_sf_result * result)`
+"""
+function sf_hermite_phys_der_e(m, n, x)
+    result = gsl_sf_result(0,0)
+    output = C.sf_hermite_phys_der_e(m, n, x, result)
+    return result
+end
+
+export sf_hermite_phys_array
+@doc md"""
+    sf_hermite_phys_array(nmax, x) -> Array{Float64}
+
+C signature:
+`int gsl_sf_hermite_phys_array(const int nmax, const double x, double * result_array)`
+"""
+function sf_hermite_phys_array(nmax, x)
+    result_array = zeros(Cdouble, (nmax + 1))
+    output = C.sf_hermite_phys_array(nmax, x, result_array)
+    return result_array
+end
+
+export sf_hermite_phys_series_e
+@doc md"""
+    sf_hermite_phys_series_e(n, x, a) -> gsl_sf_result
+
+C signature:
+`int gsl_sf_hermite_phys_series_e(const int n, const double x, const double * a, gsl_sf_result * result)`
+"""
+function sf_hermite_phys_series_e(n, x, a)
+    result = gsl_sf_result(0,0)
+    output = C.sf_hermite_phys_series_e(n, x, a, result)
+    return result
+end
+
+export sf_hermite_phys_array_der
+@doc md"""
+    sf_hermite_phys_array_der(m, nmax, x) -> Array{Float64}
+
+C signature:
+`int gsl_sf_hermite_phys_array_der(const int m, const int nmax, const double x, double * result_array)`
+"""
+function sf_hermite_phys_array_der(m, nmax, x)
+    result_array = zeros(Cdouble, (nmax + 1))
+    output = C.sf_hermite_phys_array_der(m, nmax, x, result_array)
+    return result_array
+end
+
+export sf_hermite_phys_der_array
+@doc md"""
+    sf_hermite_phys_der_array(mmax, n, x) -> Array{Float64}
+
+C signature:
+`int gsl_sf_hermite_phys_der_array(const int mmax, const int n, const double x, double * result_array)`
+"""
+function sf_hermite_phys_der_array(mmax, n, x)
+    result_array = zeros(Cdouble, mmax)
+    output = C.sf_hermite_phys_der_array(mmax, n, x, result_array)
+    return result_array
+end
+
+export sf_hermite_phys_zero_e
+@doc md"""
+    sf_hermite_phys_zero_e(n, s) -> gsl_sf_result
+
+C signature:
+`int gsl_sf_hermite_phys_zero_e(const int n, const int s, gsl_sf_result * result)`
+"""
+function sf_hermite_phys_zero_e(n, s)
+    result = gsl_sf_result(0,0)
+    output = C.sf_hermite_phys_zero_e(n, s, result)
+    return result
+end
+
+export sf_hermite_prob_array_der
+@doc md"""
+    sf_hermite_prob_array_der(m, nmax, x) -> Array{Float64}
+
+C signature:
+`int gsl_sf_hermite_prob_array_der(const int m, const int nmax, const double x, double * result_array)`
+"""
+function sf_hermite_prob_array_der(m, nmax, x)
+    result_array = zeros(Cdouble, (nmax + 1))
+    output = C.sf_hermite_prob_array_der(m, nmax, x, result_array)
+    return result_array
+end
+
+export sf_hermite_prob_der_array
+@doc md"""
+    sf_hermite_prob_der_array(mmax, n, x) -> Array{Float64}
+
+C signature:
+`int gsl_sf_hermite_prob_der_array(const int mmax, const int n, const double x, double * result_array)`
+"""
+function sf_hermite_prob_der_array(mmax, n, x)
+    result_array = zeros(Cdouble, mmax)
+    output = C.sf_hermite_prob_der_array(mmax, n, x, result_array)
+    return result_array
+end
+
+export sf_hermite_prob_der_e
+@doc md"""
+    sf_hermite_prob_der_e(m, n, x) -> gsl_sf_result
+
+C signature:
+`int gsl_sf_hermite_prob_der_e(const int m, const int n, const double x, gsl_sf_result * result)`
+"""
+function sf_hermite_prob_der_e(m, n, x)
+    result = gsl_sf_result(0,0)
+    output = C.sf_hermite_prob_der_e(m, n, x, result)
     return result
 end
 

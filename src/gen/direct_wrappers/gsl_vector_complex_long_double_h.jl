@@ -397,6 +397,16 @@ function vector_complex_long_double_add_constant(a, x)
 end
 
 @doc md"""
+    vector_complex_long_double_axpby(alpha, x, beta, y) -> Cint
+
+C signature:
+`int gsl_vector_complex_long_double_axpby (const gsl_complex_long_double alpha, const gsl_vector_complex_long_double * x, const gsl_complex_long_double beta, gsl_vector_complex_long_double * y)`
+"""
+function vector_complex_long_double_axpby(alpha, x, beta, y)
+    ccall((:gsl_vector_complex_long_double_axpby, libgsl), Cint, (gsl_complex_long_double, Ref{gsl_vector_complex_long_double}, gsl_complex_long_double, Ref{gsl_vector_complex_long_double}), alpha, x, beta, y)
+end
+
+@doc md"""
     vector_complex_long_double_get(v, i) -> gsl_complex_long_double
 
 C signature:

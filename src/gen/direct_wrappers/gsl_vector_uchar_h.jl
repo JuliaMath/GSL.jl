@@ -350,10 +350,10 @@ end
     vector_uchar_scale(a, x) -> Cint
 
 C signature:
-`int gsl_vector_uchar_scale (gsl_vector_uchar * a, const double x)`
+`int gsl_vector_uchar_scale (gsl_vector_uchar * a, const unsigned char x)`
 """
 function vector_uchar_scale(a, x)
-    ccall((:gsl_vector_uchar_scale, libgsl), Cint, (Ref{gsl_vector_uchar}, Cdouble), a, x)
+    ccall((:gsl_vector_uchar_scale, libgsl), Cint, (Ref{gsl_vector_uchar}, Cuchar), a, x)
 end
 
 @doc md"""
@@ -364,6 +364,16 @@ C signature:
 """
 function vector_uchar_add_constant(a, x)
     ccall((:gsl_vector_uchar_add_constant, libgsl), Cint, (Ref{gsl_vector_uchar}, Cdouble), a, x)
+end
+
+@doc md"""
+    vector_uchar_axpby(alpha, x, beta, y) -> Cint
+
+C signature:
+`int gsl_vector_uchar_axpby (const unsigned char alpha, const gsl_vector_uchar * x, const unsigned char beta, gsl_vector_uchar * y)`
+"""
+function vector_uchar_axpby(alpha, x, beta, y)
+    ccall((:gsl_vector_uchar_axpby, libgsl), Cint, (Cuchar, Ref{gsl_vector_uchar}, Cuchar, Ref{gsl_vector_uchar}), alpha, x, beta, y)
 end
 
 @doc md"""

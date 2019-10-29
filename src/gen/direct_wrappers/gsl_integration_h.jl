@@ -875,7 +875,7 @@ GSL documentation:
 >
 > The algorithm divides the integration region into subintervals, and in
 > each iteration, the subinterval with the largest estimated error is
-> processed. The algorithm uses Clenshaw-Curits quadrature rules of
+> processed. The algorithm uses Clenshaw-Curtis quadrature rules of
 > degree 4, 8, 16 and 32 over 5, 9, 17 and 33 nodes respectively. Each
 > interval is initialized with the lowest-degree rule. When an interval
 > is processed, the next-higher degree rule is evaluated and an error

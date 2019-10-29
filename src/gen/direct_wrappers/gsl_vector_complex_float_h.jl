@@ -397,6 +397,16 @@ function vector_complex_float_add_constant(a, x)
 end
 
 @doc md"""
+    vector_complex_float_axpby(alpha, x, beta, y) -> Cint
+
+C signature:
+`int gsl_vector_complex_float_axpby (const gsl_complex_float alpha, const gsl_vector_complex_float * x, const gsl_complex_float beta, gsl_vector_complex_float * y)`
+"""
+function vector_complex_float_axpby(alpha, x, beta, y)
+    ccall((:gsl_vector_complex_float_axpby, libgsl), Cint, (gsl_complex_float, Ref{gsl_vector_complex_float}, gsl_complex_float, Ref{gsl_vector_complex_float}), alpha, x, beta, y)
+end
+
+@doc md"""
     vector_complex_float_get(v, i) -> gsl_complex_float
 
 C signature:

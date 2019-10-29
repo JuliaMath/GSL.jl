@@ -350,7 +350,7 @@ end
     vector_long_double_scale(a, x) -> Cint
 
 C signature:
-`int gsl_vector_long_double_scale (gsl_vector_long_double * a, const double x)`
+`int gsl_vector_long_double_scale (gsl_vector_long_double * a, const long double x)`
 """
 function vector_long_double_scale(a, x)
     ccall((:gsl_vector_long_double_scale, libgsl), Cint, (Ref{gsl_vector_long_double}, Cdouble), a, x)
@@ -364,6 +364,16 @@ C signature:
 """
 function vector_long_double_add_constant(a, x)
     ccall((:gsl_vector_long_double_add_constant, libgsl), Cint, (Ref{gsl_vector_long_double}, Cdouble), a, x)
+end
+
+@doc md"""
+    vector_long_double_axpby(alpha, x, beta, y) -> Cint
+
+C signature:
+`int gsl_vector_long_double_axpby (const long double alpha, const gsl_vector_long_double * x, const long double beta, gsl_vector_long_double * y)`
+"""
+function vector_long_double_axpby(alpha, x, beta, y)
+    ccall((:gsl_vector_long_double_axpby, libgsl), Cint, (Cdouble, Ref{gsl_vector_long_double}, Cdouble, Ref{gsl_vector_long_double}), alpha, x, beta, y)
 end
 
 @doc md"""

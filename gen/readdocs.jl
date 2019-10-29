@@ -13,7 +13,7 @@ function convert_text(str; from, to)
     read(f, String)
 end
 
-DOC_DIR = joinpath(@__DIR__, "gsl-2.5", "doc")
+DOC_DIR = joinpath(@__DIR__, "gsl-$(GSL_VERSION)", "doc")
 
 function parse_file(docs, filename)
     fh = open(filename)
@@ -73,9 +73,9 @@ end
 function readdocs()
     if !isdir(DOC_DIR)
         @info "Downloading GSL docs"
-        run(`wget http://ftp.gnu.org/gnu/gsl/gsl-2.5.tar.gz`)
+        run(`wget http://ftp.gnu.org/gnu/gsl/gsl-$(GSL_VERSION).tar.gz`)
         @info "Unpacking"
-        run(`tar -zxf gsl-2.5.tar.gz`)
+        run(`tar -zxf gsl-$(GSL_VERSION).tar.gz`)
     end
     @info "Reading the docs and converting to Markdown"
     docs = Dict()
