@@ -8,8 +8,7 @@ GSL.jl
 
 Julia wrapper for the [GNU Scientific
 Library](https://www.gnu.org/software/gsl/doc/html/index.html) (GSL), for Julia v1.0+.
-
-**NOTE: There have been major changes to this package since v0.4, which are likely to have introduced compability breaks.**
+Currently uses GSL v2.6.
 
 ## Structure
 
@@ -35,6 +34,7 @@ Parts of GSL are not interfaced to, since they provide functionality already exi
 Julia. These are functions with prefixes `gsl_spmatrix_`, `gsl_splinalg_`, `gsl_spblas_`,
 `gsl_eigen_`, `gsl_sort`, `gsl_blas_`,
 `cblas_`, `gsl_fft_`, and `gsl_linalg_`.
+In addition, interfaces to `gsl_bst_` functions are currently missing.
 
 ## Examples
 
