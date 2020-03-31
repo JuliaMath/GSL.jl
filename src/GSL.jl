@@ -2,19 +2,17 @@ module GSL
 
 using Markdown
 
-
 # BEGIN MODULE C
 # low-level interface
 module C
-# Deps
-const depsfile = joinpath(dirname(@__DIR__), "deps", "deps.jl")
-if isfile(depsfile)
-    include(depsfile)
-else
-    error("GSL is not properly installed. Please build it first.")
-end
 
 using Markdown
+using Libdl
+using GSL_jll
+
+const libgslcblas = joinpath(dirname(GSL_jll.libgsl_path),
+                             "libgslcblas" * (Sys.iswindows() ? "-0." : "." ) * dlext)
+
 # Generated code
 include("gen/gsl_export.jl")
 include("gen/gsl_types.jl")
@@ -24,8 +22,6 @@ include("gen/gsl_global_vars.jl")
 include("error_handling.jl")
 
 function __init__()
-    # Load library
-    check_deps()
     # Seems we need to load BLAS with this RTLD_GLOBAL
     flags = Libdl.RTLD_LAZY | Libdl.RTLD_DEEPBIND | Libdl.RTLD_GLOBAL
     if Libdl.dlopen_e(libgslcblas, flags) in (C_NULL, nothing)
