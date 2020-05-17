@@ -2,11 +2,7 @@ language: julia
 os:
   - linux
   - osx
-  - windows
-arch:
-  - x64
-  - x86
-  - arm64
+  - freebsd
 julia:
   - 1.3
   - 1.4
@@ -14,15 +10,6 @@ julia:
 jobs:
   allow_failures:
   - julia: nightly
-  exclude:
-    - os: osx
-      arch: x86
-    - os: osx
-      arch: arm64
-    - os: windows
-      arch: arm64
-    - julia: nightly
-      arch: arm64
 notifications:
   email: false
 
