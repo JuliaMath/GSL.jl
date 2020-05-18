@@ -1,6 +1,6 @@
 name = "GSL"
 uuid = "92c85e6c-cbff-5e0c-80f7-495c94daaecd"
-version = "0.6.0"
+version = "1.0.0"
 
 [deps]
 Libdl = "8f399da3-3557-5675-b5ff-fb832c97cbdb"
