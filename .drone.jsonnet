@@ -13,12 +13,15 @@ local Pipeline(os, arch, version) = {
 		"julia --project=. --check-bounds=yes --color=yes -e 'using InteractiveUtils; versioninfo(verbose=true); using Pkg; Pkg.build(); Pkg.test(coverage=true)'"
 	    ]
 	}
-    ]
+    ],
+    trigger: {
+        branch: ["master"]
+    }
 };
 
 [
-    Pipeline("linux", "arm",   "1.3"),
-    Pipeline("linux", "arm",   "1.4"),
-    Pipeline("linux", "arm64", "1.3"),
-    Pipeline("linux", "arm64", "1.4")
+    Pipeline("linux", "arm",   "1.3.1"),
+    Pipeline("linux", "arm",   "1.4.1"),
+    Pipeline("linux", "arm64", "1.3.1"),
+    Pipeline("linux", "arm64", "1.5.3")
 ]
