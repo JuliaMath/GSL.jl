@@ -1,11 +1,9 @@
 GSL.jl
 ======
 
-![CI](https://github.com/JuliaMath/GSL.jl/workflows/CI/badge.svg?branch=master)
-[![Travis Build Status](https://travis-ci.org/JuliaMath/GSL.jl.svg?branch=master)](https://travis-ci.org/JuliaMath/GSL.jl)
-[![Appveyor Build status](https://ci.appveyor.com/api/projects/status/7049flml50cs65mu/branch/master?svg=true)](https://ci.appveyor.com/project/simonbyrne/gsl-jl/branch/master)
+[![CI](https://github.com/JuliaMath/GSL.jl/workflows/CI/badge.svg?branch=master)](https://github.com/JuliaMath/GSL.jl/actions?query=workflow%3ACI+branch%3Amaster)
+[![drone.io](https://cloud.drone.io/api/badges/JuliaMath/GSL.jl/status.svg?ref=refs/heads/master)](https://cloud.drone.io/JuliaMath/GSL.jl)
 [![codecov.io](http://codecov.io/github/JuliaMath/GSL.jl/coverage.svg?branch=master)](http://codecov.io/github/JuliaMath/GSL.jl?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/JuliaMath/GSL.jl/badge.svg?branch=master)](https://coveralls.io/github/JuliaMath/GSL.jl?branch=master)
 
 Julia wrapper for the [GNU Scientific
 Library](https://www.gnu.org/software/gsl/doc/html/index.html) (GSL), for Julia v1.0+.
