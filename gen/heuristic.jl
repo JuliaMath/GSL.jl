@@ -6,7 +6,7 @@
 #
 # TODO: error handler on integer output
 
-# List of functions that herustic should ignore (original name)
+# List of functions that heuristic should ignore (original name)
 heuristic_ignore_list = ["gsl_vector_char_const_ptr", "gsl_matrix_char_const_ptr"]
 
 function secondary_wrappers(functions, docs)

@@ -478,7 +478,7 @@ function match_enum_interior(interior)
         if occursin("=", l)
             name, val = split(l, "=")
             val = trim_whitespace(val)
-            # Catch if unitialized element comes after this one
+            # Catch if uninitialized element comes after this one
             count = nothing 
         else
             name = l
@@ -624,7 +624,7 @@ function gen_julia(structs, typedefs, constants, functions, filename)
         if haskey(docs, s.name)
             gsldoc = "GSL documentation:\n\n### " * docs[s.name]
         end        
-        # Check if theres a typedef pointing to this struct,
+        # Check if there's a typedef pointing to this struct,
         # then write it immediately if there is.
         # This helps is subsequent structs use this typedef
         if haskey(typedefs_lookup, jname)

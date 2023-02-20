@@ -1041,7 +1041,7 @@ GSL documentation:
 
 ### `void gsl_integration_fixed_free(gsl_integration_fixed_workspace * w)`
 
-> This function frees the memory assocated with the workspace `w`
+> This function frees the memory associated with the workspace `w`
 
 """
 function integration_fixed_free(w)

@@ -86,7 +86,7 @@ println("x = ", root_fdfsolver_root(solver))
 
 Extra functionality defined in this package:
 
-* Convenice functions `hypergeom` and `hypergeom_e` for the hypergeometric functions.
+* Convenience functions `hypergeom` and `hypergeom_e` for the hypergeometric functions.
 * Function wrapping macros `@gsl_function`, `@gsl_function_fdf`, `@gsl_multiroot_function` and `@gsl_multiroot_function_fdf` that are used for packaging Julia functions so that they can be passed to GSL.
 * Functions `wrap_gsl_vector` and `wrap_gsl_matrix` that return a Julia array or matrix pointing to the data in a `gsl_vector` or `gsl_matrix`.
 
