@@ -39,7 +39,7 @@ end
 # END MODULE C
 
 # BEGIN MODULE Const
-# Phsyical constants
+# Physical constants
 module Const
 using Markdown
 include("gen/gsl_const.jl")

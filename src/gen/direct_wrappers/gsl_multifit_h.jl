@@ -702,7 +702,7 @@ GSL documentation:
 
 ### `int gsl_multifit_linear_gcv_curve(const gsl_vector * reg_param, const gsl_vector * UTy, const double delta0, gsl_vector * G, gsl_multifit_linear_workspace * work)`
 
-> This funtion calculates the GCV curve $G(\lambda)$ and stores it in
+> This function calculates the GCV curve $G(\lambda)$ and stores it in
 > `G` on output, which must be the same size as `reg_param`. The inputs
 > `reg_param`, `UTy` and `delta0` are computed in
 > `gsl_multifit_linear_gcv_init`.
@@ -1018,7 +1018,7 @@ GSL documentation:
 > `double sigma`
 >
 > > This contains an estimate of the standard deviation of the final
-> > residuals by attemping to reconcile `sigma_rob` and `sigma_ols` in a
+> > residuals by attempting to reconcile `sigma_rob` and `sigma_ols` in a
 > > reasonable way.
 >
 > `double Rsq`
@@ -1099,7 +1099,7 @@ GSL documentation:
 
 > This function computes the best-fit parameters `c` of the model
 > $y = X c$ for the observations `y` and the matrix of predictor
-> variables `X`, attemping to reduce the influence of outliers using the
+> variables `X`, attempting to reduce the influence of outliers using the
 > algorithm outlined above. The $p$-by-$p$ variance-covariance matrix of
 > the model parameters `cov` is estimated as $\sigma^2 (X^T X)^{-1}$,
 > where $\sigma$ is an approximation of the residual standard deviation
@@ -1153,7 +1153,7 @@ GSL documentation:
 > $r_i = {y_i - (X c)_i \over \sigma \sqrt{1 - h_i}}$ for the
 > observations `y`, coefficients `c` and matrix of predictor variables
 > `X`. The routine `gsl_multifit_robust` must first be called to compute
-> the statisical leverages $h_i$ of the matrix `X` and residual standard
+> the statistical leverages $h_i$ of the matrix `X` and residual standard
 > deviation estimate $\sigma$.
 
 """

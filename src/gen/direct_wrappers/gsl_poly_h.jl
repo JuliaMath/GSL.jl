@@ -134,7 +134,7 @@ GSL documentation:
 > arrays `xa` and `ya` of length `size`. Hermite interpolation
 > constructs polynomials which also match first derivatives $dy/dx$
 > which are provided in the array `dya` also of length `size`. The first
-> derivatives can be incorported into the usual divided-difference
+> derivatives can be incorporated into the usual divided-difference
 > algorithm by forming a new dataset $z = \{x_0,x_0,x_1,x_1,...\}$,
 > which is stored in the array `za` of length 2\*`size` on output. On
 > output the divided-differences of the Hermite representation are
