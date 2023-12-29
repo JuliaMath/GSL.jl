@@ -1,6 +1,6 @@
 #
 # Manual wrappers for the gsl_* stuff
-# 
+#
 
 export wrap_gsl_vector, wrap_gsl_matrix
 
@@ -24,7 +24,7 @@ Return a Julia matrix wrapping the data of a gsl_matrix
 """
 @inline function wrap_gsl_matrix(m::Ptr{gsl_matrix})
     M = unsafe_load(m)
-    @assert M.size2==M.tda "Cannot unsafe_wrap gsl_matrix with tda != size2."     
+    @assert M.size2==M.tda "Cannot unsafe_wrap gsl_matrix with tda != size2."
     return unsafe_wrap(Array{Float64}, M.data, (M.size1, M.size2))
 end
 
@@ -41,10 +41,11 @@ Create a `gsl_function` object.
 `f(x::Float64) -> Float64`              Return target functions f
 """
 macro gsl_function(f)
-    return :(
-        gsl_function( @cfunction( (x,p) -> $f(x), Cdouble, (Cdouble, Ptr{Cvoid})),
-                      0 )
-    )
+    g = :((x, p) -> $(esc(f))(x))
+    quote
+        cfun = @cfunction($(Expr(:$, g)), Cdouble, (Cdouble, Ptr{Cvoid}))
+        gsl_function(Base.unsafe_convert(Ptr{Cvoid}, cfun), C_NULL)
+    end
 end
 
 """
@@ -121,7 +122,7 @@ macro gsl_multiroot_function(f, n)
                     x = GSL.wrap_gsl_vector(x_vec)
                     y = GSL.wrap_gsl_vector(y_vec)
                     $f(x, y)
-                    return Cint(GSL.GSL_SUCCESS)                       
+                    return Cint(GSL.GSL_SUCCESS)
                 end,
                 Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_vector})),
             # n
@@ -225,7 +226,7 @@ macro gsl_multiroot_function_fdf(f, df, fdf, n)
             0
         )
     )
-end   
+end
 
 ## Hypergeometric function wrappers from original GSL.jl
 #(c) 2013 Jiahao Chen <jiahao@mit.edu>
@@ -237,10 +238,10 @@ export hypergeom, hypergeom_e
 """
     hypergeom(a, b, x::Float64) -> Float64
 
-Computes the appropriate hypergeometric ``{}_p F_q`` function, 
-where ``p`` and ``p`` are the lengths of the input vectors `a` and `b` respectively.  
+Computes the appropriate hypergeometric ``{}_p F_q`` function,
+where ``p`` and ``p`` are the lengths of the input vectors `a` and `b` respectively.
 
-Singleton `a` and/or `b` may be specified as scalars, 
+Singleton `a` and/or `b` may be specified as scalars,
 and length-0 `a` and/or `b` may be input as simply `[]`.
 
 Supported values of ``(p, q)`` are ``(0, 0)``, ``(0, 1)``, ``(1, 1)``, ``(2, 0)`` and ``(2, 1)``.
@@ -266,10 +267,10 @@ end
 """
     hypergeom_e(a, b, x::Float64) -> gsl_sf_result
 
-Computes the appropriate hypergeometric ``{}_p F_q`` function, 
-where ``p`` and ``p`` are the lengths of the input vectors `a` and `b` respectively.  
+Computes the appropriate hypergeometric ``{}_p F_q`` function,
+where ``p`` and ``p`` are the lengths of the input vectors `a` and `b` respectively.
 
-Singleton `a` and/or `b` may be specified as scalars, 
+Singleton `a` and/or `b` may be specified as scalars,
 and length-0 `a` and/or `b` may be input as simply `[]`.
 
 Supported values of ``(p, q)`` are ``(0, 0)``, ``(0, 1)``, ``(1, 1)``, ``(2, 0)`` and ``(2, 1)``.
