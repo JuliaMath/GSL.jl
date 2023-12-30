@@ -876,7 +876,7 @@ defined in `gsl_math.h`.
 """
 mutable struct gsl_function
     function_::Ptr{Cvoid}
-    params::Ptr{Cvoid}
+    params
 end
 
 @doc md"""

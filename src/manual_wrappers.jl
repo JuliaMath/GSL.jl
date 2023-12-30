@@ -30,6 +30,25 @@ end
 
 
 ## Root finding
+
+# wrapper function
+function gsl_function_helper(x::Cdouble, @nospecialize(fn::Any))::Cdouble
+    try
+        return Cdouble(fn(x))
+    catch
+        return NaN
+    end
+end
+
+function Base.cconvert(::Type{Ref{gsl_function}}, fn)
+    fptr = @cfunction(gsl_function_helper, Cdouble, (Cdouble, Any))
+    convert(Ref{gsl_function}, gsl_function(fptr, fn))
+end
+
+Base.cconvert(::Type{Ref{gsl_function}}, gslf::gsl_function) = 
+    convert(Ref{gsl_function}, gslf)
+
+
 # Macros for easier creation of gsl_function and gsl_function_fdf structs
 export @gsl_function, @gsl_function_fdf
 
