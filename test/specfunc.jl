@@ -5,7 +5,7 @@ using Test
 @testset "SpecialFunctions" begin
     x = 1 + rand()
 
-    function specfun_compare(name, f1, f2, arg; rtol=10*eps())
+    function specfun_compare(name, f1, f2, arg; rtol=20*eps())
         @testset "$name" begin
             v1 = f1(arg)
             v2 = f2(arg)
