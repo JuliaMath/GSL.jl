@@ -30,6 +30,34 @@ end
 
 
 ## Root finding
+gsl_function_helper(x::Cdouble, fn)::Cdouble = fn(x)
+
+# The following code relies on `gsl_function` being a mutable type
+# (such that we can call `pointer_from_objref` on it) to simplify the object structure
+# a little bit and avoid hitting some limitation of the allocation optimizer.
+@assert ismutable(gsl_function(C_NULL, C_NULL))
+
+function wrap_gsl_function(fn::F) where F
+    # We need to allocate the `gsl_function` here to be kept alive by ccall
+    # This require us to create the pointer to the function and the callable object
+    param_ref = Base.cconvert(Ref{F}, fn)
+    fptr = @cfunction(gsl_function_helper, Cdouble, (Cdouble, Ref{F}))
+    param_ptr = Base.unsafe_convert(Ref{F}, param_ref)
+    gsl_func = gsl_function(fptr, param_ptr)
+    return gsl_func, param_ref
+end
+
+function Base.cconvert(::Type{Ref{gsl_function}}, fn::F) where F
+    return wrap_gsl_function(fn)
+end
+function Base.unsafe_convert(::Type{Ref{gsl_function}},
+                             (gsl_func,)::Tuple{gsl_function,Any})
+    return pointer_from_objref(gsl_func)
+end
+
+Base.cconvert(::Type{Ref{gsl_function}}, gslf::gsl_function) =
+    convert(Ref{gsl_function}, gslf)
+
 # Macros for easier creation of gsl_function and gsl_function_fdf structs
 export @gsl_function, @gsl_function_fdf
 

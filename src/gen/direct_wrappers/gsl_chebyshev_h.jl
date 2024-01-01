@@ -57,7 +57,7 @@ GSL documentation:
 > and requires $n$ function evaluations.
 
 """
-function cheb_init(cs, func, a, b)
+function cheb_init(cs, func::gsl_function, a, b)
     ccall((:gsl_cheb_init, libgsl), Cint, (Ref{gsl_cheb_series}, Ref{gsl_function}, Cdouble, Cdouble), cs, func, a, b)
 end
 
