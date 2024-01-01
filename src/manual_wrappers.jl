@@ -30,6 +30,30 @@ end
 
 
 ## Root finding
+function (gsl_function_helper(x::Cdouble, fn::F)::Cdouble) where F
+    try
+        return fn(x)
+    catch
+        return NaN
+    end
+end
+
+function Base.cconvert(::Type{Ref{gsl_function}}, fn::F) where F
+    param_ref = Base.cconvert(Ref{F}, fn)
+    fptr = @cfunction(gsl_function_helper, Cdouble, (Cdouble, Ref{F}))
+    param_ptr = Base.unsafe_convert(Ref{F}, param_ref)
+    # This is mutable so we need to allocate it here
+    gsl_func = Base.cconvert(Ref{gsl_function}, gsl_function(fptr, param_ptr))
+    return gsl_func, param_ref
+end
+function Base.unsafe_convert(::Type{Ref{gsl_function}},
+                             (gsl_func,)::Tuple{Ref{gsl_function}, F}) where F
+    return Base.unsafe_convert(Ref{gsl_function}, gsl_func)
+end
+
+Base.cconvert(::Type{Ref{gsl_function}}, gslf::gsl_function) =
+    convert(Ref{gsl_function}, gslf)
+
 # Macros for easier creation of gsl_function and gsl_function_fdf structs
 export @gsl_function, @gsl_function_fdf
 
