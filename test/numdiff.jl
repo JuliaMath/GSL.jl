@@ -1,7 +1,7 @@
 using GSL
 using Test
 
-func(x) = x^3    
+func(x) = x^3
 
 @testset "Numerical differentiation" begin
     x = 1.0
@@ -14,6 +14,9 @@ func(x) = x^3
         df,ddf = Cdouble[0], Cdouble[0]
         deriv(@gsl_function(func), x, h, df, ddf)
         @test abs(df_dx - df[]) <= ddf[] <= d2f_dx2*h/2 + 2eps()/h
+
+        df,ddf = Cdouble[0], Cdouble[0]
+        deriv(func, x, h, df, ddf)
+        @test abs(df_dx - df[]) <= ddf[] <= d2f_dx2*h/2 + 2eps()/h
     end
 end
-

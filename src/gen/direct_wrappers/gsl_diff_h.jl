@@ -12,7 +12,7 @@
 C signature:
 `int gsl_diff_central (const gsl_function *f, double x, double *result, double *abserr)`
 """
-function diff_central(f, x, result, abserr)
+function diff_central(f::F, x, result, abserr) where F
     ccall((:gsl_diff_central, libgsl), Cint, (Ref{gsl_function}, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f, x, result, abserr)
 end
 
@@ -22,7 +22,7 @@ end
 C signature:
 `int gsl_diff_backward (const gsl_function *f, double x, double *result, double *abserr)`
 """
-function diff_backward(f, x, result, abserr)
+function diff_backward(f::F, x, result, abserr) where F
     ccall((:gsl_diff_backward, libgsl), Cint, (Ref{gsl_function}, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f, x, result, abserr)
 end
 
@@ -32,7 +32,7 @@ end
 C signature:
 `int gsl_diff_forward (const gsl_function *f, double x, double *result, double *abserr)`
 """
-function diff_forward(f, x, result, abserr)
+function diff_forward(f::F, x, result, abserr) where F
     ccall((:gsl_diff_forward, libgsl), Cint, (Ref{gsl_function}, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f, x, result, abserr)
 end
 

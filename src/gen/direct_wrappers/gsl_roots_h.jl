@@ -66,7 +66,7 @@ GSL documentation:
 > `x_upper`\].
 
 """
-function root_fsolver_set(s, f, x_lower, x_upper)
+function root_fsolver_set(s, f::gsl_function, x_lower, x_upper)
     ccall((:gsl_root_fsolver_set, libgsl), Cint, (Ref{gsl_root_fsolver}, Ref{gsl_function}, Cdouble, Cdouble), s, f, x_lower, x_upper)
 end
 
