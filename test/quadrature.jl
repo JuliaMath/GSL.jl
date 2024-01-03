@@ -2,6 +2,7 @@ using Test
 using GSL
 
 @testset "Quadrature" begin
+    # Make sure this is actually a closure
     fquad = let n = 1.5
         x -> x^n
     end

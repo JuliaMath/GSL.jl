@@ -32,7 +32,7 @@ GSL documentation:
 > actually used.
 
 """
-function deriv_central(f, x, h, result, abserr)
+function deriv_central(f::F, x, h, result, abserr) where F
     ccall((:gsl_deriv_central, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f, x, h, result, abserr)
 end
 
@@ -58,7 +58,7 @@ GSL documentation:
 > negative step-size.
 
 """
-function deriv_backward(f, x, h, result, abserr)
+function deriv_backward(f::F, x, h, result, abserr) where F
     ccall((:gsl_deriv_backward, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f, x, h, result, abserr)
 end
 
@@ -89,7 +89,7 @@ GSL documentation:
 > $x+h/2$, $x+h$.
 
 """
-function deriv_forward(f, x, h, result, abserr)
+function deriv_forward(f::F, x, h, result, abserr) where F
     ccall((:gsl_deriv_forward, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Ref{Cdouble}, Ref{Cdouble}), f, x, h, result, abserr)
 end
 

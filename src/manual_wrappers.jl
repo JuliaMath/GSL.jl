@@ -1,6 +1,6 @@
 #
 # Manual wrappers for the gsl_* stuff
-# 
+#
 
 export wrap_gsl_vector, wrap_gsl_matrix
 
@@ -24,13 +24,13 @@ Return a Julia matrix wrapping the data of a gsl_matrix
 """
 @inline function wrap_gsl_matrix(m::Ptr{gsl_matrix})
     M = unsafe_load(m)
-    @assert M.size2==M.tda "Cannot unsafe_wrap gsl_matrix with tda != size2."     
+    @assert M.size2==M.tda "Cannot unsafe_wrap gsl_matrix with tda != size2."
     return unsafe_wrap(Array{Float64}, M.data, (M.size1, M.size2))
 end
 
 
 ## Root finding
-function (gsl_function_helper(x::Cdouble, fn::F)::Cdouble) where F
+function gsl_function_helper(x::Cdouble, fn)::Cdouble
     try
         return fn(x)
     catch
@@ -38,17 +38,23 @@ function (gsl_function_helper(x::Cdouble, fn::F)::Cdouble) where F
     end
 end
 
+# The following code relies on `gsl_function` being a mutable type
+# (such that we can call `pointer_from_objref` on it) to simplify the object structure
+# a little bit and avoid hitting some limitation of the allocation optimizer.
+@assert ismutabletype(gsl_function)
+
 function Base.cconvert(::Type{Ref{gsl_function}}, fn::F) where F
+    # We need to allocate the `gsl_function` here to be kept alive by ccall
+    # This require us to create the pointer to the function and the callable object
     param_ref = Base.cconvert(Ref{F}, fn)
     fptr = @cfunction(gsl_function_helper, Cdouble, (Cdouble, Ref{F}))
     param_ptr = Base.unsafe_convert(Ref{F}, param_ref)
-    # This is mutable so we need to allocate it here
-    gsl_func = Base.cconvert(Ref{gsl_function}, gsl_function(fptr, param_ptr))
+    gsl_func = gsl_function(fptr, param_ptr)
     return gsl_func, param_ref
 end
 function Base.unsafe_convert(::Type{Ref{gsl_function}},
-                             (gsl_func,)::Tuple{Ref{gsl_function}, F}) where F
-    return Base.unsafe_convert(Ref{gsl_function}, gsl_func)
+                             (gsl_func,)::Tuple{gsl_function, F}) where F
+    return pointer_from_objref(gsl_func)
 end
 
 Base.cconvert(::Type{Ref{gsl_function}}, gslf::gsl_function) =
@@ -145,7 +151,7 @@ macro gsl_multiroot_function(f, n)
                     x = GSL.wrap_gsl_vector(x_vec)
                     y = GSL.wrap_gsl_vector(y_vec)
                     $f(x, y)
-                    return Cint(GSL.GSL_SUCCESS)                       
+                    return Cint(GSL.GSL_SUCCESS)
                 end,
                 Cint, (Ptr{gsl_vector}, Ptr{Cvoid}, Ptr{gsl_vector})),
             # n
@@ -249,7 +255,7 @@ macro gsl_multiroot_function_fdf(f, df, fdf, n)
             0
         )
     )
-end   
+end
 
 ## Hypergeometric function wrappers from original GSL.jl
 #(c) 2013 Jiahao Chen <jiahao@mit.edu>
@@ -261,10 +267,10 @@ export hypergeom, hypergeom_e
 """
     hypergeom(a, b, x::Float64) -> Float64
 
-Computes the appropriate hypergeometric ``{}_p F_q`` function, 
-where ``p`` and ``p`` are the lengths of the input vectors `a` and `b` respectively.  
+Computes the appropriate hypergeometric ``{}_p F_q`` function,
+where ``p`` and ``p`` are the lengths of the input vectors `a` and `b` respectively.
 
-Singleton `a` and/or `b` may be specified as scalars, 
+Singleton `a` and/or `b` may be specified as scalars,
 and length-0 `a` and/or `b` may be input as simply `[]`.
 
 Supported values of ``(p, q)`` are ``(0, 0)``, ``(0, 1)``, ``(1, 1)``, ``(2, 0)`` and ``(2, 1)``.
@@ -290,10 +296,10 @@ end
 """
     hypergeom_e(a, b, x::Float64) -> gsl_sf_result
 
-Computes the appropriate hypergeometric ``{}_p F_q`` function, 
-where ``p`` and ``p`` are the lengths of the input vectors `a` and `b` respectively.  
+Computes the appropriate hypergeometric ``{}_p F_q`` function,
+where ``p`` and ``p`` are the lengths of the input vectors `a` and `b` respectively.
 
-Singleton `a` and/or `b` may be specified as scalars, 
+Singleton `a` and/or `b` may be specified as scalars,
 and length-0 `a` and/or `b` may be input as simply `[]`.
 
 Supported values of ``(p, q)`` are ``(0, 0)``, ``(0, 1)``, ``(1, 1)``, ``(2, 0)`` and ``(2, 1)``.

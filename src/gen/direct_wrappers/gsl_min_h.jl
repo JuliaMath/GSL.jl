@@ -67,7 +67,7 @@ GSL documentation:
 > returns an error code of `GSL_EINVAL`.
 
 """
-function min_fminimizer_set(s, f, x_minimum, x_lower, x_upper)
+function min_fminimizer_set(s, f::F, x_minimum, x_lower, x_upper) where F
     ccall((:gsl_min_fminimizer_set, libgsl), Cint, (Ref{gsl_min_fminimizer}, Ref{gsl_function}, Cdouble, Cdouble, Cdouble), s, f, x_minimum, x_lower, x_upper)
 end
 
@@ -86,7 +86,7 @@ GSL documentation:
 > `f(x_minimum)`, `f(x_lower)` and `f(x_upper)`.
 
 """
-function min_fminimizer_set_with_values(s, f, x_minimum, f_minimum, x_lower, f_lower, x_upper, f_upper)
+function min_fminimizer_set_with_values(s, f::F, x_minimum, f_minimum, x_lower, f_lower, x_upper, f_upper) where F
     ccall((:gsl_min_fminimizer_set_with_values, libgsl), Cint, (Ref{gsl_min_fminimizer}, Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Cdouble, Cdouble), s, f, x_minimum, f_minimum, x_lower, f_lower, x_upper, f_upper)
 end
 
@@ -301,7 +301,7 @@ end
 C signature:
 `int gsl_min_find_bracket(gsl_function *f,double *x_minimum,double * f_minimum, double *x_lower, double * f_lower, double *x_upper, double * f_upper, size_t eval_max)`
 """
-function min_find_bracket(f, x_minimum, f_minimum, x_lower, f_lower, x_upper, f_upper, eval_max)
+function min_find_bracket(f::F, x_minimum, f_minimum, x_lower, f_lower, x_upper, f_upper, eval_max) where F
     ccall((:gsl_min_find_bracket, libgsl), Cint, (Ref{gsl_function}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Ref{Cdouble}, Csize_t), f, x_minimum, f_minimum, x_lower, f_lower, x_upper, f_upper, eval_max)
 end
 
