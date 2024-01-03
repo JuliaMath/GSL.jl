@@ -30,13 +30,7 @@ end
 
 
 ## Root finding
-function gsl_function_helper(x::Cdouble, fn)::Cdouble
-    try
-        return fn(x)
-    catch
-        return NaN
-    end
-end
+gsl_function_helper(x::Cdouble, fn::F) where {F} = fn(x)
 
 # The following code relies on `gsl_function` being a mutable type
 # (such that we can call `pointer_from_objref` on it) to simplify the object structure
@@ -71,10 +65,7 @@ Create a `gsl_function` object.
 `f(x::Float64) -> Float64`              Return target functions f
 """
 macro gsl_function(f)
-    return :(
-        gsl_function( @cfunction( (x,p) -> $f(x), Cdouble, (Cdouble, Ptr{Cvoid})),
-                      0 )
-    )
+    return :(Base.cconvert(Ref{gsl_function}, $(esc(f)))[1])
 end
 
 """
