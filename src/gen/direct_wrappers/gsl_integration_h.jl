@@ -890,7 +890,7 @@ GSL documentation:
 > set to `NULL`.
 
 """
-function integration_cquad(f, a, b, epsabs, epsrel, ws, result, abserr, nevals)
+function integration_cquad(f::F, a, b, epsabs, epsrel, ws, result, abserr, nevals) where {F}
     ccall((:gsl_integration_cquad, libgsl), Cint, (Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Ref{gsl_integration_cquad_workspace}, Ref{Cdouble}, Ref{Cdouble}, Ref{Csize_t}), f, a, b, epsabs, epsrel, ws, result, abserr, nevals)
 end
 
