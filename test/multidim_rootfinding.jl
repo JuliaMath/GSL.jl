@@ -50,6 +50,45 @@ end
     vector_free(vinit)
 end
 
+@testset "Multidimensional Rootfinding without Derivative wrapper" begin
+    # Initial guess
+    v0 = Cdouble[1.0, 5.0, 2.0, 1.5, -1.0]
+
+    vinit = vector_alloc(n)
+    for i=1:n
+        vector_set(vinit, i-1, v0[i])
+    end
+
+    # Setup solver
+    gsl_func = (fmulti, 5)
+    dnewton_solver = GSLMultirootFSolver(gsl_multiroot_fsolver_dnewton, n)
+    multiroot_fsolver_set(dnewton_solver, gsl_func, vinit)
+
+
+    # Run
+    maxiter = 100
+    converged, status = 0,0
+    for iter = 1:maxiter
+        status = multiroot_fsolver_iterate(dnewton_solver)
+        x = multiroot_fsolver_root(dnewton_solver)
+        dx = multiroot_fsolver_dx(dnewton_solver)
+        converged = multiroot_test_delta(dx, x, 0, 1e-8)
+        if status==GSL_SUCCESS && converged==GSL_SUCCESS
+            break
+        end
+    end
+
+    @test converged==GSL_SUCCESS
+    @test status==GSL_SUCCESS
+
+    vec = multiroot_fsolver_root(dnewton_solver)
+    v1 = unsafe_wrap(Array{Cdouble}, vector_ptr(vec, 0), n)
+
+    @test v1 ≈ roots atol=1e-5
+
+    vector_free(vinit)
+end
+
 ### WITH DERIVATIVE
 # Define problem
 n = 2

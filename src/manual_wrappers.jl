@@ -679,3 +679,53 @@ function root_fdfsolver_free(s::GSLRootFDFSolver)
     end
     return
 end
+
+@doc md"""
+$(Docs.doc(C.multiroot_fsolver_alloc))
+"""
+mutable struct GSLMultirootFSolver
+    ptr::Ptr{gsl_multiroot_fsolver}
+    param_ref
+    gsl_func::gsl_multiroot_function
+    function GSLMultirootFSolver(T, n)
+        s = new(multiroot_fsolver_alloc(T, n), nothing)
+        finalizer(multiroot_fsolver_free, s)
+        return s
+    end
+end
+export GSLMultirootFSolver
+
+Base.cconvert(::Type{Ref{gsl_multiroot_fsolver}}, s::GSLMultirootFSolver) = s
+Base.unsafe_convert(::Type{Ref{gsl_multiroot_fsolver}}, s::GSLMultirootFSolver) = s.ptr
+Base.unsafe_convert(::Type{Ptr{gsl_multiroot_fsolver}}, s::GSLMultirootFSolver) = s.ptr
+
+@doc md"""
+$(Docs.doc(C.multiroot_fsolver_set))
+"""
+function multiroot_fsolver_set(s::GSLMultirootFSolver, (f, n), x)
+    s.gsl_func, s.param_ref = wrap_gsl_multiroot_function(f, n)
+    return C.multiroot_fsolver_set(s, s.gsl_func, x)
+end
+function multiroot_fsolver_set(s::GSLMultirootFSolver, f::gsl_multiroot_function, x)
+    s.gsl_func = f
+    s.param_ref = nothing
+    return C.multiroot_fsolver_set(s, s.gsl_func, x)
+end
+function multiroot_fsolver_set(s::Ptr{gsl_multiroot_fsolver},
+                               f::gsl_multiroot_function, x)
+    return C.multiroot_fsolver_set(s, f, x)
+end
+
+@doc md"""
+$(Docs.doc(C.multiroot_fsolver_free))
+"""
+function multiroot_fsolver_free(s::Ptr{gsl_multiroot_fsolver})
+    C.multiroot_fsolver_free(s)
+end
+function multiroot_fsolver_free(s::GSLMultirootFSolver)
+    if s.ptr != C_NULL
+        C.multiroot_fsolver_free(s)
+        s.ptr = C_NULL
+    end
+    return
+end
