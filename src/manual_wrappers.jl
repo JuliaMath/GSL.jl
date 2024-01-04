@@ -35,7 +35,7 @@ gsl_function_helper(x::Cdouble, (f,))::Cdouble = f(x)
 # The following code relies on `gsl_function` being a mutable type
 # (such that we can call `pointer_from_objref` on it) to simplify the object structure
 # a little bit and avoid hitting some limitation of the allocation optimizer.
-@assert ismutabletype(gsl_function)
+@assert ismutable(gsl_function(C_NULL, C_NULL))
 
 function Base.cconvert(::Type{Ref{gsl_function}}, t::T) where {F,T<:Tuple{F}}
     # We need to allocate the `gsl_function` here to be kept alive by ccall
@@ -75,7 +75,7 @@ gsl_function_f_helper(x::Cdouble, (f,))::Cdouble = f(x)
 gsl_function_df_helper(x::Cdouble, (f,df,))::Cdouble = df(x)
 gsl_function_fdf_helper(x::Cdouble, (f,df,fdf))::Tuple{Cdouble,Cdouble} = fdf(x)
 
-@assert ismutabletype(gsl_function_fdf)
+@assert ismutable(gsl_function_fdf(C_NULL, C_NULL, C_NULL, C_NULL))
 
 function Base.cconvert(::Type{Ref{gsl_function_fdf}}, t::T) where {F,DF,FDF,T<:Tuple{F,DF,FDF}}
     # We need to allocate the `gsl_function_fdf` here to be kept alive by ccall
@@ -164,7 +164,7 @@ function gsl_multiroot_function_helper(x_vec::Ptr{gsl_vector}, (f,), y_vec::Arra
     return Cint(GSL.GSL_SUCCESS)
 end
 
-@assert ismutabletype(gsl_multiroot_function)
+@assert ismutable(gsl_multiroot_function(C_NULL, 0, C_NULL))
 
 function Base.cconvert(::Type{Ref{gsl_multiroot_function}}, (f,n)::Tuple{F,Integer}) where F
     # We need to allocate the `gsl_function_fdf` here to be kept alive by ccall
@@ -231,7 +231,7 @@ function gsl_multiroot_function_fdf_helper(x_vec::Ptr{gsl_vector}, (f,df,fdf), y
     return Cint(GSL.GSL_SUCCESS)
 end
 
-@assert ismutabletype(gsl_multiroot_function_fdf)
+@assert ismutable(gsl_multiroot_function_fdf(C_NULL, C_NULL, C_NULL, 0, C_NULL))
 
 function Base.cconvert(::Type{Ref{gsl_multiroot_function_fdf}}, (f,df,fdf,n)::T) where {F,DF,FDF,T<:Tuple{F,DF,FDF,Integer}}
     # We need to allocate the `gsl_function_fdf` here to be kept alive by ccall
