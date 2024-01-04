@@ -221,7 +221,7 @@ GSL documentation:
 > use the function and derivative `fdf` and the initial guess `root`.
 
 """
-function root_fdfsolver_set(s, fdf, root)
+function root_fdfsolver_set(s, fdf::gsl_function_fdf, root)
     ccall((:gsl_root_fdfsolver_set, libgsl), Cint, (Ref{gsl_root_fdfsolver}, Ref{gsl_function_fdf}, Cdouble), s, fdf, root)
 end
 
