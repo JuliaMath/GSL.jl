@@ -729,3 +729,61 @@ function multiroot_fsolver_free(s::GSLMultirootFSolver)
     end
     return
 end
+
+@doc md"""
+$(Docs.doc(C.multiroot_fdfsolver_alloc))
+"""
+mutable struct GSLMultirootFDFSolver
+    ptr::Ptr{gsl_multiroot_fdfsolver}
+    param_ref
+    gsl_func::gsl_multiroot_function_fdf
+    function GSLMultirootFDFSolver(T, n)
+        s = new(multiroot_fdfsolver_alloc(T, n), nothing)
+        finalizer(multiroot_fdfsolver_free, s)
+        return s
+    end
+end
+export GSLMultirootFDFSolver
+
+Base.cconvert(::Type{Ref{gsl_multiroot_fdfsolver}}, s::GSLMultirootFDFSolver) = s
+Base.unsafe_convert(::Type{Ref{gsl_multiroot_fdfsolver}}, s::GSLMultirootFDFSolver) =
+    s.ptr
+Base.unsafe_convert(::Type{Ptr{gsl_multiroot_fdfsolver}}, s::GSLMultirootFDFSolver) =
+    s.ptr
+
+@doc md"""
+$(Docs.doc(C.multiroot_fdfsolver_set))
+"""
+function multiroot_fdfsolver_set(s::GSLMultirootFDFSolver,
+                                 (f, df, n)::NTuple{3,Any}, x)
+    s.gsl_func, s.param_ref = wrap_gsl_multiroot_function_fdf((f, df), n)
+    return C.multiroot_fdfsolver_set(s, s.gsl_func, x)
+end
+function multiroot_fdfsolver_set(s::GSLMultirootFDFSolver,
+                                 (f, df, fdf, n)::NTuple{4,Any}, x)
+    s.gsl_func, s.param_ref = wrap_gsl_multiroot_function_fdf((f, df, fdf), n)
+    return C.multiroot_fdfsolver_set(s, s.gsl_func, x)
+end
+function multiroot_fdfsolver_set(s::GSLMultirootFDFSolver,
+                                 f::gsl_multiroot_function_fdf, x)
+    s.gsl_func = f
+    s.param_ref = nothing
+    return C.multiroot_fdfsolver_set(s, s.gsl_func, x)
+end
+function multiroot_fdfsolver_set(s::Ptr{gsl_multiroot_fdfsolver}, f::gsl_multiroot_function_fdf, x)
+    return C.multiroot_fdfsolver_set(s, f, x)
+end
+
+@doc md"""
+$(Docs.doc(C.multiroot_fdfsolver_free))
+"""
+function multiroot_fdfsolver_free(s::Ptr{gsl_multiroot_fdfsolver})
+    C.multiroot_fdfsolver_free(s)
+end
+function multiroot_fdfsolver_free(s::GSLMultirootFDFSolver)
+    if s.ptr != C_NULL
+        C.multiroot_fdfsolver_free(s)
+        s.ptr = C_NULL
+    end
+    return
+end

@@ -211,6 +211,38 @@ function run_newton(gsl_func::gsl_multiroot_function_fdf)
     multiroot_fdfsolver_free(newton_solver)
     vector_free(vinit)
 end
+
+function run_newton(gsl_func)
+    # Initial guess
+    Random.seed!(1)
+    v0 = rand(2)
+    vinit = vector_alloc(n)
+    for i=1:n
+        vector_set(vinit, i-1, v0[i])
+    end
+    # Setup solver
+    newton_solver = GSLMultirootFDFSolver(gsl_multiroot_fdfsolver_newton, n)
+    multiroot_fdfsolver_set(newton_solver, gsl_func, vinit)
+    # Run
+    abstol = 1e-14
+    reltol = 1e-14
+    maxiter = 10
+    converged, status = 0,0
+    for iter = 1:maxiter
+        status = multiroot_fdfsolver_iterate(newton_solver)
+        @test status==GSL_SUCCESS
+        x = multiroot_fdfsolver_root(newton_solver)
+        dx = multiroot_fdfsolver_dx(newton_solver)
+        converged = multiroot_test_delta(dx, x, abstol, reltol)
+        if converged==GSL_SUCCESS
+            break
+        end
+    end
+    @test converged==GSL_SUCCESS
+    #x = gsl_multiroot_fdfsolver_root(newton_solver)
+    #@show wrap_gsl_vector(x)
+    vector_free(vinit)
+end
 # Do tests
 @testset "Multidimenaional Rootfinding with Derivative" begin
     @testset "GSL-style wrappers" begin
@@ -236,6 +268,14 @@ end
         end
         @testset "4-argument macro" begin
             gsl_func_vec = @gsl_multiroot_function_fdf(f_vec, df_vec, fdf_vec, n)
+            run_newton(gsl_func_vec)
+        end
+        @testset "3-argument" begin
+            gsl_func_vec = (f_vec, df_vec, n)
+            run_newton(gsl_func_vec)
+        end
+        @testset "4-argument" begin
+            gsl_func_vec = (f_vec, df_vec, fdf_vec, n)
             run_newton(gsl_func_vec)
         end
     end
