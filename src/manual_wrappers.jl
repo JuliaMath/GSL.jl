@@ -30,7 +30,7 @@ end
 
 
 ## Root finding
-gsl_function_helper(x::Cdouble, fn) = fn(x)
+gsl_function_helper(x::Cdouble, fn)::Cdouble = fn(x)
 
 # The following code relies on `gsl_function` being a mutable type
 # (such that we can call `pointer_from_objref` on it) to simplify the object structure
