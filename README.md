@@ -72,9 +72,8 @@ GSL.C.sf_legendre_array(GSL_SF_LEGENDRE_SPHARM, lmax, x, result)
 ```julia
 f = x -> x^5+1
 df = x -> 5*x^4
-fdf = @gsl_function_fdf(f, df)
-solver = root_fdfsolver_alloc(gsl_root_fdfsolver_newton)
-root_fdfsolver_set(solver, fdf, -2)
+solver = GSLRootFDFSolver(gsl_root_fdfsolver_newton)
+root_fdfsolver_set(solver, (f, df), -2)
 while abs(f(root_fdfsolver_root(solver))) > 1e-10
     root_fdfsolver_iterate(solver)
 end
@@ -87,7 +86,6 @@ println("x = ", root_fdfsolver_root(solver))
 Extra functionality defined in this package:
 
 * Convenience functions `hypergeom` and `hypergeom_e` for the hypergeometric functions.
-* Function wrapping macros `@gsl_function`, `@gsl_function_fdf`, `@gsl_multiroot_function` and `@gsl_multiroot_function_fdf` that are used for packaging Julia functions so that they can be passed to GSL.
 * Functions `wrap_gsl_vector` and `wrap_gsl_matrix` that return a Julia array or matrix pointing to the data in a `gsl_vector` or `gsl_matrix`.
 
 In addition, some effort has been put into giving most types and functions proper docstrings, e.g.
