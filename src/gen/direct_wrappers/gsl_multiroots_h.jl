@@ -242,7 +242,7 @@ end
 C signature:
 `int gsl_multiroot_fdfsolver_set (gsl_multiroot_fdfsolver * s, gsl_multiroot_function_fdf * fdf, const gsl_vector * x)`
 """
-function multiroot_fdfsolver_set(s, fdf, x)
+function multiroot_fdfsolver_set(s, fdf::gsl_multiroot_function_fdf, x)
     ccall((:gsl_multiroot_fdfsolver_set, libgsl), Cint, (Ref{gsl_multiroot_fdfsolver}, Ref{gsl_multiroot_function_fdf}, Ref{gsl_vector}), s, fdf, x)
 end
 

@@ -205,6 +205,68 @@ end
 Base.cconvert(::Type{Ref{gsl_multiroot_function}}, gslf::gsl_multiroot_function) =
     convert(Ref{gsl_multiroot_function}, gslf)
 
+# The following code relies on `gsl_multiroot_function_fdf` being a mutable type
+@assert ismutable(gsl_multiroot_function_fdf(C_NULL, C_NULL, C_NULL, 0, C_NULL))
+
+function gsl_multiroot_function_f_helper(x_vec, (f,), f_vec)
+    xarr = wrap_gsl_vector(x_vec)
+    farr = wrap_gsl_vector(f_vec)
+    f(xarr, farr)
+    return Cint(GSL.GSL_SUCCESS)
+end
+function gsl_multiroot_function_df_helper(x_vec, (f, df), J_vec)
+    xarr = wrap_gsl_vector(x_vec)
+    Jmat = wrap_gsl_matrix(J_vec)
+    df(xarr, Jmat)
+    return Cint(GSL.GSL_SUCCESS)
+end
+function gsl_multiroot_function_fdf_helper(x_vec, (f, df)::NTuple{2,Any}, f_vec, J_vec)
+    xarr = wrap_gsl_vector(x_vec)
+    farr = wrap_gsl_vector(f_vec)
+    Jmat = wrap_gsl_matrix(J_vec)
+    f(xarr, farr)
+    df(xarr, Jmat)
+    return Cint(GSL.GSL_SUCCESS)
+end
+function gsl_multiroot_function_fdf_helper(x_vec, (f, df, fdf)::NTuple{3,Any},
+                                           f_vec, J_vec)
+    xarr = wrap_gsl_vector(x_vec)
+    farr = wrap_gsl_vector(f_vec)
+    Jmat = wrap_gsl_matrix(J_vec)
+    fdf(xarr, farr, Jmat)
+    return Cint(GSL.GSL_SUCCESS)
+end
+
+function wrap_gsl_multiroot_function_fdf(fn::FDF, n) where FDF
+    param_ref = Base.cconvert(Ref{FDF}, fn)
+    fptr = @cfunction(gsl_multiroot_function_f_helper,
+                      Cint, (Ptr{gsl_vector}, Ref{FDF}, Ptr{gsl_vector}))
+    dfptr = @cfunction(gsl_multiroot_function_df_helper,
+                       Cint, (Ptr{gsl_vector}, Ref{FDF}, Ptr{gsl_matrix}))
+    fdfptr = @cfunction(gsl_multiroot_function_fdf_helper,
+                        Cint, (Ptr{gsl_vector}, Ref{FDF}, Ptr{gsl_vector}, Ptr{gsl_matrix}))
+    param_ptr = Base.unsafe_convert(Ref{FDF}, param_ref)
+    gsl_func = gsl_multiroot_function_fdf(fptr, dfptr, fdfptr, n, param_ptr)
+    return gsl_func, param_ref
+end
+
+# Do not define these since there's no safe way to use these at the moment
+# function Base.cconvert(::Type{Ref{gsl_multiroot_function_fdf}},
+#                        (f, df, n)::NTuple{3,Any})
+#     return wrap_gsl_multiroot_function_fdf((f, df), n)
+# end
+# function Base.cconvert(::Type{Ref{gsl_multiroot_function_fdf}},
+#                        (f, df, fdf, n)::NTuple{4,Any})
+#     return wrap_gsl_multiroot_function_fdf((f, df, fdf), n)
+# end
+# function Base.unsafe_convert(::Type{Ref{gsl_multiroot_function_fdf}},
+#                              (gsl_func,)::Tuple{gsl_multiroot_function_fdf,Any})
+#     return pointer_from_objref(gsl_func)
+# end
+
+# Base.cconvert(::Type{Ref{gsl_multiroot_function_fdf}}, gslf::gsl_multiroot_function_fdf) =
+#     convert(Ref{gsl_multiroot_function_fdf}, gslf)
+
 export @gsl_multiroot_function, @gsl_multiroot_function_fdf
 
 """
