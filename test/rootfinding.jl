@@ -142,4 +142,52 @@ fdf2 = @gsl_function_fdf(myfun, myfun_deriv)
         end       
         
     end
+
+    @testset "Newton's method wrapper" begin
+        T = gsl_root_fdfsolver_newton
+
+        @testset "alloc/free" begin
+            A = GSLRootFDFSolver(T)
+        end
+
+        @testset "Solve" begin
+            solver = GSLRootFDFSolver(T)
+            root_fdfsolver_set(solver, (myfun, myfun_deriv, myfun_fdf), 5)
+
+            status = GSL_CONTINUE
+            iter, maxiter = 0,20
+            while status == GSL_CONTINUE
+                root_fdfsolver_iterate(solver)
+                x = root_fdfsolver_root(solver)
+                status = root_test_residual(myfun(x), 1e-10)
+                iter += 1
+                if iter==maxiter
+                    error("No convergence")
+                end
+            end
+            @test status == GSL_SUCCESS
+            x = root_fdfsolver_root(solver)
+            @test abs(myfun(x)) < 1e-10
+        end
+
+        @testset "Solve / simplestruct" begin
+            solver = GSLRootFDFSolver(T)
+            root_fdfsolver_set(solver, (myfun, myfun_deriv), 5)
+
+            status = GSL_CONTINUE
+            iter, maxiter = 0,20
+            while status == GSL_CONTINUE
+                root_fdfsolver_iterate(solver)
+                x = root_fdfsolver_root(solver)
+                status = root_test_residual(myfun(x), 1e-10)
+                iter += 1
+                if iter==maxiter
+                    error("No convergence")
+                end
+            end
+            @test status == GSL_SUCCESS
+            x = root_fdfsolver_root(solver)
+            @test abs(myfun(x)) < 1e-10
+        end
+    end
 end
