@@ -67,7 +67,7 @@ GSL documentation:
 > returns an error code of `GSL_EINVAL`.
 
 """
-function min_fminimizer_set(s, f::F, x_minimum, x_lower, x_upper) where F
+function min_fminimizer_set(s, f::gsl_function, x_minimum, x_lower, x_upper)
     ccall((:gsl_min_fminimizer_set, libgsl), Cint, (Ref{gsl_min_fminimizer}, Ref{gsl_function}, Cdouble, Cdouble, Cdouble), s, f, x_minimum, x_lower, x_upper)
 end
 
