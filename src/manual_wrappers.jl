@@ -65,10 +65,43 @@ Create a `gsl_function` object.
 `f(x::Float64) -> Float64`              Return target functions f
 """
 macro gsl_function(f)
+    # rely on the local scope to keep the param_ref alive
     return :(Base.cconvert(Ref{gsl_function}, $(esc(f)))[1])
 end
 
+
+gsl_function_f_helper(x::Cdouble, (f,)::Tuple{F,DF,FDF}) where {F,DF,FDF} = f(x)
+gsl_function_df_helper(x::Cdouble, (f,df,)::Tuple{F,DF,FDF}) where {F,DF,FDF} = df(x)
+gsl_function_fdf_helper(x::Cdouble, (f,df,fdf)::Tuple{F,DF,FDF}) where {F,DF,FDF} = fdf(x)
+
+@assert ismutabletype(gsl_function_fdf)
+
+function Base.cconvert(::Type{Ref{gsl_function_fdf}}, f::F, df::DF, fdf::FDF) where {F,DF,FDF}
+    # We need to allocate the `gsl_function_fdf` here to be kept alive by ccall
+    # This require us to create the pointer to the function and the callable object
+    param_ref = Base.cconvert(Ref{Tuple{F,DF,FDF}}, (f,df,fdf))
+    fptr = @cfunction(gsl_function_f_helper, Cdouble, (Cdouble, Ref{Tuple{F,DF,FDF}}))
+    dfptr = @cfunction(gsl_function_df_helper, Cdouble, (Cdouble, Ref{Tuple{F,DF,FDF}}))
+    fdfptr = @cfunction(gsl_function_fdf_helper, Tuple{Cdouble,Cdouble}, (Cdouble, Ref{Tuple{F,DF,FDF}}))
+    param_ptr = Base.unsafe_convert(Ref{Tuple{F,DF,FDF}}, param_ref)
+    gsl_func = gsl_function_fdf(fptr, dfptr, fdfptr, param_ptr)
+    return gsl_func, param_ref
+end
+function Base.unsafe_convert(::Type{Ref{gsl_function_fdf}},
+                             (gsl_func,)::Tuple{gsl_function_fdf, F}) where F
+    return pointer_from_objref(gsl_func)
+end
+
+function Base.cconvert(T::Type{Ref{gsl_function_fdf}}, f::F, df::DF) where {F,DF}
+    Base.cconvert(T, f, df, x -> (f(x), df(x)))
+end
+
+Base.cconvert(::Type{Ref{gsl_function_fdf}}, gslf::gsl_function_fdf) =
+    convert(Ref{gsl_function_fdf}, gslf)
+
+
 """
+    @gsl_function_fdf(f, df)
     @gsl_function_fdf(f, df, fdf)
 
 Create a `gsl_function_fdf` object.
@@ -77,50 +110,8 @@ Create a `gsl_function_fdf` object.
 `df(x::Float64) -> Float64`             Return derivative f' \\
 `fdf(x::Float64) -> (Float64,Float64)`  Return (f(x), df(x))
 """
-macro gsl_function_fdf(f, df, fdf)
-    return :(
-        gsl_function_fdf( # f
-                          @cfunction( (x,p) -> $f(x),   Cdouble, (Cdouble, Ptr{Cvoid})),
-                          # df
-                          @cfunction( (x,p) -> $df(x),  Cdouble, (Cdouble, Ptr{Cvoid})),
-                          # fdf
-                          @cfunction( function (x, p, f_ptr, df_ptr)
-                                          f, df = $fdf(x)
-                                          unsafe_store!(f_ptr, f)
-                                          unsafe_store!(df_ptr, df)
-                                          return nothing
-                                      end,
-                                      Cvoid,
-                                      (Cdouble, Ptr{Cvoid}, Ptr{Cdouble}, Ptr{Cdouble})),
-                          # params
-                          0 )
-    )
-end
-
-"""
-    @gsl_function_fdf(f, df)
-
-Create a `gsl_function_fdf` object.
-
-`f(x::Float64) -> Float64`              Return target functions f \\
-`df(x::Float64) -> Float64`             Return derivative f'
-"""
-macro gsl_function_fdf(f, df)
-    return :(
-        gsl_function_fdf( # f
-                          @cfunction( (x,p) -> $f(x),   Cdouble, (Cdouble, Ptr{Cvoid})),
-                          # df
-                          @cfunction( (x,p) -> $df(x),  Cdouble, (Cdouble, Ptr{Cvoid})),
-                          # fdf that just calls f and df
-                          @cfunction( function (x, p, f_ptr, df_ptr)
-                                          unsafe_store!(f_ptr, $f(x))
-                                          unsafe_store!(df_ptr, $df(x))
-                                          return nothing
-                                      end,
-                                      Cvoid,
-                                      (Cdouble, Ptr{Cvoid}, Ptr{Cdouble}, Ptr{Cdouble})),
-                          0 )
-    )
+macro gsl_function_fdf(args...)
+    return :(Base.cconvert(Ref{gsl_function_fdf}, $(map(esc, args)...))[1])
 end
 
 
