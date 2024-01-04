@@ -629,3 +629,53 @@ function root_fsolver_free(s::GSLRootFSolver)
     end
     return
 end
+
+@doc md"""
+$(Docs.doc(C.root_fdfsolver_alloc))
+"""
+mutable struct GSLRootFDFSolver
+    ptr::Ptr{gsl_root_fdfsolver}
+    param_ref
+    gsl_func::gsl_function_fdf
+    function GSLRootFDFSolver(T)
+        s = new(root_fdfsolver_alloc(T), nothing)
+        finalizer(root_fdfsolver_free, s)
+        return s
+    end
+end
+export GSLRootFDFSolver
+
+Base.cconvert(::Type{Ref{gsl_root_fdfsolver}}, s::GSLRootFDFSolver) = s
+Base.unsafe_convert(::Type{Ref{gsl_root_fdfsolver}}, s::GSLRootFDFSolver) = s.ptr
+Base.unsafe_convert(::Type{Ptr{gsl_root_fdfsolver}}, s::GSLRootFDFSolver) = s.ptr
+
+@doc md"""
+$(Docs.doc(C.root_fdfsolver_set))
+"""
+function root_fdfsolver_set(s::GSLRootFDFSolver,
+                            fdf::Union{NTuple{2,Any},NTuple{3,Any}}, root)
+    s.gsl_func, s.param_ref = wrap_gsl_function_fdf(fdf)
+    return C.root_fdfsolver_set(s, s.gsl_func, root)
+end
+function root_fdfsolver_set(s::GSLRootFDFSolver, f::gsl_function_fdf, root)
+    s.gsl_func = f
+    s.param_ref = nothing
+    return C.root_fdfsolver_set(s, s.gsl_func, root)
+end
+function root_fdfsolver_set(s::Ptr{gsl_root_fdfsolver}, f::gsl_function_fdf, root)
+    return C.root_fdfsolver_set(s, f, root)
+end
+
+@doc md"""
+$(Docs.doc(C.root_fdfsolver_free))
+"""
+function root_fdfsolver_free(s::Ptr{gsl_root_fdfsolver})
+    C.root_fdfsolver_free(s)
+end
+function root_fdfsolver_free(s::GSLRootFDFSolver)
+    if s.ptr != C_NULL
+        C.root_fdfsolver_free(s)
+        s.ptr = C_NULL
+    end
+    return
+end
