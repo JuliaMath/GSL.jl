@@ -580,3 +580,52 @@ function min_fminimizer_free(s::GSLMinFMinimizer)
     end
     return
 end
+
+@doc md"""
+$(Docs.doc(C.root_fsolver_alloc))
+"""
+mutable struct GSLRootFSolver
+    ptr::Ptr{gsl_root_fsolver}
+    param_ref
+    gsl_func::gsl_function
+    function GSLRootFSolver(T)
+        s = new(root_fsolver_alloc(T), nothing)
+        finalizer(root_fsolver_free, s)
+        return s
+    end
+end
+export GSLRootFSolver
+
+Base.cconvert(::Type{Ref{gsl_root_fsolver}}, s::GSLRootFSolver) = s
+Base.unsafe_convert(::Type{Ref{gsl_root_fsolver}}, s::GSLRootFSolver) = s.ptr
+Base.unsafe_convert(::Type{Ptr{gsl_root_fsolver}}, s::GSLRootFSolver) = s.ptr
+
+@doc md"""
+$(Docs.doc(C.root_fsolver_set))
+"""
+function root_fsolver_set(s::GSLRootFSolver, f::F, x_lower, x_upper) where F
+    s.gsl_func, s.param_ref = wrap_gsl_function(f)
+    return C.root_fsolver_set(s, s.gsl_func, x_lower, x_upper)
+end
+function root_fsolver_set(s::GSLRootFSolver, f::gsl_function, x_lower, x_upper)
+    s.gsl_func = f
+    s.param_ref = nothing
+    return C.root_fsolver_set(s, s.gsl_func, x_lower, x_upper)
+end
+function root_fsolver_set(s::Ptr{gsl_root_fsolver}, f::gsl_function, x_lower, x_upper)
+    return C.root_fsolver_set(s, f, x_lower, x_upper)
+end
+
+@doc md"""
+$(Docs.doc(C.root_fsolver_free))
+"""
+function root_fsolver_free(s::Ptr{gsl_root_fsolver})
+    C.root_fsolver_free(s)
+end
+function root_fsolver_free(s::GSLRootFSolver)
+    if s.ptr != C_NULL
+        C.root_fsolver_free(s)
+        s.ptr = C_NULL
+    end
+    return
+end

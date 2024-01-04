@@ -64,6 +64,33 @@ fdf2 = @gsl_function_fdf(myfun, myfun_deriv)
         end
     end
 
+    @testset "Secant method wrapper" begin
+        T = gsl_root_fsolver_bisection
+        @testset "alloc/free" begin
+            A = GSLRootFSolver(T)
+        end
+        @testset "Solve" begin
+            solver = GSLRootFSolver(T)
+            root_fsolver_set(solver, myfun, -10, 10)
+
+            status = GSL_CONTINUE
+            maxiter = 40
+            iter = 0
+            while status == GSL_CONTINUE
+                root_fsolver_iterate(solver)
+                x = root_fsolver_root(solver)
+                status = root_test_residual(myfun(x), 1e-10)
+                iter += 1
+                if iter==maxiter
+                    error("No convergence")
+                end
+            end
+            @test status == GSL_SUCCESS
+            x = root_fsolver_root(solver)
+            @test abs(myfun(x)) < 1e-10
+        end
+    end
+
     @testset "Newton's method" begin               
         T = gsl_root_fdfsolver_newton
 
