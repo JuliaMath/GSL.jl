@@ -504,3 +504,79 @@ function cheb_free(cs::GSLCheb)
     end
     return
 end
+
+@doc md"""
+$(Docs.doc(C.min_fminimizer_alloc))
+"""
+mutable struct GSLMinFMinimizer
+    ptr::Ptr{gsl_min_fminimizer}
+    param_ref
+    gsl_func::gsl_function
+    function GSLMinFMinimizer(T)
+        s = new(min_fminimizer_alloc(T), nothing)
+        finalizer(min_fminimizer_free, s)
+        return s
+    end
+end
+export GSLMinFMinimizer
+
+Base.cconvert(::Type{Ref{gsl_min_fminimizer}}, s::GSLMinFMinimizer) = s
+Base.unsafe_convert(::Type{Ref{gsl_min_fminimizer}}, s::GSLMinFMinimizer) = s.ptr
+Base.unsafe_convert(::Type{Ptr{gsl_min_fminimizer}}, s::GSLMinFMinimizer) = s.ptr
+
+@doc md"""
+$(Docs.doc(C.min_fminimizer_set))
+"""
+function min_fminimizer_set(s::GSLMinFMinimizer, f::F,
+                            x_minimum, x_lower, x_upper) where F
+    s.gsl_func, s.param_ref = wrap_gsl_function(f)
+    return C.min_fminimizer_set(s, s.gsl_func, x_minimum, x_lower, x_upper)
+end
+function min_fminimizer_set(s::GSLMinFMinimizer, f::gsl_function,
+                            x_minimum, x_lower, x_upper)
+    s.gsl_func = f
+    s.param_ref = nothing
+    return C.min_fminimizer_set(s, s.gsl_func, x_minimum, x_lower, x_upper)
+end
+function min_fminimizer_set(s::Ptr{gsl_min_fminimizer}, f::gsl_function,
+                            x_minimum, x_lower, x_upper)
+    return C.min_fminimizer_set(s, f, x_minimum, x_lower, x_upper)
+end
+
+@doc md"""
+$(Docs.doc(C.min_fminimizer_set_with_values))
+"""
+function min_fminimizer_set_with_values(s::GSLMinFMinimizer, f::F, x_minimum, f_minimum,
+                                        x_lower, f_lower, x_upper, f_upper) where F
+    s.gsl_func, s.param_ref = wrap_gsl_function(f)
+    return C.min_fminimizer_set_with_values(s, s.gsl_func, x_minimum, f_minimum,
+                                            x_lower, f_lower, x_upper, f_upper)
+end
+function min_fminimizer_set_with_values(s::GSLMinFMinimizer, f::gsl_function, x_minimum,
+                                        f_minimum, x_lower, f_lower, x_upper, f_upper)
+    s.gsl_func = f
+    s.param_ref = nothing
+    return C.min_fminimizer_set_with_values(s, s.gsl_func, x_minimum,
+                                            f_minimum, x_lower, f_lower,
+                                            x_upper, f_upper)
+end
+function min_fminimizer_set_with_values(s::Ptr{gsl_min_fminimizer}, f::gsl_function,
+                                        x_minimum, f_minimum, x_lower, f_lower,
+                                        x_upper, f_upper)
+    return C.min_fminimizer_set_with_values(s, f, x_minimum, f_minimum, x_lower,
+                                            f_lower, x_upper, f_upper)
+end
+
+@doc md"""
+$(Docs.doc(C.min_fminimizer_free))
+"""
+function min_fminimizer_free(s::Ptr{gsl_min_fminimizer})
+    C.min_fminimizer_free(s)
+end
+function min_fminimizer_free(s::GSLMinFMinimizer)
+    if s.ptr != C_NULL
+        C.min_fminimizer_free(s)
+        s.ptr = C_NULL
+    end
+    return
+end
