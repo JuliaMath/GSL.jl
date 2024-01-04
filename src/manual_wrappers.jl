@@ -58,6 +58,51 @@ end
 Base.cconvert(::Type{Ref{gsl_function}}, gslf::gsl_function) =
     convert(Ref{gsl_function}, gslf)
 
+# The following code relies on `gsl_function_fdf` being a mutable type
+@assert ismutable(gsl_function_fdf(C_NULL, C_NULL, C_NULL, C_NULL))
+
+function gsl_function_f_helper(x::Cdouble, (f,))::Cdouble
+    return f(x)
+end
+function gsl_function_df_helper(x::Cdouble, (f, df))::Cdouble
+    return df(x)
+end
+function gsl_function_fdf_helper(x::Cdouble, (f, df)::NTuple{2,Any}, pf, pdf)
+    unsafe_store!(pf, f(x))
+    unsafe_store!(pdf, df(x))
+    return
+end
+function gsl_function_fdf_helper(x::Cdouble, (f, df, fdf)::NTuple{3,Any}, pf, pdf)
+    f, df = fdf(x)
+    unsafe_store!(pf, f)
+    unsafe_store!(pdf, df)
+    return
+end
+
+function wrap_gsl_function_fdf(fn::FDF) where FDF
+    param_ref = Base.cconvert(Ref{FDF}, fn)
+    fptr = @cfunction(gsl_function_f_helper, Cdouble, (Cdouble, Ref{FDF}))
+    dfptr = @cfunction(gsl_function_df_helper, Cdouble, (Cdouble, Ref{FDF}))
+    fdfptr = @cfunction(gsl_function_fdf_helper, Cvoid,
+                        (Cdouble, Ref{FDF}, Ptr{Cdouble}, Ptr{Cdouble}))
+    param_ptr = Base.unsafe_convert(Ref{FDF}, param_ref)
+    gsl_func = gsl_function_fdf(fptr, dfptr, fdfptr, param_ptr)
+    return gsl_func, param_ref
+end
+
+# Do not define these since there's no safe way to use these at the moment
+# function Base.cconvert(::Type{Ref{gsl_function_fdf}},
+#                        fn::Union{NTuple{2,Any},NTuple{3,Any}})
+#     return wrap_gsl_function_fdf(fn)
+# end
+# function Base.unsafe_convert(::Type{Ref{gsl_function_fdf}},
+#                              (gsl_func,)::Tuple{gsl_function_fdf,Any})
+#     return pointer_from_objref(gsl_func)
+# end
+
+# Base.cconvert(::Type{Ref{gsl_function_fdf}}, gslf::gsl_function_fdf) =
+#     convert(Ref{gsl_function_fdf}, gslf)
+
 # Macros for easier creation of gsl_function and gsl_function_fdf structs
 export @gsl_function, @gsl_function_fdf
 
