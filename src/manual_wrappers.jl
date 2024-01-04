@@ -30,19 +30,19 @@ end
 
 
 ## Root finding
-gsl_function_helper(x::Cdouble, fn)::Cdouble = fn(x)
+gsl_function_helper(x::Cdouble, (f,))::Cdouble = f(x)
 
 # The following code relies on `gsl_function` being a mutable type
 # (such that we can call `pointer_from_objref` on it) to simplify the object structure
 # a little bit and avoid hitting some limitation of the allocation optimizer.
 @assert ismutabletype(gsl_function)
 
-function Base.cconvert(::Type{Ref{gsl_function}}, fn::F) where F
+function Base.cconvert(::Type{Ref{gsl_function}}, t::T) where {F,T<:Tuple{F}}
     # We need to allocate the `gsl_function` here to be kept alive by ccall
     # This require us to create the pointer to the function and the callable object
-    param_ref = Base.cconvert(Ref{F}, fn)
-    fptr = @cfunction(gsl_function_helper, Cdouble, (Cdouble, Ref{F}))
-    param_ptr = Base.unsafe_convert(Ref{F}, param_ref)
+    param_ref = Base.cconvert(Ref{T}, t)
+    fptr = @cfunction(gsl_function_helper, Cdouble, (Cdouble, Ref{T}))
+    param_ptr = Base.unsafe_convert(Ref{T}, param_ref)
     gsl_func = gsl_function(fptr, param_ptr)
     return gsl_func, param_ref
 end
@@ -71,38 +71,35 @@ macro gsl_function(f)
     )
 end
 
-gsl_function_f_helper(x::Cdouble, (f,)::Tuple{F,DF,FDF}) where {F,DF,FDF} = f(x)
-gsl_function_df_helper(x::Cdouble, (f,df,)::Tuple{F,DF,FDF}) where {F,DF,FDF} = df(x)
-gsl_function_fdf_helper(x::Cdouble, (f,df,fdf)::Tuple{F,DF,FDF}) where {F,DF,FDF} = fdf(x)
+gsl_function_f_helper(x::Cdouble, (f,))::Cdouble = f(x)
+gsl_function_df_helper(x::Cdouble, (f,df,))::Cdouble = df(x)
+gsl_function_fdf_helper(x::Cdouble, (f,df,fdf))::Tuple{Cdouble,Cdouble} = fdf(x)
 
 @assert ismutabletype(gsl_function_fdf)
 
-function Base.cconvert(::Type{Ref{gsl_function_fdf}}, f::F, df::DF, fdf::FDF) where {F,DF,FDF}
+function Base.cconvert(::Type{Ref{gsl_function_fdf}}, t::T) where {F,DF,FDF,T<:Tuple{F,DF,FDF}}
     # We need to allocate the `gsl_function_fdf` here to be kept alive by ccall
     # This require us to create the pointer to the function and the callable object
-    param_ref = Base.cconvert(Ref{Tuple{F,DF,FDF}}, (f,df,fdf))
-    fptr = @cfunction(gsl_function_f_helper, Cdouble, (Cdouble, Ref{Tuple{F,DF,FDF}}))
-    dfptr = @cfunction(gsl_function_df_helper, Cdouble, (Cdouble, Ref{Tuple{F,DF,FDF}}))
-    fdfptr = @cfunction(gsl_function_fdf_helper, Tuple{Cdouble,Cdouble}, (Cdouble, Ref{Tuple{F,DF,FDF}}))
-    param_ptr = Base.unsafe_convert(Ref{Tuple{F,DF,FDF}}, param_ref)
+    param_ref = Base.cconvert(Ref{T}, t)
+    fptr = @cfunction(gsl_function_f_helper, Cdouble, (Cdouble, Ref{T}))
+    dfptr = @cfunction(gsl_function_df_helper, Cdouble, (Cdouble, Ref{T}))
+    fdfptr = @cfunction(gsl_function_fdf_helper, Tuple{Cdouble,Cdouble}, (Cdouble, Ref{T}))
+    param_ptr = Base.unsafe_convert(Ref{T}, param_ref)
     gsl_func = gsl_function_fdf(fptr, dfptr, fdfptr, param_ptr)
     return gsl_func, param_ref
 end
+Base.cconvert(T::Type{Ref{gsl_function_fdf}}, (f,df)::Tuple{F,DF}) where {F,DF} =
+    Base.cconvert(T, (f, df, x -> (f(x), df(x))))
 function Base.unsafe_convert(::Type{Ref{gsl_function_fdf}},
                              (gsl_func,)::Tuple{gsl_function_fdf, F}) where F
     return pointer_from_objref(gsl_func)
 end
 
-function Base.cconvert(T::Type{Ref{gsl_function_fdf}}, f::F, df::DF) where {F,DF}
-    Base.cconvert(T, f, df, x -> (f(x), df(x)))
-end
 
 Base.cconvert(::Type{Ref{gsl_function_fdf}}, gslf::gsl_function_fdf) =
     convert(Ref{gsl_function_fdf}, gslf)
 
-
 """
-    @gsl_function_fdf(f, df)
     @gsl_function_fdf(f, df, fdf)
 
 Create a `gsl_function_fdf` object.
@@ -111,12 +108,80 @@ Create a `gsl_function_fdf` object.
 `df(x::Float64) -> Float64`             Return derivative f' \\
 `fdf(x::Float64) -> (Float64,Float64)`  Return (f(x), df(x))
 """
-macro gsl_function_fdf(args...)
-    return :(Base.cconvert(Ref{gsl_function_fdf}, $(map(esc, args)...))[1])
+macro gsl_function_fdf(f, df, fdf)
+    return :(
+        gsl_function_fdf( # f
+                          @cfunction( (x,p) -> $f(x),   Cdouble, (Cdouble, Ptr{Cvoid})),
+                          # df
+                          @cfunction( (x,p) -> $df(x),  Cdouble, (Cdouble, Ptr{Cvoid})),
+                          # fdf
+                          @cfunction( function (x, p, f_ptr, df_ptr)
+                                          f, df = $fdf(x)
+                                          unsafe_store!(f_ptr, f)
+                                          unsafe_store!(df_ptr, df)
+                                          return nothing
+                                      end,
+                                      Cvoid,
+                                      (Cdouble, Ptr{Cvoid}, Ptr{Cdouble}, Ptr{Cdouble})),
+                          # params
+                          0 )
+    )
+end
+
+"""
+    @gsl_function_fdf(f, df)
+
+Create a `gsl_function_fdf` object.
+
+`f(x::Float64) -> Float64`              Return target functions f \\
+`df(x::Float64) -> Float64`             Return derivative f'
+"""
+macro gsl_function_fdf(f, df)
+    return :(
+        gsl_function_fdf( # f
+                          @cfunction( (x,p) -> $f(x),   Cdouble, (Cdouble, Ptr{Cvoid})),
+                          # df
+                          @cfunction( (x,p) -> $df(x),  Cdouble, (Cdouble, Ptr{Cvoid})),
+                          # fdf that just calls f and df
+                          @cfunction( function (x, p, f_ptr, df_ptr)
+                                          unsafe_store!(f_ptr, $f(x))
+                                          unsafe_store!(df_ptr, $df(x))
+                                          return nothing
+                                      end,
+                                      Cvoid,
+                                      (Cdouble, Ptr{Cvoid}, Ptr{Cdouble}, Ptr{Cdouble})),
+                          0 )
+    )
 end
 
 
 export @gsl_multiroot_function, @gsl_multiroot_function_fdf
+
+function gsl_multiroot_function_helper(x_vec::Ptr{gsl_vector}, (f,), y_vec::Array{gsl_vector})::Cint
+    x = GSL.wrap_gsl_vector(x_vec)
+    y = GSL.wrap_gsl_vector(y_vec)
+    f(x, y)
+    return Cint(GSL.GSL_SUCCESS)
+end
+
+@assert ismutabletype(gsl_multiroot_function)
+
+function Base.cconvert(::Type{Ref{gsl_multiroot_function}}, (f,n)::Tuple{F,Integer}) where F
+    # We need to allocate the `gsl_function_fdf` here to be kept alive by ccall
+    # This require us to create the pointer to the function and the callable object
+    param_ref = Base.cconvert(Ref{Tuple{F}}, (f,))
+    fptr = @cfunction(gsl_multiroot_function_helper, Cint, (Ptr{gsl_vector}, Ref{Tuple{F}}, Ptr{gsl_vector}))
+    param_ptr = Base.unsafe_convert(Ref{Tuple{F}}, param_ref)
+    gsl_func = gsl_multiroot_function(fptr, n, param_ptr)
+    return gsl_func, param_ref
+end
+function Base.unsafe_convert(::Type{Ref{gsl_multiroot_function}},
+                             (gsl_func,)::Tuple{gsl_multiroot_function, F}) where F
+    return pointer_from_objref(gsl_func)
+end
+
+Base.cconvert(::Type{Ref{gsl_multiroot_function}}, gslf::gsl_multiroot_function) =
+    convert(Ref{gsl_multiroot_function}, gslf)
 
 """
     @gsl_multiroot_function(f, n)
@@ -144,6 +209,52 @@ macro gsl_multiroot_function(f, n)
         )
     )
 end
+
+
+function gsl_multiroot_function_f_helper(x_vec::Ptr{gsl_vector}, (f,), y_vec::Ptr{gsl_vector})::Cint
+    x = GSL.wrap_gsl_vector(x_vec)
+    y = GSL.wrap_gsl_vector(y_vec)
+    f(x, y)
+    return Cint(GSL.GSL_SUCCESS)
+end
+function gsl_multiroot_function_df_helper(x_vec::Ptr{gsl_vector}, (f,df), J_mat::Ptr{gsl_matrix})::Cint
+    x = GSL.wrap_gsl_vector(x_vec)
+    J = GSL.wrap_gsl_matrix(J_mat)
+    df(x, J)
+    return Cint(GSL.GSL_SUCCESS)
+end
+function gsl_multiroot_function_fdf_helper(x_vec::Ptr{gsl_vector}, (f,df,fdf), y_vec::Ptr{gsl_vector}, J_mat::Ptr{gsl_matrix})::Cint
+    x = GSL.wrap_gsl_vector(x_vec)
+    y = GSL.wrap_gsl_vector(y_vec)
+    J = GSL.wrap_gsl_matrix(J_mat)
+    fdf(x, y, J)
+    return Cint(GSL.GSL_SUCCESS)
+end
+
+@assert ismutabletype(gsl_multiroot_function_fdf)
+
+function Base.cconvert(::Type{Ref{gsl_multiroot_function_fdf}}, (f,df,fdf,n)::T) where {F,DF,FDF,T<:Tuple{F,DF,FDF,Integer}}
+    # We need to allocate the `gsl_function_fdf` here to be kept alive by ccall
+    # This require us to create the pointer to the function and the callable object
+    param_ref = Base.cconvert(Ref{Tuple{F,DF,FDF}}, (f,df,fdf))
+    fptr = @cfunction(gsl_multiroot_function_f_helper, Cint, (Ptr{gsl_vector}, Ref{Tuple{F,DF,FDF}}, Ptr{gsl_vector}))
+    dfptr = @cfunction(gsl_multiroot_function_df_helper, Cint, (Ptr{gsl_vector}, Ref{Tuple{F,DF,FDF}}, Ptr{gsl_matrix}))
+    fdfptr = @cfunction(gsl_multiroot_function_fdf_helper, Cint, (Ptr{gsl_vector}, Ref{Tuple{F,DF,FDF}}, Ptr{gsl_vector}, Ptr{gsl_matrix}))
+    param_ptr = Base.unsafe_convert(Ref{Tuple{F,DF,FDF}}, param_ref)
+    gsl_func = gsl_multiroot_function_fdf(fptr, dfptr, fdfptr, n, param_ptr)
+    return gsl_func, param_ref
+end
+Base.cconvert(T::Type{Ref{gsl_multiroot_function_fdf}}, (f,df,n)::Tuple{F,DF,Integer}) where {F,DF} =
+    Base.cconvert(T, (f, df, (x, y, J) -> (f(x, y); df(x, J)), n))
+function Base.unsafe_convert(::Type{Ref{gsl_multiroot_function_fdf}},
+                             (gsl_func,)::Tuple{gsl_multiroot_function_fdf, F}) where F
+    return pointer_from_objref(gsl_func)
+end
+
+
+Base.cconvert(::Type{Ref{gsl_multiroot_function_fdf}}, gslf::gsl_multiroot_function_fdf) =
+    convert(Ref{gsl_multiroot_function_fdf}, gslf)
+
 
 """
     @gsl_multiroot_function_fdf(f, df, n)
