@@ -86,7 +86,7 @@ GSL documentation:
 > `f(x_minimum)`, `f(x_lower)` and `f(x_upper)`.
 
 """
-function min_fminimizer_set_with_values(s, f::F, x_minimum, f_minimum, x_lower, f_lower, x_upper, f_upper) where F
+function min_fminimizer_set_with_values(s, f::gsl_function, x_minimum, f_minimum, x_lower, f_lower, x_upper, f_upper)
     ccall((:gsl_min_fminimizer_set_with_values, libgsl), Cint, (Ref{gsl_min_fminimizer}, Ref{gsl_function}, Cdouble, Cdouble, Cdouble, Cdouble, Cdouble, Cdouble), s, f, x_minimum, f_minimum, x_lower, f_lower, x_upper, f_upper)
 end
 
