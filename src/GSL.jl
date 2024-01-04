@@ -1,6 +1,7 @@
 module GSL
 
 using Markdown
+using REPL # For Docs.doc
 
 # BEGIN MODULE C
 # low-level interface
