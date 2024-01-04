@@ -12,7 +12,7 @@
 C signature:
 `int gsl_multiroot_fdjacobian (gsl_multiroot_function * F, const gsl_vector * x, const gsl_vector * f, double epsrel, gsl_matrix * jacobian)`
 """
-function multiroot_fdjacobian(F, x, f, epsrel, jacobian)
+function multiroot_fdjacobian(F::Fn, x, f, epsrel, jacobian) where Fn
     ccall((:gsl_multiroot_fdjacobian, libgsl), Cint, (Ref{gsl_multiroot_function}, Ref{gsl_vector}, Ref{gsl_vector}, Cdouble, Ref{gsl_matrix}), F, x, f, epsrel, jacobian)
 end
 
@@ -81,7 +81,7 @@ GSL documentation:
 > is not modified by subsequent iterations.
 
 """
-function multiroot_fsolver_set(s, f, x)
+function multiroot_fsolver_set(s, f::gsl_multiroot_function, x)
     ccall((:gsl_multiroot_fsolver_set, libgsl), Cint, (Ref{gsl_multiroot_fsolver}, Ref{gsl_multiroot_function}, Ref{gsl_vector}), s, f, x)
 end
 

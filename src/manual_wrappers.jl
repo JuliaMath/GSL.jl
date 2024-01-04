@@ -175,6 +175,35 @@ macro gsl_function_fdf(f, df)
     )
 end
 
+# The following code relies on `gsl_multiroot_function` being a mutable type
+@assert ismutable(gsl_multiroot_function(C_NULL, 0, C_NULL))
+
+function gsl_multiroot_function_helper(x_vec, f, y_vec)
+    x = wrap_gsl_vector(x_vec)
+    y = wrap_gsl_vector(y_vec)
+    f(x, y)
+    return Cint(GSL.GSL_SUCCESS)
+end
+
+function wrap_gsl_multiroot_function(fn::F, n) where F
+    param_ref = Base.cconvert(Ref{F}, fn)
+    fptr = @cfunction(gsl_multiroot_function_helper,
+                      Cint, (Ptr{gsl_vector}, Ref{F}, Ptr{gsl_vector}))
+    param_ptr = Base.unsafe_convert(Ref{F}, param_ref)
+    gsl_func = gsl_multiroot_function(fptr, n, param_ptr)
+    return gsl_func, param_ref
+end
+
+function Base.cconvert(::Type{Ref{gsl_multiroot_function}}, (fn, n)::NTuple{2,Any})
+    return wrap_gsl_multiroot_function(fn, n)
+end
+function Base.unsafe_convert(::Type{Ref{gsl_multiroot_function}},
+                             (gsl_func,)::Tuple{gsl_multiroot_function,Any})
+    return pointer_from_objref(gsl_func)
+end
+
+Base.cconvert(::Type{Ref{gsl_multiroot_function}}, gslf::gsl_multiroot_function) =
+    convert(Ref{gsl_multiroot_function}, gslf)
 
 export @gsl_multiroot_function, @gsl_multiroot_function_fdf
 
