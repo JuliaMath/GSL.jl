@@ -455,3 +455,52 @@ function hypergeom_e(a, b, x)
         error("hypergeometric function of order $n is not implemented")
     end
 end
+
+@doc md"""
+$(Docs.doc(C.cheb_alloc))
+"""
+mutable struct GSLCheb
+    ptr::Ptr{gsl_cheb_series}
+    param_ref
+    gsl_func::gsl_function
+    function GSLCheb(order)
+        cs = new(cheb_alloc(order), nothing)
+        finalizer(cheb_free, cs)
+        return cs
+    end
+end
+export GSLCheb
+
+Base.cconvert(::Type{Ref{gsl_cheb_series}}, cs::GSLCheb) = cs
+Base.unsafe_convert(::Type{Ref{gsl_cheb_series}}, cs::GSLCheb) = cs.ptr
+Base.unsafe_convert(::Type{Ptr{gsl_cheb_series}}, cs::GSLCheb) = cs.ptr
+
+@doc md"""
+$(Docs.doc(C.cheb_init))
+"""
+function cheb_init(cs::GSLCheb, func::F, a, b) where F
+    cs.gsl_func, cs.param_ref = wrap_gsl_function(func)
+    return C.cheb_init(cs, cs.gsl_func, a, b)
+end
+function cheb_init(cs::GSLCheb, func::gsl_function, a, b)
+    cs.gsl_func = func
+    cs.param_ref = nothing
+    return C.cheb_init(cs, cs.gsl_func, a, b)
+end
+function cheb_init(cs::Ptr{gsl_cheb_series}, func::gsl_function, a, b)
+    return C.cheb_init(cs, func, a, b)
+end
+
+@doc md"""
+$(Docs.doc(C.cheb_free))
+"""
+function cheb_free(cs::Ptr{gsl_cheb_series})
+    C.cheb_free(cs)
+end
+function cheb_free(cs::GSLCheb)
+    if cs.ptr != C_NULL
+        C.cheb_free(cs)
+        cs.ptr = C_NULL
+    end
+    return
+end
