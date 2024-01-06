@@ -17,4 +17,5 @@ Random.seed!(1)
     include("rootfinding.jl")
     include("specfunc.jl")
     include("chebyshev.jl")
+    include("minimization.jl")
 end
