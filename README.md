@@ -2,7 +2,6 @@ GSL.jl
 ======
 
 [![CI](https://github.com/JuliaMath/GSL.jl/workflows/CI/badge.svg?branch=master)](https://github.com/JuliaMath/GSL.jl/actions?query=workflow%3ACI+branch%3Amaster)
-[![drone.io](https://cloud.drone.io/api/badges/JuliaMath/GSL.jl/status.svg?ref=refs/heads/master)](https://cloud.drone.io/JuliaMath/GSL.jl)
 [![codecov.io](http://codecov.io/github/JuliaMath/GSL.jl/coverage.svg?branch=master)](http://codecov.io/github/JuliaMath/GSL.jl?branch=master)
 
 Julia wrapper for the [GNU Scientific
