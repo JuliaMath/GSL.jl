@@ -35,6 +35,11 @@ gsl_function_helper(x::Cdouble, fn)::Cdouble = fn(x)
 # The following code relies on `gsl_function` being a mutable type
 # (such that we can call `pointer_from_objref` on it) to simplify the object structure
 # a little bit and avoid hitting some limitation of the allocation optimizer.
+@static if VERSION < v"1.5"
+    # rename isimmutable to ismutable #34652
+    # https://github.com/JuliaLang/julia/pull/34652
+    ismutable(@nospecialize(x)) = !isimmutable(x)
+end
 @assert ismutable(gsl_function(C_NULL, C_NULL))
 
 function wrap_gsl_function(fn::F) where F
