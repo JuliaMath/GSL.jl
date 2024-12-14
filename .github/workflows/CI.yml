@@ -27,10 +27,18 @@ jobs:
           - '1'
         os:
           - ubuntu-latest
-          - macOS-latest
+          - macos-13 # Intel
           - windows-latest
         arch:
           - x64
+        include:
+          # macos-latest -> Apple Silicon (Need julia >= v1.8)
+          - os: macos-latest
+            arch: 'aarch64'
+            version: 'lts'
+          - os: macos-latest
+            arch: 'aarch64'
+            version: '1'
     steps:
       - uses: actions/checkout@v4
       - uses: julia-actions/cache@v2
