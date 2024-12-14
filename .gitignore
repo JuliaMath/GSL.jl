@@ -3,3 +3,5 @@ deps/build.log
 deps/usr
 html_node
 *.html #Ignore HTML documentation
+
+Manifest.toml

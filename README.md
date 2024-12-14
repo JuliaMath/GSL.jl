@@ -6,7 +6,7 @@ GSL.jl
 
 Julia wrapper for the [GNU Scientific
 Library](https://www.gnu.org/software/gsl/doc/html/index.html) (GSL), for Julia v1.0+.
-Currently uses GSL v2.7.
+Currently uses GSL v2.8.
 
 ## Structure
 
